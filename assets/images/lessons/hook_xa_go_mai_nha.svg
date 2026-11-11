@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="360" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Concrete Floor (Mặt sàn bê tông) -->
+  <polygon points="60,320 260,240 660,240 460,320" fill="url(#floorGrad)" stroke="#64748b" stroke-width="2"/>
+  <text x="310" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#334155">MẶT SÀN NHÀ XƯỞNG (Mặt phẳng P)</text>
+
+  <!-- Left Wall Column -->
+  <line x1="120" y1="295" x2="120" y2="100" stroke="#475569" stroke-width="6"/>
+  <!-- Right Wall Column -->
+  <line x1="520" y1="295" x2="520" y2="100" stroke="#475569" stroke-width="6"/>
+  <!-- Back Left Column -->
+  <line x1="280" y1="240" x2="280" y2="60" stroke="#64748b" stroke-width="4"/>
+  <!-- Back Right Column -->
+  <line x1="640" y1="240" x2="640" y2="60" stroke="#64748b" stroke-width="4"/>
+
+  <!-- Roof Trusses (Vì kèo mái) -->
+  <line x1="120" y1="100" x2="320" y2="40" stroke="#dc2626" stroke-width="3"/>
+  <line x1="520" y1="100" x2="320" y2="40" stroke="#dc2626" stroke-width="3"/>
+  <line x1="280" y1="60" x2="460" y2="15" stroke="#dc2626" stroke-width="2"/>
+  <line x1="640" y1="60" x2="460" y2="15" stroke="#dc2626" stroke-width="2"/>
+
+  <!-- Steel Purlins (Các thanh xà gồ thép màu xanh dương // với mặt sàn) -->
+  <!-- Purlin 1 -->
+  <line x1="120" y1="100" x2="280" y2="60" stroke="#0284c7" stroke-width="5"/>
+  <text x="70" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">Xà gồ d&#8321;</text>
+
+  <!-- Purlin 2 -->
+  <line x1="220" y1="70" x2="370" y2="35" stroke="#0284c7" stroke-width="5"/>
+  <text x="170" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">Xà gồ d&#8322;</text>
+
+  <!-- Purlin 3 (Đỉnh mái) -->
+  <line x1="320" y1="40" x2="460" y2="15" stroke="#0284c7" stroke-width="5"/>
+  <text x="350" y="15" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">Xà gồ nóc d&#8323;</text>
+
+  <!-- Parallel Indicator Annotation -->
+  <path d="M 120 120 L 120 280" stroke="#16a34a" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M 280 80 L 280 230" stroke="#16a34a" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="540" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#16a34a">&#10004; Các thanh xà gồ luôn</text>
+  <text x="540" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#16a34a">SONG SONG với mặt sàn!</text>
+  <text x="540" y="190" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#64748b">d&#8321; // (P), d&#8322; // (P), d&#8323; // (P)</text>
+</svg>

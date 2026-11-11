@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 260" width="100%" height="100%">
+  <defs>
+    <marker id="arrV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+  <rect width="680" height="260" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Straight line d (Giá của vectơ) -->
+  <line x1="60" y1="130" x2="620" y2="130" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="630" y="135" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-style="italic" font-weight="bold" fill="#64748b">d</text>
+  <text x="470" y="110" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-style="italic" fill="#64748b">(Đường thẳng d là giá của vectơ)</text>
+
+  <!-- Vector AB line -->
+  <line x1="160" y1="130" x2="440" y2="130" stroke="#1d4ed8" stroke-width="5" marker-end="url(#arrV)"/>
+
+  <!-- Initial Point A -->
+  <circle cx="160" cy="130" r="7" fill="#1d4ed8" stroke="#ffffff" stroke-width="2"/>
+  <text x="145" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">A</text>
+  <text x="110" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#475569">(Điểm đầu / Gốc)</text>
+
+  <!-- Terminal Point B -->
+  <circle cx="440" cy="130" r="5" fill="#1d4ed8"/>
+  <text x="445" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">B</text>
+  <text x="420" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#475569">(Điểm cuối / Ngọn)</text>
+
+  <!-- Notation AB -->
+  <g>
+    <text x="270" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="bold" fill="#1d4ed8">AB</text>
+    <path d="M 270 73 L 305 73 M 300 69 L 306 73 L 300 77" stroke="#1d4ed8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Magnitude annotation (Độ dài vectơ) -->
+  <line x1="160" y1="220" x2="440" y2="220" stroke="#059669" stroke-width="1.8"/>
+  <line x1="160" y1="210" x2="160" y2="230" stroke="#059669" stroke-width="1.8"/>
+  <line x1="440" y1="210" x2="440" y2="230" stroke="#059669" stroke-width="1.8"/>
+  <g>
+    <text x="235" y="242" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#059669">Độ dài |AB| = Khoảng cách AB</text>
+    <path d="M 285 230 L 306 230 M 302 227 L 307 230 L 302 233" stroke="#059669" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

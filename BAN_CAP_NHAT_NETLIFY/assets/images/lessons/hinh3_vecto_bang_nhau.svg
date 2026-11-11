@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="100%" height="100%">
+  <defs>
+    <marker id="mBlueEq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mRedEq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="680" height="280" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Parallelogram ABCD -->
+  <!-- A=(100, 200), B=(320, 200), C=(420, 80), D=(200, 80) -->
+  <polygon points="100,200 320,200 420,80 200,80" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Vectors AB and DC (Cùng hướng, cùng độ dài) -->
+  <line x1="100" y1="200" x2="320" y2="200" stroke="#2563eb" stroke-width="4" marker-end="url(#mBlueEq)"/>
+  <line x1="200" y1="80" x2="420" y2="80" stroke="#2563eb" stroke-width="4" marker-end="url(#mBlueEq)"/>
+
+  <!-- Vectors AD and BC (Cùng hướng, cùng độ dài) -->
+  <line x1="100" y1="200" x2="200" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#mRedEq)"/>
+  <line x1="320" y1="200" x2="420" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#mRedEq)"/>
+
+  <!-- Vertex Dots and Labels -->
+  <circle cx="100" cy="200" r="5" fill="#1e293b"/>
+  <text x="80" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">A</text>
+
+  <circle cx="320" cy="200" r="5" fill="#1e293b"/>
+  <text x="330" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">B</text>
+
+  <circle cx="420" cy="80" r="5" fill="#1e293b"/>
+  <text x="430" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">C</text>
+
+  <circle cx="200" cy="80" r="5" fill="#1e293b"/>
+  <text x="180" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">D</text>
+
+  <!-- Explanation Panel on Right -->
+  <rect x="460" y="40" width="200" height="200" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="475" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e3a8a">Hình bình hành ABCD:</text>
+  
+  <g>
+    <text x="475" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">&#10004; AB  =  DC</text>
+    <path d="M 495 93 L 515 93 M 511 90 L 516 93 L 511 96" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 538 93 L 558 93 M 554 90 L 559 93 L 554 96" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="475" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748b">(Cùng hướng &amp; |AB| = |DC|)</text>
+
+  <g>
+    <text x="475" y="160" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">&#10004; AD  =  BC</text>
+    <path d="M 495 148 L 515 148 M 511 145 L 516 148 L 511 151" stroke="#dc2626" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 538 148 L 558 148 M 554 145 L 559 148 L 554 151" stroke="#dc2626" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="475" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748b">(Cùng hướng &amp; |AD| = |BC|)</text>
+
+  <g>
+    <text x="475" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#b91c1c">&#10006; AB  &#8800;  CD</text>
+    <path d="M 495 203 L 515 203 M 511 200 L 516 203 L 511 206" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 538 203 L 558 203 M 554 200 L 559 203 L 554 206" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="475" y="230" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748b">(Vì ngược hướng nhau)</text>
+</svg>

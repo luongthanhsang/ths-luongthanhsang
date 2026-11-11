@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 240" width="100%" height="100%">
+  <rect width="680" height="240" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Left: Point A as Vector 0 -->
+  <circle cx="150" cy="120" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="150" cy="120" r="6" fill="#1d4ed8"/>
+  <text x="140" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#1e293b">A</text>
+  <g>
+    <text x="60" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#2563eb">AA  =  0  (Vectơ-không)</text>
+    <path d="M 60 157 L 79 157 M 75 154 L 80 157 L 75 160" stroke="#2563eb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 98 157 L 109 157 M 106 154 L 110 157 L 106 160" stroke="#2563eb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="50" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#64748b">Điểm đầu trùng với điểm cuối</text>
+
+  <!-- Center Arrow -->
+  <line x1="280" y1="120" x2="330" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Right: Properties Card -->
+  <rect x="360" y="30" width="290" height="180" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <g>
+    <text x="380" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e3a8a">&#11088; ĐẶC ĐIỂM VECTƠ-KHÔNG (kí hiệu: 0):</text>
+    <path d="M 618 53 L 628 53 M 625 50 L 629 53 L 625 56" stroke="#1e3a8a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <g>
+    <text x="385" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#1e293b">&#9679; Ký hiệu: <tspan font-weight="bold" fill="#2563eb">0</tspan> hoặc <tspan font-weight="bold" fill="#2563eb">AA,  BB,  MM</tspan></text>
+    <path d="M 444 88 L 454 88 M 451 85 L 455 88 L 451 91" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 498 88 L 516 88 M 512 85 L 517 88 L 512 91" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 527 88 L 545 88 M 541 85 L 546 88 L 541 91" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 556 88 L 576 88 M 572 85 L 577 88 L 572 91" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <g>
+    <text x="385" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#1e293b">&#9679; Độ dài: <tspan font-weight="bold" fill="#16a34a">|0| = 0</tspan></text>
+    <path d="M 441 118 L 450 118 M 447 115 L 451 118 L 447 121" stroke="#16a34a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <text x="385" y="160" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#1e293b">&#9679; Phương và hướng: <tspan font-weight="bold" fill="#d97706">TÙY Ý</tspan></text>
+
+  <g>
+    <text x="385" y="190" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-style="italic" fill="#64748b">&#10148; Quy ước vectơ 0 cùng phương, cùng hướng với mọi vectơ</text>
+    <path d="M 481 178 L 490 178 M 487 175 L 491 178 L 487 181" stroke="#64748b" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

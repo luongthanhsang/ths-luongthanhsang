@@ -1,0 +1,1441 @@
+/* ==========================================================================
+   OLM INTERACTIVE DIGITAL LESSON STYLESHEET
+   Website: ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, An Giang)
+   Tính năng: Progress Bar, Gamification, Interactive Audio POI, GeoGebra 3D, Adaptive Practice
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION (STICKY BAR)
+   -------------------------------------------------------------------------- */
+.olm-progress-sticky-wrapper {
+  position: sticky;
+  top: 72px;
+  z-index: 95;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+  padding: 10px 0;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.olm-progress-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.olm-progress-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.olm-badge-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.olm-progress-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.olm-progress-track-wrap {
+  flex: 1;
+  min-width: 200px;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.olm-progress-track {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.olm-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981 0%, #06b6d4 50%, #3b82f6 100%);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  position: relative;
+}
+
+.olm-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: olmShine 2s infinite;
+}
+
+@keyframes olmShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.olm-progress-percent {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f766e;
+  min-width: 45px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.olm-gamification-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.olm-xp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.olm-stars-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ede9fe;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. TRÌNH PHÁT AUDIO TƯƠNG TÁC (INTERACTIVE AUDIO PLAYER VỚI POI)
+   -------------------------------------------------------------------------- */
+.olm-interactive-player-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.35);
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.olm-interactive-player-card::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.olm-player-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.olm-teacher-avatar-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.olm-teacher-avatar-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  position: relative;
+}
+
+.olm-pulse-dot {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 14px; height: 14px;
+  background: #10b981;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+}
+
+.olm-player-title-box h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.olm-player-title-box p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.olm-timeline-container {
+  position: relative;
+  margin: 14px 0 10px;
+}
+
+.olm-audio-seekbar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.olm-audio-seekbar.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.olm-audio-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  border-radius: 999px;
+  position: relative;
+}
+
+/* POI Markers trên timeline */
+.olm-poi-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: #f59e0b;
+  border: 3px solid #0f172a;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+}
+
+.olm-poi-marker:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.olm-poi-marker.completed {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+}
+
+.olm-time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+
+.olm-player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.olm-btn-play-interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f59e0b;
+  color: #0f172a;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.olm-btn-play-interactive:hover {
+  background: #d97706;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   MODAL TƯƠNG TÁC POI (INTERACTIVE POI MODAL OLM)
+   -------------------------------------------------------------------------- */
+.olm-poi-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: olmFadeIn 0.3s ease;
+}
+
+.olm-poi-modal-backdrop.active {
+  display: flex;
+}
+
+@keyframes olmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.olm-poi-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 620px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: olmPopup 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes olmPopup {
+  from { transform: scale(0.9) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.olm-poi-modal-header {
+  background: linear-gradient(135deg, #1e3a8a, #0284c7);
+  color: #ffffff;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.olm-poi-modal-header i {
+  font-size: 1.5rem;
+  color: #fbbf24;
+}
+
+.olm-poi-modal-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.olm-poi-modal-body {
+  padding: 24px;
+}
+
+.olm-poi-question {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.olm-poi-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.olm-poi-btn-option {
+  text-align: left;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.olm-poi-btn-option:hover:not(:disabled) {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  transform: translateX(4px);
+}
+
+.olm-poi-btn-option.correct {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+  font-weight: 700;
+}
+
+.olm-poi-btn-option.wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.olm-poi-feedback-box {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  display: none;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.olm-poi-feedback-box.success {
+  display: block;
+  background: #dcfce7;
+  border-left: 5px solid #10b981;
+  color: #14532d;
+}
+
+.olm-poi-feedback-box.error {
+  display: block;
+  background: #fee2e2;
+  border-left: 5px solid #ef4444;
+  color: #7f1d1d;
+}
+
+.olm-poi-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.olm-btn-resume {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.olm-btn-resume:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.olm-btn-resume:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. MÔ HÌNH HÌNH HỌC ĐỘNG GEOGEBRA 3D & 3D CANVAS COMPONENT
+   -------------------------------------------------------------------------- */
+.olm-geogebra-3d-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  margin: 25px 0;
+  transition: all 0.3s ease;
+}
+
+.olm-3d-header {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.olm-3d-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.olm-3d-icon-badge {
+  width: 38px; height: 38px;
+  background: #0284c7;
+  color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.olm-3d-title-wrap h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.olm-3d-title-wrap p {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.olm-3d-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.olm-btn-3d-tool {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.olm-btn-3d-tool:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
+.olm-btn-3d-tool.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
+.olm-3d-viewport-wrapper {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+/* Landscape mode khi xoay ngang điện thoại hoặc nhấn nút xoay */
+.olm-geogebra-3d-card.landscape-mode {
+  position: fixed !important;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 10000;
+  margin: 0;
+  border-radius: 0;
+}
+
+.olm-geogebra-3d-card.landscape-mode .olm-3d-viewport-wrapper {
+  height: calc(100vh - 60px) !important;
+}
+
+.olm-ggb-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Canvas 3D Engine */
+#olmCanvas3D {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+
+#olmCanvas3D:active {
+  cursor: grabbing;
+}
+
+/* Bảng điều khiển slider tọa độ 3D M(x; y; z) */
+.olm-3d-controls-overlay {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 12px 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  z-index: 10;
+}
+
+.olm-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.olm-slider-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.olm-slider-item label {
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.olm-slider-item input[type="range"] {
+  width: 90px;
+  cursor: pointer;
+  accent-color: #38bdf8;
+}
+
+.olm-slider-val {
+  min-width: 25px;
+  font-weight: 800;
+  color: #38bdf8;
+  font-variant-numeric: tabular-nums;
+}
+
+.olm-coord-summary {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   4. LUYỆN TẬP THÍCH ỨNG (ADAPTIVE PRACTICE 4 MỨC ĐỘ & ĐỔI SỐ TỰ ĐỘNG)
+   -------------------------------------------------------------------------- */
+.olm-adaptive-wrapper {
+  background: #ffffff;
+  border: 2px solid #e0f2fe;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.08);
+  margin-top: 30px;
+}
+
+.olm-adaptive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.olm-adaptive-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.olm-adaptive-title i {
+  font-size: 1.4rem;
+  color: #0284c7;
+}
+
+.olm-adaptive-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.olm-level-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.olm-tab-level {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.olm-tab-level:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.olm-tab-level.active {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.olm-question-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.olm-q-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.olm-q-level-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.olm-q-level-badge.nb { background: #dbeafe; color: #1e40af; }
+.olm-q-level-badge.th { background: #dcfce7; color: #166534; }
+.olm-q-level-badge.vd { background: #fef3c7; color: #92400e; }
+.olm-q-level-badge.vdc { background: #fee2e2; color: #991b1b; }
+
+.olm-btn-dynamic-reload {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0284c7;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.olm-btn-dynamic-reload:hover {
+  background: #f0f9ff;
+  border-color: #0284c7;
+  transform: rotate(3deg);
+}
+
+.olm-btn-dynamic-reload i.spinning {
+  animation: olmSpin 0.6s linear;
+}
+
+@keyframes olmSpin {
+  100% { transform: rotate(360deg); }
+}
+
+.olm-q-prompt {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.olm-q-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 640px) {
+  .olm-q-options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.olm-btn-q-opt {
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.olm-btn-q-opt:hover:not(:disabled) {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.olm-btn-q-opt.selected-correct {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+  font-weight: 700;
+}
+
+.olm-btn-q-opt.selected-wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.olm-solution-reveal {
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  display: none;
+}
+
+.olm-solution-reveal.show {
+  display: block;
+}
+
+.olm-solution-title {
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.olm-solution-body {
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* Responsive Helper */
+@media (max-width: 768px) {
+  .olm-progress-sticky-wrapper {
+    top: 60px;
+    padding: 8px 0;
+  }
+  .olm-3d-viewport-wrapper {
+    height: 400px;
+  }
+  .olm-3d-controls-overlay {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* ==========================================================================
+   NÚT PHÁT ÂM THANH THẦY SÁNG: NỀN XANH - CHỮ VÀNG ĐỒNG - BỘ CHỈNH TỐC ĐỘ
+   ========================================================================== */
+.teacher-voice-gold-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1.5px solid #7dd3fc;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.08);
+}
+
+.teacher-voice-gold-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teacher-voice-gold-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0284c7, #1e3a8a);
+  color: #fef08a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  border: 2px solid #facc15;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+  flex-shrink: 0;
+}
+
+.teacher-voice-gold-info h5 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.teacher-voice-gold-info .voice-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0284c7;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 2px;
+  border: 1px solid #bae6fd;
+}
+
+.teacher-voice-gold-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-voice-gold-sang {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  color: #fef08a !important;
+  border: 1.5px solid #facc15 !important;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-voice-gold-sang:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #1e3a8a 100%) !important;
+  color: #ffffff !important;
+  border-color: #fef08a !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
+}
+
+.btn-voice-gold-sang:active {
+  transform: translateY(0);
+}
+
+.btn-voice-gold-sang i {
+  color: #facc15;
+  font-size: 1.05rem;
+}
+
+.btn-voice-stop-sang {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-voice-stop-sang:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.voice-speed-pill-group {
+  display: inline-flex;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-speed-pill {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-speed-pill.active,
+.btn-speed-pill:hover {
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   CÂU HỎI TƯƠNG TÁC CHECKPOINT TRONG TIỂU MỤC (GIỮA ĐOẠN & CUỐI ĐOẠN)
+   ========================================================================== */
+.sub-checkpoint-card {
+  background: #ffffff;
+  border: 1.5px solid #e0e7ff;
+  border-left: 4px solid #6366f1;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.08);
+}
+
+.sub-checkpoint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.checkpoint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid #c7d2fe;
+}
+
+.checkpoint-prompt {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.checkpoint-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.btn-cp-opt {
+  text-align: left;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cp-opt:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.btn-cp-opt.selected-correct {
+  background: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  font-weight: 700;
+}
+
+.btn-cp-opt.selected-wrong {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+}
+
+.checkpoint-feedback {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  display: none;
+}
+
+.checkpoint-feedback.show {
+  display: block;
+}
+
+.checkpoint-feedback.correct {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.checkpoint-feedback.wrong {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+}
+
+/* ==========================================================================
+   KHUNG MẸO NHỚ CỦA THẦY SÁNG (TIPS)
+   ========================================================================== */
+.teacher-memo-tip-card {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 1.5px solid #fde047;
+  border-left: 5px solid #eab308;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  box-shadow: 0 3px 8px rgba(234, 179, 8, 0.12);
+}
+
+.teacher-memo-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #854d0e;
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.teacher-memo-body {
+  font-size: 0.92rem;
+  color: #713f12;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   HÌNH VẼ ĐỒ HỌA TIKZ / SVG CONTAINER
+   ========================================================================== */
+.tikz-svg-figure-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+}
+
+.tikz-svg-figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.tikz-caption-text {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   PHẦN IV: BÀI TẬP TRẮC NGHIỆM TỔNG HỢP 3 DẠNG THỨC CHUẨN ĐỀ THI 2025
+   ========================================================================== */
+.exam-format-wrap {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 2px dashed #cbd5e1;
+}
+
+.exam-format-main-title {
+  background: linear-gradient(135deg, #1e3a8a, #0284c7);
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+  margin-bottom: 24px;
+}
+
+.exam-format-main-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fef08a;
+}
+
+.exam-sub-section {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+}
+
+.exam-sub-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exam-sub-title-bar h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-item-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.exam-item-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06);
+}
+
+.exam-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.exam-item-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.exam-item-actions-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-dynamic-param-btn {
+  background: #ffffff;
+  color: #0284c7;
+  border: 1px solid #7dd3fc;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.btn-dynamic-param-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.btn-show-solution-btn {
+  background: #ffffff;
+  color: #059669;
+  border: 1px solid #6ee7b7;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.btn-show-solution-btn:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+.exam-solution-collapse {
+  margin-top: 12px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #1e293b;
+  display: none;
+}
+
+.exam-solution-collapse.show {
+  display: block;
+}
+
+/* Bảng Đúng/Sai 4 ý */
+.tf-4part-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.tf-4part-table th {
+  background: #f1f5f9;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tf-4part-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.btn-tf-toggle {
+  padding: 4px 10px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-tf-toggle.selected-true {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.btn-tf-toggle.selected-false {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #dc2626;
+}
+
+/* Ô trả lời ngắn */
+.short-ans-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.short-ans-input {
+  width: 160px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  text-align: center;
+}
+
+.short-ans-input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.btn-check-short-ans {
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+

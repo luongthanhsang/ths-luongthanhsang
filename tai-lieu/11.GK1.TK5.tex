@@ -1,0 +1,830 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, top=1cm, bottom=1.2cm, left=1.2cm, right=1cm}
+\usepackage{enumitem}
+\usepackage{environ}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tasks}
+\AtBeginDocument{\fontsize{13pt}{15.6pt}\selectfont}
+% In đậm phương án lựa chọn A, B, C, D
+\settasks{label=\textbf{\Alph*.}, label-width=1.5em, item-indent=2em, column-sep=1em, label-offset=0.5em}
+
+% TikZ Settings
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{3d, calc, intersections, arrows.meta, positioning, shapes.geometric, patterns, decorations.text, decorations.pathmorphing}
+
+% Color Palette
+\definecolor{primary}{HTML}{005F73}
+\definecolor{secondary}{HTML}{0A9396}
+\definecolor{accent}{HTML}{AE2012}
+\definecolor{inquiry}{HTML}{6A4C93}
+\definecolor{realworld}{HTML}{E76F51}
+\definecolor{bg}{HTML}{F8F9FA}
+\definecolor{solutionbg}{HTML}{E9F5F5}
+
+\definecolor{LogoTeal}{RGB}{0, 102, 102}
+\definecolor{LogoGold}{RGB}{218, 165, 32}
+\definecolor{LogoDark}{RGB}{32, 50, 64}
+\newcommand{\FourPointStar}[3]{
+    \begin{scope}[shift={(#1,#2)}, scale=#3]
+        \fill[LogoGold] (0,1) .. controls (0,0.1) and (0.1,0) .. (1,0)
+                               .. controls (0.1,0) and (0,-0.1) .. (0,-1)
+                               .. controls (0,-0.1) and (-0.1,0) .. (-1,0)
+                               .. controls (-0.1,0) and (0,0.1) .. (0,1);
+        \fill[white] (0,0) circle (0.12);
+    \end{scope}
+}
+
+\newcommand{\PageLogoWatermark}{%
+\begin{tikzpicture}[remember picture, overlay]
+    \begin{scope}[shift={([yshift=-1.1cm]current page.center)}, opacity=0.15]
+        \draw[LogoGold, line width=1.5pt] (0, 1.1) circle (2.8cm);
+        \draw[LogoTeal, line width=1pt, decorate,
+              decoration={snake, amplitude=0.15mm, segment length=1.5mm}]
+            (0, 1.1) circle (2.93cm);
+        \draw[LogoDark, line width=0.5pt] (0, 1.1) circle (3.06cm);
+        \path[decorate,
+              decoration={
+                  text along path,
+                  text={|\sffamily\bfseries\fontsize{10.8pt}{12pt}\selectfont\color{LogoDark}|Mathematics Since 2006},
+                  text align=center,
+                  text format delimiters={|}{}
+              }]
+            (0, -1.45) arc[start angle=-90, end angle=90, radius=2.55cm];
+        \fill[LogoDark] (-1.6, -0.4) rectangle (-0.2, -0.2);
+        \fill[LogoDark] (-1.6, -0.2) rectangle (-1.4, 0.8);
+        \fill[LogoTeal] (-0.7, -0.2) rectangle (1.1, 0.0);
+        \fill[LogoTeal] (0.1, -0.2) rectangle (0.3, -1.1);
+        \fill[LogoGold]
+            (-1.2, 0.4) .. controls (-1.05, 1.2) and (0.35, 0.7) .. (0.3, 1.5)
+                        .. controls (0.4, 2.3) and (-0.8, 2.0) .. (-0.6, 3.2)
+                        .. controls (-0.54, 3.42) and (-0.42, 3.52) .. (-0.18, 3.52)
+                        .. controls (0.06, 3.52) and (0.08, 3.56) .. (0.2, 3.4)
+                        .. controls (0.4, 3.1) and (-0.3, 2.2) .. (-0.2, 1.6)
+                        .. controls (0.05, 0.8) and (-1.65, 1.2) .. (-1.2, 0.4);
+        \FourPointStar{0.42}{3.48}{0.4}
+        \FourPointStar{-1.712}{1.038}{0.4}
+        \FourPointStar{0.441}{0.621}{0.8}
+        \FourPointStar{1.15}{1.65}{0.6}
+    \end{scope}
+\end{tikzpicture}%
+}
+\AddToShipoutPictureBG{\PageLogoWatermark}
+
+\usepackage[most]{tcolorbox}
+\usepackage{etoolbox}
+
+% --- MACRO TẠO TIÊU ĐỀ CÂU HỎI IN ĐẬM ---
+\newcommand{\cau}[1]{\vspace{0.12cm}\noindent\textbf{Câu #1. }}
+
+% --- MACRO PHÂN CHIA PHẦN THI ---
+\newcommand{\PhanI}{
+\vspace{0.25cm}
+\noindent\textbf{\large\sffamily PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN.}
+\textit{Thí sinh trả lời từ câu 1 đến câu 16. Mỗi câu chọn một phương án đúng.}\par\vspace{0.2cm}
+}
+\newcommand{\PhanII}{
+\vspace{0.3cm}
+\noindent\textbf{\large\sffamily PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG SAI.}
+\textit{Thí sinh trả lời từ câu 17 đến câu 19. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.}\par\vspace{0.2cm}
+}
+\newcommand{\PhanIII}{
+\vspace{0.3cm}
+\noindent\textbf{\large\sffamily PHẦN III. CÂU TỰ LUẬN.}
+\textit{Thí sinh trình bày chi tiết các bước giải vào giấy làm bài.}\par\vspace{0.2cm}
+}
+
+% --- LOGIC LỜI GIẢI VÀ DÒNG KẺ ---
+\newbool{showsolutions}
+\setbool{showsolutions}{true}
+
+\newcommand{\filllines}[1]{}
+
+\ifbool{showsolutions}{
+\newtcolorbox{SolutionBox}{
+enhanced, breakable, colback=solutionbg, colframe=secondary!50!black,
+fonttitle=\bfseries\sffamily,
+title={\faChalkboardTeacher\ Lời giải \& Chấm điểm},
+borderline west={3pt}{0pt}{secondary!50!black}, frame hidden,
+attach boxed title to top right={xshift=-0.5cm, yshift=-2mm},
+boxed title style={colback=secondary!50!black, sharp corners}
+}
+}{
+\NewEnviron{SolutionBox}{}
+}
+
+% --- HEADER CHUẨN ĐỀ THI ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\thepage}
+
+\begin{document}
+
+% --- TIÊU ĐỀ ĐỀ THI ---
+\noindent
+\begin{minipage}[t]{0.52\textwidth}
+\centering
+SỞ GIÁO DỤC VÀ ĐÀO TẠO AN GIANG\\
+\textbf{TRƯỜNG THPT NGUYỄN VĂN THOẠI}\\
+\makebox[\linewidth][c]{\rule{4cm}{0.5pt}}\vspace{2mm}
+\textit{(Đề thi gồm 4 trang)}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\centering
+\textbf{ĐỀ KIỂM TRA GIỮA HỌC KÌ I}\\
+\textbf{NĂM HỌC 2026 -- 2027}\\
+\textbf{Môn: TOÁN 11}\\
+\textit{Thời gian làm bài: 90 phút}\\
+\makebox[\linewidth][c]{\rule{4cm}{0.5pt}}\vspace{2mm}
+\textbf{Mã đề thi: 11.GK1.TK5}
+\end{minipage}
+\vspace{0.3cm}
+
+\PhanI
+
+\cau{1} Tập xác định của hàm số lượng giác $y = \cot x$ là
+\begin{tasks}(2)
+\task $D = \mathbb{R}\setminus\{k\pi,\, k\in\mathbb{Z}\}$.
+\task $D = \mathbb{R}\setminus\left\{\dfrac{\pi}{2} + k\pi,\, k\in\mathbb{Z}\right\}$.
+\task $D = \mathbb{R}$.
+\task $D = [-1; 1]$.
+\end{tasks}
+
+\cau{2} Góc có số đo $240^\circ$ khi đổi sang đơn vị radian bằng
+\begin{tasks}(4)
+\task $\dfrac{2\pi}{3}$.
+\task $\dfrac{4\pi}{3}$.
+\task $\dfrac{3\pi}{4}$.
+\task $\dfrac{5\pi}{6}$.
+\end{tasks}
+
+\cau{3} Cho cấp số nhân $(u_n)\colon 2;\, 6;\, 18;\, 54;\, 162;\,\dots$. Công bội $q$ của cấp số nhân đã cho bằng
+\begin{tasks}(4)
+\task $q = 4$.
+\task $q = \dfrac{1}{3}$.
+\task $q = 3$.
+\task $q = -3$.
+\end{tasks}
+
+\cau{4} Cho góc lượng giác $\alpha$ thỏa mãn $\sin\alpha = -\dfrac{5}{13}$ với $\pi < \alpha < \dfrac{3\pi}{2}$. Giá trị của $\cos\alpha$ bằng
+\begin{tasks}(4)
+\task $\dfrac{12}{13}$.
+\task $-\dfrac{5}{12}$.
+\task $\dfrac{119}{169}$.
+\task $-\dfrac{12}{13}$.
+\end{tasks}
+
+\cau{5} Cho dãy số $(u_n)$ có số hạng tổng quát $u_n = \dfrac{2n + 5}{n + 1}$. Giá trị của số hạng thứ tư $u_4$ bằng
+\begin{tasks}(4)
+\task $\dfrac{13}{5}$.
+\task $\dfrac{11}{5}$.
+\task $\dfrac{13}{4}$.
+\task $3$.
+\end{tasks}
+
+\cau{6} Nghiệm của phương trình lượng giác $\sin x = 0$ là
+\begin{tasks}(2)
+\task $x = k2\pi,\, k\in\mathbb{Z}$.
+\task $x = k\pi,\, k\in\mathbb{Z}$.
+\task $x = \dfrac{\pi}{2} + k\pi,\, k\in\mathbb{Z}$.
+\task $x = \pi + k2\pi,\, k\in\mathbb{Z}$.
+\end{tasks}
+
+\cau{7} Hình nào sau đây là hình biểu diễn đúng của một hình chóp tam giác (tứ diện)?
+\begin{tasks}(4)
+\task \begin{tikzpicture}[scale=0.46, baseline=(current bounding box.center), line join=round, line cap=round]
+\coordinate (A) at (0,0);
+\coordinate (B) at (1.1,-0.8);
+\coordinate (C) at (2.9,0);
+\coordinate (S) at (1.3,2.4);
+\draw[thick] (S)--(A)--(B)--(C)--(S)--(B) (A)--(C);
+\end{tikzpicture}
+\task \begin{tikzpicture}[scale=0.46, baseline=(current bounding box.center), line join=round, line cap=round]
+\coordinate (A) at (0,0);
+\coordinate (B) at (1.1,-0.8);
+\coordinate (C) at (3.1,-0.6);
+\coordinate (D) at (2.0,0.3);
+\coordinate (S) at (1.3,2.4);
+\draw[dashed, thin] (A)--(D)--(C) (S)--(D);
+\draw[thick] (S)--(A)--(B)--(C)--(S)--(B);
+\end{tikzpicture}
+\task \begin{tikzpicture}[scale=0.46, baseline=(current bounding box.center), line join=round, line cap=round]
+\coordinate (A) at (0,0);
+\coordinate (B) at (1.1,-0.8);
+\coordinate (C) at (2.9,0);
+\coordinate (S) at (1.3,2.4);
+\draw[dashed, thin] (A)--(C);
+\draw[thick] (S)--(A)--(B)--(C)--(S)--(B);
+\end{tikzpicture}
+\task \begin{tikzpicture}[scale=0.46, baseline=(current bounding box.center), line join=round, line cap=round]
+\coordinate (A) at (0,0);
+\coordinate (B) at (1.5,-0.9);
+\coordinate (C) at (3.0,0.3);
+\coordinate (M) at ($(A)!0.5!(B)$);
+\coordinate (N) at ($(B)!0.5!(C)$);
+\coordinate (P) at ($(C)!0.5!(A)$);
+\draw[thick] (A)--(B)--(C)--cycle (A)--(N) (B)--(P) (C)--(M);
+\end{tikzpicture}
+\end{tasks}
+
+\cau{8} Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1 = 7$ và công sai $d = -4$. Số hạng thứ hai $u_2$ bằng
+\begin{tasks}(4)
+\task $u_2 = 11$.
+\task $u_2 = -28$.
+\task $u_2 = -1$.
+\task $u_2 = 3$.
+\end{tasks}
+
+\cau{9} Khẳng định nào sau đây là khẳng định \textbf{đúng} với mọi góc $a, b$?
+\begin{tasks}(2)
+\task $\cos(a - b) = \cos a\cos b + \sin a\sin b$.
+\task $\cos(a - b) = \cos a\cos b - \sin a\sin b$.
+\task $\sin(a - b) = \sin a\cos b + \cos a\sin b$.
+\task $\cos(a + b) = \cos a\cos b + \sin a\sin b$.
+\end{tasks}
+
+\cau{10} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$ là đường thẳng nào sau đây?
+\begin{tasks}(4)
+\task $SA$.
+\task $SO$.
+\task $AB$.
+\task $CD$.
+\end{tasks}
+
+\cau{11} Phương trình lượng giác $2\sin x - 1 = 0$ có tập nghiệm là
+\begin{tasks}(2)
+\task $S = \left\{\pm\dfrac{\pi}{6} + k2\pi,\, k\in\mathbb{Z}\right\}$.
+\task $S = \left\{\dfrac{\pi}{3} + k2\pi;\; \dfrac{2\pi}{3} + k2\pi,\, k\in\mathbb{Z}\right\}$.
+\task $S = \left\{\dfrac{\pi}{6} + k2\pi;\; \dfrac{5\pi}{6} + k2\pi,\, k\in\mathbb{Z}\right\}$.
+\task $S = \left\{\pm\dfrac{\pi}{3} + k2\pi,\, k\in\mathbb{Z}\right\}$.
+\end{tasks}
+
+\cau{12} Dãy số nào sau đây là một dãy số giảm?
+\begin{tasks}(2)
+\task $1;\, 4;\, 9;\, 16;\, 25;\,\dots$
+\task $-8;\,-5;\,-2;\, 1;\, 4;\,\dots$
+\task $-3;\, 3;\,-3;\, 3;\,-3;\,\dots$
+\task $20;\, 16;\, 12;\, 8;\, 4;\,\dots$
+\end{tasks}
+
+\noindent
+\begin{minipage}[t]{0.68\linewidth}
+\cau{13} Mực nước cao nhất tại một trạm quan trắc thủy văn cửa biển là $14\text{ m}$ khi thủy triều lên cao và sau $12\text{ giờ}$ khi thủy triều xuống thấp thì mực nước thấp nhất là $8\text{ m}$. Đồ thị ở hình bên mô tả sự thay đổi chiều cao mực nước tại trạm trong vòng $24\text{ giờ}$ tính từ lúc nửa đêm ($t = 0$). Biết chiều cao của mực nước $h$ (đơn vị: mét) theo thời gian $t$ (giờ, $0 \le t \le 24$) được cho bởi công thức $h(t) = m + a\cos\left(\dfrac{\pi}{12}t\right)$ với $m, a$ là các số thực dương cho trước. Biết rằng mực nước đạt chiều cao $12{,}5\text{ m}$ tại hai thời điểm $t_1$ và $t_2$ trong ngày. Tính giá trị biểu thức $P = t_1 \cdot t_2$.
+\begin{tasks}(2)
+\task $P = 80$.
+\task $P = 64$.
+\task $P = 96$.
+\task $P = 128$.
+\end{tasks}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\vspace{0pt}
+\begin{tikzpicture}[scale=0.55, line join=round, line cap=round]
+  % He truc toa do
+  \draw[->, >=stealth, thick] (-0.3,0) -- (5.6,0) node[below, font=\tiny] {$t\text{ (h)}$};
+  \draw[->, >=stealth, thick] (0,-0.3) -- (0,4.8) node[left, font=\tiny] {$h\text{ (m)}$};
+  \node[below left, font=\tiny] at (0,0) {$O$};
+  
+  % Luoi va cac moc
+  \draw[dotted, gray] (0,3.85) -- (4.8,3.85); % 14m
+  \draw[dotted, gray] (0,2.2) -- (4.8,2.2);   % 8m
+  \draw[dotted, gray] (2.4,0) -- (2.4,2.2);   % t = 12
+  \draw[dotted, gray] (4.8,0) -- (4.8,3.85);  % t = 24
+  
+  % Diem cat muc 12.5m
+  \draw[dashed, accent, thin] (0,3.44) node[left, font=\tiny] {$12{,}5$} -- (4.0,3.44);
+  \draw[dashed, accent, thin] (0.8,0) node[below, font=\tiny] {$t_1$} -- (0.8,3.44);
+  \draw[dashed, accent, thin] (4.0,0) node[below, font=\tiny] {$t_2$} -- (4.0,3.44);
+  
+  \node[left, font=\tiny] at (0,3.85) {$14$};
+  \node[left, font=\tiny] at (0,2.2) {$8$};
+  \node[below, font=\tiny] at (2.4,0) {$12$};
+  \node[below, font=\tiny] at (4.8,0) {$24$};
+  
+  % Do thi cosin
+  \draw[domain=0:4.8, samples=60, smooth, line width=1.2pt, primary] 
+    plot (\x, {3.025 + 0.825*cos(\x * 75)});
+  
+  % Cac diem dac biet
+  \fill[accent] (0.8,3.44) circle (2.2pt);
+  \fill[accent] (4.0,3.44) circle (2.2pt);
+  \fill[primary] (0,3.85) circle (1.8pt);
+  \fill[primary] (2.4,2.2) circle (1.8pt);
+  \fill[primary] (4.8,3.85) circle (1.8pt);
+\end{tikzpicture}
+\end{minipage}
+
+\cau{14} Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1 = 4$ và công sai $d = 3$. Số $109$ là số hạng thứ mấy của cấp số cộng đã cho?
+\begin{tasks}(4)
+\task Thứ $35$.
+\task Thứ $36$.
+\task Thứ $37$.
+\task Thứ $34$.
+\end{tasks}
+
+\cau{15} Cho hình chóp tam giác $S.ABC$. Trên hai cạnh bên $SA$ và $SC$ lần lượt lấy hai điểm $M$ và $N$ sao cho đường thẳng $MN$ không song song với $AC$ và cắt đường thẳng $AC$ tại điểm $K$. Giao điểm của đường thẳng $MN$ với mặt phẳng $(ABC)$ là
+\begin{tasks}(4)
+\task Điểm $A$.
+\task Điểm $C$.
+\task Điểm $K$.
+\task Điểm $B$.
+\end{tasks}
+
+\noindent
+\begin{minipage}[t]{0.70\linewidth}
+\cau{16} Một sinh viên mới ra trường đi làm bắt đầu tham gia một chương trình tích lũy tài chính định kỳ hàng tháng trong một năm ($12\text{ tháng}$). Tháng thứ nhất, người đó gửi vào quỹ $2{,}5\text{ triệu đồng}$. Kể từ tháng thứ hai trở đi, mỗi tháng người đó gửi nhiều hơn tháng ngay trước đó đúng $0{,}5\text{ triệu đồng}$ ($500\,000\text{ đồng}$). Hỏi tổng số tiền người đó đã gửi tích lũy vào quỹ sau tròn $12\text{ tháng}$ là bao nhiêu?
+\begin{tasks}(2)
+\task $58\text{ triệu đồng}$.
+\task $68\text{ triệu đồng}$.
+\task $72\text{ triệu đồng}$.
+\task $63\text{ triệu đồng}$.
+\end{tasks}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.28\linewidth}
+\centering
+\vspace{0pt}
+\begin{tikzpicture}[scale=0.62, line join=round, line cap=round]
+  % Heo tiet kiem / Bieu do tich luy tai chinh
+  \filldraw[fill=bg, draw=primary!60, line width=1pt, rounded corners=3pt] (-0.3,-0.5) rectangle (3.8,3.3);
+  \node[font=\sffamily\bfseries\tiny, text=primary] at (1.75,3.0) {TÍCH LŨY 12 THÁNG};
+  
+  \draw[->, >=stealth, gray] (0,0) -- (3.5,0) node[below, font=\tiny] {Tháng};
+  \draw[->, >=stealth, gray] (0,0) -- (0,2.7) node[left, font=\tiny] {Tr.đ};
+  
+  \filldraw[fill=secondary!40, draw=secondary!80!black] (0.2,0) rectangle (0.6,0.5);
+  \node[above, font=\tiny] at (0.4,0.5) {$2{,}5$};
+  \node[below, font=\tiny] at (0.4,0) {$T_1$};
+  
+  \filldraw[fill=secondary!40, draw=secondary!80!black] (0.9,0) rectangle (1.3,0.7);
+  \node[above, font=\tiny] at (1.1,0.7) {$3{,}0$};
+  \node[below, font=\tiny] at (1.1,0) {$T_2$};
+  
+  \node[font=\tiny] at (1.8,0.5) {$\dots$};
+  
+  \filldraw[fill=secondary!40, draw=secondary!80!black] (2.4,0) rectangle (2.8,2.1);
+  \node[above, font=\tiny] at (2.6,2.1) {$8{,}0$};
+  \node[below, font=\tiny] at (2.6,0) {$T_{12}$};
+  
+  \draw[line width=1.1pt, accent, ->, >=stealth] (0.4,0.65) -- (2.6,2.25);
+  \node[above left, font=\tiny\bfseries, text=accent] at (2.4,1.4) {$+0{,}5\text{ tr/th}$};
+\end{tikzpicture}
+\end{minipage}
+
+\PhanII
+
+\cau{17} Để chuẩn bị thể lực tham gia giải điền kinh chạy cự ly trung bình cấp trường, bạn Bình lập kế hoạch luyện tập chạy bộ trong nhiều ngày liên tục. Ngày đầu tiên, Bình chạy được quãng đường $2\,000\text{ m}$. Kể từ ngày thứ hai trở đi, mỗi ngày Bình đều chạy tăng thêm $300\text{ m}$ so với ngày liền trước đó. Gọi $u_n$ (đơn vị: mét) là quãng đường bạn Bình chạy được trong ngày thứ $n\ (n \in \mathbb{N}^*)$, và $S_n$ là tổng quãng đường bạn Bình đã tích lũy chạy được sau $n$ ngày tập đầu tiên. Xét tính đúng sai của các khẳng định sau:
+\begin{enumerate}[label=\alph*),leftmargin=*]
+\item Quãng đường Bình chạy được ở ngày thứ $n$ được xác định bởi công thức tổng quát $u_n = 300n + 2\,000\text{ (m)}$.
+\item Trong suốt quá trình luyện tập, có một ngày bạn Bình chạy được quãng đường đúng bằng $4\,400\text{ m}$.
+\item Ở ngày luyện tập thứ 11, quãng đường Bình chạy được đạt mức $5\,000\text{ m}$.
+\item Sau $15$ ngày luyện tập liên tục, tổng quãng đường bạn Bình đã tích lũy chạy được vượt quá $60\text{ km}$.
+\end{enumerate}
+
+\cau{18} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $N$ là trung điểm của cạnh $AB$. Gọi $G$ và $H$ lần lượt là trọng tâm của tam giác $SAB$ và tam giác $ABC$ (tham khảo hình vẽ bên dưới).
+\begin{center}
+\begin{tikzpicture}[scale=0.88, line join=round, line cap=round]
+  % Dinh hinh binh hanh va dinh chop
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4.6,-0.6);
+  \coordinate (D) at (1.6,1.8);
+  \coordinate (C) at ($(B)+(D)-(A)$);
+  \coordinate (S) at (2.2,4.8);
+  
+  % Tam O va trung diem N cua AB
+  \coordinate (O) at (intersection of A--C and B--D);
+  \coordinate (N) at ($(A)!0.5!(B)$);
+  
+  % Cac trong tam G tren SN va H tren CN
+  \coordinate (G) at ($(S)!0.667!(N)$);
+  \coordinate (H) at ($(C)!0.667!(N)$);
+  
+  % Net dut khuat
+  \draw[dashed, thick] (A)--(D)--(C) (S)--(D) (A)--(C) (B)--(D) (S)--(O);
+  \draw[dashed, thick, primary] (S)--(N) (C)--(N) (O)--(N);
+  \draw[dashed, thick, accent] (G)--(H);
+  
+  % Net lien nhin thay
+  \draw[thick] (S)--(A)--(B)--(C)--(S)--(B);
+  
+  % Cac diem
+  \fill (S) circle (2pt) node[above] {$S$};
+  \fill (A) circle (2pt) node[below left] {$A$};
+  \fill (B) circle (2pt) node[below right] {$B$};
+  \fill (C) circle (2pt) node[right] {$C$};
+  \fill (D) circle (2pt) node[above left] {$D$};
+  \fill (O) circle (2pt) node[below] {$O$};
+  \fill[primary] (N) circle (2pt) node[below left] {$N$};
+  \fill[accent] (G) circle (2.2pt) node[left] {$G$};
+  \fill[accent] (H) circle (2.2pt) node[above right] {$H$};
+\end{tikzpicture}
+\end{center}
+Xét tính đúng sai của các khẳng định sau:
+\begin{enumerate}[label=\alph*),leftmargin=*]
+\item Điểm $G$ thuộc mặt phẳng $(SAB)$.
+\item Giao tuyến của hai mặt phẳng $(SAB)$ và $(SAC)$ là đường thẳng $SA$.
+\item Đường thẳng $ON$ song song với đường thẳng $AD$.
+\item Đường thẳng $GH$ cắt mặt phẳng $(SCD)$ tại điểm $K$ thì $K \in SD$.
+\end{enumerate}
+
+\cau{19} Cho hàm số lượng giác $y = f(x) = 2\sin x$. Xét tính đúng sai của các mệnh đề sau:
+\begin{enumerate}[label=\alph*),leftmargin=*]
+\item Giá trị của hàm số tại điểm $x_0 = \dfrac{\pi}{6}$ bằng $1$.
+\item Hàm số $y = f(x)$ là hàm số lẻ trên $\mathbb{R}$.
+\item Chu kì tuần hoàn của hàm số là $T = \pi$.
+\item Trên đoạn $[0; 2\pi]$, phương trình $f(x) = \sqrt{3}$ có đúng $2$ nghiệm phân biệt.
+\end{enumerate}
+
+\PhanIII
+
+\cau{20} Giải phương trình lượng giác:
+$$\cos(2x - 30^\circ) = -\dfrac{\sqrt{3}}{2}$$
+\filllines{5}
+
+\cau{21} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $N$ là trung điểm của cạnh bên $SA$. Xác định giao điểm $P$ của đường thẳng $SD$ với mặt phẳng $(BCN)$.
+\filllines{6}
+
+\clearpage
+\section*{BẢNG ĐÁP ÁN}
+\noindent\textbf{Phần I. Trắc nghiệm nhiều phương án lựa chọn}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|*{16}{c|}}
+Câu & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\\hline
+Đáp án & A & B & C & D & A & B & C & D & A & B & C & D & A & B & C & D \\
+\end{tabular}
+\end{center}
+\noindent\textbf{Phần II. Trắc nghiệm đúng sai}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|c|c|c|c}
+Câu & a) & b) & c) & d) \\\hline
+17 & S & Đ & Đ & Đ \\
+18 & Đ & Đ & Đ & S \\
+19 & Đ & Đ & S & Đ \\
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\noindent\textbf{BẢNG ĐỐI CHIẾU THỨ TỰ MA TRẬN VÀ THỨ TỰ SAU HOÁN VỊ (TK5)}
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Vị trí đề TK5} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{C9} & \textbf{C10} & \textbf{C11} & \textbf{C12} & \textbf{C13} & \textbf{C14} & \textbf{C15} & \textbf{C16} \\\hline
+\textbf{Câu gốc ma trận} & C4 & C1 & C10 & C2 & C8 & C5 & C14 & C11 & C3 & C15 & C6 & C9 & C7 & C12 & C16 & C13 \\\hline
+\end{tabular}%
+}
+
+\vspace{0.25cm}
+\resizebox{0.92\linewidth}{!}{%
+\begin{tabular}{|l|c|c|c||c|c|}
+\hline
+\textbf{Phần II \& III} & \textbf{Câu 17} & \textbf{Câu 18} & \textbf{Câu 19} & \textbf{Câu 20} & \textbf{Câu 21} \\\hline
+\textbf{Câu gốc ma trận} & Câu 18 (CSC thực tế) & Câu 19 (Hình KG) & Câu 17 (HSLG) & Câu 20 (PTLG độ) & Câu 21 (Hình KG TL) \\\hline
+\end{tabular}%
+}
+\end{center}
+
+\section*{LỜI GIẢI CHI TIẾT}
+
+\noindent\textbf{Câu 1. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Hàm số lượng giác $y = \cot x = \dfrac{\cos x}{\sin x}$ xác định khi và chỉ khi:
+$$\sin x \ne 0 \Leftrightarrow x \ne k\pi\quad (k\in\mathbb{Z}).$$
+Vậy tập xác định của hàm số là $D = \mathbb{R}\setminus\{k\pi,\, k\in\mathbb{Z}\}$.\\
+\textbf{Chọn A.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 2. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Áp dụng công thức đổi số đo góc từ độ sang radian: $\alpha_{\text{rad}} = a^\circ \cdot \dfrac{\pi}{180^\circ}$.\\
+Ta có:
+$$240^\circ = 240 \cdot \dfrac{\pi}{180} = \dfrac{4\pi}{3}\text{ (rad)}.$$
+\textbf{Chọn B.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 3. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Công bội của cấp số nhân bằng thương của số hạng thứ hai chia cho số hạng đầu:
+$$q = \dfrac{u_2}{u_1} = \dfrac{6}{2} = 3.$$
+\textbf{Chọn C.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 4. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Áp dụng hệ thức cơ bản giữa $\sin\alpha$ và $\cos\alpha$:
+$$\sin^2\alpha + \cos^2\alpha = 1 \Rightarrow \cos^2\alpha = 1 - \sin^2\alpha = 1 - \left(-\dfrac{5}{13}\right)^2 = 1 - \dfrac{25}{169} = \dfrac{144}{169}.$$
+Vì $\pi < \alpha < \dfrac{3\pi}{2}$ (góc lượng giác $\alpha$ thuộc góc phần tư thứ III) nên $\cos\alpha < 0$. Do đó:
+$$\cos\alpha = -\sqrt{\dfrac{144}{169}} = -\dfrac{12}{13}.$$
+\textbf{Chọn D.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 5. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Thay $n = 4$ vào công thức số hạng tổng quát của dãy số:
+$$u_4 = \dfrac{2\cdot 4 + 5}{4 + 1} = \dfrac{8 + 5}{5} = \dfrac{13}{5}.$$
+\textbf{Chọn A.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 6. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Theo công thức nghiệm của phương trình lượng giác cơ bản trường hợp đặc biệt:
+$$\sin x = 0 \Leftrightarrow x = k\pi\quad (k\in\mathbb{Z}).$$
+\textbf{Chọn B.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 7. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Hình biểu diễn của một hình chóp tam giác (tứ diện) là hình chóp có đáy là tam giác, gồm $4$ đỉnh và $6$ cạnh, trong đó có một cạnh đáy bị che khuất phải được vẽ bằng nét đứt khúc. Do đó, hình ở phương án C là hình biểu diễn đúng.\\
+(Hình A sai vì toàn bộ nét đều là nét liền; hình B là hình chóp tứ giác; hình D là hình phẳng biểu diễn tam giác cùng 3 đường trung tuyến).\\
+\textbf{Chọn C.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 8. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Theo định nghĩa cấp số cộng, số hạng thứ hai được tính bởi:
+$$u_2 = u_1 + d = 7 + (-4) = 3.$$
+\textbf{Chọn D.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 9. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Theo công thức cộng lượng giác đối với côsin:
+$$\cos(a - b) = \cos a\cos b + \sin a\sin b.$$
+Các khẳng định còn lại đều sai vì: $\cos(a - b) \ne \cos a\cos b - \sin a\sin b$; $\sin(a - b) = \sin a\cos b - \cos a\sin b$; $\cos(a + b) = \cos a\cos b - \sin a\sin b$.\\
+\textbf{Chọn A.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 10. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Ta có:
+\begin{itemize}[leftmargin=1.5em]
+\item Điểm $S$ là điểm chung thứ nhất của hai mặt phẳng $(SAC)$ và $(SBD)$: $S \in (SAC) \cap (SBD)$.
+\item Trong mặt phẳng đáy $(ABCD)$, điểm $O = AC \cap BD$. Vì $O \in AC \subset (SAC)$ và $O \in BD \subset (SBD)$ nên $O$ là điểm chung thứ hai: $O \in (SAC) \cap (SBD)$.
+\end{itemize}
+Do đó, giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$ là đường thẳng $SO$.\\
+\textbf{Chọn B.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 11. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Ta có: $2\sin x - 1 = 0 \Leftrightarrow \sin x = \dfrac{1}{2} = \sin\left(\dfrac{\pi}{6}\right)$.
+$$\Leftrightarrow \left[\begin{array}{l}
+x = \dfrac{\pi}{6} + k2\pi \\[6pt]
+x = \pi - \dfrac{\pi}{6} + k2\pi = \dfrac{5\pi}{6} + k2\pi
+\end{array}\right. \quad (k\in\mathbb{Z}).$$
+Vậy tập nghiệm của phương trình là $S = \left\{\dfrac{\pi}{6} + k2\pi;\; \dfrac{5\pi}{6} + k2\pi,\, k\in\mathbb{Z}\right\}$.\\
+\textbf{Chọn C.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 12. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Dãy số $20;\, 16;\, 12;\, 8;\, 4;\,\dots$ có hiệu của hai số liên tiếp:
+$$u_{n+1} - u_n = -4 < 0 \Leftrightarrow u_{n+1} < u_n\quad (\forall n \ge 1),$$
+nên là dãy số giảm. Dãy A và B là các dãy số tăng; dãy C là dãy đan dấu (không tăng, không giảm).\\
+\textbf{Chọn D.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 13. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Chiều cao mực nước theo thời gian là $h(t) = m + a\cos\left(\dfrac{\pi}{12}t\right)$ với $m > 0, a > 0$.
+\begin{itemize}[leftmargin=1.5em]
+\item Vì hàm số côsin có tập giá trị $[-1; 1]$ nên:
+$$\max h(t) = m + a = 14\text{ (m)};\quad \min h(t) = m - a = 8\text{ (m)}.$$
+Giải hệ phương trình:
+$$\begin{cases} m + a = 14 \\ m - a = 8 \end{cases} \Leftrightarrow \begin{cases} m = 11\text{ (m)} \\ a = 3\text{ (m)} \end{cases} \Rightarrow h(t) = 11 + 3\cos\left(\dfrac{\pi}{12}t\right).$$
+
+\item Mực nước đạt chiều cao $12{,}5\text{ m}$ khi:
+$$11 + 3\cos\left(\dfrac{\pi}{12}t\right) = 12{,}5 \Leftrightarrow 3\cos\left(\dfrac{\pi}{12}t\right) = 1{,}5 \Leftrightarrow \cos\left(\dfrac{\pi}{12}t\right) = \dfrac{1}{2} = \cos\left(\dfrac{\pi}{3}\right).$$
+Do $0 \le t \le 24 \Rightarrow 0 \le \dfrac{\pi}{12}t \le 2\pi$, ta có hai thời điểm thỏa mãn:
+$$\begin{aligned}
+\dfrac{\pi}{12}t_1 &= \dfrac{\pi}{3} \Rightarrow t_1 = 4\text{ (giờ)},\\
+\dfrac{\pi}{12}t_2 &= 2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3} \Rightarrow t_2 = 20\text{ (giờ)}.
+\end{aligned}$$
+\item Giá trị biểu thức $P = t_1 \cdot t_2 = 4 \cdot 20 = 80$.
+\end{itemize}
+\textbf{Chọn A.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 14. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Công thức số hạng tổng quát của cấp số cộng: $u_n = u_1 + (n - 1)d$. Do đó:
+$$109 = 4 + (n - 1)\cdot 3 \Leftrightarrow 3(n - 1) = 105 \Leftrightarrow n - 1 = 35 \Leftrightarrow n = 36.$$
+Vậy $109$ là số hạng thứ $36$ của cấp số cộng đã cho.\\
+\textbf{Chọn B.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 15. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Trong mặt phẳng $(SAC)$, đường thẳng $MN$ cắt đường thẳng $AC$ tại điểm $K$. Khi đó:
+$$\begin{cases} K \in MN \\ K \in AC \subset (ABC) \Rightarrow K \in (ABC) \end{cases} \Rightarrow K = MN \cap (ABC).$$
+Vậy giao điểm của đường thẳng $MN$ với mặt phẳng $(ABC)$ là điểm $K$.\\
+\textbf{Chọn C.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 16. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Số tiền gửi vào quỹ ở từng tháng lập thành một cấp số cộng $(u_n)$ với:
+\begin{itemize}[leftmargin=1.5em]
+\item Số hạng đầu: $u_1 = 2{,}5$ (triệu đồng);
+\item Công sai: $d = 0{,}5$ (triệu đồng);
+\item Số số hạng: $n = 12$ (tháng).
+\end{itemize}
+Tổng số tiền người đó đã gửi tích lũy sau $12$ tháng là tổng của $12$ số hạng đầu tiên:
+$$S_{12} = \dfrac{12}{2}\left[2u_1 + (12 - 1)d\right] = 6\left[2 \cdot 2{,}5 + 11 \cdot 0{,}5\right] = 6\left[5 + 5{,}5\right] = 6 \cdot 10{,}5 = 63\text{ (triệu đồng)}.$$
+\textbf{Chọn D.}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 17. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Kế hoạch luyện tập của bạn Bình lập thành một cấp số cộng $(u_n)$ với số hạng đầu $u_1 = 2\,000\text{ m}$ và công sai $d = 300\text{ m}$.
+\begin{itemize}[leftmargin=1.5em]
+\item a) \textbf{Sai.} Số hạng tổng quát của cấp số cộng được xác định bởi:
+$$u_n = u_1 + (n - 1)d = 2\,000 + (n - 1)\cdot 300 = 300n + 1\,700\text{ (m)},\quad (\forall n \ge 1).$$
+Khẳng định đưa ra công thức $u_n = 300n + 2\,000$ là sai (công thức này cho $u_1 = 2\,300\text{ m}$, không đúng với ngày đầu chạy $2\,000\text{ m}$).
+
+\item b) \textbf{Đúng.} Xét phương trình:
+$$u_n = 4\,400 \Leftrightarrow 300n + 1\,700 = 4\,400 \Leftrightarrow 300n = 2\,700 \Leftrightarrow n = 9 \in \mathbb{N}^*.$$
+Như vậy vào đúng ngày luyện tập thứ 9, bạn Bình chạy được quãng đường đúng bằng $4\,400\text{ m}$.
+
+\item c) \textbf{Đúng.} Ở ngày luyện tập thứ 11, quãng đường Bình chạy được là:
+$$u_{11} = 2\,000 + (11 - 1)\cdot 300 = 2\,000 + 3\,000 = 5\,000\text{ (m)}.$$
+
+\item d) \textbf{Đúng.} Tổng quãng đường Bình chạy tích lũy được sau 15 ngày là tổng của 15 số hạng đầu:
+$$S_{15} = \dfrac{15}{2}\left[2u_1 + (15 - 1)d\right] = \dfrac{15}{2}\left[2\cdot 2\,000 + 14 \cdot 300\right]$$
+$$= \dfrac{15}{2}\left[4\,000 + 4\,200\right] = \dfrac{15}{2} \cdot 8\,200 = 15 \cdot 4\,100 = 61\,500\text{ (m)} = 61{,}5\text{ (km)}.$$
+Vì $61{,}5\text{ km} > 60\text{ km}$ nên khẳng định tổng quãng đường tích lũy vượt quá $60\text{ km}$ là đúng.
+\end{itemize}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 18. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Dựa vào hình vẽ và các tính chất hình học không gian:
+\begin{itemize}[leftmargin=1.5em]
+\item a) \textbf{Đúng.} Điểm $G$ là trọng tâm của tam giác $SAB$ nên $G$ nằm trên đường trung tuyến $SN$ của tam giác $SAB$. Vì $SN \subset (SAB)$ nên $G \in (SAB)$.
+
+\item b) \textbf{Đúng.} Hai mặt phẳng $(SAB)$ và $(SAC)$ có hai điểm chung phân biệt là $S$ và $A$. Do đó giao tuyến của chúng là đường thẳng $SA$.
+
+\item c) \textbf{Đúng.} Đáy $ABCD$ là hình bình hành tâm $O$ nên $O$ là trung điểm của đường chéo $BD$. Mặt khác, $N$ là trung điểm của cạnh $AB$. Xét trong tam giác $ABD$, đoạn thẳng $ON$ nối hai trung điểm của hai cạnh $BD$ và $AB$ nên $ON$ là đường trung bình của tam giác $ABD$. Suy ra:
+$$ON \parallel AD\quad \left(\text{và } ON = \dfrac{1}{2}AD\right).$$
+
+\item d) \textbf{Sai.} Xét tam giác $SNC$:
+\begin{itemize}
+\item Điểm $G$ là trọng tâm của tam giác $SAB$ trên đường trung tuyến $SN$ nên: $\dfrac{NG}{NS} = \dfrac{1}{3}$.
+\item Điểm $H$ là trọng tâm của tam giác $ABC$ trên đường trung tuyến $CN$ nên: $\dfrac{NH}{NC} = \dfrac{1}{3}$.
+\end{itemize}
+Áp dụng định lí Thalès đảo trong tam giác $SNC$, ta có:
+$$\dfrac{NG}{NS} = \dfrac{NH}{NC} = \dfrac{1}{3} \Rightarrow GH \parallel SC.$$
+Vì đường thẳng $GH$ song song với đường thẳng $SC$ mà $SC \subset (SCD)$ và $GH \not\subset (SCD)$, nên đường thẳng $GH$ song song với mặt phẳng $(SCD)$:
+$$GH \parallel (SCD).$$
+Do $GH \parallel (SCD)$ nên đường thẳng $GH$ không thể cắt mặt phẳng $(SCD)$, khẳng định đường thẳng $GH$ cắt $(SCD)$ tại điểm $K \in SD$ là sai.
+\end{itemize}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 19. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Xét hàm số lượng giác $y = f(x) = 2\sin x$:
+\begin{itemize}[leftmargin=1.5em]
+\item a) \textbf{Đúng.} Thay $x_0 = \dfrac{\pi}{6}$ vào hàm số:
+$$f\left(\dfrac{\pi}{6}\right) = 2\sin\left(\dfrac{\pi}{6}\right) = 2\cdot \dfrac{1}{2} = 1.$$
+
+\item b) \textbf{Đúng.} Tập xác định $D = \mathbb{R}$. Với mọi $x \in \mathbb{R}$, ta có $-x \in \mathbb{R}$ và:
+$$f(-x) = 2\sin(-x) = -2\sin x = -f(x).$$
+Do đó hàm số $y = 2\sin x$ là hàm số lẻ trên $\mathbb{R}$.
+
+\item c) \textbf{Sai.} Hàm số lượng giác $y = \sin x$ tuần hoàn với chu kì cơ sở là $T = 2\pi$. Do đó chu kì tuần hoàn của hàm số $y = 2\sin x$ là $T = 2\pi$, không phải $T = \pi$.
+
+\item d) \textbf{Đúng.} Phương trình $f(x) = \sqrt{3} \Leftrightarrow 2\sin x = \sqrt{3} \Leftrightarrow \sin x = \dfrac{\sqrt{3}}{2} = \sin\left(\dfrac{\pi}{3}\right)$.
+$$\Leftrightarrow \left[\begin{array}{l}
+x = \dfrac{\pi}{3} + k2\pi \\[6pt]
+x = \pi - \dfrac{\pi}{3} + k2\pi = \dfrac{2\pi}{3} + k2\pi
+\end{array}\right. \quad (k\in\mathbb{Z}).$$
+Xét trên đoạn $[0; 2\pi]$:
+\begin{itemize}
+\item Với $x = \dfrac{\pi}{3} + k2\pi$: chọn $k = 0 \Rightarrow x_1 = \dfrac{\pi}{3} \in [0; 2\pi]$.
+\item Với $x = \dfrac{2\pi}{3} + k2\pi$: chọn $k = 0 \Rightarrow x_2 = \dfrac{2\pi}{3} \in [0; 2\pi]$.
+\end{itemize}
+Vậy trên đoạn $[0; 2\pi]$, phương trình có đúng $2$ nghiệm phân biệt.
+\end{itemize}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 20. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+Giải phương trình lượng giác: $\cos(2x - 30^\circ) = -\dfrac{\sqrt{3}}{2}$.
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Biến đổi phương trình về dạng chuẩn và viết họ nghiệm (0,5 điểm):}\\
+Ta có $-\dfrac{\sqrt{3}}{2} = \cos(150^\circ)$, phương trình tương đương:
+$$\cos(2x - 30^\circ) = \cos(150^\circ) \Leftrightarrow \left[\begin{array}{l}
+2x - 30^\circ = 150^\circ + k360^\circ \\[6pt]
+2x - 30^\circ = -150^\circ + k360^\circ
+\end{array}\right. \quad (k \in \mathbb{Z}).$$
+
+\item \textbf{Giải chi tiết tìm $x$ (0,5 điểm):}
+$$\Leftrightarrow \left[\begin{array}{l}
+2x = 150^\circ + 30^\circ + k360^\circ \\[4pt]
+2x = -150^\circ + 30^\circ + k360^\circ
+\end{array}\right. \Leftrightarrow \left[\begin{array}{l}
+2x = 180^\circ + k360^\circ \\[4pt]
+2x = -120^\circ + k360^\circ
+\end{array}\right.$$
+$$\Leftrightarrow \left[\begin{array}{l}
+x = 90^\circ + k180^\circ \\[4pt]
+x = -60^\circ + k180^\circ
+\end{array}\right. \quad (k \in \mathbb{Z}).$$
+
+\item \textbf{Kết luận đầy đủ họ nghiệm kèm điều kiện (0,5 điểm):}\\
+Vậy tập nghiệm của phương trình đã cho là:
+$$S = \{90^\circ + k180^\circ;\; -60^\circ + k180^\circ \mid k \in \mathbb{Z}\}.$$
+\end{itemize}
+\end{tcolorbox}
+
+\noindent\textbf{Câu 21. Lời giải chi tiết}\par
+\begin{tcolorbox}[enhanced,breakable,colback=solutionbg,colframe=secondary!50!black,frame hidden,borderline west={3pt}{0pt}{secondary!50!black}]
+\textbf{a) Vẽ hình biểu diễn chính xác, phân biệt rõ nét đứt/liền (0,5 điểm):}
+\begin{center}
+\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+  % Toa do cac dinh hinh chóp day hinh binh hanh
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4.6,-0.6);
+  \coordinate (D) at (1.6,1.8);
+  \coordinate (C) at ($(B)+(D)-(A)$);
+  \coordinate (S) at (2.2,4.8);
+  
+  % Giao diem O cua AC va BD
+  \coordinate (O) at (intersection of A--C and B--D);
+  % Diem N la trung diem SA
+  \coordinate (N) at ($(S)!0.5!(A)$);
+  % Giao diem I cua CN va SO trong mp (SAC)
+  \coordinate (I) at (intersection of C--N and S--O);
+  % Giao diem P cua BI va SD trong mp (SBD)
+  \coordinate (P) at (intersection of B--I and S--D);
+  
+  % Net dut khuat
+  \draw[dashed, thick] (A)--(D)--(C) (S)--(D) (A)--(C) (B)--(D) (S)--(O);
+  \draw[dashed, thick, primary] (C)--(N) (B)--(I);
+  \draw[dashed, thick, accent] (I)--(P) (N)--(P) (C)--(P);
+  
+  % Net lien nhin thay
+  \draw[thick] (S)--(A)--(B)--(C)--(S)--(B);
+  \draw[thick, primary] (B)--(N);
+  
+  % Cac diem
+  \fill (S) circle (2pt) node[above] {$S$};
+  \fill (A) circle (2pt) node[below left] {$A$};
+  \fill (B) circle (2pt) node[below right] {$B$};
+  \fill (C) circle (2pt) node[right] {$C$};
+  \fill (D) circle (2pt) node[above left] {$D$};
+  \fill (O) circle (2pt) node[below] {$O$};
+  \fill[primary] (N) circle (2.2pt) node[left] {$N$};
+  \fill[primary] (I) circle (2pt) node[below right] {$I$};
+  \fill[accent] (P) circle (2.2pt) node[above left] {$P$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{b) Lập luận chọn mặt phẳng phụ và tìm giao tuyến trung gian (0,5 điểm):}
+\begin{itemize}[leftmargin=1.5em]
+\item Để xác định giao điểm của đường thẳng $SD$ với mặt phẳng $(BCN)$, ta chọn mặt phẳng phụ chứa đường thẳng $SD$ là $(SBD)$.
+\item Tìm giao tuyến của mặt phẳng phụ $(SBD)$ và mặt phẳng $(BCN)$:\\
++ Ta thấy điểm $B$ thuộc cả hai mặt phẳng: $B \in (SBD)$ và $B \in (BCN)$ nên $B$ là điểm chung thứ nhất:
+$$B \in (SBD) \cap (BCN).$$
++ Trong mặt phẳng $(SAC)$, gọi $I$ là giao điểm của hai đường thẳng $SO$ và $CN$:
+$$I = SO \cap CN.$$
+Vì $I \in CN \subset (BCN)$ và $I \in SO \subset (SBD)$ nên $I$ là điểm chung thứ hai:
+$$I \in (SBD) \cap (BCN).$$
++ Do đó, giao tuyến của hai mặt phẳng $(SBD)$ và $(BCN)$ là đường thẳng $BI$:
+$$(SBD) \cap (BCN) = BI.$$
+\end{itemize}
+
+\textbf{c) Xác định chính xác giao điểm và kết luận (0,5 điểm):}
+\begin{itemize}[leftmargin=1.5em]
+\item Trong mặt phẳng $(SBD)$, đường thẳng $BI$ cắt đường thẳng $SD$ tại điểm $P$:
+$$P = BI \cap SD.$$
+\item Khi đó:
+$$\begin{cases} P \in SD \\ P \in BI \subset (BCN) \Rightarrow P \in (BCN) \end{cases} \Rightarrow P = SD \cap (BCN).$$
+Vậy giao điểm của đường thẳng $SD$ với mặt phẳng $(BCN)$ là điểm $P$.\\
+\textit{(Ghi chú thêm: Trong $\triangle SAC$, $SO$ và $CN$ là hai đường trung tuyến cắt nhau tại $I$ nên $I$ là trọng tâm $\triangle SAC \Rightarrow \dfrac{SI}{SO} = \dfrac{2}{3}$. Do đó trong $\triangle SBD$, $I$ cũng là trọng tâm tam giác, suy ra $BI$ là đường trung tuyến của $\triangle SBD$ ứng với đỉnh $B$, do đó $P$ chính là trung điểm của cạnh bên $SD$).}
+\end{itemize}
+\end{tcolorbox}
+
+\end{document}

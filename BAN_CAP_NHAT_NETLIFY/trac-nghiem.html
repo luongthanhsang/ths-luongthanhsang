@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Phòng thi trắc nghiệm Toán online trực tuyến của ThS. Lương Thanh Sáng - Trường THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang. Đề kiểm tra 22 câu chuẩn Bộ GD&ĐT, chấm điểm tự động.">
+  <meta name="author" content="ThS. Lương Thanh Sáng">
+  <title>Phòng Thi Trắc Nghiệm Online | ThS. Lương Thanh Sáng - THPT Nguyễn Văn Thoại</title>
+
+  <!-- Google Fonts: Be Vietnam Pro & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css?v=3.1">
+
+  <!-- Cấu hình MathJax 3 hiển thị công thức Toán LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- ==================== HEADER & THANH ĐIỀU HƯỚNG ==================== -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-logo-badge">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="gold-metallic-text">ThS. Lương Thanh Sáng</h1>
+          <span>THPT Nguyễn Văn Thoại • An Giang</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="bai-hoc-so.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Bài học số</a>
+        <a href="thong-bao.html" class="nav-link"><i class="fa-solid fa-bell"></i> Thông báo</a>
+        <a href="tai-lieu.html" class="nav-link"><i class="fa-solid fa-book-open"></i> Kho tài liệu</a>
+        <a href="thi-hsg.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Thi học sinh giỏi</a>
+        <a href="trac-nghiem.html" class="nav-link active"><i class="fa-solid fa-laptop-code"></i> Trắc nghiệm Online</a>
+        <a href="lien-he.html" class="nav-link"><i class="fa-solid fa-envelope-open-text"></i> Liên hệ</a>
+        <a href="trac-nghiem.html" class="nav-cta"><i class="fa-solid fa-pen-to-square"></i> Làm bài thi thử</a>
+      </nav>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mở menu điện thoại">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== BANNER ĐẦU TRANG ==================== -->
+    <section class="page-banner">
+      <div class="container page-banner-inner">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <ul class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li class="breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+            <li class="breadcrumb-item active" aria-current="page">Trắc nghiệm Online</li>
+          </ul>
+        </nav>
+        <h1 class="page-banner-title"><i class="fa-solid fa-laptop-code"></i> Phòng Thi Trắc Nghiệm Trực Tuyến</h1>
+        <p class="page-banner-desc">Hệ thống khảo sát kiến thức với đồng hồ đếm ngược tự động, chấm điểm chuẩn Bộ Giáo dục & Đào tạo và cung cấp lời giải chi tiết từng bước có công thức Toán MathJax sắc nét.</p>
+      </div>
+    </section>
+
+    <!-- ==================== KHU VỰC THI TRẮC NGHIỆM ==================== -->
+    <section class="quiz-section" id="quiz" style="padding-top: 50px;">
+      <div class="container">
+
+        <div class="quiz-wrapper">
+          <!-- BỘ CHỌN ĐỀ THI TRỰC TUYẾN (TOÁN 11 & TOÁN 12) -->
+          <div class="exam-selector-card">
+            <div class="exam-selector-header">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Chọn bộ đề thi trực tuyến:</span>
+            </div>
+            <div class="exam-selector-tabs">
+              <button class="exam-tab-btn active" data-exam="11_GK1_TK5" onclick="switchExam('11_GK1_TK5')">
+                <div class="exam-tab-status new"><i class="fa-solid fa-star"></i> Đề mới nhất (TK5)</div>
+                <div class="exam-tab-title"><i class="fa-solid fa-file-signature"></i> ĐỀ TOÁN 11 - GIỮA KÌ I</div>
+                <div class="exam-tab-sub">Mã đề: <strong>11.GK1.TK5</strong> • 21 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Tự luận)</div>
+              </button>
+              <button class="exam-tab-btn" data-exam="11_GK1_TK4" onclick="switchExam('11_GK1_TK4')">
+                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
+                <div class="exam-tab-title"><i class="fa-solid fa-file-signature"></i> ĐỀ TOÁN 11 - GIỮA KÌ I</div>
+                <div class="exam-tab-sub">Mã đề: <strong>11.GK1.TK4</strong> • 21 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Tự luận)</div>
+              </button>
+              <button class="exam-tab-btn" data-exam="12_GK1_0002" onclick="switchExam('12_GK1_0002')">
+                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
+                <div class="exam-tab-title"><i class="fa-solid fa-file-lines"></i> ĐỀ TOÁN 12 - GIỮA KÌ I</div>
+                <div class="exam-tab-sub">Mã đề: <strong>0002</strong> • 22 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Trả lời ngắn)</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Thanh chọn chế độ thi (Cả đề / Phần I / Phần II / Phần III) -->
+          <div class="quiz-mode-bar" id="quizModeBar">
+            <span class="quiz-mode-label"><i class="fa-solid fa-sliders"></i> Chế độ thi:</span>
+            <button class="quiz-mode-btn active" data-mode="all" id="modeBtnAll">
+              <i class="fa-solid fa-file-lines"></i> Cả đề thi (21 câu - 90 phút)
+            </button>
+            <button class="quiz-mode-btn" data-mode="part1" id="modeBtnPart1">
+              <i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (16 câu - 4.0đ)
+            </button>
+            <button class="quiz-mode-btn" data-mode="part2" id="modeBtnPart2">
+              <i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (3 câu - 3.0đ)
+            </button>
+            <button class="quiz-mode-btn" data-mode="part3" id="modeBtnPart3">
+              <i class="fa-solid fa-pen-nib"></i> Phần III: Tự luận (2 câu - 3.0đ)
+            </button>
+          </div>
+
+          <!-- Topbar của hệ thống trắc nghiệm -->
+          <div class="quiz-topbar">
+            <div class="quiz-title-info">
+              <h3 id="quizTitleDisplay">Đề Kiểm Tra Giữa Kì I - Mã Đề 11.GK1.TK5 (Môn: Toán 11 - Năm học 2026 - 2027)</h3>
+              <p><i class="fa-solid fa-user-tie"></i> Biên soạn: <strong>ThS. Lương Thanh Sáng</strong> • Thời gian: <strong id="quizTimeLabel">90 phút (Cả đề thi gồm 3 phần - 21 câu)</strong></p>
+            </div>
+
+            <div class="quiz-timer-box" id="timerBox">
+              <i class="fa-solid fa-hourglass-half"></i>
+              <div>
+                <div class="quiz-timer-text">Thời gian còn lại</div>
+                <div class="quiz-timer-clock" id="quizClock">90:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BẢNG KHỞI ĐỘNG VÀ NÚT BẮT ĐẦU LÀM BÀI (NỀN XANH, CHỮ VÀNG ĐỒNG) -->
+          <div class="exam-start-banner" id="examStartBanner">
+            <div class="start-banner-card">
+              <div class="start-banner-badge"><i class="fa-solid fa-graduation-cap"></i> CHUẨN BỊ LÀM BÀI THI</div>
+              <h3 class="start-banner-title" id="startBannerTitle">Đề Kiểm Tra Giữa Kì I - Mã Đề 11.GK1.TK5 (Toán 11)</h3>
+              <p class="start-banner-desc" id="startBannerDesc">
+                Học sinh vui lòng chuẩn bị giấy nháp, bút viết và máy tính cầm tay trước khi bắt đầu. Khi em đã sẵn sàng, hãy bấm nút <strong>"Bắt đầu làm bài"</strong> bên dưới để hệ thống kích hoạt tính giờ đếm ngược!
+              </p>
+              <div class="start-banner-meta" id="startBannerMeta">
+                <span><i class="fa-solid fa-clock"></i> Thời gian: <strong id="startMetaTime">90 phút</strong></span>
+                <span><i class="fa-solid fa-list-check"></i> Số lượng: <strong id="startMetaCount">21 câu</strong></span>
+                <span><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></span>
+                <span><i class="fa-solid fa-user-tie"></i> Biên soạn: <strong>ThS. Lương Thanh Sáng</strong></span>
+              </div>
+              <div class="start-banner-action">
+                <button type="button" class="btn-start-exam" id="btnStartExam" onclick="startExamSession()">
+                  <i class="fa-solid fa-play"></i> BẮT ĐẦU LÀM BÀI
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thanh định vị câu hỏi (Question Palette) -->
+          <div class="quiz-palette-bar">
+            <div class="palette-status-legend">
+              <div class="legend-item"><span class="legend-dot unanswered"></span> Chưa chọn</div>
+              <div class="legend-item"><span class="legend-dot answered"></span> Đã chọn</div>
+              <div class="legend-item"><span class="legend-dot correct"></span> Đúng (Sau khi nộp)</div>
+              <div class="legend-item"><span class="legend-dot wrong"></span> Sai (Sau khi nộp)</div>
+            </div>
+
+            <div class="palette-buttons" id="paletteButtons">
+              <!-- Nút chuyển nhanh câu hỏi 1 -> 22 do JS render -->
+            </div>
+          </div>
+
+          <!-- Kết quả chấm điểm (Ẩn khi đang làm bài, hiện ra sau khi nộp bài) -->
+          <div class="quiz-result-card" id="quizResultCard">
+            <div class="result-badge-icon" id="resultIcon">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="result-title" id="resultTitle">Hoàn Thành Bài Thi!</h3>
+            <p class="result-message" id="resultMessage">Thầy Sáng chúc mừng em đã hoàn thành bài kiểm tra trực tuyến.</p>
+
+            <div class="result-stats-row">
+              <div class="result-stat-box">
+                <div class="result-stat-val score" id="resScore">0.0</div>
+                <div class="result-stat-lbl">Điểm số (Thang 10)</div>
+              </div>
+              <div class="result-stat-box">
+                <div class="result-stat-val correct" id="resCorrect">0 / 21</div>
+                <div class="result-stat-lbl">Số câu đúng</div>
+              </div>
+              <div class="result-stat-box">
+                <div class="result-stat-val wrong" id="resWrong">0 / 21</div>
+                <div class="result-stat-lbl">Số câu sai</div>
+              </div>
+              <div class="result-stat-box">
+                <div class="result-stat-val" style="color: var(--primary-600);" id="resTimeUsed">00:00</div>
+                <div class="result-stat-lbl">Thời gian làm bài</div>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn btn-primary" id="btnToggleAllSolutions">
+                <i class="fa-solid fa-list-check"></i> Xem đáp án & Lời giải chi tiết
+              </button>
+              <button class="btn btn-secondary" id="btnRetakeQuiz" style="color: var(--primary-800); border-color: var(--primary-300);">
+                <i class="fa-solid fa-arrow-rotate-right"></i> Làm lại bài thi
+              </button>
+            </div>
+          </div>
+
+          <!-- Danh sách câu hỏi thi (render tự động từ quiz-data.js) -->
+          <div class="quiz-main-body" id="quizQuestionsContainer">
+            <!-- Questions rendered by JS -->
+          </div>
+
+          <!-- Footer điều khiển nộp bài -->
+          <div class="quiz-footer">
+            <div class="quiz-progress-text" id="quizProgressText">
+              Đã làm: <span id="answeredCount">0</span> / <span id="totalQuestionsCount">21</span> câu hỏi
+            </div>
+
+            <div class="quiz-footer-actions">
+              <button class="btn btn-secondary" id="btnResetCurrent" style="color: var(--text-main); border-color: var(--border-color);">
+                <i class="fa-solid fa-eraser"></i> Xóa lựa chọn
+              </button>
+              <button class="btn btn-primary" id="btnSubmitQuiz">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Nộp bài thi
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-metallic-text">ThS. Lương Thanh Sáng</h3>
+          <p>
+            Trang web học tập & chia sẻ tài liệu Toán học phục vụ học sinh trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) và các bạn học sinh yêu thích môn Toán trên mọi miền.
+          </p>
+          <div style="font-size: 0.85rem; color: #94a3b8;">
+            <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i> Tận tâm - Sáng tạo - Đồng hành cùng học sinh.
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Các trang chuyên mục</h4>
+          <ul class="footer-nav">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></li>
+            <li><a href="bai-hoc-so.html"><i class="fa-solid fa-angle-right"></i> Bài học số Toán 10 - 11 - 12</a></li>
+            <li><a href="thong-bao.html"><i class="fa-solid fa-angle-right"></i> Bảng thông báo</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-angle-right"></i> Kho tài liệu Khối 10, 11, 12</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-angle-right"></i> Thi học sinh giỏi</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-angle-right"></i> Thi trắc nghiệm trực tuyến</a></li>
+            <li><a href="lien-he.html"><i class="fa-solid fa-angle-right"></i> Gửi thắc mắc bài tập</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Tài nguyên học tập</h4>
+          <ul class="footer-nav">
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Chuyên đề Toán 10</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Chuyên đề Toán 11</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Luyện thi THPT Toán 12</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-trophy"></i> Bồi dưỡng HSG Toán</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-pen-ruler"></i> Đề thi thử online</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span class="school-year-display">2026 - 2027</span> ThS. Lương Thanh Sáng • Giáo viên Toán THPT Nguyễn Văn Thoại, xã Thoại Sơn, tỉnh An Giang. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nút cuộn lên đầu trang -->
+  <button class="back-to-top" id="backToTop" title="Lên đầu trang">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Khung thông báo Toast Message -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/quiz-data.js?v=3.1"></script>
+  <script src="js/script.js?v=3.1"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bài học số môn Toán THPT - Chương trình GDPT 2018 bộ sách Kết nối tri thức với cuộc sống. Tóm tắt lý thuyết, cấu trúc chương bài, dạng bài tập do ThS. Lương Thanh Sáng biên soạn.">
+  <meta name="keywords" content="Bài học số, Toán 10, Toán 11, Toán 12, Kết nối tri thức với cuộc sống, ThS Lương Thanh Sáng, THPT Nguyễn Văn Thoại, bài giảng điện tử toán học">
+  <meta name="author" content="ThS. Lương Thanh Sáng">
+  <title>Bài Học Số - Môn Toán THPT | ThS. Lương Thanh Sáng - THPT Nguyễn Văn Thoại</title>
+
+  <!-- Google Fonts: Be Vietnam Pro & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css?v=3.2">
+  <!-- OLM Interactive Digital Lesson Stylesheet -->
+  <link rel="stylesheet" href="css/olm-lesson.css?v=1.0">
+
+  <!-- Thư viện Canvas Confetti tạo hiệu ứng pháo hoa khi hoàn thành bài học -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Cấu hình MathJax 3 hiển thị công thức Toán LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- ==================== HEADER & THANH ĐIỀU HƯỚNG ==================== -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-logo-badge">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="gold-metallic-text">ThS. Lương Thanh Sáng</h1>
+          <span>THPT Nguyễn Văn Thoại • An Giang</span>
+        </div>
+      </a>
+
+      <!-- Thanh điều hướng chính: Thẻ 'Bài học số' nằm ngay cạnh thẻ 'Trang chủ' -->
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="bai-hoc-so.html" class="nav-link active"><i class="fa-solid fa-graduation-cap"></i> Bài học số</a>
+        <a href="thong-bao.html" class="nav-link"><i class="fa-solid fa-bell"></i> Thông báo</a>
+        <a href="tai-lieu.html" class="nav-link"><i class="fa-solid fa-book-open"></i> Kho tài liệu</a>
+        <a href="thi-hsg.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Thi học sinh giỏi</a>
+        <a href="trac-nghiem.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Trắc nghiệm Online</a>
+        <a href="lien-he.html" class="nav-link"><i class="fa-solid fa-envelope-open-text"></i> Liên hệ</a>
+        <a href="trac-nghiem.html" class="nav-cta"><i class="fa-solid fa-pen-to-square"></i> Làm bài thi thử</a>
+      </nav>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mở menu điện thoại">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO BANNER BÀI HỌC SỐ ==================== -->
+    <section class="digital-lessons-hero">
+      <div class="container">
+        <div class="lessons-hero-badge">
+          <i class="fa-solid fa-book-bookmark"></i> CHƯƠNG TRÌNH GDPT 2018 • BỘ SÁCH KẾT NỐI TRI THỨC VỚI CUỘC SỐNG
+        </div>
+        <h1 class="lessons-hero-title">
+          Không Gian <span class="gold-accent">Bài Học Số Môn Toán</span> THPT
+        </h1>
+        <p class="lessons-hero-desc">
+          Hệ thống cấu trúc bài học điện tử chuẩn 100% mục lục Sách giáo khoa hiện hành dành cho học sinh Khối 10, 11 và 12 trường THPT Nguyễn Văn Thoại. Giúp học sinh nắm chắc hệ thống lý thuyết, định lý và phương pháp giải toán theo từng tiểu mục bài học.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== KHÔNG GIAN BÀI HỌC SỐ 3 TẦNG ==================== -->
+    <div class="container">
+      <!-- TẦNG 1: KHỐI LỚP (LỚP 10 - LỚP 11 - LỚP 12) -->
+      <section class="grade-tabs-container" aria-label="Chọn khối lớp">
+        <div class="grade-tabs-grid">
+          <!-- Card Lớp 10 -->
+          <div class="grade-tab-card grade-10 active" data-grade="10" id="tabGrade10">
+            <div class="grade-tab-icon">
+              <i class="fa-solid fa-shapes"></i>
+            </div>
+            <div class="grade-tab-info">
+              <h3>Toán Lớp 10</h3>
+              <p>9 Chương • 27 Bài học (Tập 1 & Tập 2)</p>
+            </div>
+            <span class="grade-tab-badge">KNTT 10</span>
+          </div>
+
+          <!-- Card Lớp 11 -->
+          <div class="grade-tab-card grade-11" data-grade="11" id="tabGrade11">
+            <div class="grade-tab-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="grade-tab-info">
+              <h3>Toán Lớp 11</h3>
+              <p>9 Chương • 33 Bài học (Tập 1 & Tập 2)</p>
+            </div>
+            <span class="grade-tab-badge">KNTT 11</span>
+          </div>
+
+          <!-- Card Lớp 12 -->
+          <div class="grade-tab-card grade-12" data-grade="12" id="tabGrade12">
+            <div class="grade-tab-icon">
+              <i class="fa-solid fa-infinity"></i>
+            </div>
+            <div class="grade-tab-info">
+              <h3>Toán Lớp 12</h3>
+              <p>6 Chương • 19 Bài học (Tập 1 & Tập 2)</p>
+            </div>
+            <span class="grade-tab-badge">KNTT 12</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- THANH ĐIỀU KHIỂN & TÌM KIẾM BÀI HỌC -->
+      <div class="lessons-toolbar">
+        <div class="volume-filter-group">
+          <span style="font-weight: 700; font-size: 0.88rem; color: #475569; margin-right: 4px;">
+            <i class="fa-solid fa-filter" style="color: var(--accent-gold);"></i> Lọc theo tập:
+          </span>
+          <button class="btn-vol-filter active" data-vol="all">Tất cả</button>
+          <button class="btn-vol-filter" data-vol="1">Tập 1</button>
+          <button class="btn-vol-filter" data-vol="2">Tập 2</button>
+        </div>
+
+        <div class="search-lesson-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchLessonInput" class="search-lesson-input" placeholder="Tìm kiếm chương, tên bài học môn Toán..." autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Nút mở menu bài học trên điện thoại -->
+      <button class="mobile-lessons-toggle-btn" id="mobileLessonsToggle">
+        <i class="fa-solid fa-bars-staggered"></i> Xem danh mục Chương & Bài học môn Toán
+      </button>
+
+      <!-- WORKSPACE: TẦNG 2 (SIDEBAR) & TẦNG 3 (CHI TIẾT BÀI HỌC) -->
+      <div class="lessons-workspace" id="lessonsWorkspace">
+        
+        <!-- ==================== TẦNG 2: MÔN HỌC & CHƯƠNG/BÀI (SIDEBAR) ==================== -->
+        <aside class="lessons-sidebar" id="lessonsSidebar" aria-label="Mục lục Chương và Bài học">
+          <div class="sidebar-header">
+            <h4><i class="fa-solid fa-list-check"></i> Cấu trúc Chương & Bài</h4>
+            <span class="sidebar-counter" id="sidebarCounter">27 bài học</span>
+          </div>
+          <div class="sidebar-content-scroll" id="sidebarLessonsList">
+            <!-- Được khởi tạo hoặc render động bằng JS từ LESSONS_DATABASE -->
+            <div style="text-align: center; padding: 20px; color: #64748b;">
+              <i class="fa-solid fa-spinner fa-spin"></i> Đang tải mục lục bài học...
+            </div>
+          </div>
+        </aside>
+
+        <!-- ==================== TẦNG 3: CHI TIẾT BÀI HỌC (MAIN CONTENT) ==================== -->
+        <section class="lesson-detail-viewer" id="lessonDetailViewer" aria-label="Nội dung bài học">
+          
+          <!-- BREADCRUMB ĐIỀU HƯỚNG -->
+          <nav class="lesson-breadcrumb" id="lessonBreadcrumb" aria-label="Đường dẫn bài học">
+            <a href="index.html">Trang chủ</a>
+            <span class="sep">/</span>
+            <a href="bai-hoc-so.html">Bài học số</a>
+            <span class="sep">/</span>
+            <span id="breadcrumbGrade">Toán Lớp 10</span>
+            <span class="sep">/</span>
+            <span id="breadcrumbChapter">Chương I: Mệnh đề và tập hợp</span>
+            <span class="sep">/</span>
+            <span id="breadcrumbLesson" style="font-weight: 700; color: #0f172a;">Bài 1: Mệnh đề</span>
+          </nav>
+
+          <!-- HEADER BÀI HỌC CHÍNH -->
+          <div class="lesson-main-header">
+            <div class="lesson-title-row">
+              <div>
+                <h1 class="lesson-heading-h1" id="lessonHeading">
+                  <span class="lesson-num-badge" id="lessonNumBadge">Bài 1</span>
+                  <span id="lessonTitleText">Mệnh đề</span>
+                </h1>
+                <div class="lesson-meta-bar">
+                  <span class="meta-pill book"><i class="fa-solid fa-book-open"></i> SGK Kết nối tri thức với cuộc sống</span>
+                  <span class="meta-pill teacher"><i class="fa-solid fa-chalkboard-user"></i> ThS. Lương Thanh Sáng</span>
+                  <span class="meta-pill" id="lessonVolumePill"><i class="fa-solid fa-bookmark"></i> Tập 1</span>
+                </div>
+              </div>
+
+              <!-- Nút chuyển bài trước / sau -->
+              <div class="lesson-nav-actions">
+                <button class="btn-lesson-nav" id="btnPrevLesson" title="Về bài học trước" disabled>
+                  <i class="fa-solid fa-arrow-left"></i> Bài trước
+                </button>
+                <button class="btn-lesson-nav" id="btnNextLesson" title="Chuyển sang bài tiếp theo">
+                  Bài sau <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MỤC LỤC NHANH TRONG BÀI (ON-PAGE NAVIGATION) -->
+          <div class="lesson-quick-toc" id="lessonQuickToc">
+            <div class="toc-title">
+              <i class="fa-solid fa-compass" style="color: var(--accent-gold);"></i> Mục lục nội dung bài học:
+            </div>
+            <div class="toc-links-list" id="tocLinksList">
+              <a href="#sec-1" class="toc-link-item">Mục 1. Mệnh đề, mệnh đề chứa biến</a>
+              <a href="#sec-2" class="toc-link-item">Mục 2. Mệnh đề phủ định</a>
+              <a href="#sec-3" class="toc-link-item">Mục 3. Mệnh đề kéo theo, mệnh đề đảo</a>
+              <a href="#sec-4" class="toc-link-item">Mục 4. Mệnh đề tương đương</a>
+              <a href="#sec-5" class="toc-link-item">Mục 5. Kí hiệu với mọi (∀) và tồn tại (∃)</a>
+            </div>
+          </div>
+
+          <!-- KHUNG NỘI DUNG CÁC MỤC LỚN VÀ TIỂU MỤC (RENDERED CONTAINER) -->
+          <div class="lesson-sections-container" id="lessonSectionsContainer">
+            
+            <!-- Ví dụ Mẫu Chuẩn Cho Bài 1 (Sẽ render động theo mọi bài học khi chọn trên cây thư mục) -->
+            
+            <!-- MỤC 1 -->
+            <article class="lesson-section-card" id="sec-1">
+              <div class="section-card-header">
+                <div class="section-title-wrap">
+                  <div class="section-num-circle">1</div>
+                  <h2 class="section-heading-h2">1. Mệnh đề, mệnh đề chứa biến</h2>
+                </div>
+              </div>
+              <div class="section-body-wrap">
+                <!-- Khung phụ a) -->
+                <div class="subsection-card">
+                  <div class="subsection-header">
+                    <span class="sub-key-badge">a</span>
+                    <h3 class="subsection-heading-h3">a) Mệnh đề</h3>
+                  </div>
+                  <!-- Nội dung mục a sẽ cập nhật sau -->
+                  <div class="lesson-placeholder-box">
+                    <div class="placeholder-left">
+                      <div class="placeholder-icon-circle"><i class="fa-solid fa-pen-ruler"></i></div>
+                      <div class="placeholder-info">
+                        <h5>Nội dung mục a đang được cập nhật</h5>
+                        <p>Khái niệm và định nghĩa mệnh đề logic, mệnh đề đúng, mệnh đề sai do ThS. Lương Thanh Sáng biên soạn sẽ được cập nhật tại đây.</p>
+                      </div>
+                    </div>
+                    <span class="placeholder-status-tag"><i class="fa-solid fa-clock-rotate-left"></i> Đang biên soạn</span>
+                  </div>
+                </div>
+
+                <!-- Khung phụ b) -->
+                <div class="subsection-card">
+                  <div class="subsection-header">
+                    <span class="sub-key-badge">b</span>
+                    <h3 class="subsection-heading-h3">b) Mệnh đề chứa biến</h3>
+                  </div>
+                  <!-- Nội dung mục b sẽ cập nhật sau -->
+                  <div class="lesson-placeholder-box">
+                    <div class="placeholder-left">
+                      <div class="placeholder-icon-circle"><i class="fa-solid fa-pen-ruler"></i></div>
+                      <div class="placeholder-info">
+                        <h5>Nội dung mục b đang được cập nhật</h5>
+                        <p>Khái niệm câu khẳng định chứa biến và cách xác định tính đúng sai khi gán giá trị cụ thể cho biến.</p>
+                      </div>
+                    </div>
+                    <span class="placeholder-status-tag"><i class="fa-solid fa-clock-rotate-left"></i> Đang biên soạn</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- MỤC 2 -->
+            <article class="lesson-section-card" id="sec-2">
+              <div class="section-card-header">
+                <div class="section-title-wrap">
+                  <div class="section-num-circle">2</div>
+                  <h2 class="section-heading-h2">2. Mệnh đề phủ định</h2>
+                </div>
+              </div>
+              <div class="section-body-wrap">
+                <!-- Khung phụ a) -->
+                <div class="subsection-card">
+                  <div class="subsection-header">
+                    <span class="sub-key-badge">a</span>
+                    <h3 class="subsection-heading-h3">a) Định nghĩa mệnh đề phủ định</h3>
+                  </div>
+                  <!-- Nội dung mục a sẽ cập nhật sau -->
+                  <div class="lesson-placeholder-box">
+                    <div class="placeholder-left">
+                      <div class="placeholder-icon-circle"><i class="fa-solid fa-pen-ruler"></i></div>
+                      <div class="placeholder-info">
+                        <h5>Nội dung mục a đang được cập nhật</h5>
+                        <p>Kí hiệu gạch đầu và mối quan hệ chân trị đúng - sai giữa mệnh đề ban đầu và mệnh đề phủ định.</p>
+                      </div>
+                    </div>
+                    <span class="placeholder-status-tag"><i class="fa-solid fa-clock-rotate-left"></i> Đang biên soạn</span>
+                  </div>
+                </div>
+
+                <!-- Khung phụ b) -->
+                <div class="subsection-card">
+                  <div class="subsection-header">
+                    <span class="sub-key-badge">b</span>
+                    <h3 class="subsection-heading-h3">b) Cách thành lập mệnh đề phủ định</h3>
+                  </div>
+                  <!-- Nội dung mục b sẽ cập nhật sau -->
+                  <div class="lesson-placeholder-box">
+                    <div class="placeholder-left">
+                      <div class="placeholder-icon-circle"><i class="fa-solid fa-pen-ruler"></i></div>
+                      <div class="placeholder-info">
+                        <h5>Nội dung mục b đang được cập nhật</h5>
+                        <p>Quy tắc thêm hoặc bớt từ phủ định 'không', 'không phải' và ví dụ minh họa toán học.</p>
+                      </div>
+                    </div>
+                    <span class="placeholder-status-tag"><i class="fa-solid fa-clock-rotate-left"></i> Đang biên soạn</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- BANNER HÀNH ĐỘNG CUỐI BÀI HỌC -->
+          <div class="lesson-bottom-banner">
+            <div class="bottom-banner-text">
+              <h4><i class="fa-solid fa-brain"></i> Rèn luyện kiến thức bài học</h4>
+              <p>Học sinh có thể làm ngay bài kiểm tra trắc nghiệm online tương ứng hoặc gửi câu hỏi thắc mắc tới Thầy Sáng.</p>
+            </div>
+            <div class="bottom-banner-actions">
+              <a href="trac-nghiem.html" class="btn-practice-now">
+                <i class="fa-solid fa-laptop-code"></i> Làm bài trắc nghiệm ngay
+              </a>
+              <a href="lien-he.html" class="btn-ask-teacher">
+                <i class="fa-solid fa-envelope-open-text"></i> Hỏi bài Thầy Sáng
+              </a>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-metallic-text">ThS. Lương Thanh Sáng</h3>
+          <p>
+            Trang web học tập & chia sẻ tài liệu Toán học phục vụ học sinh trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) và các bạn học sinh yêu thích môn Toán trên mọi miền.
+          </p>
+          <div style="font-size: 0.85rem; color: #94a3b8;">
+            <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i> Tận tâm - Sáng tạo - Đồng hành cùng học sinh.
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Các trang chuyên mục</h4>
+          <ul class="footer-nav">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></li>
+            <li><a href="bai-hoc-so.html"><i class="fa-solid fa-angle-right"></i> Bài học số Toán 10 - 11 - 12</a></li>
+            <li><a href="thong-bao.html"><i class="fa-solid fa-angle-right"></i> Bảng thông báo</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-angle-right"></i> Kho tài liệu</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-angle-right"></i> Thi học sinh giỏi</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-angle-right"></i> Thi trắc nghiệm trực tuyến</a></li>
+            <li><a href="lien-he.html"><i class="fa-solid fa-angle-right"></i> Gửi thắc mắc bài tập</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Tài nguyên học tập</h4>
+          <ul class="footer-nav">
+            <li><a href="bai-hoc-so.html?grade=10"><i class="fa-solid fa-book"></i> Bài học số Toán 10 KNTT</a></li>
+            <li><a href="bai-hoc-so.html?grade=11"><i class="fa-solid fa-book"></i> Bài học số Toán 11 KNTT</a></li>
+            <li><a href="bai-hoc-so.html?grade=12"><i class="fa-solid fa-book"></i> Bài học số Toán 12 KNTT</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-trophy"></i> Bồi dưỡng HSG Toán</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-pen-ruler"></i> Đề thi thử online</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span class="school-year-display">2026 - 2027</span> ThS. Lương Thanh Sáng • Giáo viên Toán THPT Nguyễn Văn Thoại, xã Thoại Sơn, tỉnh An Giang. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nút cuộn lên đầu trang -->
+  <button class="back-to-top" id="backToTop" title="Lên đầu trang">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Khung thông báo Toast Message -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/lesson-10-8-data.js"></script>
+  <script src="js/lessons-data.js"></script>
+  <script src="js/olm-lesson-engine.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
+

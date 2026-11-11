@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="100%" height="100%">
+  <defs>
+    <marker id="mArrU" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mArrV2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <rect width="680" height="280" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Left: Two arbitrary vectors in space -->
+  <g transform="translate(30, 20)">
+    <text x="20" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#64748b">1. Hai vectơ trong không gian:</text>
+    <line x1="30" y1="80" x2="130" y2="60" stroke="#2563eb" stroke-width="3.5" marker-end="url(#mArrU)"/>
+    <g>
+      <text x="75" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">u</text>
+      <path d="M 75 43 L 84 43 M 81 40 L 85 43 L 81 46" stroke="#2563eb" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <line x1="60" y1="160" x2="160" y2="120" stroke="#16a34a" stroke-width="3.5" marker-end="url(#mArrV2)"/>
+    <g>
+      <text x="105" y="155" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">v</text>
+      <path d="M 105 143 L 114 143 M 111 140 L 115 143 L 111 146" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- Center: Bringing to common origin O -->
+  <g transform="translate(190, 20)">
+    <text x="40" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#1e3a8a">2. Đưa về cùng gốc O:</text>
+    
+    <circle cx="80" cy="140" r="5" fill="#dc2626"/>
+    <text x="65" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">O</text>
+
+    <line x1="80" y1="140" x2="200" y2="115" stroke="#2563eb" stroke-width="4" marker-end="url(#mArrU)"/>
+    <g>
+      <text x="210" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">A (u)</text>
+      <path d="M 226 103 L 235 103 M 232 100 L 236 103 L 232 106" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+    </g>
+
+    <line x1="80" y1="140" x2="170" y2="60" stroke="#16a34a" stroke-width="4" marker-end="url(#mArrV2)"/>
+    <g>
+      <text x="175" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">B (v)</text>
+      <path d="M 191 43 L 200 43 M 197 40 L 201 43 L 197 46" stroke="#16a34a" stroke-width="1.4" fill="none"/>
+    </g>
+
+    <!-- Angle Arc -->
+    <path d="M 120 132 A 40 40 0 0 0 110 115" fill="none" stroke="#dc2626" stroke-width="2"/>
+    <text x="130" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">&#966;</text>
+    <g>
+      <text x="40" y="220" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a">&#966; = (u,  v) = &#8736;AOB (0&#176; &#8804; &#966; &#8804; 180&#176;)</text>
+      <path d="M 83 209 L 91 209 M 89 207 L 92 209 L 89 211" stroke="#1e3a8a" stroke-width="1.2" fill="none"/>
+      <path d="M 98 209 L 106 209 M 104 207 L 107 209 L 104 211" stroke="#1e3a8a" stroke-width="1.2" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Divider -->
+  <line x1="420" y1="20" x2="420" y2="260" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Right: Dot Product Formulas -->
+  <rect x="435" y="25" width="230" height="230" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="450" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e3a8a">&#11088; CÔNG THỨC TÍCH VÔ HƯỚNG:</text>
+  
+  <rect x="445" y="70" width="210" height="50" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <g>
+    <text x="455" y="102" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">u &#183; v = |u| &#183; |v| &#183; cos(u, v)</text>
+    <path d="M 455 90 L 464 90 M 461 88 L 465 90 L 461 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    <path d="M 473 90 L 482 90 M 479 88 L 483 90 L 479 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    <path d="M 502 90 L 511 90 M 508 88 L 512 90 L 508 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    <path d="M 533 90 L 542 90 M 539 88 L 543 90 L 539 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    <path d="M 609 90 L 617 90 M 615 88 L 618 90 L 615 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    <path d="M 623 90 L 631 90 M 629 88 L 632 90 L 629 92" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+  </g>
+
+  <text x="450" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">&#9679; Điều kiện vuông góc 3D:</text>
+  <rect x="445" y="160" width="210" height="40" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <g>
+    <text x="475" y="185" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">u &#8869; v  &#8660;  u &#183; v = 0</text>
+    <path d="M 475 174 L 484 174 M 481 172 L 485 174 L 481 176" stroke="#dc2626" stroke-width="1.4" fill="none"/>
+    <path d="M 504 174 L 513 174 M 510 172 L 514 174 L 510 176" stroke="#dc2626" stroke-width="1.4" fill="none"/>
+    <path d="M 547 174 L 556 174 M 553 172 L 557 174 L 553 176" stroke="#dc2626" stroke-width="1.4" fill="none"/>
+    <path d="M 567 174 L 576 174 M 573 172 L 577 174 L 573 176" stroke="#dc2626" stroke-width="1.4" fill="none"/>
+  </g>
+
+  <g>
+    <text x="450" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748b">&#10148; Bình phương vô hướng: u&#178; = |u|&#178;</text>
+    <path d="M 607 215 L 615 215 M 613 213 L 616 215 L 613 217" stroke="#64748b" stroke-width="1.2" fill="none"/>
+    <path d="M 639 215 L 647 215 M 645 213 L 648 215 L 645 217" stroke="#64748b" stroke-width="1.2" fill="none"/>
+  </g>
+</svg>

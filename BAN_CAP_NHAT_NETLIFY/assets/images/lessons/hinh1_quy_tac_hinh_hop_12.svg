@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 340" width="100%" height="100%">
+  <defs>
+    <marker id="mArrH1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mArrH2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
+    </marker>
+    <marker id="mArrH3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+    </marker>
+    <marker id="mArrHDiag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="700" height="340" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Parallelepiped ABCD.A'B'C'D' -->
+  <!-- A=(100, 240), B=(280, 240), C=(370, 180), D=(190, 180) -->
+  <!-- A'=(100, 100), B'=(280, 100), C'=(370, 40), D'=(190, 40) -->
+
+  <!-- Back/Hidden Edges (dashed) -->
+  <line x1="100" y1="240" x2="190" y2="180" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="190" y1="180" x2="370" y2="180" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="190" y1="180" x2="190" y2="40" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Front/Visible Edges -->
+  <line x1="100" y1="240" x2="280" y2="240" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="280" y1="240" x2="370" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
+  
+  <line x1="100" y1="100" x2="280" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="280" y1="100" x2="370" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="370" y1="40" x2="190" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="190" y1="40" x2="100" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <line x1="100" y1="240" x2="100" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="280" y1="240" x2="280" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="370" y1="180" x2="370" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- 3 Component Vectors starting from A -->
+  <!-- Vector AB (Chiều dài) -->
+  <line x1="100" y1="240" x2="280" y2="240" stroke="#2563eb" stroke-width="4" marker-end="url(#mArrH1)"/>
+  <g>
+    <text x="180" y="265" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#2563eb">AB</text>
+    <path d="M 180 252 L 199 252 M 195 249 L 200 252 L 195 255" stroke="#2563eb" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Vector AD (Chiều rộng) -->
+  <line x1="100" y1="240" x2="190" y2="180" stroke="#16a34a" stroke-width="3" stroke-dasharray="5 3" marker-end="url(#mArrH2)"/>
+  <g>
+    <text x="125" y="200" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#16a34a">AD</text>
+    <path d="M 125 187 L 145 187 M 141 184 L 146 187 L 141 190" stroke="#16a34a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Vector AA' (Chiều cao) -->
+  <line x1="100" y1="240" x2="100" y2="100" stroke="#d97706" stroke-width="4" marker-end="url(#mArrH3)"/>
+  <g>
+    <text x="65" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#d97706">AA'</text>
+    <path d="M 65 157 L 85 157 M 81 154 L 86 157 L 81 160" stroke="#d97706" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Diagonal Vector AC' (Quy tắc hình hộp) -->
+  <line x1="100" y1="240" x2="370" y2="40" stroke="#dc2626" stroke-width="4.5" marker-end="url(#mArrHDiag)"/>
+  <g>
+    <text x="215" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#dc2626">AC' (Đường chéo chính)</text>
+    <path d="M 215 109 L 243 109 M 238 105 L 244 109 L 238 113" stroke="#dc2626" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Vertex Labels -->
+  <circle cx="100" cy="240" r="5" fill="#dc2626"/>
+  <text x="80" y="255" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">A</text>
+  <text x="290" y="255" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">B</text>
+  <text x="380" y="190" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">C</text>
+  <text x="195" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">D</text>
+
+  <text x="80" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">A'</text>
+  <text x="290" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">B'</text>
+  <circle cx="370" cy="40" r="5" fill="#dc2626"/>
+  <text x="380" y="35" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">C'</text>
+  <text x="185" y="32" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">D'</text>
+
+  <!-- Formula Panel on Right -->
+  <rect x="420" y="30" width="260" height="270" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="435" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a">&#11088; QUY TẮC HÌNH HỘP:</text>
+  
+  <rect x="435" y="85" width="230" height="55" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <g>
+    <text x="445" y="120" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">AC'  =  AB  +  AD  +  AA'</text>
+    <path d="M 445 106 L 467 106 M 463 103 L 468 106 L 463 109" stroke="#dc2626" stroke-width="1.6" fill="none"/>
+    <path d="M 494 106 L 513 106 M 509 103 L 514 106 L 509 109" stroke="#dc2626" stroke-width="1.6" fill="none"/>
+    <path d="M 541 106 L 561 106 M 557 103 L 562 106 L 557 109" stroke="#dc2626" stroke-width="1.6" fill="none"/>
+    <path d="M 588 106 L 610 106 M 606 103 L 611 106 L 606 109" stroke="#dc2626" stroke-width="1.6" fill="none"/>
+  </g>
+
+  <text x="435" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">&#9679; Chứng minh từng bước:</text>
+  <g>
+    <text x="445" y="190" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#2563eb">&#10148; Đáy ABCD: AB  +  AD  =  AC</text>
+    <path d="M 540 178 L 556 178 M 553 176 L 557 178 L 553 180" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 577 178 L 594 178 M 591 176 L 595 178 L 591 180" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 615 178 L 631 178 M 628 176 L 632 178 L 628 180" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+  </g>
+  <g>
+    <text x="445" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#d97706">&#10148; Mặt chéo: AC  +  AA'  =  AC'</text>
+    <path d="M 525 203 L 541 203 M 538 201 L 542 203 L 538 205" stroke="#d97706" stroke-width="1.3" fill="none"/>
+    <path d="M 563 203 L 581 203 M 578 201 L 582 203 L 578 205" stroke="#d97706" stroke-width="1.3" fill="none"/>
+    <path d="M 603 203 L 621 203 M 618 201 L 622 203 L 618 205" stroke="#d97706" stroke-width="1.3" fill="none"/>
+  </g>
+  <g>
+    <text x="445" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#16a34a">&#8658; AC'  =  AB  +  AD  +  AA'</text>
+    <path d="M 462 228 L 480 228 M 477 226 L 481 228 L 477 230" stroke="#16a34a" stroke-width="1.3" fill="none"/>
+    <path d="M 503 228 L 519 228 M 516 226 L 520 228 L 516 230" stroke="#16a34a" stroke-width="1.3" fill="none"/>
+    <path d="M 541 228 L 558 228 M 555 226 L 559 228 L 555 230" stroke="#16a34a" stroke-width="1.3" fill="none"/>
+    <path d="M 580 228 L 598 228 M 595 226 L 599 228 L 595 230" stroke="#16a34a" stroke-width="1.3" fill="none"/>
+  </g>
+  <text x="435" y="275" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-style="italic" fill="#64748b">(Cực kỳ quan trọng trong đề thi THPT)</text>
+</svg>

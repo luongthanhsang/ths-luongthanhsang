@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" width="100%" height="100%">
+  <defs>
+    <marker id="mGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
+    </marker>
+    <marker id="mPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#9333ea"/>
+    </marker>
+    <marker id="mOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ea580c"/>
+    </marker>
+  </defs>
+  <rect width="680" height="300" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Section 1: Cùng phương, cùng hướng -->
+  <line x1="60" y1="70" x2="310" y2="70" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="60" y1="120" x2="310" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="90" y1="70" x2="250" y2="70" stroke="#16a34a" stroke-width="4" marker-end="url(#mGreen)"/>
+  <line x1="110" y1="120" x2="290" y2="120" stroke="#16a34a" stroke-width="4" marker-end="url(#mGreen)"/>
+  <g>
+    <text x="160" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#16a34a">a</text>
+    <path d="M 160 42 L 171 42 M 168 39 L 172 42 L 168 45" stroke="#16a34a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g>
+    <text x="180" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#16a34a">b</text>
+    <path d="M 180 132 L 191 132 M 188 129 L 192 132 L 188 135" stroke="#16a34a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g>
+    <text x="80" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#15803d">&#10004; Hai vectơ a và b CÙNG HƯỚNG</text>
+    <path d="M 164 163 L 174 163 M 171 160 L 175 163 L 171 166" stroke="#15803d" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 200 163 L 210 163 M 207 160 L 211 163 L 207 166" stroke="#15803d" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="80" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748b">(Giá song song, cùng chỉ sang phải)</text>
+
+  <!-- Divider -->
+  <line x1="340" y1="30" x2="340" y2="270" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Section 2: Cùng phương, ngược hướng -->
+  <line x1="380" y1="70" x2="630" y2="70" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="380" y1="120" x2="630" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="410" y1="70" x2="570" y2="70" stroke="#9333ea" stroke-width="4" marker-end="url(#mPurple)"/>
+  <line x1="570" y1="120" x2="430" y2="120" stroke="#ea580c" stroke-width="4" marker-end="url(#mOrange)"/>
+  <g>
+    <text x="480" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#9333ea">u</text>
+    <path d="M 480 42 L 491 42 M 488 39 L 492 42 L 488 45" stroke="#9333ea" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g>
+    <text x="490" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#ea580c">v</text>
+    <path d="M 490 132 L 501 132 M 498 129 L 502 132 L 498 135" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g>
+    <text x="390" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#c2410c">&#10006; Hai vectơ u và v NGƯỢC HƯỚNG</text>
+    <path d="M 474 163 L 484 163 M 481 160 L 485 163 L 481 166" stroke="#c2410c" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 510 163 L 520 163 M 517 160 L 521 163 L 517 166" stroke="#c2410c" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="390" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748b">(Cùng phương nhưng một sang phải, một sang trái)</text>
+
+  <!-- Section 3: 3 điểm thẳng hàng -->
+  <rect x="50" y="225" width="580" height="55" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <circle cx="120" cy="252" r="5" fill="#1d4ed8"/>
+  <text x="115" y="242" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">A</text>
+  <circle cx="210" cy="252" r="5" fill="#1d4ed8"/>
+  <text x="205" y="242" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">B</text>
+  <circle cx="320" cy="252" r="5" fill="#1d4ed8"/>
+  <text x="315" y="242" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">C</text>
+  <line x1="80" y1="252" x2="350" y2="252" stroke="#1d4ed8" stroke-width="2"/>
+  <g>
+    <text x="360" y="257" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a">Ba điểm A, B, C thẳng hàng &#8660; AB và AC cùng phương</text>
+    <path d="M 552 245 L 571 245 M 567 242 L 572 245 L 567 248" stroke="#1e3a8a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 596 245 L 615 245 M 611 242 L 616 245 L 611 248" stroke="#1e3a8a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

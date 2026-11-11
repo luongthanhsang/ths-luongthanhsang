@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 290" width="100%" height="100%">
+  <rect width="700" height="290" rx="14" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+
+  <!-- Left: Force diagram of Chandelier in Oxyz -->
+  <g transform="translate(30, 20)">
+    <circle cx="160" cy="140" r="12" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+    <text x="175" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#15803d">O (Đèn)</text>
+
+    <!-- Upward Tensions combined -->
+    <line x1="160" y1="140" x2="160" y2="40" stroke="#0284c7" stroke-width="5"/>
+    <text x="175" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">4&#183;T&#183;cos&#945; (Lực kéo lên)</text>
+
+    <!-- 4 Cables spreading -->
+    <line x1="160" y1="140" x2="80" y2="70" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+    <line x1="160" y1="140" x2="120" y2="50" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+    <line x1="160" y1="140" x2="200" y2="50" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+    <line x1="160" y1="140" x2="240" y2="70" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+
+    <!-- Gravity P pulling straight down -->
+    <line x1="160" y1="140" x2="160" y2="240" stroke="#dc2626" stroke-width="5"/>
+    <g>
+      <text x="175" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">P = m&#183;g (Kéo xuống)</text>
+      <path d="M 175 222 L 185 222 M 182 219 L 186 222 L 182 225" stroke="#dc2626" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Equal status -->
+    <g>
+      <text x="60" y="265" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#15803d">&#10004; Trạng thái cân bằng: F<tspan font-size="10" dy="2">hl</tspan><tspan dy="-2"> = 0</tspan></text>
+      <path d="M 197 254 L 206 254 M 204 252 L 207 254 L 204 256" stroke="#15803d" stroke-width="1.3" fill="none"/>
+      <path d="M 230 254 L 238 254 M 236 252 L 239 254 L 236 256" stroke="#15803d" stroke-width="1.3" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Divider -->
+  <line x1="340" y1="20" x2="340" y2="270" stroke="#bbf7d0" stroke-width="1.5"/>
+
+  <!-- Right: Rigorous Calculations -->
+  <rect x="360" y="20" width="320" height="250" rx="10" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="375" y="50" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#15803d">&#10004; LỜI GIẢI TOÁN HỌC CỦA THẦY SÁNG:</text>
+  
+  <text x="375" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#1e293b">&#9679; Điều kiện cân bằng trong không gian:</text>
+  <g>
+    <text x="385" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#2563eb">T<tspan font-size="10" dy="2">1</tspan><tspan dy="-2"> + T</tspan><tspan font-size="10" dy="2">2</tspan><tspan dy="-2"> + T</tspan><tspan font-size="10" dy="2">3</tspan><tspan dy="-2"> + T</tspan><tspan font-size="10" dy="2">4</tspan><tspan dy="-2"> + P = 0</tspan></text>
+    <path d="M 385 89 L 393 89 M 391 87 L 394 89 L 391 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 414 89 L 422 89 M 420 87 L 423 89 L 420 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 443 89 L 451 89 M 449 87 L 452 89 L 449 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 472 89 L 480 89 M 478 87 L 481 89 L 478 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 501 89 L 509 89 M 507 87 L 510 89 L 507 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+    <path d="M 530 89 L 538 89 M 536 87 L 539 89 L 536 91" stroke="#2563eb" stroke-width="1.3" fill="none"/>
+  </g>
+
+  <text x="375" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#1e293b">&#9679; Do tính đối xứng không gian: T&#8321; = T&#8322; = T&#8323; = T&#8324; = T</text>
+  <text x="375" y="155" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#1e293b">&#9679; Chiếu lên trục thẳng đứng Oz:</text>
+  <text x="385" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#d97706">4 &#183; T &#183; cos&#945; = P = m &#183; g</text>
+
+  <line x1="375" y1="195" x2="665" y2="195" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="375" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#1e293b">&#10148; Với m = 12 kg, g = 9.8 m/s&#178;, &#945; = 30&#176;:</text>
+  <text x="385" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#15803d">T = (12 &#215; 9.8) / (4 &#215; cos30&#176;) &#8776; 33.95 N</text>
+  <text x="375" y="260" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-style="italic" fill="#64748b">&#8594; Kỹ sư chọn dây chịu tải an toàn tuyệt đối!</text>
+</svg>

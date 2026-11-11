@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kho tài liệu và bài giảng môn Toán THPT Khối 10, 11, 12 của ThS. Lương Thanh Sáng - Trường THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang.">
+  <meta name="author" content="ThS. Lương Thanh Sáng">
+  <title>Kho Tài Liệu Toán 10 - 11 - 12 | ThS. Lương Thanh Sáng</title>
+
+  <!-- Google Fonts: Be Vietnam Pro & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css?v=3.1">
+</head>
+<body>
+
+  <!-- ==================== HEADER & THANH ĐIỀU HƯỚNG ==================== -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-logo-badge">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="gold-metallic-text">ThS. Lương Thanh Sáng</h1>
+          <span>THPT Nguyễn Văn Thoại • An Giang</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="bai-hoc-so.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Bài học số</a>
+        <a href="thong-bao.html" class="nav-link"><i class="fa-solid fa-bell"></i> Thông báo</a>
+        <a href="tai-lieu.html" class="nav-link active"><i class="fa-solid fa-book-open"></i> Kho tài liệu</a>
+        <a href="thi-hsg.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Thi học sinh giỏi</a>
+        <a href="trac-nghiem.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Trắc nghiệm Online</a>
+        <a href="lien-he.html" class="nav-link"><i class="fa-solid fa-envelope-open-text"></i> Liên hệ</a>
+        <a href="trac-nghiem.html" class="nav-cta"><i class="fa-solid fa-pen-to-square"></i> Làm bài thi thử</a>
+      </nav>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mở menu điện thoại">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== BANNER ĐẦU TRANG ==================== -->
+    <section class="page-banner">
+      <div class="container page-banner-inner">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <ul class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li class="breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+            <li class="breadcrumb-item active" aria-current="page">Kho tài liệu</li>
+          </ul>
+        </nav>
+        <h1 class="page-banner-title"><i class="fa-solid fa-book-open"></i> Kho Tài Liệu & Bài Giảng Toán THPT</h1>
+        <p class="page-banner-desc">Hệ thống giáo án, đề cương ôn tập, chuyên đề Đại số, Giải tích và Hình học được phân loại chi tiết theo từng khối 10, 11, 12 với tính năng xem trực tiếp PDF ngay trên trang.</p>
+      </div>
+    </section>
+
+    <!-- ==================== NỘI DUNG KHO TÀI LIỆU ==================== -->
+    <section class="section" id="documents">
+      <div class="container">
+        <!-- Bộ điều khiển: Phân loại khối & Tìm kiếm -->
+        <div class="repo-controls">
+          <!-- Tab chọn khối lớp -->
+          <div class="grade-tabs" id="gradeTabs">
+            <button class="grade-tab-btn active" data-grade="all">
+              <i class="fa-solid fa-layer-group"></i> Tất cả khối
+            </button>
+            <button class="grade-tab-btn" data-grade="10">
+              <i class="fa-solid fa-graduation-cap"></i> Khối 10
+            </button>
+            <button class="grade-tab-btn" data-grade="11">
+              <i class="fa-solid fa-graduation-cap"></i> Khối 11
+            </button>
+            <button class="grade-tab-btn" data-grade="12">
+              <i class="fa-solid fa-graduation-cap"></i> Khối 12 (Ôn thi tốt nghiệp)
+            </button>
+          </div>
+
+          <!-- Thanh tìm kiếm nhanh tài liệu -->
+          <div class="repo-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="docSearchInput" placeholder="Tìm tên bài giảng, chuyên đề, đề cương...">
+          </div>
+        </div>
+
+        <!-- Thanh lọc theo chuyên đề bộ môn -->
+        <div class="category-filter-bar">
+          <span class="filter-label"><i class="fa-solid fa-filter"></i> Lọc theo phân môn:</span>
+          <button class="filter-pill active" data-category="all">Tất cả bài giảng</button>
+          <button class="filter-pill" data-category="daiso">Đại số 10 & 11</button>
+          <button class="filter-pill" data-category="giaitich">Giải tích 12</button>
+          <button class="filter-pill" data-category="hinhhoc">Hình học (Phẳng & Oxyz)</button>
+          <button class="filter-pill" data-category="dekiemtra">Đề kiểm tra & Đề thi thử</button>
+          <button class="filter-pill" data-category="hsg"><i class="fa-solid fa-trophy" style="color: #d97706; margin-right: 4px;"></i> Bồi dưỡng HSG</button>
+        </div>
+
+        <!-- Lưới danh sách thẻ tài liệu (được render tự động bằng JS) -->
+        <div class="documents-grid" id="documentsGrid">
+          <!-- Nội dung do file js/script.js nạp từ js/document-data.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODAL XEM TRỰC TIẾP FILE (PDF PREVIEWER) ==================== -->
+  <div class="modal-overlay" id="pdfPreviewModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span class="modal-title" id="modalDocTitle">Đang nạp tài liệu...</span>
+        </div>
+        <div class="modal-actions">
+          <a href="#" target="_blank" class="modal-btn" id="modalOpenExternalBtn" title="Mở trong thẻ mới">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở tab mới
+          </a>
+          <a href="#" target="_blank" class="modal-btn" id="modalDownloadBtn" title="Tải file về máy">
+            <i class="fa-solid fa-download"></i> Tải về máy
+          </a>
+          <button class="modal-close-btn" id="modalCloseBtn" title="Đóng cửa sổ">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Khung nhúng iframe hoặc trình xem trước tài liệu -->
+        <iframe id="pdfIframe" src="" title="Xem trực tiếp tài liệu"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-metallic-text">ThS. Lương Thanh Sáng</h3>
+          <p>
+            Trang web học tập & chia sẻ tài liệu Toán học phục vụ học sinh trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) và các bạn học sinh yêu thích môn Toán trên mọi miền.
+          </p>
+          <div style="font-size: 0.85rem; color: #94a3b8;">
+            <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i> Tận tâm - Sáng tạo - Đồng hành cùng học sinh.
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Các trang chuyên mục</h4>
+          <ul class="footer-nav">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></li>
+            <li><a href="bai-hoc-so.html"><i class="fa-solid fa-angle-right"></i> Bài học số Toán 10 - 11 - 12</a></li>
+            <li><a href="thong-bao.html"><i class="fa-solid fa-angle-right"></i> Bảng thông báo</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-angle-right"></i> Kho tài liệu Khối 10, 11, 12</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-angle-right"></i> Thi học sinh giỏi</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-angle-right"></i> Thi trắc nghiệm trực tuyến</a></li>
+            <li><a href="lien-he.html"><i class="fa-solid fa-angle-right"></i> Gửi thắc mắc bài tập</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Tài nguyên học tập</h4>
+          <ul class="footer-nav">
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Chuyên đề Toán 10</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Chuyên đề Toán 11</a></li>
+            <li><a href="tai-lieu.html"><i class="fa-solid fa-book"></i> Luyện thi THPT Toán 12</a></li>
+            <li><a href="thi-hsg.html"><i class="fa-solid fa-trophy"></i> Bồi dưỡng HSG Toán</a></li>
+            <li><a href="trac-nghiem.html"><i class="fa-solid fa-pen-ruler"></i> Đề thi thử online</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span class="school-year-display">2026 - 2027</span> ThS. Lương Thanh Sáng • Giáo viên Toán THPT Nguyễn Văn Thoại, xã Thoại Sơn, tỉnh An Giang. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nút cuộn lên đầu trang -->
+  <button class="back-to-top" id="backToTop" title="Lên đầu trang">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Khung thông báo Toast Message -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/document-data.js?v=3.1"></script>
+  <script src="js/script.js?v=3.1"></script>
+</body>
+</html>
+
+

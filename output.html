@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head>
+<script>
+window.onerror = function(msg, url, line, col, error) {
+    document.body.innerHTML += '<div id="js-error">ERROR: ' + msg + ' at line ' + line + ':' + col + ' in ' + url + '</div>';
+    console.error('JS_ERROR:', msg, url, line, col);
+};
+</script>
+<script src="js/lesson-10-8-data.js"></script>
+<script src="js/lessons-data.js"></script>
+<script src="js/olm-lesson-engine.js"></script>
+<script src="js/script.js"></script>
+</head>
+<body>
+<div id="status">Testing</div>
+
+</body></html>

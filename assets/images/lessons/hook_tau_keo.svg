@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="seaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="shipGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="tugGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Water -->
+  <rect width="720" height="380" rx="16" fill="url(#seaGrad)"/>
+  
+  <!-- Navigation Channel Axis (Trục luồng hàng hải) -->
+  <line x1="60" y1="190" x2="660" y2="190" stroke="#64748b" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="630" y="210" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-style="italic" fill="#475569">Trục luồng cảng</text>
+
+  <!-- Container Ship (Tàu chở hàng khổng lồ) -->
+  <!-- Hull -->
+  <path d="M 60 150 L 190 150 L 230 190 L 190 230 L 60 230 Z" fill="url(#shipGrad)" stroke="#0f172a" stroke-width="2"/>
+  <!-- Containers on deck -->
+  <rect x="75" y="160" width="30" height="25" rx="3" fill="#3b82f6"/>
+  <rect x="110" y="160" width="30" height="25" rx="3" fill="#ef4444"/>
+  <rect x="145" y="160" width="30" height="25" rx="3" fill="#eab308"/>
+  <rect x="75" y="195" width="30" height="25" rx="3" fill="#10b981"/>
+  <rect x="110" y="195" width="30" height="25" rx="3" fill="#8b5cf6"/>
+  <rect x="145" y="195" width="30" height="25" rx="3" fill="#f97316"/>
+  <text x="90" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">Tàu chở hàng (M)</text>
+
+  <!-- Point of Force Application M (Mũi tàu) -->
+  <circle cx="230" cy="190" r="7" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+  <text x="215" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">M</text>
+
+  <!-- Tugboat 1 (Tàu lai dắt 1 - Phía trên) -->
+  <path d="M 440 65 L 510 65 L 530 85 L 510 105 L 440 105 Z" fill="url(#tugGrad1)" stroke="#c2410c" stroke-width="2"/>
+  <rect x="460" y="75" width="25" height="20" rx="3" fill="#ffffff" opacity="0.9"/>
+  <text x="445" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#c2410c">Tàu kéo 1</text>
+
+  <!-- Tugboat 2 (Tàu lai dắt 2 - Phía dưới) -->
+  <path d="M 440 275 L 510 275 L 530 295 L 510 315 L 440 315 Z" fill="url(#tugGrad1)" stroke="#c2410c" stroke-width="2"/>
+  <rect x="460" y="285" width="25" height="20" rx="3" fill="#ffffff" opacity="0.9"/>
+  <text x="445" y="335" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#c2410c">Tàu kéo 2</text>
+
+  <!-- Towing Cables (Dây cáp kéo) -->
+  <line x1="230" y1="190" x2="440" y2="85" stroke="#78716c" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="230" y1="190" x2="440" y2="295" stroke="#78716c" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- Force Vectors F1, F2 -->
+  <line x1="230" y1="190" x2="380" y2="115" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arrowRed)"/>
+  <g>
+    <text x="330" y="110" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">F<tspan font-size="11" dy="4">1</tspan><tspan dy="-4"> (Lực kéo 1)</tspan></text>
+    <path d="M 330 96 L 342 96 M 339 93 L 343 96 L 339 99" stroke="#dc2626" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <line x1="230" y1="190" x2="380" y2="265" stroke="#2563eb" stroke-width="3.5" marker-end="url(#arrowBlue)"/>
+  <g>
+    <text x="330" y="280" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#2563eb">F<tspan font-size="11" dy="4">2</tspan><tspan dy="-4"> (Lực kéo 2)</tspan></text>
+    <path d="M 330 266 L 342 266 M 339 263 L 343 266 L 339 269" stroke="#2563eb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Angle Arcs -->
+  <path d="M 270 170 A 45 45 0 0 0 275 190" fill="none" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="282" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">&#945;&#8321;</text>
+
+  <path d="M 275 190 A 45 45 0 0 0 270 210" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="282" y="208" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#2563eb">&#945;&#8322;</text>
+
+  <!-- Resultant Force F = F1 + F2 (Hợp lực kéo đi thẳng) -->
+  <line x1="230" y1="190" x2="490" y2="190" stroke="#16a34a" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <g>
+    <text x="390" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#16a34a">F  =  F<tspan font-size="11" dy="3">1</tspan><tspan dy="-3">  +  F</tspan><tspan font-size="11" dy="3">2</tspan><tspan dy="-3"> (Hợp lực)</tspan></text>
+    <path d="M 390 162 L 401 162 M 398 159 L 402 162 L 398 165" stroke="#16a34a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 436 162 L 447 162 M 444 159 L 448 162 L 444 165" stroke="#16a34a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 488 162 L 499 162 M 496 159 L 500 162 L 496 165" stroke="#16a34a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Parallelogram dashed lines -->
+  <line x1="380" y1="115" x2="490" y2="190" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="4 4"/>
+  <line x1="380" y1="265" x2="490" y2="190" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="4 4"/>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="100%" height="100%">
+  <rect width="720" height="280" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Case 1: Song song d // (alpha) -->
+  <g transform="translate(20, 20)">
+    <polygon points="20,180 80,120 210,120 150,180" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">&#945;</text>
+    <line x1="30" y1="70" x2="200" y2="70" stroke="#dc2626" stroke-width="3"/>
+    <text x="180" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">d</text>
+    <text x="40" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">1. d // (&#945;)</text>
+    <text x="30" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#0369a1">0 điểm chung (d &#8745; &#945; = &#8709;)</text>
+  </g>
+
+  <!-- Divider 1 -->
+  <line x1="250" y1="30" x2="250" y2="250" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Case 2: Cắt nhau d cap (alpha) = {M} -->
+  <g transform="translate(260, 20)">
+    <polygon points="20,180 80,120 210,120 150,180" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#b45309">&#945;</text>
+    <!-- Line entering above -->
+    <line x1="60" y1="40" x2="115" y2="150" stroke="#2563eb" stroke-width="3"/>
+    <!-- Intersection point M -->
+    <circle cx="115" cy="150" r="5" fill="#dc2626"/>
+    <text x="125" y="155" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">M</text>
+    <!-- Hidden dashed segment -->
+    <line x1="115" y1="150" x2="128" y2="175" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="3 3"/>
+    <!-- Line going below -->
+    <line x1="128" y1="175" x2="145" y2="205" stroke="#2563eb" stroke-width="3"/>
+    <text x="50" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#2563eb">d</text>
+    <text x="40" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">2. d cắt (&#945;)</text>
+    <text x="25" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#b45309">Đúng 1 điểm chung (d &#8745; &#945; = {M})</text>
+  </g>
+
+  <!-- Divider 2 -->
+  <line x1="490" y1="30" x2="490" y2="250" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Case 3: Nằm trong d subset (alpha) -->
+  <g transform="translate(500, 20)">
+    <polygon points="20,180 80,120 210,120 150,180" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#15803d">&#945;</text>
+    <line x1="50" y1="150" x2="175" y2="150" stroke="#16a34a" stroke-width="3.5"/>
+    <text x="185" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#16a34a">d</text>
+    <text x="40" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">3. d &#8834; (&#945;)</text>
+    <text x="30" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#15803d">Vô số điểm chung</text>
+  </g>
+</svg>

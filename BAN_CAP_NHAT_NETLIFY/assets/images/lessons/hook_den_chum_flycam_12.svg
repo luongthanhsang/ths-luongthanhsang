@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="100%" height="100%">
+  <defs>
+    <marker id="mArrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="mArrP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+    <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#eab308" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="720" height="360" rx="14" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+
+  <!-- Ceiling (Trần nhà) -->
+  <polygon points="120,60 260,20 600,20 460,60" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="330" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">TRẦN NHÀ (4 Móc treo A, B, C, D)</text>
+
+  <!-- 4 Anchor Points on ceiling: A=(160, 55), B=(280, 25), C=(560, 25), D=(440, 55) -->
+  <circle cx="160" cy="55" r="5" fill="#38bdf8"/>
+  <text x="145" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#38bdf8">A</text>
+  <circle cx="280" cy="25" r="5" fill="#38bdf8"/>
+  <text x="270" y="18" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#38bdf8">B</text>
+  <circle cx="560" cy="25" r="5" fill="#38bdf8"/>
+  <text x="570" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#38bdf8">C</text>
+  <circle cx="440" cy="55" r="5" fill="#38bdf8"/>
+  <text x="450" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#38bdf8">D</text>
+
+  <!-- Chandelier Ring Point O (Tâm đèn O) = (360, 200) -->
+  <circle cx="360" cy="200" r="35" fill="url(#lampGlow)"/>
+  <circle cx="360" cy="200" r="10" fill="#fbbf24" stroke="#ffffff" stroke-width="2"/>
+  <text x="375" y="205" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#ffffff">O</text>
+
+  <!-- Chandelier Decorative Rings -->
+  <ellipse cx="360" cy="220" rx="60" ry="18" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <ellipse cx="360" cy="240" rx="40" ry="12" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="360" y1="200" x2="360" y2="255" stroke="#f59e0b" stroke-width="2"/>
+  <text x="315" y="275" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#fde047">Đèn chùm nghệ thuật (m = 12 kg)</text>
+
+  <!-- 4 Cables and Tension Vectors -->
+  <!-- Cable 1: O -> A -->
+  <line x1="360" y1="200" x2="160" y2="55" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="360" y1="200" x2="280" y2="142" stroke="#0284c7" stroke-width="3.5" marker-end="url(#mArrT)"/>
+  <g>
+    <text x="250" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">T<tspan font-size="10" dy="2">1</tspan></text>
+    <path d="M 250 140 L 258 140 M 256 138 L 259 140 L 256 142" stroke="#38bdf8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Cable 2: O -> B -->
+  <line x1="360" y1="200" x2="280" y2="25" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="360" y1="200" x2="330" y2="130" stroke="#0284c7" stroke-width="3.5" marker-end="url(#mArrT)"/>
+  <g>
+    <text x="305" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">T<tspan font-size="10" dy="2">2</tspan></text>
+    <path d="M 305 105 L 313 105 M 311 103 L 314 105 L 311 107" stroke="#38bdf8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Cable 3: O -> C -->
+  <line x1="360" y1="200" x2="560" y2="25" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="360" y1="200" x2="440" y2="130" stroke="#0284c7" stroke-width="3.5" marker-end="url(#mArrT)"/>
+  <g>
+    <text x="445" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">T<tspan font-size="10" dy="2">3</tspan></text>
+    <path d="M 445 115 L 453 115 M 451 113 L 454 115 L 451 117" stroke="#38bdf8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Cable 4: O -> D -->
+  <line x1="360" y1="200" x2="440" y2="55" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="360" y1="200" x2="400" y2="142" stroke="#0284c7" stroke-width="3.5" marker-end="url(#mArrT)"/>
+  <g>
+    <text x="405" y="160" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">T<tspan font-size="10" dy="2">4</tspan></text>
+    <path d="M 405 150 L 413 150 M 411 148 L 414 150 L 411 152" stroke="#38bdf8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Gravity Vector P (Trọng lực kéo xuống) -->
+  <line x1="360" y1="200" x2="360" y2="330" stroke="#dc2626" stroke-width="4.5" marker-end="url(#mArrP)"/>
+  <g>
+    <text x="375" y="325" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#ef4444">P (Trọng lực)</text>
+    <path d="M 375 311 L 385 311 M 382 308 L 386 311 L 382 314" stroke="#ef4444" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Balance equation card on right -->
+  <rect x="530" y="210" width="170" height="130" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="540" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">&#11088; CÂN BẰNG LỰC 3D:</text>
+  <g>
+    <text x="540" y="260" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#e2e8f0">T<tspan font-size="9" dy="2">1</tspan><tspan dy="-2"> + T</tspan><tspan font-size="9" dy="2">2</tspan><tspan dy="-2"> + T</tspan><tspan font-size="9" dy="2">3</tspan><tspan dy="-2"> + T</tspan><tspan font-size="9" dy="2">4</tspan><tspan dy="-2"> + P = 0</tspan></text>
+    <path d="M 540 250 L 547 250 M 545 248 L 548 250 L 545 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+    <path d="M 567 250 L 574 250 M 572 248 L 575 250 L 572 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+    <path d="M 594 250 L 601 250 M 599 248 L 602 250 L 599 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+    <path d="M 621 250 L 628 250 M 626 248 L 629 250 L 626 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+    <path d="M 648 250 L 655 250 M 653 248 L 656 250 L 653 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+    <path d="M 674 250 L 681 250 M 679 248 L 682 250 L 679 252" stroke="#e2e8f0" stroke-width="1.2" fill="none"/>
+  </g>
+  <text x="540" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">Tính lực căng mỗi dây T = ?</text>
+  <text x="540" y="315" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#4ade80">&#10148; Cần dùng Vectơ không gian!</text>
+</svg>
