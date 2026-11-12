@@ -599,3 +599,4 @@ window.LESSON_10_C4_B7_DATA = {
 if (typeof window !== "undefined") {
   window.LESSON_10_7_DATA = window.LESSON_10_C4_B7_DATA;
 }
+

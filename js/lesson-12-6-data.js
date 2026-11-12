@@ -784,3 +784,4 @@ window.LESSON_12_C2_B6_DATA = {
 if (typeof window !== "undefined") {
   window.LESSON_12_6_DATA = window.LESSON_12_C2_B6_DATA;
 }
+
