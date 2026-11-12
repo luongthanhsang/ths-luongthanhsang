@@ -1,4 +1,4 @@
-﻿/**
+/**
  * BÀI HỌC SỐ: BÀI 8. TỔNG VÀ HIỆU CỦA HAI VECTƠ (TOÁN 10 - KẾT NỐI TRI THỨC VỚI CUỘC SỐNG)
  * Biên soạn & Chuẩn hóa: ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang)
  * =========================================================================================
