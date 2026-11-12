@@ -2174,7 +2174,7 @@ function initDigitalLessons() {
 
   // Đọc URL params nếu có
   const urlParams = new URLSearchParams(window.location.search);
-  let currentGrade = urlParams.get("grade") || "10";
+  let currentGrade = urlParams.get("grade") || "12";
   if (!["10", "11", "12"].includes(currentGrade)) {
     currentGrade = "10";
   }
@@ -2218,7 +2218,7 @@ function initDigitalLessons() {
   function getDefaultLessonId(grade) {
     if (grade === "10") return "10-c4-b8"; // Mặc định mở Bài 8 (Tổng và hiệu của hai vectơ) mới biên soạn
     if (grade === "11") return "11-c4-b12";
-    if (grade === "12") return "12-c2-b6";
+    if (grade === "12") return "12-c2-b7"; // Mặc định mở Bài 7 (Hệ trục toạ độ trong không gian) mới biên soạn
     const gradeData = db[grade];
     if (gradeData && gradeData.chapters && gradeData.chapters.length > 0) {
       for (const ch of gradeData.chapters) {

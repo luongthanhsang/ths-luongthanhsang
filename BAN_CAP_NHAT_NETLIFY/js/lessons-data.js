@@ -2899,249 +2899,35 @@ const LESSONS_DATABASE = {
               }
             ]
           },
-          {
-            id: "12-c2-b7",
-            number: "Bài 7",
-            title: "Hệ trục toạ độ trong không gian",
-            isFeaturedLesson: true,
-            isOlmInteractive: true,
-            teacherWelcome: {
-              greetingText: "Thầy Sáng xin chào tất cả các em học sinh lớp 12 thân yêu! Hôm nay, Thầy trò mình sẽ cùng bước vào Bài 7: Hệ trục toạ độ trong không gian Oxyz. Đây là bài học mang tính nền tảng quyết định của toàn bộ chương trình hình học lớp 12, chiếm tỉ trọng câu hỏi rất lớn trong đề thi tốt nghiệp THPT Quốc gia. Trước khi khám phá, các em hãy cùng Thầy xác định 4 mục tiêu cốt lõi: Thứ nhất, hiểu rõ cấu tạo hệ trục toạ độ Oxyz với ba trục vuông góc và ba véctơ đơn vị i, j, k. Thứ hai, xác định thành thạo toạ độ điểm M và các hình chiếu vuông góc lên các mặt phẳng toạ độ. Thứ ba, nắm vững toạ độ véctơ u và công thức AB = B - A. Và thứ tư, vận dụng hệ toạ độ để giải quyết các bài toán thực tiễn không gian ba chiều. Các em hãy chuẩn bị vở ghi, thước kẻ và sẵn sàng tương tác cùng Thầy Sáng nhé!",
-              audioScript: "Thầy Sáng xin chào tất cả các em học sinh lớp mười hai thân yêu! Hôm nay, Thầy trò mình sẽ cùng bước vào Bài bảy: Hệ trục toạ độ trong không gian O x y z. Đây là một trong những bài học mang tính nền tảng quan trọng nhất của toàn bộ chương trình hình học lớp mười hai, chiếm tỉ trọng câu hỏi rất lớn trong đề thi tốt nghiệp trung học phổ thông quốc gia. Trước khi khám phá, các em hãy cùng Thầy xác định bốn mục tiêu cốt lõi cần làm chủ. Thứ nhất, hiểu rõ cấu tạo hệ trục toạ độ O x y z với ba trục vuông góc và ba véc tơ đơn vị i, j, k. Thứ hai, xác định thành thạo toạ độ của điểm M và các hình chiếu vuông góc lên các mặt phẳng toạ độ. Thứ ba, nắm vững toạ độ véc tơ u và công thức toạ độ véc tơ A B bằng toạ độ B trừ toạ độ A. Và thứ tư, vận dụng hệ toạ độ để giải quyết các bài toán thực tiễn không gian ba chiều. Các em hãy chuẩn bị vở ghi, thước kẻ và sẵn sàng tương tác cùng Thầy Sáng nhé!",
-              audioUrl: "assets/audio/b12_7_welcome.mp3"
-            },
-            learningGoals: [
-              "Hiểu rõ cấu tạo hệ trục toạ độ Đề-các vuông góc $Oxyz$ trong không gian: gốc toạ độ $O$, ba trục $Ox, Oy, Oz$ đôi một vuông góc, ba véctơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$ và ba mặt phẳng toạ độ $(Oxy), (Oyz), (Ozx)$.",
-              "Làm chủ khái niệm toạ độ của điểm $M(x; y; z)$ thông qua biểu diễn $\\vec{OM} = x\\vec{i} + y\\vec{j} + z\\vec{k}$ và xác định nhanh toạ độ các hình chiếu vuông góc lên trục/mặt phẳng toạ độ.",
-              "Nắm vững toạ độ véctơ $\\vec{u} = (x; y; z) \\Leftrightarrow \\vec{u} = x\\vec{i} + y\\vec{j} + z\\vec{k}$ và công thức liên hệ điểm đầu - điểm cuối: $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A)$.",
-              "Vận dụng hệ toạ độ $Oxyz$ để giải quyết bài toán thực tế: định vị radar hàng không và phân tích kết cấu giàn không gian 3 chiều."
-            ],
-            hook: {
-              title: "Bài toán định vị kiểm soát không lưu radar tại sân bay Tân Sơn Nhất",
-              story: "Tại trung tâm kiểm soát không lưu radar, mỗi máy bay di chuyển trên bầu trời đều được máy tính giám sát liên tục theo ba thông số: vị trí Đông - Tây, vị trí Nam - Bắc và độ cao so với mực nước biển. Khi hai máy bay bay cắt qua cùng một khu vực không phận, làm thế nào để các kỹ sư điều hành biết chắc chắn chúng không bao giờ va chạm nhau, và tính được khoảng cách chính xác từng mét giữa hai phi cơ?",
-              illustrationCaption: "Mô hình hoá không gian ba chiều định vị vị trí máy bay qua ba trục kinh độ, vĩ độ và độ cao",
-              question: "Để mô tả vị trí của một vật thể tự do bay lượn trong không gian bao la, hệ toạ độ mặt phẳng Oxy quen thuộc ở lớp 10 có còn đủ để xác định không, hay ta cần thêm đại lượng đo lường nào nữa?",
-              teacherNote: "Rất trực quan các em ạ! Trong mặt phẳng, ta chỉ cần hai số (hoành độ và tung độ) để định vị. Nhưng trong không gian ba chiều thực tế, một chiếc máy bay hay một vệ tinh còn có thêm 'độ cao' (cao độ z). Đó chính là lý do các nhà toán học đã xây dựng Hệ trục toạ độ Đề-các Oxyz – chìa khoá để số hoá vạn vật trong vũ trụ 3 chiều!"
-            },
-            interactiveAudio: {
-              title: "Bài giảng tương tác chuẩn OLM: Hệ trục toạ độ Oxyz & Toạ độ điểm, véctơ",
-              audioUrl: "assets/audio/b12_7_main_lecture.mp3",
-              timestamps: [
+          // Bài 7: Hệ trục toạ độ trong không gian (Tương thích 2 chiều với lesson-12-7-data.js)
+          (function() {
+            if (typeof window !== "undefined" && window.LESSON_12_C2_B7_DATA) {
+              return window.LESSON_12_C2_B7_DATA;
+            }
+            return {
+              id: "12-c2-b7",
+              number: "Bài 7",
+              title: "Hệ trục toạ độ trong không gian",
+              sections: [
                 {
-                  time: 25,
-                  id: "poi-1",
-                  question: "Trong không gian $Oxyz$, cho ba véctơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$ lần lượt trên ba trục $Ox, Oy, Oz$. Khẳng định nào sau đây là <strong>SAI</strong>?",
-                  options: [
-                    "A. $|\\vec{i}| = |\\vec{j}| = |\\vec{k}| = 1$",
-                    "B. $\\vec{i} \\cdot \\vec{j} = 0, \\; \\vec{j} \\cdot \\vec{k} = 0, \\; \\vec{k} \\cdot \\vec{i} = 0$",
-                    "C. $\\vec{i}^2 = \\vec{j}^2 = \\vec{k}^2 = 1$",
-                    "D. $\\vec{i} + \\vec{j} + \\vec{k} = \\vec{0}$"
-                  ],
-                  correctIndex: 3,
-                  hint: "Ba véctơ đơn vị xuất phát từ gốc O hướng theo ba phương vuông góc, độ dài đều bằng 1 nên tổng của chúng là véctơ đường chéo hình lập phương đơn vị, không thể triệt tiêu thành véctơ không!",
-                  explanation: "Theo định nghĩa SGK, $\\vec{i}, \\vec{j}, \\vec{k}$ đôi một vuông góc nên tích vô hướng bằng 0; mỗi véctơ có độ dài bằng 1 nên bình phương vô hướng bằng 1. Tổng $\\vec{i} + \\vec{j} + \\vec{k} = (1; 1; 1) \\neq \\vec{0}$. Do đó khẳng định D là sai."
+                  id: "12-c2-b7-s1",
+                  title: "1. Hệ trục toạ độ và toạ độ của điểm trong không gian",
+                  subsections: [
+                    { id: "12-c2-b7-s1-a", title: "a) Hệ trục toạ độ Đề-các vuông góc trong không gian Oxyz", summary: "Ba trục Ox, Oy, Oz đôi một vuông góc; ba véctơ đơn vị i, j, k và các mặt phẳng toạ độ (Oxy), (Oyz), (Ozx)." },
+                    { id: "12-c2-b7-s1-b", title: "b) Toạ độ của một điểm trong không gian & Toạ độ hình chiếu", summary: "OM = x.i + y.j + z.k <=> M(x; y; z). Hoành độ x, tung độ y, cao độ z. Toạ độ hình chiếu vuông góc lên các trục và các mặt phẳng toạ độ." }
+                  ]
                 },
                 {
-                  time: 55,
-                  id: "poi-2",
-                  question: "Trong không gian $Oxyz$, cho điểm $M(3; -2; 5)$. Toạ độ hình chiếu vuông góc của $M$ lên mặt phẳng toạ độ $(Oxy)$ là:",
-                  options: [
-                    "A. $M'(3; -2; 0)$",
-                    "B. $M'(3; 0; 5)$",
-                    "C. $M'(0; -2; 5)$",
-                    "D. $M'(0; 0; 5)$"
-                  ],
-                  correctIndex: 0,
-                  hint: "Mặt phẳng toạ độ (Oxy) khuyết cao độ z (tức là z = 0). Khi chiếu vuông góc điểm M(x; y; z) lên (Oxy), hoành độ x và tung độ y giữ nguyên, còn z = 0.",
-                  explanation: "Hình chiếu vuông góc của điểm $M(x; y; z)$ lên mặt phẳng toạ độ $(Oxy)$ có toạ độ là $M'(x; y; 0)$. Với $M(3; -2; 5)$, ta được $M'(3; -2; 0)$."
+                  id: "12-c2-b7-s2",
+                  title: "2. Toạ độ của véctơ trong không gian",
+                  subsections: [
+                    { id: "12-c2-b7-s2-a", title: "a) Định nghĩa toạ độ véctơ và các véctơ đặc biệt", summary: "u = (x; y; z) <=> u = x.i + y.j + z.k. Toạ độ véctơ i, j, k, 0. Điều kiện hai véctơ bằng nhau." },
+                    { id: "12-c2-b7-s2-b", title: "b) Liên hệ toạ độ điểm và véctơ: Véctơ AB, Trung điểm & Trọng tâm", summary: "AB = (xB - xA; yB - yA; zB - zA). Toạ độ trung điểm M của AB. Toạ độ trọng tâm G của tam giác ABC." }
+                  ]
                 }
               ]
-            },
-            geogebra3D: {
-              title: "Mô hình hình học động GeoGebra 3D & 3D Canvas Engine",
-              iframeUrl: "https://www.geogebra.org/material/iframe/id/h2spt8z5/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false",
-              description: "Học sinh có thể dùng chuột/ngón tay xoay 360 độ góc nhìn không gian, kéo các thanh trượt x, y, z để quan sát toạ độ điểm M(x; y; z) và các hình chiếu vuông góc lên ba mặt phẳng toạ độ theo thời gian thực."
-            },
-            sections: [
-              {
-                id: "12-c2-b7-s1",
-                num: "1",
-                title: "Hệ toạ độ Oxyz và toạ độ của một điểm",
-                subsections: [
-                  {
-                    key: "a",
-                    title: "Hệ trục toạ độ Đề-các vuông góc Oxyz",
-                    summary: "Ba trục Ox, Oy, Oz đôi một vuông góc tại gốc O; ba véctơ đơn vị i, j, k và các mặt phẳng toạ độ (Oxy), (Oyz), (Ozx).",
-                    contentHtml: `
-                      <div class="definition-card">
-                        <div class="def-badge"><i class="fa-solid fa-cube"></i> Định nghĩa Hệ trục toạ độ Oxyz</div>
-                        <p>Trong không gian, xét ba trục số $Ox, Oy, Oz$ vuông góc với nhau từng đôi một tại gốc $O$. Ta gọi đó là <strong>hệ trục toạ độ Đề-các vuông góc trong không gian</strong> (gọi tắt là hệ toạ độ $Oxyz$).</p>
-                        <ul>
-                          <li><strong>Điểm gốc:</strong> Điểm $O$ gọi là <em>gốc toạ độ</em>.</li>
-                          <li><strong>Các trục:</strong> Trục $Ox$ gọi là <em>trục hoành</em>; trục $Oy$ gọi là <em>trục tung</em>; trục $Oz$ gọi là <em>trục cao</em>.</li>
-                          <li><strong>Các véctơ đơn vị:</strong> Lần lượt trên các trục $Ox, Oy, Oz$, ta chọn các véctơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$ sao cho:
-                            <div class="math-highlight-box">
-                              $|\\vec{i}| = |\\vec{j}| = |\\vec{k}| = 1 \\quad \\text{và} \\quad \\vec{i} \\cdot \\vec{j} = \\vec{j} \\cdot \\vec{k} = \\vec{k} \\cdot \\vec{i} = 0$
-                            </div>
-                          </li>
-                          <li><strong>Các mặt phẳng toạ độ:</strong> Mặt phẳng $(Oxy)$ đi qua hai trục $Ox$ và $Oy$; mặt phẳng $(Oyz)$ đi qua hai trục $Oy$ và $Oz$; mặt phẳng $(Ozx)$ đi qua hai trục $Oz$ và $Ox$. Ba mặt phẳng toạ độ này vuông góc từng đôi một.</li>
-                        </ul>
-                      </div>
-                    `
-                  },
-                  {
-                    key: "b",
-                    title: "Toạ độ của một điểm trong không gian",
-                    summary: "Định nghĩa toạ độ điểm M(x; y; z) qua véctơ OM = x.i + y.j + z.k và toạ độ các hình chiếu vuông góc.",
-                    contentHtml: `
-                      <div class="definition-card">
-                        <div class="def-badge"><i class="fa-solid fa-location-dot"></i> Định nghĩa Toạ độ điểm M</div>
-                        <p>Trong không gian với hệ toạ độ $Oxyz$, cho một điểm $M$ tuỳ ý. Khi đó luôn tồn tại <strong>duy nhất</strong> một bộ ba số thực $(x; y; z)$ sao cho:</p>
-                        <div class="math-highlight-box">
-                          $\\vec{OM} = x\\vec{i} + y\\vec{j} + z\\vec{k}$
-                        </div>
-                        <p>Bộ ba số $(x; y; z)$ đó được gọi là <strong>toạ độ của điểm $M$</strong> đối với hệ toạ độ $Oxyz$, ký hiệu là $M(x; y; z)$ hoặc $M = (x; y; z)$.</p>
-                        <p>Trong đó: $x$ là <em>hoành độ</em>, $y$ là <em>tung độ</em>, $z$ là <em>cao độ</em> của điểm $M$.</p>
-                      </div>
-
-                      <div class="property-card" style="margin-top: 18px;">
-                        <div class="prop-badge"><i class="fa-solid fa-lightbulb"></i> Quy tắc nhớ nhanh toạ độ hình chiếu vuông góc</div>
-                        <p>Để tìm toạ độ hình chiếu vuông góc của điểm $M(x; y; z)$:</p>
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem;">
-                          <thead>
-                            <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
-                              <th style="padding: 8px 12px; text-align: left;">Chiếu lên</th>
-                              <th style="padding: 8px 12px; text-align: left;">Toạ độ hình chiếu</th>
-                              <th style="padding: 8px 12px; text-align: left;">Quy tắc ghi nhớ</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                              <td style="padding: 8px 12px;"><strong>Mặt phẳng $(Oxy)$</strong></td>
-                              <td style="padding: 8px 12px; color: #0284c7; font-weight: 700;">$M_{Oxy}(x; y; 0)$</td>
-                              <td style="padding: 8px 12px;">Khuyết $z$ thì $z = 0$, giữ nguyên $x, y$</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                              <td style="padding: 8px 12px;"><strong>Mặt phẳng $(Oyz)$</strong></td>
-                              <td style="padding: 8px 12px; color: #0284c7; font-weight: 700;">$M_{Oyz}(0; y; z)$</td>
-                              <td style="padding: 8px 12px;">Khuyết $x$ thì $x = 0$, giữ nguyên $y, z$</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                              <td style="padding: 8px 12px;"><strong>Mặt phẳng $(Ozx)$</strong></td>
-                              <td style="padding: 8px 12px; color: #0284c7; font-weight: 700;">$M_{Ozx}(x; 0; z)$</td>
-                              <td style="padding: 8px 12px;">Khuyết $y$ thì $y = 0$, giữ nguyên $x, z$</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e2e8f0;">
-                              <td style="padding: 8px 12px;"><strong>Trục $Ox$</strong></td>
-                              <td style="padding: 8px 12px; color: #10b981; font-weight: 700;">$M_x(x; 0; 0)$</td>
-                              <td style="padding: 8px 12px;">Chỉ giữ hoành độ $x$, $y = z = 0$</td>
-                            </tr>
-                            <tr>
-                              <td style="padding: 8px 12px;"><strong>Trục $Oz$</strong></td>
-                              <td style="padding: 8px 12px; color: #10b981; font-weight: 700;">$M_z(0; 0; z)$</td>
-                              <td style="padding: 8px 12px;">Chỉ giữ cao độ $z$, $x = y = 0$</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    `,
-                    workedExample: {
-                      title: "Ví dụ 1: Xác định toạ độ điểm và hình chiếu vuông góc",
-                      problem: "Trong không gian $Oxyz$, cho điểm $A$ thoả mãn hệ thức véctơ: $\\vec{OA} = 2\\vec{i} - 5\\vec{j} + 7\\vec{k}$. Hãy xác định toạ độ của điểm $A$ và tìm toạ độ các điểm hình chiếu vuông góc của $A$ lên mặt phẳng $(Oxy)$ và trục $Oz$.",
-                      solution: `
-                        <p>1. Theo định nghĩa toạ độ của một điểm trong không gian:</p>
-                        <p>Vì $\\vec{OA} = 2\\vec{i} - 5\\vec{j} + 7\\vec{k}$ nên toạ độ của điểm $A$ là: $A(2; -5; 7)$.</p>
-                        <p>2. Hình chiếu vuông góc của điểm $A(2; -5; 7)$ lên mặt phẳng toạ độ $(Oxy)$ là điểm $A_1(2; -5; 0)$ (giữ nguyên $x$ và $y$, thay $z = 0$).</p>
-                        <p>3. Hình chiếu vuông góc của điểm $A(2; -5; 7)$ lên trục cao $Oz$ là điểm $A_2(0; 0; 7)$ (thay $x = 0, y = 0$, giữ nguyên $z = 7$).</p>
-                      `,
-                      thinking: "Các em hãy luôn đối chiếu biểu thức véctơ với dạng chuẩn: số nhân với i là hoành độ x, số nhân với j là tung độ y, và số nhân với k là cao độ z. Nếu khuyết véctơ nào thì toạ độ tương ứng bằng 0 nhé!"
-                    }
-                  }
-                ]
-              },
-              {
-                id: "12-c2-b7-s2",
-                num: "2",
-                title: "Toạ độ của véctơ trong không gian",
-                subsections: [
-                  {
-                    key: "a",
-                    title: "Biểu diễn véctơ qua bộ ba véctơ đơn vị",
-                    summary: "u = (x; y; z) <=> u = x.i + y.j + z.k; toạ độ của các véctơ đặc biệt.",
-                    contentHtml: `
-                      <div class="definition-card">
-                        <div class="def-badge"><i class="fa-solid fa-arrows-to-dot"></i> Định nghĩa Toạ độ véctơ trong không gian</div>
-                        <p>Trong không gian với hệ toạ độ $Oxyz$, cho véctơ $\\vec{u}$. Khi đó luôn tồn tại <strong>duy nhất</strong> bộ ba số thực $(x; y; z)$ sao cho:</p>
-                        <div class="math-highlight-box">
-                          $\\vec{u} = x\\vec{i} + y\\vec{j} + z\\vec{k}$
-                        </div>
-                        <p>Bộ ba số $(x; y; z)$ được gọi là <strong>toạ độ của véctơ $\\vec{u}$</strong>, ký hiệu là $\\vec{u} = (x; y; z)$ hoặc $\\vec{u}(x; y; z)$.</p>
-                        <ul>
-                          <li>$\\vec{i} = (1; 0; 0); \\quad \\vec{j} = (0; 1; 0); \\quad \\vec{k} = (0; 0; 1)$</li>
-                          <li>Véctơ không: $\\vec{0} = (0; 0; 0)$</li>
-                          <li>Hai véctơ bằng nhau: Cho $\\vec{u} = (x_1; y_1; z_1)$ và $\\vec{v} = (x_2; y_2; z_2)$. Khi đó:
-                            <div class="math-highlight-box">
-                              $\\vec{u} = \\vec{v} \\iff \\begin{cases} x_1 = x_2 \\\\ y_1 = y_2 \\\\ z_1 = z_2 \\end{cases}$
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    `
-                  },
-                  {
-                    key: "b",
-                    title: "Toạ độ điểm đầu và điểm cuối của véctơ",
-                    summary: "Công thức AB = (xB - xA; yB - yA; zB - zA) và mối liên hệ giữa toạ độ điểm và véctơ.",
-                    contentHtml: `
-                      <div class="theorem-card">
-                        <div class="theorem-badge"><i class="fa-solid fa-calculator"></i> Định lí toạ độ véctơ qua toạ độ hai đầu mút</div>
-                        <p>Trong không gian $Oxyz$, cho hai điểm $A(x_A; y_A; z_A)$ và $B(x_B; y_B; z_B)$. Khi đó toạ độ của véctơ $\\vec{AB}$ được tính theo công thức:</p>
-                        <div class="math-highlight-box">
-                          $\\vec{AB} = (x_B - x_A; \\; y_B - y_A; \\; z_B - z_A)$
-                        </div>
-                        <p style="margin-top: 8px;"><em>(Quy tắc nhớ: Toạ độ véctơ bằng toạ độ điểm ngọn trừ toạ độ điểm gốc).</em></p>
-                      </div>
-                    `,
-                    workedExample: {
-                      title: "Ví dụ 2: Tính toạ độ véctơ và tìm toạ độ điểm",
-                      problem: "Trong không gian $Oxyz$, cho điểm $A(1; -2; 3)$ và véctơ $\\vec{u} = (-3; 4; 1)$.<br>a) Tìm toạ độ của điểm $B$ sao cho $\\vec{AB} = \\vec{u}$.<br>b) Tìm toạ độ trung điểm $M$ của đoạn thẳng $AB$.",
-                      solution: `
-                        <p><strong>a) Tìm toạ độ điểm $B$:</strong></p>
-                        <p>Gọi $B(x_B; y_B; z_B)$. Ta có $\\vec{AB} = (x_B - 1; \\; y_B - (-2); \\; z_B - 3) = (x_B - 1; \\; y_B + 2; \\; z_B - 3)$.</p>
-                        <p>Vì $\\vec{AB} = \\vec{u} = (-3; 4; 1)$ nên ta có hệ phương trình:</p>
-                        <p>$\\begin{cases} x_B - 1 = -3 \\\\ y_B + 2 = 4 \\\\ z_B - 3 = 1 \\end{cases} \\iff \\begin{cases} x_B = -2 \\\\ y_B = 2 \\\\ z_B = 4 \\end{cases}$. Vậy $B(-2; 2; 4)$.</p>
-                        <p><strong>b) Tìm toạ độ trung điểm $M$:</strong></p>
-                        <p>Áp dụng công thức toạ độ trung điểm đoạn thẳng $AB$:</p>
-                        <p>$x_M = \\frac{x_A + x_B}{2} = \\frac{1 + (-2)}{2} = -\\frac{1}{2}$;</p>
-                        <p>$y_M = \\frac{y_A + y_B}{2} = \\frac{-2 + 2}{2} = 0$;</p>
-                        <p>$z_M = \\frac{z_A + z_B}{2} = \\frac{3 + 4}{2} = \\frac{7}{2}$.</p>
-                        <p>Vậy trung điểm $M$ có toạ độ là $M\\left(-\\frac{1}{2}; \\; 0; \\; \\frac{7}{2}\\right)$.</p>
-                      `,
-                      thinking: "Các em lưu ý: Để tìm toạ độ điểm ngọn B khi biết điểm gốc A và véctơ AB, ta chỉ việc lấy toạ độ điểm A cộng với toạ độ véctơ AB: B = A + AB. Cách nhớ này rất nhanh và không bao giờ bị nhầm lẫn dấu!"
-                    }
-                  }
-                ]
-              }
-            ],
-            realworldWrapup: {
-              title: "QUAY LẠI GIẢI QUYẾT BÀI TOÁN TÌNH HUỐNG: ĐỊNH VỊ RA-ĐA KHÔNG LƯU",
-              recap: "Trong bài toán mở đầu, trạm kiểm soát không lưu radar tại sân bay phát hiện máy bay A ở vị trí M1(40; 60; 8) và máy bay B ở vị trí M2(40; 60; 11) (đơn vị toạ độ tính bằng ki-lô-mét). Hãy giải thích ý nghĩa toạ độ và tính khoảng cách thẳng đứng an toàn giữa hai máy bay.",
-              illustrationCaption: "Mô hình hoá hệ toạ độ 3D kiểm soát không lưu định vị phân cách an toàn giữa hai máy bay",
-              solution: `
-                <p>1. <strong>Phân tích ý nghĩa toạ độ:</strong></p>
-                <ul>
-                  <li>Máy bay $A$ có toạ độ $M_1(40; 60; 8)$: Nghĩa là máy bay đang ở toạ độ cách gốc radar $40\\text{ km}$ về hướng Đông (trục $Ox$), $60\\text{ km}$ về hướng Bắc (trục $Oy$), và ở độ cao $8\\text{ km}$ (cao độ $z = 8$).</li>
-                  <li>Máy bay $B$ có toạ độ $M_2(40; 60; 11)$: Nghĩa là máy bay đang ở cùng vị trí mặt phẳng $(Oxy)$ với máy bay $A$ (cùng kinh độ và vĩ độ), nhưng ở độ cao $11\\text{ km}$ (cao độ $z = 11$).</li>
-                </ul>
-                <p>2. <strong>Tính khoảng cách và đánh giá an toàn:</strong></p>
-                <p>Toạ độ véctơ nối hai máy bay: $\\vec{M_1 M_2} = (40 - 40; \\; 60 - 60; \\; 11 - 8) = (0; 0; 3)$.</p>
-                <p>Khoảng cách giữa hai máy bay: $M_1 M_2 = |\\vec{M_1 M_2}| = \\sqrt{0^2 + 0^2 + 3^2} = 3\\text{ km} = 3000\\text{ mét}$.</p>
-                <p><strong>Kết luận của Thầy Sáng:</strong> Mặc dù hai máy bay có cùng vị trí kinh vĩ độ trên mặt đất ($x = 40, y = 60$), nhưng nhờ có trục cao độ $Oz$, khoảng cách thẳng đứng giữa chúng là $3000\\text{ mét}$, vượt xa tiêu chuẩn phân cách an toàn tối thiểu của ngành hàng không quốc tế ($1000\\text{ feet} \\approx 300\\text{ mét}$). Nhờ hệ trục toạ độ $Oxyz$, các kiểm soát viên không lưu hoàn toàn yên tâm về an toàn bay!</p>
-              `,
-              audioScript: "Chào các em! Như vậy Thầy trò mình đã cùng nhau làm chủ toạ độ của điểm và véc tơ trong không gian. Trong thực tế đời sống, hệ trục toạ độ O x y z chính là ngôn ngữ để các hệ thống radar hàng không kiểm soát đường bay của máy bay, hoặc các kĩ sư tính toán kết cấu giàn không gian mái vòm sân vận động hiện đại. Khi gắn hệ toạ độ vào công trình, mọi vị trí liên kết đều được số hoá chính xác từng mi li mét. Các em hãy tiếp tục làm phần luyện tập thích ứng bên dưới để tích luỹ điểm thưởng và làm chủ hoàn toàn bài học nhé!",
-              audioUrl: "assets/audio/b12_7_wrapup.mp3"
-            }
-          },
+            };
+          })(),
           {
             id: "12-c2-b8",
             number: "Bài 8",
@@ -3497,20 +3283,28 @@ const LESSONS_DATABASE = {
 if (typeof window !== "undefined") {
   window.LESSONS_DATABASE = LESSONS_DATABASE;
 
-  // Tự động kết nối với window.LESSON_10_C4_B8_DATA nếu có sẵn
-  if (window.LESSON_10_C4_B8_DATA) {
-    try {
-      var c4 = window.LESSONS_DATABASE["10"] && window.LESSONS_DATABASE["10"].chapters["c4"];
-      if (c4 && Array.isArray(c4.lessons)) {
-        var idx = c4.lessons.findIndex(function(l) { return l.id === "10-c4-b8"; });
-        if (idx !== -1) {
-          c4.lessons[idx] = window.LESSON_10_C4_B8_DATA;
+  // Hàm tự động kết nối dữ liệu bài học độc lập vào LESSONS_DATABASE
+  function autoInjectLesson(lessonData) {
+    if (!lessonData || !lessonData.id) return;
+    for (var gradeKey in window.LESSONS_DATABASE) {
+      var g = window.LESSONS_DATABASE[gradeKey];
+      if (g && Array.isArray(g.chapters)) {
+        for (var i = 0; i < g.chapters.length; i++) {
+          var ch = g.chapters[i];
+          if (ch && Array.isArray(ch.lessons)) {
+            var idx = ch.lessons.findIndex(function(l) { return l.id === lessonData.id; });
+            if (idx !== -1) {
+              ch.lessons[idx] = lessonData;
+              return;
+            }
+          }
         }
       }
-    } catch (e) {
-      console.warn("Could not auto-link LESSON_10_C4_B8_DATA:", e);
     }
   }
+
+  if (window.LESSON_10_C4_B8_DATA) autoInjectLesson(window.LESSON_10_C4_B8_DATA);
+  if (window.LESSON_12_C2_B7_DATA) autoInjectLesson(window.LESSON_12_C2_B7_DATA);
 }
 
 
