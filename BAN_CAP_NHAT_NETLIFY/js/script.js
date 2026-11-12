@@ -1,12 +1,12 @@
-/**
- * SCRIPT ĐIỀU KHIỂN WEBSITE TOÁN THS. LƯƠNG THANH SÁNG
+﻿/**
+ * SCRIPT ÄIá»€U KHIá»‚N WEBSITE TOÃN THS. LÆ¯Æ NG THANH SÃNG
  * ====================================================================
- * Bao gồm các tính năng:
- * 1. Thanh điều hướng, cuộn mượt và Menu Mobile
- * 2. Kho tài liệu: Lọc theo khối, lọc phân môn, tìm kiếm, xem PDF modal, tải về
- * 3. Hệ thống thi trắc nghiệm online: Bấm giờ, chấm điểm, hiển thị MathJax, xem lời giải
- * 4. Form gửi thắc mắc bài tập cho Thầy Sáng
- * 5. Toast thông báo và nút Cuộn lên đầu trang
+ * Bao gá»“m cÃ¡c tÃ­nh nÄƒng:
+ * 1. Thanh Ä‘iá»u hÆ°á»›ng, cuá»™n mÆ°á»£t vÃ  Menu Mobile
+ * 2. Kho tÃ i liá»‡u: Lá»c theo khá»‘i, lá»c phÃ¢n mÃ´n, tÃ¬m kiáº¿m, xem PDF modal, táº£i vá»
+ * 3. Há»‡ thá»‘ng thi tráº¯c nghiá»‡m online: Báº¥m giá», cháº¥m Ä‘iá»ƒm, hiá»ƒn thá»‹ MathJax, xem lá»i giáº£i
+ * 4. Form gá»­i tháº¯c máº¯c bÃ i táº­p cho Tháº§y SÃ¡ng
+ * 5. Toast thÃ´ng bÃ¡o vÃ  nÃºt Cuá»™n lÃªn Ä‘áº§u trang
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * Tự động tính toán và hiển thị năm học hiện tại theo lịch thực tế (lịch vạn niên):
- * - Năm học ở Việt Nam tính từ tháng 8 năm trước đến hết tháng 7 năm sau.
- * - Ví dụ: Từ tháng 08/2026 đến tháng 07/2027 => Năm học 2026 - 2027.
- * - Tự động cập nhật cho các năm tiếp theo (2027 - 2028, 2028 - 2029...) mà không cần sửa code.
+ * Tá»± Ä‘á»™ng tÃ­nh toÃ¡n vÃ  hiá»ƒn thá»‹ nÄƒm há»c hiá»‡n táº¡i theo lá»‹ch thá»±c táº¿ (lá»‹ch váº¡n niÃªn):
+ * - NÄƒm há»c á»Ÿ Viá»‡t Nam tÃ­nh tá»« thÃ¡ng 8 nÄƒm trÆ°á»›c Ä‘áº¿n háº¿t thÃ¡ng 7 nÄƒm sau.
+ * - VÃ­ dá»¥: Tá»« thÃ¡ng 08/2026 Ä‘áº¿n thÃ¡ng 07/2027 => NÄƒm há»c 2026 - 2027.
+ * - Tá»± Ä‘á»™ng cáº­p nháº­t cho cÃ¡c nÄƒm tiáº¿p theo (2027 - 2028, 2028 - 2029...) mÃ  khÃ´ng cáº§n sá»­a code.
  */
 function initDynamicSchoolYear() {
   try {
@@ -31,8 +31,8 @@ function initDynamicSchoolYear() {
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth() + 1; // 1 -> 12
 
-    // Năm học chuẩn 2026 - 2027 theo yêu cầu của Thầy Sáng,
-    // và tự động tăng theo lịch vạn niên khi bước sang các năm học tiếp theo (2027 - 2028, 2028 - 2029...)
+    // NÄƒm há»c chuáº©n 2026 - 2027 theo yÃªu cáº§u cá»§a Tháº§y SÃ¡ng,
+    // vÃ  tá»± Ä‘á»™ng tÄƒng theo lá»‹ch váº¡n niÃªn khi bÆ°á»›c sang cÃ¡c nÄƒm há»c tiáº¿p theo (2027 - 2028, 2028 - 2029...)
     let startYear = currentMonth >= 8 ? currentYear : currentYear - 1;
     if (startYear < 2026) {
       startYear = 2026;
@@ -45,7 +45,7 @@ function initDynamicSchoolYear() {
       el.textContent = schoolYearString;
     });
   } catch (err) {
-    console.warn("Lỗi cập nhật năm học tự động:", err);
+    console.warn("Lá»—i cáº­p nháº­t nÄƒm há»c tá»± Ä‘á»™ng:", err);
   }
 }
 
@@ -58,7 +58,7 @@ function initNavigation() {
   const navLinks = document.getElementById("navLinks");
   const navItems = document.querySelectorAll(".nav-link");
 
-  // Đổi bóng header khi cuộn trang
+  // Äá»•i bÃ³ng header khi cuá»™n trang
   window.addEventListener("scroll", () => {
     if (header) {
       if (window.scrollY > 40) {
@@ -80,7 +80,7 @@ function initNavigation() {
       }
     });
 
-    // Đóng menu khi click vào bất kỳ link nào
+    // ÄÃ³ng menu khi click vÃ o báº¥t ká»³ link nÃ o
     navItems.forEach(link => {
       link.addEventListener("click", () => {
         navLinks.classList.remove("open");
@@ -93,7 +93,7 @@ function initNavigation() {
     });
   }
 
-  // Highlight menu mục đang xem khi cuộn trang
+  // Highlight menu má»¥c Ä‘ang xem khi cuá»™n trang
   const sections = document.querySelectorAll("section[id]");
   window.addEventListener("scroll", () => {
     const scrollY = window.pageYOffset;
@@ -115,7 +115,7 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   2. KHO TÀI LIỆU (DOCUMENT REPOSITORY & PDF PREVIEW MODAL)
+   2. KHO TÃ€I LIá»†U (DOCUMENT REPOSITORY & PDF PREVIEW MODAL)
    ========================================================================== */
 let currentGradeFilter = "all";
 let currentCategoryFilter = "all";
@@ -127,7 +127,7 @@ function initDocumentRepository() {
 
   renderDocuments();
 
-  // Sự kiện chọn tab Khối lớp (10, 11, 12, tất cả)
+  // Sá»± kiá»‡n chá»n tab Khá»‘i lá»›p (10, 11, 12, táº¥t cáº£)
   const gradeTabBtns = document.querySelectorAll(".grade-tab-btn");
   gradeTabBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {
@@ -138,7 +138,7 @@ function initDocumentRepository() {
     });
   });
 
-  // Sự kiện chọn lọc chuyên đề bộ môn
+  // Sá»± kiá»‡n chá»n lá»c chuyÃªn Ä‘á» bá»™ mÃ´n
   const categoryFilterBtns = document.querySelectorAll(".filter-pill");
   categoryFilterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -149,7 +149,7 @@ function initDocumentRepository() {
     });
   });
 
-  // Sự kiện tìm kiếm tài liệu theo từ khóa
+  // Sá»± kiá»‡n tÃ¬m kiáº¿m tÃ i liá»‡u theo tá»« khÃ³a
   const searchInput = document.getElementById("docSearchInput");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
@@ -158,11 +158,11 @@ function initDocumentRepository() {
     });
   }
 
-  // Khởi tạo các sự kiện của Modal xem file trực tiếp
+  // Khá»Ÿi táº¡o cÃ¡c sá»± kiá»‡n cá»§a Modal xem file trá»±c tiáº¿p
   initPreviewModal();
 }
 
-// Hàm hỗ trợ lọc ngoài menu gọi nhanh từ Footer hoặc các nút liên kết
+// HÃ m há»— trá»£ lá»c ngoÃ i menu gá»i nhanh tá»« Footer hoáº·c cÃ¡c nÃºt liÃªn káº¿t
 window.filterByGrade = function(grade) {
   const gradeTabBtns = document.querySelectorAll(".grade-tab-btn");
   gradeTabBtns.forEach(btn => {
@@ -173,7 +173,7 @@ window.filterByGrade = function(grade) {
 };
 
 window.filterByCategory = function(category) {
-  // Đặt lại lọc khối về tất cả
+  // Äáº·t láº¡i lá»c khá»‘i vá» táº¥t cáº£
   window.filterByGrade("all");
 
   const categoryFilterBtns = document.querySelectorAll(".filter-pill");
@@ -194,11 +194,11 @@ function renderDocuments() {
   if (!grid) return;
 
   if (typeof DOCUMENTS_DATA === "undefined" || !Array.isArray(DOCUMENTS_DATA)) {
-    grid.innerHTML = "<p class='no-doc-found'>Dữ liệu tài liệu đang được cập nhật...</p>";
+    grid.innerHTML = "<p class='no-doc-found'>Dá»¯ liá»‡u tÃ i liá»‡u Ä‘ang Ä‘Æ°á»£c cáº­p nháº­t...</p>";
     return;
   }
 
-  // Lọc theo Khối, Chuyên đề và Từ khóa tìm kiếm
+  // Lá»c theo Khá»‘i, ChuyÃªn Ä‘á» vÃ  Tá»« khÃ³a tÃ¬m kiáº¿m
   const filtered = DOCUMENTS_DATA.filter(doc => {
     const matchGrade = currentGradeFilter === "all" || doc.grade === currentGradeFilter || doc.grade === "all";
     const matchCategory = currentCategoryFilter === "all" || doc.category === currentCategoryFilter;
@@ -216,14 +216,14 @@ function renderDocuments() {
     grid.innerHTML = `
       <div class="no-doc-found">
         <i class="fa-regular fa-folder-open"></i>
-        <h3>Không tìm thấy tài liệu phù hợp</h3>
-        <p>Thầy Sáng đang biên soạn thêm. Thầy hoặc các em có thể thử đổi từ khóa tìm kiếm hoặc chọn khối lớp khác nhé!</p>
+        <h3>KhÃ´ng tÃ¬m tháº¥y tÃ i liá»‡u phÃ¹ há»£p</h3>
+        <p>Tháº§y SÃ¡ng Ä‘ang biÃªn soáº¡n thÃªm. Tháº§y hoáº·c cÃ¡c em cÃ³ thá»ƒ thá»­ Ä‘á»•i tá»« khÃ³a tÃ¬m kiáº¿m hoáº·c chá»n khá»‘i lá»›p khÃ¡c nhÃ©!</p>
       </div>
     `;
     return;
   }
 
-  // Render các thẻ tài liệu
+  // Render cÃ¡c tháº» tÃ i liá»‡u
   grid.innerHTML = filtered.map(doc => {
     const isPdf = doc.type === "pdf";
     const iconClass = isPdf ? "fa-solid fa-file-pdf" : "fa-solid fa-file-word";
@@ -238,7 +238,7 @@ function renderDocuments() {
             </div>
             <div>
               <div class="doc-badges">
-                <span class="doc-grade-badge">Khối ${doc.grade}</span>
+                <span class="doc-grade-badge">Khá»‘i ${doc.grade}</span>
                 ${doc.tag ? `<span class="doc-tag-badge">${doc.tag}</span>` : ""}
               </div>
               <h3 class="doc-title">${escapeHtml(doc.title)}</h3>
@@ -257,10 +257,10 @@ function renderDocuments() {
 
           <div class="doc-actions">
             <button class="btn-preview" onclick="openDocPreview('${doc.id}')">
-              <i class="fa-solid fa-eye"></i> Xem trực tiếp
+              <i class="fa-solid fa-eye"></i> Xem trá»±c tiáº¿p
             </button>
             <a href="${doc.downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-download" onclick="handleDocDownload('${escapeHtml(doc.title)}')">
-              <i class="fa-solid fa-download"></i> Tải về máy
+              <i class="fa-solid fa-download"></i> Táº£i vá» mÃ¡y
             </a>
           </div>
         </div>
@@ -269,24 +269,24 @@ function renderDocuments() {
   }).join("");
 }
 
-// Khởi tạo Modal xem PDF trực tiếp
+// Khá»Ÿi táº¡o Modal xem PDF trá»±c tiáº¿p
 function initPreviewModal() {
   const modal = document.getElementById("pdfPreviewModal");
   const closeBtn = document.getElementById("modalCloseBtn");
 
   if (!modal || !closeBtn) return;
 
-  // Đóng modal bằng nút X
+  // ÄÃ³ng modal báº±ng nÃºt X
   closeBtn.addEventListener("click", closeDocPreview);
 
-  // Đóng modal khi bấm vào vùng nền đen mờ
+  // ÄÃ³ng modal khi báº¥m vÃ o vÃ¹ng ná»n Ä‘en má»
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
       closeDocPreview();
     }
   });
 
-  // Đóng modal khi bấm phím ESC trên bàn phím
+  // ÄÃ³ng modal khi báº¥m phÃ­m ESC trÃªn bÃ n phÃ­m
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("active")) {
       closeDocPreview();
@@ -294,7 +294,7 @@ function initPreviewModal() {
   });
 }
 
-// Hàm tự động chuẩn hóa link Google Drive thành link preview nhúng trực tiếp
+// HÃ m tá»± Ä‘á»™ng chuáº©n hÃ³a link Google Drive thÃ nh link preview nhÃºng trá»±c tiáº¿p
 function formatDrivePreviewUrl(url) {
   if (!url) return "";
   const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -304,7 +304,7 @@ function formatDrivePreviewUrl(url) {
   return url;
 }
 
-// Mở modal xem tài liệu trực tiếp
+// Má»Ÿ modal xem tÃ i liá»‡u trá»±c tiáº¿p
 window.openDocPreview = function(docId) {
   const modal = document.getElementById("pdfPreviewModal");
   const modalDocTitle = document.getElementById("modalDocTitle");
@@ -323,7 +323,7 @@ window.openDocPreview = function(docId) {
     modalOpenExternalBtn.href = doc.downloadUrl || doc.previewUrl;
   }
 
-  // Hiển thị khung xem tài liệu:
+  // Hiá»ƒn thá»‹ khung xem tÃ i liá»‡u:
   modalBody.innerHTML = `
     <div style="width:100%; height:100%; display:flex; flex-direction:column;">
       <iframe 
@@ -333,14 +333,14 @@ window.openDocPreview = function(docId) {
         title="${escapeHtml(doc.title)}"
       ></iframe>
       <div style="padding: 8px 16px; background: #e2e8f0; font-size: 0.8rem; color: #475569; display: flex; justify-content: space-between; align-items: center;">
-        <span><i class="fa-solid fa-info-circle"></i> Tài liệu: ${escapeHtml(doc.title)} (Khối ${doc.grade} - ${doc.pages} trang)</span>
-        <span>Nếu khung xem trước không tải được do chặn bên ngoài, vui lòng bấm nút "Tải về máy" ở góc phải</span>
+        <span><i class="fa-solid fa-info-circle"></i> TÃ i liá»‡u: ${escapeHtml(doc.title)} (Khá»‘i ${doc.grade} - ${doc.pages} trang)</span>
+        <span>Náº¿u khung xem trÆ°á»›c khÃ´ng táº£i Ä‘Æ°á»£c do cháº·n bÃªn ngoÃ i, vui lÃ²ng báº¥m nÃºt "Táº£i vá» mÃ¡y" á»Ÿ gÃ³c pháº£i</span>
       </div>
     </div>
   `;
 
   modal.classList.add("active");
-  document.body.style.overflow = "hidden"; // Ngăn cuộn trang phía sau
+  document.body.style.overflow = "hidden"; // NgÄƒn cuá»™n trang phÃ­a sau
 };
 
 window.closeDocPreview = function() {
@@ -349,77 +349,77 @@ window.closeDocPreview = function() {
   if (!modal) return;
 
   modal.classList.remove("active");
-  document.body.style.overflow = ""; // Khôi phục cuộn trang
+  document.body.style.overflow = ""; // KhÃ´i phá»¥c cuá»™n trang
   if (modalBody) {
-    modalBody.innerHTML = ""; // Dọn sạch iframe tránh chạy nền
+    modalBody.innerHTML = ""; // Dá»n sáº¡ch iframe trÃ¡nh cháº¡y ná»n
   }
 };
 
 window.handleDocDownload = function(docTitle) {
-  showToast(`Đang chuyển đến liên kết tải tài liệu: "${docTitle}"`, "info");
+  showToast(`Äang chuyá»ƒn Ä‘áº¿n liÃªn káº¿t táº£i tÃ i liá»‡u: "${docTitle}"`, "info");
 };
 
 /* ==========================================================================
-   3. KHU VỰC THI TRẮC NGHIỆM ONLINE (QUIZ SYSTEM) - TOÁN 11 & TOÁN 12
+   3. KHU Vá»°C THI TRáº®C NGHIá»†M ONLINE (QUIZ SYSTEM) - TOÃN 11 & TOÃN 12
    ========================================================================== */
-let currentExamId = "11_GK1_TK5"; // Mặc định tải lên đề Toán 11 mới nhất (TK5)
+let currentExamId = "11_GK1_TK5"; // Máº·c Ä‘á»‹nh táº£i lÃªn Ä‘á» ToÃ¡n 11 má»›i nháº¥t (TK5)
 let currentQuizMode = "all";       // 'all', 'part1', 'part2', 'part3'
-let activeQuizQuestions = [];       // Danh sách câu hỏi đang làm
+let activeQuizQuestions = [];       // Danh sÃ¡ch cÃ¢u há»i Ä‘ang lÃ m
 let userAnswersPart1 = {};          // { "1": "C", "2": "A", ... }
 let userAnswersPart2 = {};          // { "1": { "a": true, "b": false, ... }, ... }
 let userAnswersPart3 = {};          // { "20": { text: "...", images: [] }, "21": ... }
-let essayGradeResults = {};         // Lưu kết quả chấm tự luận tự động { 20: {...}, 21: {...} }
+let essayGradeResults = {};         // LÆ°u káº¿t quáº£ cháº¥m tá»± luáº­n tá»± Ä‘á»™ng { 20: {...}, 21: {...} }
 let quizTimerInterval = null;
 let secondsRemaining = 90 * 60;
 let totalQuizSeconds = 90 * 60;
 let isQuizSubmitted = false;
 let isShowingAllSolutions = false;
-let isExamStarted = false;          // Trạng thái đã bấm "Bắt đầu làm bài" hay chưa
+let isExamStarted = false;          // Tráº¡ng thÃ¡i Ä‘Ã£ báº¥m "Báº¯t Ä‘áº§u lÃ m bÃ i" hay chÆ°a
 
-// Gắn các biến vào window để tiện truy cập toàn cục
+// Gáº¯n cÃ¡c biáº¿n vÃ o window Ä‘á»ƒ tiá»‡n truy cáº­p toÃ n cá»¥c
 window.currentExamId = currentExamId;
 window.isExamStarted = isExamStarted;
 window.activeQuizQuestions = activeQuizQuestions;
 
 function initQuizSystem() {
   const quizContainer = document.getElementById("quizQuestionsContainer");
-  if (!quizContainer) return; // Chỉ khởi động khi đang ở trang trắc nghiệm
+  if (!quizContainer) return; // Chá»‰ khá»Ÿi Ä‘á»™ng khi Ä‘ang á»Ÿ trang tráº¯c nghiá»‡m
 
   updateModeButtonsLabels();
   loadQuestionsForMode(currentQuizMode);
   setupQuizModeButtons();
 
-  // Nút nộp bài
+  // NÃºt ná»™p bÃ i
   const btnSubmit = document.getElementById("btnSubmitQuiz");
   if (btnSubmit) {
     btnSubmit.onclick = () => confirmAndSubmitQuiz();
   }
 
-  // Nút xóa lựa chọn
+  // NÃºt xÃ³a lá»±a chá»n
   const btnReset = document.getElementById("btnResetCurrent");
   if (btnReset) {
     btnReset.onclick = () => resetCurrentAnswers();
   }
 
-  // Nút xem lời giải chi tiết
+  // NÃºt xem lá»i giáº£i chi tiáº¿t
   const btnToggleSolutions = document.getElementById("btnToggleAllSolutions");
   if (btnToggleSolutions) {
     btnToggleSolutions.onclick = () => toggleAllSolutions();
   }
 
-  // Nút làm lại bài thi
+  // NÃºt lÃ m láº¡i bÃ i thi
   const btnRetake = document.getElementById("btnRetakeQuiz");
   if (btnRetake) {
     btnRetake.onclick = () => retakeQuiz();
   }
 }
 
-// Chuyển đổi giữa các bộ đề thi (Toán 11 & Toán 12)
+// Chuyá»ƒn Ä‘á»•i giá»¯a cÃ¡c bá»™ Ä‘á» thi (ToÃ¡n 11 & ToÃ¡n 12)
 window.switchExam = function(examId) {
   if (typeof EXAMS_DATABASE === "undefined" || !EXAMS_DATABASE[examId]) return;
 
   if (!isQuizSubmitted && isExamStarted && (Object.keys(userAnswersPart1).length + Object.keys(userAnswersPart2).length + Object.keys(userAnswersPart3).length > 0)) {
-    if (!confirm("Chuyển đề thi sẽ làm mới các câu trả lời của đề hiện tại. Em có chắc chắn muốn chuyển không?")) {
+    if (!confirm("Chuyá»ƒn Ä‘á» thi sáº½ lÃ m má»›i cÃ¡c cÃ¢u tráº£ lá»i cá»§a Ä‘á» hiá»‡n táº¡i. Em cÃ³ cháº¯c cháº¯n muá»‘n chuyá»ƒn khÃ´ng?")) {
       return;
     }
   }
@@ -428,7 +428,7 @@ window.switchExam = function(examId) {
   window.currentExamId = examId;
   const exam = EXAMS_DATABASE[examId];
 
-  // Cập nhật trạng thái active của nút chọn đề
+  // Cáº­p nháº­t tráº¡ng thÃ¡i active cá»§a nÃºt chá»n Ä‘á»
   document.querySelectorAll(".exam-tab-btn").forEach(btn => {
     if (btn.getAttribute("data-exam") === examId) {
       btn.classList.add("active");
@@ -439,10 +439,10 @@ window.switchExam = function(examId) {
 
   updateModeButtonsLabels();
   loadQuestionsForMode(currentQuizMode);
-  showToast(`Đã chọn: ${exam.config.title}`, "info");
+  showToast(`ÄÃ£ chá»n: ${exam.config.title}`, "info");
 };
 
-// Cập nhật nhãn và mô tả trên các nút chế độ thi (Phần I, II, III)
+// Cáº­p nháº­t nhÃ£n vÃ  mÃ´ táº£ trÃªn cÃ¡c nÃºt cháº¿ Ä‘á»™ thi (Pháº§n I, II, III)
 function updateModeButtonsLabels() {
   const exam = (typeof EXAMS_DATABASE !== "undefined" && EXAMS_DATABASE[currentExamId]) 
                ? EXAMS_DATABASE[currentExamId] 
@@ -455,19 +455,19 @@ function updateModeButtonsLabels() {
   const btnP3 = document.getElementById("modeBtnPart3") || document.querySelector('.quiz-mode-btn[data-mode="part3"]');
 
   if (currentExamId.startsWith("11_")) {
-    if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cả đề thi (21 câu - 90 phút)';
-    if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (16 câu - 4.0đ)';
-    if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (3 câu - 3.0đ)';
-    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Phần III: Tự luận (2 câu - 3.0đ)';
+    if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cáº£ Ä‘á» thi (21 cÃ¢u - 90 phÃºt)';
+    if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Pháº§n I: Tráº¯c nghiá»‡m (16 cÃ¢u - 4.0Ä‘)';
+    if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Pháº§n II: ÄÃºng / Sai (3 cÃ¢u - 3.0Ä‘)';
+    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Pháº§n III: Tá»± luáº­n (2 cÃ¢u - 3.0Ä‘)';
   } else {
-    if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cả đề thi (22 câu - 90 phút)';
-    if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (12 câu - 3.0đ)';
-    if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (4 câu - 4.0đ)';
-    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)';
+    if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cáº£ Ä‘á» thi (22 cÃ¢u - 90 phÃºt)';
+    if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Pháº§n I: Tráº¯c nghiá»‡m (12 cÃ¢u - 3.0Ä‘)';
+    if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Pháº§n II: ÄÃºng / Sai (4 cÃ¢u - 4.0Ä‘)';
+    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Pháº§n III: Tráº£ lá»i ngáº¯n (6 cÃ¢u - 3.0Ä‘)';
   }
 }
 
-// Cập nhật bảng thông báo khởi động và nút Bắt đầu làm bài
+// Cáº­p nháº­t báº£ng thÃ´ng bÃ¡o khá»Ÿi Ä‘á»™ng vÃ  nÃºt Báº¯t Ä‘áº§u lÃ m bÃ i
 function updateExamStartBanner(exam, mode) {
   const banner = document.getElementById("examStartBanner");
   if (!banner) return;
@@ -481,10 +481,10 @@ function updateExamStartBanner(exam, mode) {
   const countQ = activeQuizQuestions.length;
 
   if (titleEl) titleEl.textContent = exam.config.title;
-  if (timeEl) timeEl.textContent = `${timeMins} phút`;
-  if (countEl) countEl.textContent = `${countQ} câu`;
+  if (timeEl) timeEl.textContent = `${timeMins} phÃºt`;
+  if (countEl) countEl.textContent = `${countQ} cÃ¢u`;
 
-  // Thêm trạng thái chờ vào vùng câu hỏi
+  // ThÃªm tráº¡ng thÃ¡i chá» vÃ o vÃ¹ng cÃ¢u há»i
   const container = document.getElementById("quizQuestionsContainer");
   if (container) container.classList.add("exam-waiting");
 
@@ -492,7 +492,7 @@ function updateExamStartBanner(exam, mode) {
   if (paletteBar) paletteBar.classList.add("exam-waiting");
 }
 
-// Kích hoạt làm bài khi học sinh nhấn "BẮT ĐẦU LÀM BÀI"
+// KÃ­ch hoáº¡t lÃ m bÃ i khi há»c sinh nháº¥n "Báº®T Äáº¦U LÃ€M BÃ€I"
 window.startExamSession = function() {
   isExamStarted = true;
   window.isExamStarted = true;
@@ -506,19 +506,19 @@ window.startExamSession = function() {
   if (paletteBar) paletteBar.classList.remove("exam-waiting");
 
   const timerTextEl = document.querySelector(".quiz-timer-text");
-  if (timerTextEl) timerTextEl.textContent = "Thời gian còn lại";
+  if (timerTextEl) timerTextEl.textContent = "Thá»i gian cÃ²n láº¡i";
 
   startQuizTimer();
-  showToast("🚀 Đã bắt đầu tính giờ làm bài! Chúc em làm bài thật tốt!", "info");
+  showToast("ðŸš€ ÄÃ£ báº¯t Ä‘áº§u tÃ­nh giá» lÃ m bÃ i! ChÃºc em lÃ m bÃ i tháº­t tá»‘t!", "info");
 
-  // Cuộn mượt xuống câu hỏi đầu tiên
+  // Cuá»™n mÆ°á»£t xuá»‘ng cÃ¢u há»i Ä‘áº§u tiÃªn
   const firstQ = document.querySelector(".question-card");
   if (firstQ) {
     firstQ.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
 
-// Cấu hình danh sách câu hỏi và thời gian theo từng chế độ
+// Cáº¥u hÃ¬nh danh sÃ¡ch cÃ¢u há»i vÃ  thá»i gian theo tá»«ng cháº¿ Ä‘á»™
 function loadQuestionsForMode(mode) {
   currentQuizMode = mode;
   userAnswersPart1 = {};
@@ -539,44 +539,44 @@ function loadQuestionsForMode(mode) {
 
   if (mode === "part1") {
     activeQuizQuestions = exam.part1;
-    totalQuizSeconds = 45 * 60; // 45 phút
-    const maxScoreP1 = currentExamId.startsWith("11_") ? "4.0 điểm" : "3.0 điểm";
-    if (timeLabel) timeLabel.textContent = `45 phút (Phần I: ${exam.part1.length} câu trắc nghiệm - ${maxScoreP1})`;
-    if (titleDisplay) titleDisplay.textContent = `Phần I: Câu Hỏi Trắc Nghiệm Nhiều Phương Án (${exam.config.title})`;
+    totalQuizSeconds = 45 * 60; // 45 phÃºt
+    const maxScoreP1 = currentExamId.startsWith("11_") ? "4.0 Ä‘iá»ƒm" : "3.0 Ä‘iá»ƒm";
+    if (timeLabel) timeLabel.textContent = `45 phÃºt (Pháº§n I: ${exam.part1.length} cÃ¢u tráº¯c nghiá»‡m - ${maxScoreP1})`;
+    if (titleDisplay) titleDisplay.textContent = `Pháº§n I: CÃ¢u Há»i Tráº¯c Nghiá»‡m Nhiá»u PhÆ°Æ¡ng Ãn (${exam.config.title})`;
   } else if (mode === "part2") {
     activeQuizQuestions = exam.part2;
-    totalQuizSeconds = 25 * 60; // 25 phút
-    const maxScoreP2 = currentExamId.startsWith("11_") ? "3.0 điểm" : "4.0 điểm";
-    if (timeLabel) timeLabel.textContent = `25 phút (Phần II: ${exam.part2.length} câu Đúng / Sai - ${maxScoreP2})`;
-    if (titleDisplay) titleDisplay.textContent = `Phần II: Câu Hỏi Trắc Nghiệm Đúng / Sai (${exam.config.title})`;
+    totalQuizSeconds = 25 * 60; // 25 phÃºt
+    const maxScoreP2 = currentExamId.startsWith("11_") ? "3.0 Ä‘iá»ƒm" : "4.0 Ä‘iá»ƒm";
+    if (timeLabel) timeLabel.textContent = `25 phÃºt (Pháº§n II: ${exam.part2.length} cÃ¢u ÄÃºng / Sai - ${maxScoreP2})`;
+    if (titleDisplay) titleDisplay.textContent = `Pháº§n II: CÃ¢u Há»i Tráº¯c Nghiá»‡m ÄÃºng / Sai (${exam.config.title})`;
   } else if (mode === "part3") {
     activeQuizQuestions = exam.part3;
     totalQuizSeconds = (currentExamId.startsWith("11_") ? 20 : 25) * 60;
-    const p3Type = currentExamId.startsWith("11_") ? "Tự luận" : "Trả lời ngắn";
-    if (timeLabel) timeLabel.textContent = `${currentExamId.startsWith("11_") ? "20" : "25"} phút (Phần III: ${exam.part3.length} câu ${p3Type} - 3.0 điểm)`;
-    if (titleDisplay) titleDisplay.textContent = `Phần III: Câu Hỏi ${p3Type} (${exam.config.title})`;
+    const p3Type = currentExamId.startsWith("11_") ? "Tá»± luáº­n" : "Tráº£ lá»i ngáº¯n";
+    if (timeLabel) timeLabel.textContent = `${currentExamId.startsWith("11_") ? "20" : "25"} phÃºt (Pháº§n III: ${exam.part3.length} cÃ¢u ${p3Type} - 3.0 Ä‘iá»ƒm)`;
+    if (titleDisplay) titleDisplay.textContent = `Pháº§n III: CÃ¢u Há»i ${p3Type} (${exam.config.title})`;
   } else {
-    // Chế độ: Toàn bộ đề thi (Cả 3 phần)
+    // Cháº¿ Ä‘á»™: ToÃ n bá»™ Ä‘á» thi (Cáº£ 3 pháº§n)
     activeQuizQuestions = [...exam.part1, ...exam.part2, ...exam.part3];
-    totalQuizSeconds = 90 * 60; // 90 phút chuẩn
-    if (timeLabel) timeLabel.textContent = `90 phút (Cả đề thi gồm 3 phần - ${exam.config.totalQuestions} câu)`;
+    totalQuizSeconds = 90 * 60; // 90 phÃºt chuáº©n
+    if (timeLabel) timeLabel.textContent = `90 phÃºt (Cáº£ Ä‘á» thi gá»“m 3 pháº§n - ${exam.config.totalQuestions} cÃ¢u)`;
     if (titleDisplay) titleDisplay.textContent = exam.config.title;
   }
 
   secondsRemaining = totalQuizSeconds;
 
-  // Ẩn bảng kết quả cũ
+  // áº¨n báº£ng káº¿t quáº£ cÅ©
   const resultCard = document.getElementById("quizResultCard");
   if (resultCard) resultCard.classList.remove("active");
 
-  // Mở khóa nút nộp bài
+  // Má»Ÿ khÃ³a nÃºt ná»™p bÃ i
   const btnSubmit = document.getElementById("btnSubmitQuiz");
   if (btnSubmit) {
     btnSubmit.disabled = false;
-    btnSubmit.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Nộp bài thi';
+    btnSubmit.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Ná»™p bÃ i thi';
   }
 
-  // Đặt lại đồng hồ đếm ngược và trạng thái chờ bấm "Bắt đầu làm bài"
+  // Äáº·t láº¡i Ä‘á»“ng há»“ Ä‘áº¿m ngÆ°á»£c vÃ  tráº¡ng thÃ¡i chá» báº¥m "Báº¯t Ä‘áº§u lÃ m bÃ i"
   isExamStarted = false;
   if (quizTimerInterval) {
     clearInterval(quizTimerInterval);
@@ -587,7 +587,7 @@ function loadQuestionsForMode(mode) {
     clockEl.classList.remove("warning");
   }
   const timerTextEl = document.querySelector(".quiz-timer-text");
-  if (timerTextEl) timerTextEl.textContent = "Chờ bắt đầu";
+  if (timerTextEl) timerTextEl.textContent = "Chá» báº¯t Ä‘áº§u";
 
   updateExamStartBanner(exam, mode);
   window.activeQuizQuestions = activeQuizQuestions;
@@ -606,7 +606,7 @@ function setupQuizModeButtons() {
       if (mode === currentQuizMode) return;
 
       if (!isQuizSubmitted && Object.keys(userAnswersPart1).length + Object.keys(userAnswersPart2).length + Object.keys(userAnswersPart3).length > 0) {
-        if (!confirm("Chuyển chế độ sẽ làm mới các câu trả lời hiện tại. Em có chắc chắn muốn chuyển không?")) {
+        if (!confirm("Chuyá»ƒn cháº¿ Ä‘á»™ sáº½ lÃ m má»›i cÃ¡c cÃ¢u tráº£ lá»i hiá»‡n táº¡i. Em cÃ³ cháº¯c cháº¯n muá»‘n chuyá»ƒn khÃ´ng?")) {
           return;
         }
       }
@@ -623,7 +623,7 @@ window.switchQuizMode = function(mode) {
   if (btn) btn.click();
 };
 
-// Đồng hồ đếm ngược
+// Äá»“ng há»“ Ä‘áº¿m ngÆ°á»£c
 function startQuizTimer() {
   const clockDisplay = document.getElementById("quizClock");
   if (!clockDisplay) return;
@@ -634,7 +634,7 @@ function startQuizTimer() {
   quizTimerInterval = setInterval(() => {
     if (secondsRemaining <= 0) {
       clearInterval(quizTimerInterval);
-      showToast("Đã hết thời gian làm bài! Hệ thống đang tự động nộp bài...", "warning");
+      showToast("ÄÃ£ háº¿t thá»i gian lÃ m bÃ i! Há»‡ thá»‘ng Ä‘ang tá»± Ä‘á»™ng ná»™p bÃ i...", "warning");
       submitQuiz(true);
       return;
     }
@@ -642,7 +642,7 @@ function startQuizTimer() {
     secondsRemaining--;
     updateClockDisplay(clockDisplay, secondsRemaining);
 
-    // Cảnh báo khi còn dưới 3 phút
+    // Cáº£nh bÃ¡o khi cÃ²n dÆ°á»›i 3 phÃºt
     if (secondsRemaining <= 180) {
       clockDisplay.classList.add("warning");
     } else {
@@ -657,7 +657,7 @@ function updateClockDisplay(el, secs) {
   el.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
 }
 
-// Render danh sách câu hỏi
+// Render danh sÃ¡ch cÃ¢u há»i
 function renderQuizQuestions() {
   const container = document.getElementById("quizQuestionsContainer");
   if (!container) return;
@@ -669,52 +669,52 @@ function renderQuizQuestions() {
     const qPart = q.part || "I";
     const qKey = `${qPart}_${q.id}`;
 
-    // Render Banner phân tách từng phần khi chuyển phần
+    // Render Banner phÃ¢n tÃ¡ch tá»«ng pháº§n khi chuyá»ƒn pháº§n
     if (currentQuizMode === "all" && qPart !== lastPart) {
       lastPart = qPart;
       if (qPart === "I") {
-        const count = currentExamId.startsWith("11_") ? "từ câu 1 đến câu 16" : "từ câu 1 đến câu 12";
-        const score = currentExamId.startsWith("11_") ? "Tối đa 4,0 điểm" : "Tối đa 3,0 điểm";
+        const count = currentExamId.startsWith("11_") ? "tá»« cÃ¢u 1 Ä‘áº¿n cÃ¢u 16" : "tá»« cÃ¢u 1 Ä‘áº¿n cÃ¢u 12";
+        const score = currentExamId.startsWith("11_") ? "Tá»‘i Ä‘a 4,0 Ä‘iá»ƒm" : "Tá»‘i Ä‘a 3,0 Ä‘iá»ƒm";
         html += `
           <div class="quiz-part-banner">
-            <h4>PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN</h4>
-            <p>Thí sinh trả lời ${count}. Mỗi câu hỏi chỉ chọn một phương án đúng (Mỗi câu 0,25 điểm - ${score}).</p>
+            <h4>PHáº¦N I. CÃ‚U TRáº®C NGHIá»†M NHIá»€U PHÆ¯Æ NG ÃN Lá»°A CHá»ŒN</h4>
+            <p>ThÃ­ sinh tráº£ lá»i ${count}. Má»—i cÃ¢u há»i chá»‰ chá»n má»™t phÆ°Æ¡ng Ã¡n Ä‘Ãºng (Má»—i cÃ¢u 0,25 Ä‘iá»ƒm - ${score}).</p>
           </div>
         `;
       } else if (qPart === "II") {
-        const count = currentExamId.startsWith("11_") ? "từ câu 17 đến câu 19" : "từ câu 1 đến câu 4";
-        const score = currentExamId.startsWith("11_") ? "Tối đa 3,0 điểm" : "Tối đa 4,0 điểm";
+        const count = currentExamId.startsWith("11_") ? "tá»« cÃ¢u 17 Ä‘áº¿n cÃ¢u 19" : "tá»« cÃ¢u 1 Ä‘áº¿n cÃ¢u 4";
+        const score = currentExamId.startsWith("11_") ? "Tá»‘i Ä‘a 3,0 Ä‘iá»ƒm" : "Tá»‘i Ä‘a 4,0 Ä‘iá»ƒm";
         html += `
           <div class="quiz-part-banner" style="border-left-color: #38bdf8;">
-            <h4>PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG SAI</h4>
-            <p>Thí sinh trả lời ${count}. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng (Đ) hoặc sai (S) (${score}).</p>
+            <h4>PHáº¦N II. CÃ‚U TRáº®C NGHIá»†M ÄÃšNG SAI</h4>
+            <p>ThÃ­ sinh tráº£ lá»i ${count}. Trong má»—i Ã½ a), b), c), d) á»Ÿ má»—i cÃ¢u, thÃ­ sinh chá»n Ä‘Ãºng (Ä) hoáº·c sai (S) (${score}).</p>
           </div>
         `;
       } else if (qPart === "III") {
         if (currentExamId.startsWith("11_")) {
           html += `
             <div class="quiz-part-banner" style="border-left-color: #10b981;">
-              <h4>PHẦN III. CÂU TỰ LUẬN</h4>
-              <p>Thí sinh giải chi tiết câu 20 và 21 (Mỗi câu 1,5 điểm - Tối đa 3,0 điểm). Thí sinh có thể ghi nháp vào ô bên dưới, đối chiếu lời giải và barem từng bước của Thầy Sáng sau khi nộp bài.</p>
+              <h4>PHáº¦N III. CÃ‚U Tá»° LUáº¬N</h4>
+              <p>ThÃ­ sinh giáº£i chi tiáº¿t cÃ¢u 20 vÃ  21 (Má»—i cÃ¢u 1,5 Ä‘iá»ƒm - Tá»‘i Ä‘a 3,0 Ä‘iá»ƒm). ThÃ­ sinh cÃ³ thá»ƒ ghi nhÃ¡p vÃ o Ã´ bÃªn dÆ°á»›i, Ä‘á»‘i chiáº¿u lá»i giáº£i vÃ  barem tá»«ng bÆ°á»›c cá»§a Tháº§y SÃ¡ng sau khi ná»™p bÃ i.</p>
             </div>
           `;
         } else {
           html += `
             <div class="quiz-part-banner" style="border-left-color: #4ade80;">
-              <h4>PHẦN III. CÂU TRẮC NGHIỆM TRẢ LỜI NGẮN</h4>
-              <p>Thí sinh trả lời từ câu 1 đến câu 6. Thí sinh giải toán và điền đáp số vào ô trống (Mỗi câu 0,5 điểm - Tối đa 3,0 điểm).</p>
+              <h4>PHáº¦N III. CÃ‚U TRáº®C NGHIá»†M TRáº¢ Lá»œI NGáº®N</h4>
+              <p>ThÃ­ sinh tráº£ lá»i tá»« cÃ¢u 1 Ä‘áº¿n cÃ¢u 6. ThÃ­ sinh giáº£i toÃ¡n vÃ  Ä‘iá»n Ä‘Ã¡p sá»‘ vÃ o Ã´ trá»‘ng (Má»—i cÃ¢u 0,5 Ä‘iá»ƒm - Tá»‘i Ä‘a 3,0 Ä‘iá»ƒm).</p>
             </div>
           `;
         }
       }
     }
 
-    // Card câu hỏi
+    // Card cÃ¢u há»i
     html += `
       <div class="question-item-card" id="question-card-${qKey}" data-part="${qPart}" data-qid="${q.id}">
         <div class="question-header">
           <span class="q-badge">
-            <i class="fa-solid fa-circle-question"></i> Câu ${q.id} (Phần ${qPart})
+            <i class="fa-solid fa-circle-question"></i> CÃ¢u ${q.id} (Pháº§n ${qPart})
           </span>
           <span class="q-topic">${escapeHtml(q.topic || "")}</span>
         </div>
@@ -723,13 +723,13 @@ function renderQuizQuestions() {
 
         ${q.svg ? `<div class="tikz-diagram-wrapper">${q.svg}</div>` : ""}
 
-        <!-- Khung tương tác làm bài theo từng phần -->
+        <!-- Khung tÆ°Æ¡ng tÃ¡c lÃ m bÃ i theo tá»«ng pháº§n -->
         ${renderQuestionInputArea(q, qKey, qPart)}
 
-        <!-- Khung lời giải chi tiết (ẩn mặc định, mở sau khi nộp bài) -->
+        <!-- Khung lá»i giáº£i chi tiáº¿t (áº©n máº·c Ä‘á»‹nh, má»Ÿ sau khi ná»™p bÃ i) -->
         <div class="solution-box" id="solution-box-${qKey}">
           <div class="solution-box-title">
-            <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết từ ThS. Lương Thanh Sáng:
+            <i class="fa-solid fa-lightbulb"></i> Lá»i giáº£i chi tiáº¿t tá»« ThS. LÆ°Æ¡ng Thanh SÃ¡ng:
           </div>
           <div class="solution-body">
             ${q.explanation}
@@ -741,11 +741,11 @@ function renderQuizQuestions() {
 
   container.innerHTML = html;
 
-  // Cập nhật tổng số câu
+  // Cáº­p nháº­t tá»•ng sá»‘ cÃ¢u
   const totalCountEl = document.getElementById("totalQuestionsCount");
   if (totalCountEl) totalCountEl.textContent = activeQuizQuestions.length;
 
-  // Khởi tạo các tiện ích tự luận (MathType, đính kèm ảnh, xem trước MathJax)
+  // Khá»Ÿi táº¡o cÃ¡c tiá»‡n Ã­ch tá»± luáº­n (MathType, Ä‘Ã­nh kÃ¨m áº£nh, xem trÆ°á»›c MathJax)
   activeQuizQuestions.forEach(q => {
     if (q.part === "III" && q.type === "essay") {
       renderEssayImageThumbnails(q.id);
@@ -759,7 +759,7 @@ function renderQuizQuestions() {
 
 function renderQuestionInputArea(q, qKey, qPart) {
   if (qPart === "I") {
-    // Trắc nghiệm 4 lựa chọn A, B, C, D
+    // Tráº¯c nghiá»‡m 4 lá»±a chá»n A, B, C, D
     return `
       <div class="options-grid" id="options-group-${qKey}">
         ${q.options.map(opt => `
@@ -772,7 +772,7 @@ function renderQuestionInputArea(q, qKey, qPart) {
       </div>
     `;
   } else if (qPart === "II") {
-    // Trắc nghiệm Đúng / Sai (4 ý a, b, c, d)
+    // Tráº¯c nghiá»‡m ÄÃºng / Sai (4 Ã½ a, b, c, d)
     return `
       <div class="tf-table" id="tf-group-${qKey}">
         ${q.items.map(item => `
@@ -780,7 +780,7 @@ function renderQuestionInputArea(q, qKey, qPart) {
             <div class="tf-text"><strong>${item.id})</strong> ${item.text}</div>
             <div class="tf-actions">
               <button type="button" class="tf-btn" id="tf-btn-${q.id}-${item.id}-true" onclick="selectPart2Choice(${q.id}, '${item.id}', true)">
-                <i class="fa-solid fa-check"></i> Đúng
+                <i class="fa-solid fa-check"></i> ÄÃºng
               </button>
               <button type="button" class="tf-btn" id="tf-btn-${q.id}-${item.id}-false" onclick="selectPart2Choice(${q.id}, '${item.id}', false)">
                 <i class="fa-solid fa-xmark"></i> Sai
@@ -792,135 +792,135 @@ function renderQuestionInputArea(q, qKey, qPart) {
     `;
   } else if (qPart === "III") {
     if (q.type === "essay") {
-      // Dành cho đề tự luận (Toán 11)
+      // DÃ nh cho Ä‘á» tá»± luáº­n (ToÃ¡n 11)
       const essayData = getEssayData(q.id);
       const savedText = essayData.text || "";
       return `
         <div class="essay-workspace" id="essay-group-${qKey}">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
             <label class="essay-label" for="essay-input-${q.id}" style="margin-bottom: 0;">
-              <i class="fa-solid fa-pen-nib"></i> Bài làm / Các bước giải của em:
+              <i class="fa-solid fa-pen-nib"></i> BÃ i lÃ m / CÃ¡c bÆ°á»›c giáº£i cá»§a em:
             </label>
             <span style="font-size: 0.82rem; color: #475569; font-weight: 600;">
-              <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i> Thang điểm: <strong>${q.maxScore || 1.5} điểm</strong> (chia nhỏ đến 0,25đ)
+              <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i> Thang Ä‘iá»ƒm: <strong>${q.maxScore || 1.5} Ä‘iá»ƒm</strong> (chia nhá» Ä‘áº¿n 0,25Ä‘)
             </span>
           </div>
 
-          <!-- THANH TOÁN TỬ & KÝ HIỆU TOÁN HỌC (MATHTYPE / EQUATION TOOLBAR) -->
+          <!-- THANH TOÃN Tá»¬ & KÃ HIá»†U TOÃN Há»ŒC (MATHTYPE / EQUATION TOOLBAR) -->
           <div class="math-editor-toolbar" id="math-toolbar-${q.id}">
             <div class="toolbar-header">
-              <span class="toolbar-title"><i class="fa-solid fa-calculator"></i> Bảng ký hiệu Toán (MathType / Equation):</span>
+              <span class="toolbar-title"><i class="fa-solid fa-calculator"></i> Báº£ng kÃ½ hiá»‡u ToÃ¡n (MathType / Equation):</span>
               <div class="toolbar-tabs">
-                <button type="button" class="toolbar-tab active" data-tab="common" onclick="switchMathTab(${q.id}, 'common')">Cơ bản</button>
-                <button type="button" class="toolbar-tab" data-tab="trig" onclick="switchMathTab(${q.id}, 'trig')">Lượng giác</button>
-                <button type="button" class="toolbar-tab" data-tab="algebra" onclick="switchMathTab(${q.id}, 'algebra')">Đại số</button>
-                <button type="button" class="toolbar-tab" data-tab="geometry" onclick="switchMathTab(${q.id}, 'geometry')">Hình học & Tập hợp</button>
+                <button type="button" class="toolbar-tab active" data-tab="common" onclick="switchMathTab(${q.id}, 'common')">CÆ¡ báº£n</button>
+                <button type="button" class="toolbar-tab" data-tab="trig" onclick="switchMathTab(${q.id}, 'trig')">LÆ°á»£ng giÃ¡c</button>
+                <button type="button" class="toolbar-tab" data-tab="algebra" onclick="switchMathTab(${q.id}, 'algebra')">Äáº¡i sá»‘</button>
+                <button type="button" class="toolbar-tab" data-tab="geometry" onclick="switchMathTab(${q.id}, 'geometry')">HÃ¬nh há»c & Táº­p há»£p</button>
               </div>
             </div>
             <div class="toolbar-palette">
-              <!-- Tab Cơ bản -->
+              <!-- Tab CÆ¡ báº£n -->
               <div class="symbol-group tab-group-common">
-                <button type="button" class="math-sym-btn" title="Phân số (Bấm để nhập tử và mẫu)" onclick="toggleFractionPopover(${q.id}, event)"><span style="font-weight:700;">a/b</span></button>
-                <button type="button" class="math-sym-btn" title="Căn bậc hai" onclick="insertMathSymbol(${q.id}, '√(x)', 2, 3)"><span style="font-weight:700;">√x</span></button>
-                <button type="button" class="math-sym-btn" title="Bình phương" onclick="insertMathSymbol(${q.id}, '²')"><span style="font-weight:700;">x²</span></button>
-                <button type="button" class="math-sym-btn" title="Lũy thừa n" onclick="insertMathSymbol(${q.id}, 'ⁿ')"><span style="font-weight:700;">xⁿ</span></button>
-                <button type="button" class="math-sym-btn" title="Số Pi" onclick="insertMathSymbol(${q.id}, 'π')"><span style="font-weight:700;">π</span></button>
-                <button type="button" class="math-sym-btn" title="Cộng trừ" onclick="insertMathSymbol(${q.id}, '±')"><span style="font-weight:700;">±</span></button>
-                <button type="button" class="math-sym-btn" title="Tương đương" onclick="insertMathSymbol(${q.id}, ' ⇔ ')"><span style="font-weight:700;">⇔</span></button>
-                <button type="button" class="math-sym-btn" title="Suy ra" onclick="insertMathSymbol(${q.id}, ' ⇒ ')"><span style="font-weight:700;">⇒</span></button>
-                <button type="button" class="math-sym-btn" title="k thuộc Z" onclick="insertMathSymbol(${q.id}, ' (k ∈ ℤ)')"><span style="font-weight:700;">k∈ℤ</span></button>
-                <button type="button" class="math-sym-btn" title="Họ nghiệm ngoặc vuông" onclick="insertMathSymbol(${q.id}, '⎡ x = \\n⎣ x = ', 4, 4)"><span style="font-weight:700;">[ Họ nghiệm</span></button>
-                <button type="button" class="math-sym-btn" title="Hệ phương trình ngoặc nhọn" onclick="insertMathSymbol(${q.id}, '⎧ pt 1\\n⎩ pt 2', 4, 8)"><span style="font-weight:700;">{ Hệ pt</span></button>
+                <button type="button" class="math-sym-btn" title="PhÃ¢n sá»‘ (Báº¥m Ä‘á»ƒ nháº­p tá»­ vÃ  máº«u)" onclick="toggleFractionPopover(${q.id}, event)"><span style="font-weight:700;">a/b</span></button>
+                <button type="button" class="math-sym-btn" title="CÄƒn báº­c hai" onclick="insertMathSymbol(${q.id}, 'âˆš(x)', 2, 3)"><span style="font-weight:700;">âˆšx</span></button>
+                <button type="button" class="math-sym-btn" title="BÃ¬nh phÆ°Æ¡ng" onclick="insertMathSymbol(${q.id}, 'Â²')"><span style="font-weight:700;">xÂ²</span></button>
+                <button type="button" class="math-sym-btn" title="LÅ©y thá»«a n" onclick="insertMathSymbol(${q.id}, 'â¿')"><span style="font-weight:700;">xâ¿</span></button>
+                <button type="button" class="math-sym-btn" title="Sá»‘ Pi" onclick="insertMathSymbol(${q.id}, 'Ï€')"><span style="font-weight:700;">Ï€</span></button>
+                <button type="button" class="math-sym-btn" title="Cá»™ng trá»«" onclick="insertMathSymbol(${q.id}, 'Â±')"><span style="font-weight:700;">Â±</span></button>
+                <button type="button" class="math-sym-btn" title="TÆ°Æ¡ng Ä‘Æ°Æ¡ng" onclick="insertMathSymbol(${q.id}, ' â‡” ')"><span style="font-weight:700;">â‡”</span></button>
+                <button type="button" class="math-sym-btn" title="Suy ra" onclick="insertMathSymbol(${q.id}, ' â‡’ ')"><span style="font-weight:700;">â‡’</span></button>
+                <button type="button" class="math-sym-btn" title="k thuá»™c Z" onclick="insertMathSymbol(${q.id}, ' (k âˆˆ â„¤)')"><span style="font-weight:700;">kâˆˆâ„¤</span></button>
+                <button type="button" class="math-sym-btn" title="Há» nghiá»‡m ngoáº·c vuÃ´ng" onclick="insertMathSymbol(${q.id}, 'âŽ¡ x = \\nâŽ£ x = ', 4, 4)"><span style="font-weight:700;">[ Há» nghiá»‡m</span></button>
+                <button type="button" class="math-sym-btn" title="Há»‡ phÆ°Æ¡ng trÃ¬nh ngoáº·c nhá»n" onclick="insertMathSymbol(${q.id}, 'âŽ§ pt 1\\nâŽ© pt 2', 4, 8)"><span style="font-weight:700;">{ Há»‡ pt</span></button>
               </div>
 
-              <!-- Tab Lượng giác -->
+              <!-- Tab LÆ°á»£ng giÃ¡c -->
               <div class="symbol-group tab-group-trig" style="display:none;">
                 <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'sin(x)', 4, 5)"><span style="font-weight:600;">sin(x)</span></button>
                 <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'cos(x)', 4, 5)"><span style="font-weight:600;">cos(x)</span></button>
                 <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'tan(x)', 4, 5)"><span style="font-weight:600;">tan(x)</span></button>
                 <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'cot(x)', 4, 5)"><span style="font-weight:600;">cot(x)</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'k2π')"><span style="font-weight:700;">k2π</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'kπ')"><span style="font-weight:700;">kπ</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'π/2')"><span style="font-weight:700;">π/2</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'π/4')"><span style="font-weight:700;">π/4</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '3π/4')"><span style="font-weight:700;">3π/4</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '°')"><span style="font-weight:700;">° (độ)</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'α')"><span style="font-weight:700;">α</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'k2Ï€')"><span style="font-weight:700;">k2Ï€</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'kÏ€')"><span style="font-weight:700;">kÏ€</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Ï€/2')"><span style="font-weight:700;">Ï€/2</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Ï€/4')"><span style="font-weight:700;">Ï€/4</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '3Ï€/4')"><span style="font-weight:700;">3Ï€/4</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Â°')"><span style="font-weight:700;">Â° (Ä‘á»™)</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Î±')"><span style="font-weight:700;">Î±</span></button>
               </div>
 
-              <!-- Tab Đại số -->
+              <!-- Tab Äáº¡i sá»‘ -->
               <div class="symbol-group tab-group-algebra" style="display:none;">
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '×')"><span style="font-weight:700;">×</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '÷')"><span style="font-weight:700;">÷</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '≠')"><span style="font-weight:700;">≠</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '≤')"><span style="font-weight:700;">≤</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '≥')"><span style="font-weight:700;">≥</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Ã—')"><span style="font-weight:700;">Ã—</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Ã·')"><span style="font-weight:700;">Ã·</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â‰ ')"><span style="font-weight:700;">â‰ </span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â‰¤')"><span style="font-weight:700;">â‰¤</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â‰¥')"><span style="font-weight:700;">â‰¥</span></button>
                 <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '|x|', 1, 2)"><span style="font-weight:700;">|x|</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Δ')"><span style="font-weight:700;">Δ</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∞')"><span style="font-weight:700;">∞</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'Î”')"><span style="font-weight:700;">Î”</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆž')"><span style="font-weight:700;">âˆž</span></button>
               </div>
 
-              <!-- Tab Hình học & Tập hợp -->
+              <!-- Tab HÃ¬nh há»c & Táº­p há»£p -->
               <div class="symbol-group tab-group-geometry" style="display:none;">
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∈')"><span style="font-weight:700;">∈</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∉')"><span style="font-weight:700;">∉</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '⊂')"><span style="font-weight:700;">⊂</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∩')"><span style="font-weight:700;">∩</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∪')"><span style="font-weight:700;">∪</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∅')"><span style="font-weight:700;">∅</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'ℝ')"><span style="font-weight:700;">ℝ</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'ℤ')"><span style="font-weight:700;">ℤ</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '⊥')"><span style="font-weight:700;">⊥</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '∥')"><span style="font-weight:700;">∥</span></button>
-                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, '△')"><span style="font-weight:700;">△</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆˆ')"><span style="font-weight:700;">âˆˆ</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆ‰')"><span style="font-weight:700;">âˆ‰</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âŠ‚')"><span style="font-weight:700;">âŠ‚</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆ©')"><span style="font-weight:700;">âˆ©</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆª')"><span style="font-weight:700;">âˆª</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆ…')"><span style="font-weight:700;">âˆ…</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â„')"><span style="font-weight:700;">â„</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â„¤')"><span style="font-weight:700;">â„¤</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âŠ¥')"><span style="font-weight:700;">âŠ¥</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'âˆ¥')"><span style="font-weight:700;">âˆ¥</span></button>
+                <button type="button" class="math-sym-btn" onclick="insertMathSymbol(${q.id}, 'â–³')"><span style="font-weight:700;">â–³</span></button>
               </div>
             </div>
           </div>
 
-          <!-- KHUNG NHẬP LIỆU BÀI LÀM -->
+          <!-- KHUNG NHáº¬P LIá»†U BÃ€I LÃ€M -->
           <textarea 
             class="essay-textarea" 
             id="essay-input-${q.id}" 
             rows="5" 
-            placeholder="Nhập bài làm hoặc chọn ký hiệu Toán ở trên... (hoặc bấm dấu '+' bên dưới để đính kèm ảnh bài làm viết tay)" 
+            placeholder="Nháº­p bÃ i lÃ m hoáº·c chá»n kÃ½ hiá»‡u ToÃ¡n á»Ÿ trÃªn... (hoáº·c báº¥m dáº¥u '+' bÃªn dÆ°á»›i Ä‘á»ƒ Ä‘Ã­nh kÃ¨m áº£nh bÃ i lÃ m viáº¿t tay)" 
             oninput="updatePart3Answer(${q.id}, this.value)"
           >${escapeHtml(savedText)}</textarea>
 
-          <!-- KHUNG XEM TRƯỚC CÔNG THỨC TOÁN (MATHJAX LIVE PREVIEW) -->
+          <!-- KHUNG XEM TRÆ¯á»šC CÃ”NG THá»¨C TOÃN (MATHJAX LIVE PREVIEW) -->
           <div class="essay-math-preview">
-            <div class="math-preview-label"><i class="fa-solid fa-eye"></i> Xem trước hiển thị công thức (MathJax):</div>
+            <div class="math-preview-label"><i class="fa-solid fa-eye"></i> Xem trÆ°á»›c hiá»ƒn thá»‹ cÃ´ng thá»©c (MathJax):</div>
             <div class="math-preview-content" id="math-preview-${q.id}">
-              <span class="math-preview-empty">(Gõ văn bản / công thức hoặc chọn ký hiệu ở trên để xem trước công thức Toán sắc nét)</span>
+              <span class="math-preview-empty">(GÃµ vÄƒn báº£n / cÃ´ng thá»©c hoáº·c chá»n kÃ½ hiá»‡u á»Ÿ trÃªn Ä‘á»ƒ xem trÆ°á»›c cÃ´ng thá»©c ToÃ¡n sáº¯c nÃ©t)</span>
             </div>
           </div>
 
-          <!-- NÚT "+" ĐÍNH KÈM ẢNH BÀI LÀM VIẾT TAY (GEMINI-STYLE) -->
+          <!-- NÃšT "+" ÄÃNH KÃˆM áº¢NH BÃ€I LÃ€M VIáº¾T TAY (GEMINI-STYLE) -->
           <div class="essay-attach-bar">
             <button type="button" class="btn-attach-image" onclick="triggerEssayImageUpload(${q.id})">
-              <i class="fa-solid fa-plus"></i> Thêm ảnh bài làm viết tay / chụp màn hình
+              <i class="fa-solid fa-plus"></i> ThÃªm áº£nh bÃ i lÃ m viáº¿t tay / chá»¥p mÃ n hÃ¬nh
             </button>
             <input type="file" id="essay-file-input-${q.id}" accept="image/*" capture="environment" style="display:none;" onchange="handleEssayImageUpload(${q.id}, this)">
-            <span class="attach-hint"><i class="fa-regular fa-image"></i> Chụp ảnh bằng điện thoại, tải từ máy tính hoặc nhấn <strong>Ctrl + V</strong> để dán ảnh</span>
+            <span class="attach-hint"><i class="fa-regular fa-image"></i> Chá»¥p áº£nh báº±ng Ä‘iá»‡n thoáº¡i, táº£i tá»« mÃ¡y tÃ­nh hoáº·c nháº¥n <strong>Ctrl + V</strong> Ä‘á»ƒ dÃ¡n áº£nh</span>
           </div>
 
-          <!-- DANH SÁCH ẢNH ĐÍNH KÈM -->
+          <!-- DANH SÃCH áº¢NH ÄÃNH KÃˆM -->
           <div class="essay-image-preview-list" id="essay-img-list-${q.id}"></div>
 
           <div class="essay-rubric-note">
             <i class="fa-solid fa-robot" style="color: var(--primary-600);"></i> 
-            <span>Hệ thống tự động chấm điểm tự luận theo <strong>Barem chi tiết chia nhỏ đến 0,25 điểm</strong> ngay khi nộp bài. Em có thể nhập chữ hoặc chụp ảnh bài làm!</span>
+            <span>Há»‡ thá»‘ng tá»± Ä‘á»™ng cháº¥m Ä‘iá»ƒm tá»± luáº­n theo <strong>Barem chi tiáº¿t chia nhá» Ä‘áº¿n 0,25 Ä‘iá»ƒm</strong> ngay khi ná»™p bÃ i. Em cÃ³ thá»ƒ nháº­p chá»¯ hoáº·c chá»¥p áº£nh bÃ i lÃ m!</span>
           </div>
         </div>
       `;
     } else {
-      // Dành cho đề trắc nghiệm trả lời ngắn (Toán 12)
+      // DÃ nh cho Ä‘á» tráº¯c nghiá»‡m tráº£ lá»i ngáº¯n (ToÃ¡n 12)
       return `
         <div class="short-answer-wrapper" id="short-group-${qKey}">
           <div class="short-answer-input-group">
-            <span style="font-weight: 700; color: var(--primary-900);"><i class="fa-solid fa-pencil"></i> Đáp số của em:</span>
-            <input type="text" class="short-answer-input" id="short-input-${q.id}" placeholder="Ví dụ: -2,1 hoặc 30,3" oninput="updatePart3Answer(${q.id}, this.value)" autocomplete="off">
+            <span style="font-weight: 700; color: var(--primary-900);"><i class="fa-solid fa-pencil"></i> ÄÃ¡p sá»‘ cá»§a em:</span>
+            <input type="text" class="short-answer-input" id="short-input-${q.id}" placeholder="VÃ­ dá»¥: -2,1 hoáº·c 30,3" oninput="updatePart3Answer(${q.id}, this.value)" autocomplete="off">
           </div>
-          <div class="short-answer-hint"><i class="fa-solid fa-circle-info"></i> Nhập số thập phân (hệ thống chấp nhận cả dấu phẩy ',' hoặc dấu chấm '.')</div>
+          <div class="short-answer-hint"><i class="fa-solid fa-circle-info"></i> Nháº­p sá»‘ tháº­p phÃ¢n (há»‡ thá»‘ng cháº¥p nháº­n cáº£ dáº¥u pháº©y ',' hoáº·c dáº¥u cháº¥m '.')</div>
         </div>
       `;
     }
@@ -928,7 +928,7 @@ function renderQuestionInputArea(q, qKey, qPart) {
   return "";
 }
 
-// Thanh định vị câu hỏi (Question Palette)
+// Thanh Ä‘á»‹nh vá»‹ cÃ¢u há»i (Question Palette)
 function renderQuestionPalette() {
   const palette = document.getElementById("paletteButtons");
   if (!palette) return;
@@ -950,7 +950,7 @@ function renderQuestionPalette() {
   }).join("");
 }
 
-// Xử lý chọn đáp án Phần I
+// Xá»­ lÃ½ chá»n Ä‘Ã¡p Ã¡n Pháº§n I
 window.selectPart1Option = function(qId, optId) {
   if (isQuizSubmitted) return;
 
@@ -972,7 +972,7 @@ window.selectPart1Option = function(qId, optId) {
   updateAnsweredCount();
 };
 
-// Xử lý chọn Đúng / Sai cho Phần II
+// Xá»­ lÃ½ chá»n ÄÃºng / Sai cho Pháº§n II
 window.selectPart2Choice = function(qId, itemId, isTrue) {
   if (isQuizSubmitted) return;
 
@@ -981,7 +981,7 @@ window.selectPart2Choice = function(qId, itemId, isTrue) {
   }
   userAnswersPart2[qId][itemId] = isTrue;
 
-  // Cập nhật giao diện nút
+  // Cáº­p nháº­t giao diá»‡n nÃºt
   const btnTrue = document.getElementById(`tf-btn-${qId}-${itemId}-true`);
   const btnFalse = document.getElementById(`tf-btn-${qId}-${itemId}-false`);
 
@@ -999,7 +999,7 @@ window.selectPart2Choice = function(qId, itemId, isTrue) {
   updateAnsweredCount();
 };
 
-// Lấy hoặc khởi tạo dữ liệu bài làm tự luận của học sinh
+// Láº¥y hoáº·c khá»Ÿi táº¡o dá»¯ liá»‡u bÃ i lÃ m tá»± luáº­n cá»§a há»c sinh
 function getEssayData(qId) {
   if (!userAnswersPart3[qId]) {
     userAnswersPart3[qId] = { text: "", images: [], rubricChecks: {} };
@@ -1009,7 +1009,7 @@ function getEssayData(qId) {
   return userAnswersPart3[qId];
 }
 
-// Xử lý nhập đáp án Phần III (Trả lời ngắn hoặc Tự luận)
+// Xá»­ lÃ½ nháº­p Ä‘Ã¡p Ã¡n Pháº§n III (Tráº£ lá»i ngáº¯n hoáº·c Tá»± luáº­n)
 window.updatePart3Answer = function(qId, val) {
   if (isQuizSubmitted) return;
 
@@ -1031,7 +1031,7 @@ window.updatePart3Answer = function(qId, val) {
   updateAnsweredCount();
 };
 
-// Chèn toán tử / ký hiệu toán học MathType vào vị trí con trỏ của textarea
+// ChÃ¨n toÃ¡n tá»­ / kÃ½ hiá»‡u toÃ¡n há»c MathType vÃ o vá»‹ trÃ­ con trá» cá»§a textarea
 window.insertMathSymbol = function(qId, symbol, selStartOffset, selEndOffset) {
   const textarea = document.getElementById("essay-input-" + qId);
   if (!textarea) return;
@@ -1057,7 +1057,7 @@ window.insertMathSymbol = function(qId, symbol, selStartOffset, selEndOffset) {
   updatePart3Answer(qId, textarea.value);
 };
 
-// Chuyển đổi tab trên thanh MathType (Cơ bản, Lượng giác, Đại số, Hình học)
+// Chuyá»ƒn Ä‘á»•i tab trÃªn thanh MathType (CÆ¡ báº£n, LÆ°á»£ng giÃ¡c, Äáº¡i sá»‘, HÃ¬nh há»c)
 window.switchMathTab = function(qId, tabName) {
   const toolbar = document.getElementById("math-toolbar-" + qId);
   if (!toolbar) return;
@@ -1079,7 +1079,7 @@ window.switchMathTab = function(qId, tabName) {
   });
 };
 
-// Hộp thoại nhập phân số trực quan
+// Há»™p thoáº¡i nháº­p phÃ¢n sá»‘ trá»±c quan
 window.toggleFractionPopover = function(qId, event) {
   if (event) event.stopPropagation();
   const existingPop = document.getElementById("frac-pop-" + qId);
@@ -1094,12 +1094,12 @@ window.toggleFractionPopover = function(qId, event) {
   const popHtml = `
     <div class="fraction-popover" id="frac-pop-${qId}" onclick="event.stopPropagation()">
       <div class="fraction-popover-inputs">
-        <input type="text" id="frac-num-${qId}" placeholder="Tử số (vd: 1, π)" class="fraction-input" autocomplete="off" />
+        <input type="text" id="frac-num-${qId}" placeholder="Tá»­ sá»‘ (vd: 1, Ï€)" class="fraction-input" autocomplete="off" />
         <div class="fraction-divider-line"></div>
-        <input type="text" id="frac-den-${qId}" placeholder="Mẫu số (vd: 2, 6)" class="fraction-input" autocomplete="off" />
+        <input type="text" id="frac-den-${qId}" placeholder="Máº«u sá»‘ (vd: 2, 6)" class="fraction-input" autocomplete="off" />
       </div>
-      <button type="button" class="btn-insert-frac" onclick="insertFractionFromPopover(${qId})">Chèn</button>
-      <button type="button" class="btn-close-frac" onclick="closeFractionPopover(${qId})">✕</button>
+      <button type="button" class="btn-insert-frac" onclick="insertFractionFromPopover(${qId})">ChÃ¨n</button>
+      <button type="button" class="btn-close-frac" onclick="closeFractionPopover(${qId})">âœ•</button>
     </div>
   `;
   toolbar.insertAdjacentHTML("beforeend", popHtml);
@@ -1149,12 +1149,12 @@ window.closeFractionPopover = function(qId) {
   if (pop) pop.remove();
 };
 
-// Đóng popover phân số khi click ra ngoài
+// ÄÃ³ng popover phÃ¢n sá»‘ khi click ra ngoÃ i
 document.addEventListener("click", () => {
   document.querySelectorAll(".fraction-popover").forEach(pop => pop.remove());
 });
 
-// Cập nhật khung xem trước công thức Toán MathJax (debounce 250ms)
+// Cáº­p nháº­t khung xem trÆ°á»›c cÃ´ng thá»©c ToÃ¡n MathJax (debounce 250ms)
 let mathPreviewTimeouts = {};
 window.updateMathPreview = function(qId) {
   clearTimeout(mathPreviewTimeouts[qId]);
@@ -1165,52 +1165,52 @@ window.updateMathPreview = function(qId) {
 
     const val = textarea.value.trim();
     if (!val) {
-      previewEl.innerHTML = '<span class="math-preview-empty">(Gõ bài làm hoặc chọn ký hiệu Toán ở trên để xem bài thi được biên dịch công thức sắc nét tức thì)</span>';
+      previewEl.innerHTML = '<span class="math-preview-empty">(GÃµ bÃ i lÃ m hoáº·c chá»n kÃ½ hiá»‡u ToÃ¡n á»Ÿ trÃªn Ä‘á»ƒ xem bÃ i thi Ä‘Æ°á»£c biÃªn dá»‹ch cÃ´ng thá»©c sáº¯c nÃ©t tá»©c thÃ¬)</span>';
       return;
     }
 
-    // Bộ chuyển đổi trực quan (Smart Math Compiler) sang LaTeX để MathJax render
+    // Bá»™ chuyá»ƒn Ä‘á»•i trá»±c quan (Smart Math Compiler) sang LaTeX Ä‘á»ƒ MathJax render
     let compiled = val;
 
-    // Chuyển phân số (tử)/(mẫu) -> \dfrac{tử}{mẫu}
+    // Chuyá»ƒn phÃ¢n sá»‘ (tá»­)/(máº«u) -> \dfrac{tá»­}{máº«u}
     compiled = compiled.replace(/\(([^\(\)\n]+)\)\s*\/\s*\(([^\(\)\n]+)\)/g, '\\dfrac{$1}{$2}');
-    // Chuyển phân số a/b (dạng đơn giản: 1/2, 3/4, π/2, k180/2...)
+    // Chuyá»ƒn phÃ¢n sá»‘ a/b (dáº¡ng Ä‘Æ¡n giáº£n: 1/2, 3/4, Ï€/2, k180/2...)
     compiled = compiled.replace(/(\b[0-9a-zA-Z\u0370-\u03ff]+)\s*\/\s*([0-9a-zA-Z\u0370-\u03ff]+)\b/g, '\\dfrac{$1}{$2}');
 
-    // Chuyển căn bậc hai √(x) -> \sqrt{x}
-    compiled = compiled.replace(/√\(([^\(\)\n]+)\)/g, '\\sqrt{$1}');
-    compiled = compiled.replace(/√([0-9a-zA-Z\u0370-\u03ff]+)/g, '\\sqrt{$1}');
+    // Chuyá»ƒn cÄƒn báº­c hai âˆš(x) -> \sqrt{x}
+    compiled = compiled.replace(/âˆš\(([^\(\)\n]+)\)/g, '\\sqrt{$1}');
+    compiled = compiled.replace(/âˆš([0-9a-zA-Z\u0370-\u03ff]+)/g, '\\sqrt{$1}');
 
-    // Chuyển lũy thừa: ² -> ^{2}, ³ -> ^{3}, ⁿ -> ^{n}
-    compiled = compiled.replace(/²/g, '^{2}').replace(/³/g, '^{3}').replace(/ⁿ/g, '^{n}');
+    // Chuyá»ƒn lÅ©y thá»«a: Â² -> ^{2}, Â³ -> ^{3}, â¿ -> ^{n}
+    compiled = compiled.replace(/Â²/g, '^{2}').replace(/Â³/g, '^{3}').replace(/â¿/g, '^{n}');
 
-    // Chuyển độ: ° -> ^\circ
-    compiled = compiled.replace(/°/g, '^{\\circ}');
+    // Chuyá»ƒn Ä‘á»™: Â° -> ^\circ
+    compiled = compiled.replace(/Â°/g, '^{\\circ}');
 
-    // Chuyển hệ pt ngoặc nhọn: ⎧... ⎩...
-    if (compiled.includes('⎧') || compiled.includes('{ pt') || /\{\s*[^\n]+\n\s*\{/.test(compiled)) {
-      compiled = compiled.replace(/⎧\s*([^\n]+)\n\s*⎩\s*([^\n]+)/g, '\\begin{cases} $1 \\\\ $2 \\end{cases}');
+    // Chuyá»ƒn há»‡ pt ngoáº·c nhá»n: âŽ§... âŽ©...
+    if (compiled.includes('âŽ§') || compiled.includes('{ pt') || /\{\s*[^\n]+\n\s*\{/.test(compiled)) {
+      compiled = compiled.replace(/âŽ§\s*([^\n]+)\n\s*âŽ©\s*([^\n]+)/g, '\\begin{cases} $1 \\\\ $2 \\end{cases}');
       compiled = compiled.replace(/\{\s*([^\n]+)\n\s*\{\s*([^\n]+)/g, '\\begin{cases} $1 \\\\ $2 \\end{cases}');
     }
 
-    // Chuyển họ nghiệm ngoặc vuông: ⎡... ⎣...
-    if (compiled.includes('⎡') || compiled.includes('[ x') || /\[\s*[^\n]+\n\s*\[/.test(compiled)) {
-      compiled = compiled.replace(/⎡\s*([^\n]+)\n\s*⎣\s*([^\n]+)/g, '\\left[\\begin{array}{l} $1 \\\\ $2 \\end{array}\\right.');
+    // Chuyá»ƒn há» nghiá»‡m ngoáº·c vuÃ´ng: âŽ¡... âŽ£...
+    if (compiled.includes('âŽ¡') || compiled.includes('[ x') || /\[\s*[^\n]+\n\s*\[/.test(compiled)) {
+      compiled = compiled.replace(/âŽ¡\s*([^\n]+)\n\s*âŽ£\s*([^\n]+)/g, '\\left[\\begin{array}{l} $1 \\\\ $2 \\end{array}\\right.');
       compiled = compiled.replace(/\[\s*([^\n]+)\n\s*\[\s*([^\n]+)/g, '\\left[\\begin{array}{l} $1 \\\\ $2 \\end{array}\\right.');
     }
 
-    // Ký hiệu tập hợp & đại số
-    compiled = compiled.replace(/ℝ/g, '\\mathbb{R}').replace(/ℤ/g, '\\mathbb{Z}');
-    compiled = compiled.replace(/⇔/g, ' \\Leftrightarrow ').replace(/⇒/g, ' \\Rightarrow ');
-    compiled = compiled.replace(/∥/g, ' \\parallel ').replace(/⊥/g, ' \\perp ');
-    compiled = compiled.replace(/△/g, ' \\triangle ').replace(/Δ/g, ' \\Delta ');
-    compiled = compiled.replace(/∩/g, ' \\cap ').replace(/∪/g, ' \\cup ');
-    compiled = compiled.replace(/∈/g, ' \\in ').replace(/∉/g, ' \\notin ');
-    compiled = compiled.replace(/⊂/g, ' \\subset ').replace(/∅/g, ' \\emptyset ');
-    compiled = compiled.replace(/±/g, ' \\pm ').replace(/π/g, ' \\pi ');
-    compiled = compiled.replace(/×/g, ' \\times ').replace(/÷/g, ' \\div ');
-    compiled = compiled.replace(/≠/g, ' \\ne ').replace(/≤/g, ' \\le ').replace(/≥/g, ' \\ge ');
-    compiled = compiled.replace(/∞/g, ' \\infty ').replace(/α/g, ' \\alpha ');
+    // KÃ½ hiá»‡u táº­p há»£p & Ä‘áº¡i sá»‘
+    compiled = compiled.replace(/â„/g, '\\mathbb{R}').replace(/â„¤/g, '\\mathbb{Z}');
+    compiled = compiled.replace(/â‡”/g, ' \\Leftrightarrow ').replace(/â‡’/g, ' \\Rightarrow ');
+    compiled = compiled.replace(/âˆ¥/g, ' \\parallel ').replace(/âŠ¥/g, ' \\perp ');
+    compiled = compiled.replace(/â–³/g, ' \\triangle ').replace(/Î”/g, ' \\Delta ');
+    compiled = compiled.replace(/âˆ©/g, ' \\cap ').replace(/âˆª/g, ' \\cup ');
+    compiled = compiled.replace(/âˆˆ/g, ' \\in ').replace(/âˆ‰/g, ' \\notin ');
+    compiled = compiled.replace(/âŠ‚/g, ' \\subset ').replace(/âˆ…/g, ' \\emptyset ');
+    compiled = compiled.replace(/Â±/g, ' \\pm ').replace(/Ï€/g, ' \\pi ');
+    compiled = compiled.replace(/Ã—/g, ' \\times ').replace(/Ã·/g, ' \\div ');
+    compiled = compiled.replace(/â‰ /g, ' \\ne ').replace(/â‰¤/g, ' \\le ').replace(/â‰¥/g, ' \\ge ');
+    compiled = compiled.replace(/âˆž/g, ' \\infty ').replace(/Î±/g, ' \\alpha ');
 
     let formatted = compiled.replace(/\n/g, '<br>');
     if (!formatted.includes('$') && /\\(dfrac|frac|sqrt|cos|sin|tan|cot|pi|pm|begin|left|right|mathbb|Delta|alpha|cap|cup|in|parallel|perp)/.test(formatted)) {
@@ -1224,7 +1224,7 @@ window.updateMathPreview = function(qId) {
   }, 250);
 };
 
-// Kích hoạt hộp thoại chọn file ảnh (chụp từ điện thoại hoặc tải từ máy)
+// KÃ­ch hoáº¡t há»™p thoáº¡i chá»n file áº£nh (chá»¥p tá»« Ä‘iá»‡n thoáº¡i hoáº·c táº£i tá»« mÃ¡y)
 window.triggerEssayImageUpload = function(qId) {
   const fileInput = document.getElementById("essay-file-input-" + qId);
   if (fileInput) fileInput.click();
@@ -1239,11 +1239,11 @@ window.handleEssayImageUpload = function(qId, input) {
 
 function readAndAddEssayImage(qId, file) {
   if (!file || !file.type.startsWith("image/")) {
-    showToast("Vui lòng chọn file hình ảnh (PNG, JPG, JPEG, WEBP)!", "warning");
+    showToast("Vui lÃ²ng chá»n file hÃ¬nh áº£nh (PNG, JPG, JPEG, WEBP)!", "warning");
     return;
   }
   if (file.size > 10 * 1024 * 1024) {
-    showToast("Dung lượng ảnh tối đa 10 MB!", "warning");
+    showToast("Dung lÆ°á»£ng áº£nh tá»‘i Ä‘a 10 MB!", "warning");
     return;
   }
 
@@ -1257,7 +1257,7 @@ function readAndAddEssayImage(qId, file) {
     renderEssayImageThumbnails(qId);
     updatePaletteStatus();
     updateAnsweredCount();
-    showToast("Đã đính kèm ảnh bài làm viết tay thành công!", "success");
+    showToast("ÄÃ£ Ä‘Ã­nh kÃ¨m áº£nh bÃ i lÃ m viáº¿t tay thÃ nh cÃ´ng!", "success");
   };
   reader.readAsDataURL(file);
 }
@@ -1275,9 +1275,9 @@ function renderEssayImageThumbnails(qId) {
   }
 
   listEl.innerHTML = images.map((imgSrc, index) => `
-    <div class="essay-thumb-card" title="Bấm để xem phóng to ảnh">
-      <img src="${imgSrc}" alt="Ảnh bài làm ${index + 1}" onclick="zoomEssayImage('${imgSrc}')">
-      <button type="button" class="btn-remove-thumb" title="Xóa ảnh này" onclick="removeEssayImage(${qId}, ${index}, event)">✕</button>
+    <div class="essay-thumb-card" title="Báº¥m Ä‘á»ƒ xem phÃ³ng to áº£nh">
+      <img src="${imgSrc}" alt="áº¢nh bÃ i lÃ m ${index + 1}" onclick="zoomEssayImage('${imgSrc}')">
+      <button type="button" class="btn-remove-thumb" title="XÃ³a áº£nh nÃ y" onclick="removeEssayImage(${qId}, ${index}, event)">âœ•</button>
     </div>
   `).join("");
 }
@@ -1290,11 +1290,11 @@ window.removeEssayImage = function(qId, index, event) {
     renderEssayImageThumbnails(qId);
     updatePaletteStatus();
     updateAnsweredCount();
-    showToast("Đã xóa ảnh đính kèm", "info");
+    showToast("ÄÃ£ xÃ³a áº£nh Ä‘Ã­nh kÃ¨m", "info");
   }
 };
 
-// Phóng to ảnh bài làm toàn màn hình (Lightbox)
+// PhÃ³ng to áº£nh bÃ i lÃ m toÃ n mÃ n hÃ¬nh (Lightbox)
 window.zoomEssayImage = function(imgSrc) {
   let modal = document.getElementById("imageZoomModal");
   if (!modal) {
@@ -1304,7 +1304,7 @@ window.zoomEssayImage = function(imgSrc) {
     modal.innerHTML = `
       <div class="image-zoom-content">
         <button class="btn-close-zoom" onclick="closeImageZoom()">&times;</button>
-        <img id="imageZoomImg" src="" alt="Ảnh bài làm phóng to">
+        <img id="imageZoomImg" src="" alt="áº¢nh bÃ i lÃ m phÃ³ng to">
       </div>
     `;
     modal.onclick = (e) => {
@@ -1322,7 +1322,7 @@ window.closeImageZoom = function() {
   if (modal) modal.classList.remove("active");
 };
 
-// Lắng nghe sự kiện dán ảnh (Ctrl + V) và kéo thả ảnh vào khung bài làm
+// Láº¯ng nghe sá»± kiá»‡n dÃ¡n áº£nh (Ctrl + V) vÃ  kÃ©o tháº£ áº£nh vÃ o khung bÃ i lÃ m
 function setupEssayPasteAndDrop(qId) {
   const area = document.getElementById(`essay-group-III_${qId}`) || document.getElementById(`essay-input-${qId}`);
   if (!area) return;
@@ -1364,38 +1364,38 @@ function setupEssayPasteAndDrop(qId) {
 }
 
 // ==========================================================================
-// CÔNG CỤ CHẤM TỰ LUẬN TỰ ĐỘNG THEO BAREM 0,25Đ (AI / RULE-BASED ENGINE)
+// CÃ”NG Cá»¤ CHáº¤M Tá»° LUáº¬N Tá»° Äá»˜NG THEO BAREM 0,25Ä (AI / RULE-BASED ENGINE)
 // ==========================================================================
 function autoGradeEssayQuestion(q, studentData) {
   const rubric = q.rubric || [];
   const rawText = studentData?.text || "";
   const text = rawText.toLowerCase();
 
-  // Chuẩn hóa biểu thức (hỗ trợ cả gõ Unicode trực quan, chữ thường lẫn LaTeX)
+  // Chuáº©n hÃ³a biá»ƒu thá»©c (há»— trá»£ cáº£ gÃµ Unicode trá»±c quan, chá»¯ thÆ°á»ng láº«n LaTeX)
   const normalizeMath = (str) => {
     return str
       .toLowerCase()
       .replace(/\\left|\\right/g, "")
       .replace(/[{}\s]/g, "")
-      .replace(/°/g, "^\\circ")
-      .replace(/²/g, "^2")
-      .replace(/³/g, "^3")
-      .replace(/ⁿ/g, "^n")
-      .replace(/√/g, "sqrt")
-      .replace(/∩/g, "cap")
-      .replace(/∪/g, "cup")
-      .replace(/∈/g, "in")
-      .replace(/∉/g, "notin")
-      .replace(/⊂/g, "subset")
-      .replace(/ℤ|\\mathbb{z}/gi, "z")
-      .replace(/ℝ|\\mathbb{r}/gi, "r")
-      .replace(/π|\\pi/gi, "pi")
-      .replace(/±|\\pm/gi, "+-")
-      .replace(/⇔|\\Leftrightarrow/gi, "<=>")
-      .replace(/⇒|\\Rightarrow/gi, "=>")
-      .replace(/∥|\\parallel/gi, "songsong")
-      .replace(/⊥|\\perp/gi, "vuonggoc")
-      .replace(/△|\\triangle/gi, "tamgiac");
+      .replace(/Â°/g, "^\\circ")
+      .replace(/Â²/g, "^2")
+      .replace(/Â³/g, "^3")
+      .replace(/â¿/g, "^n")
+      .replace(/âˆš/g, "sqrt")
+      .replace(/âˆ©/g, "cap")
+      .replace(/âˆª/g, "cup")
+      .replace(/âˆˆ/g, "in")
+      .replace(/âˆ‰/g, "notin")
+      .replace(/âŠ‚/g, "subset")
+      .replace(/â„¤|\\mathbb{z}/gi, "z")
+      .replace(/â„|\\mathbb{r}/gi, "r")
+      .replace(/Ï€|\\pi/gi, "pi")
+      .replace(/Â±|\\pm/gi, "+-")
+      .replace(/â‡”|\\Leftrightarrow/gi, "<=>")
+      .replace(/â‡’|\\Rightarrow/gi, "=>")
+      .replace(/âˆ¥|\\parallel/gi, "songsong")
+      .replace(/âŠ¥|\\perp/gi, "vuonggoc")
+      .replace(/â–³|\\triangle/gi, "tamgiac");
   };
 
   const cleanText = normalizeMath(text);
@@ -1409,11 +1409,11 @@ function autoGradeEssayQuestion(q, studentData) {
   rubric.forEach(step => {
     let isMatched = false;
 
-    // 1. Nếu có xác nhận thủ công (tự đối chiếu barem)
+    // 1. Náº¿u cÃ³ xÃ¡c nháº­n thá»§ cÃ´ng (tá»± Ä‘á»‘i chiáº¿u barem)
     if (manualChecks[step.id] !== undefined) {
       isMatched = !!manualChecks[step.id];
     } else {
-      // 2. Tự động quét từ khóa và công thức toán học
+      // 2. Tá»± Ä‘á»™ng quÃ©t tá»« khÃ³a vÃ  cÃ´ng thá»©c toÃ¡n há»c
       const keywords = step.keywords || [];
       for (let kw of keywords) {
         const kwClean = normalizeMath(kw);
@@ -1423,7 +1423,7 @@ function autoGradeEssayQuestion(q, studentData) {
           break;
         }
 
-        if (kw.toLowerCase().includes("cap") && (text.includes("cắt") || text.includes("giao") || text.includes("∩") || text.includes("\\cap"))) {
+        if (kw.toLowerCase().includes("cap") && (text.includes("cáº¯t") || text.includes("giao") || text.includes("âˆ©") || text.includes("\\cap"))) {
           const parts = kw.toLowerCase().split("cap");
           if (parts.length === 2) {
             const p1 = normalizeMath(parts[0]);
@@ -1436,8 +1436,8 @@ function autoGradeEssayQuestion(q, studentData) {
         }
       }
 
-      // Nếu học sinh đã tải ảnh bài làm lên và có viết chữ tóm tắt,
-      // tự động công nhận các bước cơ bản nếu học sinh có làm bài
+      // Náº¿u há»c sinh Ä‘Ã£ táº£i áº£nh bÃ i lÃ m lÃªn vÃ  cÃ³ viáº¿t chá»¯ tÃ³m táº¯t,
+      // tá»± Ä‘á»™ng cÃ´ng nháº­n cÃ¡c bÆ°á»›c cÆ¡ báº£n náº¿u há»c sinh cÃ³ lÃ m bÃ i
       if (!isMatched && hasImages && rawText.length > 20) {
         if (step.id === "step1" || step.id === "step2") {
           isMatched = true;
@@ -1470,7 +1470,7 @@ function autoGradeEssayQuestion(q, studentData) {
   };
 }
 
-// Dựng Bảng phân tích điểm tự luận theo Barem 0,25đ đưa vào lời giải
+// Dá»±ng Báº£ng phÃ¢n tÃ­ch Ä‘iá»ƒm tá»± luáº­n theo Barem 0,25Ä‘ Ä‘Æ°a vÃ o lá»i giáº£i
 function renderAutoGradeRubricCard(q, qKey, gradeResult) {
   const solutionBox = document.getElementById(`solution-box-${qKey}`);
   if (!solutionBox) return;
@@ -1483,10 +1483,10 @@ function renderAutoGradeRubricCard(q, qKey, gradeResult) {
       <div class="rubric-header">
         <div class="rubric-title">
           <i class="fa-solid fa-robot" style="color: var(--primary-600);"></i>
-          <span>Kết quả chấm tự luận tự động theo Barem Thầy Sáng:</span>
+          <span>Káº¿t quáº£ cháº¥m tá»± luáº­n tá»± Ä‘á»™ng theo Barem Tháº§y SÃ¡ng:</span>
         </div>
         <div class="rubric-score-badge" id="rubric-badge-${q.id}">
-          Điểm số: <strong id="rubric-score-val-${q.id}">${gradeResult.earnedScore.toFixed(2)}</strong> / ${(q.maxScore || 1.5).toFixed(2)} điểm
+          Äiá»ƒm sá»‘: <strong id="rubric-score-val-${q.id}">${gradeResult.earnedScore.toFixed(2)}</strong> / ${(q.maxScore || 1.5).toFixed(2)} Ä‘iá»ƒm
         </div>
       </div>
 
@@ -1500,14 +1500,14 @@ function renderAutoGradeRubricCard(q, qKey, gradeResult) {
                 id="rubric-chk-${q.id}-${item.step.id}" 
                 ${item.isMatched ? 'checked' : ''} 
                 onchange="toggleRubricManualCheck(${q.id}, '${item.step.id}', this)"
-                title="Tích chọn để cập nhật điểm nếu bài làm viết tay của em có bước này"
+                title="TÃ­ch chá»n Ä‘á»ƒ cáº­p nháº­t Ä‘iá»ƒm náº¿u bÃ i lÃ m viáº¿t tay cá»§a em cÃ³ bÆ°á»›c nÃ y"
               >
               <div class="rubric-step-text">
-                <strong>Bước ${idx + 1} (${item.step.points.toFixed(2).replace('.', ',')}đ):</strong> ${item.step.label}
+                <strong>BÆ°á»›c ${idx + 1} (${item.step.points.toFixed(2).replace('.', ',')}Ä‘):</strong> ${item.step.label}
               </div>
             </div>
             <span class="rubric-points-tag ${item.isMatched ? 'earned' : 'unearned'}" id="rubric-tag-${q.id}-${item.step.id}">
-              ${item.isMatched ? `+${item.step.points.toFixed(2).replace('.', ',')}đ` : '0,00đ'}
+              ${item.isMatched ? `+${item.step.points.toFixed(2).replace('.', ',')}Ä‘` : '0,00Ä‘'}
             </span>
           </div>
         `).join("")}
@@ -1516,17 +1516,17 @@ function renderAutoGradeRubricCard(q, qKey, gradeResult) {
       ${gradeResult.images && gradeResult.images.length > 0 ? `
         <div class="rubric-attached-images">
           <div class="rubric-attached-title">
-            <i class="fa-solid fa-camera"></i> Ảnh bài làm học sinh đã nộp (${gradeResult.images.length} ảnh):
+            <i class="fa-solid fa-camera"></i> áº¢nh bÃ i lÃ m há»c sinh Ä‘Ã£ ná»™p (${gradeResult.images.length} áº£nh):
           </div>
           <div class="essay-image-preview-list">
             ${gradeResult.images.map((imgSrc, imgIdx) => `
-              <div class="essay-thumb-card" title="Bấm để xem phóng to ảnh bài làm">
-                <img src="${imgSrc}" alt="Ảnh bài làm ${imgIdx + 1}" onclick="zoomEssayImage('${imgSrc}')">
+              <div class="essay-thumb-card" title="Báº¥m Ä‘á»ƒ xem phÃ³ng to áº£nh bÃ i lÃ m">
+                <img src="${imgSrc}" alt="áº¢nh bÃ i lÃ m ${imgIdx + 1}" onclick="zoomEssayImage('${imgSrc}')">
               </div>
             `).join("")}
           </div>
           <div style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">
-            <i class="fa-solid fa-circle-info"></i> <em>(Em có thể tích/bỏ tích các ô vuông ở trên để đối chiếu các bước trong ảnh bài làm viết tay với Barem chuẩn của Thầy Sáng, điểm tổng sẽ tự động cập nhật ngay lập tức!).</em>
+            <i class="fa-solid fa-circle-info"></i> <em>(Em cÃ³ thá»ƒ tÃ­ch/bá» tÃ­ch cÃ¡c Ã´ vuÃ´ng á»Ÿ trÃªn Ä‘á»ƒ Ä‘á»‘i chiáº¿u cÃ¡c bÆ°á»›c trong áº£nh bÃ i lÃ m viáº¿t tay vá»›i Barem chuáº©n cá»§a Tháº§y SÃ¡ng, Ä‘iá»ƒm tá»•ng sáº½ tá»± Ä‘á»™ng cáº­p nháº­t ngay láº­p tá»©c!).</em>
           </div>
         </div>
       ` : ''}
@@ -1542,7 +1542,7 @@ function renderAutoGradeRubricCard(q, qKey, gradeResult) {
   }
 }
 
-// Bật tắt checkbox đối chiếu Barem từng bước 0,25đ
+// Báº­t táº¯t checkbox Ä‘á»‘i chiáº¿u Barem tá»«ng bÆ°á»›c 0,25Ä‘
 window.toggleRubricManualCheck = function(qId, stepId, checkbox) {
   const q = activeQuizQuestions.find(item => item.id == qId);
   if (!q || !q.rubric) return;
@@ -1566,10 +1566,10 @@ window.toggleRubricManualCheck = function(qId, stepId, checkbox) {
   if (tagEl) {
     if (checkbox.checked) {
       tagEl.className = "rubric-points-tag earned";
-      tagEl.textContent = `+${stepPts.toFixed(2).replace('.', ',')}đ`;
+      tagEl.textContent = `+${stepPts.toFixed(2).replace('.', ',')}Ä‘`;
     } else {
       tagEl.className = "rubric-points-tag unearned";
-      tagEl.textContent = "0,00đ";
+      tagEl.textContent = "0,00Ä‘";
     }
   }
 
@@ -1723,7 +1723,7 @@ window.scrollToQuestionKey = function(qKey) {
 
 function resetCurrentAnswers() {
   if (isQuizSubmitted) return;
-  if (!confirm("Em có muốn xóa toàn bộ các câu trả lời hiện tại để làm lại từ đầu không?")) return;
+  if (!confirm("Em cÃ³ muá»‘n xÃ³a toÃ n bá»™ cÃ¡c cÃ¢u tráº£ lá»i hiá»‡n táº¡i Ä‘á»ƒ lÃ m láº¡i tá»« Ä‘áº§u khÃ´ng?")) return;
 
   userAnswersPart1 = {};
   userAnswersPart2 = {};
@@ -1747,12 +1747,12 @@ function resetCurrentAnswers() {
 
   updatePaletteStatus();
   updateAnsweredCount();
-  showToast("Đã xóa toàn bộ câu trả lời.", "info");
+  showToast("ÄÃ£ xÃ³a toÃ n bá»™ cÃ¢u tráº£ lá»i.", "info");
 }
 
 function confirmAndSubmitQuiz() {
   if (isQuizSubmitted) {
-    showToast("Bài thi đã được nộp và chấm điểm rồi!", "info");
+    showToast("BÃ i thi Ä‘Ã£ Ä‘Æ°á»£c ná»™p vÃ  cháº¥m Ä‘iá»ƒm rá»“i!", "info");
     return;
   }
 
@@ -1760,12 +1760,12 @@ function confirmAndSubmitQuiz() {
   const total = activeQuizQuestions.length;
 
   if (answered < total) {
-    if (!confirm(`Em còn ${total - answered} câu chưa hoàn thành.
-Em có chắc chắn muốn nộp bài ngay bây giờ không?`)) {
+    if (!confirm(`Em cÃ²n ${total - answered} cÃ¢u chÆ°a hoÃ n thÃ nh.
+Em cÃ³ cháº¯c cháº¯n muá»‘n ná»™p bÃ i ngay bÃ¢y giá» khÃ´ng?`)) {
       return;
     }
   } else {
-    if (!confirm("Em đã hoàn thành bài thi. Xác nhận nộp bài để xem điểm số ngay?")) {
+    if (!confirm("Em Ä‘Ã£ hoÃ n thÃ nh bÃ i thi. XÃ¡c nháº­n ná»™p bÃ i Ä‘á»ƒ xem Ä‘iá»ƒm sá»‘ ngay?")) {
       return;
     }
   }
@@ -1773,7 +1773,7 @@ Em có chắc chắn muốn nộp bài ngay bây giờ không?`)) {
   submitQuiz(false);
 }
 
-// Chấm điểm chuẩn theo quy định của Bộ Giáo dục & Đào tạo
+// Cháº¥m Ä‘iá»ƒm chuáº©n theo quy Ä‘á»‹nh cá»§a Bá»™ GiÃ¡o dá»¥c & ÄÃ o táº¡o
 function submitQuiz(isAuto = false) {
   if (isQuizSubmitted) return;
   isQuizSubmitted = true;
@@ -1813,7 +1813,7 @@ function submitQuiz(isAuto = false) {
         }
       }
 
-      // Tô màu đáp án
+      // TÃ´ mÃ u Ä‘Ã¡p Ã¡n
       if (card) {
         card.querySelectorAll(".option-label").forEach(lbl => {
           const opt = lbl.getAttribute("data-opt");
@@ -1826,7 +1826,7 @@ function submitQuiz(isAuto = false) {
       }
 
     } else if (qPart === "II") {
-      // Đề thi đúng/sai: 1 ý đúng = 0.1đ; 2 ý đúng = 0.25đ; 3 ý đúng = 0.5đ; 4 ý đúng = 1.0đ
+      // Äá» thi Ä‘Ãºng/sai: 1 Ã½ Ä‘Ãºng = 0.1Ä‘; 2 Ã½ Ä‘Ãºng = 0.25Ä‘; 3 Ã½ Ä‘Ãºng = 0.5Ä‘; 4 Ã½ Ä‘Ãºng = 1.0Ä‘
       const studentObj = userAnswersPart2[q.id] || {};
       let subCorrectCount = 0;
 
@@ -1835,7 +1835,7 @@ function submitQuiz(isAuto = false) {
         const isItemCorrect = studentChoice === item.correct;
         if (isItemCorrect) subCorrectCount++;
 
-        // Tô màu nút True / False
+        // TÃ´ mÃ u nÃºt True / False
         const btnTrue = document.getElementById(`tf-btn-${q.id}-${item.id}-true`);
         const btnFalse = document.getElementById(`tf-btn-${q.id}-${item.id}-false`);
 
@@ -1866,7 +1866,7 @@ function submitQuiz(isAuto = false) {
 
     } else if (qPart === "III") {
       if (q.type === "essay") {
-        // Tự luận (Toán 11 - Mỗi câu 1.5đ - Chấm tự động theo Barem 0.25đ)
+        // Tá»± luáº­n (ToÃ¡n 11 - Má»—i cÃ¢u 1.5Ä‘ - Cháº¥m tá»± Ä‘á»™ng theo Barem 0.25Ä‘)
         const essayData = getEssayData(q.id);
         const gradeResult = autoGradeEssayQuestion(q, essayData);
         essayGradeResults[q.id] = gradeResult;
@@ -1889,7 +1889,7 @@ function submitQuiz(isAuto = false) {
 
         renderAutoGradeRubricCard(q, qKey, gradeResult);
       } else {
-        // Trả lời ngắn (Toán 12 - Mỗi câu 0.5đ)
+        // Tráº£ lá»i ngáº¯n (ToÃ¡n 12 - Má»—i cÃ¢u 0.5Ä‘)
         const studentRaw = userAnswersPart3[q.id] || "";
         const normalized = studentRaw.replace(/\s+/g, "").replace(".", ",");
         const acceptable = (q.acceptableAnswers || [q.correctAnswer]).map(a => a.replace(/\s+/g, "").replace(".", ","));
@@ -1917,7 +1917,7 @@ function submitQuiz(isAuto = false) {
     }
   });
 
-  // Tính tổng điểm theo chế độ
+  // TÃ­nh tá»•ng Ä‘iá»ƒm theo cháº¿ Ä‘á»™
   let finalScore = 0;
   if (isExam11) {
     if (currentQuizMode === "part1") {
@@ -1941,19 +1941,19 @@ function submitQuiz(isAuto = false) {
     }
   }
 
-  // Khóa nút nộp bài
+  // KhÃ³a nÃºt ná»™p bÃ i
   const btnSubmit = document.getElementById("btnSubmitQuiz");
   if (btnSubmit) {
     btnSubmit.disabled = true;
-    btnSubmit.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã nộp bài';
+    btnSubmit.innerHTML = '<i class="fa-solid fa-check-double"></i> ÄÃ£ ná»™p bÃ i';
   }
 
-  // Khóa các ô input ngắn và tự luận
+  // KhÃ³a cÃ¡c Ã´ input ngáº¯n vÃ  tá»± luáº­n
   document.querySelectorAll(".short-answer-input, .essay-textarea").forEach(inp => {
     inp.disabled = true;
   });
 
-  // Hiển thị Card kết quả
+  // Hiá»ƒn thá»‹ Card káº¿t quáº£
   displayQuizResults(finalScore, scorePart1, scorePart2, scorePart3, correctCountTotal, wrongCountTotal);
 }
 
@@ -1972,7 +1972,7 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
   const timeUsedSecs = timeUsedSeconds % 60;
   const timeUsedStr = `${timeUsedMinutes}m ${timeUsedSecs < 10 ? '0' : ''}${timeUsedSecs}s`;
 
-  const gradeName = currentExamId.startsWith("11_") ? "Toán 11" : "Toán 12";
+  const gradeName = currentExamId.startsWith("11_") ? "ToÃ¡n 11" : "ToÃ¡n 12";
 
   if (resScore) resScore.textContent = finalScore.toFixed(2);
   if (resCorrect) resCorrect.textContent = `${correctCount} / ${activeQuizQuestions.length}`;
@@ -1980,20 +1980,20 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
   if (resTimeUsed) resTimeUsed.textContent = timeUsedStr;
 
   if (finalScore >= 9.0) {
-    if (resTitle) resTitle.textContent = "Xuất Sắc! Điểm Số Tuyệt Vời!";
-    if (resMessage) resMessage.textContent = `Thầy Sáng chúc mừng em! Điểm số: ${finalScore.toFixed(2)}/10. Em nắm rất vững kiến thức và kỹ năng giải ${gradeName}!`;
+    if (resTitle) resTitle.textContent = "Xuáº¥t Sáº¯c! Äiá»ƒm Sá»‘ Tuyá»‡t Vá»i!";
+    if (resMessage) resMessage.textContent = `Tháº§y SÃ¡ng chÃºc má»«ng em! Äiá»ƒm sá»‘: ${finalScore.toFixed(2)}/10. Em náº¯m ráº¥t vá»¯ng kiáº¿n thá»©c vÃ  ká»¹ nÄƒng giáº£i ${gradeName}!`;
     if (resIcon) resIcon.innerHTML = '<i class="fa-solid fa-crown" style="color: #f59e0b;"></i>';
   } else if (finalScore >= 7.0) {
-    if (resTitle) resTitle.textContent = "Kết Quả Khá Tốt!";
-    if (resMessage) resMessage.textContent = `Thầy khen ngợi em đạt ${finalScore.toFixed(2)}/10 môn ${gradeName}! Hãy xem kỹ lời giải chi tiết để hoàn thiện các câu còn sai sót nhé!`;
+    if (resTitle) resTitle.textContent = "Káº¿t Quáº£ KhÃ¡ Tá»‘t!";
+    if (resMessage) resMessage.textContent = `Tháº§y khen ngá»£i em Ä‘áº¡t ${finalScore.toFixed(2)}/10 mÃ´n ${gradeName}! HÃ£y xem ká»¹ lá»i giáº£i chi tiáº¿t Ä‘á»ƒ hoÃ n thiá»‡n cÃ¡c cÃ¢u cÃ²n sai sÃ³t nhÃ©!`;
     if (resIcon) resIcon.innerHTML = '<i class="fa-solid fa-star" style="color: #2563eb;"></i>';
   } else if (finalScore >= 5.0) {
-    if (resTitle) resTitle.textContent = "Đạt Yêu Cầu - Cần Ôn Luyện Thêm!";
-    if (resMessage) resMessage.textContent = `Em đạt ${finalScore.toFixed(2)}/10 môn ${gradeName}. Em hãy bấm 'Xem đáp án & Lời giải chi tiết' bên dưới để ôn tập kỹ từng dạng bài nhé!`;
+    if (resTitle) resTitle.textContent = "Äáº¡t YÃªu Cáº§u - Cáº§n Ã”n Luyá»‡n ThÃªm!";
+    if (resMessage) resMessage.textContent = `Em Ä‘áº¡t ${finalScore.toFixed(2)}/10 mÃ´n ${gradeName}. Em hÃ£y báº¥m 'Xem Ä‘Ã¡p Ã¡n & Lá»i giáº£i chi tiáº¿t' bÃªn dÆ°á»›i Ä‘á»ƒ Ã´n táº­p ká»¹ tá»«ng dáº¡ng bÃ i nhÃ©!`;
     if (resIcon) resIcon.innerHTML = '<i class="fa-solid fa-award" style="color: #10b981;"></i>';
   } else {
-    if (resTitle) resTitle.textContent = "Cần Cố Gắng Thêm Nhé!";
-    if (resMessage) resMessage.textContent = `Kết quả: ${finalScore.toFixed(2)}/10. Đừng nản chí! Hãy đọc từng bước lời giải của Thầy Sáng bên dưới để rút kinh nghiệm.`;
+    if (resTitle) resTitle.textContent = "Cáº§n Cá»‘ Gáº¯ng ThÃªm NhÃ©!";
+    if (resMessage) resMessage.textContent = `Káº¿t quáº£: ${finalScore.toFixed(2)}/10. Äá»«ng náº£n chÃ­! HÃ£y Ä‘á»c tá»«ng bÆ°á»›c lá»i giáº£i cá»§a Tháº§y SÃ¡ng bÃªn dÆ°á»›i Ä‘á»ƒ rÃºt kinh nghiá»‡m.`;
     if (resIcon) resIcon.innerHTML = '<i class="fa-solid fa-book-open-reader" style="color: #ef4444;"></i>';
   }
 
@@ -2002,12 +2002,12 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
     resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
-  showToast(`Chấm điểm hoàn tất: ${finalScore.toFixed(2)} / 10 điểm!`, "success");
+  showToast(`Cháº¥m Ä‘iá»ƒm hoÃ n táº¥t: ${finalScore.toFixed(2)} / 10 Ä‘iá»ƒm!`, "success");
 }
 
 function toggleAllSolutions() {
   if (!isQuizSubmitted) {
-    showToast("Vui lòng nộp bài để xem lời giải chi tiết nhé!", "warning");
+    showToast("Vui lÃ²ng ná»™p bÃ i Ä‘á»ƒ xem lá»i giáº£i chi tiáº¿t nhÃ©!", "warning");
     return;
   }
 
@@ -2025,9 +2025,9 @@ function toggleAllSolutions() {
 
   if (btn) {
     if (isShowingAllSolutions) {
-      btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Thu gọn lời giải';
+      btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Thu gá»n lá»i giáº£i';
     } else {
-      btn.innerHTML = '<i class="fa-solid fa-list-check"></i> Xem đáp án & Lời giải chi tiết';
+      btn.innerHTML = '<i class="fa-solid fa-list-check"></i> Xem Ä‘Ã¡p Ã¡n & Lá»i giáº£i chi tiáº¿t';
     }
   }
 
@@ -2035,15 +2035,15 @@ function toggleAllSolutions() {
 }
 
 function retakeQuiz() {
-  if (confirm("Em có muốn làm lại lượt thi này từ đầu không?")) {
+  if (confirm("Em cÃ³ muá»‘n lÃ m láº¡i lÆ°á»£t thi nÃ y tá»« Ä‘áº§u khÃ´ng?")) {
     loadQuestionsForMode(currentQuizMode);
     const quizSection = document.getElementById("quiz");
     if (quizSection) quizSection.scrollIntoView({ behavior: "smooth" });
-    showToast("Đã bắt đầu lượt làm bài mới. Chúc em đạt điểm cao!", "info");
+    showToast("ÄÃ£ báº¯t Ä‘áº§u lÆ°á»£t lÃ m bÃ i má»›i. ChÃºc em Ä‘áº¡t Ä‘iá»ƒm cao!", "info");
   }
 }
 
-// Kích hoạt MathJax render lại công thức Toán học
+// KÃ­ch hoáº¡t MathJax render láº¡i cÃ´ng thá»©c ToÃ¡n há»c
 function triggerMathJax() {
   if (window.MathJax && window.MathJax.typesetPromise) {
     window.MathJax.typesetPromise().catch((err) => {
@@ -2054,7 +2054,7 @@ function triggerMathJax() {
 
 
 /* ==========================================================================
-   4. FORM GỬI THẮC MẮC BÀI TẬP (CONTACT)
+   4. FORM Gá»¬I THáº®C Máº®C BÃ€I Táº¬P (CONTACT)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById("contactForm");
@@ -2070,11 +2070,11 @@ function initContactForm() {
     const content = document.getElementById("questionContent")?.value.trim();
 
     if (!name || !studentClass || !email || !content) {
-      showToast("Vui lòng điền đầy đủ các mục có dấu sao (*)", "warning");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ cÃ¡c má»¥c cÃ³ dáº¥u sao (*)", "warning");
       return;
     }
 
-    // Lưu vào LocalStorage để lưu vết tin nhắn
+    // LÆ°u vÃ o LocalStorage Ä‘á»ƒ lÆ°u váº¿t tin nháº¯n
     try {
       const savedQuestions = JSON.parse(localStorage.getItem("thaySang_questions") || "[]");
       savedQuestions.unshift({
@@ -2091,16 +2091,16 @@ function initContactForm() {
       console.log("LocalStorage save notice:", err);
     }
 
-    // Thông báo phản hồi cho học sinh
-    alert(`Cảm ơn em ${name} (Lớp ${studentClass})!\nThầy Sáng đã nhận được nội dung thắc mắc về "${topic}".\nThầy sẽ nghiên cứu câu hỏi và phản hồi chi tiết cho em qua email: ${email} hoặc giải đáp trực tiếp trên lớp sớm nhất nhé!`);
+    // ThÃ´ng bÃ¡o pháº£n há»“i cho há»c sinh
+    alert(`Cáº£m Æ¡n em ${name} (Lá»›p ${studentClass})!\nTháº§y SÃ¡ng Ä‘Ã£ nháº­n Ä‘Æ°á»£c ná»™i dung tháº¯c máº¯c vá» "${topic}".\nTháº§y sáº½ nghiÃªn cá»©u cÃ¢u há»i vÃ  pháº£n há»“i chi tiáº¿t cho em qua email: ${email} hoáº·c giáº£i Ä‘Ã¡p trá»±c tiáº¿p trÃªn lá»›p sá»›m nháº¥t nhÃ©!`);
 
     form.reset();
-    showToast("Đã gửi câu hỏi thành công đến Thầy Sáng!", "success");
+    showToast("ÄÃ£ gá»­i cÃ¢u há»i thÃ nh cÃ´ng Ä‘áº¿n Tháº§y SÃ¡ng!", "success");
   });
 }
 
 /* ==========================================================================
-   5. TIỆN ÍCH: TOAST THÔNG BÁO & BACK TO TOP
+   5. TIá»†N ÃCH: TOAST THÃ”NG BÃO & BACK TO TOP
    ========================================================================== */
 function showToast(message, type = "info") {
   const container = document.getElementById("toastContainer");
@@ -2159,20 +2159,20 @@ function escapeHtml(string) {
 }
 
 /* ==========================================================================
-   HỆ THỐNG BÀI HỌC SỐ MÔN TOÁN 3 TẦNG (DIGITAL LESSONS SYSTEM)
+   Há»† THá»NG BÃ€I Há»ŒC Sá» MÃ”N TOÃN 3 Táº¦NG (DIGITAL LESSONS SYSTEM)
    ========================================================================== */
 function initDigitalLessons() {
   const workspace = document.getElementById("lessonsWorkspace");
-  if (!workspace) return; // Không ở trang bài học số
+  if (!workspace) return; // KhÃ´ng á»Ÿ trang bÃ i há»c sá»‘
 
-  // Lấy dữ liệu từ file lessons-data.js
+  // Láº¥y dá»¯ liá»‡u tá»« file lessons-data.js
   const db = window.LESSONS_DATABASE;
   if (!db) {
-    console.error("Không tìm thấy dữ liệu LESSONS_DATABASE");
+    console.error("KhÃ´ng tÃ¬m tháº¥y dá»¯ liá»‡u LESSONS_DATABASE");
     return;
   }
 
-  // Đọc URL params nếu có
+  // Äá»c URL params náº¿u cÃ³
   const urlParams = new URLSearchParams(window.location.search);
   let currentGrade = urlParams.get("grade") || "12";
   if (!["10", "11", "12"].includes(currentGrade)) {
@@ -2192,7 +2192,7 @@ function initDigitalLessons() {
       } catch(e) {}
     }
 
-  // Các element DOM
+  // CÃ¡c element DOM
   const gradeCards = document.querySelectorAll(".grade-tab-card");
   const volButtons = document.querySelectorAll(".btn-vol-filter");
   const searchInput = document.getElementById("searchLessonInput");
@@ -2201,7 +2201,7 @@ function initDigitalLessons() {
   const mobileToggleBtn = document.getElementById("mobileLessonsToggle");
   const sidebarEl = document.getElementById("lessonsSidebar");
 
-  // Element nội dung bài học
+  // Element ná»™i dung bÃ i há»c
   const breadcrumbGrade = document.getElementById("breadcrumbGrade");
   const breadcrumbChapter = document.getElementById("breadcrumbChapter");
   const breadcrumbLesson = document.getElementById("breadcrumbLesson");
@@ -2214,11 +2214,11 @@ function initDigitalLessons() {
   const tocLinksList = document.getElementById("tocLinksList");
   const sectionsContainer = document.getElementById("lessonSectionsContainer");
 
-  // Tìm bài học đầu tiên của khối lớp hiện tại nếu chưa chỉ định
+  // TÃ¬m bÃ i há»c Ä‘áº§u tiÃªn cá»§a khá»‘i lá»›p hiá»‡n táº¡i náº¿u chÆ°a chá»‰ Ä‘á»‹nh
   function getDefaultLessonId(grade) {
-    if (grade === "10") return "10-c4-b8"; // Mặc định mở Bài 8 (Tổng và hiệu của hai vectơ) mới biên soạn
+    if (grade === "10") return "10-c4-b8"; // Máº·c Ä‘á»‹nh má»Ÿ BÃ i 8 (Tá»•ng vÃ  hiá»‡u cá»§a hai vectÆ¡) má»›i biÃªn soáº¡n
     if (grade === "11") return "11-c4-b12";
-    if (grade === "12") return "12-c2-b7"; // Mặc định mở Bài 7 (Hệ trục toạ độ trong không gian) mới biên soạn
+    if (grade === "12") return "12-c2-b7"; // Máº·c Ä‘á»‹nh má»Ÿ BÃ i 7 (Há»‡ trá»¥c toáº¡ Ä‘á»™ trong khÃ´ng gian) má»›i biÃªn soáº¡n
     const gradeData = db[grade];
     if (gradeData && gradeData.chapters && gradeData.chapters.length > 0) {
       for (const ch of gradeData.chapters) {
@@ -2234,7 +2234,7 @@ function initDigitalLessons() {
     currentLessonId = getDefaultLessonId(currentGrade);
   }
 
-  // Tìm tất cả bài học phẳng của khối lớp để hỗ trợ Prev / Next
+  // TÃ¬m táº¥t cáº£ bÃ i há»c pháº³ng cá»§a khá»‘i lá»›p Ä‘á»ƒ há»— trá»£ Prev / Next
   function getFlatLessonsList(grade) {
     const list = [];
     const gradeData = db[grade];
@@ -2253,7 +2253,7 @@ function initDigitalLessons() {
     return list;
   }
 
-  // 1. Cập nhật giao diện Tầng 1 (Khối lớp)
+  // 1. Cáº­p nháº­t giao diá»‡n Táº§ng 1 (Khá»‘i lá»›p)
   function updateGradeTabUI() {
     gradeCards.forEach(card => {
       if (card.dataset.grade === currentGrade) {
@@ -2264,20 +2264,20 @@ function initDigitalLessons() {
     });
   }
 
-  // 2. Render Tầng 2: Danh sách Chương & Bài học trong Sidebar
+  // 2. Render Táº§ng 2: Danh sÃ¡ch ChÆ°Æ¡ng & BÃ i há»c trong Sidebar
   function renderSidebar() {
     const gradeData = db[currentGrade];
     if (!gradeData) return;
 
     let chapters = gradeData.chapters || [];
 
-    // Lọc theo tập
+    // Lá»c theo táº­p
     if (currentVolume !== "all") {
       const volNum = parseInt(currentVolume, 10);
       chapters = chapters.filter(ch => ch.volume === volNum);
     }
 
-    // Lọc theo từ khoá tìm kiếm
+    // Lá»c theo tá»« khoÃ¡ tÃ¬m kiáº¿m
     const search = currentSearch.trim().toLowerCase();
     let totalMatchingLessons = 0;
 
@@ -2295,12 +2295,12 @@ function initDigitalLessons() {
       }
 
       if (filteredLessons.length === 0 && search) {
-        return; // Bỏ qua chương không có bài học khớp
+        return; // Bá» qua chÆ°Æ¡ng khÃ´ng cÃ³ bÃ i há»c khá»›p
       }
 
       totalMatchingLessons += filteredLessons.length;
 
-      // Xác định chương có chứa bài học đang chọn không để tự động mở (open)
+      // XÃ¡c Ä‘á»‹nh chÆ°Æ¡ng cÃ³ chá»©a bÃ i há»c Ä‘ang chá»n khÃ´ng Ä‘á»ƒ tá»± Ä‘á»™ng má»Ÿ (open)
       const hasActiveLesson = filteredLessons.some(l => l.id === currentLessonId);
       const isOpen = hasActiveLesson || search.length > 0;
 
@@ -2309,7 +2309,7 @@ function initDigitalLessons() {
           <div class="chapter-card-header ${hasActiveLesson ? "active-chapter" : ""}">
             <div class="chapter-title-group">
               <span class="chapter-badge-tag">
-                <i class="fa-solid fa-book"></i> ${ch.volumeLabel} • ${escapeHtml(ch.number)}
+                <i class="fa-solid fa-book"></i> ${ch.volumeLabel} â€¢ ${escapeHtml(ch.number)}
               </span>
               <span class="chapter-name-text">${escapeHtml(ch.title)}</span>
             </div>
@@ -2331,15 +2331,15 @@ function initDigitalLessons() {
       html = `
         <div style="text-align: center; padding: 30px 15px; color: #64748b;">
           <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; color: #cbd5e1; margin-bottom: 10px;"></i>
-          <p style="font-size: 0.9rem; margin: 0;">Không tìm thấy bài học nào phù hợp với từ khoá "<strong>${escapeHtml(currentSearch)}</strong>".</p>
+          <p style="font-size: 0.9rem; margin: 0;">KhÃ´ng tÃ¬m tháº¥y bÃ i há»c nÃ o phÃ¹ há»£p vá»›i tá»« khoÃ¡ "<strong>${escapeHtml(currentSearch)}</strong>".</p>
         </div>
       `;
     }
 
     sidebarContainer.innerHTML = html;
-    sidebarCounter.textContent = `${totalMatchingLessons} bài học`;
+    sidebarCounter.textContent = `${totalMatchingLessons} bÃ i há»c`;
 
-    // Gắn sự kiện click vào header chương (Accordion)
+    // Gáº¯n sá»± kiá»‡n click vÃ o header chÆ°Æ¡ng (Accordion)
     sidebarContainer.querySelectorAll(".chapter-card-header").forEach(header => {
       header.addEventListener("click", () => {
         const card = header.closest(".chapter-accordion-card");
@@ -2349,7 +2349,7 @@ function initDigitalLessons() {
       });
     });
 
-    // Gắn sự kiện click vào nút bài học
+    // Gáº¯n sá»± kiá»‡n click vÃ o nÃºt bÃ i há»c
     sidebarContainer.querySelectorAll(".lesson-nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const lessonId = btn.dataset.lessonId;
@@ -2358,7 +2358,7 @@ function initDigitalLessons() {
     });
   }
 
-  // 3. Render Tầng 3: Chi tiết Bài học
+  // 3. Render Táº§ng 3: Chi tiáº¿t BÃ i há»c
   function renderLessonViewer() {
     const flatList = getFlatLessonsList(currentGrade);
     const currentIndex = flatList.findIndex(item => item.lesson.id === currentLessonId);
@@ -2373,17 +2373,17 @@ function initDigitalLessons() {
 
     const { lesson, chapter } = flatList[currentIndex];
 
-    // Cập nhật Breadcrumbs
-    breadcrumbGrade.textContent = `Toán Lớp ${currentGrade}`;
+    // Cáº­p nháº­t Breadcrumbs
+    breadcrumbGrade.textContent = `ToÃ¡n Lá»›p ${currentGrade}`;
     breadcrumbChapter.textContent = `${chapter.number}: ${chapter.title}`;
     breadcrumbLesson.textContent = `${lesson.number}: ${lesson.title}`;
 
-    // Cập nhật Header
+    // Cáº­p nháº­t Header
     lessonNumBadge.textContent = lesson.number;
     lessonTitleText.textContent = lesson.title;
     lessonVolumePill.innerHTML = `<i class="fa-solid fa-bookmark"></i> ${chapter.volumeLabel}`;
 
-    // Nút Prev / Next
+    // NÃºt Prev / Next
     if (currentIndex > 0) {
       btnPrevLesson.disabled = false;
       btnPrevLesson.dataset.targetId = flatList[currentIndex - 1].lesson.id;
@@ -2400,28 +2400,28 @@ function initDigitalLessons() {
       btnNextLesson.removeAttribute("data-target-id");
     }
 
-    // Render Mục lục nhanh trong bài (Quick TOC)
+    // Render Má»¥c lá»¥c nhanh trong bÃ i (Quick TOC)
     const sections = lesson.sections || [];
     if (sections.length > 0) {
       tocLinksList.innerHTML = sections.map((sec, idx) => `
-        <a href="#sec-${idx + 1}" class="toc-link-item">Mục ${sec.num}. ${escapeHtml(sec.title)}</a>
+        <a href="#sec-${idx + 1}" class="toc-link-item">Má»¥c ${sec.num}. ${escapeHtml(sec.title)}</a>
       `).join("");
       document.getElementById("lessonQuickToc").style.display = "block";
     } else {
       document.getElementById("lessonQuickToc").style.display = "none";
     }
 
-    // Render Tầng 3: Khung Mục lớn & Khung phụ a), b), c)...
+    // Render Táº§ng 3: Khung Má»¥c lá»›n & Khung phá»¥ a), b), c)...
     let sectionsHtml = "";
 
-    // 0. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION CHUẨN OLM
-    if (lesson.isOlmInteractive) {
+    // 0. THANH TIáº¾N Äá»˜ Há»ŒC Táº¬P (% PROGRESS BAR) & GAMIFICATION CHUáº¨N OLM
+    if (lesson.isOlmInteractive || lesson.isInteractiveDigitalLesson) {
       sectionsHtml += `
         <div class="olm-progress-sticky-wrapper" id="olmStickyProgressBar">
           <div class="olm-progress-inner">
             <div class="olm-progress-meta-left">
-              <span class="olm-badge-level"><i class="fa-solid fa-graduation-cap"></i> Tiến trình học tập số</span>
-              <h4 class="olm-progress-title"><i class="fa-solid fa-list-check" style="color: #0284c7;"></i> Mức độ hoàn thành</h4>
+              <span class="olm-badge-level"><i class="fa-solid fa-graduation-cap"></i> Tiáº¿n trÃ¬nh há»c táº­p sá»‘</span>
+              <h4 class="olm-progress-title"><i class="fa-solid fa-list-check" style="color: #0284c7;"></i> Má»©c Ä‘á»™ hoÃ n thÃ nh</h4>
             </div>
             <div class="olm-progress-track-wrap">
               <div class="olm-progress-track">
@@ -2431,14 +2431,14 @@ function initDigitalLessons() {
             </div>
             <div class="olm-gamification-badges">
               <span class="olm-xp-pill" id="olmXpDisplay"><i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> 0 XP</span>
-              <span class="olm-stars-pill" id="olmStarsDisplay"><i class="fa-solid fa-star" style="color: #8b5cf6;"></i> ⭐ 0</span>
+              <span class="olm-stars-pill" id="olmStarsDisplay"><i class="fa-solid fa-star" style="color: #8b5cf6;"></i> â­ 0</span>
             </div>
           </div>
         </div>
       `;
     }
 
-    // Helper tạo hộp thoại âm thanh vàng đồng Thầy Sáng
+    // Helper táº¡o há»™p thoáº¡i Ã¢m thanh vÃ ng Ä‘á»“ng Tháº§y SÃ¡ng
     function renderTeacherGoldVoiceBoxHtml(btnTitle, scriptText, audioUrl, customId) {
       const idAttr = customId ? ` id="${customId}"` : "";
       return `
@@ -2446,16 +2446,16 @@ function initDigitalLessons() {
           <div class="teacher-voice-gold-meta">
             <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
             <div class="teacher-voice-gold-info">
-              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
-              <span class="voice-audio-status">Trầm ấm, truyền cảm, chuẩn sư phạm</span>
+              <span class="voice-ai-label">Giá»ng Ä‘á»c AI cá»§a ThS. LÆ°Æ¡ng Thanh SÃ¡ng</span>
+              <span class="voice-audio-status">Tráº§m áº¥m, truyá»n cáº£m, chuáº©n sÆ° pháº¡m</span>
             </div>
           </div>
           <div class="teacher-voice-gold-controls">
             <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}">
-              <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}
+              <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe tháº§y SÃ¡ng giáº£ng bÃ i')}
             </button>
-            <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dừng phát">
-              <i class="fa-solid fa-stop"></i> Dừng
+            <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dá»«ng phÃ¡t">
+              <i class="fa-solid fa-stop"></i> Dá»«ng
             </button>
             <div class="voice-speed-pill-group">
               <button class="btn-speed-pill" data-speed="0.75">0.75x</button>
@@ -2468,7 +2468,7 @@ function initDigitalLessons() {
       `;
     }
 
-    // 1. Khung Lời chào sư phạm đầu giờ & Giọng đọc mục tiêu của Thầy Sáng
+    // 1. Khung Lá»i chÃ o sÆ° pháº¡m Ä‘áº§u giá» & Giá»ng Ä‘á»c má»¥c tiÃªu cá»§a Tháº§y SÃ¡ng
     if (lesson.teacherWelcome) {
       sectionsHtml += `
         <div class="teacher-welcome-card" id="lessonWelcomeCard">
@@ -2478,9 +2478,9 @@ function initDigitalLessons() {
                 <i class="fa-solid fa-chalkboard-user"></i>
               </div>
               <div class="teacher-titles">
-                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> Lời chào sư phạm thân thương đầu giờ</span>
-                <h3 class="teacher-display-name">ThS. Lương Thanh Sáng</h3>
-                <p class="teacher-school-sub">Giáo viên Toán • Trường THPT Nguyễn Văn Thoại, An Giang</p>
+                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> Lá»i chÃ o sÆ° pháº¡m thÃ¢n thÆ°Æ¡ng Ä‘áº§u giá»</span>
+                <h3 class="teacher-display-name">ThS. LÆ°Æ¡ng Thanh SÃ¡ng</h3>
+                <p class="teacher-school-sub">GiÃ¡o viÃªn ToÃ¡n â€¢ TrÆ°á»ng THPT Nguyá»…n VÄƒn Thoáº¡i, An Giang</p>
               </div>
             </div>
           </div>
@@ -2491,7 +2491,7 @@ function initDigitalLessons() {
           </div>
 
           ${renderTeacherGoldVoiceBoxHtml(
-            lesson.teacherWelcome.buttonLabel || "Lời chào của thầy Sáng",
+            lesson.teacherWelcome.buttonLabel || "Lá»i chÃ o cá»§a tháº§y SÃ¡ng",
             lesson.teacherWelcome.greetingText,
             lesson.teacherWelcome.audioUrl || ""
           )}
@@ -2499,16 +2499,16 @@ function initDigitalLessons() {
       `;
     }
 
-    // 2. Khung Mục tiêu & Yêu cầu cần đạt bài học
+    // 2. Khung Má»¥c tiÃªu & YÃªu cáº§u cáº§n Ä‘áº¡t bÃ i há»c
     if (lesson.learningGoals && lesson.learningGoals.length > 0) {
       sectionsHtml += `
         <div class="lesson-goals-box">
-          <h4><i class="fa-solid fa-bullseye"></i> Mục tiêu &amp; Yêu cầu cần đạt của bài học (Chuẩn SGK trang 51):</h4>
+          <h4><i class="fa-solid fa-bullseye"></i> Má»¥c tiÃªu &amp; YÃªu cáº§u cáº§n Ä‘áº¡t cá»§a bÃ i há»c (Chuáº©n SGK trang 51):</h4>
           <ul class="lesson-goals-list">
             ${lesson.learningGoals.map(g => `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${escapeHtml(g)}</li>`).join("")}
           </ul>
           ${renderTeacherGoldVoiceBoxHtml(
-            lesson.goalsButtonLabel || "Giọng đọc AI của Thầy Sáng",
+            lesson.goalsButtonLabel || "Giá»ng Ä‘á»c AI cá»§a Tháº§y SÃ¡ng",
             lesson.learningGoals.join(". "),
             lesson.goalsAudioUrl || ""
           )}
@@ -2516,11 +2516,11 @@ function initDigitalLessons() {
       `;
     }
 
-    // 3. Khung Tình huống mở đầu thực tế (Hook)
+    // 3. Khung TÃ¬nh huá»‘ng má»Ÿ Ä‘áº§u thá»±c táº¿ (Hook)
     if (lesson.hook) {
       sectionsHtml += `
         <div class="lesson-hook-card">
-          <div class="hook-badge"><i class="fa-solid fa-compass"></i> Tình huống thực tiễn mở đầu</div>
+          <div class="hook-badge"><i class="fa-solid fa-compass"></i> TÃ¬nh huá»‘ng thá»±c tiá»…n má»Ÿ Ä‘áº§u</div>
           <h3 class="hook-title">${escapeHtml(lesson.hook.title)}</h3>
           <p class="hook-story">${escapeHtml(lesson.hook.story)}</p>
 
@@ -2534,12 +2534,12 @@ function initDigitalLessons() {
           ${lesson.hook.question ? `
             <div class="hook-question-box">
               <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
-              <strong>Câu hỏi khơi gợi tư duy:</strong> ${escapeHtml(lesson.hook.question)}
+              <strong>CÃ¢u há»i khÆ¡i gá»£i tÆ° duy:</strong> ${escapeHtml(lesson.hook.question)}
             </div>
           ` : ''}
 
           ${renderTeacherGoldVoiceBoxHtml(
-            lesson.hook.buttonLabel || "Nghe thầy Sáng giảng bài",
+            lesson.hook.buttonLabel || "Nghe tháº§y SÃ¡ng giáº£ng bÃ i",
             lesson.hook.story,
             lesson.hook.audioUrl || ""
           )}
@@ -2547,7 +2547,7 @@ function initDigitalLessons() {
       `;
     }
 
-    // 4. Khung Giọng giảng bài AI của ThS. Lương Thanh Sáng (Toàn bài có POI)
+    // 4. Khung Giá»ng giáº£ng bÃ i AI cá»§a ThS. LÆ°Æ¡ng Thanh SÃ¡ng (ToÃ n bÃ i cÃ³ POI)
     if (lesson.interactiveAudio) {
       sectionsHtml += `
         <div class="olm-interactive-player-card" id="olmInteractivePlayer">
@@ -2559,12 +2559,12 @@ function initDigitalLessons() {
               </div>
               <div class="olm-player-title-box">
                 <h4><i class="fa-solid fa-headphones"></i> ${escapeHtml(lesson.interactiveAudio.title)}</h4>
-                <p>Giọng AI ThS. Lương Thanh Sáng • Tích hợp các điểm dừng kiểm tra tư duy tự động (POI)</p>
+                <p>Giá»ng AI ThS. LÆ°Æ¡ng Thanh SÃ¡ng â€¢ TÃ­ch há»£p cÃ¡c Ä‘iá»ƒm dá»«ng kiá»ƒm tra tÆ° duy tá»± Ä‘á»™ng (POI)</p>
               </div>
             </div>
           </div>
           <div class="olm-timeline-container">
-            <div class="olm-audio-seekbar" id="olmAudioSeekbar" title="Nhấn để tua bài (bị khóa khi đến điểm dừng câu hỏi)">
+            <div class="olm-audio-seekbar" id="olmAudioSeekbar" title="Nháº¥n Ä‘á»ƒ tua bÃ i (bá»‹ khÃ³a khi Ä‘áº¿n Ä‘iá»ƒm dá»«ng cÃ¢u há»i)">
               <div class="olm-audio-progress-bar" id="olmAudioProgress"></div>
               <div id="olmPoiMarkersContainer"></div>
             </div>
@@ -2575,18 +2575,18 @@ function initDigitalLessons() {
           </div>
           <div class="olm-player-controls-row">
             <button class="olm-btn-play-interactive" id="olmBtnPlayInteractive">
-              <i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài tương tác
+              <i class="fa-solid fa-play"></i> Nghe Tháº§y SÃ¡ng giáº£ng bÃ i tÆ°Æ¡ng tÃ¡c
             </button>
-            <span style="font-size: 0.85rem; color: #94a3b8;"><i class="fa-solid fa-circle-info"></i> Audio sẽ tự động tạm dừng khi chạm các mốc tròn vàng để hỏi nhanh</span>
+            <span style="font-size: 0.85rem; color: #94a3b8;"><i class="fa-solid fa-circle-info"></i> Audio sáº½ tá»± Ä‘á»™ng táº¡m dá»«ng khi cháº¡m cÃ¡c má»‘c trÃ²n vÃ ng Ä‘á»ƒ há»i nhanh</span>
           </div>
         </div>
 
-        <!-- MODAL CÂU HỎI TƯƠNG TÁC POI -->
+        <!-- MODAL CÃ‚U Há»ŽI TÆ¯Æ NG TÃC POI -->
         <div class="olm-poi-modal-backdrop" id="olmPoiModalBackdrop">
           <div class="olm-poi-modal-card">
             <div class="olm-poi-modal-header">
               <i class="fa-solid fa-circle-question"></i>
-              <h3>Thầy Sáng hỏi nhanh: Kiểm tra mức độ tập trung</h3>
+              <h3>Tháº§y SÃ¡ng há»i nhanh: Kiá»ƒm tra má»©c Ä‘á»™ táº­p trung</h3>
             </div>
             <div class="olm-poi-modal-body">
               <div class="olm-poi-question" id="olmPoiQuestionText"></div>
@@ -2594,7 +2594,7 @@ function initDigitalLessons() {
               <div class="olm-poi-feedback-box" id="olmPoiFeedbackBox"></div>
               <div class="olm-poi-modal-footer">
                 <button class="olm-btn-resume" id="olmBtnResumeAudio" disabled>
-                  <i class="fa-solid fa-forward"></i> Học tiếp bài giảng
+                  <i class="fa-solid fa-forward"></i> Há»c tiáº¿p bÃ i giáº£ng
                 </button>
               </div>
             </div>
@@ -2603,13 +2603,13 @@ function initDigitalLessons() {
       `;
     }
 
-    // 5. Các Mục lớn và Tiểu mục chi tiết chuẩn SGK
+    // 5. CÃ¡c Má»¥c lá»›n vÃ  Tiá»ƒu má»¥c chi tiáº¿t chuáº©n SGK
     sections.forEach((sec, sIdx) => {
       const subsections = sec.subsections || [];
       const secAnchor = `sec-${sIdx + 1}`;
 
       sectionsHtml += `
-        <!-- MỤC ${sec.num} -->
+        <!-- Má»¤C ${sec.num} -->
         <article class="lesson-section-card" id="${secAnchor}">
           <div class="section-card-header">
             <div class="section-title-wrap">
@@ -2621,7 +2621,7 @@ function initDigitalLessons() {
             ${subsections.map((sub, subIdx) => {
               const exId = `ex-sol-${sIdx}-${sub.key || subIdx}`;
               return `
-              <!-- Khung phụ ${sub.key}) -->
+              <!-- Khung phá»¥ ${sub.key}) -->
               <div class="subsection-card">
                 <div class="subsection-header">
                   <span class="sub-key-badge">${escapeHtml(sub.key)}</span>
@@ -2639,7 +2639,7 @@ function initDigitalLessons() {
                 `}
 
                 ${sub.audioUrl ? renderTeacherGoldVoiceBoxHtml(
-                  sub.buttonLabel || "Nghe thầy Sáng giảng bài",
+                  sub.buttonLabel || "Nghe tháº§y SÃ¡ng giáº£ng bÃ i",
                   sub.summary || sub.title,
                   sub.audioUrl
                 ) : ""}
@@ -2647,37 +2647,37 @@ function initDigitalLessons() {
                 ${sub.workedExample ? `
                   <div class="worked-example-card">
                     <div class="worked-example-header">
-                      <span class="example-pill"><i class="fa-solid fa-pencil"></i> ${escapeHtml(sub.workedExample.title || "Ví dụ minh họa")}</span>
+                      <span class="example-pill"><i class="fa-solid fa-pencil"></i> ${escapeHtml(sub.workedExample.title || "VÃ­ dá»¥ minh há»a")}</span>
                     </div>
                     <div class="example-problem">
-                      <strong>Đề bài:</strong> ${sub.workedExample.problem}
+                      <strong>Äá» bÃ i:</strong> ${sub.workedExample.problem}
                     </div>
 
-                    <!-- Ghi chú sư phạm: Học sinh làm bài tập vào vở -->
+                    <!-- Ghi chÃº sÆ° pháº¡m: Há»c sinh lÃ m bÃ i táº­p vÃ o vá»Ÿ -->
                     <div class="student-task-note">
                       <div class="note-icon"><i class="fa-solid fa-pen-to-square"></i></div>
                       <div class="note-content">
-                        <strong>Nhiệm vụ của học sinh:</strong>
-                        <span>Các em hãy tạm dừng ít phút, lấy vở ghi bài tập và thước kẻ ra tự vẽ hình, giải bài tập này vào vở trước khi xem lời giải của Thầy nhé!</span>
+                        <strong>Nhiá»‡m vá»¥ cá»§a há»c sinh:</strong>
+                        <span>CÃ¡c em hÃ£y táº¡m dá»«ng Ã­t phÃºt, láº¥y vá»Ÿ ghi bÃ i táº­p vÃ  thÆ°á»›c káº» ra tá»± váº½ hÃ¬nh, giáº£i bÃ i táº­p nÃ y vÃ o vá»Ÿ trÆ°á»›c khi xem lá»i giáº£i cá»§a Tháº§y nhÃ©!</span>
                       </div>
                     </div>
 
-                    <!-- Nút bấm ẩn/hiện lời giải chi tiết -->
+                    <!-- NÃºt báº¥m áº©n/hiá»‡n lá»i giáº£i chi tiáº¿t -->
                     <div class="solution-toggle-bar">
                       <button class="btn-toggle-solution" data-target="${exId}">
-                        <i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng
+                        <i class="fa-solid fa-eye"></i> Xem lá»i giáº£i chi tiáº¿t &amp; Äá»‹nh hÆ°á»›ng cá»§a Tháº§y SÃ¡ng
                       </button>
                     </div>
 
-                    <!-- Khung lời giải chi tiết (Mặc định ẩn) -->
+                    <!-- Khung lá»i giáº£i chi tiáº¿t (Máº·c Ä‘á»‹nh áº©n) -->
                     <div class="solution-collapse-body" id="${exId}" style="display: none;">
                       <div class="solution-inner-wrap">
-                        <div class="solution-title-tag"><i class="fa-solid fa-circle-check text-success"></i> Lời giải chi tiết chuẩn SGK:</div>
+                        <div class="solution-title-tag"><i class="fa-solid fa-circle-check text-success"></i> Lá»i giáº£i chi tiáº¿t chuáº©n SGK:</div>
                         <div class="solution-content-text">${sub.workedExample.solution}</div>
 
                         ${sub.workedExample.teacherGuidance ? `
                           <div class="teacher-thinking-note">
-                            <div class="thinking-title"><i class="fa-solid fa-lightbulb"></i> Lời khuyên của Thầy Sáng:</div>
+                            <div class="thinking-title"><i class="fa-solid fa-lightbulb"></i> Lá»i khuyÃªn cá»§a Tháº§y SÃ¡ng:</div>
                             <p>${escapeHtml(sub.workedExample.teacherGuidance)}</p>
                           </div>
                         ` : ""}
@@ -2694,31 +2694,31 @@ function initDigitalLessons() {
       `;
     });
 
-    // 6. Khung Vận dụng thực tế: Chốt bài học
+    // 6. Khung Váº­n dá»¥ng thá»±c táº¿: Chá»‘t bÃ i há»c
     if (lesson.realworldWrapup) {
       const wrapupSolId = "wrapup-sol-body";
       sectionsHtml += `
         <div class="realworld-wrapup-card">
           <div class="wrapup-header">
-            <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> Chốt bài học</span>
-            <h3 class="wrapup-title">${escapeHtml(lesson.realworldWrapup.title || "QUAY LẠI GIẢI QUYẾT BÀI TOÁN TÌNH HUỐNG MỞ ĐẦU")}</h3>
+            <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> Chá»‘t bÃ i há»c</span>
+            <h3 class="wrapup-title">${escapeHtml(lesson.realworldWrapup.title || "QUAY Láº I GIáº¢I QUYáº¾T BÃ€I TOÃN TÃŒNH HUá»NG Má»ž Äáº¦U")}</h3>
           </div>
 
           <div class="wrapup-recap-box">
-            <div class="recap-label"><i class="fa-solid fa-rotate-left"></i> Nhắc lại bài toán mở đầu:</div>
+            <div class="recap-label"><i class="fa-solid fa-rotate-left"></i> Nháº¯c láº¡i bÃ i toÃ¡n má»Ÿ Ä‘áº§u:</div>
             <p class="recap-text">${escapeHtml(lesson.realworldWrapup.recap)}</p>
           </div>
 
           <div class="solution-toggle-bar" style="margin: 14px 0;">
             <button class="btn-toggle-solution" data-target="${wrapupSolId}">
-              <i class="fa-solid fa-eye"></i> Xem lời giải chi tiết của Thầy Sáng
+              <i class="fa-solid fa-eye"></i> Xem lá»i giáº£i chi tiáº¿t cá»§a Tháº§y SÃ¡ng
             </button>
           </div>
 
           <div class="solution-collapse-body" id="${wrapupSolId}" style="display: none;">
             <div class="solution-inner-wrap">
               <div class="wrapup-solution-box">
-                <h4 class="wrapup-solution-head"><i class="fa-solid fa-chalkboard-user"></i> Mô hình hóa Toán học &amp; Lời giải chi tiết của Thầy Sáng:</h4>
+                <h4 class="wrapup-solution-head"><i class="fa-solid fa-chalkboard-user"></i> MÃ´ hÃ¬nh hÃ³a ToÃ¡n há»c &amp; Lá»i giáº£i chi tiáº¿t cá»§a Tháº§y SÃ¡ng:</h4>
                 <div class="wrapup-solution-content">
                   ${lesson.realworldWrapup.solution}
                 </div>
@@ -2727,7 +2727,7 @@ function initDigitalLessons() {
           </div>
 
           ${renderTeacherGoldVoiceBoxHtml(
-            lesson.realworldWrapup.buttonLabel || "Nghe thầy Sáng giảng bài",
+            lesson.realworldWrapup.buttonLabel || "Nghe tháº§y SÃ¡ng giáº£ng bÃ i",
             lesson.realworldWrapup.recap,
             lesson.realworldWrapup.audioUrl || ""
           )}
@@ -2735,35 +2735,35 @@ function initDigitalLessons() {
       `;
     }
 
-    // 7. BÀI TẬP TRẮC NGHIỆM TỔNG HỢP (CHUẨN 3 DẠNG THỨC THI MỚI 2025)
+    // 7. BÃ€I Táº¬P TRáº®C NGHIá»†M Tá»”NG Há»¢P (CHUáº¨N 3 Dáº NG THá»¨C THI Má»šI 2025)
     if (lesson.examFormatPractice) {
       const ef = lesson.examFormatPractice;
       sectionsHtml += `
         <div class="exam-format-wrap" id="examFormatPracticeSection">
           <div class="exam-format-main-title">
             <i class="fa-solid fa-file-signature" style="font-size: 1.4rem; color: #fef08a;"></i>
-            <h3>${escapeHtml(ef.title || "PHẦN IV. BÀI TẬP TRẮC NGHIỆM TỔNG HỢP (CHUẨN CẤU TRÚC ĐỀ THI MỚI 2025 BỘ GD&ĐT)")}</h3>
+            <h3>${escapeHtml(ef.title || "PHáº¦N IV. BÃ€I Táº¬P TRáº®C NGHIá»†M Tá»”NG Há»¢P (CHUáº¨N Cáº¤U TRÃšC Äá»€ THI Má»šI 2025 Bá»˜ GD&ÄT)")}</h3>
           </div>
 
-          <!-- DẠNG 1: TRẮC NGHIỆM NHIỀU LỰA CHỌN (5 CÂU) -->
+          <!-- Dáº NG 1: TRáº®C NGHIá»†M NHIá»€U Lá»°A CHá»ŒN (5 CÃ‚U) -->
           ${ef.part1MultipleChoice && ef.part1MultipleChoice.length > 0 ? `
             <div class="exam-sub-section">
               <div class="exam-sub-title-bar">
-                <h4><i class="fa-solid fa-list-ol" style="color: #0284c7;"></i> DẠNG 1. CÂU HỎI TRẮC NGHIỆM NHIỀU LỰA CHỌN (5 câu cốt lõi - Nhận biết)</h4>
+                <h4><i class="fa-solid fa-list-ol" style="color: #0284c7;"></i> Dáº NG 1. CÃ‚U Há»ŽI TRáº®C NGHIá»†M NHIá»€U Lá»°A CHá»ŒN (5 cÃ¢u cá»‘t lÃµi - Nháº­n biáº¿t)</h4>
               </div>
               <div class="exam-list-mc">
                 ${ef.part1MultipleChoice.map((q, idx) => `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge"><i class="fa-solid fa-circle-question"></i> CÃ¢u ${q.num}</span>
                       <div class="exam-item-actions-bar">
                         ${q.similarVariation ? `
-                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang câu hỏi tương tự với số liệu mới">
-                            <i class="fa-solid fa-shuffle"></i> Bài toán tương tự
+                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Äá»•i sang cÃ¢u há»i tÆ°Æ¡ng tá»± vá»›i sá»‘ liá»‡u má»›i">
+                            <i class="fa-solid fa-shuffle"></i> BÃ i toÃ¡n tÆ°Æ¡ng tá»±
                           </button>
                         ` : ''}
                         <button class="btn-show-solution-btn" data-target="sol-${q.id}">
-                          <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                          <i class="fa-solid fa-lightbulb"></i> Lá»i giáº£i chi tiáº¿t
                         </button>
                       </div>
                     </div>
@@ -2776,7 +2776,7 @@ function initDigitalLessons() {
                       `).join("")}
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
-                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      <strong>Lá»i giáº£i chi tiáº¿t cá»§a Tháº§y SÃ¡ng:</strong><br>
                       ${q.solution}
                     </div>
                   </div>
@@ -2785,27 +2785,27 @@ function initDigitalLessons() {
             </div>
           ` : ''}
 
-          <!-- DẠNG 2: TRẮC NGHIỆM ĐÚNG / SAI 4 Ý (3 CÂU) -->
+          <!-- Dáº NG 2: TRáº®C NGHIá»†M ÄÃšNG / SAI 4 Ã (3 CÃ‚U) -->
           ${ef.part2TrueFalse && ef.part2TrueFalse.length > 0 ? `
             <div class="exam-sub-section">
               <div class="exam-sub-title-bar">
-                <h4><i class="fa-solid fa-square-check" style="color: #059669;"></i> DẠNG 2. CÂU HỎI TRẮC NGHIỆM ĐÚNG / SAI (3 câu cốt lõi - Thông hiểu)</h4>
+                <h4><i class="fa-solid fa-square-check" style="color: #059669;"></i> Dáº NG 2. CÃ‚U Há»ŽI TRáº®C NGHIá»†M ÄÃšNG / SAI (3 cÃ¢u cá»‘t lÃµi - ThÃ´ng hiá»ƒu)</h4>
               </div>
               <div class="exam-list-tf">
                 ${ef.part2TrueFalse.map((q, idx) => `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> CÃ¢u ${q.num}</span>
                       <button class="btn-show-solution-btn" data-target="sol-${q.id}">
-                        <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                        <i class="fa-solid fa-lightbulb"></i> Lá»i giáº£i chi tiáº¿t
                       </button>
                     </div>
                     <div class="exam-item-prompt">${q.prompt}</div>
                     <table class="tf-4part-table">
                       <thead>
                         <tr>
-                          <th style="width: 75%;">Ý mệnh đề</th>
-                          <th style="width: 25%; text-align: center;">Khẳng định của em</th>
+                          <th style="width: 75%;">Ã má»‡nh Ä‘á»</th>
+                          <th style="width: 25%; text-align: center;">Kháº³ng Ä‘á»‹nh cá»§a em</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -2813,7 +2813,7 @@ function initDigitalLessons() {
                           <tr class="tf-item-row" data-qid="${q.id}" data-item-idx="${iIdx}" data-correct="${it.isTrue}">
                             <td><strong>${it.label})</strong> ${it.text}</td>
                             <td style="text-align: center;">
-                              <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Đ</button>
+                              <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Ä</button>
                               <button class="btn-tf-toggle" data-val="false">S</button>
                             </td>
                           </tr>
@@ -2822,11 +2822,11 @@ function initDigitalLessons() {
                     </table>
                     <div style="text-align: right; margin-top: 10px;">
                       <button class="btn-check-tf-group" data-qid="${q.id}" style="background: #059669; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
-                        <i class="fa-solid fa-check"></i> Kiểm tra câu ${q.num}
+                        <i class="fa-solid fa-check"></i> Kiá»ƒm tra cÃ¢u ${q.num}
                       </button>
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
-                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      <strong>Lá»i giáº£i chi tiáº¿t cá»§a Tháº§y SÃ¡ng:</strong><br>
                       ${q.solution}
                     </div>
                   </div>
@@ -2835,40 +2835,40 @@ function initDigitalLessons() {
             </div>
           ` : ''}
 
-          <!-- DẠNG 3: TRẮC NGHIỆM TRẢ LỜI NGẮN (2 CÂU) -->
+          <!-- Dáº NG 3: TRáº®C NGHIá»†M TRáº¢ Lá»œI NGáº®N (2 CÃ‚U) -->
           ${ef.part3ShortAnswer && ef.part3ShortAnswer.length > 0 ? `
             <div class="exam-sub-section">
               <div class="exam-sub-title-bar">
-                <h4><i class="fa-solid fa-pen-clip" style="color: #d97706;"></i> DẠNG 3. CÂU HỎI TRẢ LỜI NGẮN (2 câu Toán thực tế - Vận dụng)</h4>
+                <h4><i class="fa-solid fa-pen-clip" style="color: #d97706;"></i> Dáº NG 3. CÃ‚U Há»ŽI TRáº¢ Lá»œI NGáº®N (2 cÃ¢u ToÃ¡n thá»±c táº¿ - Váº­n dá»¥ng)</h4>
               </div>
               <div class="exam-list-sa">
                 ${ef.part3ShortAnswer.map((q, idx) => `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-circle-question"></i> CÃ¢u ${q.num}</span>
                       <div class="exam-item-actions-bar">
                         ${q.similarVariation ? `
-                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang bài toán tương tự với số liệu mới">
-                            <i class="fa-solid fa-shuffle"></i> Bài toán tương tự
+                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Äá»•i sang bÃ i toÃ¡n tÆ°Æ¡ng tá»± vá»›i sá»‘ liá»‡u má»›i">
+                            <i class="fa-solid fa-shuffle"></i> BÃ i toÃ¡n tÆ°Æ¡ng tá»±
                           </button>
                         ` : ''}
                         <button class="btn-show-solution-btn" data-target="sol-${q.id}">
-                          <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                          <i class="fa-solid fa-lightbulb"></i> Lá»i giáº£i chi tiáº¿t
                         </button>
                       </div>
                     </div>
                     <div class="exam-item-prompt" id="prompt-${q.id}">${q.prompt}</div>
                     <div class="short-ans-row">
-                      <label style="font-weight: 700; color: #1e293b;">Đáp số của em:</label>
-                      <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nhập số..." data-ans="${q.correctAnswer}">
+                      <label style="font-weight: 700; color: #1e293b;">ÄÃ¡p sá»‘ cá»§a em:</label>
+                      <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nháº­p sá»‘..." data-ans="${q.correctAnswer || q.correctValue}">
                       <span style="font-weight: 700; color: #64748b;">${q.unit || ''}</span>
                       <button class="btn-check-short-ans" data-qid="${q.id}">
-                        <i class="fa-solid fa-check"></i> Trả lời
+                        <i class="fa-solid fa-check"></i> Tráº£ lá»i
                       </button>
                       <span class="sa-feedback-badge" id="feedback-${q.id}" style="display: none; font-weight: 700;"></span>
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
-                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      <strong>Lá»i giáº£i chi tiáº¿t cá»§a Tháº§y SÃ¡ng:</strong><br>
                       ${q.solution}
                     </div>
                   </div>
@@ -2880,14 +2880,14 @@ function initDigitalLessons() {
       `;
     }
 
-    // 7. Khung Bài tập tương tác đa dạng (Interactive Challenges & Activities)
+    // 7. Khung BÃ i táº­p tÆ°Æ¡ng tÃ¡c Ä‘a dáº¡ng (Interactive Challenges & Activities)
     const challenges = lesson.interactiveChallenges || lesson.interactiveActivities || [];
     if (challenges.length > 0) {
       sectionsHtml += `
         <div class="interactive-section-wrap" id="interactivePracticeArea">
           <div class="interactive-main-title">
             <i class="fa-solid fa-gamepad" style="color: #0284c7;"></i>
-            <span>Không Gian Rèn Luyện &amp; Thử Thách Tương Tác Trực Tuyến</span>
+            <span>KhÃ´ng Gian RÃ¨n Luyá»‡n &amp; Thá»­ ThÃ¡ch TÆ°Æ¡ng TÃ¡c Trá»±c Tuyáº¿n</span>
           </div>
 
           ${challenges.map((act, aIdx) => {
@@ -2907,7 +2907,7 @@ function initDigitalLessons() {
                     `).join("")}
                   </div>
                   <div class="quiz-feedback-box" id="feedback-mc-${aIdx}">
-                    <p style="margin: 0;"><strong>Giải thích chi tiết:</strong> ${escapeHtml(act.explanation)}</p>
+                    <p style="margin: 0;"><strong>Giáº£i thÃ­ch chi tiáº¿t:</strong> ${escapeHtml(act.explanation)}</p>
                   </div>
                 </div>
               `;
@@ -2937,7 +2937,7 @@ function initDigitalLessons() {
                     </div>
                   </div>
                   <div class="matching-status-bar" id="matchStatusBar" style="margin-top: 14px; font-weight: 600; color: #0284c7;">
-                    Nhấn vào 1 ô ở Cột A, sau đó nhấn ô tương ứng ở Cột B để nối cặp!
+                    Nháº¥n vÃ o 1 Ã´ á»Ÿ Cá»™t A, sau Ä‘Ã³ nháº¥n Ã´ tÆ°Æ¡ng á»©ng á»Ÿ Cá»™t B Ä‘á»ƒ ná»‘i cáº·p!
                   </div>
                 </div>
               `;
@@ -2951,8 +2951,8 @@ function initDigitalLessons() {
                   <table class="true-false-table">
                     <thead>
                       <tr>
-                        <th style="width: 70%;">Mệnh đề khẳng định</th>
-                        <th style="text-align: center; width: 15%;">Đúng</th>
+                        <th style="width: 70%;">Má»‡nh Ä‘á» kháº³ng Ä‘á»‹nh</th>
+                        <th style="text-align: center; width: 15%;">ÄÃºng</th>
                         <th style="text-align: center; width: 15%;">Sai</th>
                       </tr>
                     </thead>
@@ -2966,7 +2966,7 @@ function initDigitalLessons() {
                             </div>
                           </td>
                           <td style="text-align: center;">
-                            <button class="btn-tf-choice" data-choice="true">Đ</button>
+                            <button class="btn-tf-choice" data-choice="true">Ä</button>
                           </td>
                           <td style="text-align: center;">
                             <button class="btn-tf-choice" data-choice="false">S</button>
@@ -2977,7 +2977,7 @@ function initDigitalLessons() {
                   </table>
                   <div style="margin-top: 14px; text-align: right;">
                     <button class="btn-submit-tf" id="btnCheckTrueFalse" style="padding: 8px 18px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
-                      <i class="fa-solid fa-check"></i> Kiểm tra kết quả
+                      <i class="fa-solid fa-check"></i> Kiá»ƒm tra káº¿t quáº£
                     </button>
                   </div>
                 </div>
@@ -2989,24 +2989,24 @@ function initDigitalLessons() {
       `;
     }
 
-    // 7b. KHUNG LUYỆN TẬP THÍCH ỨNG 4 MỨC ĐỘ & ĐỔI SỐ TỰ ĐỘNG CHUẨN OLM
-    if (lesson.isOlmInteractive) {
+    // 7b. KHUNG LUYá»†N Táº¬P THÃCH á»¨NG 4 Má»¨C Äá»˜ & Äá»”I Sá» Tá»° Äá»˜NG CHUáº¨N OLM
+    if (lesson.isOlmInteractive || lesson.isInteractiveDigitalLesson) {
       sectionsHtml += `
         <div class="olm-adaptive-wrapper" id="olmAdaptiveArea">
           <div class="olm-adaptive-header">
             <div class="olm-adaptive-title">
               <i class="fa-solid fa-brain"></i>
-              <h3>Luyện tập thích ứng thông minh (Tự động đổi dữ kiện không học vẹt)</h3>
+              <h3>Luyá»‡n táº­p thÃ­ch á»©ng thÃ´ng minh (Tá»± Ä‘á»™ng Ä‘á»•i dá»¯ kiá»‡n khÃ´ng há»c váº¹t)</h3>
             </div>
             <div class="olm-level-tabs">
-              <button class="olm-tab-level active" data-level="1">Mức độ 1 (Nhận biết)</button>
-              <button class="olm-tab-level" data-level="2">Mức độ 2 (Thông hiểu)</button>
-              <button class="olm-tab-level" data-level="3">Mức độ 3 (Vận dụng)</button>
-              <button class="olm-tab-level" data-level="4">Mức độ 4 (Vận dụng cao)</button>
+              <button class="olm-tab-level active" data-level="1">Má»©c Ä‘á»™ 1 (Nháº­n biáº¿t)</button>
+              <button class="olm-tab-level" data-level="2">Má»©c Ä‘á»™ 2 (ThÃ´ng hiá»ƒu)</button>
+              <button class="olm-tab-level" data-level="3">Má»©c Ä‘á»™ 3 (Váº­n dá»¥ng)</button>
+              <button class="olm-tab-level" data-level="4">Má»©c Ä‘á»™ 4 (Váº­n dá»¥ng cao)</button>
             </div>
           </div>
           <div class="olm-question-card" id="olmAdaptiveQuestionCard">
-            <!-- Được render động bởi olm-lesson-engine.js -->
+            <!-- ÄÆ°á»£c render Ä‘á»™ng bá»Ÿi olm-lesson-engine.js -->
           </div>
         </div>
       `;
@@ -3014,47 +3014,48 @@ function initDigitalLessons() {
 
     sectionsContainer.innerHTML = sectionsHtml;
 
-    // Kích hoạt MathJax hiển thị công thức Toán
+    // KÃ­ch hoáº¡t MathJax hiá»ƒn thá»‹ cÃ´ng thá»©c ToÃ¡n
     if (window.MathJax && window.MathJax.typesetPromise) {
       window.MathJax.typesetPromise([sectionsContainer]).catch(err => console.warn("MathJax error:", err));
     }
 
-    // Gắn sự kiện Giọng đọc AI & Các bài tập tương tác
+    // Gáº¯n sá»± kiá»‡n Giá»ng Ä‘á»c AI & CÃ¡c bÃ i táº­p tÆ°Æ¡ng tÃ¡c
     bindDigitalLessonEvents(sectionsContainer);
 
-    // Kích hoạt OLM Interactive Engine nếu bài học có tính năng OLM tương tác
-    if (lesson.isOlmInteractive && typeof window.initOlmLessonEngine === 'function') {
-      window.initOlmLessonEngine(lesson);
+    // KÃ­ch hoáº¡t OLM Interactive Engine náº¿u bÃ i há»c cÃ³ tÃ­nh nÄƒng OLM tÆ°Æ¡ng tÃ¡c
+    if ((lesson.isOlmInteractive || lesson.isInteractiveDigitalLesson) && (typeof window.initInteractiveLessonEngine === 'function' || typeof window.initOlmLessonEngine === 'function')) {
+      const initFn = window.initInteractiveLessonEngine || window.initOlmLessonEngine;
+      initFn(lesson);
     }
 
-    // Cập nhật URL trình duyệt (không tải lại trang)
+    // Cáº­p nháº­t URL trÃ¬nh duyá»‡t (khÃ´ng táº£i láº¡i trang)
     try {
       const newUrl = `${window.location.pathname}?grade=${currentGrade}&lesson=${currentLessonId}`;
       window.history.replaceState({ grade: currentGrade, lesson: currentLessonId }, "", newUrl);
     } catch (e) {
-      // bỏ qua lỗi nếu ở file:// protocol
+      // bá» qua lá»—i náº¿u á»Ÿ file:// protocol
     }
   }
 
-  // Chọn bài học mới
+  // Chá»n bÃ i há»c má»›i
   function selectLesson(lessonId) {
     currentLessonId = lessonId;
     renderSidebar();
     renderLessonViewer();
 
-    // Ẩn sidebar trên mobile sau khi chọn bài
+    // áº¨n sidebar trÃªn mobile sau khi chá»n bÃ i
     if (window.innerWidth <= 992) {
       sidebarEl.classList.remove("mobile-open");
     }
 
-    // Cuộn mượt tới khung bài học
+    // Cuá»™n mÆ°á»£t tá»›i khung bÃ i há»c
     const viewer = document.getElementById("lessonDetailViewer");
     if (viewer) {
       viewer.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 
-  // GẮN SỰ KIỆN TẦNG 1: CHỌN KHỐI LỚP
+  // Gáº®N Sá»° KIá»†N Táº¦NG 1: CHá»ŒN KHá»I Lá»šP
   gradeCards.forEach(card => {
     card.addEventListener("click", () => {
       const selectedGrade = card.dataset.grade;
@@ -3073,7 +3074,7 @@ function initDigitalLessons() {
     });
   });
 
-  // GẮN SỰ KIỆN: LỌC TẬP
+  // Gáº®N Sá»° KIá»†N: Lá»ŒC Táº¬P
   volButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       volButtons.forEach(b => b.classList.remove("active"));
@@ -3083,7 +3084,7 @@ function initDigitalLessons() {
     });
   });
 
-  // GẮN SỰ KIỆN: TÌM KIẾM BÀI HỌC
+  // Gáº®N Sá»° KIá»†N: TÃŒM KIáº¾M BÃ€I Há»ŒC
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       currentSearch = e.target.value;
@@ -3091,7 +3092,7 @@ function initDigitalLessons() {
     });
   }
 
-  // GẮN SỰ KIỆN NÚT PREV / NEXT
+  // Gáº®N Sá»° KIá»†N NÃšT PREV / NEXT
   btnPrevLesson.addEventListener("click", () => {
     const targetId = btnPrevLesson.dataset.targetId;
     if (targetId) selectLesson(targetId);
@@ -3102,7 +3103,7 @@ function initDigitalLessons() {
     if (targetId) selectLesson(targetId);
   });
 
-  // GẮN SỰ KIỆN: TOGGLE SIDEBAR TRÊN MOBILE
+  // Gáº®N Sá»° KIá»†N: TOGGLE SIDEBAR TRÃŠN MOBILE
   if (mobileToggleBtn && sidebarEl) {
     mobileToggleBtn.addEventListener("click", () => {
       sidebarEl.classList.toggle("mobile-open");
@@ -3110,7 +3111,7 @@ function initDigitalLessons() {
   }
 
   // =========================================================================
-  // BỘ TỔNG HỢP GIỌNG GIẢNG BÀI AI THẦY SÁNG (CHUẨN 100% TIẾNG VIỆT TỰ NHIÊN)
+  // Bá»˜ Tá»”NG Há»¢P GIá»ŒNG GIáº¢NG BÃ€I AI THáº¦Y SÃNG (CHUáº¨N 100% TIáº¾NG VIá»†T Tá»° NHIÃŠN)
   // =========================================================================
   let currentUtterance = null;
   let activeVoicePlayer = null;
@@ -3138,7 +3139,7 @@ function initDigitalLessons() {
     }
     if (!cachedVoices || cachedVoices.length === 0) return null;
 
-    // Ưu tiên 1: Giọng tiếng Việt chất lượng cao (Google tiếng Việt, Edge Natural Online)
+    // Æ¯u tiÃªn 1: Giá»ng tiáº¿ng Viá»‡t cháº¥t lÆ°á»£ng cao (Google tiáº¿ng Viá»‡t, Edge Natural Online)
     let v = cachedVoices.find(voice => {
       const n = (voice.name || "").toLowerCase();
       const l = (voice.lang || "").toLowerCase();
@@ -3147,17 +3148,17 @@ function initDigitalLessons() {
     });
     if (v) return v;
 
-    // Ưu tiên 2: Bất kỳ giọng nào có mã ngôn ngữ vi hoặc vi-VN
+    // Æ¯u tiÃªn 2: Báº¥t ká»³ giá»ng nÃ o cÃ³ mÃ£ ngÃ´n ngá»¯ vi hoáº·c vi-VN
     v = cachedVoices.find(voice => {
       const l = (voice.lang || "").toLowerCase();
       return l === "vi-vn" || l === "vi_vn" || l.startsWith("vi");
     });
     if (v) return v;
 
-    // Ưu tiên 3: Tên giọng có chứa các từ khóa tiếng Việt
+    // Æ¯u tiÃªn 3: TÃªn giá»ng cÃ³ chá»©a cÃ¡c tá»« khÃ³a tiáº¿ng Viá»‡t
     v = cachedVoices.find(voice => {
       const n = (voice.name || "").toLowerCase();
-      return n.includes("vietnam") || n.includes("tiếng việt") || n.includes("vietnamese");
+      return n.includes("vietnam") || n.includes("tiáº¿ng viá»‡t") || n.includes("vietnamese");
     });
     return v || null;
   }
@@ -3182,45 +3183,45 @@ function initDigitalLessons() {
   function mathToVietnameseSpeech(text) {
     if (!text) return "";
     let s = text;
-    // Bỏ thẻ HTML
+    // Bá» tháº» HTML
     s = s.replace(/<[^>]+>/g, " ");
-    // Chuyển ký hiệu Toán học sang lời phát biểu tiếng Việt chuẩn mực của Thầy Sáng
-    s = s.replace(/\\vec\{0\}/g, " vectơ-không ");
-    s = s.replace(/\\vec\{([A-Za-z0-9]+)\}/g, " vectơ $1 ");
-    s = s.replace(/\\vec\s+([A-Za-z0-9]+)/g, " vectơ $1 ");
-    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " độ dài vectơ $1 ");
-    s = s.replace(/\|\\vec\s+([^|]+)\|/g, " độ dài vectơ $1 ");
-    s = s.replace(/\\parallel/g, " song song với ");
-    s = s.replace(/\/\//g, " song song với ");
-    s = s.replace(/\\not\\subset/g, " không nằm trong ");
-    s = s.replace(/\\subset/g, " nằm trong ");
-    s = s.replace(/\\cap/g, " giao với ");
-    s = s.replace(/\\cup/g, " hợp với ");
-    s = s.replace(/\\emptyset/g, " tập rỗng ");
-    s = s.replace(/\\perp/g, " vuông góc với ");
-    s = s.replace(/\\cdot/g, " nhân vô hướng với ");
-    s = s.replace(/\\cos/g, " cô-sin ");
+    // Chuyá»ƒn kÃ½ hiá»‡u ToÃ¡n há»c sang lá»i phÃ¡t biá»ƒu tiáº¿ng Viá»‡t chuáº©n má»±c cá»§a Tháº§y SÃ¡ng
+    s = s.replace(/\\vec\{0\}/g, " vectÆ¡-khÃ´ng ");
+    s = s.replace(/\\vec\{([A-Za-z0-9]+)\}/g, " vectÆ¡ $1 ");
+    s = s.replace(/\\vec\s+([A-Za-z0-9]+)/g, " vectÆ¡ $1 ");
+    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " Ä‘á»™ dÃ i vectÆ¡ $1 ");
+    s = s.replace(/\|\\vec\s+([^|]+)\|/g, " Ä‘á»™ dÃ i vectÆ¡ $1 ");
+    s = s.replace(/\\parallel/g, " song song vá»›i ");
+    s = s.replace(/\/\//g, " song song vá»›i ");
+    s = s.replace(/\\not\\subset/g, " khÃ´ng náº±m trong ");
+    s = s.replace(/\\subset/g, " náº±m trong ");
+    s = s.replace(/\\cap/g, " giao vá»›i ");
+    s = s.replace(/\\cup/g, " há»£p vá»›i ");
+    s = s.replace(/\\emptyset/g, " táº­p rá»—ng ");
+    s = s.replace(/\\perp/g, " vuÃ´ng gÃ³c vá»›i ");
+    s = s.replace(/\\cdot/g, " nhÃ¢n vÃ´ hÆ°á»›ng vá»›i ");
+    s = s.replace(/\\cos/g, " cÃ´-sin ");
     s = s.replace(/\\sin/g, " sin ");
     s = s.replace(/\\tan/g, " tang ");
-    s = s.replace(/\\cot/g, " cô-tang ");
-    s = s.replace(/\\widehat\{([^}]+)\}/g, " góc $1 ");
+    s = s.replace(/\\cot/g, " cÃ´-tang ");
+    s = s.replace(/\\widehat\{([^}]+)\}/g, " gÃ³c $1 ");
     s = s.replace(/\\alpha/g, " an-pha ");
-    s = s.replace(/\\beta/g, " bê-ta ");
+    s = s.replace(/\\beta/g, " bÃª-ta ");
     s = s.replace(/\\gamma/g, " gam-ma ");
     s = s.replace(/\\varphi/g, " phi ");
-    s = s.replace(/\\sqrt\{([^}]+)\}/g, " căn bậc hai của $1 ");
-    s = s.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, " $1 phần $2 ");
-    s = s.replace(/\^2/g, " bình phương ");
-    s = s.replace(/\^3/g, " lập phương ");
-    s = s.replace(/\^\\circ/g, " độ ");
-    s = s.replace(/\^\circ/g, " độ ");
-    s = s.replace(/\\ge/g, " lớn hơn hoặc bằng ");
-    s = s.replace(/\\le/g, " nhỏ hơn hoặc bằng ");
-    s = s.replace(/\\ne/g, " khác ");
+    s = s.replace(/\\sqrt\{([^}]+)\}/g, " cÄƒn báº­c hai cá»§a $1 ");
+    s = s.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, " $1 pháº§n $2 ");
+    s = s.replace(/\^2/g, " bÃ¬nh phÆ°Æ¡ng ");
+    s = s.replace(/\^3/g, " láº­p phÆ°Æ¡ng ");
+    s = s.replace(/\^\\circ/g, " Ä‘á»™ ");
+    s = s.replace(/\^\circ/g, " Ä‘á»™ ");
+    s = s.replace(/\\ge/g, " lá»›n hÆ¡n hoáº·c báº±ng ");
+    s = s.replace(/\\le/g, " nhá» hÆ¡n hoáº·c báº±ng ");
+    s = s.replace(/\\ne/g, " khÃ¡c ");
     s = s.replace(/\\implies/g, " suy ra ");
-    s = s.replace(/\\iff/g, " khi và chỉ khi ");
-    s = s.replace(/\\times/g, " nhân ");
-    s = s.replace(/\\pm/g, " cộng trừ ");
+    s = s.replace(/\\iff/g, " khi vÃ  chá»‰ khi ");
+    s = s.replace(/\\times/g, " nhÃ¢n ");
+    s = s.replace(/\\pm/g, " cá»™ng trá»« ");
     s = s.replace(/[\$\{\}\_]/g, " ");
     s = s.replace(/\\/g, " ");
     s = s.replace(/\s+/g, " ").trim();
@@ -3250,13 +3251,13 @@ function initDigitalLessons() {
       const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
       if (playBtn) {
         if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Tháº§y SÃ¡ng chÃ o lá»›p &amp; hÆ°á»›ng dáº«n má»¥c tiÃªu';
         } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Tháº§y SÃ¡ng phÃ¢n tÃ­ch Ã½ nghÄ©a thá»±c táº¿ cá»§a bÃ i há»c';
         } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
-          playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
+          playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Tháº§y SÃ¡ng giáº£ng bÃ i';
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
+          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giáº£ng';
         }
       }
       activeVoicePlayer = null;
@@ -3306,7 +3307,7 @@ function initDigitalLessons() {
 
     stopTeacherSpeech();
 
-    // Tự động tìm thuộc tính data-audio từ nút bấm hoặc khung bao quanh
+    // Tá»± Ä‘á»™ng tÃ¬m thuá»™c tÃ­nh data-audio tá»« nÃºt báº¥m hoáº·c khung bao quanh
     if (!audioUrl && playerElement) {
       const btn = playerElement.querySelector("[data-audio]");
       if (btn && btn.dataset.audio) {
@@ -3322,10 +3323,10 @@ function initDigitalLessons() {
 
     const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
     if (playBtn) {
-      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Táº¡m dá»«ng bÃ i giáº£ng';
     }
 
-    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
+    // 1. Náº¾U CÃ“ Tá»†P MP3 THá»°C Táº¾ (GIá»ŒNG NAM MINH CHUáº¨N SÆ¯ PHáº M ÄÆ¯á»¢C TÃCH Há»¢P Sáº´N)
     if (audioUrl) {
       try {
         currentHtml5Audio = new Audio(audioUrl);
@@ -3356,7 +3357,7 @@ function initDigitalLessons() {
       }
     }
 
-    // 2. NẾU KHÔNG CÓ TỆP MP3: DÙNG BỘ MÁY WEB SPEECH API CHUẨN HÓA TIẾNG VIỆT
+    // 2. Náº¾U KHÃ”NG CÃ“ Tá»†P MP3: DÃ™NG Bá»˜ MÃY WEB SPEECH API CHUáº¨N HÃ“A TIáº¾NG VIá»†T
     startWebSpeechSynthesis(rawText, speed);
   }
 
@@ -3368,7 +3369,7 @@ function initDigitalLessons() {
     }
 
     if (!("speechSynthesis" in window)) {
-      alert("Trình duyệt chưa hỗ trợ công nghệ Web Speech. Quý Thầy Cô và các em học sinh vui lòng mở trang web trên Google Chrome hoặc Microsoft Edge để lắng nghe giọng đọc Thầy Sáng nhé!");
+      alert("TrÃ¬nh duyá»‡t chÆ°a há»— trá»£ cÃ´ng nghá»‡ Web Speech. QuÃ½ Tháº§y CÃ´ vÃ  cÃ¡c em há»c sinh vui lÃ²ng má»Ÿ trang web trÃªn Google Chrome hoáº·c Microsoft Edge Ä‘á»ƒ láº¯ng nghe giá»ng Ä‘á»c Tháº§y SÃ¡ng nhÃ©!");
       stopTeacherSpeech();
       return;
     }
@@ -3420,7 +3421,7 @@ function initDigitalLessons() {
   }
 
   function bindDigitalLessonEvents(container) {
-    // 0. XỬ LÝ HỘP PHÁT ÂM THANH VÀNG ĐỒNG THẦY SÁNG (GIỌNG ĐỌC AI CỦA THS. LƯƠNG THANH SÁNG)
+    // 0. Xá»¬ LÃ Há»˜P PHÃT Ã‚M THANH VÃ€NG Äá»’NG THáº¦Y SÃNG (GIá»ŒNG Äá»ŒC AI Cá»¦A THS. LÆ¯Æ NG THANH SÃNG)
     container.querySelectorAll(".btn-play-gold-voice").forEach(btn => {
       btn.addEventListener("click", () => {
         const script = btn.dataset.script;
@@ -3448,7 +3449,7 @@ function initDigitalLessons() {
       });
     });
 
-    // 0b. XỬ LÝ CÂU HỎI CHECKPOINT TRONG TIỂU MỤC & TRẮC NGHIỆM DẠNG 1 PHẦN IV
+    // 0b. Xá»¬ LÃ CÃ‚U Há»ŽI CHECKPOINT TRONG TIá»‚U Má»¤C & TRáº®C NGHIá»†M Dáº NG 1 PHáº¦N IV
     container.querySelectorAll(".btn-cp-opt").forEach(btn => {
       btn.addEventListener("click", function () {
         const isCorrect = this.dataset.correct === "true";
@@ -3462,15 +3463,15 @@ function initDigitalLessons() {
           const feedback = parentCard.querySelector(".checkpoint-feedback") || parentCard.querySelector(".exam-solution-collapse");
           if (feedback) feedback.classList.add("show");
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
-          if (typeof window.showToast === "function") window.showToast("🎉 Chính xác! Thầy khen em đã trả lời rất chuẩn!", "success");
+          if (typeof window.showToast === "function") window.showToast("ðŸŽ‰ ChÃ­nh xÃ¡c! Tháº§y khen em Ä‘Ã£ tráº£ lá»i ráº¥t chuáº©n!", "success");
         } else {
           this.classList.add("selected-wrong");
-          if (typeof window.showToast === "function") window.showToast("Chưa chính xác rồi! Em hãy suy nghĩ và chọn lại nhé!", "warning");
+          if (typeof window.showToast === "function") window.showToast("ChÆ°a chÃ­nh xÃ¡c rá»“i! Em hÃ£y suy nghÄ© vÃ  chá»n láº¡i nhÃ©!", "warning");
         }
       });
     });
 
-    // 0c. XỬ LÝ NÚT ẨN/HIỆN LỜI GIẢI CHI TIẾT TRONG PHẦN IV
+    // 0c. Xá»¬ LÃ NÃšT áº¨N/HIá»†N Lá»œI GIáº¢I CHI TIáº¾T TRONG PHáº¦N IV
     container.querySelectorAll(".btn-show-solution-btn").forEach(btn => {
       btn.addEventListener("click", function () {
         const targetId = this.dataset.target;
@@ -3478,23 +3479,48 @@ function initDigitalLessons() {
         if (targetEl) {
           targetEl.classList.toggle("show");
           if (targetEl.classList.contains("show")) {
-            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải';
+            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i> ÄÃ³ng lá»i giáº£i';
             if (window.MathJax && window.MathJax.typesetPromise) {
               window.MathJax.typesetPromise([targetEl]).catch(e => console.warn(e));
             }
           } else {
-            this.innerHTML = '<i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết';
+            this.innerHTML = '<i class="fa-solid fa-lightbulb"></i> Lá»i giáº£i chi tiáº¿t';
           }
         }
       });
     });
 
-    // 0d. XỬ LÝ NÚT BÀI TOÁN TƯƠNG TỰ (DYNAMIC PARAMETERS)
+    // 0d. Xá»¬ LÃ NÃšT BÃ€I TOÃN TÆ¯Æ NG Tá»° (DYNAMIC PARAMETERS)
     container.querySelectorAll(".btn-dynamic-param-btn").forEach(btn => {
       btn.addEventListener("click", function () {
         const qid = this.dataset.qid;
-        if (!window.LESSON_10_C4_B8_DATA || !window.LESSON_10_C4_B8_DATA.examFormatPractice) return;
-        const ef = window.LESSON_10_C4_B8_DATA.examFormatPractice;
+        let ef = null;
+        const flatList = getFlatLessonsList(currentGrade);
+        const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+        if (currentItem && currentItem.lesson && currentItem.lesson.examFormatPractice) {
+          ef = currentItem.lesson.examFormatPractice;
+        }
+        if (!ef) {
+          const allLessonData = [
+            window.LESSON_10_C4_B7_DATA,
+            window.LESSON_10_C4_B8_DATA,
+            window.LESSON_11_C4_B11_DATA,
+            window.LESSON_11_C4_B12_DATA,
+            window.LESSON_12_C2_B6_DATA,
+            window.LESSON_12_C2_B7_DATA
+          ];
+          for (let l of allLessonData) {
+            if (l && l.examFormatPractice) {
+              let q = (l.examFormatPractice.part1MultipleChoice || []).find(x => x.id === qid) ||
+                      (l.examFormatPractice.part3ShortAnswer || []).find(x => x.id === qid);
+              if (q) {
+                ef = l.examFormatPractice;
+                break;
+              }
+            }
+          }
+        }
+        if (!ef) return;
         let foundQ = (ef.part1MultipleChoice || []).find(q => q.id === qid) || (ef.part3ShortAnswer || []).find(q => q.id === qid);
         if (foundQ && foundQ.similarVariation) {
           const sim = foundQ.similarVariation;
@@ -3521,15 +3547,15 @@ function initDigitalLessons() {
               }
             }
             const solEl = document.getElementById(`sol-${qid}`);
-            if (solEl) solEl.innerHTML = `<strong>Lời giải bài toán tương tự của Thầy Sáng:</strong><br>${sim.solution}`;
+            if (solEl) solEl.innerHTML = `<strong>Lá»i giáº£i bÃ i toÃ¡n tÆ°Æ¡ng tá»± cá»§a Tháº§y SÃ¡ng:</strong><br>${sim.solution}`;
           }
           if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([cardEl]);
-          if (typeof window.showToast === "function") window.showToast("🔄 Đã đổi sang bài toán tương tự với số liệu mới!", "info");
+          if (typeof window.showToast === "function") window.showToast("ðŸ”„ ÄÃ£ Ä‘á»•i sang bÃ i toÃ¡n tÆ°Æ¡ng tá»± vá»›i sá»‘ liá»‡u má»›i!", "info");
         }
       });
     });
 
-    // 0e. XỬ LÝ TRẮC NGHIỆM ĐÚNG / SAI 4 Ý (DẠNG 2)
+    // 0e. Xá»¬ LÃ TRáº®C NGHIá»†M ÄÃšNG / SAI 4 Ã (Dáº NG 2)
     container.querySelectorAll(".btn-tf-toggle").forEach(btn => {
       btn.addEventListener("click", function () {
         const row = this.closest(".tf-item-row");
@@ -3558,25 +3584,25 @@ function initDigitalLessons() {
         });
 
         if (!allAnswered) {
-          if (typeof window.showToast === "function") window.showToast("Em hãy chọn đầy đủ Đúng hoặc Sai cho cả 4 ý nhé!", "warning");
+          if (typeof window.showToast === "function") window.showToast("Em hÃ£y chá»n Ä‘áº§y Ä‘á»§ ÄÃºng hoáº·c Sai cho cáº£ 4 Ã½ nhÃ©!", "warning");
           return;
         }
 
         if (allCorrect) {
           rows.forEach(r => r.style.backgroundColor = "#f0fdf4");
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
-          if (typeof window.showToast === "function") window.showToast("🎉 Xuất sắc! Em đã phán đoán chính xác cả 4 ý!", "success");
+          if (typeof window.showToast === "function") window.showToast("ðŸŽ‰ Xuáº¥t sáº¯c! Em Ä‘Ã£ phÃ¡n Ä‘oÃ¡n chÃ­nh xÃ¡c cáº£ 4 Ã½!", "success");
         } else {
           rows.forEach(r => {
             const isMatch = r.dataset.userChoice === r.dataset.correct;
             r.style.backgroundColor = isMatch ? "#f0fdf4" : "#fef2f2";
           });
-          if (typeof window.showToast === "function") window.showToast("Có ý chưa đúng, em hãy xem gợi ý hoặc lời giải chi tiết nhé!", "warning");
+          if (typeof window.showToast === "function") window.showToast("CÃ³ Ã½ chÆ°a Ä‘Ãºng, em hÃ£y xem gá»£i Ã½ hoáº·c lá»i giáº£i chi tiáº¿t nhÃ©!", "warning");
         }
       });
     });
 
-    // 0f. XỬ LÝ TRẮC NGHIỆM TRẢ LỜI NGẮN SỐ HỌC (DẠNG 3)
+    // 0f. Xá»¬ LÃ TRáº®C NGHIá»†M TRáº¢ Lá»œI NGáº®N Sá» Há»ŒC (Dáº NG 3)
     container.querySelectorAll(".btn-check-short-ans").forEach(btn => {
       btn.addEventListener("click", function () {
         const qid = this.dataset.qid;
@@ -3586,29 +3612,29 @@ function initDigitalLessons() {
         const val = input.value.trim().replace(",", ".");
         const correct = input.dataset.ans.trim();
         if (!val) {
-          if (typeof window.showToast === "function") window.showToast("Em hãy nhập đáp số trước khi bấm kiểm tra nhé!", "warning");
+          if (typeof window.showToast === "function") window.showToast("Em hÃ£y nháº­p Ä‘Ã¡p sá»‘ trÆ°á»›c khi báº¥m kiá»ƒm tra nhÃ©!", "warning");
           return;
         }
 
         if (feedback) feedback.style.display = "inline-block";
         if (val === correct) {
           if (feedback) {
-            feedback.innerHTML = '<span style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> Chính xác!</span>';
+            feedback.innerHTML = '<span style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ChÃ­nh xÃ¡c!</span>';
           }
           input.style.borderColor = "#16a34a";
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
-          if (typeof window.showToast === "function") window.showToast("🎉 Xuất sắc! Đáp số hoàn toàn chính xác!", "success");
+          if (typeof window.showToast === "function") window.showToast("ðŸŽ‰ Xuáº¥t sáº¯c! ÄÃ¡p sá»‘ hoÃ n toÃ n chÃ­nh xÃ¡c!", "success");
         } else {
           if (feedback) {
-            feedback.innerHTML = '<span style="color: #dc2626;"><i class="fa-solid fa-circle-xmark"></i> Chưa đúng, thử lại!</span>';
+            feedback.innerHTML = '<span style="color: #dc2626;"><i class="fa-solid fa-circle-xmark"></i> ChÆ°a Ä‘Ãºng, thá»­ láº¡i!</span>';
           }
           input.style.borderColor = "#dc2626";
-          if (typeof window.showToast === "function") window.showToast("Đáp số chưa chính xác, em hãy kiểm tra lại phép tính nhé!", "warning");
+          if (typeof window.showToast === "function") window.showToast("ÄÃ¡p sá»‘ chÆ°a chÃ­nh xÃ¡c, em hÃ£y kiá»ƒm tra láº¡i phÃ©p tÃ­nh nhÃ©!", "warning");
         }
       });
     });
 
-    // 1. Lời chào sư phạm đầu giờ từ Thầy Sáng
+    // 1. Lá»i chÃ o sÆ° pháº¡m Ä‘áº§u giá» tá»« Tháº§y SÃ¡ng
     const welcomeCard = container.querySelector("#lessonWelcomeCard");
     if (welcomeCard) {
       const btnPlay = welcomeCard.querySelector("#btnPlayTeacherWelcome");
@@ -3641,7 +3667,7 @@ function initDigitalLessons() {
       });
     }
 
-    // 2. Voice Player Chính
+    // 2. Voice Player ChÃ­nh
     const mainVoice = container.querySelector("#mainVoicePlayer");
     if (mainVoice) {
       const btnPlay = mainVoice.querySelector("#btnPlayMainVoice");
@@ -3685,7 +3711,7 @@ function initDigitalLessons() {
       });
     }
 
-    // 3. Mini Voice Players trong từng tiểu mục
+    // 3. Mini Voice Players trong tá»«ng tiá»ƒu má»¥c
     container.querySelectorAll(".btn-mini-voice-play").forEach(btn => {
       btn.addEventListener("click", () => {
         const script = btn.dataset.script;
@@ -3695,7 +3721,7 @@ function initDigitalLessons() {
       });
     });
 
-    // 4. Wrapup Voice Player (Vận dụng thực tế)
+    // 4. Wrapup Voice Player (Váº­n dá»¥ng thá»±c táº¿)
     const wrapupCard = container.querySelector(".realworld-wrapup-card");
     if (wrapupCard) {
       const btnWrapup = wrapupCard.querySelector(".btn-wrapup-voice-play");
@@ -3708,7 +3734,7 @@ function initDigitalLessons() {
       }
     }
 
-    // 5. Nút ẩn / hiện lời giải chi tiết của các Ví dụ
+    // 5. NÃºt áº©n / hiá»‡n lá»i giáº£i chi tiáº¿t cá»§a cÃ¡c VÃ­ dá»¥
     container.querySelectorAll(".btn-toggle-solution").forEach(btn => {
       btn.addEventListener("click", () => {
         const targetId = btn.dataset.target;
@@ -3718,20 +3744,20 @@ function initDigitalLessons() {
         const isHidden = solEl.style.display === "none" || !solEl.style.display;
         if (isHidden) {
           solEl.style.display = "block";
-          btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải chi tiết';
+          btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> ÄÃ³ng lá»i giáº£i chi tiáº¿t';
           btn.classList.add("active-toggle");
           if (window.MathJax && window.MathJax.typesetPromise) {
             window.MathJax.typesetPromise([solEl]).catch(e => console.warn(e));
           }
         } else {
           solEl.style.display = "none";
-          btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng';
+          btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem lá»i giáº£i chi tiáº¿t &amp; Äá»‹nh hÆ°á»›ng cá»§a Tháº§y SÃ¡ng';
           btn.classList.remove("active-toggle");
         }
       });
     });
 
-    // 6. Bài tập trắc nghiệm 4 lựa chọn (Instant Feedback)
+    // 6. BÃ i táº­p tráº¯c nghiá»‡m 4 lá»±a chá»n (Instant Feedback)
     container.querySelectorAll(".btn-quiz-option").forEach(btn => {
       btn.addEventListener("click", () => {
         const card = btn.closest(".quiz-card");
@@ -3765,7 +3791,7 @@ function initDigitalLessons() {
       });
     });
 
-    // 7. Bàn cờ nối cột khái niệm (Matching Board)
+    // 7. BÃ n cá» ná»‘i cá»™t khÃ¡i niá»‡m (Matching Board)
     const matchCard = container.querySelector("#matchingGameCard");
     if (matchCard) {
       let selectedLeft = null;
@@ -3779,7 +3805,7 @@ function initDigitalLessons() {
           leftItems.forEach(l => l.classList.remove("selected"));
           item.classList.add("selected");
           selectedLeft = item;
-          if (statusBar) statusBar.innerHTML = `Đã chọn: "<strong>${item.textContent.trim()}</strong>". Hãy nhấn ô tương ứng ở Cột B!`;
+          if (statusBar) statusBar.innerHTML = `ÄÃ£ chá»n: "<strong>${item.textContent.trim()}</strong>". HÃ£y nháº¥n Ã´ tÆ°Æ¡ng á»©ng á»Ÿ Cá»™t B!`;
         });
       });
 
@@ -3799,20 +3825,20 @@ function initDigitalLessons() {
 
             const remaining = matchCard.querySelectorAll(".left-item:not(.matched)").length;
             if (remaining === 0) {
-              if (statusBar) statusBar.innerHTML = `🎉 <strong>Tuyệt vời!</strong> Em đã ghép đúng 100% tất cả các cặp khái niệm!`;
+              if (statusBar) statusBar.innerHTML = `ðŸŽ‰ <strong>Tuyá»‡t vá»i!</strong> Em Ä‘Ã£ ghÃ©p Ä‘Ãºng 100% táº¥t cáº£ cÃ¡c cáº·p khÃ¡i niá»‡m!`;
             } else {
-              if (statusBar) statusBar.innerHTML = `✅ Ghép nối chính xác! Còn ${remaining} cặp nữa, cố lên em!`;
+              if (statusBar) statusBar.innerHTML = `âœ… GhÃ©p ná»‘i chÃ­nh xÃ¡c! CÃ²n ${remaining} cáº·p ná»¯a, cá»‘ lÃªn em!`;
             }
           } else {
             item.classList.add("shake-wrong");
             setTimeout(() => item.classList.remove("shake-wrong"), 500);
-            if (statusBar) statusBar.innerHTML = `❌ Chưa chính xác rồi, em hãy thử nối lại với ô khác nhé!`;
+            if (statusBar) statusBar.innerHTML = `âŒ ChÆ°a chÃ­nh xÃ¡c rá»“i, em hÃ£y thá»­ ná»‘i láº¡i vá»›i Ã´ khÃ¡c nhÃ©!`;
           }
         });
       });
     }
 
-    // 8. Bảng Khảo sát Đúng / Sai 4 ý (True / False Table)
+    // 8. Báº£ng Kháº£o sÃ¡t ÄÃºng / Sai 4 Ã½ (True / False Table)
     const tfCard = container.querySelector("#trueFalseCard");
     if (tfCard) {
       const rows = tfCard.querySelectorAll(".tf-row");
@@ -3848,7 +3874,7 @@ function initDigitalLessons() {
               }
             }
           });
-          alert(`Thầy Sáng chúc mừng em đã hoàn thành! Em đã trả lời đúng ${correctCount}/${rows.length} mệnh đề.`);
+          alert(`Tháº§y SÃ¡ng chÃºc má»«ng em Ä‘Ã£ hoÃ n thÃ nh! Em Ä‘Ã£ tráº£ lá»i Ä‘Ãºng ${correctCount}/${rows.length} má»‡nh Ä‘á».`);
         });
       }
     }
@@ -3856,7 +3882,7 @@ function initDigitalLessons() {
 
   
 
-  // Khởi chạy hiển thị ban đầu
+  // Khá»Ÿi cháº¡y hiá»ƒn thá»‹ ban Ä‘áº§u
   updateGradeTabUI();
   renderSidebar();
   renderLessonViewer();
