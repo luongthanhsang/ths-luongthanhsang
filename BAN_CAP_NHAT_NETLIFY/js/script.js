@@ -2414,8 +2414,8 @@ function initDigitalLessons() {
     // Render Tầng 3: Khung Mục lớn & Khung phụ a), b), c)...
     let sectionsHtml = "";
 
-    // 0. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION CHUẨN OLM
-    if (lesson.isOlmInteractive) {
+    // 0. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION
+    if (lesson.isInteractiveDigitalLesson || lesson.isFeaturedLesson || lesson.isOlmInteractive) {
       sectionsHtml += `
         <div class="olm-progress-sticky-wrapper" id="olmStickyProgressBar">
           <div class="olm-progress-inner">
@@ -2439,8 +2439,9 @@ function initDigitalLessons() {
     }
 
     // Helper tạo hộp thoại âm thanh vàng đồng Thầy Sáng
-    function renderTeacherGoldVoiceBoxHtml(btnTitle, scriptText, audioUrl, customId) {
+    function renderTeacherGoldVoiceBoxHtml(btnTitle, scriptText, audioUrl, customId, pois) {
       const idAttr = customId ? ` id="${customId}"` : "";
+      const poisAttr = (pois && pois.length > 0) ? ` data-pois='${escapeHtml(JSON.stringify(pois))}'` : "";
       return `
         <div class="teacher-voice-gold-box"${idAttr}>
           <div class="teacher-voice-gold-meta">
@@ -2451,7 +2452,7 @@ function initDigitalLessons() {
             </div>
           </div>
           <div class="teacher-voice-gold-controls">
-            <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}">
+            <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}"${poisAttr}>
               <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}
             </button>
             <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dừng phát">
@@ -2472,29 +2473,29 @@ function initDigitalLessons() {
     if (lesson.teacherWelcome) {
       sectionsHtml += `
         <div class="teacher-welcome-card" id="lessonWelcomeCard">
-          <div class="welcome-top-bar">
+          <div class="welcome-top-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
             <div class="teacher-badge-profile">
               <div class="avatar-ring-box">
                 <i class="fa-solid fa-chalkboard-user"></i>
               </div>
               <div class="teacher-titles">
-                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> Lời chào sư phạm thân thương đầu giờ</span>
+                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> PHẦN I. LỜI CHÀO</span>
                 <h3 class="teacher-display-name">ThS. Lương Thanh Sáng</h3>
                 <p class="teacher-school-sub">Giáo viên Toán • Trường THPT Nguyễn Văn Thoại, An Giang</p>
               </div>
             </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.teacherWelcome.buttonLabel || "Nhấn nghe Lời chào",
+              lesson.teacherWelcome.audioScript || lesson.teacherWelcome.greetingText,
+              lesson.teacherWelcome.audioUrl || "",
+              "welcome-voice-player"
+            )}
           </div>
 
           <div class="welcome-quote-body">
             <i class="fa-solid fa-quote-left quote-corner-icon"></i>
             <p class="welcome-quote-msg">"${escapeHtml(lesson.teacherWelcome.greetingText)}"</p>
           </div>
-
-          ${renderTeacherGoldVoiceBoxHtml(
-            lesson.teacherWelcome.buttonLabel || "Lời chào của thầy Sáng",
-            lesson.teacherWelcome.greetingText,
-            lesson.teacherWelcome.audioUrl || ""
-          )}
         </div>
       `;
     }
@@ -2503,15 +2504,18 @@ function initDigitalLessons() {
     if (lesson.learningGoals && lesson.learningGoals.length > 0) {
       sectionsHtml += `
         <div class="lesson-goals-box">
-          <h4><i class="fa-solid fa-bullseye"></i> Mục tiêu &amp; Yêu cầu cần đạt của bài học (Chuẩn SGK trang 51):</h4>
+          <div class="goals-top-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <h4 style="margin: 0;"><i class="fa-solid fa-bullseye"></i> PHẦN II. MỤC TIÊU VÀ YÊU CẦU CẦN ĐẠT</h4>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.goalsButtonLabel || "Nghe thầy Sáng AI đọc",
+              lesson.goalsAudioScript || lesson.learningGoals.join(". "),
+              lesson.goalsAudioUrl || "",
+              "goals-voice-player"
+            )}
+          </div>
           <ul class="lesson-goals-list">
             ${lesson.learningGoals.map(g => `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${escapeHtml(g)}</li>`).join("")}
           </ul>
-          ${renderTeacherGoldVoiceBoxHtml(
-            lesson.goalsButtonLabel || "Giọng đọc AI của Thầy Sáng",
-            lesson.learningGoals.join(". "),
-            lesson.goalsAudioUrl || ""
-          )}
         </div>
       `;
     }
@@ -2520,9 +2524,21 @@ function initDigitalLessons() {
     if (lesson.hook) {
       sectionsHtml += `
         <div class="lesson-hook-card">
-          <div class="hook-badge"><i class="fa-solid fa-compass"></i> Tình huống thực tiễn mở đầu</div>
-          <h3 class="hook-title">${escapeHtml(lesson.hook.title)}</h3>
+          <div class="hook-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <div>
+              <div class="hook-badge"><i class="fa-solid fa-compass"></i> Tình huống thực tiễn mở đầu</div>
+              <h3 class="hook-title" style="margin-top: 6px;">${escapeHtml(lesson.hook.title)}</h3>
+            </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.hook.buttonLabel || "Nghe thầy Sáng giảng bài",
+              lesson.hook.audioScript || lesson.hook.story,
+              lesson.hook.audioUrl || "",
+              "hook-voice-player"
+            )}
+          </div>
           <p class="hook-story">${escapeHtml(lesson.hook.story)}</p>
+
+          ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : ''}
 
           ${lesson.hook.illustration ? `
             <div class="lesson-illustration-box">
@@ -2537,12 +2553,6 @@ function initDigitalLessons() {
               <strong>Câu hỏi khơi gợi tư duy:</strong> ${escapeHtml(lesson.hook.question)}
             </div>
           ` : ''}
-
-          ${renderTeacherGoldVoiceBoxHtml(
-            lesson.hook.buttonLabel || "Nghe thầy Sáng giảng bài",
-            lesson.hook.story,
-            lesson.hook.audioUrl || ""
-          )}
         </div>
       `;
     }
@@ -2611,11 +2621,18 @@ function initDigitalLessons() {
       sectionsHtml += `
         <!-- MỤC ${sec.num} -->
         <article class="lesson-section-card" id="${secAnchor}">
-          <div class="section-card-header">
-            <div class="section-title-wrap">
+          <div class="section-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div class="section-title-wrap" style="margin-bottom: 0;">
               <div class="section-num-circle">${escapeHtml(sec.num)}</div>
-              <h2 class="section-heading-h2">${escapeHtml(sec.title)}</h2>
+              <h2 class="section-heading-h2">Mục ${escapeHtml(sec.num)}. ${escapeHtml(sec.title)}</h2>
             </div>
+            ${(sec.audioScript || sec.audioUrl) ? renderTeacherGoldVoiceBoxHtml(
+              sec.buttonLabel || "Nghe thầy Sáng giảng bài",
+              sec.audioScript || sec.title,
+              sec.audioUrl || "",
+              `sec-voice-${sIdx}`,
+              sec.checkpoints || []
+            ) : ""}
           </div>
           <div class="section-body-wrap">
             ${subsections.map((sub, subIdx) => {
@@ -2713,9 +2730,17 @@ function initDigitalLessons() {
       const wrapupSolId = "wrapup-sol-body";
       sectionsHtml += `
         <div class="realworld-wrapup-card">
-          <div class="wrapup-header">
-            <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> Chốt bài học</span>
-            <h3 class="wrapup-title">${escapeHtml(lesson.realworldWrapup.title || "QUAY LẠI GIẢI QUYẾT BÀI TOÁN TÌNH HUỐNG MỞ ĐẦU")}</h3>
+          <div class="wrapup-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <div>
+              <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> PHẦN IV. CHỐT BÀI HỌC</span>
+              <h3 class="wrapup-title" style="margin-top: 6px;">${escapeHtml(lesson.realworldWrapup.title || "PHẦN IV. CHỐT BÀI HỌC")}</h3>
+            </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.realworldWrapup.buttonLabel || "Nghe thầy Sáng giảng bài",
+              lesson.realworldWrapup.audioScript || lesson.realworldWrapup.recap,
+              lesson.realworldWrapup.audioUrl || "",
+              "wrapup-voice-player"
+            )}
           </div>
 
           <div class="wrapup-recap-box">
@@ -2739,12 +2764,6 @@ function initDigitalLessons() {
               </div>
             </div>
           </div>
-
-          ${renderTeacherGoldVoiceBoxHtml(
-            lesson.realworldWrapup.buttonLabel || "Nghe thầy Sáng giảng bài",
-            lesson.realworldWrapup.recap,
-            lesson.realworldWrapup.audioUrl || ""
-          )}
         </div>
       `;
     }
@@ -3261,16 +3280,18 @@ function initDigitalLessons() {
 
     if (activeVoicePlayer) {
       activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
+      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
       if (playBtn) {
-        if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
+        if (playBtn.dataset.origHtml) {
+          playBtn.innerHTML = playBtn.dataset.origHtml;
+        } else if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nhấn nghe Lời chào';
         } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
           playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
         } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
           playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
         }
       }
       activeVoicePlayer = null;
@@ -3334,9 +3355,12 @@ function initDigitalLessons() {
     activeVoicePlayer.classList.add("playing");
     isSpeechActive = true;
 
-    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
+    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
     if (playBtn) {
-      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+      if (!playBtn.dataset.origHtml) {
+        playBtn.dataset.origHtml = playBtn.innerHTML;
+      }
+      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Đang phát Voice AI...';
     }
 
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
@@ -3433,6 +3457,105 @@ function initDigitalLessons() {
     speakNextChunk();
   }
 
+  let activePoiTimer = null;
+  let currentLessonProgress = 0;
+  let currentLessonXp = parseInt(localStorage.getItem('ths_sang_math_xp') || '0', 10);
+  let currentLessonStars = parseInt(localStorage.getItem('ths_sang_stars') || '0', 10);
+
+  function updateLessonProgressDisplay() {
+    const fillEl = document.getElementById('olmProgressFill');
+    const percentEl = document.getElementById('olmProgressPercent');
+    const xpEl = document.getElementById('olmXpDisplay');
+    const starsEl = document.getElementById('olmStarsDisplay');
+    if (fillEl) fillEl.style.width = Math.min(100, currentLessonProgress) + '%';
+    if (percentEl) percentEl.textContent = Math.min(100, currentLessonProgress) + '%';
+    if (xpEl) xpEl.textContent = `${currentLessonXp} XP`;
+    if (starsEl) starsEl.textContent = `⭐ ${currentLessonStars}`;
+
+    if (currentLessonProgress >= 100) {
+      if (typeof window.triggerConfettiFireworks === 'function') {
+        window.triggerConfettiFireworks();
+      }
+    }
+  }
+
+  window.increaseLessonProgress = function(amount, xp = 10, star = 0) {
+    currentLessonProgress = Math.min(100, currentLessonProgress + amount);
+    currentLessonXp += xp;
+    currentLessonStars += star;
+    localStorage.setItem('ths_sang_math_xp', currentLessonXp);
+    localStorage.setItem('ths_sang_stars', currentLessonStars);
+    updateLessonProgressDisplay();
+  };
+
+  function showPoiModal(poi, onCorrect) {
+    let modal = document.getElementById('globalInteractivePoiModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'globalInteractivePoiModal';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(4px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;';
+      document.body.appendChild(modal);
+    }
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+      <div style="background:#ffffff;border-radius:16px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);max-width:480px;width:100%;padding:24px;border:2px solid #3b82f6;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;border-bottom:1px solid #e2e8f0;padding-bottom:12px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+            <i class="fa-solid fa-circle-question"></i>
+          </div>
+          <div>
+            <h3 style="margin:0;font-size:1.15rem;font-weight:700;color:#1e3a8a;">Thầy Sáng hỏi nhanh: Kiểm tra mức độ tập trung</h3>
+            <span style="font-size:0.8rem;color:#64748b;">(Tự động tạm dừng bài giảng • Trả lời đúng để học tiếp)</span>
+          </div>
+        </div>
+        <div id="poiModalQuestion" style="font-size:1.05rem;font-weight:600;color:#1e293b;margin-bottom:18px;line-height:1.5;">${poi.question}</div>
+        <div id="poiModalOptions" style="display:flex;flex-direction:column;gap:10px;">
+          ${poi.options.map((opt, oIdx) => `
+            <button class="btn-modal-poi-opt" data-idx="${oIdx}" style="text-align:left;padding:12px 16px;border-radius:10px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:1rem;font-weight:500;color:#334155;cursor:pointer;transition:all 0.2s;">
+              <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+            </button>
+          `).join('')}
+        </div>
+        <div id="poiModalFeedback" style="margin-top:14px;font-size:0.95rem;font-weight:600;display:none;padding:10px 14px;border-radius:8px;"></div>
+      </div>
+    `;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([modal]).catch(e => console.warn(e));
+    }
+
+    const optBtns = modal.querySelectorAll('.btn-modal-poi-opt');
+    const fb = modal.querySelector('#poiModalFeedback');
+
+    optBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(this.dataset.idx, 10);
+        if (idx === poi.correctIndex) {
+          this.style.background = '#dcfce7';
+          this.style.borderColor = '#16a34a';
+          this.style.color = '#15803d';
+          fb.style.display = 'block';
+          fb.style.background = '#f0fdf4';
+          fb.style.color = '#16a34a';
+          fb.innerHTML = '🎉 Chính xác! Thầy khen em đã nắm bài rất tốt!';
+          optBtns.forEach(b => b.disabled = true);
+          window.increaseLessonProgress(15, 20, 1);
+          setTimeout(() => {
+            modal.style.display = 'none';
+            if (onCorrect) onCorrect();
+          }, 1200);
+        } else {
+          this.style.background = '#fee2e2';
+          this.style.borderColor = '#dc2626';
+          this.style.color = '#991b1b';
+          fb.style.display = 'block';
+          fb.style.background = '#fef2f2';
+          fb.style.color = '#b91c1c';
+          fb.innerHTML = 'Chưa chính xác! Thử lại để mở khóa bài giảng nhé.';
+        }
+      });
+    });
+  }
+
   function bindDigitalLessonEvents(container) {
     // 0. XỬ LÝ HỘP PHÁT ÂM THANH VÀNG ĐỒNG THẦY SÁNG (GIỌNG ĐỌC AI CỦA THS. LƯƠNG THANH SÁNG)
     container.querySelectorAll(".btn-play-gold-voice").forEach(btn => {
@@ -3440,12 +3563,45 @@ function initDigitalLessons() {
         const script = btn.dataset.script;
         const audioUrl = btn.dataset.audio || "";
         const parentBox = btn.closest(".teacher-voice-gold-box") || btn;
+        const rawPois = btn.dataset.pois;
+        let pois = [];
+        if (rawPois) {
+          try { pois = JSON.parse(rawPois); } catch(e){}
+        }
+
+        if (activePoiTimer) clearInterval(activePoiTimer);
+
         playTeacherSpeech(script, parentBox, currentSpeed, audioUrl);
+
+        if (pois && pois.length > 0) {
+          let playSec = 0;
+          activePoiTimer = setInterval(() => {
+            if (!isSpeechActive) {
+              clearInterval(activePoiTimer);
+              return;
+            }
+            playSec++;
+            const hitPoi = pois.find(p => p.time === playSec && !p.completed);
+            if (hitPoi) {
+              if (window.speechSynthesis) window.speechSynthesis.pause();
+              if (currentHtml5Audio) currentHtml5Audio.pause();
+              btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+
+              showPoiModal(hitPoi, () => {
+                hitPoi.completed = true;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> Tiếp tục nghe Thầy Sáng giảng';
+                if (window.speechSynthesis) window.speechSynthesis.resume();
+                if (currentHtml5Audio) currentHtml5Audio.play();
+              });
+            }
+          }, 1000);
+        }
       });
     });
 
     container.querySelectorAll(".btn-stop-gold-voice").forEach(btn => {
       btn.addEventListener("click", () => {
+        if (activePoiTimer) clearInterval(activePoiTimer);
         stopTeacherSpeech();
       });
     });
@@ -3475,6 +3631,7 @@ function initDigitalLessons() {
           allOpts.forEach(b => b.disabled = true);
           const feedback = parentCard.querySelector(".checkpoint-feedback") || parentCard.querySelector(".exam-solution-collapse");
           if (feedback) feedback.classList.add("show");
+          if (typeof window.increaseLessonProgress === "function") window.increaseLessonProgress(10, 10, 1);
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
           if (typeof window.showToast === "function") window.showToast("🎉 Chính xác! Thầy khen em đã trả lời rất chuẩn!", "success");
         } else {
@@ -3595,6 +3752,7 @@ function initDigitalLessons() {
 
         if (allCorrect) {
           rows.forEach(r => r.style.backgroundColor = "#f0fdf4");
+          if (typeof window.increaseLessonProgress === "function") window.increaseLessonProgress(15, 20, 2);
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
           if (typeof window.showToast === "function") window.showToast("🎉 Xuất sắc! Em đã phán đoán chính xác cả 4 ý!", "success");
         } else {
