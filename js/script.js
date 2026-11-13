@@ -2451,7 +2451,7 @@ function initDigitalLessons() {
             </div>
           </div>
           <div class="teacher-voice-gold-controls">
-            <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}"${poisAttr}>
+            <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}"${poisAttr} data-original-title="${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}">
               <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}
             </button>
             <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dừng phát">
@@ -3335,6 +3335,228 @@ function initDigitalLessons() {
           playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
         } else {
           playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
+        }
+      }
+      activeVoicePlayer = null;
+    }
+  }
+
+  function chunkTextForTTS(text, maxLength = 120) {
+    const rawSentences = text.match(/[^.!?;\n]+[.!?;\n]*/g) || [text];
+    const chunks = [];
+    let cur = "";
+
+    for (let s of rawSentences) {
+      s = s.trim();
+      if (!s) continue;
+      if ((cur + " " + s).length <= maxLength) {
+        cur = cur ? (cur + " " + s) : s;
+      } else {
+        if (cur) chunks.push(cur);
+        if (s.length <= maxLength) {
+          cur = s;
+        } else {
+          const parts = s.split(/([,]+)/);
+          let sub = "";
+          for (let p of parts) {
+            p = p.trim();
+            if (!p) continue;
+            if ((sub + " " + p).length <= maxLength) {
+              sub = sub ? (sub + " " + p) : p;
+            } else {
+              if (sub) chunks.push(sub);
+              sub = p;
+            }
+          }
+          cur = sub;
+        }
+      }
+    }
+    if (cur) chunks.push(cur);
+    return chunks.filter(c => c.length > 0);
+  }
+
+  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null) {
+    if (activeVoicePlayer === playerElement && isSpeechActive) {
+      stopTeacherSpeech();
+      return;
+    }
+
+    stopTeacherSpeech();
+
+    // Tự động tìm thuộc tính data-audio từ nút bấm hoặc khung bao quanh
+    if (!audioUrl && playerElement) {
+      const btn = playerElement.querySelector("[data-audio]");
+      if (btn && btn.dataset.audio) {
+        audioUrl = btn.dataset.audio;
+      } else if (playerElement.dataset.audio) {
+        audioUrl = playerElement.dataset.audio;
+      }
+    }
+
+    activeVoicePlayer = playerElement;
+    activeVoicePlayer.classList.add("playing");
+    isSpeechActive = true;
+
+    // Đổi nhãn nút sang Tạm dừng
+    const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
+    if (playBtn) {
+      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+      playBtn.classList.add("btn-voice-is-playing");
+    }
+
+    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
+    if (audioUrl) {
+      try {
+        const audioSrc = (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) ? window.B6_AUDIO_CACHE[audioUrl] : audioUrl;
+        currentHtml5Audio = new Audio();
+        currentHtml5Audio.preload = "auto";
+        currentHtml5Audio.src = audioSrc;
+        currentHtml5Audio.playbackRate = speed;
+        
+        currentHtml5Audio.onended = () => {
+          stopTeacherSpeech();
+        };
+
+        currentHtml5Audio.onerror = (e) => {
+          console.warn("HTML5 audio playback error with audioSrc, retrying with raw audioUrl:", e);
+          if (audioSrc !== audioUrl) {
+            const fallbackAudio = new Audio(audioUrl);
+            fallbackAudio.playbackRate = speed;
+            fallbackAudio.onended = () => stopTeacherSpeech();
+            fallbackAudio.play().then(() => {
+              currentHtml5Audio = fallbackAudio;
+            }).catch(err => {
+              console.warn("Fallback play also failed:", err);
+              stopTeacherSpeech();
+            });
+          } else {
+            stopTeacherSpeech();
+          }
+        };
+
+        const playPromise = currentHtml5Audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.warn("HTML5 audio play blocked/rejected:", e);
+            if (audioSrc !== audioUrl) {
+              const fallbackAudio = new Audio(audioUrl);
+              fallbackAudio.playbackRate = speed;
+              fallbackAudio.onended = () => stopTeacherSpeech();
+              fallbackAudio.play().then(() => {
+                currentHtml5Audio = fallbackAudio;
+              }).catch(err => {
+                console.warn("Direct file play failed:", err);
+                stopTeacherSpeech();
+              });
+            } else {
+              stopTeacherSpeech();
+            }
+          });
+        }
+        return;
+      } catch (e) {
+        console.warn("Cannot create HTML5 Audio:", e);
+        stopTeacherSpeech();
+      }
+    }
+
+    // 2. NẾU KHÔNG CÓ TỆP MP3: DÙNG BỘ MÁY WEB SPEECH API CHUẨN HÓA TIẾNG VIỆT
+    startWebSpeechSynthesis(rawText, speed);
+  }
+
+  function startWebSpeechSynthesis(rawText, speed = 1.0) {
+    const spokenText = mathToVietnameseSpeech(rawText);
+    if (!spokenText) {
+      stopTeacherSpeech();
+      return;
+    }
+
+    if (!("speechSynthesis" in window)) {
+      stopTeacherSpeech();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+
+    audioQueue = chunkTextForTTS(spokenText, 120);
+    audioIndex = 0;
+    startKeepAlive();
+
+    function speakNextChunk() {
+      if (!isSpeechActive || audioIndex >= audioQueue.length) {
+        stopTeacherSpeech();
+        return;
+      }
+
+      const chunk = audioQueue[audioIndex];
+      const utter = new SpeechSynthesisUtterance(chunk);
+      utter.lang = "vi-VN";
+      utter.rate = speed;
+      utter.pitch = 0.95;
+
+      const viVoice = getVietnameseVoice();
+      if (viVoice) {
+        utter.voice = viVoice;
+      } else {
+        console.warn("Trình duyệt chưa có giọng đọc tiếng Việt SAPI. Không phát giọng ngoại quốc.");
+        stopTeacherSpeech();
+        return;
+      }
+
+      utter.onend = () => {
+        if (!isSpeechActive) return;
+        audioIndex++;
+        speakNextChunk();
+      };
+
+      utter.onerror = (e) => {
+        console.warn("Speech chunk warning:", e);
+        if (!isSpeechActive) return;
+        audioIndex++;
+        speakNextChunk();
+      };
+
+      currentUtterance = utter;
+      window.speechSynthesis.speak(utter);
+    }
+
+    speakNextChunk();
+  }
+
+  function stopTeacherSpeech() {
+    if (currentHtml5Audio) {
+      try {
+        currentHtml5Audio.pause();
+        currentHtml5Audio.currentTime = 0;
+      } catch (e) {}
+      currentHtml5Audio = null;
+    }
+    stopKeepAlive();
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    isSpeechActive = false;
+    audioQueue = [];
+    audioIndex = 0;
+
+    if (activeVoicePlayer) {
+      activeVoicePlayer.classList.remove("playing");
+      const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
+      if (playBtn) {
+        playBtn.classList.remove("btn-voice-is-playing");
+        const origTitle = playBtn.dataset.originalTitle;
+        if (origTitle) {
+          playBtn.innerHTML = `<i class="fa-solid fa-circle-play"></i> ${origTitle}`;
+        } else if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nhấn nghe Lời chào';
+        } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
+        } else {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
         }
       }
       activeVoicePlayer = null;

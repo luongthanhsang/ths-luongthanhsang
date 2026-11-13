@@ -5416,3 +5416,16 @@ textarea.form-control {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
 }
+
+/* Hiệu ứng trạng thái khi nút Audio đang phát bài giảng */
+.btn-play-gold-voice.btn-voice-is-playing {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb) !important;
+  color: #fef08a !important;
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.6) !important;
+  border-color: #fbbf24 !important;
+  animation: pulseAudioGlow 1.5s infinite alternate !important;
+}
+@keyframes pulseAudioGlow {
+  0% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.4); transform: scale(1); }
+  100% { box-shadow: 0 0 18px rgba(37, 99, 235, 0.85); transform: scale(1.02); }
+}
