@@ -2,22 +2,11 @@
  * BÀI HỌC SỐ: BÀI 6. VECTƠ TRONG KHÔNG GIAN (TOÁN 12 - KẾT NỐI TRI THỨC VỚI CUỘC SỐNG)
  * Biên soạn & Chuẩn hóa: ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang)
  * =========================================================================================
- * Chuẩn cấu trúc 4 phần sư phạm số hiện đại theo đúng kịch bản gốc:
- * - Phần I: Lời chào của Thầy Sáng + Nút "Nhấn nghe Lời chào" (Nền xanh, chữ vàng đồng, tốc độ 1.0x, 1.25x, 1.5x)
- * - Phần II: Mục tiêu và yêu cầu cần đạt + Nút "Nghe thầy Sáng AI đọc"
- * - Phần III: Tiến trình bài học:
- *             1. Bài toán dẫn nhập: Cần cẩu nâng kiện hàng 3D + TikZ SVG + Nút "Nghe thầy Sáng giảng bài"
- *             2. Các mục lý thuyết:
- *                - Mục 1: Vectơ trong không gian (Đóng khung SGK, TikZ SVG, 2 POI 15s & 35s, Mẹo nhớ, Ví dụ & Bài tập tương tự)
- *                - Mục 2: Tổng và hiệu của hai vectơ (Đóng khung SGK, TikZ SVG Hình hộp, 2 POI 25s & 50s, Mẹo nhớ, Ví dụ & Bài tập tương tự)
- *                - Mục 3: Tích của một số với một vectơ (Đóng khung SGK, 2 POI 20s & 45s, Mẹo nhớ, Ví dụ & Bài tập tương tự)
- *                - Mục 4: Tích vô hướng của hai vectơ (Đóng khung SGK, 2 POI 25s & 50s, Mẹo nhớ, Ví dụ & Bài tập tương tự)
- * - Phần IV: Chốt bài học: Giải quyết bài toán cần cẩu nâng hàng F1 + F2 + F3 + F4 + P = 0 + Nút "Nghe thầy Sáng giảng bài"
- * - Phần V: Bài tập trắc nghiệm tổng hợp chuẩn cấu trúc 2025:
- *             + Dạng 1: Trắc nghiệm nhiều lựa chọn (5 câu Nhận biết)
- *             + Dạng 2: Trắc nghiệm Đúng/Sai (3 câu Thông hiểu)
- *             + Dạng 3: Trả lời ngắn (2 câu Vận dụng thực tế)
- *             + Tất cả các câu đều có "Lời giải chi tiết của thầy Sáng" và "Bài toán tương tự" đổi số tự động
+ * Chuẩn cấu trúc 4 phần sư phạm số hiện đại:
+ * - Tích hợp toàn bộ Audio Voice AI Nam Minh (vi-VN-NamMinhNeural) chuẩn sư phạm
+ * - Tích hợp câu hỏi tương tác POI cả trực tiếp trên màn hình và popup tự động khi nghe audio
+ * - Đồ họa TikZ SVG 3D siêu nét, chuẩn ký hiệu toán học
+ * - Bài tập trắc nghiệm 3 dạng thức thi mới 2025 (chuẩn 100% không lỗi undefined)
  */
 
 window.LESSON_12_C2_B6_DATA = {
@@ -33,9 +22,9 @@ window.LESSON_12_C2_B6_DATA = {
   teacherWelcome: {
     greetingText: "Thầy Sáng chào cả lớp! Hôm nay thầy rất vui vì được đồng hành cùng các em trong tiết học này. Thầy hy vọng cùng các em thắp sáng lên những kiến thức mới, những góc nhìn thú vị trong bài học toán ngày hôm nay. Các em đã sẵn sàng tràn đầy năng lượng cùng thầy chưa? Chúng ta bắt đầu nhé!",
     audioScript: "Thầy Sáng chào cả lớp! Hôm nay thầy rất vui vì được đồng hành cùng các em trong tiết học này. Thầy hy vọng cùng các em thắp sáng lên những kiến thức mới, những góc nhìn thú vị trong bài học toán ngày hôm nay. Các em đã sẵn sàng tràn đầy năng lượng cùng thầy chưa? Chúng ta bắt đầu nhé!",
-    audioUrl: "",
+    audioUrl: "assets/audio/b6_welcome.mp3",
     buttonLabel: "Nhấn nghe Lời chào",
-    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng"
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)"
   },
 
   // =========================================================================
@@ -46,7 +35,7 @@ window.LESSON_12_C2_B6_DATA = {
     "Thực hành: Các phép toán vectơ (Tổng, hiệu, tích với một số, tích vô hướng)."
   ],
   goalsAudioScript: "Sau bài học này, các em cần đạt được hai mục tiêu chính: Thứ nhất, nhận biết được vectơ trong không gian. Thứ hai, thực hiện thành thạo các phép toán vectơ bao gồm: cộng, trừ, nhân vectơ với một số và tính tích vô hướng của hai vectơ trong không gian.",
-  goalsAudioUrl: "",
+  goalsAudioUrl: "assets/audio/b6_goals.mp3",
   goalsButtonLabel: "Nghe thầy Sáng AI đọc",
 
   // =========================================================================
@@ -57,9 +46,9 @@ window.LESSON_12_C2_B6_DATA = {
     title: "1. Bài toán dẫn nhập",
     story: "Trong thực tế, khi một chiếc cần cẩu nâng một kiện hàng nặng, lực căng của các sợi dây cáp không chỉ nằm trên mặt đất mà tỏa ra trong không gian ba chiều. Làm sao để biểu diễn chính xác hướng và độ lớn của các lực lơ lửng này? Khái niệm vectơ các em đã học ở lớp 10 sẽ được mở rộng ra không gian như thế nào? Cùng thầy vào phần 1 nhé.",
     audioScript: "Trong thực tế, khi một chiếc cần cẩu nâng một kiện hàng nặng, lực căng của các sợi dây cáp không chỉ nằm trên mặt đất mà tỏa ra trong không gian ba chiều. Làm sao để biểu diễn chính xác hướng và độ lớn của các lực lơ lửng này? Khái niệm vectơ các em đã học ở lớp 10 sẽ được mở rộng ra không gian như thế nào? Cùng thầy vào phần 1 nhé.",
-    audioUrl: "",
+    audioUrl: "assets/audio/b6_hook.mp3",
     buttonLabel: "Nghe thầy Sáng giảng bài",
-    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)",
     illustrationCaption: "Đồ họa mô phỏng: Cần cẩu nâng kiện hàng và các lực căng dây cáp",
     illustrationSvg: `
       <div class="tikz-svg-card" style="margin: 16px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
@@ -83,21 +72,14 @@ window.LESSON_12_C2_B6_DATA = {
             <line x1="230" y1="40" x2="230" y2="20" stroke="#64748b" stroke-width="2.5"/>
 
             <!-- Khối kiện hàng hình hộp ở dưới (3D perspective) -->
-            <!-- Mặt trên -->
             <polygon points="160,120 280,120 320,145 200,145" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
-            <!-- Mặt trước -->
             <polygon points="160,120 200,145 200,185 160,160" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
-            <!-- Mặt bên -->
             <polygon points="200,145 320,145 320,185 200,185" fill="#fcd34d" stroke="#b45309" stroke-width="1.5"/>
 
             <!-- 4 dây cáp màu đỏ kéo từ 4 góc về móc cẩu S (230, 40) kèm mũi tên -->
-            <!-- Cáp 1 từ (160,120) lên (230,40) -->
             <line x1="160" y1="120" x2="210" y2="63" stroke="#dc2626" stroke-width="2.5" marker-end="url(#hook-f-arr)"/>
-            <!-- Cáp 2 từ (200,145) lên (230,40) -->
             <line x1="200" y1="145" x2="223" y2="66" stroke="#dc2626" stroke-width="2.5" marker-end="url(#hook-f-arr)"/>
-            <!-- Cáp 3 từ (320,145) lên (230,40) -->
             <line x1="320" y1="145" x2="248" y2="61" stroke="#dc2626" stroke-width="2.5" marker-end="url(#hook-f-arr)"/>
-            <!-- Cáp 4 từ (280,120) lên (230,40) -->
             <line x1="280" y1="120" x2="242" y2="60" stroke="#dc2626" stroke-width="2.5" marker-end="url(#hook-f-arr)"/>
 
             <!-- Ký hiệu 4 vectơ lực F1, F2, F3, F4 chuẩn TikZ -->
@@ -148,7 +130,7 @@ window.LESSON_12_C2_B6_DATA = {
       num: "1",
       title: "Vectơ trong không gian",
       audioScript: "Vectơ trong không gian hoàn toàn giống với vectơ trong mặt phẳng, nó là một đoạn thẳng có hướng. Khi hai vectơ có cùng hướng và cùng độ dài, ta nói chúng bằng nhau.",
-      audioUrl: "",
+      audioUrl: "assets/audio/b6_sec1.mp3",
       buttonLabel: "Nghe thầy Sáng giảng bài",
       checkpoints: [
         {
@@ -209,7 +191,6 @@ window.LESSON_12_C2_B6_DATA = {
                   </defs>
 
                   <!-- BÊN TRÁI: CÙNG PHƯƠNG, CÙNG HƯỚNG (MÀU XANH DƯƠNG) -->
-                  <!-- Vectơ a -->
                   <line x1="50" y1="65" x2="160" y2="25" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue-dir)"/>
                   <g transform="translate(100, 32)">
                     <line x1="0" y1="-10" x2="14" y2="-10" stroke="#2563eb" stroke-width="1.2"/>
@@ -217,7 +198,6 @@ window.LESSON_12_C2_B6_DATA = {
                     <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#2563eb">a</text>
                   </g>
 
-                  <!-- Vectơ b -->
                   <line x1="50" y1="120" x2="180" y2="75" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue-dir)"/>
                   <g transform="translate(120, 87)">
                     <line x1="0" y1="-10" x2="14" y2="-10" stroke="#2563eb" stroke-width="1.2"/>
@@ -230,7 +210,6 @@ window.LESSON_12_C2_B6_DATA = {
                   <line x1="230" y1="20" x2="230" y2="150" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="3,3"/>
 
                   <!-- BÊN PHẢI: CÙNG PHƯƠNG, NGƯỢC HƯỚNG (MÀU ĐỎ) -->
-                  <!-- Vectơ c (hướng lên trên sang phải) -->
                   <line x1="270" y1="65" x2="380" y2="25" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-red-dir)"/>
                   <g transform="translate(320, 32)">
                     <line x1="0" y1="-10" x2="14" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
@@ -238,7 +217,6 @@ window.LESSON_12_C2_B6_DATA = {
                     <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">c</text>
                   </g>
 
-                  <!-- Vectơ d (hướng ngược lại: từ trên phải xuống dưới trái) -->
                   <line x1="400" y1="75" x2="270" y2="120" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-red-dir)"/>
                   <g transform="translate(340, 115)">
                     <line x1="0" y1="-10" x2="14" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
@@ -278,7 +256,7 @@ window.LESSON_12_C2_B6_DATA = {
       num: "2",
       title: "Tổng và hiệu của hai vectơ",
       audioScript: "Quy tắc 3 điểm và quy tắc hình bình hành vẫn đúng trong không gian. Nhưng thầy muốn nhấn mạnh Quy tắc hình hộp. Cho hình hộp ABCD.A'B'C'D', vectơ AB cộng vectơ AD cộng vectơ AA' bằng vectơ AC'.",
-      audioUrl: "",
+      audioUrl: "assets/audio/b6_sec2.mp3",
       buttonLabel: "Nghe thầy Sáng giảng bài",
       checkpoints: [
         {
@@ -343,7 +321,7 @@ window.LESSON_12_C2_B6_DATA = {
                     </marker>
                   </defs>
 
-                  <!-- Cạnh khuất nét đứt: AD, DC, DD' -->
+                  <!-- Cạnh khuất nét đứt -->
                   <line x1="100" y1="180" x2="160" y2="120" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
                   <line x1="160" y1="120" x2="320" y2="120" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
                   <line x1="160" y1="120" x2="160" y2="30" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
@@ -359,15 +337,12 @@ window.LESSON_12_C2_B6_DATA = {
                   <line x1="260" y1="180" x2="260" y2="90" stroke="#64748b" stroke-width="1.5"/>
                   <line x1="320" y1="120" x2="320" y2="30" stroke="#64748b" stroke-width="1.5"/>
 
-                  <!-- Ba vectơ thành phần từ đỉnh A (màu xanh dương) -->
-                  <!-- Vectơ AB -->
+                  <!-- Ba vectơ thành phần từ đỉnh A -->
                   <line x1="100" y1="180" x2="252" y2="180" stroke="#2563eb" stroke-width="2.5" marker-end="url(#box-arr-blue)"/>
-                  <!-- Vectơ AD (nét đứt) -->
                   <line x1="100" y1="180" x2="154" y2="126" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#box-arr-blue)"/>
-                  <!-- Vectơ AA' -->
                   <line x1="100" y1="180" x2="100" y2="98" stroke="#2563eb" stroke-width="2.5" marker-end="url(#box-arr-blue)"/>
 
-                  <!-- Đường chéo không gian AC' (màu đỏ) -->
+                  <!-- Đường chéo không gian AC' -->
                   <line x1="100" y1="180" x2="314" y2="36" stroke="#dc2626" stroke-width="3" marker-end="url(#box-arr-red)"/>
 
                   <!-- Nhãn các vectơ -->
@@ -395,7 +370,6 @@ window.LESSON_12_C2_B6_DATA = {
                     <text x="0" y="0" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#dc2626">AC'</text>
                   </g>
 
-                  <!-- Tên các đỉnh chuẩn kịch bản PDF: A, B, C, D, A', C' -->
                   <text x="88" y="195" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a">A</text>
                   <text x="268" y="195" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a">B</text>
                   <text x="328" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a">C</text>
@@ -440,7 +414,7 @@ window.LESSON_12_C2_B6_DATA = {
       num: "3",
       title: "Tích của một số với một vectơ",
       audioScript: "Khi nhân một số thực k với vectơ a, nó sẽ làm vectơ đó dài ra hoặc ngắn đi. Vectơ k a cùng hướng vectơ a nếu k dương, ngược hướng nếu k âm. Đặc biệt, nếu G là trọng tâm tứ diện ABCD thì vectơ GA cộng vectơ GB cộng vectơ GC cộng vectơ GD bằng vectơ không.",
-      audioUrl: "",
+      audioUrl: "assets/audio/b6_sec3.mp3",
       buttonLabel: "Nghe thầy Sáng giảng bài",
       checkpoints: [
         {
@@ -519,8 +493,8 @@ window.LESSON_12_C2_B6_DATA = {
     {
       num: "4",
       title: "Tích vô hướng của hai vectơ",
-      audioScript: "Phép toán cuối cùng là tích vô hướng, sinh ra một con số thực. Tích vô hướng của vectơ a và vectơ b bằng độ dài vectơ a nhân độ dài vectơ b nhân cosin góc giữa chúng. Hai vectơ khác không vuông góc với nhau khi và chỉ khi tích vô hướng của chúng bằng 0.",
-      audioUrl: "",
+      audioScript: "Phép toán cuối cùng là tích vô hướng, sinh ra một con số thực. Tích vô hướng của vectơ a và vectơ b bằng độ dài vectơ a nhân độ dài vectơ b nhân cosin góc giữa chúng. Hai vectơ khác không vuông góc với nhau khi và chỉ khi tích vô hướng của chúng bằng không.",
+      audioUrl: "assets/audio/b6_sec4.mp3",
       buttonLabel: "Nghe thầy Sáng giảng bài",
       checkpoints: [
         {
@@ -603,8 +577,8 @@ window.LESSON_12_C2_B6_DATA = {
       </div>
       <p>Nhờ tính toán các góc và tích vô hướng, máy tính phân bổ lực kéo đồng đều để cáp không đứt.</p>
     `,
-    audioScript: "Trở lại Bài toán dẫn nhập, để kiện hàng cân bằng, tổng các lực kéo từ dây cáp và trọng lực phải triệt tiêu nhau. Hệ thống cần cẩu phải thỏa mãn phương trình vectơ: F1 cộng F2 cộng F3 cộng F4 cộng P bằng vectơ 0. Nhờ tính toán các góc và tích vô hướng, máy tính phân bổ lực kéo đồng đều để cáp không đứt.",
-    audioUrl: "",
+    audioScript: "Trở lại Bài toán dẫn nhập, để kiện hàng cân bằng, tổng các lực kéo từ dây cáp và trọng lực phải triệt tiêu nhau. Hệ thống cần cẩu phải thỏa mãn phương trình vectơ: F1 cộng F2 cộng F3 cộng F4 cộng P bằng vectơ không. Nhờ tính toán các góc và tích vô hướng, máy tính phân bổ lực kéo đồng đều để cáp không đứt.",
+    audioUrl: "assets/audio/b6_wrapup.mp3",
     buttonLabel: "Nghe thầy Sáng giảng bài"
   },
 
@@ -618,6 +592,7 @@ window.LESSON_12_C2_B6_DATA = {
     part1MultipleChoice: [
       {
         id: "mc-12-6-1",
+        num: 1,
         prompt: "Câu 1: Trong không gian, hai vectơ có độ dài bằng nhau và cùng hướng thì được gọi là:",
         options: [
           "Hai vectơ đối nhau",
@@ -641,6 +616,7 @@ window.LESSON_12_C2_B6_DATA = {
       },
       {
         id: "mc-12-6-2",
+        num: 2,
         prompt: "Câu 2: Khẳng định nào sau đây <b>sai</b>?",
         options: [
           "$\\vec{a} \\cdot \\vec{b} = \\vec{b} \\cdot \\vec{a}$",
@@ -664,6 +640,7 @@ window.LESSON_12_C2_B6_DATA = {
       },
       {
         id: "mc-12-6-3",
+        num: 3,
         prompt: "Câu 3: Cho hình hộp $ABCD.A'B'C'D'$. Tổng $\\vec{AB} + \\vec{AD} + \\vec{AA'}$ bằng:",
         options: [
           "$\\vec{AC}$",
@@ -687,6 +664,7 @@ window.LESSON_12_C2_B6_DATA = {
       },
       {
         id: "mc-12-6-4",
+        num: 4,
         prompt: "Câu 4: Góc giữa hai vectơ cùng hướng (và khác vectơ-không) là:",
         options: [
           "$90^\\circ$",
@@ -710,6 +688,7 @@ window.LESSON_12_C2_B6_DATA = {
       },
       {
         id: "mc-12-6-5",
+        num: 5,
         prompt: "Câu 5: Cho tứ diện $ABCD$ có trọng tâm $G$. Đẳng thức nào sau đây đúng?",
         options: [
           "$\\vec{GA} + \\vec{GB} + \\vec{GC} + \\vec{GD} = \\vec{0}$",
@@ -737,93 +716,138 @@ window.LESSON_12_C2_B6_DATA = {
     part2TrueFalse: [
       {
         id: "tf-12-6-1",
-        intro: "Câu 3 (Chuẩn Trang 5 PDF): Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
+        num: 1,
+        prompt: "Câu 1 (Chuẩn Trang 5 PDF): Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
+        intro: "Câu 1 (Chuẩn Trang 5 PDF): Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
         items: [
           {
+            label: "a",
             key: "a",
+            text: "1) $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$",
             statement: "1) $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$",
+            isTrue: false,
             isCorrect: false,
             explain: "Sai - Thiếu $\\vec{GD}$. Đẳng thức đúng phải là $\\vec{GA} + \\vec{GB} + \\vec{GC} + \\vec{GD} = \\vec{0}$."
           },
           {
+            label: "b",
             key: "b",
+            text: "2) $\\vec{AB} + \\vec{AC} + \\vec{AD} = 4\\vec{AG}$",
             statement: "2) $\\vec{AB} + \\vec{AC} + \\vec{AD} = 4\\vec{AG}$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, vì $\\vec{AB} + \\vec{AC} + \\vec{AD} = (\\vec{AG} + \\vec{GB}) + (\\vec{AG} + \\vec{GC}) + (\\vec{AG} + \\vec{GD}) = 3\\vec{AG} + (\\vec{GB} + \\vec{GC} + \\vec{GD}) = 3\\vec{AG} + (-\\vec{GA}) = 4\\vec{AG}$."
           },
           {
+            label: "c",
             key: "c",
+            text: "3) $\\vec{DA} + \\vec{DB} + \\vec{DC} = 4\\vec{DG}$",
             statement: "3) $\\vec{DA} + \\vec{DB} + \\vec{DC} = 4\\vec{DG}$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, tương tự với đỉnh $D$ ta có $\\vec{DA} + \\vec{DB} + \\vec{DC} = 4\\vec{DG}$."
           },
           {
+            label: "d",
             key: "d",
+            text: "4) Với điểm $M$ bất kì trong không gian, $\\vec{MA} + \\vec{MB} + \\vec{MC} + \\vec{MD} = 4\\vec{MG}$",
             statement: "4) Với điểm $M$ bất kì trong không gian, $\\vec{MA} + \\vec{MB} + \\vec{MC} + \\vec{MD} = 4\\vec{MG}$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng theo hệ thức trọng tâm tứ diện đối với điểm $M$ tùy ý."
           }
-        ]
+        ],
+        solution: "Ý a sai vì thiếu vectơ $\\vec{GD}$. Các ý b, c, d đều là các hệ thức đúng chuẩn mực của trọng tâm tứ diện."
       },
       {
         id: "tf-12-6-2",
-        intro: "Cho hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng / sai của các mệnh đề sau:",
+        num: 2,
+        prompt: "Câu 2: Cho hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng / sai của các mệnh đề sau:",
+        intro: "Câu 2: Cho hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng / sai của các mệnh đề sau:",
         items: [
           {
+            label: "a",
             key: "a",
+            text: "$\\vec{AB} = \\vec{D'C'}$",
             statement: "$\\vec{AB} = \\vec{D'C'}$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, vì tứ giác $ABC'D'$ có $AB // D'C'$ và $AB = D'C'$ nên $\\vec{AB} = \\vec{D'C'}$."
           },
           {
+            label: "b",
             key: "b",
+            text: "$\\vec{AC} \\cdot \\vec{B'D'} = 0$",
             statement: "$\\vec{AC} \\cdot \\vec{B'D'} = 0$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, vì $\\vec{B'D'} = \\vec{BD}$ mà $AC \\perp BD$ (hai đường chéo hình vuông đáy) nên tích vô hướng bằng 0."
           },
           {
+            label: "c",
             key: "c",
+            text: "$\\vec{AB} + \\vec{AD} + \\vec{AA'} = \\vec{AC'}$",
             statement: "$\\vec{AB} + \\vec{AD} + \\vec{AA'} = \\vec{AC'}$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng theo quy tắc hình hộp."
           },
           {
+            label: "d",
             key: "d",
+            text: "Góc giữa hai vectơ $\\vec{A'C'}$ và $\\vec{BD}$ bằng $90^\\circ$",
             statement: "Góc giữa hai vectơ $\\vec{A'C'}$ và $\\vec{BD}$ bằng $90^\\circ$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, vì $\\vec{A'C'} = \\vec{AC}$ mà $AC \\perp BD$ nên góc giữa chúng bằng $90^\\circ$."
           }
-        ]
+        ],
+        solution: "Cả 4 mệnh đề a, b, c, d đều đúng nhờ các tính chất đối xứng và vuông góc trong hình lập phương."
       },
       {
         id: "tf-12-6-3",
-        intro: "Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 3, AD = 4, AA' = 5$. Xét tính đúng / sai của các mệnh đề sau:",
+        num: 3,
+        prompt: "Câu 3: Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 3, AD = 4, AA' = 5$. Xét tính đúng / sai của các mệnh đề sau:",
+        intro: "Câu 3: Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 3, AD = 4, AA' = 5$. Xét tính đúng / sai của các mệnh đề sau:",
         items: [
           {
+            label: "a",
             key: "a",
+            text: "Độ dài $|\\vec{AC}| = 5$",
             statement: "Độ dài $|\\vec{AC}| = 5$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, $AC = \\sqrt{AB^2 + AD^2} = \\sqrt{3^2 + 4^2} = 5$."
           },
           {
+            label: "b",
             key: "b",
+            text: "Độ dài $|\\vec{AC'}| = 5\\sqrt{2}$",
             statement: "Độ dài $|\\vec{AC'}| = 5\\sqrt{2}$",
+            isTrue: true,
             isCorrect: true,
-            explain: "Đúng, $AC' = \\sqrt{AB^2 + AD^2 + AA'^2} = \\sqrt{3^2 + 4^2 + 5^2} = 5\\sqrt{2}$."
+            explain: "Đúng, $AC' = \\sqrt{AB^2 + AD^2 + AA'^2} = \\sqrt{3^2 + 4^2 + 5^2} = \\sqrt{50} = 5\\sqrt{2}$."
           },
           {
+            label: "c",
             key: "c",
+            text: "$\\vec{AB} \\cdot \\vec{AA'} = 0$",
             statement: "$\\vec{AB} \\cdot \\vec{AA'} = 0$",
+            isTrue: true,
             isCorrect: true,
             explain: "Đúng, vì $AB \\perp AA'$ trong hình hộp chữ nhật."
           },
           {
+            label: "d",
             key: "d",
+            text: "$\\vec{AB} + \\vec{AD} + \\vec{AA'} = \\vec{BD'}$",
             statement: "$\\vec{AB} + \\vec{AD} + \\vec{AA'} = \\vec{BD'}$",
+            isTrue: false,
             isCorrect: false,
             explain: "Sai, theo quy tắc hình hộp tổng ba vectơ cạnh cùng xuất phát từ đỉnh $A$ bằng $\\vec{AC'}$, không phải $\\vec{BD'}$."
           }
-        ]
+        ],
+        solution: "Ý a, b, c đúng theo định lí Pythagore và quan hệ vuông góc. Ý d sai vì vế phải phải là vectơ $\\vec{AC'}$."
       }
     ],
 
@@ -831,6 +855,7 @@ window.LESSON_12_C2_B6_DATA = {
     part3ShortAnswer: [
       {
         id: "sa-12-6-1",
+        num: 1,
         prompt: `
           <div style="font-weight: 600; color: #1e3a8a; margin-bottom: 8px;">
             Câu 4 (Toán thực tế - Trang 5 PDF):
@@ -909,6 +934,7 @@ window.LESSON_12_C2_B6_DATA = {
       },
       {
         id: "sa-12-6-2",
+        num: 2,
         prompt: "Câu 5: Cho hình chóp tứ giác đều $S.ABCD$ có tất cả các cạnh đều bằng $a$. Tính tích vô hướng $\\vec{SA} \\cdot \\vec{SC}$ theo $a^2$. (Nhập hệ số, ví dụ 0 hoặc 0.5 hoặc -0.5).",
         correctAnswer: "0",
         solution: `

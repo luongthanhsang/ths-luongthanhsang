@@ -2447,8 +2447,7 @@ function initDigitalLessons() {
           <div class="teacher-voice-gold-meta">
             <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
             <div class="teacher-voice-gold-info">
-              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
-              <span class="voice-audio-status">Trầm ấm, truyền cảm, chuẩn sư phạm</span>
+              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)</span>
             </div>
           </div>
           <div class="teacher-voice-gold-controls">
@@ -2720,6 +2719,41 @@ function initDigitalLessons() {
               </div>
               `;
             }).join("")}
+
+            ${(sec.checkpoints && sec.checkpoints.length > 0) ? `
+              <div class="section-poi-interactive-box" style="margin: 20px 0 10px 0; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); border: 2px solid #3b82f6; border-radius: 14px; padding: 18px; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.08);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; border-bottom: 1.5px dashed #cbd5e1; padding-bottom: 10px;">
+                  <span style="background: #2563eb; color: #facc15; font-weight: 800; font-size: 0.88rem; padding: 5px 14px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC THEO BÀI GIẢNG (POI - MỤC ${escapeHtml(sec.num)})
+                  </span>
+                  <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                    <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                  </span>
+                </div>
+                <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 14px;">
+                  ${sec.checkpoints.map((poi, pIdx) => `
+                    <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                      <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                        <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                      </div>
+                      <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                        ${poi.question}
+                      </div>
+                      <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                        ${poi.options.map((opt, oIdx) => `
+                          <button class="btn-cp-opt" data-correct="${oIdx === poi.correctIndex}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                            <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                          </button>
+                        `).join('')}
+                      </div>
+                      <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                        <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${escapeHtml(poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!')}</div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
           </div>
         </article>
       `;
@@ -2825,15 +2859,20 @@ function initDigitalLessons() {
                 <h4><i class="fa-solid fa-square-check" style="color: #059669;"></i> DẠNG 2. CÂU HỎI TRẮC NGHIỆM ĐÚNG / SAI (3 câu cốt lõi - Thông hiểu)</h4>
               </div>
               <div class="exam-list-tf">
-                ${ef.part2TrueFalse.map((q, idx) => `
+                ${ef.part2TrueFalse.map((q, idx) => {
+                  const qNum = q.num || (idx + 1);
+                  const qPrompt = q.prompt || q.intro || '';
+                  const qItems = q.items || [];
+                  const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key})</strong> ${it.explain || ''}`).join('<br>'));
+                  return `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> Câu ${qNum}</span>
                       <button class="btn-show-solution-btn" data-target="sol-${q.id}">
                         <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
                       </button>
                     </div>
-                    <div class="exam-item-prompt">${q.prompt}</div>
+                    <div class="exam-item-prompt">${qPrompt}</div>
                     <table class="tf-4part-table">
                       <thead>
                         <tr>
@@ -2842,28 +2881,34 @@ function initDigitalLessons() {
                         </tr>
                       </thead>
                       <tbody>
-                        ${q.items.map((it, iIdx) => `
-                          <tr class="tf-item-row" data-qid="${q.id}" data-item-idx="${iIdx}" data-correct="${it.isTrue}">
-                            <td><strong>${it.label})</strong> ${it.text}</td>
+                        ${qItems.map((it, iIdx) => {
+                          const itLabel = it.label || it.key || String.fromCharCode(97 + iIdx);
+                          const itText = it.text || it.statement || '';
+                          const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
+                          return `
+                          <tr class="tf-item-row" data-qid="${q.id}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
+                            <td><strong>${escapeHtml(itLabel)})</strong> ${itText}</td>
                             <td style="text-align: center;">
                               <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Đ</button>
                               <button class="btn-tf-toggle" data-val="false">S</button>
                             </td>
                           </tr>
-                        `).join("")}
+                          `;
+                        }).join("")}
                       </tbody>
                     </table>
                     <div style="text-align: right; margin-top: 10px;">
                       <button class="btn-check-tf-group" data-qid="${q.id}" style="background: #059669; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
-                        <i class="fa-solid fa-check"></i> Kiểm tra câu ${q.num}
+                        <i class="fa-solid fa-check"></i> Kiểm tra câu ${qNum}
                       </button>
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
                       <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
-                      ${q.solution}
+                      ${qSol}
                     </div>
                   </div>
-                `).join("")}
+                  `;
+                }).join("")}
               </div>
             </div>
           ` : ''}
@@ -3280,18 +3325,16 @@ function initDigitalLessons() {
 
     if (activeVoicePlayer) {
       activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
+      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
       if (playBtn) {
-        if (playBtn.dataset.origHtml) {
-          playBtn.innerHTML = playBtn.dataset.origHtml;
-        } else if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nhấn nghe Lời chào';
+        if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
         } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
           playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
         } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
           playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
+          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
         }
       }
       activeVoicePlayer = null;
@@ -3355,12 +3398,9 @@ function initDigitalLessons() {
     activeVoicePlayer.classList.add("playing");
     isSpeechActive = true;
 
-    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
+    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
     if (playBtn) {
-      if (!playBtn.dataset.origHtml) {
-        playBtn.dataset.origHtml = playBtn.innerHTML;
-      }
-      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Đang phát Voice AI...';
+      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
     }
 
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
@@ -3580,8 +3620,12 @@ function initDigitalLessons() {
               clearInterval(activePoiTimer);
               return;
             }
-            playSec++;
-            const hitPoi = pois.find(p => p.time === playSec && !p.completed);
+            if (currentHtml5Audio) {
+              playSec = Math.floor(currentHtml5Audio.currentTime || 0);
+            } else {
+              playSec++;
+            }
+            const hitPoi = pois.find(p => (p.time === playSec || Math.abs(p.time - playSec) <= 1) && !p.completed);
             if (hitPoi) {
               if (window.speechSynthesis) window.speechSynthesis.pause();
               if (currentHtml5Audio) currentHtml5Audio.pause();
@@ -3594,7 +3638,7 @@ function initDigitalLessons() {
                 if (currentHtml5Audio) currentHtml5Audio.play();
               });
             }
-          }, 1000);
+          }, 800);
         }
       });
     });
