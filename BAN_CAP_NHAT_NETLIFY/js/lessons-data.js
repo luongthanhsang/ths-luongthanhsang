@@ -2928,31 +2928,37 @@ const LESSONS_DATABASE = {
               ]
             };
           })(),
-          {
-            id: "12-c2-b8",
-            number: "Bài 8",
-            title: "Biểu thức toạ độ của các phép toán vectơ",
-            sections: [
-              {
-                id: "12-c2-b8-s1",
-                num: "1",
-                title: "Biểu thức toạ độ các phép toán cơ bản",
-                subsections: [
-                  { key: "a", title: "Toạ độ tổng, hiệu và tích với một số", summary: "u ± v = (x±x'; y±y'; z±z'); k.u = (kx; ky; kz)." },
-                  { key: "b", title: "Toạ độ trung điểm và trọng tâm tứ diện", summary: "Trung điểm M((xA+xB)/2; (yA+yB)/2; (zA+zB)/2); trọng tâm tứ diện G." }
-                ]
-              },
-              {
-                id: "12-c2-b8-s2",
-                num: "2",
-                title: "Biểu thức toạ độ của tích vô hướng",
-                subsections: [
-                  { key: "a", title: "Công thức tích vô hướng và độ dài", summary: "u . v = x.x' + y.y' + z.z'; |u| = √(x² + y² + z²)." },
-                  { key: "b", title: "Khoảng cách giữa hai điểm và góc giữa hai vectơ", summary: "AB = √((xB-xA)² + (yB-yA)² + (zB-zA)²); cos(u, v) = (u.v)/(|u|.|v|)." }
-                ]
-              }
-            ]
-          }
+          // Bài 8: Biểu thức toạ độ của các phép toán vectơ (Tương thích 2 chiều với lesson-12-8-data.js)
+          (function() {
+            if (typeof window !== "undefined" && window.LESSON_12_C2_B8_DATA) {
+              return window.LESSON_12_C2_B8_DATA;
+            }
+            return {
+              id: "12-c2-b8",
+              number: "Bài 8",
+              title: "Biểu thức toạ độ của các phép toán vectơ",
+              sections: [
+                {
+                  id: "12-c2-b8-s1",
+                  num: "1",
+                  title: "Biểu thức toạ độ các phép toán cơ bản",
+                  subsections: [
+                    { key: "a", title: "Toạ độ tổng, hiệu và tích với một số", summary: "u ± v = (x±x'; y±y'; z±z'); k.u = (kx; ky; kz)." },
+                    { key: "b", title: "Toạ độ trung điểm và trọng tâm tứ diện", summary: "Trung điểm M((xA+xB)/2; (yA+yB)/2; (zA+zB)/2); trọng tâm tứ diện G." }
+                  ]
+                },
+                {
+                  id: "12-c2-b8-s2",
+                  num: "2",
+                  title: "Biểu thức toạ độ của tích vô hướng",
+                  subsections: [
+                    { key: "a", title: "Công thức tích vô hướng và độ dài", summary: "u . v = x.x' + y.y' + z.z'; |u| = √(x² + y² + z²)." },
+                    { key: "b", title: "Khoảng cách giữa hai điểm và góc giữa hai vectơ", summary: "AB = √((xB-xA)² + (yB-yA)² + (zB-zA)²); cos(u, v) = (u.v)/(|u|.|v|)." }
+                  ]
+                }
+              ]
+            };
+          })()
         ]
       },
       {
@@ -3309,6 +3315,7 @@ if (typeof window !== "undefined") {
   if (window.LESSON_11_C4_B12_DATA) autoInjectLesson(window.LESSON_11_C4_B12_DATA);
   if (window.LESSON_12_C2_B6_DATA) autoInjectLesson(window.LESSON_12_C2_B6_DATA);
   if (window.LESSON_12_C2_B7_DATA) autoInjectLesson(window.LESSON_12_C2_B7_DATA);
+  if (window.LESSON_12_C2_B8_DATA) autoInjectLesson(window.LESSON_12_C2_B8_DATA);
 }
 
 

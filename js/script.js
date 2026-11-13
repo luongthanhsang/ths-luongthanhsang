@@ -2686,21 +2686,24 @@ function initDigitalLessons() {
     sections.forEach((sec, sIdx) => {
       const subsections = sec.subsections || [];
       const secAnchor = `sec-${sIdx + 1}`;
+      const secNum = (sec.num !== undefined && sec.num !== null && String(sec.num) !== 'undefined') 
+        ? sec.num 
+        : (sec.number ? String(sec.number).replace(/[^0-9]/g, '') : String(sIdx + 1));
 
       sectionsHtml += `
-        <!-- MỤC ${sec.num} -->
+        <!-- MỤC ${secNum} -->
         <article class="lesson-section-card" id="${secAnchor}">
           <div class="section-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
             <div class="section-title-wrap" style="margin-bottom: 0;">
-              <div class="section-num-circle">${escapeHtml(sec.num)}</div>
-              <h2 class="section-heading-h2">Mục ${escapeHtml(sec.num)}. ${escapeHtml(sec.title)}</h2>
+              <div class="section-num-circle">${escapeHtml(secNum)}</div>
+              <h2 class="section-heading-h2">Mục ${escapeHtml(secNum)}. ${escapeHtml(sec.title)}</h2>
             </div>
             ${(sec.audioScript || sec.audioUrl) ? renderTeacherGoldVoiceBoxHtml(
               sec.buttonLabel || "Nghe thầy Sáng giảng bài",
               sec.audioScript || sec.title,
               sec.audioUrl || "",
               `sec-voice-${sIdx}`,
-              sec.checkpoints || []
+              sec.checkpoints || sec.pois || []
             ) : ""}
           </div>
           <div class="section-body-wrap">
@@ -2935,7 +2938,7 @@ function initDigitalLessons() {
               </div>
               <div class="exam-list-tf">
                 ${ef.part2TrueFalse.map((q, idx) => {
-                  const qNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
+                  const qNum = (q.num !== undefined && q.num !== null && String(q.num) !== 'undefined') ? q.num : (idx + 1);
                   const qPrompt = q.prompt || q.intro || '';
                   const qItems = q.items || [];
                   const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
@@ -2966,9 +2969,9 @@ function initDigitalLessons() {
                       <tbody>
                         ${qItems.map((it, iIdx) => {
                           if (!it) return '';
-                          let itLabel = (it.label && it.label !== 'undefined') ? it.label : ((it.key && it.key !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                          let itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
                           let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
-                          if (itText === 'undefined') itText = '';
+                          if (!itText || String(itText).trim() === 'undefined') itText = '';
                           const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                           return `
                           <tr class="tf-item-row" data-qid="${qId}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
@@ -3413,7 +3416,15 @@ function initDigitalLessons() {
     "assets/audio/b7_sec2.mp3": 25.46,
     "assets/audio/b7_sec3.mp3": 26.14,
     "assets/audio/b7_sec4.mp3": 31.25,
-    "assets/audio/b7_wrapup.mp3": 23.64
+    "assets/audio/b7_wrapup.mp3": 23.64,
+    "assets/audio/b8_welcome.mp3": 23.04,
+    "assets/audio/b8_goals.mp3": 33.43,
+    "assets/audio/b8_hook.mp3": 34.06,
+    "assets/audio/b8_sec1.mp3": 19.80,
+    "assets/audio/b8_sec2.mp3": 25.00,
+    "assets/audio/b8_sec3.mp3": 28.97,
+    "assets/audio/b8_sec4.mp3": 27.84,
+    "assets/audio/b8_wrapup.mp3": 26.98
   };
 
   function formatAudioTime(sec) {
@@ -3748,7 +3759,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
+        const audioSrc = (window.B8_AUDIO_CACHE && window.B8_AUDIO_CACHE[audioUrl]) || 
+                         (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
                          (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) || 
                          audioUrl;
         currentHtml5Audio = new Audio();
@@ -4150,7 +4162,8 @@ function initDigitalLessons() {
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,
           window.LESSON_12_C2_B6_DATA,
-          window.LESSON_12_C2_B7_DATA
+          window.LESSON_12_C2_B7_DATA,
+          window.LESSON_12_C2_B8_DATA
         ].filter(Boolean);
 
         for (let i = 0; i < allLessons.length; i++) {
@@ -4185,9 +4198,9 @@ function initDigitalLessons() {
               if (tbody) {
                 tbody.innerHTML = sim.items.map((it, iIdx) => {
                   if (!it) return '';
-                  const itLabel = (it.label && it.label !== 'undefined') ? it.label : ((it.key && it.key !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                  const itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
                   let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
-                  if (itText === 'undefined') itText = '';
+                  if (!itText || String(itText).trim() === 'undefined') itText = '';
                   const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                   return `
                     <tr class="tf-item-row" data-qid="${qid}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
