@@ -1014,30 +1014,51 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #f59e0b;
-  border: 2px solid #ffffff;
+  border: 2.5px solid #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
-  pointer-events: none;
-  z-index: 4;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.9);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s;
+}
+
+.gold-audio-poi-marker:hover {
+  transform: translate(-50%, -50%) scale(1.4);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 1);
 }
 
 .gold-audio-poi-marker.pulsing {
-  animation: poiPulse 1s infinite alternate;
-  background: #ef4444;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+  animation: poiPulse 0.7s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
+  background: #ef4444 !important;
+  border-color: #fef08a !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 1), 0 0 24px rgba(245, 158, 11, 0.8) !important;
+  z-index: 12;
 }
 
 .gold-audio-poi-marker.completed {
-  background: #10b981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+  background: #10b981 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important;
 }
 
 @keyframes poiPulse {
   0% { transform: translate(-50%, -50%) scale(1); }
-  100% { transform: translate(-50%, -50%) scale(1.4); }
+  100% { transform: translate(-50%, -50%) scale(1.6); }
+}
+
+@keyframes poiModalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .gold-audio-slider {

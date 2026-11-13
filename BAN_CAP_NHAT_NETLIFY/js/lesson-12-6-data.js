@@ -757,7 +757,49 @@ window.LESSON_12_C2_B6_DATA = {
             explain: "Đúng theo hệ thức trọng tâm tứ diện đối với điểm $M$ tùy ý."
           }
         ],
-        solution: "Ý a sai vì thiếu vectơ $\\vec{GD}$. Các ý b, c, d đều là các hệ thức đúng chuẩn mực của trọng tâm tứ diện."
+        solution: "Ý a sai vì thiếu vectơ $\\vec{GD}$. Các ý b, c, d đều là các hệ thức đúng chuẩn mực của trọng tâm tứ diện.",
+        similarVariation: {
+          prompt: "Cho tam giác $ABC$ trong không gian có $G$ là trọng tâm và $M$ là một điểm tùy ý. Xét tính đúng / sai của các mệnh đề sau:",
+          items: [
+            {
+              label: "a",
+              key: "a",
+              text: "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$",
+              statement: "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, theo tính chất trọng tâm tam giác."
+            },
+            {
+              label: "b",
+              key: "b",
+              text: "$\\vec{MA} + \\vec{MB} + \\vec{MC} = 3\\vec{MG}$",
+              statement: "$\\vec{MA} + \\vec{MB} + \\vec{MC} = 3\\vec{MG}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, với mọi điểm M trong không gian."
+            },
+            {
+              label: "c",
+              key: "c",
+              text: "$\\vec{AB} + \\vec{AC} = 2\\vec{AG}$",
+              statement: "$\\vec{AB} + \\vec{AC} = 2\\vec{AG}$",
+              isTrue: false,
+              isCorrect: false,
+              explain: "Sai, đẳng thức đúng là $\\vec{AB} + \\vec{AC} = 3\\vec{AG}$."
+            },
+            {
+              label: "d",
+              key: "d",
+              text: "$\\vec{GB} + \\vec{GC} = -\\vec{GA}$",
+              statement: "$\\vec{GB} + \\vec{GC} = -\\vec{GA}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, vì $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0} \\implies \\vec{GB} + \\vec{GC} = -\\vec{GA}$."
+            }
+          ],
+          solution: "Các ý a, b, d đúng. Ý c sai vì $\\vec{AB} + \\vec{AC} = 3\\vec{AG}$."
+        }
       },
       {
         id: "tf-12-6-2",
@@ -802,7 +844,49 @@ window.LESSON_12_C2_B6_DATA = {
             explain: "Đúng, vì $\\vec{A'C'} = \\vec{AC}$ mà $AC \\perp BD$ nên góc giữa chúng bằng $90^\\circ$."
           }
         ],
-        solution: "Cả 4 mệnh đề a, b, c, d đều đúng nhờ các tính chất đối xứng và vuông góc trong hình lập phương."
+        solution: "Cả 4 mệnh đề a, b, c, d đều đúng nhờ các tính chất đối xứng và vuông góc trong hình lập phương.",
+        similarVariation: {
+          prompt: "Cho hình lập phương $ABCD.A'B'C'D'$ cạnh $a$. Xét tính đúng / sai của các mệnh đề sau:",
+          items: [
+            {
+              label: "a",
+              key: "a",
+              text: "$\\vec{AD} = \\vec{B'C'}$",
+              statement: "$\\vec{AD} = \\vec{B'C'}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, vì tứ giác $AB'C'D$ có $AD // B'C'$ và $AD = B'C'$."
+            },
+            {
+              label: "b",
+              key: "b",
+              text: "$\\vec{BD} \\cdot \\vec{AA'} = 0$",
+              statement: "$\\vec{BD} \\cdot \\vec{AA'} = 0$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, vì đường thẳng cạnh bên $AA'$ vuông góc với mặt phẳng đáy $(ABCD)$ chứa $BD$."
+            },
+            {
+              label: "c",
+              key: "c",
+              text: "$\\vec{BA} + \\vec{BC} + \\vec{BB'} = \\vec{BD'}$",
+              statement: "$\\vec{BA} + \\vec{BC} + \\vec{BB'} = \\vec{BD'}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng theo quy tắc hình hộp xuất phát từ đỉnh B."
+            },
+            {
+              label: "d",
+              key: "d",
+              text: "Góc giữa $\\vec{AB}$ và $\\vec{A'D'}$ bằng $60^\\circ$",
+              statement: "Góc giữa $\\vec{AB}$ và $\\vec{A'D'}$ bằng $60^\\circ$",
+              isTrue: false,
+              isCorrect: false,
+              explain: "Sai, vì $\\vec{A'D'} = \\vec{AD}$ mà $AB \\perp AD$ nên góc giữa chúng bằng $90^\\circ$."
+            }
+          ],
+          solution: "Các ý a, b, c đúng. Ý d sai vì góc giữa $\\vec{AB}$ và $\\vec{A'D'}$ bằng $90^\\circ$."
+        }
       },
       {
         id: "tf-12-6-3",
@@ -847,7 +931,49 @@ window.LESSON_12_C2_B6_DATA = {
             explain: "Sai, theo quy tắc hình hộp tổng ba vectơ cạnh cùng xuất phát từ đỉnh $A$ bằng $\\vec{AC'}$, không phải $\\vec{BD'}$."
           }
         ],
-        solution: "Ý a, b, c đúng theo định lí Pythagore và quan hệ vuông góc. Ý d sai vì vế phải phải là vectơ $\\vec{AC'}$."
+        solution: "Ý a, b, c đúng theo định lí Pythagore và quan hệ vuông góc. Ý d sai vì vế phải phải là vectơ $\\vec{AC'}$.",
+        similarVariation: {
+          prompt: "Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 6, AD = 8, AA' = 10$. Xét tính đúng / sai của các mệnh đề sau:",
+          items: [
+            {
+              label: "a",
+              key: "a",
+              text: "Độ dài $|\\vec{BD}| = 10$",
+              statement: "Độ dài $|\\vec{BD}| = 10$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, $BD = \\sqrt{6^2 + 8^2} = 10$."
+            },
+            {
+              label: "b",
+              key: "b",
+              text: "Độ dài $|\\vec{BD'}| = 10\\sqrt{2}$",
+              statement: "Độ dài $|\\vec{BD'}| = 10\\sqrt{2}$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng, $BD' = \\sqrt{6^2 + 8^2 + 10^2} = \\sqrt{200} = 10\\sqrt{2}$."
+            },
+            {
+              label: "c",
+              key: "c",
+              text: "$\\vec{AD} \\cdot \\vec{DD'} = 0$",
+              statement: "$\\vec{AD} \\cdot \\vec{DD'} = 0$",
+              isTrue: true,
+              isCorrect: true,
+              explain: "Đúng vì $AD \\perp DD'$."
+            },
+            {
+              label: "d",
+              key: "d",
+              text: "$\\vec{DA} + \\vec{DC} + \\vec{DD'} = \\vec{CA'}$",
+              statement: "$\\vec{DA} + \\vec{DC} + \\vec{DD'} = \\vec{CA'}$",
+              isTrue: false,
+              isCorrect: false,
+              explain: "Sai, theo quy tắc hình hộp xuất phát từ đỉnh D thì tổng phải là $\\vec{DB'}$."
+            }
+          ],
+          solution: "Ý a, b, c đúng. Ý d sai vì quy tắc hình hộp cho kết quả là $\\vec{DB'}$."
+        }
       }
     ],
 
