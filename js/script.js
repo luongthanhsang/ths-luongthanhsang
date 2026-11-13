@@ -2849,7 +2849,7 @@ function initDigitalLessons() {
 
           <div class="wrapup-recap-box">
             <div class="recap-label"><i class="fa-solid fa-rotate-left"></i> Nhắc lại bài toán mở đầu:</div>
-            <p class="recap-text">${escapeHtml(lesson.realworldWrapup.recap)}</p>
+            <p class="recap-text">${escapeHtml(lesson.realworldWrapup.recap || '')}</p>
           </div>
 
           <div class="solution-toggle-bar" style="margin: 14px 0;">
@@ -2863,7 +2863,7 @@ function initDigitalLessons() {
               <div class="wrapup-solution-box">
                 <h4 class="wrapup-solution-head"><i class="fa-solid fa-chalkboard-user"></i> Mô hình hóa Toán học &amp; Lời giải chi tiết của Thầy Sáng:</h4>
                 <div class="wrapup-solution-content">
-                  ${lesson.realworldWrapup.solution}
+                  ${lesson.realworldWrapup.solution || ''}
                 </div>
               </div>
             </div>
@@ -2889,10 +2889,15 @@ function initDigitalLessons() {
                 <h4><i class="fa-solid fa-list-ol" style="color: #0284c7;"></i> DẠNG 1. CÂU HỎI TRẮC NGHIỆM NHIỀU LỰA CHỌN (5 câu cốt lõi - Nhận biết)</h4>
               </div>
               <div class="exam-list-mc">
-                ${ef.part1MultipleChoice.map((q, idx) => `
+                ${ef.part1MultipleChoice.map((q, idx) => {
+                  const mcNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
+                  const qPrompt = q.prompt || q.intro || '';
+                  const qSol = q.solution || q.explain || '';
+                  const qOpts = q.options || [];
+                  return `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge"><i class="fa-solid fa-circle-question"></i> Câu ${mcNum}</span>
                       <div class="exam-item-actions-bar">
                         ${q.similarVariation ? `
                           <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang câu hỏi tương tự với số liệu mới">
@@ -2904,9 +2909,9 @@ function initDigitalLessons() {
                         </button>
                       </div>
                     </div>
-                    <div class="exam-item-prompt" id="prompt-${q.id}">${q.prompt}</div>
+                    <div class="exam-item-prompt" id="prompt-${q.id}">${qPrompt}</div>
                     <div class="checkpoint-options-grid" id="options-${q.id}" style="margin-top: 12px;">
-                      ${q.options.map((opt, oIdx) => `
+                      ${qOpts.map((opt, oIdx) => `
                         <button class="btn-cp-opt" data-correct="${oIdx === q.correctIndex}" data-qid="${q.id}">
                           ${opt}
                         </button>
@@ -2914,10 +2919,10 @@ function initDigitalLessons() {
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
                       <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
-                      ${q.solution}
+                      ${qSol}
                     </div>
                   </div>
-                `).join("")}
+                `;}).join("")}
               </div>
             </div>
           ` : ''}
@@ -2930,7 +2935,7 @@ function initDigitalLessons() {
               </div>
               <div class="exam-list-tf">
                 ${ef.part2TrueFalse.map((q, idx) => {
-                  const qNum = (q.num !== undefined && q.num !== null) ? q.num : (idx + 1);
+                  const qNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
                   const qPrompt = q.prompt || q.intro || '';
                   const qItems = q.items || [];
                   const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
@@ -2960,10 +2965,10 @@ function initDigitalLessons() {
                       </thead>
                       <tbody>
                         ${qItems.map((it, iIdx) => {
-                          const itLabel = it.label || it.key || String.fromCharCode(97 + iIdx);
-                          let itText = it.text || it.statement || (typeof it === 'string' ? it : '');
-                          // Xóa tiền tố lặp dạng a), b), 1), 2) nếu đã có sẵn trong chuỗi text
-                          itText = itText.replace(/^[a-d1-4]\)\s*/i, '');
+                          if (!it) return '';
+                          let itLabel = (it.label && it.label !== 'undefined') ? it.label : ((it.key && it.key !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                          let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
+                          if (itText === 'undefined') itText = '';
                           const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                           return `
                           <tr class="tf-item-row" data-qid="${qId}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
@@ -3000,10 +3005,15 @@ function initDigitalLessons() {
                 <h4><i class="fa-solid fa-pen-clip" style="color: #d97706;"></i> DẠNG 3. CÂU HỎI TRẢ LỜI NGẮN (2 câu Toán thực tế - Vận dụng)</h4>
               </div>
               <div class="exam-list-sa">
-                ${ef.part3ShortAnswer.map((q, idx) => `
+                ${ef.part3ShortAnswer.map((q, idx) => {
+                  const saNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
+                  const saPrompt = q.prompt || '';
+                  const saSol = q.solution || '';
+                  const targetAns = (q.correctAnswer !== undefined && q.correctAnswer !== null) ? q.correctAnswer : ((q.correctValue !== undefined && q.correctValue !== null) ? q.correctValue : '');
+                  return `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
                     <div class="exam-item-header">
-                      <span class="exam-item-badge" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-circle-question"></i> Câu ${q.num}</span>
+                      <span class="exam-item-badge" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-circle-question"></i> Câu ${saNum}</span>
                       <div class="exam-item-actions-bar">
                         ${q.similarVariation ? `
                           <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang bài toán tương tự với số liệu mới">
@@ -3015,10 +3025,10 @@ function initDigitalLessons() {
                         </button>
                       </div>
                     </div>
-                    <div class="exam-item-prompt" id="prompt-${q.id}">${q.prompt}</div>
+                    <div class="exam-item-prompt" id="prompt-${q.id}">${saPrompt}</div>
                     <div class="short-ans-row">
                       <label style="font-weight: 700; color: #1e293b;">Đáp số của em:</label>
-                      <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nhập số..." data-ans="${q.correctAnswer}">
+                      <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nhập số..." data-ans="${targetAns}">
                       <span style="font-weight: 700; color: #64748b;">${q.unit || ''}</span>
                       <button class="btn-check-short-ans" data-qid="${q.id}">
                         <i class="fa-solid fa-check"></i> Trả lời
@@ -3027,10 +3037,10 @@ function initDigitalLessons() {
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
                       <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
-                      ${q.solution}
+                      ${saSol}
                     </div>
                   </div>
-                `).join("")}
+                `;}).join("")}
               </div>
             </div>
           ` : ''}
@@ -3395,7 +3405,15 @@ function initDigitalLessons() {
     "assets/audio/b6_sec2.mp3": 25.37,
     "assets/audio/b6_sec3.mp3": 25.54,
     "assets/audio/b6_sec4.mp3": 19.08,
-    "assets/audio/b6_wrapup.mp3": 20.04
+    "assets/audio/b6_wrapup.mp3": 20.04,
+    "assets/audio/b7_welcome.mp3": 18.02,
+    "assets/audio/b7_goals.mp3": 33.48,
+    "assets/audio/b7_hook.mp3": 22.85,
+    "assets/audio/b7_sec1.mp3": 29.98,
+    "assets/audio/b7_sec2.mp3": 25.46,
+    "assets/audio/b7_sec3.mp3": 26.14,
+    "assets/audio/b7_sec4.mp3": 31.25,
+    "assets/audio/b7_wrapup.mp3": 23.64
   };
 
   function formatAudioTime(sec) {
@@ -3730,7 +3748,9 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) ? window.B6_AUDIO_CACHE[audioUrl] : audioUrl;
+        const audioSrc = (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
+                         (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) || 
+                         audioUrl;
         currentHtml5Audio = new Audio();
         currentHtml5Audio.preload = "auto";
         currentHtml5Audio.src = audioSrc;
@@ -4164,8 +4184,10 @@ function initDigitalLessons() {
               const tbody = cardEl.querySelector("tbody");
               if (tbody) {
                 tbody.innerHTML = sim.items.map((it, iIdx) => {
-                  const itLabel = it.label || it.key || String.fromCharCode(97 + iIdx);
-                  let itText = (it.text || it.statement || (typeof it === 'string' ? it : '')).replace(/^[a-d1-4]\)\s*/i, '');
+                  if (!it) return '';
+                  const itLabel = (it.label && it.label !== 'undefined') ? it.label : ((it.key && it.key !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                  let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
+                  if (itText === 'undefined') itText = '';
                   const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                   return `
                     <tr class="tf-item-row" data-qid="${qid}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
@@ -4180,11 +4202,12 @@ function initDigitalLessons() {
                 bindDigitalLessonEvents(cardEl);
               }
             }
-            if (sim.correctAnswer) {
+            const simAns = (sim.correctAnswer !== undefined && sim.correctAnswer !== null) ? sim.correctAnswer : ((sim.correctValue !== undefined && sim.correctValue !== null) ? sim.correctValue : '');
+            if (simAns) {
               const inputEl = document.getElementById(`input-${qid}`);
               if (inputEl) {
                 inputEl.value = "";
-                inputEl.dataset.ans = sim.correctAnswer;
+                inputEl.dataset.ans = simAns;
               }
             }
             const solEl = document.getElementById(`sol-${qid}`);
