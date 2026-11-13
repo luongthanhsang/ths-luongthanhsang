@@ -2662,12 +2662,26 @@ function initDigitalLessons() {
                       </div>
                     </div>
 
-                    <!-- Nút bấm ẩn/hiện lời giải chi tiết -->
-                    <div class="solution-toggle-bar">
+                    <!-- Nút bấm ẩn/hiện lời giải chi tiết & Bài tập tương tự -->
+                    <div class="solution-toggle-bar" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
                       <button class="btn-toggle-solution" data-target="${exId}">
-                        <i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng
+                        <i class="fa-solid fa-eye"></i> Lời giải chi tiết của thầy Sáng
                       </button>
+                      ${sub.workedExample.similarProblem ? `
+                        <button class="btn-toggle-solution btn-toggle-similar-style" data-target="${exId}-similar" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                          <i class="fa-solid fa-arrows-rotate"></i> Bài tập tương tự
+                        </button>
+                      ` : ''}
                     </div>
+
+                    ${sub.workedExample.similarProblem ? `
+                      <div class="solution-collapse-body" id="${exId}-similar" style="display: none; border-left: 4px solid #10b981; margin-top: 10px;">
+                        <div class="solution-inner-wrap" style="background: #f0fdf4; padding: 16px; border-radius: 8px;">
+                          <div class="solution-title-tag" style="color: #047857; font-weight: bold; margin-bottom: 8px;"><i class="fa-solid fa-pen-ruler"></i> Bài tập tương tự để học sinh tự rèn luyện:</div>
+                          <div class="solution-content-text" style="color: #065f46;">${sub.workedExample.similarProblem}</div>
+                        </div>
+                      </div>
+                    ` : ''}
 
                     <!-- Khung lời giải chi tiết (Mặc định ẩn) -->
                     <div class="solution-collapse-body" id="${exId}" style="display: none;">
@@ -3733,16 +3747,17 @@ function initDigitalLessons() {
         if (!solEl) return;
 
         const isHidden = solEl.style.display === "none" || !solEl.style.display;
+        const isSimilar = btn.classList.contains("btn-toggle-similar-style");
         if (isHidden) {
           solEl.style.display = "block";
-          btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải chi tiết';
+          btn.innerHTML = isSimilar ? '<i class="fa-solid fa-eye-slash"></i> Đóng bài tập tương tự' : '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải chi tiết';
           btn.classList.add("active-toggle");
           if (window.MathJax && window.MathJax.typesetPromise) {
             window.MathJax.typesetPromise([solEl]).catch(e => console.warn(e));
           }
         } else {
           solEl.style.display = "none";
-          btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng';
+          btn.innerHTML = isSimilar ? '<i class="fa-solid fa-arrows-rotate"></i> Bài tập tương tự' : '<i class="fa-solid fa-eye"></i> Lời giải chi tiết của thầy Sáng';
           btn.classList.remove("active-toggle");
         }
       });
