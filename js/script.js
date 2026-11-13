@@ -3280,18 +3280,16 @@ function initDigitalLessons() {
 
     if (activeVoicePlayer) {
       activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
+      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
       if (playBtn) {
-        if (playBtn.dataset.origHtml) {
-          playBtn.innerHTML = playBtn.dataset.origHtml;
-        } else if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nhấn nghe Lời chào';
+        if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
         } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
           playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
         } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
           playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
+          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
         }
       }
       activeVoicePlayer = null;
@@ -3355,12 +3353,9 @@ function initDigitalLessons() {
     activeVoicePlayer.classList.add("playing");
     isSpeechActive = true;
 
-    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play, .btn-play-gold-voice");
+    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
     if (playBtn) {
-      if (!playBtn.dataset.origHtml) {
-        playBtn.dataset.origHtml = playBtn.innerHTML;
-      }
-      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Đang phát Voice AI...';
+      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
     }
 
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
