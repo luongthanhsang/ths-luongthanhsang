@@ -59,7 +59,7 @@
       if (!AudioContext) return;
       const ctx = new AudioContext();
 
-      const notes = isGrand 
+      const notes = isGrand
         ? [523.25, 659.25, 783.99, 1046.50, 1318.51] // C5, E5, G5, C6, E6
         : [523.25, 659.25, 783.99]; // C5, E5, G5
 
@@ -1115,7 +1115,7 @@
       const c = Math.sqrt(a * a + b * b).toFixed(2);
       const prompt = `Cho tam giác $ABC$ vuông tại $A$ có $AB = ${a}$ và $AC = ${b}$. Độ dài của véctơ tổng $|\\vec{AB} + \\vec{AC}|$ bằng bao nhiêu?`;
       const correctAns = `${c}`;
-      const expText = `Dựng hình chữ nhật $ABDC$. Theo quy tắc hình bình hành, $\\vec{AB} + \\vec{AC} = \\vec{AD}$. <br>Do tam giác $ABC$ vuông tại $A$ nên $ABDC$ là hình chữ nhật, suy ra đường chéo $AD = \\sqrt{AB^2 + AC^2} = \\sqrt{${a}^2 + ${b}^2} = \\sqrt{${a*a + b*b}} \\approx ${c}$. <br>Vậy $|\\vec{AB} + \\vec{AC}| = AD \\approx ${c}$.`;
+      const expText = `Dựng hình chữ nhật $ABDC$. Theo quy tắc hình bình hành, $\\vec{AB} + \\vec{AC} = \\vec{AD}$. <br>Do tam giác $ABC$ vuông tại $A$ nên $ABDC$ là hình chữ nhật, suy ra đường chéo $AD = \\sqrt{AB^2 + AC^2} = \\sqrt{${a}^2 + ${b}^2} = \\sqrt{${a * a + b * b}} \\approx ${c}$. <br>Vậy $|\\vec{AB} + \\vec{AC}| = AD \\approx ${c}$.`;
 
       const distractors = [
         `${a + b}`, // Cộng đại số
@@ -1166,7 +1166,7 @@
       const v_thuc = Math.sqrt(v_cano * v_cano + v_dong * v_dong).toFixed(2);
       const prompt = `Một chiếc ca nô di chuyển từ bờ sông bên này sang bờ sông bên kia. Vận tốc riêng của ca nô đối với dòng nước là $v_1 = ${v_cano}\\text{ km/h}$ hướng vuông góc với bờ sông. Vận tốc của dòng nước chảy xiết là $v_2 = ${v_dong}\\text{ km/h}$ chảy xuôi dòng. Tính tốc độ thực tế của chiếc ca nô đối với bờ sông.`;
       const correctAns = `${v_thuc} km/h`;
-      const expText = `Gọi $\\vec{v}_1$ là vận tốc riêng của ca nô (hướng vuông góc bờ sông) và $\\vec{v}_2$ là vận tốc dòng nước (hướng xuôi dòng). <br>Vận tốc thực tế của ca nô đối với bờ là $\\vec{v} = \\vec{v}_1 + \\vec{v}_2$. <br>Vì hai chuyển động vuông góc với nhau, áp dụng quy tắc hình chữ nhật ta có: <br>$v = |\\vec{v}| = \\sqrt{v_1^2 + v_2^2} = \\sqrt{${v_cano}^2 + ${v_dong}^2} = \\sqrt{${v_cano*v_cano + v_dong*v_dong}} \\approx ${v_thuc}\\text{ km/h}$.`;
+      const expText = `Gọi $\\vec{v}_1$ là vận tốc riêng của ca nô (hướng vuông góc bờ sông) và $\\vec{v}_2$ là vận tốc dòng nước (hướng xuôi dòng). <br>Vận tốc thực tế của ca nô đối với bờ là $\\vec{v} = \\vec{v}_1 + \\vec{v}_2$. <br>Vì hai chuyển động vuông góc với nhau, áp dụng quy tắc hình chữ nhật ta có: <br>$v = |\\vec{v}| = \\sqrt{v_1^2 + v_2^2} = \\sqrt{${v_cano}^2 + ${v_dong}^2} = \\sqrt{${v_cano * v_cano + v_dong * v_dong}} \\approx ${v_thuc}\\text{ km/h}$.`;
 
       const distractors = [
         `${v_cano + v_dong} km/h`,

@@ -3,7 +3,7 @@
  * Biên soạn & Chuẩn hóa: ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang)
  * =========================================================================================
  * Chuẩn cấu trúc 4 phần sư phạm số hiện đại:
- * - Tích hợp toàn bộ Audio Voice AI Nam Minh (vi-VN-NamMinhNeural) chuẩn sư phạm
+ * - Tích hợp toàn bộ Audio Voice AI  (vi-VN-NamMinhNeural) chuẩn sư phạm
  * - Tích hợp câu hỏi tương tác POI cả trực tiếp trên màn hình và popup tự động khi nghe audio
  * - Đồ họa TikZ SVG 3D siêu nét, chuẩn ký hiệu toán học
  * - Bài tập trắc nghiệm 3 dạng thức thi mới 2025 (chuẩn 100% không lỗi undefined)
@@ -24,7 +24,7 @@ window.LESSON_12_C2_B6_DATA = {
     audioScript: "Thầy Sáng chào cả lớp! Hôm nay thầy rất vui vì được đồng hành cùng các em trong tiết học này. Thầy hy vọng cùng các em thắp sáng lên những kiến thức mới, những góc nhìn thú vị trong bài học toán ngày hôm nay. Các em đã sẵn sàng tràn đầy năng lượng cùng thầy chưa? Chúng ta bắt đầu nhé!",
     audioUrl: "assets/audio/b6_welcome.mp3",
     buttonLabel: "Nhấn nghe Lời chào",
-    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)"
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng "
   },
 
   // =========================================================================
@@ -48,7 +48,7 @@ window.LESSON_12_C2_B6_DATA = {
     audioScript: "Trong thực tế, khi một chiếc cần cẩu nâng một kiện hàng nặng, lực căng của các sợi dây cáp không chỉ nằm trên mặt đất mà tỏa ra trong không gian ba chiều. Làm sao để biểu diễn chính xác hướng và độ lớn của các lực lơ lửng này? Khái niệm vectơ các em đã học ở lớp 10 sẽ được mở rộng ra không gian như thế nào? Cùng thầy vào phần 1 nhé.",
     audioUrl: "assets/audio/b6_hook.mp3",
     buttonLabel: "Nghe thầy Sáng giảng bài",
-    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng ",
     illustrationCaption: "Đồ họa mô phỏng: Cần cẩu nâng kiện hàng và các lực căng dây cáp",
     illustrationSvg: `
       <div class="tikz-svg-card" style="margin: 16px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
@@ -174,7 +174,7 @@ window.LESSON_12_C2_B6_DATA = {
               </ul>
             </div>
 
-            <!-- TikZ SVG: Sự cùng phương, cùng hướng (Chuẩn Trang 2 PDF) -->
+            <!-- TikZ SVG: Sự cùng phương, cùng hướng  -->
             <div class="tikz-svg-card" style="margin: 16px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
               <div class="tikz-svg-title" style="font-weight: 700; color: #1e3a8a; margin-bottom: 12px; text-align: center;">
                 <i class="fa-solid fa-arrows-split-up-and-left"></i> [Đồ họa TikZ - Sự cùng phương, cùng hướng]:
@@ -233,7 +233,7 @@ window.LESSON_12_C2_B6_DATA = {
             content: "“Đã nói đến vectơ là nói đến 2 yếu tố: <strong>HƯỚNG và ĐỘ DÀI</strong>. Chỉ cần so sánh 2 yếu tố này để biết chúng có bằng nhau hay không, bất chấp chúng nằm lơ lửng ở đâu trong không gian.”"
           },
           workedExample: {
-            title: "[Ví dụ tự luận] (Trang 3 PDF)",
+            title: "[Ví dụ tự luận] ",
             problem: "Cho tứ diện $ABCD$. Hãy chỉ ra 3 vectơ có điểm đầu là $A$ và điểm cuối là các đỉnh còn lại. Các vectơ này có cùng nằm trong một mặt phẳng không?",
             solution: `
               <p><strong>Lời giải chi tiết của Thầy Sáng:</strong></p>
@@ -305,7 +305,7 @@ window.LESSON_12_C2_B6_DATA = {
               </ul>
             </div>
 
-            <!-- TikZ SVG: Quy tắc hình hộp (Chuẩn Trang 3 PDF) -->
+            <!-- TikZ SVG: Quy tắc hình hộp  -->
             <div class="tikz-svg-card" style="margin: 16px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
               <div class="tikz-svg-title" style="font-weight: 700; color: #1e3a8a; margin-bottom: 12px; text-align: center;">
                 <i class="fa-solid fa-cube"></i> [Đồ họa TikZ - Quy tắc hình hộp]:
@@ -717,8 +717,8 @@ window.LESSON_12_C2_B6_DATA = {
       {
         id: "tf-12-6-1",
         num: 1,
-        prompt: "Câu 1 (Chuẩn Trang 5 PDF): Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
-        intro: "Câu 1 (Chuẩn Trang 5 PDF): Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
+        prompt: "Câu 1 : Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
+        intro: "Câu 1 : Cho tứ diện $ABCD$ có $G$ là trọng tâm. Xét tính đúng / sai của các mệnh đề sau:",
         items: [
           {
             label: "a",
@@ -858,11 +858,11 @@ window.LESSON_12_C2_B6_DATA = {
         num: 1,
         prompt: `
           <div style="font-weight: 600; color: #1e3a8a; margin-bottom: 8px;">
-            Câu 4 (Toán thực tế - Trang 5 PDF):
+            Câu 4 (Bài toán thực tế):
           </div>
           <p>Một chiếc máy bay bay theo hướng Bắc với vận tốc $600\\text{ km/h}$. Gió thổi từ hướng Tây sang Đông với vận tốc $80\\text{ km/h}$. Tính độ lớn vận tốc thực tế của máy bay (Làm tròn đến hàng đơn vị).</p>
           
-          <!-- Đồ họa minh họa (TikZ) chuẩn Trang 5 PDF -->
+          <!-- Đồ họa minh họa (TikZ)  -->
           <div class="tikz-svg-card" style="margin: 14px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; max-width: 420px;">
             <div style="font-weight: 700; color: #1e3a8a; margin-bottom: 8px; font-size: 0.95rem;">
               <i class="fa-solid fa-plane-departure"></i> Đồ họa minh họa (TikZ):
@@ -919,7 +919,7 @@ window.LESSON_12_C2_B6_DATA = {
         `,
         correctAnswer: "605",
         solution: `
-          <p><strong>Lời giải chuẩn kịch bản PDF:</strong></p>
+          <p><strong>Lời giải chi tiết của thầy Sáng:</strong></p>
           <p>Gọi $\\vec{v_1}$ là vận tốc máy bay, $\\vec{v_2}$ là vận tốc gió.</p>
           <p>Vận tốc thực tế của máy bay so với mặt đất là $\\vec{v} = \\vec{v_1} + \\vec{v_2}$.</p>
           <p>Do hướng Bắc vuông góc với hướng Đông nên $\\vec{v_1} \\perp \\vec{v_2}$.</p>

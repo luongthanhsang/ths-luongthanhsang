@@ -2218,7 +2218,7 @@ function initDigitalLessons() {
   function getDefaultLessonId(grade) {
     if (grade === "10") return "10-c4-b8"; // Mặc định mở Bài 8 (Tổng và hiệu của hai vectơ) mới biên soạn
     if (grade === "11") return "11-c4-b12";
-    if (grade === "12") return "12-c2-b7"; // Mặc định mở Bài 7 (Hệ trục toạ độ trong không gian) mới biên soạn
+    if (grade === "12") return "12-c2-b6"; // Mặc định mở Bài 7 (Hệ trục toạ độ trong không gian) mới biên soạn
     const gradeData = db[grade];
     if (gradeData && gradeData.chapters && gradeData.chapters.length > 0) {
       for (const ch of gradeData.chapters) {
@@ -2447,7 +2447,7 @@ function initDigitalLessons() {
           <div class="teacher-voice-gold-meta">
             <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
             <div class="teacher-voice-gold-info">
-              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng (Nam Minh)</span>
+              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
             </div>
           </div>
           <div class="teacher-voice-gold-controls">
@@ -3403,10 +3403,11 @@ function initDigitalLessons() {
       playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
     }
 
-    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
+    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        currentHtml5Audio = new Audio(audioUrl);
+        const audioSrc = (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) ? window.B6_AUDIO_CACHE[audioUrl] : audioUrl;
+        currentHtml5Audio = new Audio(audioSrc);
         currentHtml5Audio.playbackRate = speed;
         
         currentHtml5Audio.onended = () => {
@@ -3414,22 +3415,20 @@ function initDigitalLessons() {
         };
 
         currentHtml5Audio.onerror = (e) => {
-          console.warn("HTML5 audio playback failed, falling back to Web Speech:", e);
+          console.warn("HTML5 audio playback error:", e);
           currentHtml5Audio = null;
-          startWebSpeechSynthesis(rawText, speed);
         };
 
         const playPromise = currentHtml5Audio.play();
         if (playPromise !== undefined) {
           playPromise.catch(e => {
-            console.warn("HTML5 audio play blocked, falling back to Web Speech:", e);
+            console.warn("HTML5 audio play blocked:", e);
             currentHtml5Audio = null;
-            startWebSpeechSynthesis(rawText, speed);
           });
         }
         return;
       } catch (e) {
-        console.warn("Cannot create HTML5 Audio, fallback to Web Speech:", e);
+        console.warn("Cannot create HTML5 Audio:", e);
         currentHtml5Audio = null;
       }
     }
@@ -3475,6 +3474,10 @@ function initDigitalLessons() {
       const viVoice = getVietnameseVoice();
       if (viVoice) {
         utter.voice = viVoice;
+      } else {
+        console.warn("Trình duyệt chưa có giọng đọc tiếng Việt SAPI. Không phát giọng ngoại quốc.");
+        stopTeacherSpeech();
+        return;
       }
 
       utter.onend = () => {
@@ -3528,35 +3531,36 @@ function initDigitalLessons() {
     updateLessonProgressDisplay();
   };
 
-  function showPoiModal(poi, onCorrect) {
+    function showPoiModal(poi, onCorrect) {
     let modal = document.getElementById('globalInteractivePoiModal');
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'globalInteractivePoiModal';
-      modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(4px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;';
       document.body.appendChild(modal);
     }
     modal.style.display = 'flex';
     modal.innerHTML = `
-      <div style="background:#ffffff;border-radius:16px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);max-width:480px;width:100%;padding:24px;border:2px solid #3b82f6;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;border-bottom:1px solid #e2e8f0;padding-bottom:12px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+      <div style="background:#ffffff;border-radius:20px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.35);max-width:520px;width:100%;padding:26px;border:2.5px solid #2563eb;animation:poiModalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;border-bottom:1.5px solid #e2e8f0;padding-bottom:14px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">
             <i class="fa-solid fa-circle-question"></i>
           </div>
           <div>
             <h3 style="margin:0;font-size:1.15rem;font-weight:700;color:#1e3a8a;">Thầy Sáng hỏi nhanh: Kiểm tra mức độ tập trung</h3>
-            <span style="font-size:0.8rem;color:#64748b;">(Tự động tạm dừng bài giảng • Trả lời đúng để học tiếp)</span>
+            <span style="font-size:0.82rem;color:#64748b;font-weight:500;">(Tự động tạm dừng bài giảng • Trả lời đúng để mở khóa nghe tiếp)</span>
           </div>
         </div>
-        <div id="poiModalQuestion" style="font-size:1.05rem;font-weight:600;color:#1e293b;margin-bottom:18px;line-height:1.5;">${poi.question}</div>
+        <div id="poiModalQuestion" style="font-size:1.08rem;font-weight:600;color:#1e293b;margin-bottom:20px;line-height:1.6;">${poi.question}</div>
         <div id="poiModalOptions" style="display:flex;flex-direction:column;gap:10px;">
-          ${poi.options.map((opt, oIdx) => `
-            <button class="btn-modal-poi-opt" data-idx="${oIdx}" style="text-align:left;padding:12px 16px;border-radius:10px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:1rem;font-weight:500;color:#334155;cursor:pointer;transition:all 0.2s;">
-              <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+          ${(poi.options || []).map((opt, oIdx) => `
+            <button class="btn-modal-poi-opt" data-idx="${oIdx}" style="text-align:left;padding:13px 18px;border-radius:12px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:1rem;font-weight:500;color:#334155;cursor:pointer;transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;gap:10px;">
+              <span style="width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0;">${String.fromCharCode(65 + oIdx)}</span>
+              <span style="flex:1;">${opt}</span>
             </button>
           `).join('')}
         </div>
-        <div id="poiModalFeedback" style="margin-top:14px;font-size:0.95rem;font-weight:600;display:none;padding:10px 14px;border-radius:8px;"></div>
+        <div id="poiModalFeedback" style="margin-top:16px;font-size:0.95rem;font-weight:600;display:none;padding:12px 16px;border-radius:10px;"></div>
       </div>
     `;
     if (window.MathJax && window.MathJax.typesetPromise) {
@@ -3569,16 +3573,24 @@ function initDigitalLessons() {
     optBtns.forEach(btn => {
       btn.addEventListener('click', function () {
         const idx = parseInt(this.dataset.idx, 10);
-        if (idx === poi.correctIndex) {
+        const chosenText = (poi.options && poi.options[idx]) ? poi.options[idx].trim() : '';
+        const correctText = poi.correct ? poi.correct.trim() : '';
+        const isCorrect = (idx === poi.correctIndex) || (correctText && chosenText === correctText);
+
+        if (isCorrect) {
           this.style.background = '#dcfce7';
           this.style.borderColor = '#16a34a';
           this.style.color = '#15803d';
+          const badge = this.querySelector('span');
+          if (badge) { badge.style.background = '#16a34a'; badge.style.color = '#fff'; }
           fb.style.display = 'block';
           fb.style.background = '#f0fdf4';
           fb.style.color = '#16a34a';
-          fb.innerHTML = '🎉 Chính xác! Thầy khen em đã nắm bài rất tốt!';
+          fb.style.border = '1px solid #bbf7d0';
+          fb.innerHTML = '🎉 ' + (poi.explain || 'Chính xác! Thầy khen em đã nắm bài rất tốt!');
           optBtns.forEach(b => b.disabled = true);
-          window.increaseLessonProgress(15, 20, 1);
+          if (typeof window.increaseLessonProgress === 'function') window.increaseLessonProgress(15, 20, 1);
+          if (typeof window.triggerConfettiFireworks === 'function') window.triggerConfettiFireworks();
           setTimeout(() => {
             modal.style.display = 'none';
             if (onCorrect) onCorrect();
@@ -3587,9 +3599,12 @@ function initDigitalLessons() {
           this.style.background = '#fee2e2';
           this.style.borderColor = '#dc2626';
           this.style.color = '#991b1b';
+          const badge = this.querySelector('span');
+          if (badge) { badge.style.background = '#dc2626'; badge.style.color = '#fff'; }
           fb.style.display = 'block';
           fb.style.background = '#fef2f2';
           fb.style.color = '#b91c1c';
+          fb.style.border = '1px solid #fecaca';
           fb.innerHTML = 'Chưa chính xác! Thử lại để mở khóa bài giảng nhé.';
         }
       });
@@ -3609,36 +3624,71 @@ function initDigitalLessons() {
           try { pois = JSON.parse(rawPois); } catch(e){}
         }
 
-        if (activePoiTimer) clearInterval(activePoiTimer);
+        if (activePoiTimer) {
+          clearInterval(activePoiTimer);
+          activePoiTimer = null;
+        }
 
         playTeacherSpeech(script, parentBox, currentSpeed, audioUrl);
 
         if (pois && pois.length > 0) {
-          let playSec = 0;
+          let elapsedSec = 0;
+          let poiTriggered = {};
+
           activePoiTimer = setInterval(() => {
             if (!isSpeechActive) {
               clearInterval(activePoiTimer);
+              activePoiTimer = null;
               return;
             }
-            if (currentHtml5Audio) {
-              playSec = Math.floor(currentHtml5Audio.currentTime || 0);
-            } else {
-              playSec++;
-            }
-            const hitPoi = pois.find(p => (p.time === playSec || Math.abs(p.time - playSec) <= 1) && !p.completed);
-            if (hitPoi) {
-              if (window.speechSynthesis) window.speechSynthesis.pause();
-              if (currentHtml5Audio) currentHtml5Audio.pause();
-              btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
 
-              showPoiModal(hitPoi, () => {
-                hitPoi.completed = true;
-                btn.innerHTML = '<i class="fa-solid fa-play"></i> Tiếp tục nghe Thầy Sáng giảng';
-                if (window.speechSynthesis) window.speechSynthesis.resume();
-                if (currentHtml5Audio) currentHtml5Audio.play();
-              });
+            let curTime = 0;
+            let totalDur = 0;
+            if (currentHtml5Audio && !isNaN(currentHtml5Audio.duration) && currentHtml5Audio.duration > 0) {
+              curTime = currentHtml5Audio.currentTime;
+              totalDur = currentHtml5Audio.duration;
+            } else {
+              elapsedSec += 0.4;
+              curTime = elapsedSec;
+              totalDur = Math.max(12, (script ? script.length * 0.08 : 16));
             }
-          }, 800);
+
+            const ratio = totalDur > 0 ? (curTime / totalDur) : 0;
+
+            // Kích hoạt POI 1: Khi đạt 35% bài giảng hoặc sau 3.5 giây
+            if (pois.length >= 1 && !pois[0].completed && !poiTriggered[0]) {
+              if (ratio >= 0.35 || curTime >= 3.5) {
+                poiTriggered[0] = true;
+                if (currentHtml5Audio) currentHtml5Audio.pause();
+                if (window.speechSynthesis) window.speechSynthesis.pause();
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+
+                showPoiModal(pois[0], () => {
+                  pois[0].completed = true;
+                  btn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+                  if (currentHtml5Audio) currentHtml5Audio.play();
+                  if (window.speechSynthesis) window.speechSynthesis.resume();
+                });
+              }
+            }
+
+            // Kích hoạt POI 2: Khi đạt 75% bài giảng hoặc sau 7.5 giây
+            if (pois.length >= 2 && !pois[1].completed && !poiTriggered[1]) {
+              if (ratio >= 0.75 || curTime >= 7.5) {
+                poiTriggered[1] = true;
+                if (currentHtml5Audio) currentHtml5Audio.pause();
+                if (window.speechSynthesis) window.speechSynthesis.pause();
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+
+                showPoiModal(pois[1], () => {
+                  pois[1].completed = true;
+                  btn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+                  if (currentHtml5Audio) currentHtml5Audio.play();
+                  if (window.speechSynthesis) window.speechSynthesis.resume();
+                });
+              }
+            }
+          }, 400);
         }
       });
     });

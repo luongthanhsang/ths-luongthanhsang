@@ -1439,7 +1439,7 @@ const LESSONS_DATABASE = {
               bridge: "Để giải mã trọn vẹn câu hỏi thú vị này, Thầy trò mình sẽ cùng bước vào tìm hiểu Vị trí tương đối của hai đường thẳng trong không gian ngay sau đây!"
             },
             interactiveAudio: {
-              title: "Bài giảng tương tác: Hai đường thẳng song song và chéo nhau trong không gian (Voice AI Nam Minh)",
+              title: "Bài giảng tương tác: Hai đường thẳng song song và chéo nhau trong không gian (Voice AI )",
               audioUrl: "assets/audio/b11_11_interactive_lecture.mp3",
               duration: 75,
               stops: [
