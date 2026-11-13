@@ -2186,9 +2186,16 @@ function initDigitalLessons() {
     if ((!urlParams.get("grade") || !currentLessonId) && window.location.hash) {
       try {
         const hashStr = window.location.hash.replace(/^#\/?/, "");
-        const hashParams = new URLSearchParams(hashStr);
-        if (hashParams.get("grade")) currentGrade = hashParams.get("grade");
-        if (hashParams.get("lesson")) currentLessonId = hashParams.get("lesson");
+        if (hashStr && !hashStr.includes("=")) {
+          currentLessonId = hashStr;
+          if (hashStr.startsWith("10-")) currentGrade = "10";
+          else if (hashStr.startsWith("11-")) currentGrade = "11";
+          else if (hashStr.startsWith("12-")) currentGrade = "12";
+        } else {
+          const hashParams = new URLSearchParams(hashStr);
+          if (hashParams.get("grade")) currentGrade = hashParams.get("grade");
+          if (hashParams.get("lesson")) currentLessonId = hashParams.get("lesson");
+        }
       } catch(e) {}
     }
 
@@ -2438,31 +2445,78 @@ function initDigitalLessons() {
       `;
     }
 
-    // Helper tạo hộp thoại âm thanh vàng đồng Thầy Sáng
+    const KNOWN_AUDIO_DURATIONS = {
+      "assets/audio/b6_welcome.mp3": 18,
+      "assets/audio/b6_goals.mp3": 24,
+      "assets/audio/b6_hook.mp3": 17,
+      "assets/audio/b6_sec1.mp3": 21,
+      "assets/audio/b6_sec2.mp3": 25,
+      "assets/audio/b6_sec3.mp3": 26,
+      "assets/audio/b6_sec4.mp3": 19,
+      "assets/audio/b6_wrapup.mp3": 20
+    };
+
+    function formatAudioTime(sec) {
+      if (isNaN(sec) || sec < 0) return "00:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    }
+
+    // Helper tạo hộp thoại âm thanh vàng đồng Thầy Sáng kèm thanh thời gian (Timeline)
     function renderTeacherGoldVoiceBoxHtml(btnTitle, scriptText, audioUrl, customId, pois) {
       const idAttr = customId ? ` id="${customId}"` : "";
       const poisAttr = (pois && pois.length > 0) ? ` data-pois='${escapeHtml(JSON.stringify(pois))}'` : "";
+      const hasPois = (pois && pois.length > 0);
+      const initDuration = (audioUrl && KNOWN_AUDIO_DURATIONS[audioUrl]) 
+        ? formatAudioTime(KNOWN_AUDIO_DURATIONS[audioUrl]) 
+        : "00:00";
+
       return `
         <div class="teacher-voice-gold-box"${idAttr}>
-          <div class="teacher-voice-gold-meta">
-            <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
-            <div class="teacher-voice-gold-info">
-              <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
+          <div class="teacher-voice-gold-top" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 8px;">
+            <div class="teacher-voice-gold-meta">
+              <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <div class="teacher-voice-gold-info">
+                <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
+              </div>
+            </div>
+            <div class="voice-speed-pill-group">
+              <button class="btn-speed-pill" data-speed="0.75" title="Tốc độ 0.75x">0.75x</button>
+              <button class="btn-speed-pill active" data-speed="1.0" title="Tốc độ bình thường">1.0x</button>
+              <button class="btn-speed-pill" data-speed="1.25" title="Tốc độ 1.25x">1.25x</button>
+              <button class="btn-speed-pill" data-speed="1.5" title="Tốc độ 1.5x">1.5x</button>
             </div>
           </div>
-          <div class="teacher-voice-gold-controls">
+
+          <!-- THANH THỜI GIAN TIẾN ĐỘ BÀI GIẢNG (AUDIO TIMELINE) -->
+          <div class="gold-audio-timeline-wrap" data-audio-ref="${audioUrl || ''}">
+            <span class="gold-audio-time gold-audio-current-time">00:00</span>
+            <div class="gold-audio-seek-track" title="Kéo hoặc nhấn để tua bài giảng">
+              <div class="gold-audio-seek-fill"></div>
+              <div class="gold-audio-poi-container">
+                ${hasPois ? `
+                  <div class="gold-audio-poi-marker marker-poi-0" style="left: 35%;" title="Điểm dừng 1: Kiểm tra nhanh"></div>
+                  <div class="gold-audio-poi-marker marker-poi-1" style="left: 75%;" title="Điểm dừng 2: Kiểm tra nâng cao"></div>
+                ` : ''}
+              </div>
+              <input type="range" class="gold-audio-slider" min="0" max="100" value="0" step="0.1" aria-label="Tua thời gian">
+            </div>
+            <span class="gold-audio-time gold-audio-duration-time">${initDuration}</span>
+          </div>
+
+          <div class="teacher-voice-gold-controls" style="display: flex; align-items: center; gap: 10px; width: 100%; flex-wrap: wrap;">
             <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-script="${escapeHtml(scriptText || '')}"${poisAttr} data-original-title="${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}">
               <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}
             </button>
             <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dừng phát">
               <i class="fa-solid fa-stop"></i> Dừng
             </button>
-            <div class="voice-speed-pill-group">
-              <button class="btn-speed-pill" data-speed="0.75">0.75x</button>
-              <button class="btn-speed-pill active" data-speed="1.0">1.0x</button>
-              <button class="btn-speed-pill" data-speed="1.25">1.25x</button>
-              <button class="btn-speed-pill" data-speed="1.5">1.5x</button>
-            </div>
+            ${hasPois ? `
+              <span class="poi-indicator-note" style="font-size: 0.8rem; color: #b45309; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                <i class="fa-solid fa-circle-dot" style="color: #f59e0b;"></i> Có 2 câu hỏi tương tác tự động dừng tại các chấm vàng
+              </span>
+            ` : ''}
           </div>
         </div>
       `;
@@ -2860,15 +2914,16 @@ function initDigitalLessons() {
               </div>
               <div class="exam-list-tf">
                 ${ef.part2TrueFalse.map((q, idx) => {
-                  const qNum = q.num || (idx + 1);
+                  const qNum = (q.num !== undefined && q.num !== null) ? q.num : (idx + 1);
                   const qPrompt = q.prompt || q.intro || '';
                   const qItems = q.items || [];
-                  const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key})</strong> ${it.explain || ''}`).join('<br>'));
+                  const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
+                  const qId = q.id || `tf-item-${idx + 1}`;
                   return `
-                  <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
+                  <div class="exam-item-card" id="card-${qId}" data-qid="${qId}">
                     <div class="exam-item-header">
                       <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> Câu ${qNum}</span>
-                      <button class="btn-show-solution-btn" data-target="sol-${q.id}">
+                      <button class="btn-show-solution-btn" data-target="sol-${qId}">
                         <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
                       </button>
                     </div>
@@ -2883,10 +2938,12 @@ function initDigitalLessons() {
                       <tbody>
                         ${qItems.map((it, iIdx) => {
                           const itLabel = it.label || it.key || String.fromCharCode(97 + iIdx);
-                          const itText = it.text || it.statement || '';
+                          let itText = it.text || it.statement || (typeof it === 'string' ? it : '');
+                          // Xóa tiền tố lặp dạng a), b), 1), 2) nếu đã có sẵn trong chuỗi text
+                          itText = itText.replace(/^[a-d1-4]\)\s*/i, '');
                           const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                           return `
-                          <tr class="tf-item-row" data-qid="${q.id}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
+                          <tr class="tf-item-row" data-qid="${qId}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
                             <td><strong>${escapeHtml(itLabel)})</strong> ${itText}</td>
                             <td style="text-align: center;">
                               <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Đ</button>
@@ -2898,11 +2955,11 @@ function initDigitalLessons() {
                       </tbody>
                     </table>
                     <div style="text-align: right; margin-top: 10px;">
-                      <button class="btn-check-tf-group" data-qid="${q.id}" style="background: #059669; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
+                      <button class="btn-check-tf-group" data-qid="${qId}" style="background: #059669; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
                         <i class="fa-solid fa-check"></i> Kiểm tra câu ${qNum}
                       </button>
                     </div>
-                    <div class="exam-solution-collapse" id="sol-${q.id}">
+                    <div class="exam-solution-collapse" id="sol-${qId}">
                       <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
                       ${qSol}
                     </div>
@@ -3325,18 +3382,25 @@ function initDigitalLessons() {
 
     if (activeVoicePlayer) {
       activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
+      const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
       if (playBtn) {
-        if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
-        } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
-        } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
-          playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
+        playBtn.classList.remove("btn-voice-is-playing");
+        const origTitle = playBtn.dataset.originalTitle;
+        if (origTitle) {
+          playBtn.innerHTML = `<i class="fa-solid fa-circle-play"></i> ${origTitle}`;
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
         }
       }
+      const curTimeEl = activeVoicePlayer.querySelector(".gold-audio-current-time");
+      if (curTimeEl) curTimeEl.textContent = "00:00";
+      const fillEl = activeVoicePlayer.querySelector(".gold-audio-seek-fill");
+      if (fillEl) fillEl.style.width = "0%";
+      const sliderEl = activeVoicePlayer.querySelector(".gold-audio-slider");
+      if (sliderEl) sliderEl.value = 0;
+      const pulsingMarkers = activeVoicePlayer.querySelectorAll(".gold-audio-poi-marker.pulsing");
+      pulsingMarkers.forEach(m => m.classList.remove("pulsing"));
+
       activeVoicePlayer = null;
     }
   }
@@ -3376,8 +3440,26 @@ function initDigitalLessons() {
     return chunks.filter(c => c.length > 0);
   }
 
-  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null) {
+  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null, pois = []) {
+    // 0. Toggle pause / resume nếu người học nhấn lại chính nút đang phát
     if (activeVoicePlayer === playerElement && isSpeechActive) {
+      const playBtn = playerElement.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang") || (playerElement.classList.contains("btn-play-gold-voice") ? playerElement : null);
+      if (currentHtml5Audio) {
+        if (currentHtml5Audio.paused) {
+          currentHtml5Audio.play();
+          if (playBtn) {
+            playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+            playBtn.classList.add("btn-voice-is-playing");
+          }
+        } else {
+          currentHtml5Audio.pause();
+          if (playBtn) {
+            playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Tiếp tục nghe bài giảng';
+            playBtn.classList.remove("btn-voice-is-playing");
+          }
+        }
+        return;
+      }
       stopTeacherSpeech();
       return;
     }
@@ -3405,6 +3487,19 @@ function initDigitalLessons() {
       playBtn.classList.add("btn-voice-is-playing");
     }
 
+    // Lấy các thành phần thanh thời gian (Timeline UI)
+    const curTimeEl = activeVoicePlayer.querySelector(".gold-audio-current-time");
+    const durTimeEl = activeVoicePlayer.querySelector(".gold-audio-duration-time");
+    const fillEl = activeVoicePlayer.querySelector(".gold-audio-seek-fill");
+    const sliderEl = activeVoicePlayer.querySelector(".gold-audio-slider");
+    const marker0 = activeVoicePlayer.querySelector(".marker-poi-0");
+    const marker1 = activeVoicePlayer.querySelector(".marker-poi-1");
+
+    // Lấy dữ liệu POIs nếu có
+    if ((!pois || pois.length === 0) && playBtn && playBtn.dataset.pois) {
+      try { pois = JSON.parse(playBtn.dataset.pois); } catch(e){}
+    }
+
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
@@ -3413,51 +3508,110 @@ function initDigitalLessons() {
         currentHtml5Audio.preload = "auto";
         currentHtml5Audio.src = audioSrc;
         currentHtml5Audio.playbackRate = speed;
-        
-        currentHtml5Audio.onended = () => {
-          stopTeacherSpeech();
-        };
 
-        currentHtml5Audio.onerror = (e) => {
-          console.warn("HTML5 audio playback error with audioSrc, retrying with raw audioUrl:", e);
+        currentHtml5Audio.addEventListener("loadedmetadata", () => {
+          if (durTimeEl && !isNaN(currentHtml5Audio.duration)) {
+            durTimeEl.textContent = formatAudioTime(currentHtml5Audio.duration);
+          }
+        });
+
+        let poiTriggered = [false, false];
+
+        currentHtml5Audio.addEventListener("timeupdate", () => {
+          if (!currentHtml5Audio || !isSpeechActive) return;
+          const cur = currentHtml5Audio.currentTime;
+          const dur = currentHtml5Audio.duration;
+
+          if (curTimeEl) curTimeEl.textContent = formatAudioTime(cur);
+
+          if (dur && dur > 0) {
+            const pct = (cur / dur) * 100;
+            if (fillEl) fillEl.style.width = pct + "%";
+            if (sliderEl && !sliderEl.matches(":active")) {
+              sliderEl.value = pct;
+            }
+
+            // POI 1: Tự động dừng tại 35% tiến độ
+            if (pois && pois.length >= 1 && !pois[0].completed && !poiTriggered[0] && pct >= 35) {
+              poiTriggered[0] = true;
+              currentHtml5Audio.pause();
+              if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+              if (marker0) marker0.classList.add("pulsing");
+              showPoiModal(pois[0], () => {
+                pois[0].completed = true;
+                if (marker0) {
+                  marker0.classList.remove("pulsing");
+                  marker0.classList.add("completed");
+                }
+                if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+                if (currentHtml5Audio && isSpeechActive) currentHtml5Audio.play();
+              });
+            }
+
+            // POI 2: Tự động dừng tại 75% tiến độ
+            if (pois && pois.length >= 2 && !pois[1].completed && !poiTriggered[1] && pct >= 75) {
+              poiTriggered[1] = true;
+              currentHtml5Audio.pause();
+              if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+              if (marker1) marker1.classList.add("pulsing");
+              showPoiModal(pois[1], () => {
+                pois[1].completed = true;
+                if (marker1) {
+                  marker1.classList.remove("pulsing");
+                  marker1.classList.add("completed");
+                }
+                if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+                if (currentHtml5Audio && isSpeechActive) currentHtml5Audio.play();
+              });
+            }
+          }
+        });
+
+        currentHtml5Audio.addEventListener("ended", () => {
+          stopTeacherSpeech();
+          if (typeof window.increaseLessonProgress === "function") {
+            window.increaseLessonProgress(10, 15, 1);
+          }
+        });
+
+        currentHtml5Audio.addEventListener("error", (e) => {
+          console.warn("HTML5 audio playback error with audioSrc, retrying fallback:", e);
           if (audioSrc !== audioUrl) {
-            const fallbackAudio = new Audio(audioUrl);
-            fallbackAudio.playbackRate = speed;
-            fallbackAudio.onended = () => stopTeacherSpeech();
-            fallbackAudio.play().then(() => {
-              currentHtml5Audio = fallbackAudio;
-            }).catch(err => {
-              console.warn("Fallback play also failed:", err);
-              stopTeacherSpeech();
+            currentHtml5Audio = new Audio(audioUrl);
+            currentHtml5Audio.playbackRate = speed;
+            currentHtml5Audio.onended = () => stopTeacherSpeech();
+            currentHtml5Audio.play().catch(err => {
+              console.warn("Direct file play failed, fallback WebSpeech:", err);
+              startWebSpeechSynthesis(rawText, speed);
             });
           } else {
-            stopTeacherSpeech();
+            startWebSpeechSynthesis(rawText, speed);
           }
-        };
+        });
+
+        if (sliderEl) {
+          sliderEl.oninput = () => {
+            if (currentHtml5Audio && currentHtml5Audio.duration) {
+              const targetSec = (sliderEl.value / 100) * currentHtml5Audio.duration;
+              currentHtml5Audio.currentTime = targetSec;
+              if (fillEl) fillEl.style.width = sliderEl.value + "%";
+              if (curTimeEl) curTimeEl.textContent = formatAudioTime(targetSec);
+            }
+          };
+        }
 
         const playPromise = currentHtml5Audio.play();
         if (playPromise !== undefined) {
           playPromise.catch(e => {
             console.warn("HTML5 audio play blocked/rejected:", e);
-            if (audioSrc !== audioUrl) {
-              const fallbackAudio = new Audio(audioUrl);
-              fallbackAudio.playbackRate = speed;
-              fallbackAudio.onended = () => stopTeacherSpeech();
-              fallbackAudio.play().then(() => {
-                currentHtml5Audio = fallbackAudio;
-              }).catch(err => {
-                console.warn("Direct file play failed:", err);
-                stopTeacherSpeech();
-              });
-            } else {
-              stopTeacherSpeech();
-            }
+            startWebSpeechSynthesis(rawText, speed);
           });
         }
         return;
       } catch (e) {
         console.warn("Cannot create HTML5 Audio:", e);
-        stopTeacherSpeech();
+        startWebSpeechSynthesis(rawText, speed);
+        return;
       }
     }
 
@@ -3473,201 +3627,6 @@ function initDigitalLessons() {
     }
 
     if (!("speechSynthesis" in window)) {
-      stopTeacherSpeech();
-      return;
-    }
-
-    window.speechSynthesis.cancel();
-    if (window.speechSynthesis.paused) {
-      window.speechSynthesis.resume();
-    }
-
-    audioQueue = chunkTextForTTS(spokenText, 120);
-    audioIndex = 0;
-    startKeepAlive();
-
-    function speakNextChunk() {
-      if (!isSpeechActive || audioIndex >= audioQueue.length) {
-        stopTeacherSpeech();
-        return;
-      }
-
-      const chunk = audioQueue[audioIndex];
-      const utter = new SpeechSynthesisUtterance(chunk);
-      utter.lang = "vi-VN";
-      utter.rate = speed;
-      utter.pitch = 0.95;
-
-      const viVoice = getVietnameseVoice();
-      if (viVoice) {
-        utter.voice = viVoice;
-      } else {
-        console.warn("Trình duyệt chưa có giọng đọc tiếng Việt SAPI. Không phát giọng ngoại quốc.");
-        stopTeacherSpeech();
-        return;
-      }
-
-      utter.onend = () => {
-        if (!isSpeechActive) return;
-        audioIndex++;
-        speakNextChunk();
-      };
-
-      utter.onerror = (e) => {
-        console.warn("Speech chunk warning:", e);
-        if (!isSpeechActive) return;
-        audioIndex++;
-        speakNextChunk();
-      };
-
-      currentUtterance = utter;
-      window.speechSynthesis.speak(utter);
-    }
-
-    speakNextChunk();
-  }
-
-  function stopTeacherSpeech() {
-    if (currentHtml5Audio) {
-      try {
-        currentHtml5Audio.pause();
-        currentHtml5Audio.currentTime = 0;
-      } catch (e) {}
-      currentHtml5Audio = null;
-    }
-    stopKeepAlive();
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
-    isSpeechActive = false;
-    audioQueue = [];
-    audioIndex = 0;
-
-    if (activeVoicePlayer) {
-      activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
-      if (playBtn) {
-        playBtn.classList.remove("btn-voice-is-playing");
-        const origTitle = playBtn.dataset.originalTitle;
-        if (origTitle) {
-          playBtn.innerHTML = `<i class="fa-solid fa-circle-play"></i> ${origTitle}`;
-        } else if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nhấn nghe Lời chào';
-        } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
-        } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
-        }
-      }
-      activeVoicePlayer = null;
-    }
-  }
-
-  function chunkTextForTTS(text, maxLength = 120) {
-    const rawSentences = text.match(/[^.!?;\n]+[.!?;\n]*/g) || [text];
-    const chunks = [];
-    let cur = "";
-
-    for (let s of rawSentences) {
-      s = s.trim();
-      if (!s) continue;
-      if ((cur + " " + s).length <= maxLength) {
-        cur = cur ? (cur + " " + s) : s;
-      } else {
-        if (cur) chunks.push(cur);
-        if (s.length <= maxLength) {
-          cur = s;
-        } else {
-          const parts = s.split(/([,]+)/);
-          let sub = "";
-          for (let p of parts) {
-            p = p.trim();
-            if (!p) continue;
-            if ((sub + " " + p).length <= maxLength) {
-              sub = sub ? (sub + " " + p) : p;
-            } else {
-              if (sub) chunks.push(sub);
-              sub = p;
-            }
-          }
-          cur = sub;
-        }
-      }
-    }
-    if (cur) chunks.push(cur);
-    return chunks.filter(c => c.length > 0);
-  }
-
-  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null) {
-    if (activeVoicePlayer === playerElement && isSpeechActive) {
-      stopTeacherSpeech();
-      return;
-    }
-
-    stopTeacherSpeech();
-
-    // Tự động tìm thuộc tính data-audio từ nút bấm hoặc khung bao quanh
-    if (!audioUrl && playerElement) {
-      const btn = playerElement.querySelector("[data-audio]");
-      if (btn && btn.dataset.audio) {
-        audioUrl = btn.dataset.audio;
-      } else if (playerElement.dataset.audio) {
-        audioUrl = playerElement.dataset.audio;
-      }
-    }
-
-    activeVoicePlayer = playerElement;
-    activeVoicePlayer.classList.add("playing");
-    isSpeechActive = true;
-
-    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
-    if (playBtn) {
-      playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
-    }
-
-    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
-    if (audioUrl) {
-      try {
-        const audioSrc = (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) ? window.B6_AUDIO_CACHE[audioUrl] : audioUrl;
-        currentHtml5Audio = new Audio(audioSrc);
-        currentHtml5Audio.playbackRate = speed;
-        
-        currentHtml5Audio.onended = () => {
-          stopTeacherSpeech();
-        };
-
-        currentHtml5Audio.onerror = (e) => {
-          console.warn("HTML5 audio playback error:", e);
-          currentHtml5Audio = null;
-        };
-
-        const playPromise = currentHtml5Audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(e => {
-            console.warn("HTML5 audio play blocked:", e);
-            currentHtml5Audio = null;
-          });
-        }
-        return;
-      } catch (e) {
-        console.warn("Cannot create HTML5 Audio:", e);
-        currentHtml5Audio = null;
-      }
-    }
-
-    // 2. NẾU KHÔNG CÓ TỆP MP3: DÙNG BỘ MÁY WEB SPEECH API CHUẨN HÓA TIẾNG VIỆT
-    startWebSpeechSynthesis(rawText, speed);
-  }
-
-  function startWebSpeechSynthesis(rawText, speed = 1.0) {
-    const spokenText = mathToVietnameseSpeech(rawText);
-    if (!spokenText) {
-      stopTeacherSpeech();
-      return;
-    }
-
-    if (!("speechSynthesis" in window)) {
-      alert("Trình duyệt chưa hỗ trợ công nghệ Web Speech. Quý Thầy Cô và các em học sinh vui lòng mở trang web trên Google Chrome hoặc Microsoft Edge để lắng nghe giọng đọc Thầy Sáng nhé!");
       stopTeacherSpeech();
       return;
     }
@@ -3846,78 +3805,12 @@ function initDigitalLessons() {
           try { pois = JSON.parse(rawPois); } catch(e){}
         }
 
-        if (activePoiTimer) {
-          clearInterval(activePoiTimer);
-          activePoiTimer = null;
-        }
-
-        playTeacherSpeech(script, parentBox, currentSpeed, audioUrl);
-
-        if (pois && pois.length > 0) {
-          let elapsedSec = 0;
-          let poiTriggered = {};
-
-          activePoiTimer = setInterval(() => {
-            if (!isSpeechActive) {
-              clearInterval(activePoiTimer);
-              activePoiTimer = null;
-              return;
-            }
-
-            let curTime = 0;
-            let totalDur = 0;
-            if (currentHtml5Audio && !isNaN(currentHtml5Audio.duration) && currentHtml5Audio.duration > 0) {
-              curTime = currentHtml5Audio.currentTime;
-              totalDur = currentHtml5Audio.duration;
-            } else {
-              elapsedSec += 0.4;
-              curTime = elapsedSec;
-              totalDur = Math.max(12, (script ? script.length * 0.08 : 16));
-            }
-
-            const ratio = totalDur > 0 ? (curTime / totalDur) : 0;
-
-            // Kích hoạt POI 1: Khi đạt 35% bài giảng hoặc sau 3.5 giây
-            if (pois.length >= 1 && !pois[0].completed && !poiTriggered[0]) {
-              if (ratio >= 0.35 || curTime >= 3.5) {
-                poiTriggered[0] = true;
-                if (currentHtml5Audio) currentHtml5Audio.pause();
-                if (window.speechSynthesis) window.speechSynthesis.pause();
-                btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
-
-                showPoiModal(pois[0], () => {
-                  pois[0].completed = true;
-                  btn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
-                  if (currentHtml5Audio) currentHtml5Audio.play();
-                  if (window.speechSynthesis) window.speechSynthesis.resume();
-                });
-              }
-            }
-
-            // Kích hoạt POI 2: Khi đạt 75% bài giảng hoặc sau 7.5 giây
-            if (pois.length >= 2 && !pois[1].completed && !poiTriggered[1]) {
-              if (ratio >= 0.75 || curTime >= 7.5) {
-                poiTriggered[1] = true;
-                if (currentHtml5Audio) currentHtml5Audio.pause();
-                if (window.speechSynthesis) window.speechSynthesis.pause();
-                btn.innerHTML = '<i class="fa-solid fa-pause"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
-
-                showPoiModal(pois[1], () => {
-                  pois[1].completed = true;
-                  btn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
-                  if (currentHtml5Audio) currentHtml5Audio.play();
-                  if (window.speechSynthesis) window.speechSynthesis.resume();
-                });
-              }
-            }
-          }, 400);
-        }
+        playTeacherSpeech(script, parentBox, currentSpeed, audioUrl, pois);
       });
     });
 
     container.querySelectorAll(".btn-stop-gold-voice").forEach(btn => {
       btn.addEventListener("click", () => {
-        if (activePoiTimer) clearInterval(activePoiTimer);
         stopTeacherSpeech();
       });
     });
