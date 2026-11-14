@@ -227,6 +227,20 @@ const DOCUMENTS_DATA = [
 
   // ==================== BỒI DƯỠNG THI HỌC SINH GIỎI ====================
   {
+    id: "doc-hsg-ag-2026",
+    grade: "all",
+    category: "hsg",
+    title: "Đề thi chính thức & Lời giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT năm học 2025 – 2026 (Sở GD&ĐT An Giang)",
+    description: "Tài liệu VÀNG cho đội tuyển HSG Toán An Giang: Đề thi chính thức kèm BẢNG LỜI GIẢI CHI TIẾT 100% (16 trang công phu) do ThS. Lương Thanh Sáng trực tiếp biên soạn. Giải mã trọn vẹn 10 bài toán tự luận đỉnh cao: Lượng giác hạ bậc, Dãy số truy hồi phi tuyến, Hệ phương trình đồng bậc hoá, Cực trị hình học thực tế bờ sông, Tích vô hướng vectơ, Toán đo đạc thực tế ngã ba sông (Định lý Sin - Cosin & Tâm ngoại tiếp), Hình học phẳng Orthic & Đường tròn nội tiếp, Nhị thức Newton & Đạo hàm (2 cách giải), Xác suất hình học đa giác đều 40 đỉnh, Số học đa thức chia hết.",
+    pages: 16,
+    size: "175 KB",
+    type: "pdf",
+    date: "14/11/2026",
+    previewUrl: "https://drive.google.com/file/d/15IvacJ6ijo8OFszkmhVPrjQxHny5X_lb/preview",
+    downloadUrl: "https://drive.google.com/file/d/15IvacJ6ijo8OFszkmhVPrjQxHny5X_lb/view?usp=sharing",
+    tag: "HSG Tỉnh An Giang 2025 - 2026"
+  },
+  {
     id: "doc-hsg-sang-01",
     grade: "all",
     category: "hsg",
