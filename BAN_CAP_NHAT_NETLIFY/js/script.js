@@ -2466,14 +2466,38 @@ function initDigitalLessons() {
     }
 
     const KNOWN_AUDIO_DURATIONS = {
-      "assets/audio/b6_welcome.mp3": 18,
-      "assets/audio/b6_goals.mp3": 24,
-      "assets/audio/b6_hook.mp3": 17,
-      "assets/audio/b6_sec1.mp3": 21,
-      "assets/audio/b6_sec2.mp3": 25,
-      "assets/audio/b6_sec3.mp3": 26,
-      "assets/audio/b6_sec4.mp3": 19,
-      "assets/audio/b6_wrapup.mp3": 20
+      "assets/audio/b6_welcome.mp3": 18.02,
+      "assets/audio/b6_goals.mp3": 23.59,
+      "assets/audio/b6_hook.mp3": 17.11,
+      "assets/audio/b6_sec1.mp3": 20.52,
+      "assets/audio/b6_sec2.mp3": 25.37,
+      "assets/audio/b6_sec3.mp3": 25.54,
+      "assets/audio/b6_sec4.mp3": 19.08,
+      "assets/audio/b6_wrapup.mp3": 20.04,
+      "assets/audio/b7_welcome.mp3": 18.02,
+      "assets/audio/b7_goals.mp3": 33.48,
+      "assets/audio/b7_hook.mp3": 22.85,
+      "assets/audio/b7_sec1.mp3": 29.98,
+      "assets/audio/b7_sec2.mp3": 25.46,
+      "assets/audio/b7_sec3.mp3": 26.14,
+      "assets/audio/b7_sec4.mp3": 31.25,
+      "assets/audio/b7_wrapup.mp3": 23.64,
+      "assets/audio/b8_welcome.mp3": 23.04,
+      "assets/audio/b8_goals.mp3": 33.43,
+      "assets/audio/b8_hook.mp3": 34.06,
+      "assets/audio/b8_sec1.mp3": 19.80,
+      "assets/audio/b8_sec2.mp3": 25.00,
+      "assets/audio/b8_sec3.mp3": 28.97,
+      "assets/audio/b8_sec4.mp3": 27.84,
+      "assets/audio/b8_wrapup.mp3": 26.98,
+      "assets/audio/b12_welcome.mp3": 56.28,
+      "assets/audio/b12_goals.mp3": 31.97,
+      "assets/audio/b12_hook.mp3": 29.38,
+      "assets/audio/b12_sec1.mp3": 31.92,
+      "assets/audio/b12_sec2.mp3": 28.06,
+      "assets/audio/b12_sec3.mp3": 25.01,
+      "assets/audio/b12_sec4.mp3": 23.93,
+      "assets/audio/b12_wrapup.mp3": 18.02
     };
 
     function formatAudioTime(sec) {
@@ -3434,7 +3458,15 @@ function initDigitalLessons() {
     "assets/audio/b8_sec2.mp3": 25.00,
     "assets/audio/b8_sec3.mp3": 28.97,
     "assets/audio/b8_sec4.mp3": 27.84,
-    "assets/audio/b8_wrapup.mp3": 26.98
+    "assets/audio/b8_wrapup.mp3": 26.98,
+    "assets/audio/b12_welcome.mp3": 56.28,
+    "assets/audio/b12_goals.mp3": 31.97,
+    "assets/audio/b12_hook.mp3": 29.38,
+    "assets/audio/b12_sec1.mp3": 31.92,
+    "assets/audio/b12_sec2.mp3": 28.06,
+    "assets/audio/b12_sec3.mp3": 25.01,
+    "assets/audio/b12_sec4.mp3": 23.93,
+    "assets/audio/b12_wrapup.mp3": 18.02
   };
 
   function formatAudioTime(sec) {
@@ -3769,7 +3801,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B8_AUDIO_CACHE && window.B8_AUDIO_CACHE[audioUrl]) || 
+        const audioSrc = (window.B12_AUDIO_CACHE && window.B12_AUDIO_CACHE[audioUrl]) ||
+                         (window.B8_AUDIO_CACHE && window.B8_AUDIO_CACHE[audioUrl]) || 
                          (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
                          (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) || 
                          audioUrl;
