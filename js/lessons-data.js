@@ -537,82 +537,98 @@ const LESSONS_DATABASE = {
               ]
             };
           })(),
-          {
-            id: "10-c4-b9",
-            number: "Bài 9",
-            title: "Tích của một vectơ với một số",
-            sections: [
-              {
-                id: "10-c4-b9-s1",
-                num: "1",
-                title: "Định nghĩa tích vectơ với một số",
-                subsections: [
-                  { key: "a", title: "Khái niệm và kí hiệu k.a", summary: "Độ dài |k.a| = |k|.|a| và hướng tuỳ thuộc vào dấu của k." },
-                  { key: "b", title: "Các tính chất của phép nhân vectơ với số", summary: "Tính phân phối đối với phép cộng vectơ và số thực." }
-                ]
-              },
-              {
-                id: "10-c4-b9-s2",
-                num: "2",
-                title: "Điều kiện để hai vectơ cùng phương",
-                subsections: [
-                  { key: "a", title: "Biểu thị vectơ qua hai vectơ không cùng phương", summary: "Định lí phân tích một vectơ bất kì theo hai vectơ không cùng phương." },
-                  { key: "b", title: "Điều kiện ba điểm thẳng hàng", summary: "Ba điểm A, B, C thẳng hàng khi và chỉ khi AB = k.AC." }
-                ]
-              }
-            ]
-          },
-          {
-            id: "10-c4-b10",
-            number: "Bài 10",
-            title: "Vectơ trong mặt phẳng toạ độ",
-            sections: [
-              {
-                id: "10-c4-b10-s1",
-                num: "1",
-                title: "Toạ độ của vectơ",
-                subsections: [
-                  { key: "a", title: "Hệ trục toạ độ Oxy", summary: "Trục Ox, trục Oy và các vectơ đơn vị i, j." },
-                  { key: "b", title: "Toạ độ của vectơ và toạ độ điểm", summary: "u = x.i + y.j <=> u = (x; y); toạ độ điểm M là toạ độ của OM." }
-                ]
-              },
-              {
-                id: "10-c4-b10-s2",
-                num: "2",
-                title: "Biểu thức toạ độ của các phép toán vectơ",
-                subsections: [
-                  { key: "a", title: "Toạ độ tổng, hiệu và tích với một số", summary: "u ± v = (x ± x'; y ± y'); k.u = (kx; ky)." },
-                  { key: "b", title: "Toạ độ trung điểm và trọng tâm tam giác", summary: "Công thức trung điểm M((xA+xB)/2; (yA+yB)/2) và trọng tâm G." }
-                ]
-              }
-            ]
-          },
-          {
-            id: "10-c4-b11",
-            number: "Bài 11",
-            title: "Tích vô hướng của hai vectơ",
-            sections: [
-              {
-                id: "10-c4-b11-s1",
-                num: "1",
-                title: "Góc giữa hai vectơ",
-                subsections: [
-                  { key: "a", title: "Định nghĩa góc giữa hai vectơ", summary: "Góc (a, b) từ 0° đến 180° xác định từ một điểm O chung gốc." },
-                  { key: "b", title: "Hai vectơ vuông góc", summary: "Khi góc giữa hai vectơ bằng 90°, kí hiệu a ⊥ b." }
-                ]
-              },
-              {
-                id: "10-c4-b11-s2",
-                num: "2",
-                title: "Tích vô hướng của hai vectơ",
-                subsections: [
-                  { key: "a", title: "Định nghĩa tích vô hướng", summary: "a . b = |a| . |b| . cos(a, b)." },
-                  { key: "b", title: "Biểu thức toạ độ của tích vô hướng", summary: "u . v = x.x' + y.y'; công thức độ dài và khoảng cách giữa hai điểm." },
-                  { key: "c", title: "Công thức côsin của góc giữa hai vectơ", summary: "cos(u, v) = (x.x' + y.y') / (√(x²+y²) . √(x'²+y'²))." }
-                ]
-              }
-            ]
-          }
+          // Bài 9: Tích của một vectơ với một số (Tương thích 2 chiều với lesson-10-9-data.js)
+          (function() {
+            if (typeof window !== "undefined" && window.LESSON_10_C4_B9_DATA) {
+              return window.LESSON_10_C4_B9_DATA;
+            }
+            return {
+              id: "10-c4-b9",
+              number: "Bài 9",
+              title: "Tích của một vectơ với một số",
+              sections: [
+                {
+                  id: "10-c4-b9-s1",
+                  num: "1",
+                  title: "Định nghĩa tích vectơ với một số",
+                  subsections: [
+                    { key: "a", title: "Khái niệm và kí hiệu k.a", summary: "Độ dài |k.a| = |k|.|a| và hướng tuỳ thuộc vào dấu của k." },
+                    { key: "b", title: "Các tính chất của phép nhân vectơ với số", summary: "Tính phân phối đối với phép cộng vectơ và số thực." }
+                  ]
+                },
+                {
+                  id: "10-c4-b9-s2",
+                  num: "2",
+                  title: "Điều kiện để hai vectơ cùng phương",
+                  subsections: [
+                    { key: "a", title: "Biểu thị vectơ qua hai vectơ không cùng phương", summary: "Định lí phân tích một vectơ bất kì theo hai vectơ không cùng phương." },
+                    { key: "b", title: "Điều kiện ba điểm thẳng hàng", summary: "Ba điểm A, B, C thẳng hàng khi và chỉ khi AB = k.AC." }
+                  ]
+                }
+              ]
+            };
+          })(),
+          (() => {
+            if (typeof window !== "undefined" && window.LESSON_10_C4_B10_DATA) {
+              return window.LESSON_10_C4_B10_DATA;
+            }
+            return {
+              id: "10-c4-b10",
+              number: "Bài 10",
+              title: "Vectơ trong mặt phẳng toạ độ",
+              sections: [
+                {
+                  id: "10-c4-b10-s1",
+                  num: "1",
+                  title: "Toạ độ của vectơ",
+                  subsections: [
+                    { key: "a", title: "Hệ trục toạ độ Oxy", summary: "Trục Ox, trục Oy và các vectơ đơn vị i, j." },
+                    { key: "b", title: "Toạ độ của vectơ và toạ độ điểm", summary: "u = x.i + y.j <=> u = (x; y); toạ độ điểm M là toạ độ của OM." }
+                  ]
+                },
+                {
+                  id: "10-c4-b10-s2",
+                  num: "2",
+                  title: "Biểu thức toạ độ của các phép toán vectơ",
+                  subsections: [
+                    { key: "a", title: "Toạ độ tổng, hiệu và tích với một số", summary: "u ± v = (x ± x'; y ± y'); k.u = (kx; ky)." },
+                    { key: "b", title: "Toạ độ trung điểm và trọng tâm tam giác", summary: "Công thức trung điểm M((xA+xB)/2; (yA+yB)/2) và trọng tâm G." }
+                  ]
+                }
+              ]
+            };
+          })(),
+          (() => {
+            if (typeof window !== "undefined" && window.LESSON_10_C4_B11_DATA) {
+              return window.LESSON_10_C4_B11_DATA;
+            }
+            return {
+              id: "10-c4-b11",
+              number: "Bài 11",
+              title: "Tích vô hướng của hai vectơ",
+              sections: [
+                {
+                  id: "10-c4-b11-s1",
+                  num: "1",
+                  title: "Góc giữa hai vectơ",
+                  subsections: [
+                    { key: "a", title: "Định nghĩa góc giữa hai vectơ", summary: "Góc (a, b) từ 0° đến 180° xác định từ một điểm O chung gốc." },
+                    { key: "b", title: "Hai vectơ vuông góc", summary: "Khi góc giữa hai vectơ bằng 90°, kí hiệu a ⊥ b." }
+                  ]
+                },
+                {
+                  id: "10-c4-b11-s2",
+                  num: "2",
+                  title: "Tích vô hướng của hai vectơ",
+                  subsections: [
+                    { key: "a", title: "Định nghĩa tích vô hướng", summary: "a . b = |a| . |b| . cos(a, b)." },
+                    { key: "b", title: "Biểu thức toạ độ của tích vô hướng", summary: "u . v = x.x' + y.y'; công thức độ dài và khoảng cách giữa hai điểm." },
+                    { key: "c", title: "Công thức côsin của góc giữa hai vectơ", summary: "cos(u, v) = (x.x' + y.y') / (√(x²+y²) . √(x'²+y'²))." }
+                  ]
+                }
+              ]
+            };
+          })()
         ]
       },
       {

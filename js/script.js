@@ -2497,7 +2497,47 @@ function initDigitalLessons() {
       "assets/audio/b12_sec2.mp3": 28.06,
       "assets/audio/b12_sec3.mp3": 25.01,
       "assets/audio/b12_sec4.mp3": 23.93,
-      "assets/audio/b12_wrapup.mp3": 18.02
+      "assets/audio/b12_wrapup.mp3": 18.02,
+      "assets/audio/b10_7_welcome.mp3": 28.46,
+      "assets/audio/b10_7_goals.mp3": 28.75,
+      "assets/audio/b10_7_hook.mp3": 34.10,
+      "assets/audio/b10_7_sec1.mp3": 26.83,
+      "assets/audio/b10_7_sec2.mp3": 23.50,
+      "assets/audio/b10_7_sec3.mp3": 24.00,
+      "assets/audio/b10_7_sec4.mp3": 23.52,
+      "assets/audio/b10_7_wrapup.mp3": 26.14,
+      "assets/audio/b10_8_welcome.mp3": 18.5,
+      "assets/audio/b10_8_goals.mp3": 19.6,
+      "assets/audio/b10_8_hook.mp3": 42.5,
+      "assets/audio/b10_8_sec1.mp3": 26.9,
+      "assets/audio/b10_8_sec2.mp3": 20.5,
+      "assets/audio/b10_8_sec3.mp3": 21.3,
+      "assets/audio/b10_8_sec4.mp3": 24.6,
+      "assets/audio/b10_8_wrapup.mp3": 19.5,
+      "assets/audio/b10_9_welcome.mp3": 28.4,
+      "assets/audio/b10_9_goals.mp3": 27.8,
+      "assets/audio/b10_9_hook.mp3": 28.0,
+      "assets/audio/b10_9_sec1.mp3": 20.5,
+      "assets/audio/b10_9_sec2.mp3": 20.7,
+      "assets/audio/b10_9_sec3.mp3": 23.3,
+      "assets/audio/b10_9_sec4.mp3": 18.6,
+      "assets/audio/b10_9_wrapup.mp3": 24.0,
+      "assets/audio/b10_10_welcome.mp3": 28.0,
+      "assets/audio/b10_10_goals.mp3": 29.5,
+      "assets/audio/b10_10_hook.mp3": 28.8,
+      "assets/audio/b10_10_sec1.mp3": 25.3,
+      "assets/audio/b10_10_sec2.mp3": 21.3,
+      "assets/audio/b10_10_sec3.mp3": 23.7,
+      "assets/audio/b10_10_sec4.mp3": 21.1,
+      "assets/audio/b10_10_wrapup.mp3": 24.2,
+      "assets/audio/b10_11_welcome.mp3": 29.8,
+      "assets/audio/b10_11_goals.mp3": 26.1,
+      "assets/audio/b10_11_hook.mp3": 24.7,
+      "assets/audio/b10_11_sec1.mp3": 24.4,
+      "assets/audio/b10_11_sec2.mp3": 22.6,
+      "assets/audio/b10_11_sec3.mp3": 22.2,
+      "assets/audio/b10_11_sec4.mp3": 19.8,
+      "assets/audio/b10_11_wrapup.mp3": 20.2
     };
 
     function formatAudioTime(sec) {
@@ -2642,12 +2682,16 @@ function initDigitalLessons() {
 
           ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : ''}
 
-          ${lesson.hook.illustration ? `
-            <div class="lesson-illustration-box">
-              <img src="${lesson.hook.illustration}" alt="${escapeHtml(lesson.hook.title)}" class="lesson-responsive-img">
-              ${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}
-            </div>
-          ` : ''}
+          ${lesson.hook.illustration ? (
+            lesson.hook.illustration.trim().startsWith('<')
+              ? `<div class="lesson-illustration-box">${lesson.hook.illustration}${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}</div>`
+              : `
+                <div class="lesson-illustration-box">
+                  <img src="${lesson.hook.illustration}" alt="${escapeHtml(lesson.hook.title)}" class="lesson-responsive-img">
+                  ${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}
+                </div>
+              `
+          ) : ''}
 
           ${lesson.hook.question ? `
             <div class="hook-question-box">
@@ -3466,7 +3510,47 @@ function initDigitalLessons() {
     "assets/audio/b12_sec2.mp3": 28.06,
     "assets/audio/b12_sec3.mp3": 25.01,
     "assets/audio/b12_sec4.mp3": 23.93,
-    "assets/audio/b12_wrapup.mp3": 18.02
+    "assets/audio/b12_wrapup.mp3": 18.02,
+    "assets/audio/b10_7_welcome.mp3": 28.46,
+    "assets/audio/b10_7_goals.mp3": 28.75,
+    "assets/audio/b10_7_hook.mp3": 34.10,
+    "assets/audio/b10_7_sec1.mp3": 26.83,
+    "assets/audio/b10_7_sec2.mp3": 23.50,
+    "assets/audio/b10_7_sec3.mp3": 24.00,
+    "assets/audio/b10_7_sec4.mp3": 23.52,
+    "assets/audio/b10_7_wrapup.mp3": 26.14,
+    "assets/audio/b10_8_welcome.mp3": 18.5,
+    "assets/audio/b10_8_goals.mp3": 19.6,
+    "assets/audio/b10_8_hook.mp3": 42.5,
+    "assets/audio/b10_8_sec1.mp3": 26.9,
+    "assets/audio/b10_8_sec2.mp3": 20.5,
+    "assets/audio/b10_8_sec3.mp3": 21.3,
+    "assets/audio/b10_8_sec4.mp3": 24.6,
+    "assets/audio/b10_8_wrapup.mp3": 19.5,
+    "assets/audio/b10_9_welcome.mp3": 28.4,
+    "assets/audio/b10_9_goals.mp3": 27.8,
+    "assets/audio/b10_9_hook.mp3": 28.0,
+    "assets/audio/b10_9_sec1.mp3": 20.5,
+    "assets/audio/b10_9_sec2.mp3": 20.7,
+    "assets/audio/b10_9_sec3.mp3": 23.3,
+    "assets/audio/b10_9_sec4.mp3": 18.6,
+    "assets/audio/b10_9_wrapup.mp3": 24.0,
+    "assets/audio/b10_10_welcome.mp3": 28.0,
+    "assets/audio/b10_10_goals.mp3": 29.5,
+    "assets/audio/b10_10_hook.mp3": 28.8,
+    "assets/audio/b10_10_sec1.mp3": 25.3,
+    "assets/audio/b10_10_sec2.mp3": 21.3,
+    "assets/audio/b10_10_sec3.mp3": 23.7,
+    "assets/audio/b10_10_sec4.mp3": 21.1,
+    "assets/audio/b10_10_wrapup.mp3": 24.2,
+    "assets/audio/b10_11_welcome.mp3": 29.8,
+    "assets/audio/b10_11_goals.mp3": 26.1,
+    "assets/audio/b10_11_hook.mp3": 24.7,
+    "assets/audio/b10_11_sec1.mp3": 24.4,
+    "assets/audio/b10_11_sec2.mp3": 22.6,
+    "assets/audio/b10_11_sec3.mp3": 22.2,
+    "assets/audio/b10_11_sec4.mp3": 19.8,
+    "assets/audio/b10_11_wrapup.mp3": 20.2
   };
 
   function formatAudioTime(sec) {
@@ -3801,7 +3885,12 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B12_AUDIO_CACHE && window.B12_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B10_11_AUDIO_CACHE && window.B10_11_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_10_AUDIO_CACHE && window.B10_10_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_9_AUDIO_CACHE && window.B10_9_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_8_AUDIO_CACHE && window.B10_8_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_7_AUDIO_CACHE && window.B10_7_AUDIO_CACHE[audioUrl]) ||
+                         (window.B12_AUDIO_CACHE && window.B12_AUDIO_CACHE[audioUrl]) ||
                          (window.B8_AUDIO_CACHE && window.B8_AUDIO_CACHE[audioUrl]) || 
                          (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
                          (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) || 
@@ -4202,6 +4291,9 @@ function initDigitalLessons() {
         const allLessons = [
           window.LESSON_10_C4_B7_DATA,
           window.LESSON_10_C4_B8_DATA,
+          window.LESSON_10_C4_B9_DATA,
+          window.LESSON_10_C4_B10_DATA,
+          window.LESSON_10_C4_B11_DATA,
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,
           window.LESSON_12_C2_B6_DATA,
