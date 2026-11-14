@@ -51,3 +51,4 @@ for af in audio_files:
 import json
 with open("scripts/b8_durations.json", "w", encoding="utf-8") as f:
     json.dump(durations, f, indent=2)
+

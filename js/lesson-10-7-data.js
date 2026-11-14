@@ -501,10 +501,10 @@ window.LESSON_10_C4_B7_DATA = {
         level: "Thông hiểu",
         prompt: "Cho tam giác đều $ABC$ cạnh bằng $2a$, đường cao $AH$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Vectơ $\\vec{AB}$ và vectơ $\\vec{AC}$ cùng phương với nhau.", isCorrect: false },
-          { text: "b) Độ dài của vectơ $\\vec{BC}$ bằng $2a$.", isCorrect: true },
-          { text: "c) Độ dài của vectơ $\\vec{AH}$ bằng $a\\sqrt{3}$.", isCorrect: true },
-          { text: "d) Vectơ $\\vec{HB}$ và vectơ $\\vec{HC}$ là hai vectơ bằng nhau.", isCorrect: false }
+          { label: "a", key: "a", statement: "Vectơ $\\vec{AB}$ và vectơ $\\vec{AC}$ cùng phương với nhau.", text: "Vectơ $\\vec{AB}$ và vectơ $\\vec{AC}$ cùng phương với nhau.", isTrue: false, isCorrect: false },
+          { label: "b", key: "b", statement: "Độ dài của vectơ $\\vec{BC}$ bằng $2a$.", text: "Độ dài của vectơ $\\vec{BC}$ bằng $2a$.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "Độ dài của vectơ $\\vec{AH}$ bằng $a\\sqrt{3}$.", text: "Độ dài của vectơ $\\vec{AH}$ bằng $a\\sqrt{3}$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Vectơ $\\vec{HB}$ và vectơ $\\vec{HC}$ là hai vectơ bằng nhau.", text: "Vectơ $\\vec{HB}$ và vectơ $\\vec{HC}$ là hai vectơ bằng nhau.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>
@@ -521,10 +521,10 @@ window.LESSON_10_C4_B7_DATA = {
         level: "Thông hiểu",
         prompt: "Cho lục giác đều $ABCDEF$ tâm $O$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Vectơ $\\vec{OA}$ và vectơ $\\vec{DO}$ là hai vectơ bằng nhau.", isCorrect: true },
-          { text: "b) Vectơ $\\vec{AB}$ và vectơ $\\vec{ED}$ cùng phương và cùng hướng.", isCorrect: true },
-          { text: "c) Vectơ $\\vec{AB}$ và vectơ $\\vec{DE}$ là hai vectơ bằng nhau.", isCorrect: false },
-          { text: "d) Có đúng 6 vectơ khác $\\vec{0}$ có điểm đầu là $O$ và điểm cuối là các đỉnh của lục giác.", isCorrect: true }
+          { label: "a", key: "a", statement: "Vectơ $\\vec{OA}$ và vectơ $\\vec{DO}$ là hai vectơ bằng nhau.", text: "Vectơ $\\vec{OA}$ và vectơ $\\vec{DO}$ là hai vectơ bằng nhau.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Vectơ $\\vec{AB}$ và vectơ $\\vec{ED}$ cùng phương và cùng hướng.", text: "Vectơ $\\vec{AB}$ và vectơ $\\vec{ED}$ cùng phương và cùng hướng.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "Vectơ $\\vec{AB}$ và vectơ $\\vec{DE}$ là hai vectơ bằng nhau.", text: "Vectơ $\\vec{AB}$ và vectơ $\\vec{DE}$ là hai vectơ bằng nhau.", isTrue: false, isCorrect: false },
+          { label: "d", key: "d", statement: "Có đúng 6 vectơ khác $\\vec{0}$ có điểm đầu là $O$ và điểm cuối là các đỉnh của lục giác.", text: "Có đúng 6 vectơ khác $\\vec{0}$ có điểm đầu là $O$ và điểm cuối là các đỉnh của lục giác.", isTrue: true, isCorrect: true }
         ],
         solution: `
           <ul>
@@ -541,10 +541,10 @@ window.LESSON_10_C4_B7_DATA = {
         level: "Thông hiểu",
         prompt: "Cho đoạn thẳng $AB$ có độ dài bằng $6\\text{ cm}$ và $M$ là trung điểm của $AB$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) $|\\vec{MA}| = |\\vec{MB}| = 3\\text{ cm}$.", isCorrect: true },
-          { text: "b) $\\vec{MA} = \\vec{MB}$.", isCorrect: false },
-          { text: "c) Hai vectơ $\\vec{AM}$ và $\\vec{AB}$ cùng hướng.", isCorrect: true },
-          { text: "d) Hai vectơ $\\vec{MA}$ và $\\vec{BA}$ cùng phương.", isCorrect: true }
+          { label: "a", key: "a", statement: "$|\\vec{MA}| = |\\vec{MB}| = 3\\text{ cm}$.", text: "$|\\vec{MA}| = |\\vec{MB}| = 3\\text{ cm}$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "$\\vec{MA} = \\vec{MB}$.", text: "$\\vec{MA} = \\vec{MB}$.", isTrue: false, isCorrect: false },
+          { label: "c", key: "c", statement: "Hai vectơ $\\vec{AM}$ và $\\vec{AB}$ cùng hướng.", text: "Hai vectơ $\\vec{AM}$ và $\\vec{AB}$ cùng hướng.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Hai vectơ $\\vec{MA}$ và $\\vec{BA}$ cùng phương.", text: "Hai vectơ $\\vec{MA}$ và $\\vec{BA}$ cùng phương.", isTrue: true, isCorrect: true }
         ],
         solution: `
           <ul>

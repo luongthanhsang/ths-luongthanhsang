@@ -523,10 +523,10 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Thông hiểu",
         prompt: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SB$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Đường thẳng $MN$ song song với đường thẳng $AB$.", isCorrect: true },
-          { text: "b) Đường thẳng $MN$ song song với đường thẳng $CD$.", isCorrect: true },
-          { text: "c) Đường thẳng $MN$ và đường thẳng $SC$ là hai đường thẳng cắt nhau.", isCorrect: false },
-          { text: "d) Bốn điểm $M, N, C, D$ cùng thuộc một mặt phẳng.", isCorrect: true }
+          { label: "a", key: "a", statement: "Đường thẳng $MN$ song song với đường thẳng $AB$.", text: "Đường thẳng $MN$ song song với đường thẳng $AB$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Đường thẳng $MN$ song song với đường thẳng $CD$.", text: "Đường thẳng $MN$ song song với đường thẳng $CD$.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "Đường thẳng $MN$ và đường thẳng $SC$ là hai đường thẳng cắt nhau.", text: "Đường thẳng $MN$ và đường thẳng $SC$ là hai đường thẳng cắt nhau.", isTrue: false, isCorrect: false },
+          { label: "d", key: "d", statement: "Bốn điểm $M, N, C, D$ cùng thuộc một mặt phẳng.", text: "Bốn điểm $M, N, C, D$ cùng thuộc một mặt phẳng.", isTrue: true, isCorrect: true }
         ],
         solution: `
           <ul>
@@ -543,10 +543,10 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Thông hiểu",
         prompt: "Cho tứ diện $ABCD$. Gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$. Gọi $M$ là một điểm thuộc đoạn $BC$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Đường thẳng $AB$ và đường thẳng $CD$ chéo nhau.", isCorrect: true },
-          { text: "b) Hai đường thẳng $IJ$ và $AB$ cắt nhau.", isCorrect: true },
-          { text: "c) Hai đường thẳng $AM$ và $CD$ chéo nhau khi $M$ không trùng với $B$ và $C$.", isCorrect: true },
-          { text: "d) Tồn tại mặt phẳng chứa cả 3 đường thẳng $AB, CD$ và $IJ$.", isCorrect: false }
+          { label: "a", key: "a", statement: "Đường thẳng $AB$ và đường thẳng $CD$ chéo nhau.", text: "Đường thẳng $AB$ và đường thẳng $CD$ chéo nhau.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Hai đường thẳng $IJ$ và $AB$ cắt nhau.", text: "Hai đường thẳng $IJ$ và $AB$ cắt nhau.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "Hai đường thẳng $AM$ và $CD$ chéo nhau khi $M$ không trùng với $B$ và $C$.", text: "Hai đường thẳng $AM$ và $CD$ chéo nhau khi $M$ không trùng với $B$ và $C$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Tồn tại mặt phẳng chứa cả 3 đường thẳng $AB, CD$ và $IJ$.", text: "Tồn tại mặt phẳng chứa cả 3 đường thẳng $AB, CD$ và $IJ$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>
@@ -563,10 +563,10 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Thông hiểu",
         prompt: "Trong không gian, cho ba đường thẳng phân biệt $a, b, c$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Nếu $a // b$ và $b // c$ thì $a // c$.", isCorrect: true },
-          { text: "b) Nếu $a$ cắt $b$ và $b$ cắt $c$ thì $a$ cắt $c$.", isCorrect: false },
-          { text: "c) Nếu $a$ chéo $b$ và $b$ chéo $c$ thì $a$ chéo $c$.", isCorrect: false },
-          { text: "d) Nếu $a // b$ và $c$ cắt $a$ thì $c$ bắt buộc phải cắt $b$.", isCorrect: false }
+          { label: "a", key: "a", statement: "Nếu $a // b$ và $b // c$ thì $a // c$.", text: "Nếu $a // b$ và $b // c$ thì $a // c$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Nếu $a$ cắt $b$ và $b$ cắt $c$ thì $a$ cắt $c$.", text: "Nếu $a$ cắt $b$ và $b$ cắt $c$ thì $a$ cắt $c$.", isTrue: false, isCorrect: false },
+          { label: "c", key: "c", statement: "Nếu $a$ chéo $b$ và $b$ chéo $c$ thì $a$ chéo $c$.", text: "Nếu $a$ chéo $b$ và $b$ chéo $c$ thì $a$ chéo $c$.", isTrue: false, isCorrect: false },
+          { label: "d", key: "d", statement: "Nếu $a // b$ và $c$ cắt $a$ thì $c$ bắt buộc phải cắt $b$.", text: "Nếu $a // b$ và $c$ cắt $a$ thì $c$ bắt buộc phải cắt $b$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>

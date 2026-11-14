@@ -494,10 +494,10 @@ window.LESSON_11_C4_B12_DATA = {
         level: "Thông hiểu",
         prompt: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M$ là trung điểm của cạnh $SC$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Đường thẳng $OM$ song song với mặt phẳng $(SAB)$.", isCorrect: true },
-          { text: "b) Đường thẳng $OM$ song song với mặt phẳng $(SAD)$.", isCorrect: true },
-          { text: "c) Đường thẳng $AB$ song song với mặt phẳng $(SCD)$.", isCorrect: true },
-          { text: "d) Đường thẳng $SO$ song song với mặt phẳng $(SCD)$.", isCorrect: false }
+          { label: "a", key: "a", statement: "Đường thẳng $OM$ song song với mặt phẳng $(SAB)$.", text: "Đường thẳng $OM$ song song với mặt phẳng $(SAB)$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Đường thẳng $OM$ song song với mặt phẳng $(SAD)$.", text: "Đường thẳng $OM$ song song với mặt phẳng $(SAD)$.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "Đường thẳng $AB$ song song với mặt phẳng $(SCD)$.", text: "Đường thẳng $AB$ song song với mặt phẳng $(SCD)$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Đường thẳng $SO$ song song với mặt phẳng $(SCD)$.", text: "Đường thẳng $SO$ song song với mặt phẳng $(SCD)$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>
@@ -514,10 +514,10 @@ window.LESSON_11_C4_B12_DATA = {
         level: "Thông hiểu",
         prompt: "Cho tứ diện $ABCD$. Gọi $G$ là trọng tâm tam giác $ABD$, $M$ là điểm trên cạnh $BC$ sao cho $MB = 2MC$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) Đường thẳng $MG$ song song với mặt phẳng $(ACD)$.", isCorrect: true },
-          { text: "b) Đường thẳng $CD$ song song với mặt phẳng $(ABD)$.", isCorrect: false },
-          { text: "c) Tồn tại mặt phẳng qua $CD$ và song song với $AB$.", isCorrect: true },
-          { text: "d) Giao tuyến của mặt phẳng $(ACD)$ và mặt phẳng $(BCD)$ là đường thẳng $CD$.", isCorrect: true }
+          { label: "a", key: "a", statement: "Đường thẳng $MG$ song song với mặt phẳng $(ACD)$.", text: "Đường thẳng $MG$ song song với mặt phẳng $(ACD)$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Đường thẳng $CD$ song song với mặt phẳng $(ABD)$.", text: "Đường thẳng $CD$ song song với mặt phẳng $(ABD)$.", isTrue: false, isCorrect: false },
+          { label: "c", key: "c", statement: "Tồn tại mặt phẳng qua $CD$ và song song với $AB$.", text: "Tồn tại mặt phẳng qua $CD$ và song song với $AB$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Giao tuyến của mặt phẳng $(ACD)$ và mặt phẳng $(BCD)$ là đường thẳng $CD$.", text: "Giao tuyến của mặt phẳng $(ACD)$ và mặt phẳng $(BCD)$ là đường thẳng $CD$.", isTrue: true, isCorrect: true }
         ],
         solution: `
           <ul>
@@ -534,10 +534,10 @@ window.LESSON_11_C4_B12_DATA = {
         level: "Thông hiểu",
         prompt: "Xét tính Đúng/Sai của các khẳng định sau về quan hệ song song trong không gian:",
         items: [
-          { text: "a) Nếu đường thẳng $a // (P)$ thì $a$ song song với ít nhất một đường thẳng trong $(P)$.", isCorrect: true },
-          { text: "b) Nếu $a // (P)$ và $b // (P)$ thì $a // b$.", isCorrect: false },
-          { text: "c) Hai đường thẳng cùng song song với một mặt phẳng thì có thể chéo nhau.", isCorrect: true },
-          { text: "d) Nếu đường thẳng $a$ song song với mặt phẳng $(P)$ thì mọi mặt phẳng chứa $a$ đều song song với $(P)$.", isCorrect: false }
+          { label: "a", key: "a", statement: "Nếu đường thẳng $a // (P)$ thì $a$ song song với ít nhất một đường thẳng trong $(P)$.", text: "Nếu đường thẳng $a // (P)$ thì $a$ song song với ít nhất một đường thẳng trong $(P)$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "Nếu $a // (P)$ và $b // (P)$ thì $a // b$.", text: "Nếu $a // (P)$ và $b // (P)$ thì $a // b$.", isTrue: false, isCorrect: false },
+          { label: "c", key: "c", statement: "Hai đường thẳng cùng song song với một mặt phẳng thì có thể chéo nhau.", text: "Hai đường thẳng cùng song song với một mặt phẳng thì có thể chéo nhau.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "Nếu đường thẳng $a$ song song với mặt phẳng $(P)$ thì mọi mặt phẳng chứa $a$ đều song song với $(P)$.", text: "Nếu đường thẳng $a$ song song với mặt phẳng $(P)$ thì mọi mặt phẳng chứa $a$ đều song song với $(P)$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>

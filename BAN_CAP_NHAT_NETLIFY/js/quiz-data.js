@@ -2413,15 +2413,1060 @@ const EXAM_12_GK1_0002 = {
   ]
 };
 
+// ==================== BỘ ĐỀ THI TỐT NGHIỆP THPT NĂM 2026 - MÔN TOÁN (MÃ ĐỀ: 0101) ====================
+// NGUỒN: ĐỀ THI CHÍNH THỨC CỦA BỘ GIÁO DỤC VÀ ĐÀO TẠO
+// LỜI GIẢI CHI TIẾT VÀ ĐỒ HỌA TIKZ: THS. LƯƠNG THANH SÁNG
+const EXAM_12_BGD_0101 = {
+  id: "12_BGD_0101",
+  config: {
+    title: "Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0101)",
+    school: "Bộ Giáo Dục và Đào Tạo • Đề Thi Chính Thức",
+    schoolYear: "Kỳ thi tốt nghiệp THPT năm 2026",
+    teacher: "ThS. Lương Thanh Sáng (Lời giải chi tiết & Đồ họa TikZ)",
+    timeLimitMinutes: 90,
+    totalQuestions: 22,
+    maxScore: 10.0,
+    grade: "12",
+    modes: {
+      all: { time: 90, label: "90 phút (Cả đề thi gồm 3 phần - 22 câu)", count: 22 },
+      part1: { time: 45, label: "45 phút (12 câu trắc nghiệm - 3.0 điểm)", count: 12 },
+      part2: { time: 25, label: "25 phút (4 câu Đúng / Sai - 4.0 điểm)", count: 4 },
+      part3: { time: 25, label: "25 phút (6 câu Trả lời ngắn - 3.0 điểm)", count: 6 }
+    }
+  },
+
+  // ==================== PHẦN I: 12 CÂU NHIỀU PHƯƠNG ÁN LỰA CHỌN (3,0 ĐIỂM) ====================
+  part1: [
+    {
+      id: 1,
+      part: "I",
+      grade: "12",
+      topic: "Cấp số cộng - Số hạng thứ hai",
+      question: "Cho cấp số cộng $(u_n)$ có $u_1 = 5$ và công sai $d = -1$. Giá trị của $u_2$ bằng",
+      svg: "",
+      options: [
+        { id: "A", text: "$4$" },
+        { id: "B", text: "$-5$" },
+        { id: "C", text: "$5$" },
+        { id: "D", text: "$-4$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Áp dụng công thức số hạng tổng quát của cấp số cộng: $u_n = u_1 + (n - 1)d$.</p>
+  <p>Với $n = 2$, ta có:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$u_2 = u_1 + d = 5 + (-1) = 4.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    },
+    {
+      id: 2,
+      part: "I",
+      grade: "12",
+      topic: "Quy tắc tính đạo hàm của tổng hai hàm số",
+      question: "Cho các hàm số $y = f(x)$ và $y = g(x)$ có đạo hàm trên tập số thực $\\mathbb{R}$ thỏa mãn $f'(x) = x$ và $g'(x) = x^2$. Đạo hàm của hàm số $y = f(x) + g(x)$ là",
+      svg: "",
+      options: [
+        { id: "A", text: "$3x$" },
+        { id: "B", text: "$1 + x^2$" },
+        { id: "C", text: "$x + x^2$" },
+        { id: "D", text: "$1 + 2x$" }
+      ],
+      correctAnswer: "C",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Theo quy tắc đạo hàm của tổng hai hàm số:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$y' = [f(x) + g(x)]' = f'(x) + g'(x) = x + x^2.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C.</strong></p>
+</div>
+`
+    },
+    {
+      id: 3,
+      part: "I",
+      grade: "12",
+      topic: "Tính chất tuyến tính của nguyên hàm",
+      question: "Cho $\\int f(x)\\,dx = \\sin x + C$. Phát biểu nào sau đây là đúng?",
+      svg: "",
+      options: [
+        { id: "A", text: "$\\int [3 + f(x)]\\,dx = 3x + \\cos x + C$" },
+        { id: "B", text: "$\\int [3 + f(x)]\\,dx = 3x + \\sin x + C$" },
+        { id: "C", text: "$\\int [3 + f(x)]\\,dx = 3x - \\cos x + C$" },
+        { id: "D", text: "$\\int [3 + f(x)]\\,dx = 3x - \\sin x + C$" }
+      ],
+      correctAnswer: "B",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Sử dụng tính chất tuyến tính của nguyên hàm:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$\\int [3 + f(x)]\\,dx = \\int 3\\,dx + \\int f(x)\\,dx = 3x + \\sin x + C.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B.</strong></p>
+</div>
+`
+    },
+    {
+      id: 4,
+      part: "I",
+      grade: "12",
+      topic: "Phương trình logarit cơ bản",
+      question: "Nghiệm của phương trình $\\log_3(x - 1) = 1$ là",
+      svg: "",
+      options: [
+        { id: "A", text: "$x = 2$" },
+        { id: "B", text: "$x = 3$" },
+        { id: "C", text: "$x = 5$" },
+        { id: "D", text: "$x = 4$" }
+      ],
+      correctAnswer: "D",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Điều kiện xác định: $x - 1 > 0 \\iff x > 1$.</p>
+  <p>Phương trình đã cho tương đương với:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$x - 1 = 3^1 \\iff x - 1 = 3 \\iff x = 4 \\; \\text{(thỏa mãn điều kiện)}.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án D.</strong></p>
+</div>
+`
+    },
+    {
+      id: 5,
+      part: "I",
+      grade: "12",
+      topic: "Toạ độ của vectơ trong không gian Oxyz",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(1; 5; 1)$ và $B(3; 3; 1)$. Vectơ $\\vec{AB}$ có tọa độ là",
+      svg: "",
+      options: [
+        { id: "A", text: "$(2; -2; 0)$" },
+        { id: "B", text: "$(-2; 2; 0)$" },
+        { id: "C", text: "$(4; 8; 2)$" },
+        { id: "D", text: "$(2; 4; 1)$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Tọa độ của vectơ $\\vec{AB}$ bằng tọa độ điểm ngọn $B$ trừ tọa độ điểm gốc $A$:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$\\vec{AB} = (x_B - x_A;\\; y_B - y_A;\\; z_B - z_A) = (3 - 1;\\; 3 - 5;\\; 1 - 1) = (2;\\; -2;\\; 0).$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    },
+    {
+      id: 6,
+      part: "I",
+      grade: "12",
+      topic: "Quy tắc nhân xác suất cho hai biến cố độc lập",
+      question: "Cho hai biến cố độc lập $A$ và $B$ có xác suất thỏa mãn $P(A) = 0,5$ và $P(B) = 0,4$. Giá trị của $P(AB)$ bằng",
+      svg: "",
+      options: [
+        { id: "A", text: "$0,8$" },
+        { id: "B", text: "$0,1$" },
+        { id: "C", text: "$0,9$" },
+        { id: "D", text: "$0,2$" }
+      ],
+      correctAnswer: "D",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Vì hai biến cố $A$ và $B$ độc lập nên áp dụng công thức nhân xác suất:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$P(AB) = P(A) \\cdot P(B) = 0,5 \\cdot 0,4 = 0,2.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án D.</strong></p>
+</div>
+`
+    },
+    {
+      id: 7,
+      part: "I",
+      grade: "12",
+      topic: "Vectơ bằng nhau trong hình lập phương",
+      question: "Cho hình lập phương $ABCD.A'B'C'D'$ (xem hình dưới). Vectơ nào sau đây bằng vectơ $\\vec{AB}$?",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 230" class="tikz-svg" style="max-width: 320px; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <defs>
+    <marker id="arrow-vec-b1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <!-- Các cạnh nét đứt (khuất ở mặt sau) -->
+  <line x1="120" y1="135" x2="250" y2="135" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="5,4" marker-end="url(#arrow-vec-b1)"/>
+  <line x1="80" y1="175" x2="120" y2="135" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <line x1="120" y1="135" x2="120" y2="55" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5,4"/>
+  
+  <!-- Các cạnh nét liền (nhìn thấy) -->
+  <!-- Đáy dưới: D(80,175) -> C(210,175) -> B(250,135) -->
+  <line x1="80" y1="175" x2="210" y2="175" stroke="#1e293b" stroke-width="2"/>
+  <line x1="210" y1="175" x2="250" y2="135" stroke="#1e293b" stroke-width="2"/>
+  
+  <!-- Cạnh đứng -->
+  <line x1="80" y1="175" x2="80" y2="95" stroke="#1e293b" stroke-width="2"/>
+  <line x1="210" y1="175" x2="210" y2="95" stroke="#1e293b" stroke-width="2"/>
+  <line x1="250" y1="135" x2="250" y2="55" stroke="#1e293b" stroke-width="2"/>
+  
+  <!-- Đáy trên: D'(80,95) -> C'(210,95) -> B'(250,55) -> A'(120,55) -> D'(80,95) -->
+  <line x1="80" y1="95" x2="210" y2="95" stroke="#1e293b" stroke-width="2"/>
+  <line x1="210" y1="95" x2="250" y2="55" stroke="#1e293b" stroke-width="2"/>
+  <line x1="250" y1="55" x2="120" y2="55" stroke="#1e293b" stroke-width="2"/>
+  <line x1="120" y1="55" x2="80" y2="95" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Tọa độ đỉnh và nhãn chữ đúng chuẩn SGK & Đề Bộ -->
+  <!-- Đáy dưới -->
+  <circle cx="120" cy="135" r="3.5" fill="#dc2626"/>
+  <text x="123" y="132" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#dc2626">A</text>
+
+  <circle cx="250" cy="135" r="3.5" fill="#1e293b"/>
+  <text x="256" y="137" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">B</text>
+
+  <circle cx="210" cy="175" r="3.5" fill="#1e293b"/>
+  <text x="206" y="196" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">C</text>
+
+  <circle cx="80" cy="175" r="3.5" fill="#1e293b"/>
+  <text x="67" y="194" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">D</text>
+
+  <!-- Đáy trên -->
+  <circle cx="120" cy="55" r="3.5" fill="#1e293b"/>
+  <text x="115" y="47" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">A'</text>
+
+  <circle cx="250" cy="55" r="3.5" fill="#1e293b"/>
+  <text x="256" y="52" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">B'</text>
+
+  <circle cx="210" cy="95" r="3.5" fill="#1e293b"/>
+  <text x="216" y="103" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">C'</text>
+
+  <circle cx="80" cy="95" r="3.5" fill="#1e293b"/>
+  <text x="65" y="103" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">D'</text>
+</svg>`,
+      options: [
+        { id: "A", text: "$\\vec{AA'}$" },
+        { id: "B", text: "$\\vec{D'C'}$" },
+        { id: "C", text: "$\\vec{CD}$" },
+        { id: "D", text: "$\\vec{AD}$" }
+      ],
+      correctAnswer: "B",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Trong hình lập phương $ABCD.A'B'C'D'$:</p>
+  <ul>
+    <li>Đoạn thẳng $D'C'$ song song và có cùng độ dài với đoạn thẳng $AB$.</li>
+    <li>Hướng từ $D'$ đến $C'$ cùng hướng với hướng từ $A$ đến $B$.</li>
+  </ul>
+  <p>Do đó, hai vectơ này bằng nhau: $\\vec{AB} = \\vec{D'C'}$.</p>
+  <p><em>(Lưu ý: Vectơ $\\vec{CD}$ ngược hướng với $\\vec{AB}$ nên $\\vec{CD} = -\\vec{AB}$; các vectơ $\\vec{AA'}$ và $\\vec{AD}$ không cùng phương với $\\vec{AB}$).</em></p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B.</strong></p>
+</div>
+`
+    },
+    {
+      id: 8,
+      part: "I",
+      grade: "12",
+      topic: "Nghiệm của hệ bất phương trình bậc nhất hai ẩn",
+      question: "Cặp số nào sau đây là nghiệm của hệ bất phương trình $\\begin{cases} x + y - 3 < 0 \\\\ x - y + 1 > 0 \\end{cases}$?",
+      svg: "",
+      options: [
+        { id: "A", text: "$(1;\\; 0)$" },
+        { id: "B", text: "$(0;\\; 2)$" },
+        { id: "C", text: "$(-1;\\; 1)$" },
+        { id: "D", text: "$(1;\\; 2)$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Thay lần lượt tọa độ các cặp số $(x; y)$ vào hệ bất phương trình:</p>
+  <ul>
+    <li>Với cặp $(1; 0)$: 
+      $$\\begin{cases} 1 + 0 - 3 = -2 < 0 \\;\\text{(đúng)} \\\\ 1 - 0 + 1 = 2 > 0 \\;\\text{(đúng)} \\end{cases}$$
+      Do đó $(1; 0)$ là một nghiệm của hệ.
+    </li>
+    <li>Với $(0; 2)$: $0 - 2 + 1 = -1 < 0$ (sai).</li>
+    <li>Với $(-1; 1)$: $-1 - 1 + 1 = -1 < 0$ (sai).</li>
+    <li>Với $(1; 2)$: $1 + 2 - 3 = 0 < 0$ (sai).</li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    },
+    {
+      id: 9,
+      part: "I",
+      grade: "12",
+      topic: "Định nghĩa nguyên hàm của một hàm số",
+      question: "Hàm số $F(x) = 4x^3$ là một nguyên hàm của hàm số nào sau đây?",
+      svg: "",
+      options: [
+        { id: "A", text: "$f_2(x) = 3x^2$" },
+        { id: "B", text: "$f_3(x) = 12x^2$" },
+        { id: "C", text: "$f_1(x) = x^4$" },
+        { id: "D", text: "$f_4(x) = 4x^4$" }
+      ],
+      correctAnswer: "B",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Theo định nghĩa, hàm số $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên khoảng $K$ nếu:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$F'(x) = f(x), \\quad \\forall x \\in K.$$
+  </div>
+  <p>Ta có: $F'(x) = (4x^3)' = 4 \\cdot 3x^2 = 12x^2$.</p>
+  <p>Do đó, $F(x) = 4x^3$ là một nguyên hàm của hàm số $f_3(x) = 12x^2$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B.</strong></p>
+</div>
+`
+    },
+    {
+      id: 10,
+      part: "I",
+      grade: "12",
+      topic: "Đường tiệm cận ngang qua bảng biến thiên",
+      question: "Cho hàm số $y = \\dfrac{ax + b}{cx + d}$ ($c \\ne 0, ad - bc \\ne 0$) có bảng biến thiên như hình dưới đây. Đường tiệm cận ngang của đồ thị hàm số đã cho có phương trình là",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 170" class="tikz-svg" style="max-width: 440px; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1.5px solid #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <defs>
+    <marker id="arr-bb-10" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+  <!-- Các đường kẻ bảng biến thiên -->
+  <line x1="0" y1="35" x2="460" y2="35" stroke="#0f172a" stroke-width="1.5"/>
+  <line x1="0" y1="70" x2="460" y2="70" stroke="#0f172a" stroke-width="1.5"/>
+  <line x1="65" y1="0" x2="65" y2="170" stroke="#0f172a" stroke-width="1.5"/>
+  
+  <!-- Cột tiêu đề trái -->
+  <text x="32" y="24" font-family="'Times New Roman', serif" font-size="18" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0f172a">x</text>
+  <text x="32" y="58" font-family="'Times New Roman', serif" font-size="18" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0f172a">y'</text>
+  <text x="32" y="125" font-family="'Times New Roman', serif" font-size="18" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0f172a">y</text>
+  
+  <!-- Dòng x -->
+  <text x="95" y="24" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" fill="#0f172a">-∞</text>
+  <text x="250" y="24" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0f172a">1</text>
+  <text x="415" y="24" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0f172a">+∞</text>
+  
+  <!-- Dòng y' -->
+  <text x="160" y="57" font-family="'Times New Roman', serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0f172a">+</text>
+  <text x="340" y="57" font-family="'Times New Roman', serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0f172a">+</text>
+  
+  <!-- Vạch kép tại x = 1 từ dòng y' xuống hết bảng -->
+  <line x1="247" y1="35" x2="247" y2="170" stroke="#0f172a" stroke-width="1.5"/>
+  <line x1="253" y1="35" x2="253" y2="170" stroke="#0f172a" stroke-width="1.5"/>
+  
+  <!-- Dòng y: Nhánh trái -->
+  <text x="100" y="160" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" fill="#0f172a">-2</text>
+  <line x1="120" y1="155" x2="230" y2="92" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-bb-10)"/>
+  <text x="238" y="86" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" text-anchor="end" fill="#0f172a">+∞</text>
+  
+  <!-- Dòng y: Nhánh phải -->
+  <text x="262" y="162" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" fill="#0f172a">-∞</text>
+  <line x1="285" y1="155" x2="395" y2="92" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-bb-10)"/>
+  <text x="420" y="86" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0f172a">-2</text>
+</svg>`,
+      options: [
+        { id: "A", text: "$y = -2$" },
+        { id: "B", text: "$x = -2$" },
+        { id: "C", text: "$x = 1$" },
+        { id: "D", text: "$y = 1$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Dựa vào bảng biến thiên của hàm số đã cho:</p>
+  <ul>
+    <li>Khi $x \\to -\\infty$, ta có $\\lim_{x \\to -\\infty} y = -2$.</li>
+    <li>Khi $x \\to +\\infty$, ta có $\\lim_{x \\to +\\infty} y = -2$.</li>
+  </ul>
+  <p>Theo định nghĩa đường tiệm cận ngang, đường thẳng $y = -2$ là tiệm cận ngang của đồ thị hàm số.</p>
+  <p><em>(Lưu ý: Đường thẳng $x = 1$ là tiệm cận đứng của đồ thị hàm số vì $\\lim_{x \\to 1^-} y = +\\infty$ và $\\lim_{x \\to 1^+} y = -\\infty$).</em></p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    },
+    {
+      id: 11,
+      part: "I",
+      grade: "12",
+      topic: "Công thức số hạng của cấp số nhân",
+      question: "Cho cấp số nhân $(u_n)$ có số hạng đầu $u_1$ và công bội $q$ với $u_1 \\ne 0, q > 1$. Số hạng $u_4$ là",
+      svg: "",
+      options: [
+        { id: "A", text: "$u_4 = u_1 \\cdot q^3$" },
+        { id: "B", text: "$u_4 = u_1 \\cdot q^4$" },
+        { id: "C", text: "$u_4 = u_1 + 3q$" },
+        { id: "D", text: "$u_4 = u_1 + 4q$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Công thức số hạng tổng quát của cấp số nhân là: $u_n = u_1 \\cdot q^{n - 1}$ (với $n \\ge 2$).</p>
+  <p>Với $n = 4$, ta có: $u_4 = u_1 \\cdot q^{4 - 1} = u_1 \\cdot q^3$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    },
+    {
+      id: 12,
+      part: "I",
+      grade: "12",
+      topic: "Mẫu số liệu ghép nhóm - Nhóm chứa trung vị",
+      question: "Khảo sát thời gian (đơn vị: phút) học trực tuyến trong một ngày của 42 học sinh, người ta thu được mẫu số liệu ghép nhóm như sau:<br><div style=\"overflow-x:auto; margin: 10px 0;\"><table style=\"width:100%; max-width:650px; border-collapse:collapse; margin:auto; text-align:center; border:1px solid #94a3b8;\"><tr style=\"background:#f1f5f9;\"><th style=\"border:1px solid #cbd5e1; padding:8px 12px;\">Thời gian học trực tuyến</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[10; 20)</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[20; 30)</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[30; 40)</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[40; 50)</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[50; 60)</th><th style=\"border:1px solid #cbd5e1; padding:8px;\">[60; 70)</th></tr><tr><td style=\"border:1px solid #cbd5e1; padding:8px 12px; font-weight:700;\">Số học sinh</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">4</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">8</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold; color:#2563eb;\">14</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">7</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">4</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">5</td></tr></table></div>Trung vị của mẫu số liệu trên thuộc nhóm nào sau đây?",
+      svg: "",
+      options: [
+        { id: "A", text: "$[30;\\; 40)$" },
+        { id: "B", text: "$[40;\\; 50)$" },
+        { id: "C", text: "$[60;\\; 70)$" },
+        { id: "D", text: "$[50;\\; 60)$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Cỡ mẫu là $n = 42$. Vì $\\dfrac{n}{2} = 21$ nên trung vị $M_e$ là giá trị trung bình của giá trị thứ $21$ và thứ $22$ trong mẫu số liệu đã sắp xếp.</p>
+  <p>Tính tần số tích lũy của từng nhóm:</p>
+  <ul>
+    <li>Tần số tích lũy nhóm 1 $[10; 20)$ là: $cf_1 = 4$.</li>
+    <li>Tần số tích lũy nhóm 2 $[20; 30)$ là: $cf_2 = 4 + 8 = 12$.</li>
+    <li>Tần số tích lũy nhóm 3 $[30; 40)$ là: $cf_3 = 12 + 14 = 26$.</li>
+  </ul>
+  <p>Vì $12 < 21 \\le 26$ và $12 < 22 \\le 26$, nên các giá trị thứ 21 và thứ 22 đều nằm trong nhóm thứ ba $[30; 40)$.</p>
+  <p>Vậy nhóm chứa trung vị là <strong>$[30; 40)$</strong>.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>
+`
+    }
+  ],
+
+  // ==================== PHẦN II: 4 CÂU ĐÚNG / SAI (4,0 ĐIỂM) ====================
+  part2: [
+    {
+      id: 1,
+      part: "II",
+      grade: "12",
+      topic: "Xác suất có điều kiện trong sàng lọc y tế ứng dụng AI",
+      question: "Nhằm đưa ra cảnh báo sớm về tình trạng sức khỏe của cư dân, người ta sử dụng một ứng dụng trí tuệ nhân tạo để sàng lọc nguy cơ mắc bệnh dựa trên hồ sơ y tế được lưu trữ. Khi phát hiện nguy cơ mắc bệnh, ứng dụng này sẽ gửi cảnh báo để giúp người dân đi khám bệnh kịp thời. Người ta dùng ứng dụng này để tầm soát nguy cơ mắc một loại bệnh.<br>Kết quả thu được khi quét thử nghiệm hồ sơ y tế của $10000$ người như sau: Có $1000$ người nhận được cảnh báo và $9000$ người còn lại không nhận được cảnh báo từ ứng dụng. Trong số $1000$ người nhận được cảnh báo thì có $700$ người có bệnh và $300$ người không có bệnh. Trong số $9000$ người không nhận được cảnh báo thì có $100$ người có bệnh và $8900$ người không có bệnh.<br>Chọn ngẫu nhiên một người trong số $10000$ người nói trên. Xét tính Đúng / Sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        { id: "a", text: "Xác suất để người đó không nhận được cảnh báo từ ứng dụng bằng $0,9$.", correct: true },
+        { id: "b", text: "Xác suất để người đó không có bệnh, biết rằng người đó không nhận được cảnh báo từ ứng dụng, lớn hơn $0,98$.", correct: true },
+        { id: "c", text: "Xác suất để người đó không có bệnh bằng $0,9$.", correct: false },
+        { id: "d", text: "Xác suất để người đó không nhận được cảnh báo từ ứng dụng, biết rằng người đó không có bệnh, nhỏ hơn $0,95$.", correct: false }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Gọi $W$ là biến cố \"Người đó nhận được cảnh báo\" $\\implies \\overline{W}$ là biến cố \"Không nhận được cảnh báo\".</p>
+  <p>Gọi $D$ là biến cố \"Người đó có bệnh\" $\\implies \\overline{D}$ là biến cố \"Người đó không có bệnh\".</p>
+  <p>Lập bảng tần số liên kết cho $10000$ người:</p>
+  <div style="overflow-x:auto; margin: 10px 0;">
+    <table style="width:100%; max-width:550px; border-collapse:collapse; margin:auto; text-align:center; border:1px solid #94a3b8;">
+      <tr style="background:#e2e8f0; font-weight:bold;">
+        <th style="border:1px solid #cbd5e1; padding:8px;">Tình trạng</th>
+        <th style="border:1px solid #cbd5e1; padding:8px;">Nhận cảnh báo ($W$)</th>
+        <th style="border:1px solid #cbd5e1; padding:8px;">Không nhận (${\\overline{W}}$)</th>
+        <th style="border:1px solid #cbd5e1; padding:8px;">Tổng cộng</th>
+      </tr>
+      <tr>
+        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">Có bệnh ($D$)</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$700$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$100$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">$800$</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">Không bệnh (${\\overline{D}}$)</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$300$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$8900$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">$9200$</td>
+      </tr>
+      <tr style="background:#f8fafc; font-weight:bold;">
+        <td style="border:1px solid #cbd5e1; padding:8px;">Tổng cộng</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$1000$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$9000$</td>
+        <td style="border:1px solid #cbd5e1; padding:8px;">$10000$</td>
+      </tr>
+    </table>
+  </div>
+  <ul>
+    <li><strong>Ý a) ĐÚNG:</strong> $P(\\overline{W}) = \\dfrac{9000}{10000} = 0,9$.</li>
+    <li><strong>Ý b) ĐÚNG:</strong> Xác suất người không có bệnh biết họ không nhận cảnh báo là:
+      $$P(\\overline{D} \\mid \\overline{W}) = \\dfrac{n(\\overline{D} \\cap \\overline{W})}{n(\\overline{W})} = \\dfrac{8900}{9000} = \\dfrac{89}{90} \\approx 0,9889 > 0,98.$$
+    </li>
+    <li><strong>Ý c) SAI:</strong> Xác suất người đó không có bệnh là:
+      $$P(\\overline{D}) = \\dfrac{9200}{10000} = 0,92 \\ne 0,9.$$
+    </li>
+    <li><strong>Ý d) SAI:</strong> Xác suất không nhận cảnh báo biết rằng người đó không có bệnh:
+      $$P(\\overline{W} \\mid \\overline{D}) = \\dfrac{n(\\overline{W} \\cap \\overline{D})}{n(\\overline{D})} = \\dfrac{8900}{9200} = \\dfrac{89}{92} \\approx 0,9674 > 0,95.$$
+      Do $0,9674 > 0,95$ nên khẳng định \"nhỏ hơn 0,95\" là Sai.
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) ĐÚNG &bull; b) ĐÚNG &bull; c) SAI &bull; d) SAI.</strong></p>
+</div>
+`
+    },
+    {
+      id: 2,
+      part: "II",
+      grade: "12",
+      topic: "Khảo sát hàm số bậc ba",
+      question: "Cho hàm số $f(x) = \\dfrac{1}{3}x^3 - 5x^2 + 9x + 8$. Xét tính Đúng / Sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        { id: "a", text: "Hàm số đã cho có đạo hàm là $f'(x) = x^2 - 10x + 9$.", correct: true },
+        { id: "b", text: "Phương trình $f'(x) = 0$ có tập nghiệm là $S = \\{1;\\; 9\\}$.", correct: true },
+        { id: "c", text: "Hàm số đã cho nghịch biến trên khoảng $(1;\\; 9)$.", correct: true },
+        { id: "d", text: "Giá trị cực tiểu của hàm số đã cho bằng $\\dfrac{37}{3}$.", correct: false }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <ul>
+    <li><strong>Ý a) ĐÚNG:</strong> $f'(x) = \\left(\\dfrac{1}{3}x^3 - 5x^2 + 9x + 8\\right)' = x^2 - 10x + 9$.</li>
+    <li><strong>Ý b) ĐÚNG:</strong> $f'(x) = 0 \\iff x^2 - 10x + 9 = 0 \\iff (x - 1)(x - 9) = 0 \\iff x = 1$ hoặc $x = 9$. Vậy $S = \\{1;\\; 9\\}$.</li>
+    <li><strong>Ý c) ĐÚNG:</strong> Tam thức bậc hai $x^2 - 10x + 9$ có hệ số $a = 1 > 0$ và hai nghiệm $1, 9$. Do đó $f'(x) < 0$ với mọi $x \\in (1; 9)$, suy ra hàm số nghịch biến trên khoảng $(1; 9)$.</li>
+    <li><strong>Ý d) SAI:</strong> Đạo hàm $f'(x)$ đổi dấu từ âm sang dương khi qua $x = 9$, do đó $x = 9$ là điểm cực tiểu của hàm số. Giá trị cực tiểu tương ứng là:
+      $$f(9) = \\dfrac{1}{3}(9)^3 - 5(9)^2 + 9(9) + 8 = 243 - 405 + 81 + 8 = -73.$$
+      Còn giá trị $f(1) = \\dfrac{1}{3}(1)^3 - 5(1)^2 + 9(1) + 8 = \\dfrac{37}{3}$ chính là <strong>giá trị cực đại</strong> của hàm số.
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) ĐÚNG &bull; b) ĐÚNG &bull; c) ĐÚNG &bull; d) SAI.</strong></p>
+</div>
+`
+    },
+    {
+      id: 3,
+      part: "II",
+      grade: "12",
+      topic: "Ứng dụng tích phân xác định năng lượng pin mặt trời tích lũy",
+      question: "Một hệ thống pin năng lượng mặt trời gồm các tấm pin được kết nối với một bộ lưu trữ điện. Trong thời gian mặt trời chiếu sáng của một ngày, năng lượng điện thu được từ các tấm pin được lưu trong bộ lưu trữ điện. Gọi $F(t)$ là năng lượng điện $(\\text{kWh})$ lưu trữ được kể từ thời điểm hệ thống bắt đầu hoạt động đến thời điểm $t$, trong đó $t$ là thời gian tính theo giờ ($0 \\le t \\le 12$) và thời điểm hệ thống bắt đầu hoạt động ứng với $t = 0$. Biết rằng $F(0) = 0$.<br>Tốc độ lưu trữ năng lượng điện $(\\text{kW})$ của hệ thống này là hàm số $f(t) = F'(t)$ với $0 \\le t \\le 12$. Số liệu ghi nhận được ở một ngày cụ thể trong năm cho thấy $f(t) = -0,3t^2 + 3,6t$ với $0 \\le t \\le 12$. Xét tính Đúng / Sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        { id: "a", text: "$F(t) = -0,1t^3 + 1,8t^2$ với $0 \\le t \\le 12$.", correct: true },
+        { id: "b", text: "Năng lượng điện $(\\text{kWh})$ lưu trữ được kể từ thời điểm $t = a$ đến thời điểm $t = b$ ($0 \\le a < b \\le 12$) là $\\int_a^b f(t)\\,dt$.", correct: true },
+        { id: "c", text: "Năng lượng điện lưu trữ được kể từ thời điểm $t = 1$ đến thời điểm $t = 4$ nhỏ hơn $20,6\\text{ kWh}$.", correct: false },
+        { id: "d", text: "Năng lượng điện lưu trữ được kể từ thời điểm $t = 1$ đến thời điểm $t = 7$ gấp hai lần năng lượng điện lưu trữ được kể từ thời điểm $t = 1$ đến thời điểm $t = 4$.", correct: false }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <ul>
+    <li><strong>Ý a) ĐÚNG:</strong> Vì $f(t) = F'(t)$ nên:
+      $$F(t) = \\int (-0,3t^2 + 3,6t)\\,dt = -0,1t^3 + 1,8t^2 + C.$$
+      Theo giả thiết $F(0) = 0 \\implies C = 0$. Do đó $F(t) = -0,1t^3 + 1,8t^2$ với $0 \\le t \\le 12$.
+    </li>
+    <li><strong>Ý b) ĐÚNG:</strong> Theo công thức Newton-Leibniz, lượng biến thiên của đại lượng $F(t)$ từ $t = a$ đến $t = b$ chính bằng tích phân: $\\Delta F = F(b) - F(a) = \\int_a^b f(t)\\,dt$.</li>
+    <li><strong>Ý c) SAI:</strong> Năng lượng điện tích lũy từ $t = 1$ đến $t = 4$ là:
+      $$\\Delta F_{1 \\to 4} = F(4) - F(1) = [-0,1(4)^3 + 1,8(4)^2] - [-0,1(1)^3 + 1,8(1)^2]$$
+      $$= [-6,4 + 28,8] - [-0,1 + 1,8] = 22,4 - 1,7 = 20,7\\text{ kWh}.$$
+      Vì $20,7\\text{ kWh} > 20,6\\text{ kWh}$ nên khẳng định \"nhỏ hơn $20,6\\text{ kWh}$\" là Sai.
+    </li>
+    <li><strong>Ý d) SAI:</strong> Năng lượng điện tích lũy từ $t = 1$ đến $t = 7$ là:
+      $$\\Delta F_{1 \\to 7} = F(7) - F(1) = [-0,1(7)^3 + 1,8(7)^2] - 1,7$$
+      $$= [-34,3 + 88,2] - 1,7 = 53,9 - 1,7 = 52,2\\text{ kWh}.$$
+      Tỉ số: $\\dfrac{52,2}{20,7} \\approx 2,5217 \\ne 2$ (không gấp hai lần).
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) ĐÚNG &bull; b) ĐÚNG &bull; c) SAI &bull; d) SAI.</strong></p>
+</div>
+`
+    },
+    {
+      id: 4,
+      part: "II",
+      grade: "12",
+      topic: "Định vị quỹ đạo máy bay và khoảng cách tới vành đai bảo vệ trong không gian Oxyz",
+      question: "Trong không gian xét hệ tọa độ $Oxyz$ có một đơn vị dài trên các trục tương ứng với $10\\text{ mét}$ trên thực tế. Một mục tiêu cần được bảo vệ có vị trí ở gốc tọa độ $O$. Người ta thiết lập một vành đai bảo vệ quanh mục tiêu theo một đường tròn tâm $O$ có bán kính bằng $7$ đơn vị (tương ứng $70\\text{ mét}$ trên thực tế) nằm trong mặt phẳng $(Oxy)$. Một máy bay không người lái (được coi như một hạt) bay theo một đường thẳng từ vị trí $M(5; 10; 4)$ đến vị trí $N(14; -2; 4)$. Tại mỗi vị trí của máy bay, khoảng cách từ máy bay đến vành đai bảo vệ là độ dài ngắn nhất của các đoạn thẳng nối từ vị trí đó đến một điểm bất kì trên vành đai. Xét tính Đúng / Sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        { id: "a", text: "$\\vec{MN} = (9;\\; -12;\\; 0)$.", correct: true },
+        { id: "b", text: "Phương trình tham số của đường thẳng $MN$ là $\\begin{cases} x = 5 + 3t \\\\ y = 10 - 4t \\\\ z = 0 \\end{cases}$ với $t \\in \\mathbb{R}$.", correct: false },
+        { id: "c", text: "Trong quá trình bay từ $M$ đến $N$, khoảng cách ngắn nhất từ máy bay đến vành đai bảo vệ là $50\\text{ mét}$.", correct: true },
+        { id: "d", text: "Trong quá trình bay từ $M$ đến $N$, khoảng cách từ máy bay đến vành đai bảo vệ là ngắn nhất khi máy bay ở vị trí có tọa độ là $(8;\\; 6;\\; 4)$.", correct: true }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <ul>
+    <li><strong>Ý a) ĐÚNG:</strong> $\\vec{MN} = (14 - 5;\\; -2 - 10;\\; 4 - 4) = (9;\\; -12;\\; 0)$.</li>
+    <li><strong>Ý b) SAI:</strong> Đường thẳng $MN$ đi qua $M(5; 10; 4)$ và nhận vectơ $\\vec{u} = \\dfrac{1}{3}\\vec{MN} = (3; -4; 0)$ làm VTCP.
+      Phương trình tham số đúng phải là:
+      $$\\begin{cases} x = 5 + 3t \\\\ y = 10 - 4t \\\\ z = 4 \\end{cases} \\; (t \\in \\mathbb{R}).$$
+      Đề bài ghi $z = 0$ là sai (máy bay bay ở độ cao $z = 4$).
+    </li>
+    <li><strong>Ý c) ĐÚNG:</strong> Điểm $Q(5 + 3t;\\; 10 - 4t;\\; 4)$ thuộc đoạn $MN$ ứng với $t \\in [0; 3]$ (vì $M$ ứng với $t = 0$ và $N$ ứng với $t = 3$).
+      Hình chiếu của $Q$ lên mặt phẳng $(Oxy)$ là $Q'(5 + 3t;\\; 10 - 4t;\\; 0)$.
+      Khoảng cách từ $Q'$ đến gốc $O(0; 0; 0)$ là:
+      $$OQ'^2 = (5 + 3t)^2 + (10 - 4t)^2 = 25t^2 - 50t + 125 = 25(t - 1)^2 + 100 \\ge 100.$$
+      Suy ra $OQ'_{\\min} = \\sqrt{100} = 10$ đơn vị, đạt được khi $t = 1 \\in [0; 3]$.
+      Vì vành đai là đường tròn tâm $O$ bán kính $R = 7$ trong mặt phẳng $(Oxy)$ và $OQ' = 10 > 7$, nên khoảng cách ngắn nhất từ $Q'$ đến đường tròn là $10 - 7 = 3$ đơn vị.
+      Khoảng cách ngắn nhất từ máy bay $Q$ đến vành đai bảo vệ là:
+      $$d_{\\min} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ đơn vị}.$$
+      Đổi ra thực tế: $5 \\times 10\\text{ m} = 50\\text{ mét}$.
+    </li>
+    <li><strong>Ý d) ĐÚNG:</strong> Giá trị nhỏ nhất đạt được tại tham số $t = 1$. Thay $t = 1$ vào phương trình đường thẳng:
+      $$\\begin{cases} x = 5 + 3(1) = 8 \\\\ y = 10 - 4(1) = 6 \\\\ z = 4 \\end{cases} \\implies (8;\\; 6;\\; 4).$$
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) ĐÚNG &bull; b) SAI &bull; c) ĐÚNG &bull; d) ĐÚNG.</strong></p>
+</div>
+`
+    }
+  ],
+
+  // ==================== PHẦN III: 6 CÂU TRẢ LỜI NGẮN (3,0 ĐIỂM) ====================
+  part3: [
+    {
+      id: 1,
+      part: "III",
+      grade: "12",
+      topic: "Khoảng cách từ điểm đến mặt phẳng trong khối lập phương",
+      question: "Cho hình lập phương $ABCD.MNPQ$ có cạnh bằng $6$. Gọi $E$ là trung điểm của đoạn thẳng $AB$. Khoảng cách từ điểm $P$ đến mặt phẳng $(MED)$ bằng bao nhiêu (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm)?",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" class="tikz-svg" style="max-width: 350px; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <!-- Mặt phẳng (MED) tô màu mờ -->
+  <polygon points="120,200 200,165 120,60" fill="rgba(59, 130, 246, 0.22)" stroke="#2563eb" stroke-width="2"/>
+  
+  <!-- Cạnh nét đứt (khuất ở mặt sau/trong) -->
+  <line x1="120" y1="200" x2="280" y2="200" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <line x1="40" y1="200" x2="120" y2="200" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <line x1="120" y1="200" x2="120" y2="60" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <line x1="120" y1="200" x2="200" y2="165" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <!-- Các cạnh nét liền nhìn thấy -->
+  <line x1="40" y1="200" x2="120" y2="130" stroke="#1e293b" stroke-width="2"/>
+  <line x1="120" y1="130" x2="280" y2="130" stroke="#1e293b" stroke-width="2"/>
+  <line x1="280" y1="130" x2="280" y2="200" stroke="#1e293b" stroke-width="2"/>
+  <line x1="40" y1="200" x2="40" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="120" y1="130" x2="120" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="280" y1="130" x2="280" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="280" y1="200" x2="280" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="40" y1="60" x2="120" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="120" y1="60" x2="280" y2="60" stroke="#1e293b" stroke-width="2"/>
+  <line x1="40" y1="60" x2="200" y2="60" stroke="#1e293b" stroke-width="1.2"/>
+  <line x1="200" y1="165" x2="120" y2="60" stroke="#2563eb" stroke-width="2"/>
+
+  <!-- Các đỉnh -->
+  <circle cx="120" cy="200" r="4" fill="#0369a1"/><text x="105" y="215" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#0369a1">D</text>
+  <circle cx="40" cy="200" r="3.5" fill="#1e293b"/><text x="25" y="210" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">A</text>
+  <circle cx="200" cy="165" r="3.5" fill="#dc2626"/><text x="206" y="180" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#dc2626">E</text>
+  <circle cx="280" cy="200" r="3.5" fill="#1e293b"/><text x="290" y="210" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#1e293b">C</text>
+  <circle cx="120" cy="60" r="4" fill="#2563eb"/><text x="125" y="55" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#2563eb">M</text>
+  <circle cx="280" cy="60" r="4" fill="#dc2626"/><text x="290" y="55" font-family="'Times New Roman', serif" font-size="16" font-weight="bold" font-style="italic" fill="#dc2626">P</text>
+</svg>`,
+      correctAnswer: "7,35",
+      acceptableAnswers: ["7,35", "7.35", "7,348", "7.348"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Thiết lập hệ trục tọa độ $Oxyz$ với gốc tọa độ đặt tại đỉnh $D(0; 0; 0)$:</p>
+  <ul>
+    <li>Tia $Ox$ trùng với tia $DA$, tia $Oy$ trùng với tia $DC$, tia $Oz$ trùng với tia $DQ$.</li>
+  </ul>
+  <p>Khi đó tọa độ các đỉnh của hình lập phương cạnh $6$ là:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.05rem;">
+    $D(0; 0; 0), \\quad A(6; 0; 0), \\quad B(6; 6; 0), \\quad C(0; 6; 0)$<br>
+    $M(6; 0; 6), \\quad N(6; 6; 6), \\quad P(0; 6; 6), \\quad Q(0; 0; 6)$.
+  </div>
+  <p>Vì $E$ là trung điểm của đoạn thẳng $AB$ nên $E\\left(6; \\dfrac{0 + 6}{2}; 0\\right) = E(6; 3; 0)$.</p>
+  <p>Mặt phẳng $(MED)$ đi qua gốc tọa độ $D(0; 0; 0)$ và có cặp vectơ chỉ phương:</p>
+  $$\\vec{DM} = (6; 0; 6) = 6(1; 0; 1), \\quad \\vec{DE} = (6; 3; 0) = 3(2; 1; 0).$$
+  <p>Vectơ pháp tuyến của mặt phẳng $(MED)$ là:</p>
+  $$\\vec{n} = [\\vec{u}_1, \\vec{u}_2] = (0(0) - 1(1);\\; 1(2) - 1(0);\\; 1(1) - 0(2)) = (-1; 2; 1) \\parallel (1; -2; -1).$$
+  <p>Phương trình mặt phẳng $(MED)$ đi qua $D(0; 0; 0)$ là: $x - 2y - z = 0$.</p>
+  <p>Khoảng cách từ điểm $P(0; 6; 6)$ đến mặt phẳng $(MED)$ là:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.15rem; color: #1e3a8a;">
+    $$d(P, (MED)) = \\dfrac{|0 - 2(6) - 6|}{\\sqrt{1^2 + (-2)^2 + (-1)^2}} = \\dfrac{|-18|}{\\sqrt{6}} = \\dfrac{18}{\\sqrt{6}} = 3\\sqrt{6} \\approx 7,3484... \\approx 7,35.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Đáp số: 7,35</strong></p>
+</div>
+`
+    },
+    {
+      id: 2,
+      part: "III",
+      grade: "12",
+      topic: "Tổ hợp - Xếp số vào bảng bậc thang thỏa điều kiện chia hết",
+      question: "Trong một trò chơi bạn Bình cần vượt qua một thử thách. Theo yêu cầu của thử thách, Bình cần điền tất cả 15 số thuộc tập hợp $\\{0; 1; 2; 3; 4; 5; 6; 7; 8; 10; 11; 12; 15; 16; 20\\}$ vào 15 ô vuông trong hình dưới thỏa mãn đồng thời ba điều kiện sau:<br>&ndash; Mỗi ô điền đúng một số và mỗi số chỉ được sử dụng một lần;<br>&ndash; Hiệu hai số ở hai ô bất kì khác nhau trên cùng một hàng không chia hết cho 5;<br>&ndash; Hiệu hai số ở hai ô bất kì khác nhau trên cùng một cột không chia hết cho 5.<br>Hai cách điền gọi là giống nhau nếu số điền ở mỗi ô tương ứng trong 15 ô là giống nhau (không tính đến thứ tự điền các số vào 15 ô vuông). Gọi $H$ là số cách điền khác nhau để bạn Bình vượt qua được thử thách. Giá trị của $\\dfrac{H}{30}$ bằng bao nhiêu?",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 260" class="tikz-svg" style="max-width: 320px; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <!-- Bảng bậc thang 15 ô vuông (Kích thước mỗi ô 36x36) -->
+  <!-- Gốc bắt đầu: x=90, y=20 (Hàng 5 ở trên, Hàng 1 ở dưới) -->
+  <!-- Hàng 5 (1 ô): Cột 1 -->
+  <rect x="90" y="20" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="80" y="44" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="end" fill="#0f172a">Hàng 5</text>
+  
+  <!-- Hàng 4 (2 ô): Cột 1, Cột 2 -->
+  <rect x="90" y="56" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="126" y="56" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="80" y="80" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="end" fill="#0f172a">Hàng 4</text>
+  
+  <!-- Hàng 3 (3 ô): Cột 1, 2, 3 -->
+  <rect x="90" y="92" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="126" y="92" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="162" y="92" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="80" y="116" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="end" fill="#0f172a">Hàng 3</text>
+  
+  <!-- Hàng 2 (4 ô): Cột 1, 2, 3, 4 -->
+  <rect x="90" y="128" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="126" y="128" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="162" y="128" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="198" y="128" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="80" y="152" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="end" fill="#0f172a">Hàng 2</text>
+  
+  <!-- Hàng 1 (5 ô): Cột 1, 2, 3, 4, 5 -->
+  <rect x="90" y="164" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="126" y="164" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="162" y="164" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="198" y="164" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <rect x="234" y="164" width="36" height="36" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="80" y="188" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="end" fill="#0f172a">Hàng 1</text>
+  
+  <!-- Nhãn Cột dưới đáy -->
+  <text x="108" y="222" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">Cột 1</text>
+  <text x="144" y="222" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">Cột 2</text>
+  <text x="180" y="222" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">Cột 3</text>
+  <text x="216" y="222" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">Cột 4</text>
+  <text x="252" y="222" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">Cột 5</text>
+</svg>`,
+      correctAnswer: "1152",
+      acceptableAnswers: ["1152"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Hiệu hai số không chia hết cho $5$ khi và chỉ khi hai số đó có số dư khác nhau khi chia cho $5$.</p>
+  <p>Phân loại 15 số đã cho theo số dư khi chia cho 5:</p>
+  <ul>
+    <li>Nhóm dư 0: $\\{0; 5; 10; 15; 20\\}$ &rarr; có $5$ số.</li>
+    <li>Nhóm dư 1: $\\{1; 6; 11; 16\\}$ &rarr; có $4$ số.</li>
+    <li>Nhóm dư 2: $\\{2; 7; 12\\}$ &rarr; có $3$ số.</li>
+    <li>Nhóm dư 3: $\\{3; 8\\}$ &rarr; có $2$ số.</li>
+    <li>Nhóm dư 4: $\\{4\\}$ &rarr; có $1$ số.</li>
+  </ul>
+  <p>Vì mỗi hàng và mỗi cột không có hai số nào cùng số dư, nên:</p>
+  <ul>
+    <li>Hàng 1 có 5 ô &rArr; phải chứa đủ 5 lớp dư: 0, 1, 2, 3, 4.</li>
+    <li>Cột 1 có 5 ô &rArr; phải chứa đủ 5 lớp dư: 0, 1, 2, 3, 4.</li>
+  </ul>
+  <p>Do cấu trúc bảng bậc thang giảm dần đối xứng, các vị trí đặt của các lớp số dư là hoàn toàn xác định duy nhất.</p>
+  <p>Số cách điền 15 số thực tế vào các vị trí tương ứng của nhóm số dư là:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.15rem; color: #1e3a8a;">
+    $$H = 5! \\times 4! \\times 3! \\times 2! \\times 1! = 120 \\times 24 \\times 6 \\times 2 \\times 1 = 34560 \\text{ cách}.$$
+  </div>
+  <p>Giá trị cần tìm là:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.25rem; font-weight: bold; color: #b45309;">
+    $$\\dfrac{H}{30} = \\dfrac{34560}{30} = 1152.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Đáp số: 1152</strong></p>
+</div>
+`
+    },
+    {
+      id: 3,
+      part: "III",
+      grade: "12",
+      topic: "Ứng dụng tích phân tính thể tích hạt cườm tròn xoay elip khoét lỗ trụ",
+      question: "Để chế tác một hạt cườm, người ta lấy một khối vật thể có dạng một khối tròn xoay được tạo thành khi quay hình phẳng giới hạn bởi trục $Ox$ và nửa trên của elip $\\dfrac{x^2}{1,5^2} + \\dfrac{y^2}{1^2} = 1$ (một đơn vị dài trên mỗi trục toạ độ tương ứng với một xăng-ti-mét trong thực tế) quanh trục $Ox$; sau đó khoan dọc theo trục xoay (xem hình dưới). Lỗ khoan có dạng hình trụ với bán kính $0,2\\text{ cm}$ và có trục nằm trên trục xoay. Phần còn lại sau khi khoan là hạt cườm, có dạng một khối tròn xoay.<br>Thể tích của hạt cườm đó bằng bao nhiêu xăng-ti-mét khối (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm)?",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" class="tikz-svg" style="max-width: 720px; width: 100%; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1.5px solid #cbd5e1; box-shadow: 0 3px 12px rgba(0,0,0,0.05);">
+  <defs>
+    <!-- Mũi tên trục và dóng -->
+    <marker id="arr-axis-b8" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f172a"/>
+    </marker>
+    <!-- Pattern sọc chéo cho mũi khoan -->
+    <pattern id="hatch-drill" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#475569" stroke-width="1.4" />
+    </pattern>
+    <!-- Pattern gạch sọc cho miền tiết diện tích phân -->
+    <pattern id="hatch-bead-sec" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#94a3b8" stroke-width="1.2" />
+    </pattern>
+  </defs>
+
+  <!-- ==================== HÌNH TRÁI: KHỐI TRÒN XOAY HẠT CƯỜM & MŨI KHOAN ==================== -->
+  <g id="figure-left">
+    <!-- Trục xoay nằm ngang -->
+    <line x1="30" y1="125" x2="350" y2="125" stroke="#0f172a" stroke-width="1.4" stroke-dasharray="8,4,2,4"/>
+    
+    <!-- Nhãn Mũi khoan & Trục xoay bên trái -->
+    <text x="35" y="65" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">Bán kính lỗ khoan</text>
+    <text x="65" y="80" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0f172a">0,2</text>
+    <line x1="95" y1="78" x2="118" y2="114" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-axis-b8)"/>
+    
+    <text x="25" y="112" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">Mũi khoan</text>
+    <!-- Thân mũi khoan dạng hoa văn sọc chéo -->
+    <rect x="45" y="118" width="30" height="14" fill="url(#hatch-drill)" stroke="#0f172a" stroke-width="1.2"/>
+    
+    <text x="25" y="158" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">Trục xoay</text>
+
+    <!-- Khối hạt cườm elip 3D -->
+    <!-- Nửa trên elip bao quanh: tâm x=235, y=125, rx=110, ry=72 -->
+    <!-- Nửa dưới elip bao quanh: tâm x=235, y=125, rx=110, ry=72 -->
+    <path d="M 125,125 A 110,72 0 1,1 345,125 A 110,72 0 1,1 125,125 Z" fill="none" stroke="#0f172a" stroke-width="2"/>
+    
+    <!-- Lỗ khoan hình trụ xuyên suốt trục xoay (bán kính r = 14, từ y=111 đến y=139) -->
+    <!-- Đường sinh trên bên trong khối: nét đứt -->
+    <line x1="128" y1="111" x2="342" y2="111" stroke="#0f172a" stroke-width="1.8" stroke-dasharray="4,3"/>
+    <!-- Đường sinh dưới bên trong khối: nét đứt -->
+    <line x1="128" y1="139" x2="342" y2="139" stroke="#0f172a" stroke-width="1.8" stroke-dasharray="4,3"/>
+
+    <!-- Vành miệng lỗ khoan ở hai đầu elip -->
+    <ellipse cx="127" cy="125" rx="3.5" ry="14" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+    <ellipse cx="343" cy="125" rx="3.5" ry="14" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+
+    <!-- Thiết diện elip ở chính giữa khối (x = 235) -->
+    <!-- Nửa sau nét đứt -->
+    <path d="M 235,53 A 14,72 0 0,0 235,197" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- Nửa trước nét liền -->
+    <path d="M 235,53 A 14,72 0 0,1 235,197" fill="none" stroke="#0f172a" stroke-width="1.8"/>
+
+    <!-- Trục đứng y dóng tại tâm khối trái -->
+    <line x1="235" y1="53" x2="235" y2="40" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-axis-b8)"/>
+    <text x="228" y="70" font-family="'Times New Roman', serif" font-size="14" font-style="italic" fill="#0f172a">y</text>
+    <text x="215" y="138" font-family="'Times New Roman', serif" font-size="13" font-style="italic" fill="#0f172a">O</text>
+    <text x="350" y="138" font-family="'Times New Roman', serif" font-size="14" font-style="italic" fill="#0f172a">x</text>
+
+    <!-- Công thức elip phía trên khối trái -->
+    <text x="270" y="45" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" fill="#0f172a">x²/1,5² + y²/1² = 1</text>
+  </g>
+
+  <!-- ==================== HÌNH PHẢI: THIẾT DIỆN NỬA ELIP & ĐƯỜNG Y = 0,2 ==================== -->
+  <g id="figure-right">
+    <!-- Hệ trục Oxy bên phải: gốc O=(550, 190) -->
+    <!-- Trục tung Oy thẳng đứng -->
+    <line x1="550" y1="210" x2="550" y2="40" stroke="#0f172a" stroke-width="1.6" marker-end="url(#arr-axis-b8)"/>
+    <text x="535" y="48" font-family="'Times New Roman', serif" font-size="16" font-style="italic" font-weight="bold" fill="#0f172a">y</text>
+    <text x="536" y="205" font-family="'Times New Roman', serif" font-size="15" font-style="italic" font-weight="bold" fill="#0f172a">O</text>
+    
+    <!-- Trục hoành Ox nằm ngang -->
+    <line x1="420" y1="190" x2="710" y2="190" stroke="#0f172a" stroke-width="1.6" marker-end="url(#arr-axis-b8)"/>
+    <text x="702" y="206" font-family="'Times New Roman', serif" font-size="16" font-style="italic" font-weight="bold" fill="#0f172a">x</text>
+
+    <!-- Nửa trên elip: tâm (550, 190), rx=125, ry=83 (từ x=425 đến x=675, đỉnh y=107) -->
+    <!-- Vùng phẳng giới hạn giữa nửa trên elip và đường y = 0,2 (tại y = 190 - 0.2*83 = 173.4) -->
+    <!-- Giao điểm: x = 550 - 125 * sqrt(1 - 0.04) = 550 - 122.47 = 427.5; x2 = 672.5 -->
+    <path d="M 427.5,173.4 A 125,83 0 0,1 672.5,173.4 Z" fill="url(#hatch-bead-sec)" stroke="none"/>
+    
+    <!-- Đường nửa trên elip -->
+    <path d="M 425,190 A 125,83 0 0,1 675,190" fill="none" stroke="#0f172a" stroke-width="2.2"/>
+    
+    <!-- Đường thẳng nằm ngang y = 0,2 -->
+    <line x1="410" y1="173.4" x2="710" y2="173.4" stroke="#0f172a" stroke-width="1.8"/>
+    <text x="645" y="166" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#0f172a">y = 0,2</text>
+
+    <!-- Nhãn công thức elip bên phải -->
+    <text x="585" y="45" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" fill="#0f172a">x²/1,5² + y²/1² = 1</text>
+  </g>
+
+  <!-- Dòng lưu ý kích cỡ phía dưới chính giữa -->
+  <text x="380" y="235" font-family="'Times New Roman', serif" font-size="13" font-style="italic" text-anchor="middle" fill="#1e293b">Lưu ý: Các kích thước trong hình minh họa có thể không đúng tỉ lệ thực tế.</text>
+</svg>`,
+      correctAnswer: "5,91",
+      acceptableAnswers: ["5,91", "5.91", "5,911", "5.911"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Phương trình đường elip là: $\\dfrac{x^2}{1,5^2} + \\dfrac{y^2}{1^2} = 1 \\implies y^2 = 1 - \\dfrac{x^2}{2,25}$.</p>
+  <p>Vì khối tròn xoay được tạo thành do quay nửa trên của elip quanh trục $Ox$, sau đó khoan bỏ đi một lỗ hình trụ có bán kính $r = 0,2\\text{ cm}$ dọc theo trục $Ox$, nên đường biên của lỗ khoan có phương trình $y = 0,2$.</p>
+  <p>Tìm hoành độ giao điểm của elip và đường thẳng $y = 0,2$:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$\\dfrac{x^2}{2,25} + \\dfrac{0,2^2}{1} = 1 \\iff \\dfrac{x^2}{2,25} + 0,04 = 1 \\iff \\dfrac{x^2}{2,25} = 0,96 \\iff x^2 = 2,25 \\times 0,96 = 2,16 \\iff x = \\pm\\sqrt{2,16}.$$
+  </div>
+  <p>Thể tích hạt cườm chính là thể tích khối tròn xoay tạo thành khi quay miền phẳng giới hạn bởi nửa trên elip và đường thẳng $y = 0,2$ quanh trục $Ox$:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.15rem; color: #1e3a8a;">
+    $$V = \\pi \\int_{-\\sqrt{2,16}}^{\\sqrt{2,16}} \\left(y_{\\text{elip}}^2 - y_{\\text{khoan}}^2\\right) dx = \\pi \\int_{-\\sqrt{2,16}}^{\\sqrt{2,16}} \\left(1 - \\dfrac{x^2}{2,25} - 0,04\\right) dx = \\pi \\int_{-\\sqrt{2,16}}^{\\sqrt{2,16}} \\left(0,96 - \\dfrac{x^2}{2,25}\\right) dx.$$
+  </div>
+  <p>Do hàm dưới dấu tích phân là hàm chẵn, ta có:</p>
+  $$V = 2\\pi \\int_0^{\\sqrt{2,16}} \\left(0,96 - \\dfrac{x^2}{2,25}\\right) dx = 2\\pi \\left[ 0,96x - \\dfrac{x^3}{6,75} \\right]_0^{\\sqrt{2,16}}.$$
+  $$V = 2\\pi \\left( 0,96\\sqrt{2,16} - \\dfrac{2,16\\sqrt{2,16}}{6,75} \\right) = 2\\pi \\sqrt{2,16} \\left( 0,96 - 0,32 \\right) = 2\\pi \\sqrt{2,16} \\times 0,64 = 1,28\\pi \\sqrt{2,16}.$$
+  <p>Bấm máy tính ta được:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.2rem; font-weight: bold; color: #b45309;">
+    $$V = 1,28 \\times \\pi \\times \\sqrt{2,16} \\approx 5,9107... \\approx 5,91\\text{ cm}^3.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Đáp số: 5,91</strong></p>
+</div>
+`
+    },
+    {
+      id: 4,
+      part: "III",
+      grade: "12",
+      topic: "Xác suất tổ hợp trên đa giác đều 12 đỉnh",
+      question: "Một khung hình trang trí có dạng một đa giác đều 12 cạnh $A_1A_2\\dots A_{12}$ (xem hình dưới) được gắn cố định trên một trần nhà. Bạn Dũng có 12 bóng đèn gồm bốn bóng màu đỏ và tám bóng màu xanh, có công suất đôi một khác nhau. Bạn Dũng lắp ngẫu nhiên 12 bóng đèn trên vào 12 đỉnh $A_1, A_2, \\dots, A_{12}$ sao cho mỗi đỉnh có đúng một bóng đèn. Gọi $P$ là xác suất để mỗi hình vuông (có bốn đỉnh là các đỉnh của đa giác đã cho) đều có ít nhất một bóng đèn màu đỏ. Giá trị của $3190P$ bằng bao nhiêu?",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 320" class="tikz-svg" style="max-width: 290px; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <!-- Đa giác đều 12 cạnh tâm (170, 160), bán kính R = 110 -->
+  <!-- Góc: A1 ở đỉnh trên (angle = -90 deg), rồi lần lượt quay thuận chiều kim đồng hồ mỗi bước 30 deg -->
+  <!-- A1: 90 deg -> (170, 50) -->
+  <!-- A2: 60 deg -> (170 + 110*cos30, 160 - 110*sin30) = (170 + 95.26, 160 - 55) = (265.3, 105) -->
+  <!-- A3: 30 deg -> (170 + 110*cos0, 160) = (274, 160) - wait, standard math circle -->
+  <polygon points="
+    170,50 
+    225,65 
+    265,105 
+    280,160 
+    265,215 
+    225,255 
+    170,270 
+    115,255 
+    75,215 
+    60,160 
+    75,105 
+    115,65" 
+    fill="none" stroke="#0f172a" stroke-width="2"/>
+    
+  <!-- Các đỉnh và nhãn chữ -->
+  <!-- A1 -->
+  <circle cx="170" cy="50" r="4.5" fill="#dc2626"/><text x="170" y="38" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">A₁</text>
+  <!-- A2 -->
+  <circle cx="225" cy="65" r="4" fill="#0f172a"/><text x="238" y="58" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₂</text>
+  <!-- A3 -->
+  <circle cx="265" cy="105" r="4" fill="#0f172a"/><text x="280" y="103" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₃</text>
+  <!-- A4 -->
+  <circle cx="280" cy="160" r="4.5" fill="#dc2626"/><text x="296" y="165" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" fill="#0f172a">A₄</text>
+  <!-- A5 -->
+  <circle cx="265" cy="215" r="4" fill="#0f172a"/><text x="280" y="226" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₅</text>
+  <!-- A6 -->
+  <circle cx="225" cy="255" r="4" fill="#0f172a"/><text x="236" y="272" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₆</text>
+  <!-- A7 -->
+  <circle cx="170" cy="270" r="4.5" fill="#dc2626"/><text x="170" y="292" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">A₇</text>
+  <!-- A8 -->
+  <circle cx="115" cy="255" r="4" fill="#0f172a"/><text x="96" y="272" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₈</text>
+  <!-- A9 -->
+  <circle cx="75" cy="215" r="4" fill="#0f172a"/><text x="52" y="226" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₉</text>
+  <!-- A10 -->
+  <circle cx="60" cy="160" r="4.5" fill="#dc2626"/><text x="35" y="165" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" fill="#0f172a">A₁₀</text>
+  <!-- A11 -->
+  <circle cx="75" cy="105" r="4" fill="#0f172a"/><text x="52" y="103" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₁₁</text>
+  <!-- A12 -->
+  <circle cx="115" cy="65" r="4" fill="#0f172a"/><text x="96" y="58" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0f172a">A₁₂</text>
+</svg>`,
+      correctAnswer: "1856",
+      acceptableAnswers: ["1856"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Đa giác đều $12$ đỉnh $A_1A_2\\dots A_{12}$ có $12$ đỉnh nằm trên một đường tròn, chia đường tròn thành $12$ cung bằng nhau, mỗi cung có số đo $\\dfrac{360^\\circ}{12} = 30^\\circ$.</p>
+  <p>Một hình vuông có các đỉnh là đỉnh của đa giác đều nếu mỗi cạnh của hình vuông chắn một cung gồm đúng $3$ cạnh của đa giác ($3 \\times 30^\\circ = 90^\\circ$).</p>
+  <p>Do đó, $12$ đỉnh của đa giác được phân hoạch thành đúng $3$ hình vuông rời nhau hoàn toàn về đỉnh:</p>
+  <ul>
+    <li>Hình vuông 1: $H_1 = \\{A_1, A_4, A_7, A_{10}\\}$.</li>
+    <li>Hình vuông 2: $H_2 = \\{A_2, A_5, A_8, A_{11}\\}$.</li>
+    <li>Hình vuông 3: $H_3 = \\{A_3, A_6, A_9, A_{12}\\}$.</li>
+  </ul>
+  <p>Ta có $4$ bóng đèn màu đỏ và $8$ bóng đèn màu xanh.</p>
+  <p>Số phần tử của không gian mẫu (chọn 4 đỉnh trong 12 đỉnh để đặt 4 bóng đèn đỏ):</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$n(\\Omega) = C_{12}^4 = 495.$$
+  </div>
+  <p>Gọi $E$ là biến cố: \"Mỗi hình vuông trong 3 hình vuông đều có ít nhất một bóng đèn màu đỏ\".</p>
+  <p>Vì tổng số bóng đỏ là $4$ mà chia vào $3$ hình vuông sao cho hình nào cũng có bóng đỏ, nên số lượng bóng đỏ ở 3 hình vuông $H_1, H_2, H_3$ bắt buộc phải là một hoán vị của bộ số $(2, 1, 1)$.</p>
+  <p>Tính số kết quả thuận lợi cho biến cố $E$:</p>
+  <ul>
+    <li>Bước 1: Chọn $1$ trong $3$ hình vuông nhận $2$ bóng đỏ: $C_3^1 = 3$ cách.</li>
+    <li>Bước 2: Chọn $2$ đỉnh trong $4$ đỉnh của hình vuông đó để đặt bóng đỏ: $C_4^2 = 6$ cách.</li>
+    <li>Bước 3: Chọn $1$ đỉnh trong $4$ đỉnh của hình vuông thứ hai: $C_4^1 = 4$ cách.</li>
+    <li>Bước 4: Chọn $1$ đỉnh trong $4$ đỉnh của hình vuông thứ ba: $C_4^1 = 4$ cách.</li>
+  </ul>
+  <p>Số cách thuận lợi là: $n(E) = 3 \\times 6 \\times 4 \\times 4 = 288$ cách.</p>
+  <p>Xác suất của biến cố là:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.15rem; color: #1e3a8a;">
+    $$P = \\dfrac{n(E)}{n(\\Omega)} = \\dfrac{288}{495} = \\dfrac{32}{55}.$$
+  </div>
+  <p>Giá trị cần tính:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.25rem; font-weight: bold; color: #b45309;">
+    $$3190P = 3190 \\times \\dfrac{32}{55} = 58 \\times 32 = 1856.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Đáp số: 1856</strong></p>
+</div>
+`
+    },
+    {
+      id: 5,
+      part: "III",
+      grade: "12",
+      topic: "Hệ ba phương trình bậc nhất ba ẩn ứng dụng trong kinh tế thực tế",
+      question: "Một nông trại cung cấp rau quả cho siêu thị A với số liệu bán hàng của bốn ngày trong tuần được ghi lại trong bảng sau:<br><div style=\"overflow-x:auto; margin: 10px 0;\"><table style=\"width:100%; max-width:620px; border-collapse:collapse; margin:auto; text-align:center; border:1px solid #94a3b8;\"><tr style=\"background:#e2e8f0; font-weight:bold;\"><th rowspan=\"2\" style=\"border:1px solid #cbd5e1; padding:8px;\">Ngày</th><th colspan=\"3\" style=\"border:1px solid #cbd5e1; padding:8px;\">Số ki-lô-gam</th><th rowspan=\"2\" style=\"border:1px solid #cbd5e1; padding:8px;\">Tổng số tiền<br>(nghìn đồng)</th></tr><tr style=\"background:#f1f5f9; font-weight:bold;\"><th style=\"border:1px solid #cbd5e1; padding:6px;\">Rau muống</th><th style=\"border:1px solid #cbd5e1; padding:6px;\">Bí xanh</th><th style=\"border:1px solid #cbd5e1; padding:6px;\">Cà chua</th></tr><tr><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">Thứ Tư</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">19</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">14</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">10</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">600</td></tr><tr><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">Thứ Năm</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">20</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">12</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">8</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">540</td></tr><tr><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">Thứ Sáu</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">25</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">12</td><td style=\"border:1px solid #cbd5e1; padding:8px;\">7</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">570</td></tr><tr style=\"background:#fef3c7;\"><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold; color:#b45309;\">Thứ Bảy</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">50</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">25</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold;\">20</td><td style=\"border:1px solid #cbd5e1; padding:8px; font-weight:bold; color:#b45309;\">?</td></tr></table></div>Biết rằng đơn giá theo ki-lô-gam của mỗi loại rau quả trong bảng trên là không đổi. Tổng số tiền nông trại thu được ở ngày thứ Bảy từ ba loại rau quả trên khi cung cấp cho siêu thị A là bao nhiêu nghìn đồng?",
+      svg: "",
+      correctAnswer: "1275",
+      acceptableAnswers: ["1275"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Gọi $x, y, z$ (nghìn đồng) lần lượt là đơn giá một ki-lô-gam của rau muống, bí xanh và cà chua ($x, y, z > 0$).</p>
+  <p>Dựa vào số liệu bán hàng của ba ngày Thứ Tư, Thứ Năm, Thứ Sáu, ta lập được hệ phương trình bậc nhất ba ẩn:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.15rem; color: #1e3a8a;">
+    $$\\begin{cases} 19x + 14y + 10z = 600 \\\\ 20x + 12y + 8z = 540 \\\\ 25x + 12y + 7z = 570 \\end{cases}$$
+  </div>
+  <p>Bấm máy tính giải hệ phương trình tuyến tính này, ta được nghiệm:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #047857; font-weight: bold;">
+    $$x = 10, \\quad y = 15, \\quad z = 20.$$
+  </div>
+  <p>Như vậy:</p>
+  <ul>
+    <li>Đơn giá rau muống là $10$ nghìn đồng/kg.</li>
+    <li>Đơn giá bí xanh là $15$ nghìn đồng/kg.</li>
+    <li>Đơn giá cà chua là $20$ nghìn đồng/kg.</li>
+  </ul>
+  <p>Tổng số tiền nông trại thu được ở ngày thứ Bảy là:</p>
+  <div style="text-align: center; margin: 10px 0; font-size: 1.25rem; font-weight: bold; color: #b45309;">
+    $$T = 50x + 25y + 20z = 50(10) + 25(15) + 20(20) = 500 + 375 + 400 = 1275\\text{ nghìn đồng}.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Đáp số: 1275</strong></p>
+</div>
+`
+    },
+    {
+      id: 6,
+      part: "III",
+      grade: "12",
+      topic: "Giá trị lớn nhất của hàm lợi nhuận kinh tế",
+      question: "Một công ty nông sản có công suất chế biến không quá 200 tấn nguyên liệu một tháng. Nếu công ty chế biến $x$ tấn nguyên liệu trong một tháng ($1 \\le x \\le 200$) thì chi phí sản xuất và doanh thu lần lượt là $C(x) = 0,001x^3 + 30x + 10$ (triệu đồng) và $R(x) = 60x$ (triệu đồng). Lợi nhuận lớn nhất mà công ty đạt được trong một tháng là bao nhiêu triệu đồng?",
+      svg: "",
+      correctAnswer: "1990",
+      acceptableAnswers: ["1990"],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Lợi nhuận của công ty trong một tháng khi chế biến $x$ tấn nguyên liệu là hiệu giữa doanh thu và chi phí sản xuất:</p>
+  <div style="text-align: center; margin: 8px 0; font-size: 1.1rem; color: #1e3a8a;">
+    $$P(x) = R(x) - C(x) = 60x - (0,001x^3 + 30x + 10) = -0,001x^3 + 30x - 10$$
+  </div>
+  <p>với $x \\in [1; 200]$.</p>
+  <p>Tìm giá trị lớn nhất của hàm số $P(x)$ trên đoạn $[1; 200]$:</p>
+  <p>Đạo hàm: $P'(x) = -0,003x^2 + 30$.</p>
+  <p>Cho $P'(x) = 0 \\iff -0,003x^2 + 30 = 0 \\iff x^2 = \\dfrac{30}{0,003} = 10000 \\iff x = 100$ (do $x \\in [1; 200]$).</p>
+  <p>Tính giá trị của hàm số tại các đầu mút và điểm cực trị:</p>
+  <ul>
+    <li>$P(1) = -0,001(1)^3 + 30(1) - 10 = 19,999$ triệu đồng.</li>
+    <li>$P(100) = -0,001(100)^3 + 30(100) - 10 = -1000 + 3000 - 10 = 1990$ triệu đồng.</li>
+    <li>$P(200) = -0,001(200)^3 + 30(200) - 10 = -8000 + 6000 - 10 = -2010$ triệu đồng.</li>
+  </ul>
+  <p>So sánh ba giá trị trên, ta thấy giá trị lớn nhất của hàm lợi nhuận là $1990$ triệu đồng, đạt được khi công ty chế biến $100$ tấn nguyên liệu trong tháng.</p>
+  <p class="final-answer">&rArr; <strong>Đáp số: 1990</strong></p>
+</div>
+`
+    }
+  ]
+};
+
 // ==================== CƠ SỞ DỮ LIỆU ĐỀ THI TOÀN TRƯỜNG ====================
 const EXAMS_DATABASE = {
+  "12_BGD_0101": EXAM_12_BGD_0101,
   "11_GK1_TK5": EXAM_11_GK1_TK5,
   "11_GK1_TK4": EXAM_11_GK1_TK4,
   "12_GK1_0002": EXAM_12_GK1_0002
 };
 
-// Đặt đề mặc định ban đầu là Đề Toán 11 (Mã đề mới nhất: 11.GK1.TK5)
-const DEFAULT_ACTIVE_EXAM_ID = "11_GK1_TK5";
+// Đặt đề mặc định ban đầu là Đề thi chính thức môn Toán năm 2026 - Bộ GD&ĐT (Mã đề 0101)
+const DEFAULT_ACTIVE_EXAM_ID = "12_BGD_0101";
 
 // Khai báo biến toàn cục tương thích ngược
 var QUIZ_CONFIG = EXAMS_DATABASE[DEFAULT_ACTIVE_EXAM_ID].config;
@@ -2429,4 +3474,3 @@ var QUIZ_PART1 = EXAMS_DATABASE[DEFAULT_ACTIVE_EXAM_ID].part1;
 var QUIZ_PART2 = EXAMS_DATABASE[DEFAULT_ACTIVE_EXAM_ID].part2;
 var QUIZ_PART3 = EXAMS_DATABASE[DEFAULT_ACTIVE_EXAM_ID].part3;
 var QUIZ_QUESTIONS = QUIZ_PART1;
-

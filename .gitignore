@@ -5,4 +5,7 @@ __pycache__/
 .env
 .env*.local
 *.log
+scripts/py/
+pdf_pages/
+*.pdf
 

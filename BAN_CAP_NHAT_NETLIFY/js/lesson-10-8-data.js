@@ -477,10 +477,10 @@ window.LESSON_10_C4_B8_DATA = {
         level: "Thông hiểu",
         prompt: "Cho hình vuông $ABCD$ cạnh bằng $a$, tâm $O$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) $\\vec{AB} + \\vec{AD} = \\vec{AC}$.", isCorrect: true },
-          { text: "b) $|\\vec{AB} + \\vec{AD}| = a\\sqrt{2}$.", isCorrect: true },
-          { text: "c) $\\vec{OA} + \\vec{OC} = \\vec{0}$.", isCorrect: true },
-          { text: "d) $\\vec{AB} - \\vec{AD} = \\vec{BD}$.", isCorrect: false }
+          { label: "a", key: "a", statement: "$\\vec{AB} + \\vec{AD} = \\vec{AC}$.", text: "$\\vec{AB} + \\vec{AD} = \\vec{AC}$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "$|\\vec{AB} + \\vec{AD}| = a\\sqrt{2}$.", text: "$|\\vec{AB} + \\vec{AD}| = a\\sqrt{2}$.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "$\\vec{OA} + \\vec{OC} = \\vec{0}$.", text: "$\\vec{OA} + \\vec{OC} = \\vec{0}$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "$\\vec{AB} - \\vec{AD} = \\vec{BD}$.", text: "$\\vec{AB} - \\vec{AD} = \\vec{BD}$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>
@@ -497,10 +497,10 @@ window.LESSON_10_C4_B8_DATA = {
         level: "Thông hiểu",
         prompt: "Cho tam giác $ABC$ có trọng tâm $G$ và $M$ là trung điểm cạnh $BC$. Xét tính Đúng/Sai của các mệnh đề sau:",
         items: [
-          { text: "a) $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$.", isCorrect: true },
-          { text: "b) $\\vec{AB} + \\vec{AC} = 2\\vec{AM}$.", isCorrect: true },
-          { text: "c) $\\vec{MB} + \\vec{MC} = \\vec{0}$.", isCorrect: true },
-          { text: "d) $\\vec{GB} + \\vec{GC} = \\vec{GA}$.", isCorrect: false }
+          { label: "a", key: "a", statement: "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$.", text: "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "$\\vec{AB} + \\vec{AC} = 2\\vec{AM}$.", text: "$\\vec{AB} + \\vec{AC} = 2\\vec{AM}$.", isTrue: true, isCorrect: true },
+          { label: "c", key: "c", statement: "$\\vec{MB} + \\vec{MC} = \\vec{0}$.", text: "$\\vec{MB} + \\vec{MC} = \\vec{0}$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "$\\vec{GB} + \\vec{GC} = \\vec{GA}$.", text: "$\\vec{GB} + \\vec{GC} = \\vec{GA}$.", isTrue: false, isCorrect: false }
         ],
         solution: `
           <ul>
@@ -517,10 +517,10 @@ window.LESSON_10_C4_B8_DATA = {
         level: "Thông hiểu",
         prompt: "Cho bốn điểm phân biệt $A, B, C, D$. Xét tính Đúng/Sai của các đẳng thức vectơ sau:",
         items: [
-          { text: "a) $\\vec{AB} + \\vec{BC} + \\vec{CD} = \\vec{AD}$.", isCorrect: true },
-          { text: "b) $\\vec{AB} - \\vec{CD} = \\vec{AC} - \\vec{BD}$.", isCorrect: false },
-          { text: "c) $\\vec{AB} + \\vec{CD} = \\vec{AD} + \\vec{CB}$.", isCorrect: true },
-          { text: "d) $\\vec{AB} + \\vec{DA} = \\vec{DB}$.", isCorrect: true }
+          { label: "a", key: "a", statement: "$\\vec{AB} + \\vec{BC} + \\vec{CD} = \\vec{AD}$.", text: "$\\vec{AB} + \\vec{BC} + \\vec{CD} = \\vec{AD}$.", isTrue: true, isCorrect: true },
+          { label: "b", key: "b", statement: "$\\vec{AB} - \\vec{CD} = \\vec{AC} - \\vec{BD}$.", text: "$\\vec{AB} - \\vec{CD} = \\vec{AC} - \\vec{BD}$.", isTrue: false, isCorrect: false },
+          { label: "c", key: "c", statement: "$\\vec{AB} + \\vec{CD} = \\vec{AD} + \\vec{CB}$.", text: "$\\vec{AB} + \\vec{CD} = \\vec{AD} + \\vec{CB}$.", isTrue: true, isCorrect: true },
+          { label: "d", key: "d", statement: "$\\vec{AB} + \\vec{DA} = \\vec{DB}$.", text: "$\\vec{AB} + \\vec{DA} = \\vec{DB}$.", isTrue: true, isCorrect: true }
         ],
         solution: `
           <ul>

@@ -93,8 +93,13 @@
               <span>Chọn bộ đề thi trực tuyến:</span>
             </div>
             <div class="exam-selector-tabs">
-              <button class="exam-tab-btn active" data-exam="11_GK1_TK5" onclick="switchExam('11_GK1_TK5')">
-                <div class="exam-tab-status new"><i class="fa-solid fa-star"></i> Đề mới nhất (TK5)</div>
+              <button class="exam-tab-btn active" data-exam="12_BGD_0101" onclick="switchExam('12_BGD_0101')">
+                <div class="exam-tab-status hot" style="background:#ef4444; color:#fff;"><i class="fa-solid fa-fire"></i> Đề Bộ GD&ĐT 2026 Mới Nhất</div>
+                <div class="exam-tab-title"><i class="fa-solid fa-award" style="color:#d97706;"></i> ĐỀ TOÁN 12 - BỘ GIÁO DỤC VÀ ĐÀO TẠO</div>
+                <div class="exam-tab-sub">Mã đề: <strong>0101</strong> • 22 câu • 90 phút (Đề thi chính thức - Lời giải chi tiết Thầy Sáng)</div>
+              </button>
+              <button class="exam-tab-btn" data-exam="11_GK1_TK5" onclick="switchExam('11_GK1_TK5')">
+                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
                 <div class="exam-tab-title"><i class="fa-solid fa-file-signature"></i> ĐỀ TOÁN 11 - GIỮA KÌ I</div>
                 <div class="exam-tab-sub">Mã đề: <strong>11.GK1.TK5</strong> • 21 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Tự luận)</div>
               </button>
@@ -115,24 +120,24 @@
           <div class="quiz-mode-bar" id="quizModeBar">
             <span class="quiz-mode-label"><i class="fa-solid fa-sliders"></i> Chế độ thi:</span>
             <button class="quiz-mode-btn active" data-mode="all" id="modeBtnAll">
-              <i class="fa-solid fa-file-lines"></i> Cả đề thi (21 câu - 90 phút)
+              <i class="fa-solid fa-file-lines"></i> Cả đề thi (22 câu - 90 phút)
             </button>
             <button class="quiz-mode-btn" data-mode="part1" id="modeBtnPart1">
-              <i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (16 câu - 4.0đ)
+              <i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (12 câu - 3.0đ)
             </button>
             <button class="quiz-mode-btn" data-mode="part2" id="modeBtnPart2">
-              <i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (3 câu - 3.0đ)
+              <i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (4 câu - 4.0đ)
             </button>
             <button class="quiz-mode-btn" data-mode="part3" id="modeBtnPart3">
-              <i class="fa-solid fa-pen-nib"></i> Phần III: Tự luận (2 câu - 3.0đ)
+              <i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)
             </button>
           </div>
 
           <!-- Topbar của hệ thống trắc nghiệm -->
           <div class="quiz-topbar">
             <div class="quiz-title-info">
-              <h3 id="quizTitleDisplay">Đề Kiểm Tra Giữa Kì I - Mã Đề 11.GK1.TK5 (Môn: Toán 11 - Năm học 2026 - 2027)</h3>
-              <p><i class="fa-solid fa-user-tie"></i> Biên soạn: <strong>ThS. Lương Thanh Sáng</strong> • Thời gian: <strong id="quizTimeLabel">90 phút (Cả đề thi gồm 3 phần - 21 câu)</strong></p>
+              <h3 id="quizTitleDisplay">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0101)</h3>
+              <p><i class="fa-solid fa-user-tie"></i> Biên soạn & Đồ họa TikZ: <strong>ThS. Lương Thanh Sáng</strong> • Thời gian: <strong id="quizTimeLabel">90 phút (Cả đề thi gồm 3 phần - 22 câu)</strong></p>
             </div>
 
             <div class="quiz-timer-box" id="timerBox">
@@ -148,13 +153,13 @@
           <div class="exam-start-banner" id="examStartBanner">
             <div class="start-banner-card">
               <div class="start-banner-badge"><i class="fa-solid fa-graduation-cap"></i> CHUẨN BỊ LÀM BÀI THI</div>
-              <h3 class="start-banner-title" id="startBannerTitle">Đề Kiểm Tra Giữa Kì I - Mã Đề 11.GK1.TK5 (Toán 11)</h3>
+              <h3 class="start-banner-title" id="startBannerTitle">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0101)</h3>
               <p class="start-banner-desc" id="startBannerDesc">
                 Học sinh vui lòng chuẩn bị giấy nháp, bút viết và máy tính cầm tay trước khi bắt đầu. Khi em đã sẵn sàng, hãy bấm nút <strong>"Bắt đầu làm bài"</strong> bên dưới để hệ thống kích hoạt tính giờ đếm ngược!
               </p>
               <div class="start-banner-meta" id="startBannerMeta">
                 <span><i class="fa-solid fa-clock"></i> Thời gian: <strong id="startMetaTime">90 phút</strong></span>
-                <span><i class="fa-solid fa-list-check"></i> Số lượng: <strong id="startMetaCount">21 câu</strong></span>
+                <span><i class="fa-solid fa-list-check"></i> Số lượng: <strong id="startMetaCount">22 câu</strong></span>
                 <span><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></span>
                 <span><i class="fa-solid fa-user-tie"></i> Biên soạn: <strong>ThS. Lương Thanh Sáng</strong></span>
               </div>
@@ -297,8 +302,8 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
-  <script src="js/quiz-data.js?v=3.1"></script>
-  <script src="js/script.js?v=3.1"></script>
+  <script src="js/quiz-data.js?v=20261114_02"></script>
+  <script src="js/script.js?v=20261114_02"></script>
 </body>
 </html>
 

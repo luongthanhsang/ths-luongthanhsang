@@ -53,3 +53,4 @@ finally:
     server_proc.terminate()
 
 print("\nVerification finished!")
+

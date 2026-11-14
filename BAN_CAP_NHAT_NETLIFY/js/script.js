@@ -362,7 +362,7 @@ window.handleDocDownload = function(docTitle) {
 /* ==========================================================================
    3. KHU VỰC THI TRẮC NGHIỆM ONLINE (QUIZ SYSTEM) - TOÁN 11 & TOÁN 12
    ========================================================================== */
-let currentExamId = "11_GK1_TK5"; // Mặc định tải lên đề Toán 11 mới nhất (TK5)
+let currentExamId = (typeof DEFAULT_ACTIVE_EXAM_ID !== "undefined") ? DEFAULT_ACTIVE_EXAM_ID : "12_BGD_0101"; // Mặc định tải lên Đề Bộ GD&ĐT 2026 (Mã đề 0101)
 let currentQuizMode = "all";       // 'all', 'part1', 'part2', 'part3'
 let activeQuizQuestions = [];       // Danh sách câu hỏi đang làm
 let userAnswersPart1 = {};          // { "1": "C", "2": "A", ... }
@@ -2938,11 +2938,11 @@ function initDigitalLessons() {
               </div>
               <div class="exam-list-tf">
                 ${ef.part2TrueFalse.map((q, idx) => {
-                  const qNum = (q.num !== undefined && q.num !== null && String(q.num) !== 'undefined') ? q.num : (idx + 1);
-                  const qPrompt = q.prompt || q.intro || '';
-                  const qItems = q.items || [];
-                  const qSol = q.solution || q.explain || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
-                  const qId = q.id || `tf-item-${idx + 1}`;
+                  const qNum = (q && q.num !== undefined && q.num !== null && String(q.num) !== 'undefined') ? q.num : (idx + 1);
+                  const qPrompt = (q && (q.prompt || q.intro)) || '';
+                  const qItems = (q && q.items) || [];
+                  const qSol = (q && (q.solution || q.explain)) || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
+                  const qId = (q && q.id) || `tf-item-${idx + 1}`;
                   return `
                   <div class="exam-item-card" id="card-${qId}" data-qid="${qId}">
                     <div class="exam-item-header">
@@ -2970,8 +2970,9 @@ function initDigitalLessons() {
                         ${qItems.map((it, iIdx) => {
                           if (!it) return '';
                           let itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                          if (!itLabel || String(itLabel).trim() === 'undefined') itLabel = String.fromCharCode(97 + iIdx);
                           let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
-                          if (!itText || String(itText).trim() === 'undefined') itText = '';
+                          if (!itText || String(itText).trim() === 'undefined') itText = `Mệnh đề ${itLabel.toUpperCase()}`;
                           const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                           return `
                           <tr class="tf-item-row" data-qid="${qId}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
@@ -4198,9 +4199,10 @@ function initDigitalLessons() {
               if (tbody) {
                 tbody.innerHTML = sim.items.map((it, iIdx) => {
                   if (!it) return '';
-                  const itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                  let itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                  if (!itLabel || String(itLabel).trim() === 'undefined') itLabel = String.fromCharCode(97 + iIdx);
                   let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
-                  if (!itText || String(itText).trim() === 'undefined') itText = '';
+                  if (!itText || String(itText).trim() === 'undefined') itText = `Mệnh đề ${itLabel.toUpperCase()}`;
                   const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
                   return `
                     <tr class="tf-item-row" data-qid="${qid}" data-item-idx="${iIdx}" data-correct="${itCorrect}">

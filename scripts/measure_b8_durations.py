@@ -63,3 +63,4 @@ finally:
     server_proc.terminate()
     if os.path.exists("scripts/temp_dur.html"):
         os.remove("scripts/temp_dur.html")
+
