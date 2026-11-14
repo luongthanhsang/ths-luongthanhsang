@@ -362,7 +362,7 @@ window.handleDocDownload = function(docTitle) {
 /* ==========================================================================
    3. KHU VỰC THI TRẮC NGHIỆM ONLINE (QUIZ SYSTEM) - TOÁN 11 & TOÁN 12
    ========================================================================== */
-let currentExamId = (typeof DEFAULT_ACTIVE_EXAM_ID !== "undefined") ? DEFAULT_ACTIVE_EXAM_ID : "12_BGD_0101"; // Mặc định tải lên Đề Bộ GD&ĐT 2026 (Mã đề 0101)
+let currentExamId = (typeof DEFAULT_ACTIVE_EXAM_ID !== "undefined") ? DEFAULT_ACTIVE_EXAM_ID : "12_BGD_0110"; // Mặc định tải lên Đề Bộ GD&ĐT 2026 - Lần 2 (Mã đề 0110)
 let currentQuizMode = "all";       // 'all', 'part1', 'part2', 'part3'
 let activeQuizQuestions = [];       // Danh sách câu hỏi đang làm
 let userAnswersPart1 = {};          // { "1": "C", "2": "A", ... }
