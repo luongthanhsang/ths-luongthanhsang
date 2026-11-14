@@ -953,6 +953,9 @@ function renderQuestionPalette() {
 // Xử lý chọn đáp án Phần I
 window.selectPart1Option = function(qId, optId) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   userAnswersPart1[qId] = optId;
 
@@ -975,6 +978,9 @@ window.selectPart1Option = function(qId, optId) {
 // Xử lý chọn Đúng / Sai cho Phần II
 window.selectPart2Choice = function(qId, itemId, isTrue) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   if (!userAnswersPart2[qId]) {
     userAnswersPart2[qId] = {};
@@ -1012,6 +1018,9 @@ function getEssayData(qId) {
 // Xử lý nhập đáp án Phần III (Trả lời ngắn hoặc Tự luận)
 window.updatePart3Answer = function(qId, val) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   const q = activeQuizQuestions.find(item => item.id == qId);
   if (q && q.type === "essay") {
@@ -1019,7 +1028,7 @@ window.updatePart3Answer = function(qId, val) {
     data.text = val;
     updateMathPreview(qId);
   } else {
-    const trimmed = val.trim();
+    const trimmed = (val || "").trim();
     if (trimmed === "") {
       delete userAnswersPart3[qId];
     } else {

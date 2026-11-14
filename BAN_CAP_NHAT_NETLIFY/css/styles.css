@@ -3560,16 +3560,16 @@ textarea.form-control {
 
 /* TRẠNG THÁI CHỜ KHI CHƯA NHẤN "BẮT ĐẦU LÀM BÀI" */
 .quiz-questions-container.exam-waiting {
-  opacity: 0.35;
-  filter: blur(0.8px);
-  pointer-events: none;
-  user-select: none;
+  opacity: 1;
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
   transition: all 0.3s ease;
 }
 
 .quiz-palette-bar.exam-waiting {
-  opacity: 0.45;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* POPOVER NHẬP PHÂN SỐ TRỰC QUAN */

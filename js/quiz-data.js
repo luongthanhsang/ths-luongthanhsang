@@ -2875,7 +2875,7 @@ const EXAM_12_BGD_0101 = {
       <tr style="background:#e2e8f0; font-weight:bold;">
         <th style="border:1px solid #cbd5e1; padding:8px;">Tình trạng</th>
         <th style="border:1px solid #cbd5e1; padding:8px;">Nhận cảnh báo ($W$)</th>
-        <th style="border:1px solid #cbd5e1; padding:8px;">Không nhận (${\\overline{W}}$)</th>
+        <th style="border:1px solid #cbd5e1; padding:8px;">Không nhận ($\\overline{W}$)</th>
         <th style="border:1px solid #cbd5e1; padding:8px;">Tổng cộng</th>
       </tr>
       <tr>
@@ -2885,7 +2885,7 @@ const EXAM_12_BGD_0101 = {
         <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">$800$</td>
       </tr>
       <tr>
-        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">Không bệnh (${\\overline{D}}$)</td>
+        <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">Không bệnh ($\\overline{D}$)</td>
         <td style="border:1px solid #cbd5e1; padding:8px;">$300$</td>
         <td style="border:1px solid #cbd5e1; padding:8px;">$8900$</td>
         <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">$9200$</td>
