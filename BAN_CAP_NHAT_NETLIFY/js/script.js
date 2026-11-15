@@ -2544,7 +2544,21 @@ function initDigitalLessons() {
       "assets/audio/b10_11_sec2.mp3": 22.6,
       "assets/audio/b10_11_sec3.mp3": 22.2,
       "assets/audio/b10_11_sec4.mp3": 19.8,
-      "assets/audio/b10_11_wrapup.mp3": 20.2
+      "assets/audio/b10_11_wrapup.mp3": 20.2,
+      "assets/audio/b10_3_welcome.mp3": 28.3,
+      "assets/audio/b10_3_goals.mp3": 29.3,
+      "assets/audio/b10_3_hook.mp3": 27.1,
+      "assets/audio/b10_3_sec1.mp3": 28.9,
+      "assets/audio/b10_3_sec2.mp3": 32.9,
+      "assets/audio/b10_3_sec3.mp3": 28.6,
+      "assets/audio/b10_3_wrapup.mp3": 19.3,
+      "assets/audio/b10_4_welcome.mp3": 24.4,
+      "assets/audio/b10_4_goals.mp3": 30.8,
+      "assets/audio/b10_4_hook.mp3": 25.7,
+      "assets/audio/b10_4_sec1.mp3": 25.4,
+      "assets/audio/b10_4_sec2.mp3": 22.6,
+      "assets/audio/b10_4_sec3.mp3": 32.1,
+      "assets/audio/b10_4_wrapup.mp3": 26.8
     };
 
     function formatAudioTime(sec) {
@@ -3557,7 +3571,21 @@ function initDigitalLessons() {
     "assets/audio/b10_11_sec2.mp3": 22.6,
     "assets/audio/b10_11_sec3.mp3": 22.2,
     "assets/audio/b10_11_sec4.mp3": 19.8,
-    "assets/audio/b10_11_wrapup.mp3": 20.2
+    "assets/audio/b10_11_wrapup.mp3": 20.2,
+    "assets/audio/b10_3_welcome.mp3": 28.3,
+    "assets/audio/b10_3_goals.mp3": 29.3,
+    "assets/audio/b10_3_hook.mp3": 27.1,
+    "assets/audio/b10_3_sec1.mp3": 28.9,
+    "assets/audio/b10_3_sec2.mp3": 32.9,
+    "assets/audio/b10_3_sec3.mp3": 28.6,
+    "assets/audio/b10_3_wrapup.mp3": 19.3,
+    "assets/audio/b10_4_welcome.mp3": 24.4,
+    "assets/audio/b10_4_goals.mp3": 30.8,
+    "assets/audio/b10_4_hook.mp3": 25.7,
+    "assets/audio/b10_4_sec1.mp3": 25.4,
+    "assets/audio/b10_4_sec2.mp3": 22.6,
+    "assets/audio/b10_4_sec3.mp3": 32.1,
+    "assets/audio/b10_4_wrapup.mp3": 26.8
   };
 
   function formatAudioTime(sec) {
@@ -3892,7 +3920,9 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B10_11_AUDIO_CACHE && window.B10_11_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B10_4_AUDIO_CACHE && window.B10_4_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_3_AUDIO_CACHE && window.B10_3_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_11_AUDIO_CACHE && window.B10_11_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_10_AUDIO_CACHE && window.B10_10_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_9_AUDIO_CACHE && window.B10_9_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_8_AUDIO_CACHE && window.B10_8_AUDIO_CACHE[audioUrl]) ||
