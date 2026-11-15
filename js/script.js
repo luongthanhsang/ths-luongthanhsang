@@ -2194,14 +2194,21 @@ function initDigitalLessons() {
 
   // Đọc URL params nếu có
   const urlParams = new URLSearchParams(window.location.search);
-  let currentGrade = urlParams.get("grade") || "12";
+  let currentLessonId = urlParams.get("lesson") || "";
+  let currentGrade = urlParams.get("grade") || "";
+  
+  // Tự động suy luận khối lớp nếu chỉ có tham số lesson mà không có grade
+  if (!currentGrade && currentLessonId) {
+    if (currentLessonId.startsWith("10-")) currentGrade = "10";
+    else if (currentLessonId.startsWith("11-")) currentGrade = "11";
+    else if (currentLessonId.startsWith("12-")) currentGrade = "12";
+  }
   if (!["10", "11", "12"].includes(currentGrade)) {
-    currentGrade = "10";
+    currentGrade = "11";
   }
 
   let currentVolume = "all"; // 'all', '1', '2'
   let currentSearch = "";
-  let currentLessonId = urlParams.get("lesson") || "";
 
     if ((!urlParams.get("grade") || !currentLessonId) && window.location.hash) {
       try {

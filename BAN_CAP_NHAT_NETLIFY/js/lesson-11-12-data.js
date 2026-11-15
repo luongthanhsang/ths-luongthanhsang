@@ -220,88 +220,68 @@ window.LESSON_11_C4_B12_DATA = {
                 <i class="fa-solid fa-shapes"></i> Hình minh họa: Ba vị trí tương đối giữa đường thẳng $d$ và mặt phẳng $(\\alpha)$
               </div>
 
-              <svg viewBox="0 0 780 230" style="width: 100%; max-width: 760px; height: auto; display: block; margin: 0 auto; background: #ffffff;">
-                <defs>
-                  <!-- Gradient nhẹ cho mặt phẳng -->
-                  <linearGradient id="planeGradAlpha" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="100%" stop-color="#f8fafc"/>
-                  </linearGradient>
-                </defs>
-
+              <svg viewBox="0 0 768 198" style="width: 100%; max-width: 768px; height: auto; display: block; margin: 0 auto; background: #ffffff;">
                 <!-- ==================== HÌNH 1: d // (alpha) ==================== -->
                 <g id="fig-parallel">
-                  <!-- Đường thẳng d nằm ngang song song phía trên -->
-                  <line x1="45" y1="35" x2="235" y2="35" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
-                  <!-- Nhãn d màu xanh cyan ở góc phải trên -->
-                  <text x="215" y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-style="italic" font-weight="bold" fill="#00a8e8">d</text>
-
-                  <!-- Mặt phẳng (alpha) dạng hình bình hành -->
-                  <polygon points="25,145 65,55 245,55 205,145" fill="url(#planeGradAlpha)" stroke="#000000" stroke-width="2"/>
-
+                  <!-- Mặt phẳng (alpha) -->
+                  <polygon points="4,133 39,49 237,49 201,133" fill="#ffffff" stroke="#000000" stroke-width="2.2"/>
                   <!-- Cung góc alpha ở góc dưới trái -->
-                  <path d="M 45,145 A 25 25 0 0 0 54,122" fill="none" stroke="#000000" stroke-width="1.8"/>
-                  <!-- Chữ alpha màu xanh cyan bên trong góc -->
-                  <text x="36" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-style="italic" font-weight="bold" fill="#00a8e8">α</text>
-
-                  <!-- Chú thích phía dưới: d // (alpha) -->
-                  <text x="135" y="185" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#00a8e8">d // (α)</text>
+                  <path d="M 28,133 A 24 24 0 0 0 15,107" fill="none" stroke="#000000" stroke-width="1.8"/>
+                  <text x="18" y="126" font-family="'Times New Roman', serif" font-size="18" font-style="italic" fill="#000000">α</text>
+                  
+                  <!-- Đường thẳng d phía trên -->
+                  <line x1="50" y1="32" x2="236" y2="32" stroke="#000000" stroke-width="2.8" stroke-linecap="round"/>
+                  <text x="210" y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" font-weight="bold" fill="#00a4e4">d</text>
+                  
+                  <!-- Chú thích dưới: d // (alpha) -->
+                  <text x="120" y="170" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#00a4e4">d // (α)</text>
                 </g>
 
                 <!-- ==================== HÌNH 2: d cap (alpha) = {M} ==================== -->
                 <g id="fig-intersect">
                   <!-- Mặt phẳng (alpha) -->
-                  <polygon points="285,145 325,55 505,55 465,145" fill="url(#planeGradAlpha)" stroke="#000000" stroke-width="2"/>
-
-                  <!-- Cung góc alpha ở góc dưới trái -->
-                  <path d="M 305,145 A 25 25 0 0 0 314,122" fill="none" stroke="#000000" stroke-width="1.8"/>
-                  <text x="296" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-style="italic" font-weight="bold" fill="#00a8e8">α</text>
-
-                  <!-- Đường thẳng d cắt xiên:
-                       Điểm trên: (380, 20)
-                       Điểm xuyên qua mặt phẳng M: (420, 95)
-                       Điểm chạm cạnh đáy: (450, 145)
-                       Điểm dưới cùng nhô ra ngoài: (465, 175)
-                  -->
-                  <!-- Đoạn trên mặt phẳng: NÉT LIỀN ĐEN -->
-                  <line x1="380" y1="20" x2="420" y2="95" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
-
-                  <!-- Điểm giao M: Chấm tròn xanh cyan -->
-                  <circle cx="420" cy="95" r="4.5" fill="#00a8e8"/>
-                  <!-- Nhãn M màu xanh cyan ở góc phải trên điểm M -->
-                  <text x="432" y="86" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-style="italic" font-weight="bold" fill="#00a8e8">M</text>
-
-                  <!-- Đoạn khuất bên trong mặt phẳng từ M đến cạnh đáy: NÉT ĐỨT (DASHED) -->
-                  <line x1="420" y1="95" x2="450" y2="145" stroke="#000000" stroke-width="2.5" stroke-dasharray="5,5"/>
-
-                  <!-- Đoạn ló ra ngoài mặt phẳng: NÉT LIỀN ĐEN -->
-                  <line x1="450" y1="145" x2="465" y2="175" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
-
-                  <!-- Chú thích phía dưới: d cap (alpha) = {M} -->
-                  <text x="395" y="185" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#00a8e8">d ∩ (α) = {M}</text>
+                  <polygon points="261,133 296,49 494,49 459,133" fill="#ffffff" stroke="#000000" stroke-width="2.2"/>
+                  <!-- Cung góc alpha -->
+                  <path d="M 285,133 A 24 24 0 0 0 272,107" fill="none" stroke="#000000" stroke-width="1.8"/>
+                  <text x="275" y="126" font-family="'Times New Roman', serif" font-size="18" font-style="italic" fill="#000000">α</text>
+                  
+                  <!-- Đoạn đường thẳng bên trên và xuyên qua mặt phẳng tới M: NÉT LIỀN -->
+                  <line x1="368" y1="15" x2="407" y2="80" stroke="#000000" stroke-width="2.8" stroke-linecap="round"/>
+                  
+                  <!-- Điểm giao M (chấm tròn xanh) và nhãn M -->
+                  <circle cx="407" cy="80" r="4.2" fill="#00a4e4"/>
+                  <text x="418" y="72" font-family="'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" font-weight="bold" fill="#00a4e4">M</text>
+                  
+                  <!-- Đoạn dưới mặt phẳng từ M đến đáy: NÉT ĐỨT -->
+                  <line x1="407" y1="80" x2="439" y2="133" stroke="#000000" stroke-width="2.8" stroke-dasharray="6,4"/>
+                  
+                  <!-- Đoạn ló ra ngoài mặt phẳng phía dưới: NÉT LIỀN -->
+                  <line x1="439" y1="133" x2="451" y2="153" stroke="#000000" stroke-width="2.8" stroke-linecap="round"/>
+                  
+                  <!-- Chú thích dưới: d cap (alpha) = {M} -->
+                  <text x="377" y="170" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#00a4e4">d ∩ (α) = {M}</text>
                 </g>
 
                 <!-- ==================== HÌNH 3: d subset (alpha) ==================== -->
                 <g id="fig-subset">
                   <!-- Mặt phẳng (alpha) -->
-                  <polygon points="545,145 585,55 765,55 725,145" fill="url(#planeGradAlpha)" stroke="#000000" stroke-width="2"/>
-
-                  <!-- Cung góc alpha ở góc dưới trái -->
-                  <path d="M 565,145 A 25 25 0 0 0 574,122" fill="none" stroke="#000000" stroke-width="1.8"/>
-                  <text x="556" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-style="italic" font-weight="bold" fill="#00a8e8">α</text>
-
-                  <!-- Đường thẳng d nằm trọn vẹn trong mặt phẳng: NÉT LIỀN ĐEN -->
-                  <line x1="590" y1="130" x2="740" y2="85" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
-
-                  <!-- Hai chấm tròn xanh cyan trên d biểu thị có từ 2 điểm chung trở lên -->
-                  <circle cx="640" cy="115" r="4.5" fill="#00a8e8"/>
-                  <circle cx="695" cy="98.5" r="4.5" fill="#00a8e8"/>
-
-                  <!-- Nhãn d màu xanh cyan ở phía trên bên phải -->
-                  <text x="715" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-style="italic" font-weight="bold" fill="#00a8e8">d</text>
-
-                  <!-- Chú thích phía dưới: d subset (alpha) -->
-                  <text x="655" y="185" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#00a8e8">d ⊂ (α)</text>
+                  <polygon points="521,133 556,49 754,49 719,133" fill="#ffffff" stroke="#000000" stroke-width="2.2"/>
+                  <!-- Cung góc alpha -->
+                  <path d="M 545,133 A 24 24 0 0 0 532,107" fill="none" stroke="#000000" stroke-width="1.8"/>
+                  <text x="535" y="126" font-family="'Times New Roman', serif" font-size="18" font-style="italic" fill="#000000">α</text>
+                  
+                  <!-- Đường thẳng d nằm trọn trong mặt phẳng: NÉT LIỀN -->
+                  <line x1="575" y1="117" x2="725" y2="77" stroke="#000000" stroke-width="2.8" stroke-linecap="round"/>
+                  
+                  <!-- Hai chấm tròn xanh trên d -->
+                  <circle cx="618" cy="105.5" r="4.2" fill="#00a4e4"/>
+                  <circle cx="678" cy="89.5" r="4.2" fill="#00a4e4"/>
+                  
+                  <!-- Nhãn d màu xanh -->
+                  <text x="705" y="68" font-family="'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" font-weight="bold" fill="#00a4e4">d</text>
+                  
+                  <!-- Chú thích dưới: d subset (alpha) -->
+                  <text x="637" y="170" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold" fill="#00a4e4">d ⊂ (α)</text>
                 </g>
               </svg>
 
