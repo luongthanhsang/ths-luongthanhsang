@@ -272,7 +272,7 @@ window.LESSON_10_C3_B6_DATA = {
     {
       num: "2",
       title: "Định lí Sin và Bán kính đường tròn ngoại tiếp",
-      audioScript: "Mục hai, định lí sin. Trong mọi tam giác ABC, tỉ số giữa mỗi cạnh và sin của góc đối diện luôn bằng nhau và bằng hai lần bán kính đường tròn ngoại tiếp, tức là: a chia sin A bằng b chia sin B bằng c chia sin C và bằng 2R. Nhờ định lí sin, hễ các em biết một cặp cạnh đối và góc đối, ta có thể tính ngay bán kính đường tròn ngoại tiếp R, hoặc tính các cạnh và các góc còn lại cực kì thanh thoát!",
+      audioScript: "Mục hai, định lí sin trong tam giác. Tỉ số giữa cạnh và sin góc đối luôn bằng hai lần bán kính đường tròn ngoại tiếp. Định lí sin khẳng định: a trên sin A bằng b trên sin B, bằng c trên sin C, và cùng bằng hai R. Nhờ định lí sin, khi các em biết một cặp cạnh đối và góc đối, ta có thể tính ngay bán kính đường tròn ngoại tiếp R, hoặc tính các cạnh và các góc còn lại cực kì thanh thoát!",
       audioUrl: "assets/audio/b10_6_sec2.mp3",
       buttonLabel: "Nghe Thầy Sáng giảng Mục 2",
       checkpoints: [
@@ -462,7 +462,7 @@ window.LESSON_10_C3_B6_DATA = {
     {
       num: "4",
       title: "Các công thức tính diện tích tam giác và Công thức Heron",
-      audioScript: "Mục bốn, các công thức tính diện tích tam giác. Trong hình học, chúng ta có năm công thức tính diện tích tam giác vô cùng lợi hại. Thứ nhất, diện tích bằng một nửa cạnh đáy nhân chiều cao tương ứng. Thứ hai, diện tích bằng một nửa tích hai cạnh nhân sin của góc xen giữa. Thứ ba, diện tích bằng tích ba cạnh a b c chia cho 4R. Thứ tư, diện tích bằng nửa chu vi p nhân bán kính đường tròn nội tiếp r. Và thứ năm, khi biết độ dài cả ba cạnh, công thức Hê-rông nổi tiếng cho phép ta tính diện tích bằng căn bậc hai của p nhân p trừ a, nhân p trừ b, nhân p trừ c. Nắm vững năm công thức này, các em có thể giải quyết mọi bài toán diện tích từ đơn giản đến nâng cao!",
+      audioScript: "Mục bốn, các công thức tính diện tích tam giác. Thứ nhất, diện tích bằng một nửa tích cạnh đáy và chiều cao tương ứng. Thứ hai, diện tích bằng một nửa tích hai cạnh nhân sin góc xen giữa. Thứ ba, diện tích bằng tích ba cạnh a, b, c chia cho bốn lần bán kính đường tròn ngoại tiếp R. Thứ tư, diện tích bằng nửa chu vi p nhân bán kính đường tròn nội tiếp r nhỏ. Và thứ năm, công thức Hê-rông nổi tiếng tính diện tích từ nửa chu vi p và độ dài cả ba cạnh của tam giác. Nắm vững năm công thức này, các em có thể tự tin làm chủ mọi bài toán tính diện tích từ cơ bản đến nâng cao!",
       audioUrl: "assets/audio/b10_6_sec4.mp3",
       buttonLabel: "Nghe Thầy Sáng giảng Mục 4",
       checkpoints: [
