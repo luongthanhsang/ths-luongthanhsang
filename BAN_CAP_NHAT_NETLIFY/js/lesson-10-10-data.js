@@ -67,7 +67,7 @@ window.LESSON_10_C4_B10_DATA = {
       <p>Trong dự báo khí tượng thuỷ văn và hàng hải quốc tế, bản đồ biển Đông được số hoá thành một mặt phẳng toạ độ $Oxy$. Vị trí của tâm bão được xác định bởi cặp toạ độ $(x; y)$, trong khi vận tốc và hướng di chuyển của bão được mô hình hoá bởi một vectơ vận tốc $\\vec{v} = (v_x; v_y)$.</p>
       <p>Nhờ các biểu thức toạ độ của vectơ, các nhà khí tượng có thể tính toán chính xác toạ độ vùng bão đổ bộ sau mỗi giờ: vị trí mới $B = A + t\\vec{v}$, hỗ trợ ngư dân và các lực lượng cứu hộ ven biển chủ động phòng tránh an toàn kịp thời!</p>
     `,
-    illustration: `
+    illustrationSvg: `
       <div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
         <svg viewBox="0 0 700 240" style="max-width: 660px; width: 100%; height: auto; display: block; margin: 0 auto; background: #0f172a; border-radius: 12px; border: 1px solid #334155;">
           <defs>
@@ -108,7 +108,7 @@ window.LESSON_10_C4_B10_DATA = {
 
           <!-- Vectơ vận tốc v -->
           <line x1="280" y1="150" x2="430" y2="75" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr-radar)"/>
-          <text x="350" y="95" fill="#38bdf8" font-weight="bold" font-size="13" font-family="'Segoe UI', Roboto, sans-serif">\\vec{v} = (v_x; v_y)</text>
+          <text x="350" y="95" fill="#38bdf8" font-weight="bold" font-size="13" font-family="'Segoe UI', Roboto, sans-serif">\v&#8407; = (v_x; v_y)</text>
 
           <!-- Vị trí dự báo sau t giờ B = A + t*v -->
           <circle cx="440" cy="70" r="42" fill="url(#stormGrad)"/>

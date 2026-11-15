@@ -1,0 +1,56 @@
+import subprocess, os
+
+chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+screenshot_path = os.path.abspath("test_vec_result.png")
+
+html_content = """<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body style="background:#fff; padding:20px;">
+  <svg width="600" height="300" style="border:1px solid #ccc;">
+    <!-- Test foreignObject with MathJax -->
+    <foreignObject x="50" y="30" width="100" height="50">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:16px; color:#0284c7; font-weight:bold;">
+        \\( \\vec{AB} \\)
+      </div>
+    </foreignObject>
+
+    <foreignObject x="160" y="30" width="120" height="50">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:16px; color:#dc2626; font-weight:bold;">
+        \\( \\vec{a} + \\vec{b} = \\vec{AC} \\)
+      </div>
+    </foreignObject>
+
+    <!-- Test Combining Arrow -->
+    <text x="50" y="120" font-size="20" font-weight="bold" fill="#0284c7">a&#x20D7;, b&#x20D7;, F&#x20D7;, v&#x20D7;</text>
+
+    <!-- Test SVG arrow path for AB -->
+    <g transform="translate(50, 180)">
+      <line x1="0" y1="-15" x2="26" y2="-15" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M 21,-18 L 26,-15 L 21,-12" fill="none" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="0" y="0" font-size="18" font-weight="bold" font-style="italic" fill="#0284c7">AB</text>
+    </g>
+  </svg>
+</body>
+</html>"""
+
+with open("test_vec_mathjax.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+cmd = [
+    chrome_path,
+    "--headless=new",
+    "--disable-gpu",
+    "--virtual-time-budget=4000",
+    f"--screenshot={screenshot_path}",
+    f"file:///{os.path.abspath('test_vec_mathjax.html').replace(os.sep, '/')}"
+]
+subprocess.run(cmd)
+
+if os.path.exists(screenshot_path):
+    print("Screenshot success! Size:", os.path.getsize(screenshot_path))
+else:
+    print("Screenshot failed!")

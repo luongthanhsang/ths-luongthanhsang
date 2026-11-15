@@ -69,6 +69,69 @@ window.LESSON_10_C2_B4_DATA = {
   hook: {
     title: "Tình huống mở đầu: Bài toán kinh doanh máy điều hoà mùa nóng",
     story: "Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: điều hoà hai chiều và điều hoà một chiều với số vốn ban đầu không vượt quá 1,2 tỉ đồng. Giá mua vào lần lượt là 20 triệu đồng và 10 triệu đồng mỗi máy; lợi nhuận dự kiến là 3,5 triệu đồng và 2 triệu đồng mỗi máy. Theo khảo sát thị trường, nhu cầu không vượt quá 100 máy cho cả hai loại. Chủ cửa hàng cần đầu tư mua mỗi loại bao nhiêu máy để thu được lợi nhuận lớn nhất?",
+    illustrationSvg: `<div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
+  <svg viewBox="0 0 720 300" style="max-width: 700px; width: 100%; height: auto; display: block; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1.5px solid #0284c7; box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);">
+    <defs>
+      <marker id="arr-b4-ax" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+      </marker>
+      <pattern id="poly-pat-b4" width="12" height="12" patternTransform="rotate(30 0 0)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="12" stroke="#6ee7b7" stroke-width="2"/>
+      </pattern>
+    </defs>
+
+    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">MÔ HÌNH HÌNH HỌC: MIỀN NGHIỆM ĐA GIÁC OABC CỦA HỆ BẤT PHƯƠNG TRÌNH ĐIỀU HOÀ</text>
+
+    <!-- Gốc O(110, 250) -->
+    <!-- Scale: x: 1 đv = 4.0 px (60 -> 240px, 100 -> 400px), y: 1 đv = 1.7 px (80 -> 136px, 100 -> 170px, 120 -> 204px) -->
+    <!-- O(110, 250) -->
+    <!-- A(60, 0) -> (350, 250) -->
+    <!-- B(20, 80) -> (190, 114) -->
+    <!-- C(0, 100) -> (110, 80) -->
+
+    <!-- Miền đa giác OABC -->
+    <polygon points="110,250 350,250 190,114 110,80" fill="url(#poly-pat-b4)" fill-opacity="0.75" stroke="#059669" stroke-width="2"/>
+
+    <!-- Lưới toạ độ dóng từ B(20, 80) -->
+    <line x1="190" y1="114" x2="190" y2="250" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="110" y1="114" x2="190" y2="114" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Trục Ox và Oy -->
+    <line x1="80" y1="250" x2="680" y2="250" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-b4-ax)"/>
+    <line x1="110" y1="270" x2="110" y2="35" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-b4-ax)"/>
+
+    <text x="670" y="270" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">x (Máy 2 chiều)</text>
+    <text x="35" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">y (Máy 1 chiều)</text>
+    <text x="96" y="264" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#64748b">O(0;0)</text>
+
+    <!-- Đường d1: 2x + y = 120 (đi qua (60,0) và (0,120) -> (110, 46)) -->
+    <line x1="375" y1="265" x2="95" y2="30" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="360" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#dc2626">d₁: 2x + y = 120 (Vốn 1,2 tỉ)</text>
+
+    <!-- Đường d2: x + y = 100 (đi qua (100,0)->(510,250) và (0,100)->(110,80)) -->
+    <line x1="535" y1="265" x2="95" y2="72" stroke="#2563eb" stroke-width="2.2"/>
+    <text x="470" y="210" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#2563eb">d₂: x + y = 100 (Nhu cầu 100 máy)</text>
+
+    <!-- Các đỉnh đa giác -->
+    <circle cx="350" cy="250" r="5" fill="#059669"/>
+    <text x="350" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">A(60; 0)</text>
+
+    <circle cx="110" cy="80" r="5" fill="#059669"/>
+    <text x="96" y="85" text-anchor="end" font-size="12" font-weight="bold" fill="#059669">C(0; 100)</text>
+
+    <text x="190" y="266" text-anchor="middle" font-size="11" font-weight="bold" fill="#0284c7">20</text>
+    <text x="96" y="118" text-anchor="end" font-size="11" font-weight="bold" fill="#0284c7">80</text>
+
+    <!-- Điểm tối ưu B(20, 80) -->
+    <circle cx="190" cy="114" r="7" fill="#f59e0b" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="190" cy="114" r="12" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Hộp chú thích điểm cực đại -->
+    <rect x="235" y="85" width="230" height="48" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+    <text x="350" y="104" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#b45309">ĐIỂM TỐI ƯU B(20; 80): LÃI CỰC ĐẠI</text>
+    <text x="350" y="122" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">F_max = 3.5×20 + 2×80 = 230 TRIỆU ĐỒNG</text>
+  </svg>
+</div>`,
     storyHtml: `
       <p>Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: <strong>điều hoà hai chiều</strong> và <strong>điều hoà một chiều</strong> với số vốn ban đầu không vượt quá <strong>1,2 tỉ đồng</strong>.</p>
       <div style="margin: 12px 0; overflow-x: auto;">

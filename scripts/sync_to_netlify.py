@@ -1,21 +1,32 @@
-import os, shutil
+import os, shutil, glob
 
-files_to_sync = [
-    ('js/script.js', 'BAN_CAP_NHAT_NETLIFY/js/script.js'),
-    ('css/olm-lesson.css', 'BAN_CAP_NHAT_NETLIFY/css/olm-lesson.css'),
-    ('js/b10-5-audio-cache.js', 'BAN_CAP_NHAT_NETLIFY/js/b10-5-audio-cache.js'),
-    ('js/b10-6-audio-cache.js', 'BAN_CAP_NHAT_NETLIFY/js/b10-6-audio-cache.js'),
+# 1. Base files
+base_files = [
+    'js/script.js',
+    'css/olm-lesson.css',
+    'css/styles.css',
+    'bai-hoc-so.html',
+    'index.html',
+    'thi-hsg.html',
+    'kho-tai-lieu.html'
 ]
 
-for src, dst in files_to_sync:
-    if os.path.exists(src):
+for f in base_files:
+    if os.path.exists(f):
+        dst = os.path.join('BAN_CAP_NHAT_NETLIFY', f)
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy2(src, dst)
-        print(f"Synced: {src} -> {dst} ({os.path.getsize(dst):,} bytes)")
-    else:
-        print(f"Source not found: {src}")
+        shutil.copy2(f, dst)
+        print(f"Synced base: {f} -> {dst}")
 
-# Also check assets/audio
+# 2. All lesson data and cache JS files
+for pattern in ['js/lesson-*.js', 'js/b*-audio-cache.js', 'js/lessons-data.js', 'js/olm-lesson-engine.js']:
+    for f in glob.glob(pattern):
+        dst = os.path.join('BAN_CAP_NHAT_NETLIFY', f)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(f, dst)
+        print(f"Synced js: {f} -> {dst}")
+
+# 3. Audio directory
 audio_dir_src = 'assets/audio'
 audio_dir_dst = 'BAN_CAP_NHAT_NETLIFY/assets/audio'
 if os.path.exists(audio_dir_src):
@@ -29,3 +40,5 @@ if os.path.exists(audio_dir_src):
                 shutil.copy2(src_f, dst_f)
                 count += 1
     print(f"Synced {count} audio files to {audio_dir_dst}")
+
+print("FULL SYNC TO BAN_CAP_NHAT_NETLIFY COMPLETED SUCCESSFULLY!")

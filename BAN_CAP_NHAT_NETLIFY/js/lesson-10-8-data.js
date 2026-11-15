@@ -103,18 +103,18 @@ window.LESSON_10_C4_B8_DATA = {
             <!-- Vectơ vận tốc riêng v_r = AM (hướng xiên) -->
             <line x1="80" y1="180" x2="160" y2="100" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-boat-red)"/>
             <circle cx="160" cy="100" r="4" fill="#dc2626"/>
-            <text x="100" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">\\vec{v}_r</text>
+            <text x="100" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">\v&#8407;_r</text>
             <text x="165" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">M</text>
 
             <!-- Vectơ vận tốc dòng nước v_n = MN (nằm ngang) -->
             <line x1="160" y1="100" x2="260" y2="100" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-flow-blue)"/>
             <circle cx="260" cy="100" r="4" fill="#0284c7"/>
-            <text x="200" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\vec{v}_n</text>
+            <text x="200" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\v&#8407;_n</text>
             <text x="268" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">N</text>
 
             <!-- Vectơ vận tốc thực tế v = AN = AM + MN -->
             <line x1="80" y1="180" x2="255" y2="102" stroke="#16a34a" stroke-width="3.5" marker-end="url(#arr-result-green)"/>
-            <text x="145" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#15803d">\\vec{v} = \\vec{v}_r + \\vec{v}_n</text>
+            <text x="145" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#15803d">\v&#8407; = \v&#8407;_r + \v&#8407;_n</text>
           </g>
 
           <!-- KHUNG HÌNH 2: TRÒ CHƠI KÉO CO CÂN BẰNG (HĐ4) -->
@@ -130,13 +130,13 @@ window.LESSON_10_C4_B8_DATA = {
 
             <!-- Lực kéo F1 sang trái -->
             <line x1="150" y1="110" x2="70" y2="110" stroke="#2563eb" stroke-width="3" marker-end="url(#arr-flow-blue)"/>
-            <text x="90" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#2563eb">\\vec{F}_1</text>
+            <text x="90" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#2563eb">\F&#8407;_1</text>
 
             <!-- Lực kéo F2 sang phải -->
             <line x1="150" y1="110" x2="230" y2="110" stroke="#2563eb" stroke-width="3" marker-end="url(#arr-flow-blue)"/>
-            <text x="190" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#2563eb">\\vec{F}_2</text>
+            <text x="190" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#2563eb">\F&#8407;_2</text>
 
-            <text x="65" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\\vec{F}_1 + \\vec{F}_2 = \\vec{0} (Đối nhau)</text>
+            <text x="65" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\F&#8407;_1 + \F&#8407;_2 = \0&#8407; (Đối nhau)</text>
           </g>
         </svg>
       </div>
@@ -236,9 +236,9 @@ window.LESSON_10_C4_B8_DATA = {
                   <text x="160" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#0f172a">B</text>
                   <text x="248" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#0f172a">C</text>
 
-                  <text x="85" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\\vec{a}</text>
-                  <text x="210" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\\vec{b}</text>
-                  <text x="125" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\\vec{a} + \\vec{b} = \\vec{AC}</text>
+                  <text x="85" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\a&#8407;</text>
+                  <text x="210" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\b&#8407;</text>
+                  <text x="125" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\a&#8407; + \b&#8407; = \AC&#8407;</text>
                   <text x="60" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Quy tắc ba điểm (nối đuôi)</text>
                 </g>
 
@@ -254,10 +254,10 @@ window.LESSON_10_C4_B8_DATA = {
                   <text x="258" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#0f172a">C</text>
                   <text x="135" y="138" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#0f172a">D</text>
 
-                  <text x="70" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\\vec{AB}</text>
-                  <text x="75" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\\vec{AD}</text>
-                  <text x="155" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\\vec{AC}</text>
-                  <text x="65" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Quy tắc hình bình hành: \\vec{AB} + \\vec{AD} = \\vec{AC}</text>
+                  <text x="70" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\AB&#8407;</text>
+                  <text x="75" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#2563eb">\AD&#8407;</text>
+                  <text x="155" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\AC&#8407;</text>
+                  <text x="65" y="165" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Quy tắc hình bình hành: \AB&#8407; + \AD&#8407; = \AC&#8407;</text>
                 </g>
               </svg>
             </div>

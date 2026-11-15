@@ -54,6 +54,89 @@ window.LESSON_12_C2_B7_DATA = {
   hook: {
     title: "Bài toán vị trí chiếc bóng đèn trong không gian ba chiều (Hình 2.34 SGK trang 60)",
     story: "Trong một căn phòng hình hộp chữ nhật, một chiếc bóng đèn được treo cách sàn nhà $2\\text{ m}$, cách hai bức tường vuông góc lần lượt là $1\\text{ m}$ và $1{,}5\\text{ m}$. Làm thế nào để các kỹ sư thiết kế mô tả vị trí của chiếc bóng đèn một cách chính xác, ngắn gọn và tính toán khoảng cách từ bóng đèn đến góc phòng? Hệ trục toạ độ Đề-các vuông góc $Oxyz$ trong không gian chính là chìa khóa toán học tuyệt vời giúp chúng ta giải quyết trọn vẹn bài toán này!",
+    illustrationSvg: `<div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
+  <svg viewBox="0 0 720 290" style="max-width: 700px; width: 100%; height: auto; display: block; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1.5px solid #0284c7; box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);">
+    <defs>
+      <marker id="arr-12-ax" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+      </marker>
+      <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
+        <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">HÌNH 2.34 SGK: HỆ TRỤC TOẠ ĐỘ Oxyz TRONG CĂN PHÒNG &amp; VỊ TRÍ CHIẾC BÓNG ĐÈN M(1; 1,5; 2)</text>
+
+    <!-- Khối không gian căn phòng 3D trục phối cảnh Isometric -->
+    <!-- Gốc O ở góc tường sàn (260, 220) -->
+    <!-- Trục Ox hướng xéo xuống trái: dx = -1.2, dy = 0.7 -->
+    <!-- Trục Oy hướng sang phải: dx = 1.6, dy = 0.0 -->
+    <!-- Trục Oz hướng thẳng đứng lên: dx = 0, dy = -1.6 -->
+
+    <!-- Mặt sàn và 2 bức tường phòng -->
+    <!-- Bức tường xOz bên trái: (260,220) -> (100, 265) -> (100, 75) -> (260, 30) -->
+    <polygon points="260,220 100,265 100,75 260,30" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <!-- Bức tường yOz phía sau: (260,220) -> (600, 220) -> (600, 30) -> (260, 30) -->
+    <polygon points="260,220 600,220 600,30 260,30" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+    <!-- Mặt sàn xOy: (260,220) -> (100,265) -> (440,265) -> (600,220) -->
+    <polygon points="260,220 100,265 440,265 600,220" fill="#fefce8" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Các trục toạ độ chính -->
+    <!-- Trục Ox -->
+    <line x1="260" y1="220" x2="60" y2="276" stroke="#0f172a" stroke-width="2.2" marker-end="url(#arr-12-ax)"/>
+    <text x="45" y="285" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">x</text>
+
+    <!-- Trục Oy -->
+    <line x1="260" y1="220" x2="650" y2="220" stroke="#0f172a" stroke-width="2.2" marker-end="url(#arr-12-ax)"/>
+    <text x="660" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">y</text>
+
+    <!-- Trục Oz -->
+    <line x1="260" y1="220" x2="260" y2="15" stroke="#0f172a" stroke-width="2.2" marker-end="url(#arr-12-ax)"/>
+    <text x="252" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0f172a">z</text>
+
+    <text x="270" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">O(0;0;0)</text>
+
+    <!-- Vectơ đơn vị i, j, k -->
+    <line x1="260" y1="220" x2="210" y2="234" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
+    <text x="210" y="250" font-style="italic" font-weight="bold" fill="#dc2626">i&#8407;</text>
+
+    <line x1="260" y1="220" x2="330" y2="220" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
+    <text x="315" y="210" font-style="italic" font-weight="bold" fill="#16a34a">j&#8407;</text>
+
+    <line x1="260" y1="220" x2="260" y2="170" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
+    <text x="272" y="185" font-style="italic" font-weight="bold" fill="#2563eb">k&#8407;</text>
+
+    <!-- Toạ độ bóng đèn M: x = 1 (1m), y = 1.5 (1.5m), z = 2 (2m) -->
+    <!-- Điểm M'(x=1, y=1.5, z=0) trên sàn: x=260 - 50 + 105 = 315, y=220 + 14 = 234 -->
+    <!-- Điểm M(x=1, y=1.5, z=2): x=315, y=234 - 100 = 134 -->
+
+    <!-- Đường dóng hình hộp chữ nhật không gian -->
+    <line x1="210" y1="234" x2="315" y2="234" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <line x1="365" y1="220" x2="315" y2="234" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Hình chiếu M' trên sàn -->
+    <circle cx="315" cy="234" r="3.5" fill="#0284c7"/>
+    <text x="325" y="248" font-size="11" font-weight="bold" fill="#0284c7">M'(1; 1,5; 0)</text>
+
+    <!-- Dóng đứng từ M' lên M -->
+    <line x1="315" y1="234" x2="315" y2="134" stroke="#d97706" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="325" y="184" font-size="11" font-weight="bold" fill="#d97706">z = 2 m</text>
+
+    <!-- Dây treo bóng đèn từ trần -->
+    <line x1="315" y1="30" x2="315" y2="134" stroke="#475569" stroke-width="1.2"/>
+
+    <!-- Vầng sáng bóng đèn M -->
+    <circle cx="315" cy="134" r="24" fill="url(#lampGlow)"/>
+    <circle cx="315" cy="134" r="6" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+
+    <!-- Nhãn bóng đèn M -->
+    <rect x="330" y="115" width="220" height="36" rx="6" fill="#0f172a" fill-opacity="0.9"/>
+    <text x="440" y="132" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#fde047">💡 Bóng đèn M(1; 1,5; 2)</text>
+    <text x="440" y="145" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#e2e8f0">OM&#8407; = 1·i&#8407; + 1,5·j&#8407; + 2·k&#8407;</text>
+  </svg>
+</div>`,
     illustration: "",
     illustrationCaption: "Hình 2.34 SGK: Mô hình căn phòng và vị trí chiếc bóng đèn treo trong không gian ba chiều",
     question: "Nếu chọn gốc $O$ là một góc phòng trên mặt sàn, hai mép tường là trục $Ox, Oy$ và đường chân tường thẳng đứng là trục $Oz$, toạ độ của bóng đèn sẽ là bộ ba số nào?",
@@ -308,7 +391,7 @@ window.LESSON_12_C2_B7_DATA = {
 
                   <!-- Vectơ OM đỏ -->
                   <line x1="160" y1="170" x2="216" y2="114" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-b7-om)"/>
-                  <text x="175" y="130" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">\\vec{OM}</text>
+                  <text x="175" y="130" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">\OM&#8407;</text>
                 </svg>
               </div>
               <div class="tikz-caption" style="text-align: center; color: #475569; font-size: 0.9rem;">

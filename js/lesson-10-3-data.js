@@ -69,6 +69,77 @@ window.LESSON_10_C2_B3_DATA = {
   hook: {
     title: "Tình huống mở đầu: Doanh thu rạp chiếu phim nhân ngày 1-6",
     story: "Nhân ngày Quốc tế Thiếu nhi 1-6, một rạp chiếu phim phục vụ khán giả một bộ phim hoạt hình đặc sắc. Vé được bán ra gồm hai loại: vé loại 1 dành cho trẻ em giá 50 nghìn đồng và vé loại 2 dành cho người lớn giá 100 nghìn đồng. Ban quản lý tính toán rằng: Để không phải bù lỗ thì số tiền vé thu được ở rạp chiếu phim này phải đạt tối thiểu 20 triệu đồng. Trong những trường hợp nào của cặp số lượng vé bán được thì rạp chiếu phim phải bù lỗ? Khi nào rạp đạt điểm hoà vốn hoặc bắt đầu có lãi?",
+    illustrationSvg: `<div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
+  <svg viewBox="0 0 720 290" style="max-width: 700px; width: 100%; height: auto; display: block; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1.5px solid #0284c7; box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);">
+    <defs>
+      <marker id="arr-b3-ax" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+      </marker>
+      <pattern id="loss-grid-b3" width="14" height="14" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="14" stroke="#fecaca" stroke-width="2.2"/>
+      </pattern>
+      <pattern id="profit-grid-b3" width="14" height="14" patternTransform="rotate(-45 0 0)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="14" stroke="#bbf7d0" stroke-width="1.8"/>
+      </pattern>
+    </defs>
+
+    <!-- Tiêu đề biểu đồ -->
+    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">MÔ HÌNH TOÁN HỌC: MIỀN DOANH THU RẠP CHIẾU PHIM TRÊN MẶT PHẲNG Oxy (x + 2y ≥ 400)</text>
+
+    <!-- Vùng toạ độ: Gốc O(100, 240) -->
+    <!-- Scale: x: 1 đơn vị = 1.2 px (400 -> 480px), y: 1 đơn vị = 0.9 px (200 -> 180px) -->
+    <!-- (0,0) -> (100, 240) -->
+    <!-- (400, 0) -> (580, 240) -->
+    <!-- (0, 200) -> (100, 60) -->
+
+    <!-- Vùng bù lỗ: Tam giác OAB: O(100, 240), A(580, 240), B(100, 60) -->
+    <polygon points="100,240 580,240 100,60" fill="url(#loss-grid-b3)" fill-opacity="0.8"/>
+    <!-- Vùng có lãi: Nửa mặt phẳng trên -->
+    <polygon points="100,60 580,240 680,240 680,40 100,40" fill="url(#profit-grid-b3)" fill-opacity="0.5"/>
+
+    <!-- Lưới toạ độ phụ mờ -->
+    <line x1="100" y1="150" x2="580" y2="150" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="340" y1="60" x2="340" y2="240" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Trục Ox và Oy -->
+    <line x1="70" y1="240" x2="680" y2="240" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-b3-ax)"/>
+    <line x1="100" y1="260" x2="100" y2="35" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-b3-ax)"/>
+
+    <text x="670" y="260" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0f172a">x (Vé loại 1)</text>
+    <text x="50" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0f172a">y (Vé loại 2)</text>
+    <text x="86" y="255" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#64748b">O</text>
+
+    <!-- Vạch toạ độ Ox -->
+    <line x1="220" y1="237" x2="220" y2="243" stroke="#0f172a" stroke-width="1.5"/>
+    <text x="220" y="256" text-anchor="middle" font-size="11" fill="#475569">100</text>
+    <line x1="340" y1="237" x2="340" y2="243" stroke="#0f172a" stroke-width="1.5"/>
+    <text x="340" y="256" text-anchor="middle" font-size="11" fill="#475569">200</text>
+    <line x1="460" y1="237" x2="460" y2="243" stroke="#0f172a" stroke-width="1.5"/>
+    <text x="460" y="256" text-anchor="middle" font-size="11" fill="#475569">300</text>
+    <circle cx="580" cy="240" r="4.5" fill="#0284c7"/>
+    <text x="580" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#0284c7">400 (A)</text>
+
+    <!-- Vạch toạ độ Oy -->
+    <line x1="97" y1="150" x2="103" y2="150" stroke="#0f172a" stroke-width="1.5"/>
+    <text x="88" y="154" text-anchor="end" font-size="11" fill="#475569">100</text>
+    <circle cx="100" cy="60" r="4.5" fill="#0284c7"/>
+    <text x="88" y="64" text-anchor="end" font-size="12" font-weight="bold" fill="#0284c7">200 (B)</text>
+
+    <!-- Đường thẳng biên d: x + 2y = 400 -->
+    <line x1="60" y1="45" x2="620" y2="255" stroke="#0284c7" stroke-width="3"/>
+    <rect x="390" y="125" width="220" height="28" rx="6" fill="#0284c7"/>
+    <text x="500" y="144" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Đường thẳng d: x + 2y = 400 (Hoà vốn 20 tr)</text>
+
+    <!-- Nhãn vùng Bù Lỗ và Có Lãi -->
+    <rect x="130" y="180" width="170" height="36" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+    <text x="215" y="196" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">MIỀN BÙ LỖ (x + 2y &lt; 400)</text>
+    <text x="215" y="210" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#dc2626">Doanh thu chưa đủ 20 triệu</text>
+
+    <rect x="360" y="55" width="180" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="450" y="71" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#15803d">MIỀN CÓ LÃI (x + 2y &gt; 400)</text>
+    <text x="450" y="85" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#16a34a">Doanh thu vượt trên 20 triệu</text>
+  </svg>
+</div>`,
     storyHtml: `
       <p>Nhân ngày Quốc tế Thiếu nhi 1-6, một rạp chiếu phim phục vụ khán giả một bộ phim hoạt hình đặc sắc. Vé được bán ra gồm hai loại:</p>
       <div style="margin: 12px 0; padding: 12px 16px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">

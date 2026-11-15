@@ -66,6 +66,77 @@ window.LESSON_10_C4_B9_DATA = {
     audioScript: "Bài toán dẫn nhập: Các em có bao giờ thắc mắc tại sao một đứa trẻ có thể nhấc bổng một người lớn trên bập bênh nếu ngồi đúng vị trí? Hay trong cơ học, vị trí điểm đặt trụ đỡ để thanh đòn chịu tải cân bằng được xác định như thế nào? Và kì diệu hơn cả, tại sao những chiếc thuyền buồm cổ đại có thể di chuyển tiến về phía trước ngay cả khi gió đang thổi ngược lại? Bí mật nằm ở việc phân tích lực gió thành các vectơ thành phần. Chúng ta cùng khám phá lời giải đáp toán học ngay sau đây nhé!",
     audioUrl: "assets/audio/b10_9_hook.mp3",
     buttonLabel: "Nghe tình huống mở đầu",
+    illustrationSvg: `<div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
+  <svg viewBox="0 0 720 260" style="max-width: 700px; width: 100%; height: auto; display: block; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1.5px solid #0284c7; box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);">
+    <defs>
+      <marker id="arr-b9-f1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+      </marker>
+      <marker id="arr-b9-f2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+      </marker>
+      <marker id="arr-b9-n" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
+      </marker>
+    </defs>
+
+    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">HÌNH 4.20 SGK: NGUYÊN LÍ ĐÒN BẨY CÂN BẰNG VÀ KHỐI TÂM M (m₁·MA&#8407; + m₂·MB&#8407; = 0&#8407;)</text>
+
+    <!-- Mặt sàn đất -->
+    <line x1="80" y1="225" x2="640" y2="225" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M 90 225 L 80 235 M 130 225 L 120 235 M 170 225 L 160 235 M 210 225 L 200 235 M 250 225 L 240 235 M 290 225 L 280 235 M 330 225 L 320 235 M 370 225 L 360 235 M 410 225 L 400 235 M 450 225 L 440 235 M 490 225 L 480 235 M 530 225 L 520 235 M 570 225 L 560 235 M 610 225 L 600 235" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Trụ đỡ hình tam giác tại điểm M(320, 130) -->
+    <polygon points="320,130 290,225 350,225" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <circle cx="320" cy="130" r="4.5" fill="#16a34a"/>
+    <text x="320" y="118" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#15803d">M (Điểm tựa/Khối tâm)</text>
+
+    <!-- Thanh đòn cứng AB nằm ngang y=130, từ x=120 đến x=600 -->
+    <rect x="120" y="125" width="480" height="10" rx="3" fill="#334155"/>
+
+    <!-- Đầu A (x=140): Vật m1 (nặng hơn, gần M) -->
+    <rect x="110" y="65" width="60" height="60" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="140" y="100" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#b91c1c">Vật m₁</text>
+    <circle cx="140" cy="130" r="4" fill="#dc2626"/>
+    <text x="140" y="150" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">A</text>
+
+    <!-- Trọng lực P1 tại A -->
+    <line x1="140" y1="130" x2="140" y2="210" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-b9-f1)"/>
+    <!-- Nhãn vectơ P1 -->
+    <g transform="translate(150, 185)">
+      <line x1="0" y1="-14" x2="14" y2="-14" stroke="#dc2626" stroke-width="1.5"/><path d="M 11,-16.5 L 14,-14 L 11,-11.5" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+      <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">P₁</text>
+    </g>
+
+    <!-- Đầu B (x=580): Vật m2 (nhẹ hơn, xa M) -->
+    <rect x="560" y="85" width="40" height="40" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="580" y="110" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#0369a1">m₂</text>
+    <circle cx="580" cy="130" r="4" fill="#0284c7"/>
+    <text x="580" y="150" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">B</text>
+
+    <!-- Trọng lực P2 tại B -->
+    <line x1="580" y1="130" x2="580" y2="185" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arr-b9-f2)"/>
+    <!-- Nhãn vectơ P2 -->
+    <g transform="translate(590, 165)">
+      <line x1="0" y1="-14" x2="14" y2="-14" stroke="#0284c7" stroke-width="1.5"/><path d="M 11,-16.5 L 14,-14 L 11,-11.5" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+      <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">P₂</text>
+    </g>
+
+    <!-- Phản lực N tại M hướng lên -->
+    <line x1="320" y1="130" x2="320" y2="45" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-b9-n)"/>
+    <g transform="translate(328, 65)">
+      <line x1="0" y1="-14" x2="14" y2="-14" stroke="#16a34a" stroke-width="1.5"/><path d="M 11,-16.5 L 14,-14 L 11,-11.5" fill="none" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#16a34a">N = -(P₁ + P₂)</text>
+    </g>
+
+    <!-- Kích thước cánh tay đòn d1 và d2 -->
+    <line x1="140" y1="52" x2="320" y2="52" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <text x="230" y="47" text-anchor="middle" font-size="11" fill="#475569">d₁ = MA</text>
+
+    <line x1="320" y1="52" x2="580" y2="52" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <text x="450" y="47" text-anchor="middle" font-size="11" fill="#475569">d₂ = MB</text>
+  </svg>
+</div>`,
     story: `
       <p>Với mỗi cặp vật đặt trên hai đầu của một thanh đòn $AB$, luôn có duy nhất một điểm $M$ thuộc đoạn thẳng $AB$ để nếu đặt trụ đỡ tại $M$ thì thanh đòn ở trạng thái cân bằng (Hình 4.20 SGK). Điểm $M$ đó chính là <strong>khối tâm</strong> của hệ hai chất điểm $A, B$ có khối lượng $m_1, m_2$.</p>
       <p>Và kì diệu hơn thế nữa, từ thời xa xưa, con người đã biết điều khiển những chiếc thuyền buồm khổng lồ đi ngược hướng gió bằng cách chạy zích zắc, nhờ vào việc phân tích lực gió tác động lên cánh buồm thành hai phương trực giao!</p>
@@ -134,9 +205,9 @@ window.LESSON_10_C4_B9_DATA = {
             <path d="M 110,120 Q 150,90 170,60" fill="none" stroke="#2563eb" stroke-width="3"/>
             <!-- Lực đẩy vuông góc cánh buồm F -->
             <line x1="140" y1="90" x2="185" y2="120" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-b9-red)"/>
-            <text x="190" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\\vec{F}</text>
+            <text x="190" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\F&#8407;</text>
 
-            <text x="25" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Lực \\vec{F} = x·\\vec{a} + y·\\vec{b} đẩy thuyền tiến lên</text>
+            <text x="25" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Lực \F&#8407; = x·\a&#8407; + y·\b&#8407; đẩy thuyền tiến lên</text>
           </g>
         </svg>
       </div>
@@ -232,15 +303,15 @@ window.LESSON_10_C4_B9_DATA = {
 
                     <!-- Vectơ 1/2 a (dx=30, dy=-30) -->
                     <line x1="15" y1="135" x2="42" y2="108" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-grid-blue)"/>
-                    <text x="35" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\\frac{1}{2}\\vec{a}</text>
+                    <text x="35" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\\frac{1}{2}\a&#8407;</text>
 
                     <!-- Vectơ a (dx=60, dy=-60) -->
                     <line x1="75" y1="135" x2="132" y2="78" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-grid-blue)"/>
-                    <text x="110" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\vec{a}</text>
+                    <text x="110" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\a&#8407;</text>
 
                     <!-- Vectơ 3/2 a (dx=90, dy=-90) -->
                     <line x1="135" y1="135" x2="222" y2="48" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-grid-blue)"/>
-                    <text x="180" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\frac{3}{2}\\vec{a}</text>
+                    <text x="180" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\frac{3}{2}\a&#8407;</text>
                   </g>
 
                   <!-- Khung lưới bên phải: k < 0 (Hình 4.23) -->
@@ -250,15 +321,15 @@ window.LESSON_10_C4_B9_DATA = {
 
                     <!-- Vectơ a làm chuẩn -->
                     <line x1="15" y1="135" x2="72" y2="78" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-grid-blue)"/>
-                    <text x="35" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\\vec{a}</text>
+                    <text x="35" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\a&#8407;</text>
 
                     <!-- Vectơ -2a (hướng ngược lại: dx=-120, dy=120) -->
                     <line x1="210" y1="15" x2="94" y2="131" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-grid-red)"/>
-                    <text x="165" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">-2\\vec{a}</text>
+                    <text x="165" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">-2\a&#8407;</text>
 
                     <!-- Vectơ -3/2 a -->
                     <line x1="225" y1="45" x2="139" y2="131" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-grid-red)"/>
-                    <text x="195" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">-\\frac{3}{2}\\vec{a}</text>
+                    <text x="195" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">-\\frac{3}{2}\a&#8407;</text>
                   </g>
                 </svg>
               </div>
@@ -365,8 +436,8 @@ window.LESSON_10_C4_B9_DATA = {
                   <text x="195" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">G</text>
 
                   <!-- Nhãn hệ thức vectơ -->
-                  <text x="70" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\\vec{GA} = -2\\vec{GM}</text>
-                  <text x="240" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#047857">\\vec{MN} = -\\frac{1}{2}\\vec{AB}</text>
+                  <text x="70" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\GA&#8407; = -2\GM&#8407;</text>
+                  <text x="240" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#047857">\MN&#8407; = -\\frac{1}{2}\AB&#8407;</text>
                 </svg>
               </div>
             </div>
@@ -531,21 +602,21 @@ window.LESSON_10_C4_B9_DATA = {
 
                   <!-- Trục cơ sở a (hướng ngang chếch nhẹ: 120,150 -> 220,150) -->
                   <line x1="120" y1="150" x2="215" y2="150" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-dec-blue)"/>
-                  <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\vec{a}</text>
+                  <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\a&#8407;</text>
 
                   <!-- Trục cơ sở b (hướng xiên lên trái: 120,150 -> 60,80) -->
                   <line x1="120" y1="150" x2="65" y2="85" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-dec-green)"/>
-                  <text x="75" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">\\vec{b}</text>
+                  <text x="75" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">\b&#8407;</text>
 
                   <!-- Thành phần x*a (120,150 -> 320,150: x=2) -->
                   <line x1="120" y1="150" x2="315" y2="150" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
                   <circle cx="320" cy="150" r="3.5" fill="#0284c7"/>
-                  <text x="270" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">x\\vec{a}</text>
+                  <text x="270" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">x\a&#8407;</text>
 
                   <!-- Thành phần y*b (120,150 -> 30,45: y=1.5) -->
                   <line x1="120" y1="150" x2="33" y2="48" stroke="#16a34a" stroke-width="2" stroke-dasharray="4,4"/>
                   <circle cx="30" cy="45" r="3.5" fill="#16a34a"/>
-                  <text x="45" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#16a34a">y\\vec{b}</text>
+                  <text x="45" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#16a34a">y\b&#8407;</text>
 
                   <!-- Đường dóng song song hoàn thành hình bình hành -->
                   <line x1="320" y1="150" x2="230" y2="45" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -554,7 +625,7 @@ window.LESSON_10_C4_B9_DATA = {
                   <!-- Vectơ u = x*a + y*b (đường chéo đỏ: 120,150 -> 230,45) -->
                   <line x1="120" y1="150" x2="225" y2="50" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arr-dec-red)"/>
                   <circle cx="230" cy="45" r="4.5" fill="#dc2626"/>
-                  <text x="180" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\\vec{u} = x\\vec{a} + y\\vec{b}</text>
+                  <text x="180" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\u&#8407; = x\a&#8407; + y\b&#8407;</text>
                 </svg>
               </div>
             </div>

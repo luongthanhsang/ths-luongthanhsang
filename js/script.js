@@ -2303,8 +2303,15 @@ function initDigitalLessons() {
   // ==========================================================================
   let currentSidebarMode = "lesson_tree"; // "lesson_tree" hoặc "chapter_list"
   let currentActiveStepId = "welcome";     // Mục hiện tại đang học
+  let currentActiveSubKey = null;          // Tiểu mục a, b đang chọn
   let currentViewMode = "step";            // "step" (Tập trung từng mục) hoặc "all" (Xem toàn bài)
   const completedStepsCache = {};
+
+  function cleanSubKey(key, index) {
+    if (!key) return String.fromCharCode(97 + (index || 0));
+    const letters = String(key).replace(/^[0-9]+/g, '').replace(/[^a-zA-Z]/g, '').trim().toLowerCase();
+    return letters || String.fromCharCode(97 + (index || 0));
+  }
 
   function getLessonCompletedSteps(lessonId) {
     if (!completedStepsCache[lessonId]) {
@@ -2367,23 +2374,44 @@ function initDigitalLessons() {
 
   function calculateLessonProgress(lesson) {
     if (!lesson) return 0;
-    const steps = getLessonLinearSteps(lesson);
     const completed = getLessonCompletedSteps(lesson.id);
-    const contentSteps = steps.filter(s => s.isContent);
-    const k = contentSteps.length || 1;
-    const contentStepWeight = 70.0 / k;
 
-    let total = 0;
-    steps.forEach(s => {
-      if (completed.has(s.id)) {
-        if (s.id === 'welcome') total += 5;
-        else if (s.id === 'goals') total += 5;
-        else if (s.id === 'quiz') total += 20;
-        else if (s.isContent) total += contentStepWeight;
+    let totalWeight = 0;
+    if (completed.has('welcome')) totalWeight += 5;
+    if (completed.has('goals')) totalWeight += 5;
+    if (completed.has('quiz')) totalWeight += 20;
+
+    let contentUnits = [];
+    if (lesson.hook) {
+      contentUnits.push({ id: 'hook' });
+    }
+    const sections = lesson.sections || [];
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      const subs = sec.subsections || [];
+      if (subs.length > 1) {
+        subs.forEach((sub, subIdx) => {
+          const subKey = cleanSubKey(sub.key, subIdx);
+          contentUnits.push({ id: `${secAnchor}-${subKey}`, parentId: secAnchor });
+        });
+      } else {
+        contentUnits.push({ id: secAnchor });
+      }
+    });
+    if (lesson.realworldWrapup) {
+      contentUnits.push({ id: 'wrapup' });
+    }
+
+    const n = contentUnits.length || 1;
+    const unitWeight = 70.0 / n;
+
+    contentUnits.forEach(u => {
+      if (completed.has(u.id)) {
+        totalWeight += unitWeight;
       }
     });
 
-    return Math.min(100, Math.round(total));
+    return Math.min(100, Math.round(totalWeight));
   }
 
   function renderStepNavFooterHtml(stepId, lesson) {
@@ -2411,15 +2439,18 @@ function initDigitalLessons() {
     const sidebarHeaderEl = sidebarEl.querySelector(".sidebar-header");
     if (sidebarHeaderEl) {
       sidebarHeaderEl.className = "sidebar-header lesson-structure-header";
+      const lessonNumStr = (lesson.number ? (lesson.number.trim().toLowerCase().startsWith("bài") ? lesson.number.trim() : `Bài ${lesson.number.trim()}`) : "");
+      const fullTitleStr = lessonNumStr ? `${lessonNumStr}. ${lesson.title}` : lesson.title;
+
       sidebarHeaderEl.innerHTML = `
         <div class="structure-header-content">
           <div class="structure-badge-row">
-            <span class="structure-tag"><i class="fa-solid fa-layer-group"></i> Cấu trúc bài học</span>
+            <span class="structure-tag"><i class="fa-solid fa-layer-group"></i> Bài học số</span>
             <button class="btn-switch-to-chapters" id="btnSwitchToChapters" title="Xem danh sách tất cả các bài trong chương">
               <i class="fa-solid fa-bars-staggered"></i> Toàn bộ bài
             </button>
           </div>
-          <h4 class="structure-lesson-title">Cấu trúc bài: ${escapeHtml(lesson.title)}</h4>
+          <h4 class="structure-lesson-title">${escapeHtml(fullTitleStr)}</h4>
         </div>
       `;
 
@@ -2512,9 +2543,16 @@ function initDigitalLessons() {
       const secNum = (sec.num !== undefined && sec.num !== null && String(sec.num) !== 'undefined') 
         ? sec.num 
         : (sec.number ? String(sec.number).replace(/[^0-9]/g, '') : String(sIdx + 1));
-      const isDone = completed.has(secAnchor);
-      const isActive = currentActiveStepId === secAnchor;
+      
       const subs = sec.subsections || [];
+      const hasMultipleSubs = subs.length > 1;
+
+      // Nếu có từ 2 mục con trở lên: Mục cha chỉ hoàn thành khi TẤT CẢ mục con đã xong
+      const isDone = hasMultipleSubs 
+        ? subs.every((sub, subIdx) => completed.has(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`))
+        : completed.has(secAnchor);
+
+      const isActive = currentActiveStepId === secAnchor;
 
       treeHtml += `
         <div class="tree-node tree-child-1 ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="${secAnchor}">
@@ -2530,13 +2568,23 @@ function initDigitalLessons() {
         </div>
       `;
 
-      if (subs.length > 0) {
+      // Nếu trong mục 1 có các mục nhỏ a, b,.. thì mới thể hiện các mục con a, b,... (không ghi 1a, 1b)
+      if (hasMultipleSubs) {
         treeHtml += `<div class="tree-subsections-list" data-parent-sec="${secAnchor}">`;
-        subs.forEach((sub) => {
+        subs.forEach((sub, subIdx) => {
+          const cleanKey = cleanSubKey(sub.key, subIdx);
+          const subStepId = `${secAnchor}-${cleanKey}`;
+          const isSubDone = completed.has(subStepId);
+          const isSubActive = (currentActiveStepId === secAnchor && currentActiveSubKey === cleanKey);
+
           treeHtml += `
-            <div class="tree-sub-item" data-step-id="${secAnchor}" data-subkey="${escapeHtml(sub.key)}">
-              <span class="tree-sub-bullet">•</span>
-              <strong>${escapeHtml(sub.key)})</strong> ${escapeHtml(sub.title)}
+            <div class="tree-sub-item ${isSubActive ? 'is-active' : ''} ${isSubDone ? 'is-completed' : ''}" data-step-id="${secAnchor}" data-sub-step-id="${subStepId}" data-subkey="${cleanKey}">
+              <span class="tree-sub-status-icon">
+                <i class="fa-${isSubDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+              </span>
+              <span class="tree-sub-letter">${cleanKey}.</span>
+              <span class="tree-sub-title">${escapeHtml(sub.title)}</span>
+              ${isSubDone ? `<span class="tree-sub-done-tag"><i class="fa-solid fa-check"></i></span>` : ''}
             </div>
           `;
         });
@@ -2582,13 +2630,19 @@ function initDigitalLessons() {
         </div>
         <div class="tree-subsections-list" data-parent-sec="quiz">
           <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="1">
-            <span class="tree-sub-bullet">•</span> Dạng 1: Trắc nghiệm 4 lựa chọn (5 câu)
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 1: Trắc nghiệm 4 lựa chọn (5 câu)</span>
           </div>
           <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="2">
-            <span class="tree-sub-bullet">•</span> Dạng 2: Trắc nghiệm Đúng / Sai (3 câu)
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 2: Trắc nghiệm Đúng / Sai (3 câu)</span>
           </div>
           <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="3">
-            <span class="tree-sub-bullet">•</span> Dạng 3: Trả lời ngắn thực tế (2 câu)
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 3: Trả lời ngắn thực tế (2 câu)</span>
           </div>
         </div>
       `;
@@ -2757,6 +2811,7 @@ function initDigitalLessons() {
 
   function activateStep(stepId, subKey, quizPart) {
     currentActiveStepId = stepId;
+    currentActiveSubKey = subKey || null;
 
     if (sidebarContainer) {
       sidebarContainer.querySelectorAll(".tree-node").forEach(node => {
@@ -2779,7 +2834,10 @@ function initDigitalLessons() {
       const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
       const steps = currentItem ? getLessonLinearSteps(currentItem.lesson) : [];
       const stepObj = steps.find(s => s.id === stepId);
-      const title = stepObj ? stepObj.title : stepId;
+      let title = stepObj ? stepObj.title : stepId;
+      if (subKey) {
+        title += ` - Mục ${subKey}.`;
+      }
       statusTextEl.innerHTML = `Đang học: <strong>${escapeHtml(title)}</strong>`;
     }
 
@@ -2805,40 +2863,55 @@ function initDigitalLessons() {
     }, 80);
   }
 
-  function markStepCompleted(stepId) {
+  function markStepCompleted(stepId, subKey) {
     const flatList = getFlatLessonsList(currentGrade);
     const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
     if (!currentItem) return;
     const lesson = currentItem.lesson;
 
     const completed = getLessonCompletedSteps(lesson.id);
-    const wasAlreadyDone = completed.has(stepId);
-    completed.add(stepId);
+    let targetId = stepId;
+    if (subKey) {
+      targetId = `${stepId}-${subKey}`;
+    }
+
+    const wasAlreadyDone = completed.has(targetId);
+    completed.add(targetId);
+
+    // Nếu hoàn thành mục con, kiểm tra nếu mọi mục con đã xong thì đánh dấu mục cha
+    const sections = lesson.sections || [];
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      if (secAnchor === stepId) {
+        const subs = sec.subsections || [];
+        if (subs.length > 1) {
+          const allSubsDone = subs.every((sub, subIdx) => completed.has(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`));
+          if (allSubsDone) {
+            completed.add(secAnchor);
+          }
+        }
+      }
+    });
+
+    // Nếu hoàn thành mục cha thì đánh dấu hoàn thành tất cả mục con
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      if (secAnchor === stepId && !subKey) {
+        const subs = sec.subsections || [];
+        subs.forEach((sub, subIdx) => {
+          completed.add(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`);
+        });
+      }
+    });
+
     saveLessonCompletedSteps(lesson.id);
 
     const pct = calculateLessonProgress(lesson);
     currentLessonProgress = pct;
     updateLessonProgressDisplay();
 
-    if (sidebarContainer) {
-      const node = sidebarContainer.querySelector(`.tree-node[data-step-id="${stepId}"]`);
-      if (node) {
-        node.classList.add("is-completed");
-        const icon = node.querySelector(".tree-status-icon");
-        if (icon) {
-          icon.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10b981;"></i>`;
-        }
-        if (!node.querySelector(".tree-done-tag")) {
-          const row = node.querySelector(".tree-item-row");
-          if (row) {
-            const tag = document.createElement("span");
-            tag.className = "tree-done-tag";
-            tag.innerHTML = `<i class="fa-solid fa-check"></i> Đã xong`;
-            row.appendChild(tag);
-          }
-        }
-      }
-    }
+    // Render lại sidebar để cập nhật tick xanh chính xác
+    renderLessonStructureSidebar(lesson);
 
     if (!wasAlreadyDone && typeof window.showToast === "function") {
       window.showToast(`🎉 Tuyệt vời! Em đã hoàn thành mục này. Tiến độ: ${pct}%`, "success");
@@ -2880,13 +2953,14 @@ function initDigitalLessons() {
 
   window.markCurrentStepDoneOnAudioEnd = function() {
     if (currentActiveStepId) {
-      markStepCompleted(currentActiveStepId);
+      markStepCompleted(currentActiveStepId, currentActiveSubKey);
     }
   };
   window.markStepCompleted = markStepCompleted;
   window.activateStep = activateStep;
   window.getLessonLinearSteps = getLessonLinearSteps;
   window.calculateLessonProgress = calculateLessonProgress;
+  window.mathToVietnameseSpeech = mathToVietnameseSpeech;
 
   function initLessonStepperEngine(lesson) {
     const pct = calculateLessonProgress(lesson);
@@ -2902,7 +2976,7 @@ function initDigitalLessons() {
         btnModeStep.classList.add("active");
         if (btnModeAll) btnModeAll.classList.remove("active");
         applyViewMode();
-        activateStep(currentActiveStepId);
+        activateStep(currentActiveStepId, currentActiveSubKey);
       });
     }
 
@@ -2925,7 +2999,7 @@ function initDigitalLessons() {
         } else if (action === "next") {
           goToNextStep(fromStep);
         } else if (action === "complete") {
-          markStepCompleted(fromStep);
+          markStepCompleted(fromStep, currentActiveSubKey);
           goToNextStep(fromStep);
         }
       });
@@ -3414,13 +3488,14 @@ function initDigitalLessons() {
           </div>
           <div class="section-body-wrap">
             ${subsections.map((sub, subIdx) => {
-              const exId = `ex-sol-${sIdx}-${sub.key || subIdx}`;
+              const cleanLetter = cleanSubKey(sub.key, subIdx);
+              const exId = `ex-sol-${sIdx}-${cleanLetter}`;
               return `
-              <!-- Khung phụ ${sub.key}) -->
-              <div class="subsection-card" id="sub-${escapeHtml(sub.key)}" data-subkey="${escapeHtml(sub.key)}">
+              <!-- Khung phụ ${cleanLetter}) -->
+              <div class="subsection-card" id="sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
                 <div class="subsection-header">
-                  <span class="sub-key-badge">${escapeHtml(sub.key)}</span>
-                  <h3 class="subsection-heading-h3">${escapeHtml(sub.key)}) ${escapeHtml(sub.title)}</h3>
+                  <span class="sub-key-badge">${escapeHtml(cleanLetter)}.</span>
+                  <h3 class="subsection-heading-h3">${escapeHtml(cleanLetter)}. ${escapeHtml(sub.title)}</h3>
                 </div>
 
                 ${sub.contentHtml ? `
@@ -4070,12 +4145,33 @@ function initDigitalLessons() {
     let s = text;
     // Bỏ thẻ HTML
     s = s.replace(/<[^>]+>/g, " ");
-    // Chuyển ký hiệu Toán học sang lời phát biểu tiếng Việt chuẩn mực của Thầy Sáng
-    s = s.replace(/\\vec\{0\}/g, " vectơ-không ");
-    s = s.replace(/\\vec\{([A-Za-z0-9]+)\}/g, " vectơ $1 ");
-    s = s.replace(/\\vec\s+([A-Za-z0-9]+)/g, " vectơ $1 ");
-    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " độ dài vectơ $1 ");
-    s = s.replace(/\|\\vec\s+([^|]+)\|/g, " độ dài vectơ $1 ");
+
+    // 1. Chuẩn hóa toạ độ Oxy và Oxyz phát âm rõ từng chữ (O x y, O x y z)
+    s = s.replace(/\bOxyz\b/g, " O x y z ");
+    s = s.replace(/\bOxy\b/g, " O x y ");
+    s = s.replace(/\(Oxyz\)/g, " O x y z ");
+    s = s.replace(/\(Oxy\)/g, " O x y ");
+
+    // 2. Chuẩn hóa hàm cotang và góc an pha
+    s = s.replace(/\\cot\s*\(?\\alpha\)?/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*\(?\\alpha\)?/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*\(\s*an\s*pha\s*\)/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*an\s*pha/gi, " cô tăng góc an pha ");
+    s = s.replace(/\\cot/g, " cô tăng ");
+    s = s.replace(/\bcot\b/g, " cô tăng ");
+
+    // 3. Chuẩn hóa vectơ có mũi tên trên đầu (véc tơ A B...)
+    s = s.replace(/\\vec\{0\}/g, " véc tơ không ");
+    s = s.replace(/\\overrightarrow\{0\}/g, " véc tơ không ");
+    s = s.replace(/\\vec\{([A-Z])([A-Z])\}/g, " véc tơ $1 $2 ");
+    s = s.replace(/\\overrightarrow\{([A-Z])([A-Z])\}/g, " véc tơ $1 $2 ");
+    s = s.replace(/\\vec\{([A-Za-z0-9_]+)\}/g, " véc tơ $1 ");
+    s = s.replace(/\\overrightarrow\{([A-Za-z0-9_]+)\}/g, " véc tơ $1 ");
+    s = s.replace(/\\vec\s+([A-Za-z0-9_]+)/g, " véc tơ $1 ");
+    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " độ dài véc tơ $1 ");
+    s = s.replace(/\|\\overrightarrow\{([^}]+)\}\|/g, " độ dài véc tơ $1 ");
+
+    // 4. Các ký hiệu toán học phổ biến khác
     s = s.replace(/\\parallel/g, " song song với ");
     s = s.replace(/\/\//g, " song song với ");
     s = s.replace(/\\not\\subset/g, " không nằm trong ");
@@ -4084,15 +4180,14 @@ function initDigitalLessons() {
     s = s.replace(/\\cup/g, " hợp với ");
     s = s.replace(/\\emptyset/g, " tập rỗng ");
     s = s.replace(/\\perp/g, " vuông góc với ");
-    s = s.replace(/\\cdot/g, " nhân vô hướng với ");
-    s = s.replace(/\\cos/g, " cô-sin ");
+    s = s.replace(/\\cdot/g, " nhân ");
+    s = s.replace(/\\cos/g, " cô sin ");
     s = s.replace(/\\sin/g, " sin ");
     s = s.replace(/\\tan/g, " tang ");
-    s = s.replace(/\\cot/g, " cô-tang ");
     s = s.replace(/\\widehat\{([^}]+)\}/g, " góc $1 ");
-    s = s.replace(/\\alpha/g, " an-pha ");
-    s = s.replace(/\\beta/g, " bê-ta ");
-    s = s.replace(/\\gamma/g, " gam-ma ");
+    s = s.replace(/\\alpha/g, " an pha ");
+    s = s.replace(/\\beta/g, " bê ta ");
+    s = s.replace(/\\gamma/g, " gam ma ");
     s = s.replace(/\\varphi/g, " phi ");
     s = s.replace(/\\sqrt\{([^}]+)\}/g, " căn bậc hai của $1 ");
     s = s.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, " $1 phần $2 ");
@@ -4811,6 +4906,9 @@ function initDigitalLessons() {
           fb.style.color = '#16a34a';
           fb.style.border = '1px solid #bbf7d0';
           fb.innerHTML = '🎉 ' + (poi.explain || 'Chính xác! Thầy khen em đã nắm bài rất tốt!');
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([fb]).catch(e => console.warn(e));
+          }
           optBtns.forEach(b => b.disabled = true);
           if (typeof window.increaseLessonProgress === 'function') window.increaseLessonProgress(15, 20, 1);
           if (typeof window.triggerConfettiFireworks === 'function') window.triggerConfettiFireworks();
@@ -4925,7 +5023,12 @@ function initDigitalLessons() {
           this.classList.add("selected-correct");
           allOpts.forEach(b => b.disabled = true);
           const feedback = parentCard.querySelector(".checkpoint-feedback") || parentCard.querySelector(".exam-solution-collapse");
-          if (feedback) feedback.classList.add("show");
+          if (feedback) {
+            feedback.classList.add("show");
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise([feedback]).catch(e => console.warn(e));
+            }
+          }
           if (typeof window.increaseLessonProgress === "function") window.increaseLessonProgress(10, 10, 1);
           if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
           if (typeof window.showToast === "function") window.showToast("🎉 Chính xác! Thầy khen em đã trả lời rất chuẩn!", "success");

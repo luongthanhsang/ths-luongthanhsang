@@ -71,7 +71,7 @@ window.LESSON_10_C4_B11_DATA = {
       </div>
       <p>Trong đó $|\\vec{F}|$ là độ lớn của lực (N), $|\\vec{MN}|$ là quãng đường chuyển dời (m), và $(\\vec{F}, \\vec{MN})$ là góc giữa vectơ lực $\\vec{F}$ và vectơ độ dời $\\vec{MN}$. Toán học gọi giá trị $A$ trong biểu thức trên chính là <strong>tích vô hướng</strong> của hai vectơ $\\vec{F}$ và $\\vec{MN}$!</p>
     `,
-    illustration: `
+    illustrationSvg: `
       <div class="tikz-svg-wrap" style="text-align: center; margin: 16px 0;">
         <svg viewBox="0 0 700 240" style="max-width: 660px; width: 100%; height: auto; display: block; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #cbd5e1;">
           <defs>
@@ -101,7 +101,7 @@ window.LESSON_10_C4_B11_DATA = {
 
           <!-- Vectơ lực kéo F chếch góc alpha -->
           <line x1="220" y1="110" x2="350" y2="50" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arr-b11-red)"/>
-          <text x="310" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">Lực \\vec{F}</text>
+          <text x="310" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">Lực \F&#8407;</text>
 
           <!-- Góc alpha giữa F và phương ngang -->
           <line x1="220" y1="110" x2="330" y2="110" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -128,8 +128,8 @@ window.LESSON_10_C4_B11_DATA = {
 
           <!-- Vectơ độ dời MN -->
           <line x1="220" y1="160" x2="540" y2="160" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-b11-blue)"/>
-          <text x="350" y="152" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">Độ dời \\vec{MN}</text>
-          <text x="310" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#334155">Hình 4.42: Công cơ học A = |\\vec{F}|·|\\vec{MN}|·cos(&alpha;)</text>
+          <text x="350" y="152" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">Độ dời \MN&#8407;</text>
+          <text x="310" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#334155">Hình 4.42: Công cơ học A = |\F&#8407;|·|\MN&#8407;|·cos(&alpha;)</text>
         </svg>
       </div>
     `
