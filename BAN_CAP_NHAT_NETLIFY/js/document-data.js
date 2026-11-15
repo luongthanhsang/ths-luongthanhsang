@@ -241,6 +241,48 @@ const DOCUMENTS_DATA = [
     tag: "HSG Tỉnh An Giang 2025 - 2026"
   },
   {
+    id: "doc-hsg-ag-2025",
+    grade: "all",
+    category: "hsg",
+    title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT 2024 – 2025 (Sở GD&ĐT An Giang)",
+    description: "Bộ tài liệu bồi dưỡng HSG cấp Tỉnh đỉnh cao: Đề thi chính thức kèm HƯỚNG DẪN GIẢI CHI TIẾT 100% (20 trang trọn vẹn) do ThS. Lương Thanh Sáng trực tiếp biên soạn. Khám phá 9 bài toán tự luận phân hoá cao: Tối ưu hoá lộ trình trên đồ thị hình sao tâm O, Phương trình vô tỉ và hệ phương trình đại số, Hình học không gian cực trị khoảng cách, Đo đạc thực tế gián tiếp, Dãy số quy nạp hai biến a(n+m) = a(n) + a(m) + nm, Bài toán số học bảng ô vuông 3x3 và Bất đẳng thức đối xứng đa biến.",
+    pages: 20,
+    size: "200 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/17qVKSdtDhWhl06NR6483qWQ-L8RXWcLx/preview",
+    downloadUrl: "https://drive.google.com/file/d/17qVKSdtDhWhl06NR6483qWQ-L8RXWcLx/view?usp=sharing",
+    tag: "HSG Tỉnh An Giang 2024 - 2025"
+  },
+  {
+    id: "doc-hsg-ag-2024",
+    grade: "all",
+    category: "hsg",
+    title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT 2023 – 2024 (Sở GD&ĐT An Giang)",
+    description: "Tài liệu ôn luyện đội tuyển HSG Toán do ThS. Lương Thanh Sáng biên soạn & giải chi tiết (16 trang công phu). Phân tích sư phạm các dạng toán đặc sắc: Tính tổng phần tử bảng số tích chẵn lẻ m x n, Kỹ thuật trục căn thức và bất đẳng thức đại số, Mô hình hoá lý thuyết đồ thị đường đi trên hình hộp chữ nhật có đường chéo DB', Phương trình hàm và dãy số nâng cao, Số học chia hết và bài toán tổ hợp rời rạc.",
+    pages: 16,
+    size: "188 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/177lZai6bLXWuyJxzfpZqKpUGRYLNqPDk/preview",
+    downloadUrl: "https://drive.google.com/file/d/177lZai6bLXWuyJxzfpZqKpUGRYLNqPDk/view?usp=sharing",
+    tag: "HSG Tỉnh An Giang 2023 - 2024"
+  },
+  {
+    id: "doc-hsg-kg-2024",
+    grade: "all",
+    category: "hsg",
+    title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG Vòng Tỉnh môn Toán THPT 2023 – 2024 (Sở GD&ĐT Kiên Giang)",
+    description: "Bộ đề thi và lời giải chi tiết 100% chuẩn mực của ThS. Lương Thanh Sáng (17 trang sắc nét) cho Kỳ thi HSG tỉnh Kiên Giang. Phân tích 9 câu hỏi tự luận mẫu mực: Phương trình vô tỉ liên hợp kép và ẩn phụ, Lượng giác ứng dụng đo đạc thực tế góc và khoảng cách tháp cao, Hệ phương trình chứa căn thức, Hình học không gian tính khoảng cách chéo nhau, Tổ hợp số học lập số 4 chữ số và xác suất số chẵn, Đan xen cấp số cộng và cấp số nhân, Giới hạn dãy số truy hồi phân thức.",
+    pages: 17,
+    size: "186 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/1Z-WmW576EAUqSvTKYl3_mrIIPVKqeZ51/preview",
+    downloadUrl: "https://drive.google.com/file/d/1Z-WmW576EAUqSvTKYl3_mrIIPVKqeZ51/view?usp=sharing",
+    tag: "HSG Tỉnh Kiên Giang 2023 - 2024"
+  },
+  {
     id: "doc-hsg-sang-01",
     grade: "all",
     category: "hsg",
