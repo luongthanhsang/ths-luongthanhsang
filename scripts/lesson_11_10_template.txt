@@ -1,0 +1,614 @@
+/**
+ * BÀI HỌC SỐ: BÀI 10. ĐƯỜNG THẲNG VÀ MẶT PHẲNG TRONG KHÔNG GIAN (TOÁN 11 - KẾT NỐI TRI THỨC VỚI CUỘC SỐNG)
+ * Biên soạn & Chuẩn hóa: ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang)
+ * =========================================================================================
+ * Chuẩn cấu trúc 4 phần sư phạm số hiện đại:
+ * - Phần I: Lời chào của Thầy Sáng kèm Voice AI Gold Box (5% tiến trình)
+ * - Phần II: Mục tiêu & Yêu cầu cần đạt chuẩn GDPT 2018 (5% tiến trình)
+ * - Phần III: Tiến trình bài học phân cấp mục 1, 2, 3, 4 kèm tiểu mục a, b có nút tick riêng (70% tiến trình)
+ * - Phần IV: Bài tập trắc nghiệm củng cố chuẩn 2025 (20% tiến trình) - Hoán vị đáp án A, B, C, D
+ * - Đồ họa TikZ SVG vector hiện đại, sắc nét, không lỗi ký hiệu
+ * - Voice AI đọc nguyên văn, chuẩn xác ngữ âm toán học
+ */
+
+window.LESSON_11_C4_B10_DATA = {
+  id: "11-c4-b10",
+  number: "Bài 10",
+  title: "Đường thẳng và mặt phẳng trong không gian",
+  isFeaturedLesson: true,
+  isInteractiveDigitalLesson: true,
+
+  // =========================================================================
+  // PHẦN I. LỜI CHÀO CỦA THẦY SÁNG (5%)
+  // =========================================================================
+  teacherWelcome: {
+    greetingText: "Thầy Sáng thân ái chào toàn thể các em học sinh yêu quý! Hôm nay, thầy rất vui mừng được cùng các em bước vào một thế giới toán học vô cùng kỳ thú và quan trọng, đó là Hình học không gian ba chiều với Bài 10: Đường thẳng và mặt phẳng trong không gian. Nếu như hình học phẳng mở ra cho chúng ta những bức tranh hai chiều phẳng lặng, thì hình học không gian sẽ nâng tầm tư duy logic, đưa các em tiếp cận với những cấu trúc 3D thực tế như các công trình kiến trúc, thiết kế đồ họa CAD và công nghệ in 3D hiện đại. Các em đã chuẩn bị sẵn sàng nguồn năng lượng tích cực cùng thầy chưa? Chúng ta cùng bắt đầu khám phá bài học ngay nhé!",
+    audioScript: "Thầy Sáng thân ái chào toàn thể các em học sinh yêu quý! Hôm nay, thầy rất vui mừng được cùng các em bước vào một thế giới toán học vô cùng kỳ thú và quan trọng, đó là Hình học không gian ba chiều với Bài 10: Đường thẳng và mặt phẳng trong không gian. Nếu như hình học phẳng mở ra cho chúng ta những bức tranh hai chiều phẳng lặng, thì hình học không gian sẽ nâng tầm tư duy logic, đưa các em tiếp cận với những cấu trúc 3D thực tế như các công trình kiến trúc, thiết kế đồ họa CAD và công nghệ in 3D hiện đại. Các em đã chuẩn bị sẵn sàng nguồn năng lượng tích cực cùng thầy chưa? Chúng ta cùng bắt đầu khám phá bài học ngay nhé!",
+    quote: "Trong không gian ba chiều bao la, mỗi định lí và tiên đề hình học là một chiếc la bàn soi sáng tư duy logic và mở rộng trí tưởng tượng không gian của các em.",
+    audioUrl: "assets/audio/b11_10_welcome.mp3",
+    buttonLabel: "Nhấn nghe Lời chào",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng"
+  },
+
+  // =========================================================================
+  // PHẦN II. MỤC TIÊU & YÊU CẦU CẦN ĐẠT (5%)
+  // =========================================================================
+  learningGoals: [
+    "Nhận biết các quan hệ liên thuộc cơ bản giữa điểm, đường thẳng, mặt phẳng trong không gian.",
+    "Nắm vững 6 tính chất thừa nhận (tiên đề) nền tảng của hình học không gian.",
+    "Mô tả và vận dụng thành thạo 3 cách xác định một mặt phẳng.",
+    "Xác định chính xác giao tuyến của hai mặt phẳng và giao điểm của đường thẳng với mặt phẳng.",
+    "Nhận biết, vẽ đúng quy ước hình chóp và hình tứ diện; giải thích các hiện tượng thực tiễn (ghế ba chân, nam châm giữ cửa)."
+  ],
+  goalsAudioScript: "Mục tiêu bài học số 10. Sau khi hoàn thành bài học này, các em cần đạt được các yêu cầu then chốt sau: Thứ nhất, nhận biết được các quan hệ liên thuộc cơ bản giữa điểm, đường thẳng và mặt phẳng trong không gian. Thứ hai, nắm vững sáu tính chất thừa nhận của hình học không gian. Thứ ba, mô tả thành thạo ba cách xác định một mặt phẳng. Thứ tư, biết cách tìm giao tuyến của hai mặt phẳng và giao điểm của đường thẳng với mặt phẳng. Thứ năm, nhận biết và mô tả chính xác hình chóp và hình tứ diện, cùng các ứng dụng thực tiễn của nguyên lí ba chân và nam châm giữ cửa.",
+  goalsAudioUrl: "assets/audio/b11_10_goals.mp3",
+
+  // =========================================================================
+  // PHẦN III. TIẾN TRÌNH BÀI HỌC SỐ (70%)
+  // =========================================================================
+  hook: {
+    title: "Tình huống mở đầu (Bài toán dẫn nhập)",
+    audioScript: "Tình huống mở đầu. Trong thực tế đời sống, các vật thể quanh chúng ta như hộp phấn, cục tẩy, máy in 3D hay khung xe ô tô thiết kế trên phần mềm đồ họa CAD đều là các khối hình trong không gian ba chiều. Các em có bao giờ tự hỏi, tại sao chiếc bàn bốn chân rất dễ bị bập bênh khi mặt đất gồ ghề, trong khi chiếc giá đỡ máy ảnh ba chân hay chiếc kiềng ba chân đun bếp luôn đứng vững vàng trên mọi địa hình? Đó chính là nhờ một nguyên lí cơ bản của hình học không gian: qua ba điểm không thẳng hàng luôn xác định duy nhất một mặt phẳng. Hãy cùng thầy tìm hiểu bản chất toán học tuyệt vời này ngay sau đây!",
+    audioUrl: "assets/audio/b11_10_hook.mp3",
+    buttonLabel: "Nghe bài toán mở đầu",
+    storyHtml: `
+      <p>Ở các lớp dưới, ta đã học về Hình học phẳng — môn học nghiên cứu tính chất của các hình trong mặt phẳng như tam giác, tứ giác, hình tròn,... Tuy nhiên, các vật thể thường gặp trong thực tế đời sống như hộp phấn, cục tẩy, chặn giấy, máy in 3D hay khung xe hơi thiết kế CAD là các hình trong không gian.</p>
+      <div style="margin: 12px 0; padding: 14px 18px; background: #f0fdf4; border-left: 4px solid #16a34a; border-radius: 6px;">
+        <strong>Câu hỏi thực tế của Thầy Sáng:</strong> Tại sao một chiếc bàn bốn chân rất dễ bị khập khiễng, bập bênh khi kê trên sàn nhà không bằng phẳng, trong khi chiếc <strong>chân máy ảnh ba chân</strong> (tripod) hay chiếc <strong>kiềng ba chân</strong> đun bếp luôn đứng vững vàng trên mọi địa hình mấp mô?
+      </div>
+      <p><em>Lời giải đáp từ hình học không gian:</em> Mặt sàn gồ ghề có thể làm cho bốn điểm chân bàn không đồng phẳng. Nhưng với ba điểm chân kiềng $A, B, C$ không thẳng hàng, toán học khẳng định luôn tồn tại <strong>duy nhất một mặt phẳng $(ABC)$</strong> đi qua chúng. Do đó, ba điểm này luôn cùng nằm trọn vẹn trong một mặt phẳng tựa, giúp vật thể đứng vững tuyệt đối!</p>
+    `,
+    illustrationSvg: `__SVG_HOOK__`,
+    checkpoints: [
+      {
+        id: "poi-11-10-hook-1",
+        time: 20,
+        title: "Giây 20: Bản chất nguyên lí 3 chân",
+        question: "Vì sao kiềng 3 chân hay giá đỡ máy ảnh 3 chân luôn đứng vững trên mọi mặt đất gồ ghề?",
+        options: [
+          "Vì 3 chân làm bằng kim loại nặng hơn 4 chân",
+          "Vì qua 3 điểm không thẳng hàng luôn xác định duy nhất một mặt phẳng",
+          "Vì mặt đất luôn có dạng hình tam giác",
+          "Vì trọng lực chỉ tác dụng lên 3 điểm"
+        ],
+        correctIndex: 1,
+        hint: "Xem lại tiên đề về số điểm không thẳng hàng để xác định một mặt phẳng.",
+        explain: "Chính xác! Ba điểm chân tiếp xúc không thẳng hàng luôn xác định duy nhất một mặt phẳng tựa, nên vật thể không bao giờ bị bập bênh!"
+      }
+    ]
+  },
+
+  // -------------------------------------------------------------------------
+  // CÁC MỤC KIẾN THỨC TRỌNG TÂM (MỤC 1, 2, 3, 4 PHÂN CẤP TIỂU MỤC a, b)
+  // -------------------------------------------------------------------------
+  sections: [
+    // -----------------------------------------------------------------------
+    // MỤC 1: KHÁI NIỆM MỞ ĐẦU
+    // -----------------------------------------------------------------------
+    {
+      num: "1",
+      title: "Khái niệm mở đầu",
+      audioScript: "Mục 1. Khái niệm mở đầu. Tiểu mục a. Mặt phẳng và cách biểu diễn mặt phẳng trong không gian. Mặt bảng, màn hình máy tính hay mặt hồ phẳng lặng là những hình ảnh trực quan của một phần mặt phẳng. Mặt phẳng không có bề dày và mở rộng vô tận về mọi phía. Để biểu diễn mặt phẳng, ta thường vẽ một hình bình hành và ghi tên mặt phẳng vào một góc, kí hiệu là mở ngoặc đơn P đóng ngoặc đơn, hoặc mở ngoặc đơn an pha đóng ngoặc đơn. Tiểu mục b. Quan hệ liên thuộc và quy tắc vẽ hình không gian. Nếu điểm A thuộc mặt phẳng P, ta kí hiệu A thuộc P. Nếu điểm B không thuộc mặt phẳng P, ta kí hiệu B không thuộc P. Khi vẽ hình biểu diễn của một hình không gian, các em cần tuân thủ nghiêm ngặt quy tắc nét vẽ: dùng nét liền để biểu diễn cho những đường nhìn thấy được, và dùng nét đứt đoạn để biểu diễn cho những đường bị che khuất.",
+      audioUrl: "assets/audio/b11_10_sec1.mp3",
+      buttonLabel: "Nghe giảng Mục 1",
+      checkpoints: [
+        {
+          id: "poi-11-10-sec1-1",
+          time: 18,
+          title: "Giây 18: Kí hiệu mặt phẳng",
+          question: "Để kí hiệu mặt phẳng, ta dùng chữ cái in hoa hoặc chữ cái Hy Lạp đặt trong dấu gì?",
+          options: [
+            "Dấu ngoặc vuông [ ]",
+            "Dấu ngoặc nhọn { }",
+            "Dấu ngoặc đơn ( )",
+            "Dấu gạch chéo / /"
+          ],
+          correctIndex: 2,
+          hint: "Ví dụ kí hiệu mặt phẳng P hoặc mặt phẳng an pha.",
+          explain: "Chính xác! Ta dùng chữ cái in hoa hoặc Hy Lạp đặt trong dấu ngoặc đơn: $(P), (Q), (\\alpha), (\\beta)$."
+        }
+      ],
+      subsections: [
+        {
+          key: "a",
+          title: "Mặt phẳng và cách biểu diễn mặt phẳng trong không gian",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-bookmark"></i> [Khái niệm mặt phẳng SGK Trang 71]:</div>
+              <p>Mặt bảng, màn hình máy tính hay mặt nước lúc tĩnh lặng là một số hình ảnh về một phần của mặt phẳng.</p>
+              <ul>
+                <li><strong>Mặt phẳng không có bề dày và không có giới hạn</strong> (trải rộng vô tận về mọi phía).</li>
+                <li><strong>Biểu diễn mặt phẳng:</strong> Ta thường dùng một hình bình hành và viết tên của mặt phẳng vào một góc của hình (hoặc viết ở bên trong góc đó).</li>
+                <li><strong>Kí hiệu mặt phẳng:</strong> Ta dùng chữ cái in hoa hoặc chữ cái Hy Lạp đặt trong dấu ngoặc đơn $( )$. Ví dụ: Mặt phẳng $(P)$, mặt phẳng $(Q)$, mặt phẳng $(\\alpha)$, mặt phẳng $(\\beta)$.</li>
+              </ul>
+            </div>
+          `
+        },
+        {
+          key: "b",
+          title: "Quan hệ liên thuộc và Quy tắc vẽ hình biểu diễn của hình không gian",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-draw-polygon"></i> [Quan hệ liên thuộc & Quy tắc nét vẽ SGK Trang 71]:</div>
+              <p><strong>1. Quan hệ liên thuộc giữa điểm và mặt phẳng:</strong></p>
+              <ul>
+                <li>Điểm $A$ thuộc mặt phẳng $(P)$, kí hiệu: $A \\in (P)$. Ta còn nói: <em>$A$ nằm trên $(P)$</em>, hoặc <em>$(P)$ chứa $A$</em>, hoặc <em>$(P)$ đi qua $A$</em>.</li>
+                <li>Điểm $B$ không thuộc mặt phẳng $(P)$, kí hiệu: $B \\notin (P)$.</li>
+              </ul>
+              <p><strong>2. Quy tắc vàng khi vẽ hình biểu diễn của hình không gian:</strong></p>
+              <ul>
+                <li>Hình biểu diễn của đường thẳng là đường thẳng, của đoạn thẳng là đoạn thẳng.</li>
+                <li>Hình biểu diễn của hai đường thẳng song song là hai đường thẳng song song; của hai đường thẳng cắt nhau là hai đường thẳng cắt nhau.</li>
+                <li>Hình biểu diễn giữ nguyên quan hệ liên thuộc giữa điểm và đường thẳng.</li>
+                <li><span style="color: #0284c7; font-weight: 700;">Dùng nét liền</span> để biểu diễn cho đường <strong>nhìn thấy</strong>.</li>
+                <li><span style="color: #dc2626; font-weight: 700;">Dùng nét đứt đoạn</span> để biểu diễn cho đường <strong>bị che khuất</strong>.</li>
+              </ul>
+            </div>
+            __SVG_SEC1__
+            <div class="checkpoint-card" id="cp-11-10-1">
+              <div class="checkpoint-header">
+                <span class="cp-badge"><i class="fa-solid fa-circle-question"></i> Câu hỏi củng cố Mục 1</span>
+                <span class="cp-title">Quy ước nét vẽ trong hình không gian</span>
+              </div>
+              <p class="cp-question">Trong hình học không gian, đoạn thẳng bị các mặt phẳng khác che khuất tầm nhìn bắt buộc phải được vẽ bằng nét gì?</p>
+              <div class="checkpoint-options">
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">A</span> Nét liền đậm</button>
+                <button type="button" class="btn-cp-opt" data-correct="true"><span class="opt-letter">B</span> Nét đứt đoạn</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">C</span> Nét gạch chấm mảnh</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">D</span> Nét lượn sóng</button>
+              </div>
+              <div class="checkpoint-feedback">
+                <div class="feedback-content correct">
+                  <i class="fa-solid fa-circle-check"></i> <strong>Chính xác!</strong> Theo quy ước SGK Hình học 11, các đường bị che khuất bắt buộc vẽ bằng nét đứt đoạn, các đường nhìn thấy vẽ bằng nét liền.
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ]
+    },
+
+    // -----------------------------------------------------------------------
+    // MỤC 2: CÁC TÍNH CHẤT THỪA NHẬN
+    // -----------------------------------------------------------------------
+    {
+      num: "2",
+      title: "Các tính chất thừa nhận",
+      audioScript: "Mục 2. Các tính chất thừa nhận của hình học không gian. Tiểu mục a. Ba tính chất xác định đường thẳng, mặt phẳng và điểm đồng phẳng. Tính chất 1: Có một và chỉ một đường thẳng đi qua hai điểm phân biệt. Tính chất 2: Có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng, kí hiệu là mặt phẳng A B C. Tính chất 3: Tồn tại bốn điểm không cùng thuộc một mặt phẳng. Nếu nhiều điểm cùng thuộc một mặt phẳng, ta nói các điểm đó đồng phẳng. Bốn điểm không đồng phẳng sẽ tạo nên một tứ diện. Tiểu mục b. Vị trí đường thẳng trên mặt phẳng và giao tuyến của hai mặt phẳng. Tính chất 4: Nếu một đường thẳng có hai điểm phân biệt thuộc một mặt phẳng thì tất cả các điểm của đường thẳng đều nằm trong mặt phẳng đó, kí hiệu là đường thẳng d con của mặt phẳng P. Tính chất 5: Nếu hai mặt phẳng phân biệt có một điểm chung thì chúng có một đường thẳng chung duy nhất đi qua điểm chung đó, đường thẳng này gọi là giao tuyến của hai mặt phẳng, kí hiệu d bằng P giao Q. Tính chất 6: Trên mỗi mặt phẳng, tất cả các định lí đã biết trong hình học phẳng đều đúng.",
+      audioUrl: "assets/audio/b11_10_sec2.mp3",
+      buttonLabel: "Nghe giảng Mục 2",
+      checkpoints: [
+        {
+          id: "poi-11-10-sec2-1",
+          time: 22,
+          title: "Giây 22: Điều kiện đồng phẳng",
+          question: "Bốn điểm không cùng thuộc một mặt phẳng thì được gọi là gì?",
+          options: [
+            "Bốn điểm thẳng hàng",
+            "Bốn điểm đồng phẳng",
+            "Bốn điểm không đồng phẳng",
+            "Bốn điểm đối xứng"
+          ],
+          correctIndex: 2,
+          hint: "Xem định nghĩa đồng phẳng và tính chất 3 SGK.",
+          explain: "Chính xác! Bốn điểm không cùng nằm trong một mặt phẳng gọi là bốn điểm không đồng phẳng (chúng tạo thành một tứ diện)."
+        }
+      ],
+      subsections: [
+        {
+          key: "a",
+          title: "Ba tính chất xác định đường thẳng, mặt phẳng và điểm đồng phẳng (TC 1, 2, 3)",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-certificate"></i> [3 Tiên đề đầu tiên SGK Trang 72]:</div>
+              <ul>
+                <li><strong>Tính chất 1:</strong> Có một và chỉ một đường thẳng đi qua hai điểm phân biệt.</li>
+                <li><strong>Tính chất 2:</strong> Có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng. Kí hiệu mặt phẳng đi qua ba điểm $A, B, C$ không thẳng hàng là $(ABC)$.</li>
+                <li><strong>Tính chất 3:</strong> Tồn tại bốn điểm không cùng thuộc một mặt phẳng.</li>
+              </ul>
+              <div style="background: #fffbeb; padding: 10px 14px; border-radius: 6px; margin-top: 8px; border-left: 3px solid #f59e0b;">
+                <strong>Nhận xét quan trọng:</strong> Nếu có nhiều điểm cùng thuộc một mặt phẳng thì ta nói những điểm đó <strong>đồng phẳng</strong>. Nếu không có mặt phẳng nào chứa các điểm đó thì ta nói chúng <strong>không đồng phẳng</strong>.
+              </div>
+            </div>
+            <div class="example-box">
+              <div class="example-title"><i class="fa-solid fa-lightbulb"></i> Ví dụ 1 (SGK Trang 72): Số mặt phẳng xác định bởi 4 điểm không đồng phẳng</div>
+              <p>Cho bốn điểm $A, B, C, D$ không đồng phẳng (Hình 4.5). Có bao nhiêu mặt phẳng đi qua ba trong số bốn điểm đã cho?</p>
+              <div class="example-solution">
+                <p><strong>Lời giải:</strong> Cứ ba điểm không thẳng hàng xác định duy nhất một mặt phẳng. Từ 4 điểm không đồng phẳng $A, B, C, D$, số cách chọn 3 điểm là $C_4^3 = 4$.</p>
+                <p>Do đó có đúng <strong>4 mặt phẳng</strong> đi qua ba trong số bốn điểm đã cho, đó là các mặt phẳng: $(DAB), (DAC), (DBC)$ và $(ABC)$. Bốn mặt phẳng này tạo nên hình tứ diện $ABCD$.</p>
+              </div>
+            </div>
+          `
+        },
+        {
+          key: "b",
+          title: "Đường thẳng nằm trong mặt phẳng và Giao tuyến của hai mặt phẳng (TC 4, 5, 6)",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-certificate"></i> [3 Tiên đề tiếp theo SGK Trang 73 - 74]:</div>
+              <ul>
+                <li><strong>Tính chất 4:</strong> Nếu một đường thẳng có hai điểm phân biệt thuộc một mặt phẳng thì tất cả các điểm của đường thẳng đều thuộc mặt phẳng đó. Khi đó ta nói <em>đường thẳng $d$ nằm trong $(P)$</em> (hoặc <em>$(P)$ chứa $d$</em>), kí hiệu là $d \\subset (P)$ hoặc $(P) \\supset d$.</li>
+                <li><strong>Tính chất 5:</strong> Nếu hai mặt phẳng phân biệt có điểm chung thì các điểm chung của hai mặt phẳng là một đường thẳng đi qua điểm chung đó. Đường thẳng chung này gọi là <strong>giao tuyến</strong> của hai mặt phẳng, kí hiệu là $d = (P) \\cap (Q)$.</li>
+                <li><strong>Tính chất 6:</strong> Trên mỗi mặt phẳng, tất cả các kết quả đã biết trong hình học phẳng đều đúng (định lí Thales, định lí Pythagoras, công thức diện tích tam giác,...).</li>
+              </ul>
+            </div>
+            __SVG_SEC2__
+            <div class="checkpoint-card" id="cp-11-10-2">
+              <div class="checkpoint-header">
+                <span class="cp-badge"><i class="fa-solid fa-circle-question"></i> Checkpoint Mục 2</span>
+                <span class="cp-title">Khái niệm Giao tuyến của hai mặt phẳng</span>
+              </div>
+              <p class="cp-question">Nếu hai mặt phẳng phân biệt $(P)$ và $(Q)$ có điểm chung $A$ thì tập hợp tất cả các điểm chung của chúng là gì?</p>
+              <div class="checkpoint-options">
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">A</span> Chỉ là duy nhất một điểm A</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">B</span> Một đoạn thẳng có giới hạn đi qua A</button>
+                <button type="button" class="btn-cp-opt" data-correct="true"><span class="opt-letter">C</span> Một đường thẳng duy nhất đi qua A (giao tuyến)</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">D</span> Vô số đường thẳng cắt nhau tại A</button>
+              </div>
+              <div class="checkpoint-feedback">
+                <div class="feedback-content correct">
+                  <i class="fa-solid fa-circle-check"></i> <strong>Chính xác!</strong> Theo Tính chất 5, tập hợp các điểm chung của hai mặt phẳng phân biệt là một đường thẳng duy nhất đi qua các điểm chung đó, gọi là giao tuyến.
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ]
+    },
+
+    // -----------------------------------------------------------------------
+    // MỤC 3: CÁCH XÁC ĐỊNH MỘT MẶT PHẲNG
+    // -----------------------------------------------------------------------
+    {
+      num: "3",
+      title: "Cách xác định một mặt phẳng",
+      audioScript: "Mục 3. Ba cách xác định một mặt phẳng và ứng dụng thực tiễn. Tiểu mục a. Ba cách xác định mặt phẳng. Ta có ba cách để xác định duy nhất một mặt phẳng trong không gian: Cách thứ nhất, qua ba điểm không thẳng hàng A, B, C, kí hiệu là mặt phẳng A B C. Cách thứ hai, qua một điểm A và một đường thẳng d không đi qua điểm A, kí hiệu là mặt phẳng A d. Cách thứ ba, qua hai đường thẳng cắt nhau a và b, kí hiệu là mặt phẳng a b. Tiểu mục b. Phương pháp tìm giao tuyến của hai mặt phẳng và ứng dụng giữ cửa. Để tìm giao tuyến của hai mặt phẳng, ta tìm hai điểm chung phân biệt của chúng, đường thẳng nối hai điểm chung chính là giao tuyến cần tìm. Trong đời sống, phụ kiện nam châm giữ cánh cửa hoạt động dựa trên việc cố định cánh cửa trên mặt phẳng tiếp xúc khi nam châm hút chặt, ngăn gió va đập làm hỏng đồ đạc.",
+      audioUrl: "assets/audio/b11_10_sec3.mp3",
+      buttonLabel: "Nghe giảng Mục 3",
+      checkpoints: [
+        {
+          id: "poi-11-10-sec3-1",
+          time: 20,
+          title: "Giây 20: Các cách xác định mặt phẳng",
+          question: "Trong các trường hợp sau, trường hợp nào KHÔNG xác định duy nhất một mặt phẳng?",
+          options: [
+            "Ba điểm không thẳng hàng",
+            "Một điểm và một đường thẳng không đi qua điểm đó",
+            "Hai đường thẳng cắt nhau",
+            "Hai điểm phân biệt"
+          ],
+          correctIndex: 3,
+          hint: "Qua 2 điểm phân biệt chỉ có 1 đường thẳng, nhưng có vô số mặt phẳng đi qua đường thẳng đó (như các trang sách).",
+          explain: "Chính xác! Qua hai điểm phân biệt có vô số mặt phẳng chứa chúng (chùm mặt phẳng). Cần thêm điểm thứ ba không thẳng hàng để xác định duy nhất một mặt phẳng."
+        }
+      ],
+      subsections: [
+        {
+          key: "a",
+          title: "Ba cách xác định một mặt phẳng (SGK Trang 74 - 75)",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-shapes"></i> [Ba điều kiện xác định duy nhất một mặt phẳng]:</div>
+              <p>Một mặt phẳng được hoàn toàn xác định khi biết:</p>
+              <ol>
+                <li><strong>Cách 1:</strong> Nó đi qua <strong>ba điểm không thẳng hàng</strong> $A, B, C$. Kí hiệu là: $\\text{mp}(ABC)$ hoặc $(ABC)$.</li>
+                <li><strong>Cách 2:</strong> Nó đi qua <strong>một điểm $A$ và chứa một đường thẳng $d$</strong> không đi qua $A$. Kí hiệu là: $\\text{mp}(A, d)$.</li>
+                <li><strong>Cách 3:</strong> Nó chứa <strong>hai đường thẳng cắt nhau $a$ và $b$</strong>. Kí hiệu là: $\\text{mp}(a, b)$.</li>
+              </ol>
+            </div>
+            __SVG_SEC3__
+          `
+        },
+        {
+          key: "b",
+          title: "Phương pháp tìm giao tuyến của hai mặt phẳng và Ứng dụng thực tiễn",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-compass-drafting"></i> [Quy tắc vàng tìm giao tuyến của hai mặt phẳng]:</div>
+              <p>Để tìm giao tuyến của hai mặt phẳng phân biệt $(\\alpha)$ và $(\\beta)$, ta thực hiện theo 2 bước:</p>
+              <ul>
+                <li><strong>Bước 1:</strong> Tìm hai điểm chung phân biệt $M$ và $N$ của $(\\alpha)$ và $(\\beta)$, tức là:
+                  $$M \\in (\\alpha) \\cap (\\beta) \\quad \\text{và} \\quad N \\in (\\alpha) \\cap (\\beta)$$
+                </li>
+                <li><strong>Bước 2:</strong> Đường thẳng nối hai điểm $M, N$ chính là giao tuyến cần tìm:
+                  $$MN = (\\alpha) \\cap (\\beta)$$
+                </li>
+              </ul>
+            </div>
+            <div class="example-box">
+              <div class="example-title"><i class="fa-solid fa-lightbulb"></i> Ví dụ 4 (SGK Trang 75): Giao tuyến của hai mặt phẳng chứa hai đường cắt nhau</div>
+              <p>Cho hai đường thẳng cắt nhau $a, b$ tại điểm $M$, và gọi $S$ là một điểm không thuộc $\\text{mp}(a, b)$ (Hình 4.10). Xác định giao tuyến của $\\text{mp}(S, a)$ và $\\text{mp}(S, b)$.</p>
+              <div class="example-solution">
+                <p><strong>Lời giải:</strong></p>
+                <ul>
+                  <li>Điểm $S$ rõ ràng thuộc cả hai mặt phẳng $\\text{mp}(S, a)$ và $\\text{mp}(S, b)$ &rArr; $S$ là điểm chung thứ nhất.</li>
+                  <li>Vì $M = a \\cap b$ nên $M \\in a \\subset \\text{mp}(S, a)$ và $M \\in b \\subset \\text{mp}(S, b)$ &rArr; $M$ là điểm chung thứ hai.</li>
+                </ul>
+                <p>&rArr; Giao tuyến của hai mặt phẳng $\\text{mp}(S, a)$ và $\\text{mp}(S, b)$ chính là đường thẳng <strong>$SM$</strong>.</p>
+              </div>
+            </div>
+            <div class="checkpoint-card" id="cp-11-10-3">
+              <div class="checkpoint-header">
+                <span class="cp-badge"><i class="fa-solid fa-circle-question"></i> Checkpoint Mục 3</span>
+                <span class="cp-title">Ứng dụng nam châm giữ cánh cửa (Vận dụng 2 SGK Trang 75)</span>
+              </div>
+              <p class="cp-question">Để giữ cánh cửa phòng không bị gió giật va đập, người ta lắp một phụ kiện nam châm gắn chặt cánh cửa vào tường khi mở hết cỡ. Về mặt hình học, điều này dựa trên nguyên lí nào?</p>
+              <div class="checkpoint-options">
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">A</span> Giảm số lượng điểm tiếp xúc của cửa</button>
+                <button type="button" class="btn-cp-opt" data-correct="true"><span class="opt-letter">B</span> Trục bản lề (đường thẳng d) kết hợp với vị trí nam châm (điểm A không thuộc d) tạo thành một mặt phẳng cố định duy nhất</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">C</span> Hai đường thẳng song song</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">D</span> Tứ giác không đồng phẳng</button>
+              </div>
+              <div class="checkpoint-feedback">
+                <div class="feedback-content correct">
+                  <i class="fa-solid fa-circle-check"></i> <strong>Chính xác!</strong> Trục quay bản lề là một đường thẳng $d$, điểm hít nam châm là điểm $A \\notin d$. Khi cánh cửa hít chặt vào nam châm, toàn bộ cánh cửa được định vị trong duy nhất mặt phẳng $\\text{mp}(A, d)$, làm cho cửa đứng yên vững chắc!
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ]
+    },
+
+    // -----------------------------------------------------------------------
+    // MỤC 4: HÌNH CHÓP VÀ HÌNH TỨ DIỆN
+    // -----------------------------------------------------------------------
+    {
+      num: "4",
+      title: "Hình chóp và hình tứ diện",
+      audioScript: "Mục 4. Hình chóp và hình tứ diện. Tiểu mục a. Khái niệm và các yếu tố của hình chóp. Cho đa giác lồi A 1 A 2 đến A n nằm trong mặt phẳng đáy và một điểm S nằm ngoài mặt phẳng đó. Nối S với các đỉnh của đáy, ta được hình chóp S A 1 A 2 đến A n. Điểm S gọi là đỉnh, đa giác đáy gọi là mặt đáy, các tam giác nối đỉnh với từng cạnh đáy gọi là các mặt bên, các đoạn thẳng nối đỉnh S với các đỉnh đáy là các cạnh bên. Nếu đáy là tam giác, ta gọi là hình chóp tam giác; nếu đáy là tứ giác, ta gọi là hình chóp tứ giác. Tiểu mục b. Khái niệm hình tứ diện và phương pháp tìm giao điểm. Cho bốn điểm A, B, C, D không đồng phẳng, hình tạo bởi bốn tam giác A B C, A C D, A B D và B C D được gọi là hình tứ diện A B C D. Để tìm giao điểm của một đường thẳng với một mặt phẳng, ta tìm một mặt phẳng phụ chứa đường thẳng đó, rồi tìm giao tuyến của mặt phẳng phụ với mặt phẳng đã cho. Giao điểm của đường thẳng ban đầu với giao tuyến vừa tìm được chính là giao điểm cần xác định.",
+      audioUrl: "assets/audio/b11_10_sec4.mp3",
+      buttonLabel: "Nghe giảng Mục 4",
+      checkpoints: [
+        {
+          id: "poi-11-10-sec4-1",
+          time: 25,
+          title: "Giây 25: Số cạnh của hình tứ diện",
+          question: "Hình tứ diện có tất cả bao nhiêu đỉnh, bao nhiêu mặt và bao nhiêu cạnh?",
+          options: [
+            "4 đỉnh, 4 mặt, 4 cạnh",
+            "4 đỉnh, 4 mặt, 6 cạnh",
+            "4 đỉnh, 6 mặt, 4 cạnh",
+            "6 đỉnh, 4 mặt, 4 cạnh"
+          ],
+          correctIndex: 1,
+          hint: "Tứ diện gồm 4 mặt tam giác. Đếm các cạnh nối giữa từng cặp đỉnh.",
+          explain: "Chính xác! Tứ diện $ABCD$ có đúng 4 đỉnh, 4 mặt tam giác và 6 đoạn thẳng cạnh ($AB, BC, CD, DA, AC, BD$)."
+        }
+      ],
+      subsections: [
+        {
+          key: "a",
+          title: "Khái niệm và các yếu tố của Hình chóp (SGK Trang 75)",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-mountain"></i> [Định nghĩa Hình chóp SGK Trang 75]:</div>
+              <p>Cho đa giác lồi $A_1A_2\\dots A_n$ nằm trong mặt phẳng và một điểm $S$ nằm ngoài mặt phẳng chứa đa giác đó. Nối $S$ với các đỉnh $A_1, A_2, \\dots, A_n$, ta được $n$ tam giác: $SA_1A_2, SA_2A_3, \\dots, SA_nA_1$.</p>
+              <p>Hình gồm $n$ tam giác đó và đa giác đáy $A_1A_2\\dots A_n$ được gọi là <strong>hình chóp</strong>, kí hiệu là: <strong>$S.A_1A_2\\dots A_n$</strong>.</p>
+              <ul>
+                <li><strong>Điểm $S$:</strong> Đỉnh của hình chóp.</li>
+                <li><strong>Đa giác $A_1A_2\\dots A_n$:</strong> Mặt đáy của hình chóp.</li>
+                <li><strong>Các tam giác $SA_1A_2, SA_2A_3, \\dots$:</strong> Các mặt bên của hình chóp.</li>
+                <li><strong>Các đoạn thẳng $SA_1, SA_2, \\dots, SA_n$:</strong> Các cạnh bên.</li>
+                <li><strong>Các cạnh của đa giác đáy:</strong> Các cạnh đáy.</li>
+              </ul>
+              <div style="background: #f1f5f9; padding: 10px 14px; border-radius: 6px; margin-top: 8px;">
+                <strong>Cách gọi tên:</strong> Dựa theo tên của đa giác đáy. Nếu đáy là tam giác &rArr; <em>hình chóp tam giác</em>; nếu đáy là tứ giác &rArr; <em>hình chóp tứ giác</em>.
+              </div>
+            </div>
+            __SVG_SEC4__
+          `
+        },
+        {
+          key: "b",
+          title: "Khái niệm Hình tứ diện và Phương pháp tìm giao điểm đường thẳng và mặt phẳng",
+          contentHtml: `
+            <div class="sgk-framed-box">
+              <div class="sgk-box-tag"><i class="fa-solid fa-cube"></i> [Định nghĩa Hình tứ diện SGK Trang 76]:</div>
+              <p>Cho bốn điểm $A, B, C, D$ không đồng phẳng. Hình gồm bốn tam giác $ABC, ACD, ABD$ và $BCD$ được gọi là <strong>hình tứ diện</strong> (gọi tắt là <em>tứ diện</em>), kí hiệu là <strong>$ABCD$</strong>.</p>
+              <ul>
+                <li>Bốn điểm $A, B, C, D$ là 4 đỉnh của tứ diện.</li>
+                <li>Sáu đoạn thẳng $AB, BC, CD, DA, AC, BD$ là 6 cạnh của tứ diện.</li>
+                <li>Bốn tam giác là 4 mặt của tứ diện.</li>
+                <li>Hai cạnh không có đỉnh chung gọi là <strong>hai cạnh đối diện</strong> (ví dụ: $AB$ và $CD$). Đỉnh không nằm trên một mặt gọi là đỉnh đối diện với mặt đó.</li>
+                <li><em>Hình tứ diện có bốn mặt là các tam giác đều gọi là hình tứ diện đều.</em></li>
+              </ul>
+              <p><em>Nhận xét:</em> Hình tứ diện chính là hình chóp tam giác mà mặt nào của tứ diện cũng có thể coi là mặt đáy.</p>
+            </div>
+            <div class="example-box">
+              <div class="example-title"><i class="fa-solid fa-lightbulb"></i> Thuật toán tìm giao điểm của đường thẳng $d$ và mặt phẳng $(\\alpha)$</div>
+              <p>Để tìm giao điểm $N = d \\cap (\\alpha)$, ta thực hiện theo 2 bước chuẩn:</p>
+              <ul>
+                <li><strong>Bước 1:</strong> Chọn một mặt phẳng phụ $(\\beta)$ chứa đường thẳng $d$.</li>
+                <li><strong>Bước 2:</strong> Tìm giao tuyến $a = (\\alpha) \\cap (\\beta)$. Khi đó giao điểm của $d$ và $a$ trong mặt phẳng $(\\beta)$ chính là giao điểm cần tìm:
+                  $$N = d \\cap a \\implies N = d \\cap (\\alpha)$$
+                </li>
+              </ul>
+            </div>
+            <div class="checkpoint-card" id="cp-11-10-4">
+              <div class="checkpoint-header">
+                <span class="cp-badge"><i class="fa-solid fa-circle-question"></i> Checkpoint Mục 4</span>
+                <span class="cp-title">Cặp cạnh đối diện của hình tứ diện</span>
+              </div>
+              <p class="cp-question">Trong hình tứ diện $ABCD$, cạnh đối diện với cạnh $AB$ là cạnh nào?</p>
+              <div class="checkpoint-options">
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">A</span> Cạnh AC</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">B</span> Cạnh BC</button>
+                <button type="button" class="btn-cp-opt" data-correct="true"><span class="opt-letter">C</span> Cạnh CD</button>
+                <button type="button" class="btn-cp-opt" data-correct="false"><span class="opt-letter">D</span> Cạnh AD</button>
+              </div>
+              <div class="checkpoint-feedback">
+                <div class="feedback-content correct">
+                  <i class="fa-solid fa-circle-check"></i> <strong>Chính xác!</strong> Hai cạnh đối diện trong tứ diện là hai cạnh không có đỉnh chung. Cạnh đối diện của $AB$ chính là $CD$.
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ]
+    }
+  ],
+
+  // =========================================================================
+  // CHỐT KIẾN THỨC THEN CHỐT (TỔNG KẾT - REAL-WORLD WRAP-UP)
+  // =========================================================================
+  realworldWrapup: {
+    title: "Chốt kiến thức then chốt (Tổng kết & Mẹo Thầy Sáng)",
+    audioScript: "Chốt kiến thức then chốt bài học số 10. Thầy Sáng dặn dò các em hai phương pháp cốt lõi cần khắc cốt ghi tâm: Thứ nhất, để tìm giao tuyến của hai mặt phẳng, hãy luôn săn tìm hai điểm chung phân biệt. Nối hai điểm chung đó lại, ta được đường giao tuyến duy nhất. Thứ hai, để tìm giao điểm của đường thẳng d và mặt phẳng P, hãy khéo léo chọn một mặt phẳng phụ Q chứa d, tìm giao tuyến a của Q và P, rồi cho d cắt a tại điểm mong muốn. Chúc các em tự tin chinh phục phần bài tập trắc nghiệm củng cố ngay sau đây!",
+    audioUrl: "assets/audio/b11_10_wrapup.mp3",
+    buttonLabel: "Nghe tổng kết bài học",
+    summaryHtml: `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 15px 0;">
+        <div style="background: #f0fdf4; padding: 16px; border-radius: 8px; border-left: 4px solid #16a34a;">
+          <h4 style="color: #166534; margin: 0 0 8px 0;"><i class="fa-solid fa-bullseye"></i> 2 Bước Tìm Giao Tuyến 2 Mặt Phẳng</h4>
+          <ol style="margin: 0; padding-left: 20px; font-size: 0.92rem; color: #14532d;">
+            <li>Tìm điểm chung thứ nhất: $A \\in (P) \\cap (Q)$.</li>
+            <li>Tìm điểm chung thứ hai: $B \\in (P) \\cap (Q)$.</li>
+            <li><strong>Kết luận:</strong> Giao tuyến là đường thẳng $AB = (P) \\cap (Q)$.</li>
+          </ol>
+        </div>
+        <div style="background: #eff6ff; padding: 16px; border-radius: 8px; border-left: 4px solid #2563eb;">
+          <h4 style="color: #1e40af; margin: 0 0 8px 0;"><i class="fa-solid fa-crosshairs"></i> 2 Bước Tìm Giao Điểm Đường & Mặt</h4>
+          <ol style="margin: 0; padding-left: 20px; font-size: 0.92rem; color: #1e3a8a;">
+            <li>Chọn mặt phẳng phụ $(Q)$ chứa đường thẳng $d$.</li>
+            <li>Tìm giao tuyến $a = (P) \\cap (Q)$.</li>
+            <li><strong>Kết luận:</strong> Trong $(Q)$, cho $d$ cắt $a$ tại điểm $M$. Khi đó $M = d \\cap (P)$.</li>
+          </ol>
+        </div>
+      </div>
+      <div style="background: #fefce8; padding: 14px 18px; border-radius: 8px; border: 1px solid #fef08a;">
+        <strong style="color: #854d0e;"><i class="fa-solid fa-graduation-cap"></i> Mẹo nhớ của Thầy Sáng:</strong>
+        <p style="margin: 6px 0 0 0; color: #713f12; font-size: 0.92rem;">
+          <em>"Muốn tìm giao tuyến &mdash; săn lùng hai điểm chung. Muốn tìm giao điểm &mdash; mượn mặt phẳng trung gian cắt xuyên qua!"</em>
+        </p>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // PHẦN IV. BÀI TẬP CỦNG CỐ TRẮC NGHIỆM (20%) - CHUẨN ĐỀ THI 2025
+  // =========================================================================
+  examFormatPractice: {
+    // -----------------------------------------------------------------------
+    // DẠNG 1: TRẮC NGHIỆM 4 LỰA CHỌN (5 CÂU) - ĐÁP ÁN HOÁN VỊ B, D, A, C, B
+    // -----------------------------------------------------------------------
+    part1MultipleChoice: [
+      {
+        id: "b10-p1-q1",
+        question: "Câu 1. Cho ba điểm $A, B, C$ không thẳng hàng. Trong không gian, có bao nhiêu mặt phẳng đi qua cả ba điểm đó?",
+        options: [
+          "2 mặt phẳng",
+          "1 mặt phẳng duy nhất",
+          "3 mặt phẳng",
+          "Vô số mặt phẳng"
+        ],
+        correctIndex: 1, // B
+        explain: "Theo Tính chất 2 (SGK Trang 72): Có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng, kí hiệu là mặt phẳng $(ABC)$."
+      },
+      {
+        id: "b10-p1-q2",
+        question: "Câu 2. Trong không gian, cho đường thẳng $d$ và điểm $A$ không nằm trên $d$. Có bao nhiêu mặt phẳng đi qua điểm $A$ và chứa đường thẳng $d$?",
+        options: [
+          "Không có mặt phẳng nào",
+          "Có 2 mặt phẳng",
+          "Có vô số mặt phẳng",
+          "Có 1 mặt phẳng duy nhất"
+        ],
+        correctIndex: 3, // D
+        explain: "Theo Cách 2 xác định mặt phẳng (SGK Trang 74): Một mặt phẳng được hoàn toàn xác định khi biết nó đi qua một điểm và chứa một đường thẳng không đi qua điểm đó, kí hiệu là $\\text{mp}(A, d)$."
+      },
+      {
+        id: "b10-p1-q3",
+        question: "Câu 3. Trong hình tứ diện $ABCD$, số cặp cạnh đối diện của tứ diện là:",
+        options: [
+          "3 cặp",
+          "4 cặp",
+          "6 cặp",
+          "2 cặp"
+        ],
+        correctIndex: 0, // A
+        explain: "Tứ diện $ABCD$ có 6 cạnh, chia thành đúng 3 cặp cạnh đối diện (không có đỉnh chung): $AB$ và $CD$; $AC$ và $BD$; $AD$ và $BC$."
+      },
+      {
+        id: "b10-p1-q4",
+        question: "Câu 4. Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$ là đường thẳng nào?",
+        options: [
+          "Đường thẳng AB",
+          "Đường thẳng CD",
+          "Đường thẳng SO",
+          "Đường thẳng SA"
+        ],
+        correctIndex: 2, // C
+        explain: "Ta có điểm chung thứ nhất là đỉnh $S$. Trong mặt phẳng đáy $(ABCD)$, $O = AC \\cap BD$ nên $O \\in AC \\subset (SAC)$ và $O \\in BD \\subset (SBD)$. Do đó $O$ là điểm chung thứ hai. Vậy giao tuyến là đường thẳng $SO$."
+      },
+      {
+        id: "b10-p1-q5",
+        question: "Câu 5. Cho hình chóp tứ giác $S.ABCD$. Hỏi hình chóp này gồm tất cả bao nhiêu cạnh?",
+        options: [
+          "6 cạnh",
+          "8 cạnh",
+          "10 cạnh",
+          "12 cạnh"
+        ],
+        correctIndex: 1, // B
+        explain: "Hình chóp tứ giác gồm có 4 cạnh đáy ($AB, BC, CD, DA$) và 4 cạnh bên ($SA, SB, SC, SD$). Tổng số cạnh bằng $4 + 4 = 8$ cạnh."
+      }
+    ],
+
+    // -----------------------------------------------------------------------
+    // DẠNG 2: TRẮC NGHIỆM ĐÚNG / SAI (3 CÂU, MỖI CÂU 4 Ý)
+    // -----------------------------------------------------------------------
+    part2TrueFalse: [
+      {
+        id: "b10-p2-q1",
+        title: "Câu 1. Trong không gian, xét tính Đúng / Sai của các khẳng định sau về các tiên đề và quan hệ liên thuộc:",
+        items: [
+          { label: "a", text: "Nếu một đường thẳng có một điểm thuộc mặt phẳng $(P)$ thì đường thẳng đó nằm trong mặt phẳng $(P)$.", correct: false, explain: "Sai. Muốn đường thẳng nằm trong $(P)$ thì phải có ít nhất HAI điểm phân biệt thuộc $(P)$." },
+          { label: "b", text: "Ba điểm phân biệt bất kì luôn xác định duy nhất một mặt phẳng.", correct: false, explain: "Sai. Ba điểm phân biệt đó phải KHÔNG THẲNG HÀNG (nếu thẳng hàng thì có vô số mặt phẳng đi qua chúng)." },
+          { label: "c", text: "Nếu hai mặt phẳng phân biệt có một điểm chung thì chúng có một đường thẳng chung duy nhất đi qua điểm chung đó.", correct: true, explain: "Đúng. Đây là nội dung chuẩn xác của Tính chất 5 (SGK Trang 73)." },
+          { label: "d", text: "Tồn tại bốn điểm không cùng thuộc một mặt phẳng.", correct: true, explain: "Đúng. Đây là nội dung chuẩn xác của Tính chất 3 (SGK Trang 72), tạo nên hình tứ diện." }
+        ]
+      },
+      {
+        id: "b10-p2-q2",
+        title: "Câu 2. Cho hình chóp tam giác $S.ABC$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $AC$. Xét tính Đúng / Sai của các khẳng định sau:",
+        items: [
+          { label: "a", text: "Điểm $M$ thuộc mặt phẳng $(ABC)$.", correct: true, explain: "Đúng. Vì $M \\in AB \\subset (ABC)$ nên $M \\in (ABC)$." },
+          { label: "b", text: "Đường thẳng $MN$ nằm trong mặt phẳng $(SBC)$.", correct: false, explain: "Sai. Cả $M$ và $N$ đều không thuộc mặt phẳng $(SBC)$." },
+          { label: "c", text: "Giao tuyến của hai mặt phẳng $(SAB)$ và $(SAC)$ là đường thẳng $SA$.", correct: true, explain: "Đúng. Hai mặt phẳng có hai điểm chung phân biệt là $S$ và $A$, do đó giao tuyến là $SA$." },
+          { label: "d", text: "Điểm $S$ thuộc mặt phẳng $(ABC)$.", correct: false, explain: "Sai. Theo định nghĩa hình chóp, đỉnh $S$ nằm ngoài mặt phẳng đáy $(ABC)$." }
+        ]
+      },
+      {
+        id: "b10-p2-q3",
+        title: "Câu 3. Cho hình tứ diện $ABCD$. Gọi $I, J$ lần lượt là trung điểm của $AC$ và $BC$; $K$ là điểm thuộc cạnh $BD$ sao cho $K$ không phải là trung điểm của $BD$. Xét tính Đúng / Sai của các mệnh đề sau:",
+        items: [
+          { label: "a", text: "Đường thẳng $IJ$ nằm trong mặt phẳng $(ABC)$.", correct: true, explain: "Đúng. Vì $I, J \\in (ABC)$ nên theo Tính chất 4, đường thẳng $IJ \\subset (ABC)$." },
+          { label: "b", text: "Bốn điểm $A, B, C, D$ là các điểm đồng phẳng.", correct: false, explain: "Sai. Theo định nghĩa hình tứ diện, bốn điểm $A, B, C, D$ không đồng phẳng." },
+          { label: "c", text: "Trong mặt phẳng $(BCD)$, đường thẳng $JK$ cắt đường thẳng $CD$.", correct: true, explain: "Đúng. Trong $\\triangle BCD$, vì $J$ là trung điểm $BC$ còn $K$ không phải trung điểm $BD$ nên $JK$ không song song với $CD$, do đó $JK$ cắt $CD$." },
+          { label: "d", text: "Giao tuyến của hai mặt phẳng $(ABD)$ và $(BCD)$ là đường thẳng $AD$.", correct: false, explain: "Sai. Hai mặt phẳng có hai điểm chung là $B$ và $D$, nên giao tuyến là đường thẳng $BD$." }
+        ]
+      }
+    ],
+
+    // -----------------------------------------------------------------------
+    // DẠNG 3: TRẢ LỜI NGẮN THỰC TẾ (2 CÂU)
+    // -----------------------------------------------------------------------
+    part3ShortAnswer: [
+      {
+        id: "b10-p3-q1",
+        question: "Câu 1. Một người thợ mộc đóng một chiếc giá đỡ máy quay phim gồm 3 chân đỡ tiếp xúc với mặt đất tại 3 điểm phân biệt $A, B, C$ không thẳng hàng. Trong không gian, có bao nhiêu mặt phẳng đi qua cả 3 điểm tiếp xúc đó để đảm bảo giá đỡ luôn thăng bằng tuyệt đối không bị bập bênh?",
+        correctValue: 1,
+        unit: "mặt phẳng",
+        explain: "Theo Tính chất 2 của hình học không gian, có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng. Do đó chỉ có duy nhất 1 mặt phẳng. Đáp số: 1."
+      },
+      {
+        id: "b10-p3-q2",
+        question: "Câu 2. Một mô hình lều trại dã ngoại có dạng hình chóp ngũ giác $S.ABCDE$ (đáy là đa giác 5 cạnh). Hỏi khung lều chóp này gồm tất cả bao nhiêu thanh cọc sắt (tương ứng với số cạnh của hình chóp)?",
+        correctValue: 10,
+        unit: "cạnh",
+        explain: "Hình chóp ngũ giác có 5 cạnh đáy và 5 cạnh bên. Tổng số cạnh bằng $5 + 5 = 10$. Đáp số: 10."
+      }
+    ]
+  }
+};

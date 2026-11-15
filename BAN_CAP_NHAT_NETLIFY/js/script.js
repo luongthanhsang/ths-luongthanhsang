@@ -2570,12 +2570,14 @@ function initDigitalLessons() {
 
       // Nếu trong mục 1 có các mục nhỏ a, b,.. thì mới thể hiện các mục con a, b,... (không ghi 1a, 1b)
       if (hasMultipleSubs) {
-        treeHtml += `<div class="tree-subsections-list" data-parent-sec="${secAnchor}">`;
+        treeHtml += `
+        <div class="tree-subsections-list" data-parent-sec="${secAnchor}">`;
         subs.forEach((sub, subIdx) => {
           const cleanKey = cleanSubKey(sub.key, subIdx);
           const subStepId = `${secAnchor}-${cleanKey}`;
           const isSubDone = completed.has(subStepId);
           const isSubActive = (currentActiveStepId === secAnchor && currentActiveSubKey === cleanKey);
+          const cleanSubTitle = (sub.title || "").replace(/^\s*(?:\d+[a-z][\.\)]|[a-z][\.\)])\s*/i, "");
 
           treeHtml += `
             <div class="tree-sub-item ${isSubActive ? 'is-active' : ''} ${isSubDone ? 'is-completed' : ''}" data-step-id="${secAnchor}" data-sub-step-id="${subStepId}" data-subkey="${cleanKey}">
@@ -2583,7 +2585,7 @@ function initDigitalLessons() {
                 <i class="fa-${isSubDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
               </span>
               <span class="tree-sub-letter">${cleanKey}.</span>
-              <span class="tree-sub-title">${escapeHtml(sub.title)}</span>
+              <span class="tree-sub-title">${escapeHtml(cleanSubTitle)}</span>
               ${isSubDone ? `<span class="tree-sub-done-tag"><i class="fa-solid fa-check"></i></span>` : ''}
             </div>
           `;
@@ -3125,6 +3127,14 @@ function initDigitalLessons() {
     }
 
     const KNOWN_AUDIO_DURATIONS = {
+      "assets/audio/b11_10_welcome.mp3": 35.8,
+      "assets/audio/b11_10_goals.mp3": 34.4,
+      "assets/audio/b11_10_hook.mp3": 34.7,
+      "assets/audio/b11_10_sec1.mp3": 48.9,
+      "assets/audio/b11_10_sec2.mp3": 60.7,
+      "assets/audio/b11_10_sec3.mp3": 47.7,
+      "assets/audio/b11_10_sec4.mp3": 63.7,
+      "assets/audio/b11_10_wrapup.mp3": 31.5,
       "assets/audio/b6_welcome.mp3": 18.02,
       "assets/audio/b6_goals.mp3": 23.59,
       "assets/audio/b6_hook.mp3": 17.11,
@@ -3324,7 +3334,7 @@ function initDigitalLessons() {
 
           <div class="welcome-quote-body">
             <i class="fa-solid fa-quote-left quote-corner-icon"></i>
-            <p class="welcome-quote-msg">"${lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || ""}"</p>
+            <p class="welcome-quote-msg">"${lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || lesson.teacherWelcome.audioScript || lesson.teacherWelcome.message || ""}"</p>
           </div>
           ${renderStepNavFooterHtml('welcome', lesson)}
         </div>
@@ -3335,7 +3345,7 @@ function initDigitalLessons() {
     if (lesson.learningGoals && lesson.learningGoals.length > 0) {
       const goalsTextForAudio = lesson.goalsAudioScript || (
         Array.isArray(lesson.learningGoals) 
-          ? lesson.learningGoals.map(g => typeof g === 'string' ? g : (g.title ? g.title + (g.desc ? ': ' + g.desc : '') : (g.text || ''))).join(". ")
+          ? lesson.learningGoals.map(g => typeof g === 'string' ? g : (g.title ? g.title + (g.desc ? ': ' + g.desc : '') : (g.text || g.content || g.detail || ''))).join(". ")
           : ""
       );
       sectionsHtml += `
@@ -3354,8 +3364,8 @@ function initDigitalLessons() {
               if (typeof g === 'string') {
                 return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${g}</li>`;
               }
-              const titlePart = g.title ? `<strong>${g.title}:</strong> ` : '';
-              const descPart = g.desc || g.text || '';
+              const titlePart = (g && g.title) ? `<strong>${g.title}:</strong> ` : '';
+              const descPart = (g && (g.desc || g.text || g.content || g.detail)) || (typeof g === 'object' ? Object.values(g).join(' ') : String(g));
               return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${titlePart}${descPart}</li>`;
             }).join("")}
           </ul>
@@ -3380,7 +3390,11 @@ function initDigitalLessons() {
               "hook-voice-player"
             )}
           </div>
-          ${lesson.hook.storyHtml ? `<div class="hook-story">${lesson.hook.storyHtml}</div>` : `<p class="hook-story">${escapeHtml(lesson.hook.story || "")}</p>`}
+          ${lesson.hook.storyHtml ? `<div class="hook-story">${lesson.hook.storyHtml}</div>` : (
+            /<[a-z][\s\S]*>/i.test(lesson.hook.story || "")
+              ? `<div class="hook-story">${lesson.hook.story}</div>`
+              : `<p class="hook-story">${escapeHtml(lesson.hook.story || "")}</p>`
+          )}
 
           ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : ''}
 
@@ -3398,7 +3412,7 @@ function initDigitalLessons() {
           ${lesson.hook.question ? `
             <div class="hook-question-box">
               <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
-              <strong>Câu hỏi khơi gợi tư duy:</strong> ${lesson.hook.questionHtml || escapeHtml(lesson.hook.question)}
+              <strong>Câu hỏi khơi gợi tư duy:</strong> ${lesson.hook.questionHtml || (/<[a-z][\s\S]*>/i.test(lesson.hook.question || "") ? lesson.hook.question : escapeHtml(lesson.hook.question))}
             </div>
           ` : ''}
         </div>
@@ -3490,12 +3504,13 @@ function initDigitalLessons() {
             ${subsections.map((sub, subIdx) => {
               const cleanLetter = cleanSubKey(sub.key, subIdx);
               const exId = `ex-sol-${sIdx}-${cleanLetter}`;
+              const cleanSubTitle = (sub.title || "").replace(/^\s*(?:\d+[a-z][\.\)]|[a-z][\.\)])\s*/i, "");
               return `
               <!-- Khung phụ ${cleanLetter}) -->
               <div class="subsection-card" id="sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
                 <div class="subsection-header">
                   <span class="sub-key-badge">${escapeHtml(cleanLetter)}.</span>
-                  <h3 class="subsection-heading-h3">${escapeHtml(cleanLetter)}. ${escapeHtml(sub.title)}</h3>
+                  <h3 class="subsection-heading-h3">${escapeHtml(cleanLetter)}. ${escapeHtml(cleanSubTitle)}</h3>
                 </div>
 
                 ${sub.contentHtml ? `
@@ -3601,7 +3616,7 @@ function initDigitalLessons() {
                         `).join('')}
                       </div>
                       <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
-                        <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${escapeHtml(poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!')}</div>
+                        <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
                       </div>
                     </div>
                   `).join('')}
@@ -4646,7 +4661,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B11_10_AUDIO_CACHE && window.B11_10_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_6_AUDIO_CACHE && window.B10_6_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_4_AUDIO_CACHE && window.B10_4_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_3_AUDIO_CACHE && window.B10_3_AUDIO_CACHE[audioUrl]) ||
@@ -5024,6 +5040,7 @@ function initDigitalLessons() {
           allOpts.forEach(b => b.disabled = true);
           const feedback = parentCard.querySelector(".checkpoint-feedback") || parentCard.querySelector(".exam-solution-collapse");
           if (feedback) {
+            feedback.style.display = "block";
             feedback.classList.add("show");
             if (window.MathJax && window.MathJax.typesetPromise) {
               window.MathJax.typesetPromise([feedback]).catch(e => console.warn(e));
@@ -5075,6 +5092,7 @@ function initDigitalLessons() {
           window.LESSON_10_C4_B9_DATA,
           window.LESSON_10_C4_B10_DATA,
           window.LESSON_10_C4_B11_DATA,
+          window.LESSON_11_C4_B10_DATA,
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,
           window.LESSON_12_C2_B6_DATA,

@@ -1278,7 +1278,7 @@
 }
 
 .checkpoint-feedback.show {
-  display: block;
+  display: block !important;
 }
 
 .checkpoint-feedback.correct {

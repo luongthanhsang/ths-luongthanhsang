@@ -3334,6 +3334,7 @@ if (typeof window !== "undefined") {
   if (window.LESSON_10_C4_B9_DATA) autoInjectLesson(window.LESSON_10_C4_B9_DATA);
   if (window.LESSON_10_C4_B10_DATA) autoInjectLesson(window.LESSON_10_C4_B10_DATA);
   if (window.LESSON_10_C4_B11_DATA) autoInjectLesson(window.LESSON_10_C4_B11_DATA);
+  if (window.LESSON_11_C4_B10_DATA) autoInjectLesson(window.LESSON_11_C4_B10_DATA);
   if (window.LESSON_11_C4_B11_DATA) autoInjectLesson(window.LESSON_11_C4_B11_DATA);
   if (window.LESSON_11_C4_B12_DATA) autoInjectLesson(window.LESSON_11_C4_B12_DATA);
   if (window.LESSON_12_C2_B6_DATA) autoInjectLesson(window.LESSON_12_C2_B6_DATA);
