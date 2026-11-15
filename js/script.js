@@ -2558,7 +2558,22 @@ function initDigitalLessons() {
       "assets/audio/b10_4_sec1.mp3": 25.4,
       "assets/audio/b10_4_sec2.mp3": 22.6,
       "assets/audio/b10_4_sec3.mp3": 32.1,
-      "assets/audio/b10_4_wrapup.mp3": 26.8
+      "assets/audio/b10_4_wrapup.mp3": 26.8,
+"assets/audio/b10_5_welcome.mp3": 28.5,
+      "assets/audio/b10_5_goals.mp3": 24.0,
+      "assets/audio/b10_5_hook.mp3": 25.5,
+      "assets/audio/b10_5_sec1.mp3": 30.0,
+      "assets/audio/b10_5_sec2.mp3": 32.5,
+      "assets/audio/b10_5_sec3.mp3": 29.0,
+      "assets/audio/b10_5_wrapup.mp3": 22.0,
+      "assets/audio/b10_6_welcome.mp3": 27.5,
+      "assets/audio/b10_6_goals.mp3": 24.5,
+      "assets/audio/b10_6_hook.mp3": 25.0,
+      "assets/audio/b10_6_sec1.mp3": 31.0,
+      "assets/audio/b10_6_sec2.mp3": 27.0,
+      "assets/audio/b10_6_sec3.mp3": 29.5,
+      "assets/audio/b10_6_sec4.mp3": 34.0,
+      "assets/audio/b10_6_wrapup.mp3": 23.0,
     };
 
     function formatAudioTime(sec) {
@@ -3597,7 +3612,22 @@ function initDigitalLessons() {
     "assets/audio/b10_4_sec1.mp3": 25.4,
     "assets/audio/b10_4_sec2.mp3": 22.6,
     "assets/audio/b10_4_sec3.mp3": 32.1,
-    "assets/audio/b10_4_wrapup.mp3": 26.8
+    "assets/audio/b10_4_wrapup.mp3": 26.8,
+"assets/audio/b10_5_welcome.mp3": 28.5,
+      "assets/audio/b10_5_goals.mp3": 24.0,
+      "assets/audio/b10_5_hook.mp3": 25.5,
+      "assets/audio/b10_5_sec1.mp3": 30.0,
+      "assets/audio/b10_5_sec2.mp3": 32.5,
+      "assets/audio/b10_5_sec3.mp3": 29.0,
+      "assets/audio/b10_5_wrapup.mp3": 22.0,
+      "assets/audio/b10_6_welcome.mp3": 27.5,
+      "assets/audio/b10_6_goals.mp3": 24.5,
+      "assets/audio/b10_6_hook.mp3": 25.0,
+      "assets/audio/b10_6_sec1.mp3": 31.0,
+      "assets/audio/b10_6_sec2.mp3": 27.0,
+      "assets/audio/b10_6_sec3.mp3": 29.5,
+      "assets/audio/b10_6_sec4.mp3": 34.0,
+      "assets/audio/b10_6_wrapup.mp3": 23.0,
   };
 
   function formatAudioTime(sec) {
@@ -3932,7 +3962,9 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B10_4_AUDIO_CACHE && window.B10_4_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_6_AUDIO_CACHE && window.B10_6_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_4_AUDIO_CACHE && window.B10_4_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_3_AUDIO_CACHE && window.B10_3_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_11_AUDIO_CACHE && window.B10_11_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_10_AUDIO_CACHE && window.B10_10_AUDIO_CACHE[audioUrl]) ||
@@ -4338,6 +4370,10 @@ function initDigitalLessons() {
 
         // Tìm trong bài học hiện tại hoặc qua toàn bộ dữ liệu bài học đã nạp
         const allLessons = [
+          window.LESSON_10_C3_B5_DATA,
+          window.LESSON_10_C3_B6_DATA,
+          window.LESSON_10_C2_B3_DATA,
+          window.LESSON_10_C2_B4_DATA,
           window.LESSON_10_C4_B7_DATA,
           window.LESSON_10_C4_B8_DATA,
           window.LESSON_10_C4_B9_DATA,
