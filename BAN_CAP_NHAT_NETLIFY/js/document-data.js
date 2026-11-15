@@ -69,6 +69,48 @@ const DOCUMENTS_DATA = [
 
   // ==================== KHỐI 11 ====================
   {
+    id: "doc-11-01",
+    grade: "11",
+    category: "daiso",
+    title: "Toán 11 (Dạy học kiến tạo) | Chương I: Lượng giác - ThS. Lương Thanh Sáng",
+    description: "Tài liệu dạy thêm bồi dưỡng học sinh Khá - Giỏi môn Toán 11 do ThS. Lương Thanh Sáng trực tiếp biên soạn theo mô hình Dạy học kiến tạo: Khơi gợi bài toán thực tế (Trạm vũ trụ ISS, bánh xe quay, đơn vị hải lí), Nắm vững đường tròn lượng giác & hệ thức cơ bản, Công thức lượng giác rút gọn biểu thức phức tạp, Hàm số và phương trình lượng giác. Tích hợp khung 'Phương pháp tư duy thực chiến' và 'Phân tích tư duy (Metacognition)'.",
+    pages: 26,
+    size: "357 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/preview",
+    downloadUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/view?usp=sharing",
+    tag: "Tài liệu Khá - Giỏi (Chương 1)"
+  },
+  {
+    id: "doc-11-02",
+    grade: "11",
+    category: "daiso",
+    title: "Toán 11 | Chương II: Dãy số – Cấp số cộng – Cấp số nhân - ThS. Lương Thanh Sáng",
+    description: "Tài liệu chuyên đề dạy thêm Toán 11 của ThS. Lương Thanh Sáng: Phương pháp xác định số hạng tổng quát dãy số (truy hồi bậc nhất, dãy Fibonacci, quy nạp), Kỹ thuật xét tính tăng - giảm (đơn điệu) và tính bị chặn của dãy số, Phân tích 'Bẫy kinh điển - Lỗi sai thường gặp', Hệ thống công thức và bài tập phân dạng Cấp số cộng & Cấp số nhân từ nhận biết đến vận dụng cao kèm lời giải chi tiết.",
+    pages: 22,
+    size: "513 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/preview",
+    downloadUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/view?usp=sharing",
+    tag: "Tài liệu Khá - Giỏi (Chương 2)"
+  },
+  {
+    id: "doc-11-03",
+    grade: "11",
+    category: "hinhhoc",
+    title: "Toán 11 | Chương IV: Quan hệ song song trong không gian - ThS. Lương Thanh Sáng",
+    description: "Tuyệt phẩm chuyên đề Hình học không gian đồ sộ 64 trang do ThS. Lương Thanh Sáng biên soạn: Trực quan hoá sinh động với hàng trăm hình vẽ 3D chuẩn xác, Mẹo ghi nhớ độc quyền '3 điểm ra 1 mặt, 2 mặt ra 1 đường, 2 đường ra 1 điểm', Phương pháp tìm giao tuyến, giao điểm, thiết diện không gian, Hai đường thẳng song song, Đường thẳng song song với mặt phẳng, Hai mặt phẳng song song và phép chiếu song song.",
+    pages: 64,
+    size: "733 KB",
+    type: "pdf",
+    date: "15/11/2026",
+    previewUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/preview",
+    downloadUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/view?usp=sharing",
+    tag: "Hình không gian (Chương 4)"
+  },
+  {
     id: "doc-11-00-tk5",
     grade: "11",
     category: "dekiemtra",
@@ -95,48 +137,6 @@ const DOCUMENTS_DATA = [
     previewUrl: "tai-lieu/11.GK1.TK4.pdf",
     downloadUrl: "tai-lieu/11.GK1.TK4.pdf",
     tag: "Đề thi Giữa Kì I (Mới nhất)"
-  },
-  {
-    id: "doc-11-01",
-    grade: "11",
-    category: "daiso",
-    title: "Chuyên đề Hàm số lượng giác & Phương trình lượng giác cơ bản",
-    description: "Đầy đủ các công thức lượng giác cần nhớ, phương pháp giải phương trình lượng giác thường gặp và các mẹo bấm máy tính Casio 580VNX/880BTG.",
-    pages: 36,
-    size: "2.5 MB",
-    type: "pdf",
-    date: "18/09/2024",
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Lượng giác 11"
-  },
-  {
-    id: "doc-11-02",
-    grade: "11",
-    category: "daiso",
-    title: "Dãy số, Cấp số cộng và Cấp số nhân - Lý thuyết & Kỹ thuật giải nhanh",
-    description: "Công thức số hạng tổng quát, tính tổng n số hạng đầu tiên, ứng dụng lãi suất ngân hàng và bài toán tăng trưởng dân số.",
-    pages: 22,
-    size: "1.9 MB",
-    type: "pdf",
-    date: "08/10/2024",
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Đại số & Giải tích"
-  },
-  {
-    id: "doc-11-03",
-    grade: "11",
-    category: "hinhhoc",
-    title: "Hình học không gian: Quan hệ song song & Góc - Khoảng cách",
-    description: "Bí quyết vẽ hình trực quan, phương pháp tìm giao tuyến, giao điểm, thiết diện và chứng minh đường thẳng song song với mặt phẳng.",
-    pages: 28,
-    size: "3.0 MB",
-    type: "pdf",
-    date: "25/10/2024",
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Hình học không gian"
   },
   {
     id: "doc-11-04",

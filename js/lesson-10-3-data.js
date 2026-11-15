@@ -43,33 +43,21 @@ window.LESSON_10_C2_B3_DATA = {
     avatar: "assets/images/teacher_avatar.png",
     name: "ThS. Lương Thanh Sáng",
     title: "Giáo viên Toán - THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang",
-    quote: "Toán học không chỉ nằm trong trang sách, mà hiển hiện sinh động trong từng bài toán kinh doanh, tính tiền cước hay lập kế hoạch tài chính của cuộc sống."
+    greetingText: "Thầy Sáng thân ái chào toàn thể các em học sinh Lớp 10! Hôm nay, Thầy trò mình cùng bước vào Chương hai: Bất phương trình và hệ bất phương trình bậc nhất hai ẩn, bắt đầu với Bài học số 3: Bất phương trình bậc nhất hai ẩn. Đây là cầu nối tuyệt vời giữa đại số và hình học toạ độ phẳng, giúp các em giải quyết những bài toán kinh tế, sản xuất và đời sống vô cùng thực tế. Nào, các em hãy chuẩn bị sách vở, thước kẻ và cùng Thầy khám phá bài học với trọn vẹn niềm đam mê nhé!",
+    audioScript: "Thầy Sáng thân ái chào toàn thể các em học sinh Lớp 10! Hôm nay, Thầy trò mình cùng bước vào Chương hai: Bất phương trình và hệ bất phương trình bậc nhất hai ẩn, bắt đầu với Bài học số 3: Bất phương trình bậc nhất hai ẩn. Đây là cầu nối tuyệt vời giữa đại số và hình học toạ độ phẳng, giúp các em giải quyết những bài toán kinh tế, sản xuất và đời sống vô cùng thực tế. Nào, các em hãy chuẩn bị sách vở, thước kẻ và cùng Thầy khám phá bài học với trọn vẹn niềm đam mê nhé!",
+    audioUrl: "assets/audio/b10_3_welcome.mp3",
+    buttonLabel: "Nghe Thầy Sáng chào lớp",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng"
   },
 
   // =========================================================================
   // PHẦN II. MỤC TIÊU & YÊU CẦU CẦN ĐẠT (CHUẨN SGK TRANG 22)
   // =========================================================================
   learningGoals: [
-    {
-      icon: "fa-solid fa-shapes",
-      title: "Nhận biết bất phương trình bậc nhất hai ẩn",
-      desc: "Nhận diện đúng dạng tổng quát $ax + by \\le c$ ($<, \\ge, >$) với $a, b$ không đồng thời bằng 0; phân biệt được với biểu thức bậc hai hoặc tích $xy$."
-    },
-    {
-      icon: "fa-solid fa-check-double",
-      title: "Khái niệm nghiệm và cặp số nghiệm",
-      desc: "Hiểu bản chất cặp số $(x_0; y_0)$ là nghiệm khi thay vào cho bất đẳng thức đúng; nhận thức rõ bất phương trình bậc nhất hai ẩn luôn có vô số nghiệm."
-    },
-    {
-      icon: "fa-solid fa-draw-polygon",
-      title: "Biểu diễn miền nghiệm trên mặt phẳng toạ độ",
-      desc: "Thành thạo phương pháp 4 bước: vẽ đường thẳng bờ $d: ax + by = c$, chọn điểm thử $M_0$ (thường là gốc $O$), xác định miền nghiệm và phân biệt quy tắc bờ nét liền vs nét đứt."
-    },
-    {
-      icon: "fa-solid fa-chart-line",
-      title: "Vận dụng giải bài toán kinh tế - xã hội",
-      desc: "Mô hình hoá và giải quyết các tình huống thực tiễn như tính toán bù lỗ rạp chiếu phim, hạn mức cước viễn thông, bài toán thuê xe du lịch."
-    }
+    "Nhận biết bất phương trình bậc nhất hai ẩn và viết đúng dạng tổng quát $ax + by \\le c$ (hoặc $<, \\ge, >$) với $a, b$ không đồng thời bằng 0.",
+    "Hiểu rõ khái niệm nghiệm và chỉ ra được các cặp nghiệm $(x_0; y_0)$ của bất phương trình.",
+    "Nắm vững phương pháp 4 bước biểu diễn miền nghiệm trên mặt phẳng toạ độ $Oxy$, phân biệt rõ ràng đường bờ nét liền (khi có dấu $\\le, \\ge$) và đường bờ nét đứt (khi có dấu $<, >$).",
+    "Vận dụng thành thạo vào giải quyết các bài toán kinh tế đời sống thực tế như bài toán rạp chiếu phim bù lỗ hay hạn mức cước viễn thông."
   ],
   goalsAudioUrl: "assets/audio/b10_3_goals.mp3",
   goalsButtonLabel: "Nghe mục tiêu bài học",
@@ -80,14 +68,19 @@ window.LESSON_10_C2_B3_DATA = {
   // =========================================================================
   hook: {
     title: "Tình huống mở đầu: Doanh thu rạp chiếu phim nhân ngày 1-6",
-    story: `Nhân ngày Quốc tế Thiếu nhi 1-6, một rạp chiếu phim phục vụ khán giả một bộ phim hoạt hình đặc sắc. Vé được bán ra gồm hai loại:
-    <div style="margin: 10px 0; padding: 10px 14px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 4px;">
-      • <strong>Vé loại 1</strong> (trẻ em từ 6 đến 13 tuổi): <strong>$50\,000$ đồng/vé</strong>.<br>
-      • <strong>Vé loại 2</strong> (người trên 13 tuổi): <strong>$100\,000$ đồng/vé</strong>.
-    </div>
-    Ban quản lý tính toán rằng: Để không phải bù lỗ thì số tiền vé thu được ở rạp chiếu phim này phải đạt tối thiểu <strong>20 triệu đồng</strong>.<br>
-    <em>Câu hỏi đặt ra:</em> Gọi $x$ và $y$ lần lượt là số lượng vé loại 1 và loại 2 bán được. Trong những trường hợp nào của cặp số $(x; y)$ thì rạp chiếu phim phải bù lỗ? Khi nào rạp đạt điểm hoà vốn hoặc bắt đầu có lãi?`,
+    story: "Nhân ngày Quốc tế Thiếu nhi 1-6, một rạp chiếu phim phục vụ khán giả một bộ phim hoạt hình đặc sắc. Vé được bán ra gồm hai loại: vé loại 1 dành cho trẻ em giá 50 nghìn đồng và vé loại 2 dành cho người lớn giá 100 nghìn đồng. Ban quản lý tính toán rằng: Để không phải bù lỗ thì số tiền vé thu được ở rạp chiếu phim này phải đạt tối thiểu 20 triệu đồng. Trong những trường hợp nào của cặp số lượng vé bán được thì rạp chiếu phim phải bù lỗ? Khi nào rạp đạt điểm hoà vốn hoặc bắt đầu có lãi?",
+    storyHtml: `
+      <p>Nhân ngày Quốc tế Thiếu nhi 1-6, một rạp chiếu phim phục vụ khán giả một bộ phim hoạt hình đặc sắc. Vé được bán ra gồm hai loại:</p>
+      <div style="margin: 12px 0; padding: 12px 16px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+        <p style="margin: 0 0 6px 0;">• <strong>Vé loại 1 (trẻ em từ 6 đến 13 tuổi):</strong> <strong style="color: #0284c7;">50.000 đồng/vé</strong>.</p>
+        <p style="margin: 0;">• <strong>Vé loại 2 (người trên 13 tuổi):</strong> <strong style="color: #0284c7;">100.000 đồng/vé</strong>.</p>
+      </div>
+      <p>Ban quản lý tính toán rằng: Để không phải bù lỗ thì số tiền vé thu được ở rạp chiếu phim này phải đạt tối thiểu <strong>20 triệu đồng</strong>.</p>
+      <p style="color: #0369a1; font-weight: 500; font-style: italic;">Câu hỏi đặt ra: Gọi $x$ và $y$ lần lượt là số lượng vé loại 1 và loại 2 bán được. Trong những trường hợp nào của cặp số $(x; y)$ thì rạp chiếu phim phải bù lỗ? Khi nào rạp đạt điểm hoà vốn hoặc bắt đầu có lãi?</p>
+    `,
     audioUrl: "assets/audio/b10_3_hook.mp3",
+    buttonLabel: "Nghe Thầy Sáng đặt vấn đề",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng",
     bridge: "Mối liên hệ giữa số vé $x$ và $y$ tạo nên một bất phương trình bậc nhất hai ẩn. Chúng ta cùng khám phá định nghĩa toán học chính xác ngay sau đây."
   },
 
@@ -142,9 +135,9 @@ window.LESSON_10_C2_B3_DATA = {
               <div class="sgk-box-tag"><i class="fa-solid fa-bookmark"></i> [Định nghĩa SGK Kết nối tri thức - Trang 23]:</div>
               <p style="margin-bottom: 8px;"><strong>Bất phương trình bậc nhất hai ẩn</strong> $x, y$ có dạng tổng quát là:</p>
               <div style="text-align: center; font-size: 1.15rem; font-weight: bold; color: #1e3a8a; margin: 10px 0; padding: 8px; background: #f0fdf4; border-radius: 6px; border: 1px dashed #16a34a;">
-                $$ax + by \\le c \quad (ax + by \\ge c, \; ax + by < c, \; ax + by > c)$$
+                $$ax + by \\le c \\quad (ax + by \\ge c, \; ax + by < c, \; ax + by > c)$$
               </div>
-              <p>trong đó $a, b, c$ là những số thực đã cho, $a$ và $b$ không đồng thời bằng 0 ($a^2 + b^2 \ne 0$), $x$ và $y$ là các ẩn số.</p>
+              <p>trong đó $a, b, c$ là những số thực đã cho, $a$ và $b$ không đồng thời bằng 0 ($a^2 + b^2 \\ne 0$), $x$ và $y$ là các ẩn số.</p>
             </div>
 
             <div class="example-box" style="margin-top: 14px;">
@@ -165,7 +158,7 @@ window.LESSON_10_C2_B3_DATA = {
               <div class="sgk-box-tag"><i class="fa-solid fa-circle-check"></i> [Khái niệm nghiệm SGK trang 23]:</div>
               <p>Mỗi cặp số $(x_0; y_0)$ được gọi là một <strong>nghiệm</strong> của bất phương trình bậc nhất hai ẩn $ax + by \\le c$ nếu bất đẳng thức số:</p>
               <div style="text-align: center; font-size: 1.08rem; color: #0284c7; margin: 8px 0; font-weight: bold;">
-                $$ax_0 + by_0 \\le c \quad \text{là một bất đẳng thức đúng.}$$
+                $$ax_0 + by_0 \\le c \\quad \\text{là một bất đẳng thức đúng.}$$
               </div>
             </div>
 
@@ -334,7 +327,7 @@ window.LESSON_10_C2_B3_DATA = {
               <ol style="padding-left: 20px; line-height: 1.7;">
                 <li><strong>Bước 1 (Vẽ đường thẳng bờ):</strong> Vẽ đường thẳng $d: ax + by = c$ trên mặt phẳng toạ độ $Oxy$.</li>
                 <li><strong>Bước 2 (Lấy điểm kiểm tra):</strong> Lấy một điểm $M_0(x_0; y_0)$ không thuộc $d$.
-                  <br><span style="color: #0284c7;"><em>Mẹo của Thầy Sáng:</em> Nếu $c \ne 0$, ta luôn ưu tiên chọn $M_0(0; 0)$ (gốc toạ độ $O$). Nếu $c = 0$, ta chọn $M_0(1; 0)$ hoặc $M_0(0; 1)$.</span>
+                  <br><span style="color: #0284c7;"><em>Mẹo của Thầy Sáng:</em> Nếu $c \\ne 0$, ta luôn ưu tiên chọn $M_0(0; 0)$ (gốc toạ độ $O$). Nếu $c = 0$, ta chọn $M_0(1; 0)$ hoặc $M_0(0; 1)$.</span>
                 </li>
                 <li><strong>Bước 3 (Tính và so sánh giá trị):</strong> Tính giá trị $ax_0 + by_0$ và so sánh với hằng số $c$.</li>
                 <li><strong>Bước 4 (Kết luận & gạch miền):</strong>
@@ -458,11 +451,11 @@ window.LESSON_10_C2_B3_DATA = {
           contentHtml: `
             <div class="sgk-framed-box">
               <div class="sgk-box-tag"><i class="fa-solid fa-film"></i> [Mô hình hoá bài toán rạp chiếu phim]:</div>
-              <p>Gọi $x$ là số vé loại 1 ($x \in \mathbb{N}$) và $y$ là số vé loại 2 ($y \in \mathbb{N}$).</p>
+              <p>Gọi $x$ là số vé loại 1 ($x \\in \\mathbb{N}$) và $y$ là số vé loại 2 ($y \\in \\mathbb{N}$).</p>
               <p>Số tiền bán vé thu được là: $50x + 100y$ (nghìn đồng).</p>
               <p>Rạp chiếu phim phải <strong>bù lỗ</strong> khi và chỉ khi doanh thu nhỏ hơn 20 triệu ($20\,000$ nghìn đồng):</p>
               <div style="text-align: center; font-size: 1.1rem; color: #dc2626; font-weight: bold; margin: 8px 0;">
-                $$50x + 100y < 20\,000 \iff x + 2y < 400 \quad (x \\ge 0, y \\ge 0).$$
+                $$50x + 100y < 20\,000 \\iff x + 2y < 400 \\quad (x \\ge 0, y \\ge 0).$$
               </div>
             </div>
 
@@ -556,7 +549,7 @@ window.LESSON_10_C2_B3_DATA = {
                 <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e3a8a;">$ax + by \\le c$<br>hoặc $ax + by \\ge c$</td>
                 <td style="padding: 10px; border: 1px solid #cbd5e1; color: #15803d; font-weight: bold;">NÉT LIỀN ĐẬM<br>(Bờ thuộc miền nghiệm)</td>
                 <td style="padding: 10px; border: 1px solid #cbd5e1;" rowspan="2">
-                  Ưu tiên chọn <strong>$O(0; 0)$</strong> nếu $c \ne 0$.<br>
+                  Ưu tiên chọn <strong>$O(0; 0)$</strong> nếu $c \\ne 0$.<br>
                   Chọn <strong>$(1; 0)$</strong> hoặc <strong>$(0; 1)$</strong> nếu $c = 0$.
                 </td>
                 <td style="padding: 10px; border: 1px solid #cbd5e1; text-align: left;">
@@ -670,7 +663,7 @@ window.LESSON_10_C2_B3_DATA = {
           "$x + 2y > 200$."
         ],
         correctIndex: 2, // Đáp án C
-        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Số tiền cước gọi nội mạng: $1 \cdot x = x$ (nghìn đồng).<br>- Số tiền cước gọi ngoại mạng: $2 \cdot y = 2y$ (nghìn đồng).<br>- Tổng số tiền cước phát sinh trong tháng: $x + 2y$ (nghìn đồng).<br>- Đề bài yêu cầu số tiền phải trả <strong>nhỏ hơn</strong> $200$ nghìn đồng (dấu ngặt '$<$'):<br>Do đó ta có bất phương trình: $x + 2y < 200$ ($x, y \\ge 0$).",
+        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Số tiền cước gọi nội mạng: $1 \\cdot x = x$ (nghìn đồng).<br>- Số tiền cước gọi ngoại mạng: $2 \\cdot y = 2y$ (nghìn đồng).<br>- Tổng số tiền cước phát sinh trong tháng: $x + 2y$ (nghìn đồng).<br>- Đề bài yêu cầu số tiền phải trả <strong>nhỏ hơn</strong> $200$ nghìn đồng (dấu ngặt '$<$'):<br>Do đó ta có bất phương trình: $x + 2y < 200$ ($x, y \\ge 0$).",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Nếu cước nội mạng là 2 nghìn đồng/phút, ngoại mạng là 3 nghìn đồng/phút và số tiền không vượt quá 300 nghìn đồng thì điều kiện là:",
           options: ["$2x + 3y \\le 300$", "$2x + 3y < 300$", "$3x + 2y \\le 300$", "$2x + 3y > 300$"],
@@ -752,7 +745,7 @@ window.LESSON_10_C2_B3_DATA = {
             id: "a",
             text: "Tổng chi phí cố định cho cả tuần thuê xe là $7{,}5$ triệu đồng ($7500$ nghìn đồng).",
             isCorrect: true,
-            explain: "Phí cố định: $5 \times 900 + 2 \times 1500 = 4500 + 3000 = 7500$ nghìn đồng = $7{,}5$ triệu đồng."
+            explain: "Phí cố định: $5 \\times 900 + 2 \\times 1500 = 4500 + 3000 = 7500$ nghìn đồng = $7{,}5$ triệu đồng."
           },
           {
             id: "b",
@@ -764,7 +757,7 @@ window.LESSON_10_C2_B3_DATA = {
             id: "c",
             text: "Bất phương trình biểu thị số tiền ông An phải trả không quá 14 triệu đồng là $8x + 10y \\le 6500$.",
             isCorrect: true,
-            explain: "Tổng tiền $\\le 14\,000 \iff 7500 + 8x + 10y \\le 14\,000 \iff 8x + 10y \\le 6500$ (tương đương $4x + 5y \\le 3250$)."
+            explain: "Tổng tiền $\\le 14\,000 \\iff 7500 + 8x + 10y \\le 14\,000 \\iff 8x + 10y \\le 6500$ (tương đương $4x + 5y \\le 3250$)."
           },
           {
             id: "d",
@@ -784,7 +777,7 @@ window.LESSON_10_C2_B3_DATA = {
         correctAnswer: "140",
         acceptedAnswers: ["140", "140 vé"],
         unit: "vé",
-        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Điều kiện để không bù lỗ: $50x + 100y \\ge 20\,000$ (nghìn đồng).<br>Khi đã bán được $x = 120$ vé loại 1, ta có:<br>$50(120) + 100y \\ge 20\,000 \iff 6000 + 100y \\ge 20\,000$<br>$\iff 100y \\ge 14\,000 \iff y \\ge 140$.<br>Vậy rạp cần bán tối thiểu <strong>140 vé</strong> loại 2 để không phải bù lỗ.",
+        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Điều kiện để không bù lỗ: $50x + 100y \\ge 20\,000$ (nghìn đồng).<br>Khi đã bán được $x = 120$ vé loại 1, ta có:<br>$50(120) + 100y \\ge 20\,000 \\iff 6000 + 100y \\ge 20\,000$<br>$\\iff 100y \\ge 14\,000 \\iff y \\ge 140$.<br>Vậy rạp cần bán tối thiểu <strong>140 vé</strong> loại 2 để không phải bù lỗ.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Nếu rạp đã bán được 160 vé loại 1 thì cần bán tối thiểu bao nhiêu vé loại 2 để không bị bù lỗ?",
           correctAnswer: "120",
@@ -800,7 +793,7 @@ window.LESSON_10_C2_B3_DATA = {
         correctAnswer: "66",
         acceptedAnswers: ["66", "66 phút"],
         unit: "phút",
-        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Gọi $y$ là số phút gọi ngoại mạng ($y \in \mathbb{N}$).<br>Số phút gọi nội mạng đã dùng là $x = 68$.<br>Điều kiện chi phí không vượt quá 200 nghìn đồng là:<br>$1(68) + 2y \\le 200 \iff 2y \\le 200 - 68 \iff 2y \\le 132 \iff y \\le 66$.<br>Vậy số phút gọi ngoại mạng tối đa có thể thực hiện là <strong>66 phút</strong>.",
+        explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Gọi $y$ là số phút gọi ngoại mạng ($y \\in \\mathbb{N}$).<br>Số phút gọi nội mạng đã dùng là $x = 68$.<br>Điều kiện chi phí không vượt quá 200 nghìn đồng là:<br>$1(68) + 2y \\le 200 \\iff 2y \\le 200 - 68 \\iff 2y \\le 132 \\iff y \\le 66$.<br>Vậy số phút gọi ngoại mạng tối đa có thể thực hiện là <strong>66 phút</strong>.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Nếu cước nội mạng là 1 nghìn, ngoại mạng là 2 nghìn, hạn mức là 150 nghìn đồng và đã dùng 50 phút nội mạng thì số phút ngoại mạng tối đa là:",
           correctAnswer: "50",

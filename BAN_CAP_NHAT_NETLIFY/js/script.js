@@ -2649,15 +2649,15 @@ function initDigitalLessons() {
             </div>
             ${renderTeacherGoldVoiceBoxHtml(
               lesson.teacherWelcome.buttonLabel || "Nhấn nghe Lời chào",
-              lesson.teacherWelcome.audioScript || lesson.teacherWelcome.greetingText,
-              lesson.teacherWelcome.audioUrl || "",
+              lesson.teacherWelcome.audioScript || lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || "",
+              lesson.teacherWelcome.audioUrl || lesson.audioUrl || "",
               "welcome-voice-player"
             )}
           </div>
 
           <div class="welcome-quote-body">
             <i class="fa-solid fa-quote-left quote-corner-icon"></i>
-            <p class="welcome-quote-msg">"${escapeHtml(lesson.teacherWelcome.greetingText)}"</p>
+            <p class="welcome-quote-msg">"${lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || ""}"</p>
           </div>
         </div>
       `;
@@ -2665,19 +2665,31 @@ function initDigitalLessons() {
 
     // 2. Khung Mục tiêu & Yêu cầu cần đạt bài học
     if (lesson.learningGoals && lesson.learningGoals.length > 0) {
+      const goalsTextForAudio = lesson.goalsAudioScript || (
+        Array.isArray(lesson.learningGoals) 
+          ? lesson.learningGoals.map(g => typeof g === 'string' ? g : (g.title ? g.title + (g.desc ? ': ' + g.desc : '') : (g.text || ''))).join(". ")
+          : ""
+      );
       sectionsHtml += `
         <div class="lesson-goals-box">
           <div class="goals-top-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
             <h4 style="margin: 0;"><i class="fa-solid fa-bullseye"></i> PHẦN II. MỤC TIÊU VÀ YÊU CẦU CẦN ĐẠT</h4>
             ${renderTeacherGoldVoiceBoxHtml(
               lesson.goalsButtonLabel || "Nghe thầy Sáng AI đọc",
-              lesson.goalsAudioScript || lesson.learningGoals.join(". "),
+              goalsTextForAudio,
               lesson.goalsAudioUrl || "",
               "goals-voice-player"
             )}
           </div>
           <ul class="lesson-goals-list">
-            ${lesson.learningGoals.map(g => `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${escapeHtml(g)}</li>`).join("")}
+            ${lesson.learningGoals.map(g => {
+              if (typeof g === 'string') {
+                return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${g}</li>`;
+              }
+              const titlePart = g.title ? `<strong>${g.title}:</strong> ` : '';
+              const descPart = g.desc || g.text || '';
+              return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${titlePart}${descPart}</li>`;
+            }).join("")}
           </ul>
         </div>
       `;
@@ -2699,7 +2711,7 @@ function initDigitalLessons() {
               "hook-voice-player"
             )}
           </div>
-          <p class="hook-story">${escapeHtml(lesson.hook.story)}</p>
+          ${lesson.hook.storyHtml ? `<div class="hook-story">${lesson.hook.storyHtml}</div>` : `<p class="hook-story">${escapeHtml(lesson.hook.story || "")}</p>`}
 
           ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : ''}
 
@@ -2717,7 +2729,7 @@ function initDigitalLessons() {
           ${lesson.hook.question ? `
             <div class="hook-question-box">
               <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
-              <strong>Câu hỏi khơi gợi tư duy:</strong> ${escapeHtml(lesson.hook.question)}
+              <strong>Câu hỏi khơi gợi tư duy:</strong> ${lesson.hook.questionHtml || escapeHtml(lesson.hook.question)}
             </div>
           ` : ''}
         </div>

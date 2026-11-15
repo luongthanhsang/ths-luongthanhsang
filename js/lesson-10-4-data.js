@@ -43,33 +43,21 @@ window.LESSON_10_C2_B4_DATA = {
     avatar: "assets/images/teacher_avatar.png",
     name: "ThS. Lương Thanh Sáng",
     title: "Giáo viên Toán - THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang",
-    quote: "Quy hoạch tuyến tính là phép màu của Toán học ứng dụng: Từ những ràng buộc tài chính và nguồn lực có hạn, chúng ta luôn tìm ra phương án tối ưu để mang lại thành công lớn nhất."
+    greetingText: "Thầy Sáng chào các em học sinh Lớp 10! Tiếp nối thành công của Bài 3, hôm nay chúng ta bước sang Bài 4: Hệ bất phương trình bậc nhất hai ẩn. Đây là một bài học mang tính ứng dụng kinh tế đỉnh cao, đặt nền móng cho lý thuyết quy hoạch tuyến tính, công cụ mà các nhà kinh tế học và doanh nghiệp sử dụng hàng ngày để tối đa hoá lợi nhuận và tối thiểu hoá chi phí. Thầy chúc các em có một buổi học thật hào hứng và hiệu quả!",
+    audioScript: "Thầy Sáng chào các em học sinh Lớp 10! Tiếp nối thành công của Bài 3, hôm nay chúng ta bước sang Bài 4: Hệ bất phương trình bậc nhất hai ẩn. Đây là một bài học mang tính ứng dụng kinh tế đỉnh cao, đặt nền móng cho lý thuyết quy hoạch tuyến tính, công cụ mà các nhà kinh tế học và doanh nghiệp sử dụng hàng ngày để tối đa hoá lợi nhuận và tối thiểu hoá chi phí. Thầy chúc các em có một buổi học thật hào hứng và hiệu quả!",
+    audioUrl: "assets/audio/b10_4_welcome.mp3",
+    buttonLabel: "Nghe Thầy Sáng chào lớp",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng"
   },
 
   // =========================================================================
   // PHẦN II. MỤC TIÊU & YÊU CẦU CẦN ĐẠT (CHUẨN SGK TRANG 26)
   // =========================================================================
   learningGoals: [
-    {
-      icon: "fa-solid fa-layer-group",
-      title: "Nhận biết hệ bất phương trình bậc nhất hai ẩn",
-      desc: "Nhận diện hệ gồm hai hay nhiều bất phương trình bậc nhất hai ẩn; hiểu rõ khái niệm nghiệm đồng thời của hệ."
-    },
-    {
-      icon: "fa-solid fa-draw-polygon",
-      title: "Biểu diễn miền nghiệm của hệ trên mặt phẳng toạ độ",
-      desc: "Nắm vững nguyên lý giao các miền nghiệm: gạch bỏ các miền không thoả mãn của từng bất phương trình, miền không bị gạch chính là miền đa giác nghiệm của hệ."
-    },
-    {
-      icon: "fa-solid fa-trophy",
-      title: "Định lí cực trị trên miền đa giác (Quy hoạch tuyến tính)",
-      desc: "Thấu hiểu định lí then chốt: Giá trị lớn nhất hay nhỏ nhất của biểu thức mục tiêu $F(x; y) = ax + by$ luôn đạt được tại một trong các đỉnh của miền đa giác nghiệm."
-    },
-    {
-      icon: "fa-solid fa-briefcase",
-      title: "Vận dụng tối ưu hoá kinh doanh và đời sống",
-      desc: "Thiết lập mô hình và giải quyết trọn vẹn bài toán kinh doanh máy điều hoà (tối đa lợi nhuận), bài toán khẩu phần dinh dưỡng (tối thiểu chi phí)."
-    }
+    "Nhận biết và thiết lập được hệ bất phương trình bậc nhất hai ẩn từ các điều kiện ràng buộc thực tiễn.",
+    "Biểu diễn chính xác miền nghiệm của hệ trên mặt phẳng toạ độ $Oxy$ bằng phương pháp giao các miền nghiệm (gạch bỏ miền không thích hợp).",
+    "Thấu hiểu và vận dụng định lí cực trị: giá trị lớn nhất hay nhỏ nhất của biểu thức mục tiêu $F(x; y) = ax + by$ luôn đạt được tại các đỉnh của miền đa giác.",
+    "Giải quyết xuất sắc các bài toán kinh doanh, sản xuất và dinh dưỡng thực tế (bài toán máy điều hoà, chế độ ăn gia đình)."
   ],
   goalsAudioUrl: "assets/audio/b10_4_goals.mp3",
   goalsButtonLabel: "Nghe mục tiêu bài học",
@@ -80,34 +68,39 @@ window.LESSON_10_C2_B4_DATA = {
   // =========================================================================
   hook: {
     title: "Tình huống mở đầu: Bài toán kinh doanh máy điều hoà mùa nóng",
-    story: `Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: <strong>điều hoà hai chiều</strong> và <strong>điều hoà một chiều</strong> với số vốn ban đầu không vượt quá <strong>1,2 tỉ đồng</strong>.
-    <div style="margin: 12px 0; overflow-x: auto;">
-      <table style="width: 100%; max-width: 540px; margin: 0 auto; border-collapse: collapse; text-align: center; border: 1.5px solid #cbd5e1; background: #f8fafc;">
-        <thead>
-          <tr style="background: #0284c7; color: white;">
-            <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Loại máy điều hoà</th>
-            <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Giá mua vào</th>
-            <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Lợi nhuận dự kiến</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e3a8a;">Điều hoà hai chiều</td>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1;">20 triệu đồng / máy</td>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1; color: #15803d; font-weight: bold;">3,5 triệu đồng / máy</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #0284c7;">Điều hoà một chiều</td>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1;">10 triệu đồng / máy</td>
-            <td style="padding: 8px 12px; border: 1px solid #cbd5e1; color: #15803d; font-weight: bold;">2 triệu đồng / máy</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    Cửa hàng ước tính tổng nhu cầu của thị trường sẽ không vượt quá <strong>100 máy</strong> cả hai loại.<br>
-    <em>Câu hỏi chiến lược:</em> Nếu là chủ cửa hàng, em cần đầu tư nhập kinh doanh bao nhiêu máy mỗi loại để lợi nhuận thu được là lớn nhất?`,
+    story: "Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: điều hoà hai chiều và điều hoà một chiều với số vốn ban đầu không vượt quá 1,2 tỉ đồng. Giá mua vào lần lượt là 20 triệu đồng và 10 triệu đồng mỗi máy; lợi nhuận dự kiến là 3,5 triệu đồng và 2 triệu đồng mỗi máy. Theo khảo sát thị trường, nhu cầu không vượt quá 100 máy cho cả hai loại. Chủ cửa hàng cần đầu tư mua mỗi loại bao nhiêu máy để thu được lợi nhuận lớn nhất?",
+    storyHtml: `
+      <p>Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: <strong>điều hoà hai chiều</strong> và <strong>điều hoà một chiều</strong> với số vốn ban đầu không vượt quá <strong>1,2 tỉ đồng</strong>.</p>
+      <div style="margin: 12px 0; overflow-x: auto;">
+        <table style="width: 100%; max-width: 540px; margin: 0 auto; border-collapse: collapse; text-align: center; border: 1.5px solid #cbd5e1; background: #f8fafc;">
+          <thead>
+            <tr style="background: #0284c7; color: white;">
+              <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Loại máy điều hoà</th>
+              <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Giá mua vào</th>
+              <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Lợi nhuận dự kiến</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e3a8a;">Điều hoà hai chiều</td>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1;">20 triệu đồng / máy</td>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1; color: #15803d; font-weight: bold;">3,5 triệu đồng / máy</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #0284c7;">Điều hoà một chiều</td>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1;">10 triệu đồng / máy</td>
+              <td style="padding: 8px 12px; border: 1px solid #cbd5e1; color: #15803d; font-weight: bold;">2 triệu đồng / máy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Theo khảo sát thị trường, số lượng điều hoà mà cửa hàng có thể bán được không vượt quá <strong>100 máy</strong> cho cả hai loại.</p>
+      <p style="color: #0369a1; font-weight: 500; font-style: italic;">Chủ cửa hàng cần đầu tư mua bao nhiêu máy mỗi loại để thu được lợi nhuận lớn nhất?</p>
+    `,
     audioUrl: "assets/audio/b10_4_hook.mp3",
-    bridge: "Bài toán này đồng thời chịu nhiều ràng buộc: số lượng máy, số vốn đầu tư, tính không âm của sản phẩm. Đó chính là một Hệ bất phương trình bậc nhất hai ẩn."
+    buttonLabel: "Nghe Thầy Sáng đặt vấn đề",
+    voiceLabel: "Giọng đọc AI của ThS. Lương Thanh Sáng",
+    question: "Số tiền vốn đầu tư và số lượng máy bán ra tạo thành những điều kiện ràng buộc toán học nào?"
   },
 
   sections: [
@@ -167,10 +160,10 @@ window.LESSON_10_C2_B4_DATA = {
 
             <div class="example-box" style="margin-top: 14px;">
               <div class="example-title"><i class="fa-solid fa-pen-to-square"></i> Thiết lập hệ bất phương trình từ bài toán điều hoà:</div>
-              <p>Gọi $x, y$ lần lượt là số máy điều hoà hai chiều và một chiều cần nhập ($x, y \in \mathbb{N}$).</p>
+              <p>Gọi $x, y$ lần lượt là số máy điều hoà hai chiều và một chiều cần nhập ($x, y \\in \\mathbb{N}$).</p>
               <ul>
                 <li>Nhu cầu thị trường không quá 100 máy: $x + y \\le 100$.</li>
-                <li>Vốn đầu tư không vượt quá 1,2 tỉ ($1200$ triệu): $20x + 10y \\le 1200 \iff 2x + y \\le 120$.</li>
+                <li>Vốn đầu tư không vượt quá 1,2 tỉ ($1200$ triệu): $20x + 10y \\le 1200 \\iff 2x + y \\le 120$.</li>
                 <li>Số lượng máy luôn không âm: $x \\ge 0, y \\ge 0$.</li>
               </ul>
               <p>Ta thu được <strong>hệ bất phương trình bậc nhất hai ẩn</strong>:</p>
@@ -309,7 +302,7 @@ window.LESSON_10_C2_B4_DATA = {
               <div style="text-align: center; font-size: 1.15rem; font-weight: bold; color: #1e3a8a; margin: 8px 0;">
                 $$F(x; y) = ax + by$$
               </div>
-              <p>với $(x; y)$ là toạ độ các điểm thuộc miền đa giác $A_1 A_2 \dots A_n$ (tức là các điểm nằm bên trong hay nằm trên các cạnh của đa giác), <strong>luôn đạt được tại một trong các đỉnh của đa giác đó</strong>.</p>
+              <p>với $(x; y)$ là toạ độ các điểm thuộc miền đa giác $A_1 A_2 \\dots A_n$ (tức là các điểm nằm bên trong hay nằm trên các cạnh của đa giác), <strong>luôn đạt được tại một trong các đỉnh của đa giác đó</strong>.</p>
             </div>
           `
         },
@@ -336,7 +329,7 @@ window.LESSON_10_C2_B4_DATA = {
               <ul>
                 <li>Tại $O(0; 0)$: $F(0; 0) = 3{,}5(0) + 2(0) = 0$ triệu đồng.</li>
                 <li>Tại $A(0; 100)$: $F(0; 100) = 3{,}5(0) + 2(100) = 200$ triệu đồng.</li>
-                <li>Tại $B(20; 80)$: $F(20; 80) = 3{,}5(20) + 2(80) = 70 + 160 = \mathbf{230}$ triệu đồng.</li>
+                <li>Tại $B(20; 80)$: $F(20; 80) = 3{,}5(20) + 2(80) = 70 + 160 = \\mathbf{230}$ triệu đồng.</li>
                 <li>Tại $C(60; 0)$: $F(60; 0) = 3{,}5(60) + 2(0) = 210$ triệu đồng.</li>
               </ul>
               <p><strong>Bước 3 (Kết luận tối ưu):</strong> Giá trị lớn nhất của $F(x; y)$ là <strong>$230$ triệu đồng</strong> đạt được khi $x = 20$ và $y = 80$.</p>
@@ -441,7 +434,7 @@ window.LESSON_10_C2_B4_DATA = {
           </div>
           <div style="background: #f8fafc; border: 1.5px solid #0284c7; border-radius: 8px; padding: 12px;">
             <div style="font-weight: bold; color: #0284c7; margin-bottom: 6px;"><i class="fa-solid fa-3"></i> Bước 3: Tìm toạ độ các đỉnh</div>
-            <p style="font-size: 0.92rem; color: #475569; margin: 0;">Giải các hệ phương trình giao điểm của các đường thẳng biên để tìm chính xác toạ độ các đỉnh $A, B, C, \dots$</p>
+            <p style="font-size: 0.92rem; color: #475569; margin: 0;">Giải các hệ phương trình giao điểm của các đường thẳng biên để tìm chính xác toạ độ các đỉnh $A, B, C, \\dots$</p>
           </div>
           <div style="background: #f8fafc; border: 1.5px solid #0284c7; border-radius: 8px; padding: 12px;">
             <div style="font-weight: bold; color: #0284c7; margin-bottom: 6px;"><i class="fa-solid fa-4"></i> Bước 4: So sánh &amp; Kết luận</div>
@@ -570,7 +563,7 @@ window.LESSON_10_C2_B4_DATA = {
             id: "b",
             text: "Toạ độ của đỉnh $B$ là giao điểm của hai đường thẳng $x + y = 100$ và $2x + y = 120$ là $B(20; 80)$.",
             isCorrect: true,
-            explain: "Trừ hai phương trình: $(2x + y) - (x + y) = 120 - 100 \implies x = 20 \implies y = 80$."
+            explain: "Trừ hai phương trình: $(2x + y) - (x + y) = 120 - 100 \\implies x = 20 \\implies y = 80$."
           },
           {
             id: "c",
@@ -626,13 +619,13 @@ window.LESSON_10_C2_B4_DATA = {
             id: "a",
             text: "Bất phương trình biểu thị lượng protein cần nạp là $800x + 600y \\ge 900$ (tương đương $8x + 6y \\ge 9$).",
             isCorrect: true,
-            explain: "Lượng protein: $800x + 600y \\ge 900 \iff 8x + 6y \\ge 9$."
+            explain: "Lượng protein: $800x + 600y \\ge 900 \\iff 8x + 6y \\ge 9$."
           },
           {
             id: "b",
             text: "Bất phương trình biểu thị lượng lipid cần nạp là $200x + 400y \\ge 400$ (tương đương $x + 2y \\ge 2$).",
             isCorrect: true,
-            explain: "Lượng lipid: $200x + 400y \\ge 400 \iff x + 2y \\ge 2$."
+            explain: "Lượng lipid: $200x + 400y \\ge 400 \\iff x + 2y \\ge 2$."
           },
           {
             id: "c",
