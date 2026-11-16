@@ -3317,6 +3317,7 @@ if (typeof window !== "undefined") {
   }
 
   if (window.LESSON_10_C1_B1_DATA) autoInjectLesson(window.LESSON_10_C1_B1_DATA);
+  if (window.LESSON_10_C1_B2_DATA) autoInjectLesson(window.LESSON_10_C1_B2_DATA);
   if (window.LESSON_10_C3_B5_DATA) autoInjectLesson(window.LESSON_10_C3_B5_DATA);
   if (window.LESSON_10_C3_B6_DATA) autoInjectLesson(window.LESSON_10_C3_B6_DATA);
   if (window.LESSON_10_C2_B3_DATA) autoInjectLesson(window.LESSON_10_C2_B3_DATA);

@@ -3179,6 +3179,13 @@ function initDigitalLessons() {
     }
 
     const KNOWN_AUDIO_DURATIONS = {
+      "assets/audio/b10_2_welcome.mp3": 40.2,
+      "assets/audio/b10_2_goals.mp3": 42.1,
+      "assets/audio/b10_2_hook.mp3": 45.4,
+      "assets/audio/b10_2_sec1.mp3": 70.3,
+      "assets/audio/b10_2_sec2.mp3": 67.0,
+      "assets/audio/b10_2_sec3.mp3": 94.6,
+      "assets/audio/b10_2_wrapup.mp3": 38.6,
       "assets/audio/b10_1_welcome.mp3": 30.8,
       "assets/audio/b10_1_goals.mp3": 36.1,
       "assets/audio/b10_1_hook.mp3": 36.4,
@@ -3451,13 +3458,13 @@ function initDigitalLessons() {
               "hook-voice-player"
             )}
           </div>
-          ${lesson.hook.storyHtml ? `<div class="hook-story">${lesson.hook.storyHtml}</div>` : (
+          ${(lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml) ? `<div class="hook-story">${lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml}</div>` : (
             /<[a-z][\s\S]*>/i.test(lesson.hook.story || "")
               ? `<div class="hook-story">${lesson.hook.story}</div>`
               : `<p class="hook-story">${escapeHtml(lesson.hook.story || "")}</p>`
           )}
 
-          ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : ''}
+          ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : (lesson.hook.diagramHtml ? lesson.hook.diagramHtml : '')}
 
           ${lesson.hook.illustration ? (
             lesson.hook.illustration.trim().startsWith('<')
@@ -4343,6 +4350,13 @@ function initDigitalLessons() {
   let currentHtml5Audio = null;
 
   const KNOWN_AUDIO_DURATIONS = {
+    "assets/audio/b10_2_welcome.mp3": 40.2,
+    "assets/audio/b10_2_goals.mp3": 42.1,
+    "assets/audio/b10_2_hook.mp3": 45.4,
+    "assets/audio/b10_2_sec1.mp3": 70.3,
+    "assets/audio/b10_2_sec2.mp3": 67.0,
+    "assets/audio/b10_2_sec3.mp3": 94.6,
+    "assets/audio/b10_2_wrapup.mp3": 38.6,
     "assets/audio/b10_1_welcome.mp3": 30.8,
     "assets/audio/b10_1_goals.mp3": 36.1,
     "assets/audio/b10_1_hook.mp3": 36.4,
@@ -4787,7 +4801,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_10_AUDIO_CACHE && window.B11_10_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_6_AUDIO_CACHE && window.B10_6_AUDIO_CACHE[audioUrl]) ||
@@ -5211,6 +5226,7 @@ function initDigitalLessons() {
         // Tìm trong bài học hiện tại hoặc qua toàn bộ dữ liệu bài học đã nạp
         const allLessons = [
           window.LESSON_10_C1_B1_DATA,
+          window.LESSON_10_C1_B2_DATA,
           window.LESSON_10_C3_B5_DATA,
           window.LESSON_10_C3_B6_DATA,
           window.LESSON_10_C2_B3_DATA,
