@@ -4047,7 +4047,7 @@ function initDigitalLessons() {
               <div class="exam-list-mc">
                 ${ef.part1MultipleChoice.map((q, idx) => {
                   const mcNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
-                  const qPrompt = q.prompt || q.intro || '';
+                  const qPrompt = q.prompt || q.intro || q.question || '';
                   const qSol = q.solution || q.explain || '';
                   const qOpts = q.options || [];
                   return `
@@ -4177,8 +4177,8 @@ function initDigitalLessons() {
               <div class="exam-list-sa">
                 ${ef.part3ShortAnswer.map((q, idx) => {
                   const saNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
-                  const saPrompt = q.prompt || '';
-                  const saSol = q.solution || '';
+                  const saPrompt = q.prompt || q.question || '';
+                  const saSol = q.solution || q.explain || '';
                   const targetAns = (q.correctAnswer !== undefined && q.correctAnswer !== null) ? q.correctAnswer : ((q.correctValue !== undefined && q.correctValue !== null) ? q.correctValue : '');
                   return `
                   <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">

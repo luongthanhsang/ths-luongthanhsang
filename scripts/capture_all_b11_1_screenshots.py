@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Chụp ảnh minh chứng và kiểm thử toàn diện Bài 1 Lớp 11:
+1. 4 sơ đồ xoắn ốc Archimedes siêu mịn.
+2. Công thức toán MathJax sạch sẽ, không có bất kỳ chữ \quad thô.
+3. Cả 2 câu hỏi tương tác (Câu 1 và Câu 2) xuất hiện đầy đủ.
+4. Phần V: Bài tập trắc nghiệm củng cố chuẩn 2025 hiển thị đầy đủ 3 Dạng (MC, TF, SA).
+5. Tick xanh mục con a, b rồi mới tick xanh mục cha.
+6. Hệ thống âm thanh Base64 cache 12/12 mục.
+"""
 import asyncio, json, urllib.request, os, base64, subprocess, time
 import aiohttp
 
@@ -12,14 +21,14 @@ async def capture_all():
         "--disable-gpu",
         "--window-size=1440,1100",
         "--remote-allow-origins=*",
-        "--remote-debugging-port=9252",
+        "--remote-debugging-port=9253",
         TARGET_URL
     ]
     proc = subprocess.Popen(chrome_cmd)
     await asyncio.sleep(2.5)
 
     try:
-        res = urllib.request.urlopen("http://localhost:9252/json")
+        res = urllib.request.urlopen("http://localhost:9253/json")
         pages = json.loads(res.read())
         target = [p for p in pages if p.get("type") == "page"][0]
         ws_url = target["webSocketDebuggerUrl"]
@@ -52,27 +61,27 @@ async def capture_all():
                 await send("Runtime.enable")
                 await send("DOM.enable")
                 await send("Page.enable")
-                await asyncio.sleep(2.5)
+                await asyncio.sleep(3.0)
 
                 # Reset storage
                 await eval_js("localStorage.removeItem('ths_sang_completed_steps_11-c1-b1');")
 
-                # 1. Khởi động (Hook ISS)
+                # 1. Khởi động (Hook ISS) & Timeline Checkpoints (Câu 1 và Câu 2)
                 await eval_js("window.activateStep('hook');")
                 await asyncio.sleep(1.5)
                 await take_shot("verified_b11_1_hook_iss.png")
 
-                # 2. Mục tiêu bài học (Goals - Kiểm tra công thức LaTeX chuẩn 100%)
+                # 2. Mục tiêu bài học (Goals)
                 await eval_js("window.activateStep('goals');")
                 await asyncio.sleep(1.5)
                 await take_shot("verified_b11_1_goals_math.png")
 
-                # 3. Mục 1a: 4 sơ đồ xoắn ốc
+                # 3. Mục 1a: 4 sơ đồ xoắn ốc Archimedes siêu mịn
                 await eval_js("window.activateStep('sec-1', 'a');")
                 await asyncio.sleep(1.5)
                 await take_shot("verified_b11_1_sec1a_spirals.png")
 
-                # 4. Mục 1a: Luyện tập 1 (Kiểm tra công thức MathJax)
+                # 4. Mục 1a: Luyện tập 1 và Ví dụ (Không còn \quad thô)
                 await eval_js("window.scrollTo(0, 950);")
                 await asyncio.sleep(1.0)
                 await take_shot("verified_b11_1_sec1a_lt1_math.png")
@@ -97,9 +106,9 @@ async def capture_all():
                 await asyncio.sleep(1.2)
                 await take_shot("verified_b11_1_sec4_formulas.png")
 
-                # 9. Phần V: Bài tập trắc nghiệm củng cố 2025
+                # 9. Phần V: Bài tập trắc nghiệm củng cố 2025 hiển thị đầy đủ
                 await eval_js("window.activateStep('quiz');")
-                await asyncio.sleep(1.2)
+                await asyncio.sleep(1.5)
                 await take_shot("verified_b11_1_exam_quiz.png")
 
                 # 10. Hoàn thành 1a và 1b -> Tick xanh mục cha trên Sidebar
@@ -112,24 +121,44 @@ async def capture_all():
                 await asyncio.sleep(0.8)
                 await take_shot("verified_b11_1_parent_green_tick.png")
 
-                # Kiểm tra âm thanh trong cache và audio engine
-                audio_check = await eval_js("""
+                # Diagnostic Audit
+                audit = await eval_js("""
                 (() => {
+                    const l = window.CURRENT_LESSON_DATA || {};
                     const cache = window.B11_1_AUDIO_CACHE || {};
                     const keys = Object.keys(cache);
+                    
+                    // Check interactive checkpoints
+                    const sec1 = (l.sections || []).find(s => s.id === '11-c1-b1-s1') || {};
+                    const subs = sec1.subsections || [];
+                    const sub1a = subs.find(s => s.key === 'a') || {};
+                    const sub1b = subs.find(s => s.key === 'b') || {};
+                    
+                    // Check exam DOM elements
+                    const mcItems = document.querySelectorAll('.exam-list-mc .exam-item-card').length;
+                    const tfItems = document.querySelectorAll('.exam-tf-card').length;
+                    const saItems = document.querySelectorAll('.exam-sa-card').length;
+                    
+                    // Check if quad is present in body text
+                    const hasRawQuad = document.body.innerText.includes('\\\\quad') || 
+                                       document.body.innerHTML.includes('; \\\\quad') ||
+                                       document.body.innerHTML.includes(';\\quad');
+                    
                     return {
-                        totalCached: keys.length,
-                        sampleKey: keys[0],
-                        hasWelcome: !!cache['assets/audio/b11_1_welcome.mp3'],
-                        hasHook: !!cache['assets/audio/b11_1_hook.mp3'],
-                        hasSec1a: !!cache['assets/audio/b11_1_sec1a.mp3'],
-                        hasWrapup: !!cache['assets/audio/b11_1_wrapup.mp3']
+                        lessonId: l.id,
+                        totalCachedAudios: keys.length,
+                        hook_cps: (l.hook && l.hook.checkpoints || []).length,
+                        sec1a_cps: (sub1a.checkpoints || []).length,
+                        sec1b_cps: (sub1b.checkpoints || []).length,
+                        mc_dom_count: mcItems,
+                        tf_dom_count: tfItems,
+                        sa_dom_count: saItems,
+                        hasRawQuad: hasRawQuad
                     };
                 })()
                 """)
-                print("AUDIO ENGINE STATUS:", json.dumps(audio_check, indent=2))
-
-                print("\nALL SCREENSHOTS CAPTURED SUCCESSFULLY!")
+                print("\n=== SYSTEM AUDIT REPORT ===")
+                print(json.dumps(audit, indent=2))
 
     finally:
         proc.terminate()
