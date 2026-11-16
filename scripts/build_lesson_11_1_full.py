@@ -474,6 +474,21 @@ window.LESSON_11_C1_B1_DATA = {{
               <p>a) \\(45^\\circ = 45 \\cdot \\dfrac{{\\pi}}{{180}} = \\dfrac{{\\pi}}{{4}}\\);&emsp;&emsp;\\(-150^\\circ = -150 \\cdot \\dfrac{{\\pi}}{{180}} = -\\dfrac{{5\\pi}}{{6}}\\).</p>
               <p>b) \\(\\dfrac{{3\\pi}}{{8}}\\text{{ rad}} = \\left(\\dfrac{{3\\pi}}{{8}} \\cdot \\dfrac{{180}}{\\pi}\\right)^\\circ = 67^\\circ 30'\\);&emsp;&emsp;\\(-2\\text{{ rad}} = \\left(-2 \\cdot \\dfrac{{180}}{\\pi}\\right)^\\circ \\approx -114^\\circ 35'30''\\).</p>
             </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 3 (SGK TRANG 9):</div>
+              <p><b>Đề bài:</b></p>
+              <p>a) Đổi từ độ sang radian các số đo sau: \\(360^\\circ\\); \\(-450^\\circ\\);</p>
+              <p>b) Đổi từ radian sang độ các số đo sau: \\(3\\pi\\text{{ rad}}\\); \\(-\\dfrac{{11\\pi}}{{5}}\\text{{ rad}}\\).</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Áp dụng công thức đổi sang radian \\(\\alpha = a \\cdot \\dfrac{{\\pi}}{{180}}\\):</p>
+              <p>• \\(360^\\circ = 360 \\cdot \\dfrac{{\\pi}}{{180}} = 2\\pi\\text{{ rad}}\\);</p>
+              <p>• \\(-450^\\circ = -450 \\cdot \\dfrac{{\\pi}}{{180}} = -\\dfrac{{5\\pi}}{{2}}\\text{{ rad}}\\).</p>
+              <p>b) Áp dụng công thức đổi sang độ \\(a^\\circ = \\alpha \\cdot \\left(\\dfrac{{180}}{{\\pi}}\\right)^\\circ\\):</p>
+              <p>• \\(3\\pi\\text{{ rad}} = \\left(3\\pi \\cdot \\dfrac{{180}}{{\\pi}}\\right)^\\circ = 540^\\circ\\);</p>
+              <p>• \\(-\\dfrac{{11\\pi}}{{5}}\\text{{ rad}} = \\left(-\\dfrac{{11\\pi}}{{5}} \\cdot \\dfrac{{180}}{{\\pi}}\\right)^\\circ = -396^\\circ\\).</p>
+            </div>
           </div>`
         }},
 
@@ -532,7 +547,15 @@ window.LESSON_11_C1_B1_DATA = {{
             </div>
 
             <div class="alert-box alert-success mb-3">
-              <div class="fw-bold text-success mb-2">🚀 VẬN DỤNG 1: GIẢI QUYẾT TRỌN VẸN BÀI TOÁN TRẠM ISS MỞ ĐẦU (SGK TRANG 9):</div>
+              <div class="fw-bold text-success mb-2">📌 VÍ DỤ 4 (SGK TRANG 9) & LỜI GIẢI CHI TIẾT:</div>
+              <p><b>Đề bài:</b> Cho đường tròn bán kính \\(R = 2\\text{{ cm}}\\). Tính độ dài cung tròn có số đo \\(\\alpha = \\dfrac{{2\\pi}}{{3}}\\text{{ rad}}\\) của đường tròn đó.</p>
+              <hr>
+              <p><b>Lời giải:</b> Áp dụng công thức độ dài cung tròn \\(l = R \\cdot \\alpha\\):</p>
+              <p class="fw-bold text-primary">\\(l = 2 \\cdot \\dfrac{{2\\pi}}{{3}} = \\dfrac{{4\\pi}}{{3}}\\text{{ (cm)}} \\approx 4{,}19\\text{{ cm}}\\).</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP / VẬN DỤNG 1 (SGK TRANG 9) — BÀI TOÁN TRẠM ISS:</div>
               <p><b>Đề bài:</b> Trạm vũ trụ quốc tế ISS chuyển động theo quỹ đạo tròn cách bề mặt Trái Đất 400 km. Bán kính Trái Đất là 6 400 km. Trạm mặt đất theo dõi khi trạm ISS quét góc \\(45^\\circ\\) ở tâm quỹ đạo. Tính quãng đường ISS đã di chuyển trong thời gian được theo dõi.</p>
               <hr>
               <p><b>Lời giải chi tiết của Thầy Sáng:</b></p>
@@ -628,6 +651,24 @@ window.LESSON_11_C1_B1_DATA = {{
                   <li>Ngược lại, một điểm \\(M\\) trên đường tròn lượng giác là điểm biểu diễn của <b>vô số góc lượng giác</b> có số đo dạng \\(\\alpha + k 2\\pi \\; (k \\in \\mathbb{{Z}})\\) (hoặc \\(\\alpha + k 360^\\circ\\)).</li>
                 </ul>
               </div>
+            </div>
+
+            <div class="alert-box alert-success mb-3">
+              <div class="fw-bold text-success mb-2">📌 VÍ DỤ 5 (SGK TRANG 10) & LỜI GIẢI CHI TIẾT:</div>
+              <p><b>Đề bài:</b> Xác định các điểm \\(M\\) và \\(N\\) trên đường tròn lượng giác lần lượt biểu diễn các góc lượng giác có số đo bằng \\(\\dfrac{{13\\pi}}{{4}}\\) và \\(-150^\\circ\\).</p>
+              <hr>
+              <p><b>Lời giải:</b></p>
+              <p>• Ta có: \\(\\dfrac{{13\\pi}}{{4}} = 3\\pi + \\dfrac{{\\pi}}{{4}} = 2\\pi + \\pi + \\dfrac{{\\pi}}{{4}} = \\dfrac{{5\\pi}}{{4}} + 2\\pi\\). Do đó điểm biểu diễn \\(M\\) nằm ở <b>góc phần tư thứ III</b> (chính giữa cung phần tư thứ III).</p>
+              <p>• Ta có: \\(-150^\\circ = -180^\\circ + 30^\\circ\\). Quay theo chiều âm một góc \\(150^\\circ\\) từ tia gốc \\(OA\\), điểm biểu diễn \\(N\\) nằm ở <b>góc phần tư thứ III</b>.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 4 (SGK TRANG 10):</div>
+              <p><b>Đề bài:</b> Xác định các điểm \\(M\\) và \\(N\\) trên đường tròn lượng giác lần lượt biểu diễn các góc lượng giác có số đo bằng \\(-\\dfrac{{15\\pi}}{{4}}\\) và \\(420^\\circ\\).</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>• Ta có: \\(-\\dfrac{{15\\pi}}{{4}} = -4\\pi + \\dfrac{{\\pi}}{{4}} = \\dfrac{{\\pi}}{{4}} - 2 \\cdot 2\\pi\\). Do đó điểm biểu diễn \\(M\\) trùng với điểm biểu diễn góc \\(\\dfrac{{\\pi}}{{4}}\\) (nằm ở <b>góc phần tư thứ I</b>, là trung điểm của cung \\(AB\\)).</p>
+              <p>• Ta có: \\(420^\\circ = 360^\\circ + 60^\\circ\\). Do đó điểm biểu diễn \\(N\\) trùng với điểm biểu diễn góc \\(60^\\circ\\) (nằm ở <b>góc phần tư thứ I</b>).</p>
             </div>
           </div>`
         }},
@@ -767,6 +808,19 @@ window.LESSON_11_C1_B1_DATA = {{
               <p>• \\(\\cos\\left(-\\dfrac{{\\pi}}{{3}}\\right) = \\dfrac{{1}}{{2}}\\);&emsp;&emsp;\\(\\sin\\left(-\\dfrac{{\\pi}}{{3}}\\right) = -\\dfrac{{\\sqrt{{3}}}}{{2}}\\);</p>
               <p>• \\(\\tan\\left(-\\dfrac{{\\pi}}{{3}}\\right) = -\\sqrt{{3}}\\);&emsp;&emsp;\\(\\cot\\left(-\\dfrac{{\\pi}}{{3}}\\right) = -\\dfrac{{1}}{{\\sqrt{{3}}}} = -\\dfrac{{\\sqrt{{3}}}}{{3}}\\).</p>
             </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 5 (SGK TRANG 12):</div>
+              <p><b>Đề bài:</b> Cho góc lượng giác có số đo bằng \\(\\dfrac{{5\\pi}}{{6}}\\).</p>
+              <p>a) Xác định điểm \\(M\\) trên đường tròn lượng giác biểu diễn góc lượng giác đã cho.</p>
+              <p>b) Tính các giá trị lượng giác của góc lượng giác đã cho.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Ta có: \\(\\dfrac{{5\\pi}}{{6}} = \\pi - \\dfrac{{\\pi}}{{6}}\\) (nằm ở <b>góc phần tư thứ II</b>, tạo với tia đối của trục Ox một góc \\(30^\\circ\\)).</p>
+              <p>b) Tọa độ của điểm biểu diễn \\(M\\) là \\(\\left(-\\dfrac{{\\sqrt{{3}}}}{{2}}; \\dfrac{{1}}{{2}}\\right)\\). Do đó:</p>
+              <p>• \\(\\cos\\dfrac{{5\\pi}}{{6}} = -\\dfrac{{\\sqrt{{3}}}}{{2}}\\);&emsp;&emsp;• \\(\\sin\\dfrac{{5\\pi}}{{6}} = \\dfrac{{1}}{{2}}\\);</p>
+              <p>• \\(\\tan\\dfrac{{5\\pi}}{{6}} = \\dfrac{{\\sin}}{{\\cos}} = -\\dfrac{{1}}{{\\sqrt{{3}}}} = -\\dfrac{{\\sqrt{{3}}}}{{3}}\\);&emsp;&emsp;• \\(\\cot\\dfrac{{5\\pi}}{{6}} = \\dfrac{{\\cos}}{{\\sin}} = -\\sqrt{{3}}\\).</p>
+            </div>
           </div>`
         }}
       ]
@@ -867,6 +921,19 @@ window.LESSON_11_C1_B1_DATA = {{
               <p class="fw-bold text-primary">\\(\\cos\\alpha = -\\sqrt{{1 - \\sin^2\\alpha}} = -\\sqrt{{1 - \\left(\\dfrac{{3}}{{5}}\\right)^2}} = -\\dfrac{{4}}{{5}}\\).</p>
               <p>Do đó:</p>
               <p>\\(\\tan\\alpha = \\dfrac{{\\sin\\alpha}}{{\\cos\\alpha}} = \\dfrac{{3/5}}{{-4/5}} = -\\dfrac{{3}}{{4}}\\);&emsp;&emsp;\\(\\cot\\alpha = \\dfrac{{1}}{{\\tan\\alpha}} = -\\dfrac{{4}}{{3}}\\).</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 7 (SGK TRANG 14):</div>
+              <p><b>Đề bài:</b> Tính các giá trị lượng giác của góc \\(\\alpha\\), biết: \\(\\cos\\alpha = -\\dfrac{{2}}{{3}}\\) và \\(\\pi < \\alpha < \\dfrac{{3\\pi}}{{2}}\\).</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>1. Vì \\(\\pi < \\alpha < \\dfrac{{3\\pi}}{{2}}\\) (góc phần tư thứ III) nên \\(\\sin\\alpha < 0\\).</p>
+              <p>2. Áp dụng công thức \\(\\sin^2\\alpha + \\cos^2\\alpha = 1\\), suy ra:</p>
+              <p class="fw-bold text-primary">\\(\\sin\\alpha = -\\sqrt{{1 - \\cos^2\\alpha}} = -\\sqrt{{1 - \\left(-\\dfrac{{2}}{{3}}\\right)^2}} = -\\sqrt{{\\dfrac{{5}}{{9}}}} = -\\dfrac{{\\sqrt{{5}}}}{{3}}\\).</p>
+              <p>3. Từ đó ta tính được:</p>
+              <p>• \\(\\tan\\alpha = \\dfrac{{\\sin\\alpha}}{{\\cos\\alpha}} = \\dfrac{{-\\sqrt{{5}}/3}}{{-2/3}} = \\dfrac{{\\sqrt{{5}}}}{{2}}\\);</p>
+              <p>• \\(\\cot\\alpha = \\dfrac{{1}}{{\\tan\\alpha}} = \\dfrac{{2}}{{\\sqrt{{5}}}} = \\dfrac{{2\\sqrt{{5}}}}{{5}}\\).</p>
             </div>
           </div>`
         }},
@@ -972,7 +1039,7 @@ window.LESSON_11_C1_B1_DATA = {{
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 10 (SGK TRANG 14) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Rút gọn biểu thức: \\(A = \\cos(\\pi - \\alpha) + \\sin\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\) - \\tan(\\pi + \\alpha) \\cdot \\cot\\alpha\\).</p>
+              <p><b>Đề bài:</b> Rút gọn biểu thức: \\(A = \\cos(\\pi - \\alpha) + \\sin\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\right) - \\tan(\\pi + \\alpha) \\cdot \\cot\\alpha\\).</p>
               <hr>
               <p><b>Lời giải:</b> Áp dụng câu thần chú:</p>
               <p>• \\(\\cos(\\pi - \\alpha) = -\\cos\\alpha\\) (Sin bù);</p>
@@ -980,6 +1047,18 @@ window.LESSON_11_C1_B1_DATA = {{
               <p>• \\(\\tan(\\pi + \\alpha) = \\tan\\alpha\\) (Hơn kém pi).</p>
               <p>Thay vào biểu thức \\(A\\):</p>
               <p class="fw-bold text-primary">\\(A = -\\cos\\alpha + \\cos\\alpha - \\tan\\alpha \\cdot \\cot\\alpha = 0 - 1 = -1\\).</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 8 (SGK TRANG 15):</div>
+              <p><b>Đề bài:</b> Tính giá trị của các biểu thức sau:</p>
+              <p class="fw-bold text-dark">a) \\(\\sin(-675^\\circ)\\);&emsp;&emsp;b) \\(\\tan\\dfrac{{15\\pi}}{{4}}\\).</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Ta có: \\(-675^\\circ = 45^\\circ - 2 \\cdot 360^\\circ\\). Do đó:</p>
+              <p class="fw-bold text-primary">\\(\\sin(-675^\\circ) = \\sin 45^\\circ = \\dfrac{{\\sqrt{{2}}}}{{2}}\\).</p>
+              <p>b) Ta có: \\(\\dfrac{{15\\pi}}{{4}} = 4\\pi - \\dfrac{{\\pi}}{{4}}\\). Do đó:</p>
+              <p class="fw-bold text-primary">\\(\\tan\\dfrac{{15\\pi}}{{4}} = \\tan\\left(-\\dfrac{{\\pi}}{{4}}\\right) = -\\tan\\dfrac{{\\pi}}{{4}} = -1\\).</p>
             </div>
           </div>`
         }}
@@ -1125,8 +1204,8 @@ window.LESSON_11_C1_B1_DATA = {{
       }},
       {{
         id: "mc-11-1-5",
-        question: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\) - 2\\sin\\alpha$ ta được:",
-        prompt: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\) - 2\\sin\\alpha$ ta được:",
+        question: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\right) - 2\\sin\\alpha$ ta được:",
+        prompt: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{{\\pi}}{{2}} - \\alpha\\right) - 2\\sin\\alpha$ ta được:",
         options: [
           "$2\\sin\\alpha$",
           "$\\cos\\alpha$",

@@ -1,9 +1,9 @@
-with open('js/lesson-11-12-data.js', 'r', encoding='utf-8') as f:
-    text = f.read()
+# -*- coding: utf-8 -*-
+with open('scripts/build_lesson_11_2_full.py', 'r', encoding='utf-8') as f:
+    lines = f.readlines()
 
-import re
-
-# Find all section headers or main items
-for m in re.finditer(r'{\s*id:\s*["\'](sec[0-9]+|part[0-9]+|section[0-9]+|[^"\']+)["\']', text):
-    snippet = text[m.start():m.start()+200]
-    print(snippet.replace('\n', ' '))
+for idx in [136, 240, 341, 435, 532, 620, 704, 805]:
+    print(f"--- Line {idx} ---")
+    for j in range(idx-1, idx+15):
+        if j < len(lines):
+            print(lines[j], end='')

@@ -258,21 +258,21 @@ window.LESSON_11_C1_B1_DATA = {
           }
         ],
           contentHtml: `<div class="content-box" style="text-align:justify;">
-            <p>Trong mặt phẳng, cho hai tia \$Ou, Ov\$. Xét tia \$Om\$ cùng nằm trong mặt phẳng này. Nếu tia \$Om\$ quay quanh điểm \$O\$, theo một chiều nhất định từ tia đầu \$Ou\$ đến tia cuối \$Ov\$, thì ta nói nó quét một <b>góc lượng giác</b> có tia đầu \$Ou\$, tia cuối \$Ov\$, kí hiệu là \$(Ou, Ov)\$.</p>
+            <p>Trong mặt phẳng, cho hai tia $Ou, Ov$. Xét tia $Om$ cùng nằm trong mặt phẳng này. Nếu tia $Om$ quay quanh điểm $O$, theo một chiều nhất định từ tia đầu $Ou$ đến tia cuối $Ov$, thì ta nói nó quét một <b>góc lượng giác</b> có tia đầu $Ou$, tia cuối $Ov$, kí hiệu là $(Ou, Ov)$.</p>
 
             <div class="card mb-3 border-primary">
               <div class="card-header bg-primary text-white fw-bold">1. Quy ước chiều quay và Số đo góc lượng giác</div>
               <div class="card-body">
                 <p>• <b>Chiều quay:</b> Chiều <b>ngược chiều kim đồng hồ</b> là <b>chiều dương (+)</b>; chiều <b>cùng chiều kim đồng hồ</b> là <b>chiều âm (-)</b>.</p>
-                <p>• Khi tia \$Om\$ quay góc \$\\alpha^\\circ\$ thì góc lượng giác tạo nên có số đo \$\\alpha^\\circ\$ (hoặc \$\\alpha\\text{ rad}\$).</p>
-                <p>• <i>Lưu ý:</i> Số đo của một góc lượng giác có thể là số dương, số âm hoặc bằng \$0\$, và có thể lớn hơn \$360^\\circ\$.</p>
+                <p>• Khi tia $Om$ quay góc $\\alpha^\\circ$ thì góc lượng giác tạo nên có số đo $\\alpha^\\circ$ (hoặc $\\alpha\\text{ rad}$).</p>
+                <p>• <i>Lưu ý:</i> Số đo của một góc lượng giác có thể là số dương, số âm hoặc bằng $0$, và có thể lớn hơn $360^\\circ$.</p>
               </div>
             </div>
 
             <div class="card mb-3 border-danger">
               <div class="card-header bg-danger text-white fw-bold">2. Bốn sơ đồ xoắn ốc minh họa số đo góc lượng giác (SGK trang 6)</div>
               <div class="card-body text-center">
-                <p class="text-muted mb-2">Quan sát 4 trường hợp đặc biệt khi tia cuối \$Ov\$ trùng hoặc đối với tia đầu \$Ou\$:</p>
+                <p class="text-muted mb-2">Quan sát 4 trường hợp đặc biệt khi tia cuối $Ov$ trùng hoặc đối với tia đầu $Ou$:</p>
                 <div class="svg-container text-center my-3" style="overflow-x: auto;">
 <svg width="780" height="240" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; border-radius: 12px; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
   <defs>
@@ -398,16 +398,16 @@ window.LESSON_11_C1_B1_DATA = {
 </div>
                 <div class="row text-start mt-2">
                   <div class="col-md-6 mb-2">
-                    <span class="badge bg-success me-1">Sơ đồ 1</span> Quay 1 vòng theo chiều dương: \$\\text{sđ}(Ou, Ov) = 360^\\circ\$.
+                    <span class="badge bg-success me-1">Sơ đồ 1</span> Quay 1 vòng theo chiều dương: $\\text{sđ}(Ou, Ov) = 360^\\circ$.
                   </div>
                   <div class="col-md-6 mb-2">
-                    <span class="badge bg-success me-1">Sơ đồ 2</span> Quay 2 vòng theo chiều dương: \$\\text{sđ}(Ou, Ov) = 720^\\circ\$.
+                    <span class="badge bg-success me-1">Sơ đồ 2</span> Quay 2 vòng theo chiều dương: $\\text{sđ}(Ou, Ov) = 720^\\circ$.
                   </div>
                   <div class="col-md-6 mb-2">
-                    <span class="badge bg-danger me-1">Sơ đồ 3</span> Quay nửa vòng theo chiều âm: \$\\text{sđ}(Ou, Ov) = -180^\\circ\$.
+                    <span class="badge bg-danger me-1">Sơ đồ 3</span> Quay nửa vòng theo chiều âm: $\\text{sđ}(Ou, Ov) = -180^\\circ$.
                   </div>
                   <div class="col-md-6 mb-2">
-                    <span class="badge bg-danger me-1">Sơ đồ 4</span> Quay 1,5 vòng theo chiều âm: \$\\text{sđ}(Ou, Ov) = -540^\\circ\$.
+                    <span class="badge bg-danger me-1">Sơ đồ 4</span> Quay 1,5 vòng theo chiều âm: $\\text{sđ}(Ou, Ov) = -540^\\circ$.
                   </div>
                 </div>
               </div>
@@ -416,33 +416,33 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-warning">
               <div class="card-header bg-warning text-dark fw-bold">3. Định lí tổng quát về số đo góc lượng giác</div>
               <div class="card-body">
-                <p>Nếu góc lượng giác \$(Ou, Ov)\$ có một số đo là \$\\alpha^\\circ\$ thì mọi số đo của góc lượng giác này đều có dạng:</p>
+                <p>Nếu góc lượng giác $(Ou, Ov)$ có một số đo là $\\alpha^\\circ$ thì mọi số đo của góc lượng giác này đều có dạng:</p>
                 <div class="p-2 bg-light rounded text-center fw-bold text-danger fs-5">
-                  \$\\text{sđ}(Ou, Ov) = \\alpha^\\circ + k 360^\\circ \\quad (k \\in \\mathbb{Z})\$
+                  $\\text{sđ}(Ou, Ov) = \\alpha^\\circ + k 360^\\circ \\quad (k \\in \\mathbb{Z})$
                 </div>
-                <p class="mt-2 mb-0">Mỗi góc lượng giác xác định duy nhất tia đầu và tia cuối. Nhưng ngược lại, với hai tia \$Ou, Ov\$ cho trước có vô số góc lượng giác tia đầu \$Ou\$, tia cuối \$Ov\$, số đo của chúng sai khác nhau một bội nguyên của \$360^\\circ\$.</p>
+                <p class="mt-2 mb-0">Mỗi góc lượng giác xác định duy nhất tia đầu và tia cuối. Nhưng ngược lại, với hai tia $Ou, Ov$ cho trước có vô số góc lượng giác tia đầu $Ou$, tia cuối $Ov$, số đo của chúng sai khác nhau một bội nguyên của $360^\\circ$.</p>
               </div>
             </div>
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 1 (SGK TRANG 6) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Cho góc hình học \$\\widehat{uOv} = 45^\\circ\$. Xác định số đo của các góc lượng giác \$(Ou, Ov)\$ được biểu diễn trong Hình 1.3 SGK.</p>
+              <p><b>Đề bài:</b> Cho góc hình học $\\widehat{uOv} = 45^\\circ$. Xác định số đo của các góc lượng giác $(Ou, Ov)$ được biểu diễn trong Hình 1.3 SGK.</p>
               <hr>
               <p><b>Lời giải:</b></p>
-              <p>• Hình 1.3a: Tia \$Om\$ quay từ \$Ou\$ đến \$Ov\$ theo chiều dương góc \$45^\\circ\$ nên \$\\text{sđ}(Ou, Ov) = 45^\\circ\$.</p>
-              <p>• Hình 1.3b: Tia \$Om\$ quay theo chiều âm 1 vòng rồi đi tiếp \$45^\\circ\$ theo chiều âm, tức quay góc \$- (360^\\circ + 45^\\circ) = -405^\\circ\$, nên \$\\text{sđ}(Ou, Ov) = -405^\\circ\$.</p>
+              <p>• Hình 1.3a: Tia $Om$ quay từ $Ou$ đến $Ov$ theo chiều dương góc $45^\\circ$ nên $\\text{sđ}(Ou, Ov) = 45^\\circ$.</p>
+              <p>• Hình 1.3b: Tia $Om$ quay theo chiều âm 1 vòng rồi đi tiếp $45^\\circ$ theo chiều âm, tức quay góc $- (360^\\circ + 45^\\circ) = -405^\\circ$, nên $\\text{sđ}(Ou, Ov) = -405^\\circ$.</p>
             </div>
 
             <div class="alert-box alert-info">
               <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 1 (SGK TRANG 6):</div>
-              <p>Cho góc lượng giác \$(Ou, Ov)\$ có số đo bằng \$-225^\\circ\$. Hỏi trong các số sau, số nào là số đo của một góc lượng giác có cùng tia đầu và tia cuối với góc lượng giác đã cho?</p>
-              <p class="fw-bold text-dark">a) \$135^\\circ\$;&emsp;&emsp;b) \$495^\\circ\$;&emsp;&emsp;c) \$-585^\\circ\$;&emsp;&emsp;d) \$315^\\circ\$.</p>
+              <p>Cho góc lượng giác $(Ou, Ov)$ có số đo bằng $-225^\\circ$. Hỏi trong các số sau, số nào là số đo của một góc lượng giác có cùng tia đầu và tia cuối với góc lượng giác đã cho?</p>
+              <p class="fw-bold text-dark">a) $135^\\circ$;&emsp;&emsp;b) $495^\\circ$;&emsp;&emsp;c) $-585^\\circ$;&emsp;&emsp;d) $315^\\circ$.</p>
               <hr>
-              <p><b>Hướng dẫn của Thầy Sáng:</b> Ta có: \$\\text{sđ}(Ou, Ov) = -225^\\circ + k 360^\\circ\$.</p>
-              <p>• Với \$k = 1\$: \$-225^\\circ + 360^\\circ = 135^\\circ\$ (Chọn a).</p>
-              <p>• Với \$k = 2\$: \$-225^\\circ + 720^\\circ = 495^\\circ\$ (Chọn b).</p>
-              <p>• Với \$k = -1\$: \$-225^\\circ - 360^\\circ = -585^\\circ\$ (Chọn c).</p>
-              <p>• Với \$315^\\circ\$: \$315^\\circ - (-225^\\circ) = 540^\\circ\$ không chia hết cho \$360^\\circ\$ (Loại d).</p>
+              <p><b>Hướng dẫn của Thầy Sáng:</b> Ta có: $\\text{sđ}(Ou, Ov) = -225^\\circ + k 360^\\circ$.</p>
+              <p>• Với $k = 1$: $-225^\\circ + 360^\\circ = 135^\\circ$ (Chọn a).</p>
+              <p>• Với $k = 2$: $-225^\\circ + 720^\\circ = 495^\\circ$ (Chọn b).</p>
+              <p>• Với $k = -1$: $-225^\\circ - 360^\\circ = -585^\\circ$ (Chọn c).</p>
+              <p>• Với $315^\\circ$: $315^\\circ - (-225^\\circ) = 540^\\circ$ không chia hết cho $360^\\circ$ (Loại d).</p>
             </div>
           </div>`
         },
@@ -493,9 +493,9 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-success">
               <div class="card-header bg-success text-white fw-bold">1. Định lí Hệ thức Chasles (SGK trang 7)</div>
               <div class="card-body">
-                <p>Với ba tia \$Ou, Ov, Ow\$ bất kì, ta có:</p>
+                <p>Với ba tia $Ou, Ov, Ow$ bất kì, ta có:</p>
                 <div class="p-2 bg-light rounded text-center fw-bold text-success fs-5">
-                  \$\\text{sđ}(Ou, Ov) + \\text{sđ}(Ov, Ow) = \\text{sđ}(Ou, Ow) + k 360^\\circ \\quad (k \\in \\mathbb{Z})\$
+                  $\\text{sđ}(Ou, Ov) + \\text{sđ}(Ov, Ow) = \\text{sđ}(Ou, Ow) + k 360^\\circ \\quad (k \\in \\mathbb{Z})$
                 </div>
               </div>
             </div>
@@ -503,34 +503,34 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-info">
               <div class="card-header bg-info text-white fw-bold">2. Hệ quả công thức Hiệu hai góc lượng giác</div>
               <div class="card-body">
-                <p>Từ hệ thức Chasles, với tia \$Ox\$ tùy ý, ta suy ra công thức hiệu:</p>
+                <p>Từ hệ thức Chasles, với tia $Ox$ tùy ý, ta suy ra công thức hiệu:</p>
                 <div class="p-2 bg-light rounded text-center fw-bold text-primary fs-5">
-                  \$\\text{sđ}(Ou, Ov) = \\text{sđ}(Ox, Ov) - \\text{sđ}(Ox, Ou) + k 360^\\circ \\quad (k \\in \\mathbb{Z})\$
+                  $\\text{sđ}(Ou, Ov) = \\text{sđ}(Ox, Ov) - \\text{sđ}(Ox, Ou) + k 360^\\circ \\quad (k \\in \\mathbb{Z})$
                 </div>
                 <div class="alert alert-secondary mt-2 mb-0">
                   💡 <b>Thầy Sáng nhắc nhở:</b> Công thức này hoàn toàn tương tự công thức hiệu hai vectơ mà các em đã học ở lớp 10:
-                  \$\\vec{AB} = \\vec{OB} - \\vec{OA}\$. <i>(Ngọn trừ Gốc)</i>!
+                  $\\vec{AB} = \\vec{OB} - \\vec{OA}$. <i>(Ngọn trừ Gốc)</i>!
                 </div>
               </div>
             </div>
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 2 (SGK TRANG 7) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Cho một góc lượng giác \$(Ox, Ou)\$ có số đo \$-270^\\circ\$ và góc lượng giác \$(Ox, Ov)\$ có số đo \$135^\\circ\$. Tính số đo của góc lượng giác \$(Ou, Ov)\$.</p>
+              <p><b>Đề bài:</b> Cho một góc lượng giác $(Ox, Ou)$ có số đo $-270^\\circ$ và góc lượng giác $(Ox, Ov)$ có số đo $135^\\circ$. Tính số đo của góc lượng giác $(Ou, Ov)$.</p>
               <hr>
               <p><b>Lời giải:</b></p>
               <p>Theo hệ thức Chasles, ta có:</p>
-              <p>\$\\text{sđ}(Ou, Ov) = \\text{sđ}(Ox, Ov) - \\text{sđ}(Ox, Ou) + k 360^\\circ = 135^\\circ - (-270^\\circ) + k 360^\\circ\$</p>
-              <p>\$= 405^\\circ + k 360^\\circ = 45^\\circ + (k + 1) 360^\\circ = 45^\\circ + m 360^\\circ \\quad (m \\in \\mathbb{Z})\$.</p>
-              <p>Vậy các góc lượng giác \$(Ou, Ov)\$ có số đo là \$45^\\circ + m 360^\\circ\$ với \$m \\in \\mathbb{Z}\$.</p>
+              <p>$\\text{sđ}(Ou, Ov) = \\text{sđ}(Ox, Ov) - \\text{sđ}(Ox, Ou) + k 360^\\circ = 135^\\circ - (-270^\\circ) + k 360^\\circ$</p>
+              <p>$= 405^\\circ + k 360^\\circ = 45^\\circ + (k + 1) 360^\\circ = 45^\\circ + m 360^\\circ \\quad (m \\in \\mathbb{Z})$.</p>
+              <p>Vậy các góc lượng giác $(Ou, Ov)$ có số đo là $45^\\circ + m 360^\\circ$ với $m \\in \\mathbb{Z}$.</p>
             </div>
 
             <div class="alert-box alert-info">
               <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 2 (SGK TRANG 7):</div>
-              <p>Cho góc lượng giác \$(Ou, Ov)\$ có số đo là \$45^\\circ\$. Xác định số đo của góc lượng giác \$(Ou, Ow)\$, biết góc lượng giác \$(Ov, Ow)\$ có số đo bằng \$-120^\\circ\$.</p>
+              <p>Cho góc lượng giác $(Ou, Ov)$ có số đo là $45^\\circ$. Xác định số đo của góc lượng giác $(Ou, Ow)$, biết góc lượng giác $(Ov, Ow)$ có số đo bằng $-120^\\circ$.</p>
               <hr>
               <p><b>Lời giải:</b> Áp dụng hệ thức Chasles:</p>
-              <p>\$\\text{sđ}(Ou, Ow) = \\text{sđ}(Ou, Ov) + \\text{sđ}(Ov, Ow) + k 360^\\circ = 45^\\circ + (-120^\\circ) + k 360^\\circ = -75^\\circ + k 360^\\circ\$ \$(k \\in \\mathbb{Z}\$.</p>
+              <p>$\\text{sđ}(Ou, Ow) = \\text{sđ}(Ou, Ov) + \\text{sđ}(Ov, Ow) + k 360^\\circ = 45^\\circ + (-120^\\circ) + k 360^\\circ = -75^\\circ + k 360^\\circ$ $(k \\in \\mathbb{Z}$.</p>
             </div>
           </div>`
         }
@@ -593,8 +593,8 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-primary">
               <div class="card-header bg-primary text-white fw-bold">1. Định nghĩa đơn vị Radian (SGK trang 8)</div>
               <div class="card-body">
-                <p>• Cho đường tròn tâm \$O\$ bán kính \$R\$. Cung tròn có độ dài đúng bằng \$R\$ được gọi là <b>cung có số đo 1 radian</b>.</p>
-                <p>• Góc ở tâm chắn cung có độ dài bằng bán kính \$R\$ được gọi là <b>góc có số đo 1 radian</b>.</p>
+                <p>• Cho đường tròn tâm $O$ bán kính $R$. Cung tròn có độ dài đúng bằng $R$ được gọi là <b>cung có số đo 1 radian</b>.</p>
+                <p>• Góc ở tâm chắn cung có độ dài bằng bán kính $R$ được gọi là <b>góc có số đo 1 radian</b>.</p>
                 <div class="svg-container text-center my-3" style="overflow-x: auto;">
 <svg width="440" height="260" viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; border-radius: 12px; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
   <defs>
@@ -647,25 +647,25 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-danger">
               <div class="card-header bg-danger text-white fw-bold">2. Quan hệ giữa Đơn vị Độ và Radian</div>
               <div class="card-body">
-                <p>Đường tròn bán kính \$R\$ có chu vi bằng \$2\\pi R\$, do đó cả đường tròn có số đo \$2\\pi\\text{ rad}\$ tương ứng \$360^\\circ\$. Từ đó ta có đẳng thức then chốt:</p>
+                <p>Đường tròn bán kính $R$ có chu vi bằng $2\\pi R$, do đó cả đường tròn có số đo $2\\pi\\text{ rad}$ tương ứng $360^\\circ$. Từ đó ta có đẳng thức then chốt:</p>
                 <div class="p-2 bg-light rounded text-center fw-bold text-danger fs-5">
-                  \$180^\\circ = \\pi\\text{ rad}\$
+                  $180^\\circ = \\pi\\text{ rad}$
                 </div>
                 <div class="row mt-3 text-center">
                   <div class="col-md-6 mb-2">
                     <div class="p-2 border rounded bg-info bg-opacity-10">
                       <b>Đổi từ Độ sang Radian:</b><br>
-                      \$1^\\circ = \\dfrac{\\pi}{180}\\text{ rad} \\implies a^\\circ = a \\cdot \\dfrac{\\pi}{180}\\text{ rad}\$
+                      $1^\\circ = \\dfrac{\\pi}{180}\\text{ rad} \\implies a^\\circ = a \\cdot \\dfrac{\\pi}{180}\\text{ rad}$
                     </div>
                   </div>
                   <div class="col-md-6 mb-2">
                     <div class="p-2 border rounded bg-warning bg-opacity-10">
                       <b>Đổi từ Radian sang Độ:</b><br>
-                      \$1\\text{ rad} = \\left(\\dfrac{180}{\\pi}\\right)^\\circ \\approx 57^\\circ 17'45''\$
+                      $1\\text{ rad} = \\left(\\dfrac{180}{\\pi}\\right)^\\circ \\approx 57^\\circ 17'45''$
                     </div>
                   </div>
                 </div>
-                <p class="text-muted mt-2 mb-0"><i>Quy ước: Khi viết số đo của một góc (hoặc cung) theo đơn vị radian, người ta thường không viết chữ rad sau số đo. Ví dụ: viết \$\\frac{\\pi}{2}\$ thay vì \$\\frac{\\pi}{2}\\text{ rad}\$.</i></p>
+                <p class="text-muted mt-2 mb-0"><i>Quy ước: Khi viết số đo của một góc (hoặc cung) theo đơn vị radian, người ta thường không viết chữ rad sau số đo. Ví dụ: viết $\\frac{\\pi}{2}$ thay vì $\\frac{\\pi}{2}\\text{ rad}$.</i></p>
               </div>
             </div>
 
@@ -692,16 +692,16 @@ window.LESSON_11_C1_B1_DATA = {
                     <tbody>
                       <tr class="fw-bold text-danger">
                         <td>Radian</td>
-                        <td>\$0\$</td>
-                        <td>\$\\dfrac{\\pi}{6}\$</td>
-                        <td>\$\\dfrac{\\pi}{4}\$</td>
-                        <td>\$\\dfrac{\\pi}{3}\$</td>
-                        <td>\$\\dfrac{\\pi}{2}\$</td>
-                        <td>\$\\dfrac{2\\pi}{3}\$</td>
-                        <td>\$\\dfrac{3\\pi}{4}\$</td>
-                        <td>\$\\dfrac{5\\pi}{6}\$</td>
-                        <td>\$\\pi\$</td>
-                        <td>\$2\\pi\$</td>
+                        <td>$0$</td>
+                        <td>$\\dfrac{\\pi}{6}$</td>
+                        <td>$\\dfrac{\\pi}{4}$</td>
+                        <td>$\\dfrac{\\pi}{3}$</td>
+                        <td>$\\dfrac{\\pi}{2}$</td>
+                        <td>$\\dfrac{2\\pi}{3}$</td>
+                        <td>$\\dfrac{3\\pi}{4}$</td>
+                        <td>$\\dfrac{5\\pi}{6}$</td>
+                        <td>$\\pi$</td>
+                        <td>$2\\pi$</td>
                       </tr>
                     </tbody>
                   </table>
@@ -711,12 +711,27 @@ window.LESSON_11_C1_B1_DATA = {
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 3 (SGK TRANG 8) & LỜI GIẢI CHI TIẾT:</div>
-              <p>a) Đổi từ độ sang radian các góc: \$45^\\circ; \\; -150^\\circ\$.</p>
-              <p>b) Đổi từ radian sang độ các góc: \$\\dfrac{3\\pi}{8}; \\; -2\\text{ rad}\$.</p>
+              <p>a) Đổi từ độ sang radian các góc: $45^\\circ; \\; -150^\\circ$.</p>
+              <p>b) Đổi từ radian sang độ các góc: $\\dfrac{3\\pi}{8}; \\; -2\\text{ rad}$.</p>
               <hr>
               <p><b>Lời giải:</b></p>
-              <p>a) \$45^\\circ = 45 \\cdot \\dfrac{\\pi}{180} = \\dfrac{\\pi}{4}\$;&emsp;&emsp;\$-150^\\circ = -150 \\cdot \\dfrac{\\pi}{180} = -\\dfrac{5\\pi}{6}\$.</p>
-              <p>b) \$\\dfrac{3\\pi}{8}\\text{ rad} = \\left(\\dfrac{3\\pi}{8} \\cdot \\dfrac{180}{\\pi}\\right)^\\circ = 67^\\circ 30'\$;&emsp;&emsp;\$-2\\text{ rad} = \\left(-2 \\cdot \\dfrac{180}{\\pi}\\right)^\\circ \\approx -114^\\circ 35'30''\$.</p>
+              <p>a) $45^\\circ = 45 \\cdot \\dfrac{\\pi}{180} = \\dfrac{\\pi}{4}$;&emsp;&emsp;$-150^\\circ = -150 \\cdot \\dfrac{\\pi}{180} = -\\dfrac{5\\pi}{6}$.</p>
+              <p>b) $\\dfrac{3\\pi}{8}\\text{ rad} = \\left(\\dfrac{3\\pi}{8} \\cdot \\dfrac{180}{\\pi}\\right)^\\circ = 67^\\circ 30'$;&emsp;&emsp;$-2\\text{ rad} = \\left(-2 \\cdot \\dfrac{180}{\\pi}\\right)^\\circ \\approx -114^\\circ 35'30''$.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 3 (SGK TRANG 9):</div>
+              <p><b>Đề bài:</b></p>
+              <p>a) Đổi từ độ sang radian các số đo sau: $360^\\circ$; $-450^\\circ$;</p>
+              <p>b) Đổi từ radian sang độ các số đo sau: $3\\pi\\text{ rad}$; $-\\dfrac{11\\pi}{5}\\text{ rad}$.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Áp dụng công thức đổi sang radian $\\alpha = a \\cdot \\dfrac{\\pi}{180}$:</p>
+              <p>• $360^\\circ = 360 \\cdot \\dfrac{\\pi}{180} = 2\\pi\\text{ rad}$;</p>
+              <p>• $-450^\\circ = -450 \\cdot \\dfrac{\\pi}{180} = -\\dfrac{5\\pi}{2}\\text{ rad}$.</p>
+              <p>b) Áp dụng công thức đổi sang độ $a^\\circ = \\alpha \\cdot \\left(\\dfrac{180}{\\pi}\\right)^\\circ$:</p>
+              <p>• $3\\pi\\text{ rad} = \\left(3\\pi \\cdot \\dfrac{180}{\\pi}\\right)^\\circ = 540^\\circ$;</p>
+              <p>• $-\\dfrac{11\\pi}{5}\\text{ rad} = \\left(-\\dfrac{11\\pi}{5} \\cdot \\dfrac{180}{\\pi}\\right)^\\circ = -396^\\circ$.</p>
             </div>
           </div>`
         },
@@ -767,26 +782,34 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-danger">
               <div class="card-header bg-danger text-white fw-bold">1. Công thức tính độ dài cung tròn (SGK trang 9)</div>
               <div class="card-body">
-                <p>Một cung của đường tròn bán kính \$R\$ có số đo \$\\alpha\\text{ rad}\$ thì có độ dài \$l\$ bằng:</p>
+                <p>Một cung của đường tròn bán kính $R$ có số đo $\\alpha\\text{ rad}$ thì có độ dài $l$ bằng:</p>
                 <div class="p-2 bg-light rounded text-center fw-bold text-danger fs-4">
-                  \$l = R \\cdot \\alpha\$
+                  $l = R \\cdot \\alpha$
                 </div>
-                <p class="text-muted mt-2 mb-0"><i>(Đặc biệt: Nếu góc ở tâm cho bằng \$a^\\circ\$, ta đổi \$\\alpha = a \\cdot \\dfrac{\\pi}{180}\$ rồi áp dụng: \$l = \\dfrac{\\pi R a}{180}\$).</i></p>
+                <p class="text-muted mt-2 mb-0"><i>(Đặc biệt: Nếu góc ở tâm cho bằng $a^\\circ$, ta đổi $\\alpha = a \\cdot \\dfrac{\\pi}{180}$ rồi áp dụng: $l = \\dfrac{\\pi R a}{180}$).</i></p>
               </div>
             </div>
 
             <div class="alert-box alert-success mb-3">
-              <div class="fw-bold text-success mb-2">🚀 VẬN DỤNG 1: GIẢI QUYẾT TRỌN VẸN BÀI TOÁN TRẠM ISS MỞ ĐẦU (SGK TRANG 9):</div>
-              <p><b>Đề bài:</b> Trạm vũ trụ quốc tế ISS chuyển động theo quỹ đạo tròn cách bề mặt Trái Đất 400 km. Bán kính Trái Đất là 6 400 km. Trạm mặt đất theo dõi khi trạm ISS quét góc \$45^\\circ\$ ở tâm quỹ đạo. Tính quãng đường ISS đã di chuyển trong thời gian được theo dõi.</p>
+              <div class="fw-bold text-success mb-2">📌 VÍ DỤ 4 (SGK TRANG 9) & LỜI GIẢI CHI TIẾT:</div>
+              <p><b>Đề bài:</b> Cho đường tròn bán kính $R = 2\\text{ cm}$. Tính độ dài cung tròn có số đo $\\alpha = \\dfrac{2\\pi}{3}\\text{ rad}$ của đường tròn đó.</p>
+              <hr>
+              <p><b>Lời giải:</b> Áp dụng công thức độ dài cung tròn $l = R \\cdot \\alpha$:</p>
+              <p class="fw-bold text-primary">$l = 2 \\cdot \\dfrac{2\\pi}{3} = \\dfrac{4\\pi}{3}\\text{ (cm)} \\approx 4{,}19\\text{ cm}$.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP / VẬN DỤNG 1 (SGK TRANG 9) — BÀI TOÁN TRẠM ISS:</div>
+              <p><b>Đề bài:</b> Trạm vũ trụ quốc tế ISS chuyển động theo quỹ đạo tròn cách bề mặt Trái Đất 400 km. Bán kính Trái Đất là 6 400 km. Trạm mặt đất theo dõi khi trạm ISS quét góc $45^\\circ$ ở tâm quỹ đạo. Tính quãng đường ISS đã di chuyển trong thời gian được theo dõi.</p>
               <hr>
               <p><b>Lời giải chi tiết của Thầy Sáng:</b></p>
               <p>1. Bán kính quỹ đạo tròn của trạm ISS tính từ tâm Trái Đất là:</p>
-              <p class="text-center fw-bold text-primary">\$R = 6\\,400 + 400 = 6\\,800\\text{ km}\$.</p>
+              <p class="text-center fw-bold text-primary">$R = 6\\,400 + 400 = 6\\,800\\text{ km}$.</p>
               <p>2. Đổi góc ở tâm sang đơn vị radian:</p>
-              <p class="text-center fw-bold text-primary">\$\\alpha = 45^\\circ = 45 \\cdot \\dfrac{\\pi}{180} = \\dfrac{\\pi}{4}\\text{ rad}\$.</p>
+              <p class="text-center fw-bold text-primary">$\\alpha = 45^\\circ = 45 \\cdot \\dfrac{\\pi}{180} = \\dfrac{\\pi}{4}\\text{ rad}$.</p>
               <p>3. Quãng đường trạm ISS di chuyển chính là độ dài cung tròn quỹ đạo:</p>
               <div class="p-2 bg-light rounded text-center fw-bold text-danger fs-5">
-                \$l = R \\cdot \\alpha = 6\\,800 \\cdot \\dfrac{\\pi}{4} = 1\\,700\\pi \\approx 5\\,340.71 \\approx 5\\,341\\text{ km}\$
+                $l = R \\cdot \\alpha = 6\\,800 \\cdot \\dfrac{\\pi}{4} = 1\\,700\\pi \\approx 5\\,340.71 \\approx 5\\,341\\text{ km}$
               </div>
               <p class="mt-2 text-success fw-bold">Đáp số: Trạm ISS đã di chuyển quãng đường xấp xỉ 5 341 km.</p>
             </div>
@@ -846,17 +869,17 @@ window.LESSON_11_C1_B1_DATA = {
           }
         ],
           contentHtml: `<div class="content-box" style="text-align:justify;">
-            <p>Để nghiên cứu giá trị lượng giác của các góc tùy ý, ta đưa hệ trục toạ độ \$Oxy\$ vào hình học.</p>
+            <p>Để nghiên cứu giá trị lượng giác của các góc tùy ý, ta đưa hệ trục toạ độ $Oxy$ vào hình học.</p>
 
             <div class="card mb-3 border-primary">
               <div class="card-header bg-primary text-white fw-bold">1. Định nghĩa Đường tròn lượng giác (SGK trang 10)</div>
               <div class="card-body">
-                <p>Trong mặt phẳng toạ độ \$Oxy\$, <b>đường tròn lượng giác</b> là đường tròn:</p>
+                <p>Trong mặt phẳng toạ độ $Oxy$, <b>đường tròn lượng giác</b> là đường tròn:</p>
                 <ul>
-                  <li>Tâm tại gốc toạ độ \$O(0; 0)\$.</li>
-                  <li>Bán kính bằng \$1\$ (\$R = 1\$).</li>
+                  <li>Tâm tại gốc toạ độ $O(0; 0)$.</li>
+                  <li>Bán kính bằng $1$ ($R = 1$).</li>
                   <li>Được định hướng: chiều quay ngược kim đồng hồ là chiều dương (+).</li>
-                  <li>Lấy điểm \$A(1; 0)\$ làm <b>điểm gốc</b> của đường tròn.</li>
+                  <li>Lấy điểm $A(1; 0)$ làm <b>điểm gốc</b> của đường tròn.</li>
                 </ul>
                 <div class="svg-container text-center my-3" style="overflow-x: auto;">
 <svg width="460" height="300" viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; border-radius: 12px; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
@@ -925,13 +948,31 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="card mb-3 border-warning">
               <div class="card-header bg-warning text-dark fw-bold">2. Điểm biểu diễn góc lượng giác trên đường tròn lượng giác</div>
               <div class="card-body">
-                <p>• Điểm \$M\$ trên đường tròn lượng giác sao cho \$\\text{sđ}(OA, OM) = \\alpha\$ được gọi là <b>điểm biểu diễn</b> góc lượng giác có số đo \$\\alpha\$.</p>
+                <p>• Điểm $M$ trên đường tròn lượng giác sao cho $\\text{sđ}(OA, OM) = \\alpha$ được gọi là <b>điểm biểu diễn</b> góc lượng giác có số đo $\\alpha$.</p>
                 <p>• <b>Tính chất quan trọng:</b></p>
                 <ul>
-                  <li>Mỗi góc lượng giác \$\\alpha\$ được biểu diễn bởi <b>duy nhất một điểm</b> \$M\$ trên đường tròn lượng giác.</li>
-                  <li>Ngược lại, một điểm \$M\$ trên đường tròn lượng giác là điểm biểu diễn của <b>vô số góc lượng giác</b> có số đo dạng \$\\alpha + k 2\\pi \\; (k \\in \\mathbb{Z})\$ (hoặc \$\\alpha + k 360^\\circ\$).</li>
+                  <li>Mỗi góc lượng giác $\\alpha$ được biểu diễn bởi <b>duy nhất một điểm</b> $M$ trên đường tròn lượng giác.</li>
+                  <li>Ngược lại, một điểm $M$ trên đường tròn lượng giác là điểm biểu diễn của <b>vô số góc lượng giác</b> có số đo dạng $\\alpha + k 2\\pi \\; (k \\in \\mathbb{Z})$ (hoặc $\\alpha + k 360^\\circ$).</li>
                 </ul>
               </div>
+            </div>
+
+            <div class="alert-box alert-success mb-3">
+              <div class="fw-bold text-success mb-2">📌 VÍ DỤ 5 (SGK TRANG 10) & LỜI GIẢI CHI TIẾT:</div>
+              <p><b>Đề bài:</b> Xác định các điểm $M$ và $N$ trên đường tròn lượng giác lần lượt biểu diễn các góc lượng giác có số đo bằng $\\dfrac{13\\pi}{4}$ và $-150^\\circ$.</p>
+              <hr>
+              <p><b>Lời giải:</b></p>
+              <p>• Ta có: $\\dfrac{13\\pi}{4} = 3\\pi + \\dfrac{\\pi}{4} = 2\\pi + \\pi + \\dfrac{\\pi}{4} = \\dfrac{5\\pi}{4} + 2\\pi$. Do đó điểm biểu diễn $M$ nằm ở <b>góc phần tư thứ III</b> (chính giữa cung phần tư thứ III).</p>
+              <p>• Ta có: $-150^\\circ = -180^\\circ + 30^\\circ$. Quay theo chiều âm một góc $150^\\circ$ từ tia gốc $OA$, điểm biểu diễn $N$ nằm ở <b>góc phần tư thứ III</b>.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 4 (SGK TRANG 10):</div>
+              <p><b>Đề bài:</b> Xác định các điểm $M$ và $N$ trên đường tròn lượng giác lần lượt biểu diễn các góc lượng giác có số đo bằng $-\\dfrac{15\\pi}{4}$ và $420^\\circ$.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>• Ta có: $-\\dfrac{15\\pi}{4} = -4\\pi + \\dfrac{\\pi}{4} = \\dfrac{\\pi}{4} - 2 \\cdot 2\\pi$. Do đó điểm biểu diễn $M$ trùng với điểm biểu diễn góc $\\dfrac{\\pi}{4}$ (nằm ở <b>góc phần tư thứ I</b>, là trung điểm của cung $AB$).</p>
+              <p>• Ta có: $420^\\circ = 360^\\circ + 60^\\circ$. Do đó điểm biểu diễn $N$ trùng với điểm biểu diễn góc $60^\\circ$ (nằm ở <b>góc phần tư thứ I</b>).</p>
             </div>
           </div>`
         },
@@ -977,23 +1018,23 @@ window.LESSON_11_C1_B1_DATA = {
           }
         ],
           contentHtml: `<div class="content-box" style="text-align:justify;">
-            <p>Cho góc lượng giác \$\\alpha\$. Lấy điểm \$M(x; y)\$ trên đường tròn lượng giác sao cho \$\\text{sđ}(OA, OM) = \\alpha\$.</p>
+            <p>Cho góc lượng giác $\\alpha$. Lấy điểm $M(x; y)$ trên đường tròn lượng giác sao cho $\\text{sđ}(OA, OM) = \\alpha$.</p>
 
             <div class="card mb-3 border-danger">
               <div class="card-header bg-danger text-white fw-bold">1. Định nghĩa 4 Giá trị lượng giác (SGK trang 11)</div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6 mb-2">
-                    <p>• <b>Côsin của \$\\alpha\$:</b> là hoành độ \$x\$ của điểm \$M\$:<br>
-                    <span class="fs-5 fw-bold text-danger">\$\\cos\\alpha = x\$</span> (Trục hoành \$Ox\$ là <i>trục côsin</i>).</p>
-                    <p>• <b>Sin của \$\\alpha\$:</b> là tung độ \$y\$ của điểm \$M\$:<br>
-                    <span class="fs-5 fw-bold text-primary">\$\\sin\\alpha = y\$</span> (Trục tung \$Oy\$ là <i>trục sin</i>).</p>
+                    <p>• <b>Côsin của $\\alpha$:</b> là hoành độ $x$ của điểm $M$:<br>
+                    <span class="fs-5 fw-bold text-danger">$\\cos\\alpha = x$</span> (Trục hoành $Ox$ là <i>trục côsin</i>).</p>
+                    <p>• <b>Sin của $\\alpha$:</b> là tung độ $y$ của điểm $M$:<br>
+                    <span class="fs-5 fw-bold text-primary">$\\sin\\alpha = y$</span> (Trục tung $Oy$ là <i>trục sin</i>).</p>
                   </div>
                   <div class="col-md-6 mb-2">
-                    <p>• <b>Tang của \$\\alpha\$:</b> là tỉ số \$\\dfrac{y}{x}\$:<br>
-                    <span class="fs-5 fw-bold text-success">\$\\tan\\alpha = \\dfrac{\\sin\\alpha}{\\cos\\alpha} = \\dfrac{y}{x}\$</span> \$(\\cos\\alpha \\ne 0)\$.</p>
-                    <p>• <b>Côtang của \$\\alpha\$:</b> là tỉ số \$\\dfrac{x}{y}\$:<br>
-                    <span class="fs-5 fw-bold text-warning">\$\\cot\\alpha = \\dfrac{\\cos\\alpha}{\\sin\\alpha} = \\dfrac{x}{y}\$</span> \$(\\sin\\alpha \\ne 0)\$.</p>
+                    <p>• <b>Tang của $\\alpha$:</b> là tỉ số $\\dfrac{y}{x}$:<br>
+                    <span class="fs-5 fw-bold text-success">$\\tan\\alpha = \\dfrac{\\sin\\alpha}{\\cos\\alpha} = \\dfrac{y}{x}$</span> $(\\cos\\alpha \\ne 0)$.</p>
+                    <p>• <b>Côtang của $\\alpha$:</b> là tỉ số $\\dfrac{x}{y}$:<br>
+                    <span class="fs-5 fw-bold text-warning">$\\cot\\alpha = \\dfrac{\\cos\\alpha}{\\sin\\alpha} = \\dfrac{x}{y}$</span> $(\\sin\\alpha \\ne 0)$.</p>
                   </div>
                 </div>
               </div>
@@ -1086,10 +1127,10 @@ window.LESSON_11_C1_B1_DATA = {
 </div>
                 <div class="alert alert-info text-start mt-2 mb-0">
                   <b>🔍 Phân tích chi tiết của Thầy Sáng:</b><br>
-                  Khi \$\\alpha\$ nằm ở <b>Góc phần tư thứ III</b> (\$\\pi < \\alpha < \\frac{3\\pi}{2}\$):<br>
-                  • Hình chiếu \$M\$ lên \$Ox\$ cho hoành độ: \$x = \\cos\\alpha < 0\$.<br>
-                  • Hình chiếu \$M\$ lên \$Oy\$ cho tung độ: \$y = \\sin\\alpha < 0\$.<br>
-                  • Tỉ số: \$\\tan\\alpha = \\dfrac{y}{x} > 0\$ và \$\\cot\\alpha = \\dfrac{x}{y} > 0\$.
+                  Khi $\\alpha$ nằm ở <b>Góc phần tư thứ III</b> ($\\pi < \\alpha < \\frac{3\\pi}{2}$):<br>
+                  • Hình chiếu $M$ lên $Ox$ cho hoành độ: $x = \\cos\\alpha < 0$.<br>
+                  • Hình chiếu $M$ lên $Oy$ cho tung độ: $y = \\sin\\alpha < 0$.<br>
+                  • Tỉ số: $\\tan\\alpha = \\dfrac{y}{x} > 0$ và $\\cot\\alpha = \\dfrac{x}{y} > 0$.
                 </div>
               </div>
             </div>
@@ -1102,36 +1143,36 @@ window.LESSON_11_C1_B1_DATA = {
                     <thead class="table-dark">
                       <tr>
                         <th>Góc phần tư</th>
-                        <th>I \$\\left(0 < \\alpha < \\frac{\\pi}{2}\\right)\$</th>
-                        <th>II \$\\left(\\frac{\\pi}{2} < \\alpha < \\pi\\right)\$</th>
-                        <th>III \$\\left(\\pi < \\alpha < \\frac{3\\pi}{2}\\right)\$</th>
-                        <th>IV \$\\left(\\frac{3\\pi}{2} < \\alpha < 2\\pi\\right)\$</th>
+                        <th>I $\\left(0 < \\alpha < \\frac{\\pi}{2}\\right)$</th>
+                        <th>II $\\left(\\frac{\\pi}{2} < \\alpha < \\pi\\right)$</th>
+                        <th>III $\\left(\\pi < \\alpha < \\frac{3\\pi}{2}\\right)$</th>
+                        <th>IV $\\left(\\frac{3\\pi}{2} < \\alpha < 2\\pi\\right)$</th>
                       </tr>
                     </thead>
                     <tbody class="fw-bold">
                       <tr>
-                        <td class="text-primary">\$\\sin\\alpha\$</td>
+                        <td class="text-primary">$\\sin\\alpha$</td>
                         <td class="text-success">+</td>
                         <td class="text-success">+</td>
                         <td class="text-danger">-</td>
                         <td class="text-danger">-</td>
                       </tr>
                       <tr>
-                        <td class="text-danger">\$\\cos\\alpha\$</td>
+                        <td class="text-danger">$\\cos\\alpha$</td>
                         <td class="text-success">+</td>
                         <td class="text-danger">-</td>
                         <td class="text-danger">-</td>
                         <td class="text-success">+</td>
                       </tr>
                       <tr>
-                        <td class="text-warning">\$\\tan\\alpha\$</td>
+                        <td class="text-warning">$\\tan\\alpha$</td>
                         <td class="text-success">+</td>
                         <td class="text-danger">-</td>
                         <td class="text-success">+</td>
                         <td class="text-danger">-</td>
                       </tr>
                       <tr>
-                        <td class="text-info">\$\\cot\\alpha\$</td>
+                        <td class="text-info">$\\cot\\alpha$</td>
                         <td class="text-success">+</td>
                         <td class="text-danger">-</td>
                         <td class="text-success">+</td>
@@ -1145,11 +1186,24 @@ window.LESSON_11_C1_B1_DATA = {
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 6 (SGK TRANG 12) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Tính các giá trị lượng giác của góc \$\\alpha = -\\dfrac{\\pi}{3}\$.</p>
+              <p><b>Đề bài:</b> Tính các giá trị lượng giác của góc $\\alpha = -\\dfrac{\\pi}{3}$.</p>
               <hr>
-              <p><b>Lời giải:</b> Điểm biểu diễn góc \$-\\dfrac{\\pi}{3}\$ thuộc góc phần tư thứ IV có toạ độ \$M\\left(\\dfrac{1}{2}; -\\dfrac{\\sqrt{3}}{2}\\right)\$. Do đó:</p>
-              <p>• \$\\cos\\left(-\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}\$;&emsp;&emsp;\$\\sin\\left(-\\dfrac{\\pi}{3}\\right) = -\\dfrac{\\sqrt{3}}{2}\$;</p>
-              <p>• \$\\tan\\left(-\\dfrac{\\pi}{3}\\right) = -\\sqrt{3}\$;&emsp;&emsp;\$\\cot\\left(-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{\\sqrt{3}} = -\\dfrac{\\sqrt{3}}{3}\$.</p>
+              <p><b>Lời giải:</b> Điểm biểu diễn góc $-\\dfrac{\\pi}{3}$ thuộc góc phần tư thứ IV có toạ độ $M\\left(\\dfrac{1}{2}; -\\dfrac{\\sqrt{3}}{2}\\right)$. Do đó:</p>
+              <p>• $\\cos\\left(-\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}$;&emsp;&emsp;$\\sin\\left(-\\dfrac{\\pi}{3}\\right) = -\\dfrac{\\sqrt{3}}{2}$;</p>
+              <p>• $\\tan\\left(-\\dfrac{\\pi}{3}\\right) = -\\sqrt{3}$;&emsp;&emsp;$\\cot\\left(-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{\\sqrt{3}} = -\\dfrac{\\sqrt{3}}{3}$.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 5 (SGK TRANG 12):</div>
+              <p><b>Đề bài:</b> Cho góc lượng giác có số đo bằng $\\dfrac{5\\pi}{6}$.</p>
+              <p>a) Xác định điểm $M$ trên đường tròn lượng giác biểu diễn góc lượng giác đã cho.</p>
+              <p>b) Tính các giá trị lượng giác của góc lượng giác đã cho.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Ta có: $\\dfrac{5\\pi}{6} = \\pi - \\dfrac{\\pi}{6}$ (nằm ở <b>góc phần tư thứ II</b>, tạo với tia đối của trục Ox một góc $30^\\circ$).</p>
+              <p>b) Tọa độ của điểm biểu diễn $M$ là $\\left(-\\dfrac{\\sqrt{3}}{2}; \\dfrac{1}{2}\\right)$. Do đó:</p>
+              <p>• $\\cos\\dfrac{5\\pi}{6} = -\\dfrac{\\sqrt{3}}{2}$;&emsp;&emsp;• $\\sin\\dfrac{5\\pi}{6} = \\dfrac{1}{2}$;</p>
+              <p>• $\\tan\\dfrac{5\\pi}{6} = \\dfrac{\\sin}{\\cos} = -\\dfrac{1}{\\sqrt{3}} = -\\dfrac{\\sqrt{3}}{3}$;&emsp;&emsp;• $\\cot\\dfrac{5\\pi}{6} = \\dfrac{\\cos}{\\sin} = -\\sqrt{3}$.</p>
             </div>
           </div>`
         }
@@ -1207,7 +1261,7 @@ window.LESSON_11_C1_B1_DATA = {
           }
         ],
           contentHtml: `<div class="content-box" style="text-align:justify;">
-            <p>Từ định nghĩa toạ độ điểm \$M(x; y)\$ trên đường tròn lượng giác bán kính \$R = 1\$ (với \$x^2 + y^2 = 1\$), ta có bộ 4 hệ thức lượng giác cơ bản bất hủ:</p>
+            <p>Từ định nghĩa toạ độ điểm $M(x; y)$ trên đường tròn lượng giác bán kính $R = 1$ (với $x^2 + y^2 = 1$), ta có bộ 4 hệ thức lượng giác cơ bản bất hủ:</p>
 
             <div class="card mb-3 border-danger">
               <div class="card-header bg-danger text-white fw-bold">Bộ 4 Công thức Lượng giác Cơ bản (SGK trang 13)</div>
@@ -1215,26 +1269,26 @@ window.LESSON_11_C1_B1_DATA = {
                 <div class="row text-center">
                   <div class="col-md-6 mb-3">
                     <div class="p-3 border rounded bg-light">
-                      <span class="fs-5 fw-bold text-danger">\$\\sin^2\\alpha + \\cos^2\\alpha = 1\$</span>
-                      <p class="text-muted small mt-1 mb-0">(Đúng với mọi \$\\alpha\$)</p>
+                      <span class="fs-5 fw-bold text-danger">$\\sin^2\\alpha + \\cos^2\\alpha = 1$</span>
+                      <p class="text-muted small mt-1 mb-0">(Đúng với mọi $\\alpha$)</p>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="p-3 border rounded bg-light">
-                      <span class="fs-5 fw-bold text-primary">\$1 + \\tan^2\\alpha = \\dfrac{1}{\\cos^2\\alpha}\$</span>
-                      <p class="text-muted small mt-1 mb-0">\$\\left(\\alpha \\ne \\dfrac{\\pi}{2} + k\\pi\\right)\$</p>
+                      <span class="fs-5 fw-bold text-primary">$1 + \\tan^2\\alpha = \\dfrac{1}{\\cos^2\\alpha}$</span>
+                      <p class="text-muted small mt-1 mb-0">$\\left(\\alpha \\ne \\dfrac{\\pi}{2} + k\\pi\\right)$</p>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="p-3 border rounded bg-light">
-                      <span class="fs-5 fw-bold text-success">\$1 + \\cot^2\\alpha = \\dfrac{1}{\\sin^2\\alpha}\$</span>
-                      <p class="text-muted small mt-1 mb-0">\$\\left(\\alpha \\ne k\\pi\\right)\$</p>
+                      <span class="fs-5 fw-bold text-success">$1 + \\cot^2\\alpha = \\dfrac{1}{\\sin^2\\alpha}$</span>
+                      <p class="text-muted small mt-1 mb-0">$\\left(\\alpha \\ne k\\pi\\right)$</p>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="p-3 border rounded bg-light">
-                      <span class="fs-5 fw-bold text-warning">\$\\tan\\alpha \\cdot \\cot\\alpha = 1\$</span>
-                      <p class="text-muted small mt-1 mb-0">\$\\left(\\alpha \\ne k\\dfrac{\\pi}{2}\\right)\$</p>
+                      <span class="fs-5 fw-bold text-warning">$\\tan\\alpha \\cdot \\cot\\alpha = 1$</span>
+                      <p class="text-muted small mt-1 mb-0">$\\left(\\alpha \\ne k\\dfrac{\\pi}{2}\\right)$</p>
                     </div>
                   </div>
                 </div>
@@ -1243,14 +1297,27 @@ window.LESSON_11_C1_B1_DATA = {
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 9 (SGK TRANG 13) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Cho \$\\sin\\alpha = \\dfrac{3}{5}\$ và \$\\dfrac{\\pi}{2} < \\alpha < \\pi\$. Tính \$\\cos\\alpha, \\tan\\alpha, \\cot\\alpha\$.</p>
+              <p><b>Đề bài:</b> Cho $\\sin\\alpha = \\dfrac{3}{5}$ và $\\dfrac{\\pi}{2} < \\alpha < \\pi$. Tính $\\cos\\alpha, \\tan\\alpha, \\cot\\alpha$.</p>
               <hr>
               <p><b>Lời giải:</b></p>
-              <p>Vì \$\\dfrac{\\pi}{2} < \\alpha < \\pi\$ (góc phần tư thứ II) nên \$\\cos\\alpha < 0\$.</p>
-              <p>Từ \$\\sin^2\\alpha + \\cos^2\\alpha = 1\$, suy ra:</p>
-              <p class="fw-bold text-primary">\$\\cos\\alpha = -\\sqrt{1 - \\sin^2\\alpha} = -\\sqrt{1 - \\left(\\dfrac{3}{5}\\right)^2} = -\\dfrac{4}{5}\$.</p>
+              <p>Vì $\\dfrac{\\pi}{2} < \\alpha < \\pi$ (góc phần tư thứ II) nên $\\cos\\alpha < 0$.</p>
+              <p>Từ $\\sin^2\\alpha + \\cos^2\\alpha = 1$, suy ra:</p>
+              <p class="fw-bold text-primary">$\\cos\\alpha = -\\sqrt{1 - \\sin^2\\alpha} = -\\sqrt{1 - \\left(\\dfrac{3}{5}\\right)^2} = -\\dfrac{4}{5}$.</p>
               <p>Do đó:</p>
-              <p>\$\\tan\\alpha = \\dfrac{\\sin\\alpha}{\\cos\\alpha} = \\dfrac{3/5}{-4/5} = -\\dfrac{3}{4}\$;&emsp;&emsp;\$\\cot\\alpha = \\dfrac{1}{\\tan\\alpha} = -\\dfrac{4}{3}\$.</p>
+              <p>$\\tan\\alpha = \\dfrac{\\sin\\alpha}{\\cos\\alpha} = \\dfrac{3/5}{-4/5} = -\\dfrac{3}{4}$;&emsp;&emsp;$\\cot\\alpha = \\dfrac{1}{\\tan\\alpha} = -\\dfrac{4}{3}$.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 7 (SGK TRANG 14):</div>
+              <p><b>Đề bài:</b> Tính các giá trị lượng giác của góc $\\alpha$, biết: $\\cos\\alpha = -\\dfrac{2}{3}$ và $\\pi < \\alpha < \\dfrac{3\\pi}{2}$.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>1. Vì $\\pi < \\alpha < \\dfrac{3\\pi}{2}$ (góc phần tư thứ III) nên $\\sin\\alpha < 0$.</p>
+              <p>2. Áp dụng công thức $\\sin^2\\alpha + \\cos^2\\alpha = 1$, suy ra:</p>
+              <p class="fw-bold text-primary">$\\sin\\alpha = -\\sqrt{1 - \\cos^2\\alpha} = -\\sqrt{1 - \\left(-\\dfrac{2}{3}\\right)^2} = -\\sqrt{\\dfrac{5}{9}} = -\\dfrac{\\sqrt{5}}{3}$.</p>
+              <p>3. Từ đó ta tính được:</p>
+              <p>• $\\tan\\alpha = \\dfrac{\\sin\\alpha}{\\cos\\alpha} = \\dfrac{-\\sqrt{5}/3}{-2/3} = \\dfrac{\\sqrt{5}}{2}$;</p>
+              <p>• $\\cot\\alpha = \\dfrac{1}{\\tan\\alpha} = \\dfrac{2}{\\sqrt{5}} = \\dfrac{2\\sqrt{5}}{5}$.</p>
             </div>
           </div>`
         },
@@ -1384,48 +1451,48 @@ window.LESSON_11_C1_B1_DATA = {
             <div class="row mt-3">
               <div class="col-md-6 mb-3">
                 <div class="card border-primary h-100">
-                  <div class="card-header bg-primary text-white fw-bold">1. Hai góc đối nhau (\$\\alpha\$ và \$-\\alpha\$) — "Cos đối"</div>
+                  <div class="card-header bg-primary text-white fw-bold">1. Hai góc đối nhau ($\\alpha$ và $-\\alpha$) — "Cos đối"</div>
                   <div class="card-body">
-                    <p class="text-danger fw-bold">\$\\cos(-\\alpha) = \\cos\\alpha\$</p>
-                    <p>\$\\sin(-\\alpha) = -\\sin\\alpha\$</p>
-                    <p>\$\\tan(-\\alpha) = -\\tan\\alpha\$</p>
-                    <p>\$\\cot(-\\alpha) = -\\cot\\alpha\$</p>
+                    <p class="text-danger fw-bold">$\\cos(-\\alpha) = \\cos\\alpha$</p>
+                    <p>$\\sin(-\\alpha) = -\\sin\\alpha$</p>
+                    <p>$\\tan(-\\alpha) = -\\tan\\alpha$</p>
+                    <p>$\\cot(-\\alpha) = -\\cot\\alpha$</p>
                   </div>
                 </div>
               </div>
 
               <div class="col-md-6 mb-3">
                 <div class="card border-success h-100">
-                  <div class="card-header bg-success text-white fw-bold">2. Hai góc bù nhau (\$\\alpha\$ và \$\\pi - \\alpha\$) — "Sin bù"</div>
+                  <div class="card-header bg-success text-white fw-bold">2. Hai góc bù nhau ($\\alpha$ và $\\pi - \\alpha$) — "Sin bù"</div>
                   <div class="card-body">
-                    <p class="text-success fw-bold">\$\\sin(\\pi - \\alpha) = \\sin\\alpha\$</p>
-                    <p>\$\\cos(\\pi - \\alpha) = -\\cos\\alpha\$</p>
-                    <p>\$\\tan(\\pi - \\alpha) = -\\tan\\alpha\$</p>
-                    <p>\$\\cot(\\pi - \\alpha) = -\\cot\\alpha\$</p>
+                    <p class="text-success fw-bold">$\\sin(\\pi - \\alpha) = \\sin\\alpha$</p>
+                    <p>$\\cos(\\pi - \\alpha) = -\\cos\\alpha$</p>
+                    <p>$\\tan(\\pi - \\alpha) = -\\tan\\alpha$</p>
+                    <p>$\\cot(\\pi - \\alpha) = -\\cot\\alpha$</p>
                   </div>
                 </div>
               </div>
 
               <div class="col-md-6 mb-3">
                 <div class="card border-warning h-100">
-                  <div class="card-header bg-warning text-dark fw-bold">3. Hai góc phụ nhau (\$\\alpha\$ và \$\\frac{\\pi}{2} - \\alpha\$) — "Phụ chéo"</div>
+                  <div class="card-header bg-warning text-dark fw-bold">3. Hai góc phụ nhau ($\\alpha$ và $\\frac{\\pi}{2} - \\alpha$) — "Phụ chéo"</div>
                   <div class="card-body">
-                    <p>\$\\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cos\\alpha\$</p>
-                    <p>\$\\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\sin\\alpha\$</p>
-                    <p>\$\\tan\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cot\\alpha\$</p>
-                    <p>\$\\cot\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\tan\\alpha\$</p>
+                    <p>$\\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cos\\alpha$</p>
+                    <p>$\\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\sin\\alpha$</p>
+                    <p>$\\tan\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cot\\alpha$</p>
+                    <p>$\\cot\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\tan\\alpha$</p>
                   </div>
                 </div>
               </div>
 
               <div class="col-md-6 mb-3">
                 <div class="card border-danger h-100">
-                  <div class="card-header bg-danger text-white fw-bold">4. Hơn kém nhau \$\\pi\$ (\$\\alpha\$ và \$\\alpha + \\pi\$)</div>
+                  <div class="card-header bg-danger text-white fw-bold">4. Hơn kém nhau $\\pi$ ($\\alpha$ và $\\alpha + \\pi$)</div>
                   <div class="card-body">
-                    <p>\$\\sin(\\alpha + \\pi) = -\\sin\\alpha\$</p>
-                    <p>\$\\cos(\\alpha + \\pi) = -\\cos\\alpha\$</p>
-                    <p class="text-danger fw-bold">\$\\tan(\\alpha + \\pi) = \\tan\\alpha\$</p>
-                    <p class="text-danger fw-bold">\$\\cot(\\alpha + \\pi) = \\cot\\alpha\$</p>
+                    <p>$\\sin(\\alpha + \\pi) = -\\sin\\alpha$</p>
+                    <p>$\\cos(\\alpha + \\pi) = -\\cos\\alpha$</p>
+                    <p class="text-danger fw-bold">$\\tan(\\alpha + \\pi) = \\tan\\alpha$</p>
+                    <p class="text-danger fw-bold">$\\cot(\\alpha + \\pi) = \\cot\\alpha$</p>
                   </div>
                 </div>
               </div>
@@ -1433,14 +1500,26 @@ window.LESSON_11_C1_B1_DATA = {
 
             <div class="alert-box alert-success mb-3">
               <div class="fw-bold text-success mb-2">📌 VÍ DỤ 10 (SGK TRANG 14) & LỜI GIẢI CHI TIẾT:</div>
-              <p><b>Đề bài:</b> Rút gọn biểu thức: \$A = \\cos(\\pi - \\alpha) + \\sin\\left(\\dfrac{\\pi}{2} - \\alpha\$ - \\tan(\\pi + \\alpha) \\cdot \\cot\\alpha\$.</p>
+              <p><b>Đề bài:</b> Rút gọn biểu thức: $A = \\cos(\\pi - \\alpha) + \\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) - \\tan(\\pi + \\alpha) \\cdot \\cot\\alpha$.</p>
               <hr>
               <p><b>Lời giải:</b> Áp dụng câu thần chú:</p>
-              <p>• \$\\cos(\\pi - \\alpha) = -\\cos\\alpha\$ (Sin bù);</p>
-              <p>• \$\\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cos\\alpha\$ (Phụ chéo);</p>
-              <p>• \$\\tan(\\pi + \\alpha) = \\tan\\alpha\$ (Hơn kém pi).</p>
-              <p>Thay vào biểu thức \$A\$:</p>
-              <p class="fw-bold text-primary">\$A = -\\cos\\alpha + \\cos\\alpha - \\tan\\alpha \\cdot \\cot\\alpha = 0 - 1 = -1\$.</p>
+              <p>• $\\cos(\\pi - \\alpha) = -\\cos\\alpha$ (Sin bù);</p>
+              <p>• $\\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cos\\alpha$ (Phụ chéo);</p>
+              <p>• $\\tan(\\pi + \\alpha) = \\tan\\alpha$ (Hơn kém pi).</p>
+              <p>Thay vào biểu thức $A$:</p>
+              <p class="fw-bold text-primary">$A = -\\cos\\alpha + \\cos\\alpha - \\tan\\alpha \\cdot \\cot\\alpha = 0 - 1 = -1$.</p>
+            </div>
+
+            <div class="alert-box alert-info mb-3">
+              <div class="fw-bold text-primary mb-2">✏️ LUYỆN TẬP 8 (SGK TRANG 15):</div>
+              <p><b>Đề bài:</b> Tính giá trị của các biểu thức sau:</p>
+              <p class="fw-bold text-dark">a) $\\sin(-675^\\circ)$;&emsp;&emsp;b) $\\tan\\dfrac{15\\pi}{4}$.</p>
+              <hr>
+              <p><b>Hướng dẫn của Thầy Sáng:</b></p>
+              <p>a) Ta có: $-675^\\circ = 45^\\circ - 2 \\cdot 360^\\circ$. Do đó:</p>
+              <p class="fw-bold text-primary">$\\sin(-675^\\circ) = \\sin 45^\\circ = \\dfrac{\\sqrt{2}}{2}$.</p>
+              <p>b) Ta có: $\\dfrac{15\\pi}{4} = 4\\pi - \\dfrac{\\pi}{4}$. Do đó:</p>
+              <p class="fw-bold text-primary">$\\tan\\dfrac{15\\pi}{4} = \\tan\\left(-\\dfrac{\\pi}{4}\\right) = -\\tan\\dfrac{\\pi}{4} = -1$.</p>
             </div>
           </div>`
         }
@@ -1455,9 +1534,9 @@ window.LESSON_11_C1_B1_DATA = {
     title: "Chốt kiến thức then chốt & Ứng dụng thực tế",
     summaryHtml: `<p>Chúc mừng các em đã chinh phục thành công <b>Bài 1: Giá trị lượng giác của góc lượng giác</b>! Hãy cùng Thầy điểm lại các kiến thức cốt lõi:</p>
     <ul>
-      <li><b>Góc lượng giác:</b> Chiều quay ngược kim đồng hồ là chiều dương (+); công thức tổng quát: \$\\alpha + k 360^\\circ\$ hoặc \$\\alpha + k 2\\pi\$.</li>
-      <li><b>Đơn vị radian & Cung tròn:</b> \$180^\\circ = \\pi\\text{ rad}\$ và công thức độ dài cung thanh lịch: \$l = R \\cdot \\alpha\$.</li>
-      <li><b>Đường tròn lượng giác:</b> Tâm \$O\$, bán kính \$R = 1\$, gốc \$A(1; 0)\$; \$\\cos\\alpha = x_M\$, \$\\sin\\alpha = y_M\$.</li>
+      <li><b>Góc lượng giác:</b> Chiều quay ngược kim đồng hồ là chiều dương (+); công thức tổng quát: $\\alpha + k 360^\\circ$ hoặc $\\alpha + k 2\\pi$.</li>
+      <li><b>Đơn vị radian & Cung tròn:</b> $180^\\circ = \\pi\\text{ rad}$ và công thức độ dài cung thanh lịch: $l = R \\cdot \\alpha$.</li>
+      <li><b>Đường tròn lượng giác:</b> Tâm $O$, bán kính $R = 1$, gốc $A(1; 0)$; $\\cos\\alpha = x_M$, $\\sin\\alpha = y_M$.</li>
       <li><b>Thần chú vàng:</b> <i>"Cos đối — Sin bù — Phụ chéo — Hơn kém pi tan/cot"</i>.</li>
     </ul>`,
     realworldApplicationHtml: `<div class="card border-info mb-3">
@@ -1465,11 +1544,11 @@ window.LESSON_11_C1_B1_DATA = {
       <div class="card-body">
         <p>Huyết áp là áp lực của máu lên thành mạch máu. Dao động huyết áp tâm trương của một người trong một ngày được mô hình hóa bởi hàm số sin:</p>
         <div class="p-2 bg-light rounded text-center fw-bold text-primary fs-5 mb-2">
-          \$B(t) = 80 + 7\\sin\\left(\\dfrac{\\pi t}{12}\\right)\$
+          $B(t) = 80 + 7\\sin\\left(\\dfrac{\\pi t}{12}\\right)$
         </div>
-        <p>Trong đó \$B(t)\$ là huyết áp tính bằng mmHg, và \$t\$ là số giờ kể từ nửa đêm (\$0 \\le t \\le 24\$).</p>
-        <p>• <b>Lúc 6 giờ sáng (\$t = 6\$):</b> \$B(6) = 80 + 7\\sin\\left(\\dfrac{6\\pi}{12}\\right) = 80 + 7\\sin\\left(\\dfrac{\\pi}{2}\\right) = 80 + 7(1) = 87\\text{ mmHg}\$ (Huyết áp cao nhất trong ngày).</p>
-        <p>• <b>Lúc 20 giờ tối (\$t = 20\$):</b> \$B(20) = 80 + 7\\sin\\left(\\dfrac{20\\pi}{12}\\right) = 80 + 7\\sin\\left(\\dfrac{5\\pi}{3}\\right) = 80 + 7\\left(-\\dfrac{\\sqrt{3}}{2}\\right) \\approx 73.94\\text{ mmHg}\$ (Huyết áp giảm thấp vào buổi tối).</p>
+        <p>Trong đó $B(t)$ là huyết áp tính bằng mmHg, và $t$ là số giờ kể từ nửa đêm ($0 \\le t \\le 24$).</p>
+        <p>• <b>Lúc 6 giờ sáng ($t = 6$):</b> $B(6) = 80 + 7\\sin\\left(\\dfrac{6\\pi}{12}\\right) = 80 + 7\\sin\\left(\\dfrac{\\pi}{2}\\right) = 80 + 7(1) = 87\\text{ mmHg}$ (Huyết áp cao nhất trong ngày).</p>
+        <p>• <b>Lúc 20 giờ tối ($t = 20$):</b> $B(20) = 80 + 7\\sin\\left(\\dfrac{20\\pi}{12}\\right) = 80 + 7\\sin\\left(\\dfrac{5\\pi}{3}\\right) = 80 + 7\\left(-\\dfrac{\\sqrt{3}}{2}\\right) \\approx 73.94\\text{ mmHg}$ (Huyết áp giảm thấp vào buổi tối).</p>
         <p class="mb-0 text-success fw-bold">💡 Ứng dụng: Giúp các bác sĩ tim mạch lên lịch uống thuốc huyết áp tối ưu nhất cho bệnh nhân!</p>
       </div>
     </div>`,
@@ -1586,8 +1665,8 @@ window.LESSON_11_C1_B1_DATA = {
       },
       {
         id: "mc-11-1-5",
-        question: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{\\pi}{2} - \\alpha\$ - 2\\sin\\alpha$ ta được:",
-        prompt: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{\\pi}{2} - \\alpha\$ - 2\\sin\\alpha$ ta được:",
+        question: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) - 2\\sin\\alpha$ ta được:",
+        prompt: "Rút gọn biểu thức $P = \\sin(\\pi - \\alpha) + \\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) - 2\\sin\\alpha$ ta được:",
         options: [
           "$2\\sin\\alpha$",
           "$\\cos\\alpha$",

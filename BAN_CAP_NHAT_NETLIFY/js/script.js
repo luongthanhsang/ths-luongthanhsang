@@ -2441,11 +2441,13 @@ function initDigitalLessons() {
       sidebarHeaderEl.className = "sidebar-header lesson-structure-header";
       const lessonNumStr = (lesson.number ? (lesson.number.trim().toLowerCase().startsWith("bài") ? lesson.number.trim() : `Bài ${lesson.number.trim()}`) : "");
       const fullTitleStr = lessonNumStr ? `${lessonNumStr}. ${lesson.title}` : lesson.title;
+      const gradeNum = lesson.grade ? String(lesson.grade).replace(/[^0-9]/g, '') : (currentGrade ? String(currentGrade).replace(/[^0-9]/g, '') : '11');
+      const badgeText = gradeNum ? `BÀI HỌC SỐ LỚP ${gradeNum}` : 'BÀI HỌC SỐ';
 
       sidebarHeaderEl.innerHTML = `
         <div class="structure-header-content">
           <div class="structure-badge-row">
-            <span class="structure-tag"><i class="fa-solid fa-layer-group"></i> Bài học số</span>
+            <span class="structure-tag"><i class="fa-solid fa-layer-group"></i> ${badgeText}</span>
             <button class="btn-switch-to-chapters" id="btnSwitchToChapters" title="Xem danh sách tất cả các bài trong chương">
               <i class="fa-solid fa-bars-staggered"></i> Toàn bộ bài
             </button>
@@ -2923,7 +2925,8 @@ function initDigitalLessons() {
 
     setTimeout(() => {
       if (subKey) {
-        const subCard = document.getElementById(`sub-${subKey}`) || document.querySelector(`[data-subkey="${subKey}"]`);
+        const activeBlock = document.querySelector(`[data-step-block="${currentActiveStepId}"]`);
+        const subCard = activeBlock ? activeBlock.querySelector(`[data-subkey="${subKey}"]`) : (document.getElementById(`${stepId}-sub-${subKey}`) || document.querySelector(`[data-subkey="${subKey}"]`));
         if (subCard) {
           subCard.scrollIntoView({ behavior: "smooth", block: "start" });
           return;
@@ -3698,7 +3701,7 @@ function initDigitalLessons() {
               const cleanSubTitle = (sub.title || "").replace(/^\s*(?:\d+[a-z][\.\)]|[a-z][\.\)])\s*/i, "");
               return `
               <!-- Khung phụ ${cleanLetter}) -->
-              <div class="subsection-card" id="sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
+              <div class="subsection-card" id="${secAnchor}-sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
                 <div class="subsection-header">
                   <span class="sub-key-badge">${escapeHtml(cleanLetter)}.</span>
                   <h3 class="subsection-heading-h3">${escapeHtml(cleanSubTitle)}</h3>
@@ -5052,7 +5055,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B11_1_AUDIO_CACHE && window.B11_1_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B11_2_AUDIO_CACHE && window.B11_2_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_1_AUDIO_CACHE && window.B11_1_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_10_AUDIO_CACHE && window.B11_10_AUDIO_CACHE[audioUrl]) ||
@@ -5501,6 +5505,7 @@ function initDigitalLessons() {
           window.LESSON_10_C4_B10_DATA,
           window.LESSON_10_C4_B11_DATA,
           window.LESSON_11_C1_B1_DATA,
+          window.LESSON_11_C1_B2_DATA,
           window.LESSON_11_C4_B10_DATA,
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,

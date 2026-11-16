@@ -1160,7 +1160,7 @@ const LESSONS_DATABASE = {
               }
             ]
           },
-          {
+                    {
             id: "11-c1-b2",
             number: "Bài 2",
             title: "Công thức lượng giác",
@@ -1170,8 +1170,8 @@ const LESSONS_DATABASE = {
                 num: "1",
                 title: "Công thức cộng",
                 subsections: [
-                  { key: "a", title: "Công thức cộng sin, cos, tan", summary: "cos(a ± b) = cos a cos b ∓ sin a sin b; sin(a ± b) = sin a cos b ± cos a sin b." },
-                  { key: "b", title: "Ứng dụng tính giá trị lượng giác", summary: "Tính giá trị của các góc không đặc biệt đưa về tổng/hiệu của các góc đặc biệt." }
+                  { key: "a", title: "Công thức cộng đối với Sin và Côsin", summary: "cos(a ∓ b) = cos a cos b ± sin a sin b; sin(a ± b) = sin a cos b ± cos a sin b (Chứng minh hình học bằng tích vô hướng)." },
+                  { key: "b", title: "Công thức cộng đối với Tang & Vận dụng sóng âm", summary: "tan(a ± b) = (tan a ± tan b)/(1 ∓ tan a tan b) và bài toán trễ âm thanh f(t) = 5√2 sin(t + π/4)." }
                 ]
               },
               {
@@ -1179,22 +1179,31 @@ const LESSONS_DATABASE = {
                 num: "2",
                 title: "Công thức nhân đôi và hạ bậc",
                 subsections: [
-                  { key: "a", title: "Công thức nhân đôi", summary: "sin 2a = 2 sin a cos a; cos 2a = cos²a - sin²a = 2cos²a - 1 = 1 - 2sin²a." },
-                  { key: "b", title: "Công thức hạ bậc", summary: "cos²a = (1 + cos 2a)/2; sin²a = (1 - cos 2a)/2." }
+                  { key: "a", title: "Công thức nhân đôi cơ bản", summary: "sin 2a = 2 sin a cos a; cos 2a = cos²a - sin²a = 2cos²a - 1 = 1 - 2sin²a; tan 2a = 2tan a / (1 - tan²a)." },
+                  { key: "b", title: "Công thức hạ bậc & Kĩ thuật góc đặc biệt", summary: "cos²a = (1 + cos 2a)/2; sin²a = (1 - cos 2a)/2; kĩ thuật tính cos(π/8) = √(2+√2)/2." }
                 ]
               },
               {
                 id: "11-c1-b2-s3",
                 num: "3",
-                title: "Công thức biến đổi tích thành tổng và tổng thành tích",
+                title: "Công thức biến đổi tích thành tổng",
                 subsections: [
-                  { key: "a", title: "Biến đổi tích thành tổng", summary: "cos a cos b = 1/2 [cos(a-b) + cos(a+b)]; sin a sin b = 1/2 [cos(a-b) - cos(a+b)]." },
-                  { key: "b", title: "Biến đổi tổng thành tích", summary: "cos u + cos v = 2 cos((u+v)/2) cos((u-v)/2); sin u + sin v = 2 sin((u+v)/2) cos((u-v)/2)." }
+                  { key: "a", title: "Ba công thức biến đổi tích thành tổng cơ bản", summary: "cos a cos b = ½[cos(a-b) + cos(a+b)]; sin a sin b = ½[cos(a-b) - cos(a+b)]; sin a cos b = ½[sin(a-b) + sin(a+b)]." },
+                  { key: "b", title: "Kĩ thuật rút gọn và chứng minh đẳng thức", summary: "Chứng minh sin(a+b)sin(a-b) = sin²a - sin²b (Bài 1.11) và chuỗi nhân đôi domino (Bài 1.10b)." }
+                ]
+              },
+              {
+                id: "11-c1-b2-s4",
+                num: "4",
+                title: "Công thức biến đổi tổng thành tích",
+                subsections: [
+                  { key: "a", title: "Bốn công thức biến đổi tổng thành tích cơ bản", summary: "Bài ca lượng giác: Cos cộng cos bằng 2 cos cos; Cos trừ cos bằng trừ 2 sin sin; Sin cộng sin bằng 2 sin cos; Sin trừ sin bằng 2 cos sin." },
+                  { key: "b", title: "Ứng dụng âm thanh bàn phím cảm ứng DTMF", summary: "Giải mã tín hiệu đa tần số DTMF trên bàn phím điện thoại cảm ứng khi nhấn phím 4 (Hình 1.13 SGK trang 20)." }
                 ]
               }
             ]
           },
-          {
+{
             id: "11-c1-b3",
             number: "Bài 3",
             title: "Hàm số lượng giác",
@@ -3337,6 +3346,7 @@ if (typeof window !== "undefined") {
   if (window.LESSON_10_C4_B10_DATA) autoInjectLesson(window.LESSON_10_C4_B10_DATA);
   if (window.LESSON_10_C4_B11_DATA) autoInjectLesson(window.LESSON_10_C4_B11_DATA);
   if (window.LESSON_11_C1_B1_DATA) autoInjectLesson(window.LESSON_11_C1_B1_DATA);
+  if (window.LESSON_11_C1_B2_DATA) autoInjectLesson(window.LESSON_11_C1_B2_DATA);
   if (window.LESSON_11_C4_B10_DATA) autoInjectLesson(window.LESSON_11_C4_B10_DATA);
   if (window.LESSON_11_C4_B11_DATA) autoInjectLesson(window.LESSON_11_C4_B11_DATA);
   if (window.LESSON_11_C4_B12_DATA) autoInjectLesson(window.LESSON_11_C4_B12_DATA);

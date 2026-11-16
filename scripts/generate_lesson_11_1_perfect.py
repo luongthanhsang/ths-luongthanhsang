@@ -2,9 +2,10 @@
 """
 Script tạo file js/lesson-11-1-data.js chuẩn Thầy Sáng:
 - Đảm bảo 100% hình vẽ SVG (ISS, 4 sơ đồ xoắn ốc, Hình 1.6, Hình 1.7, Hình 1.9b góc phần tư III, Bộ 4 quy tắc góc đặc biệt).
-- Đảm bảo 100% công thức Toán LaTeX hiển thị sắc nét bằng MathJax (không bị mất backslash, không bị tab, không bị piextrad, an, circ).
+- Đảm bảo 100% công thức Toán LaTeX hiển thị sắc nét bằng MathJax (không bị mất backslash, không bị tab, không bị piextrad, an, circ, không bị lỗi Extra \left or missing \right).
 - Đảm bảo cú pháp Javascript hoàn hảo 100%, không bị lọt code Python.
 - Đảm bảo cấu trúc 4 phần, mỗi mục có mục con a và b riêng biệt, tick xanh mục con rồi mới tick xanh mục cha.
+- Mỗi mục con đều có đầy đủ 1 Ví dụ mẫu (có lời giải), 1 Luyện tập tương tự (có hướng dẫn giải) và 2 POIs tương tác lý thuyết.
 """
 
 import os, sys, re
@@ -56,20 +57,27 @@ def main():
     # 3. Chuẩn hóa công thức toán LaTeX delimiters
     print("Normalizing math delimiters ...")
     js_raw = js_raw.replace(r"\\[", "$$").replace(r"\\]", "$$")
-    js_raw = js_raw.replace(r"\(", "$").replace(r"\)", "$")
+    js_raw = js_raw.replace(r"\[", "$$").replace(r"\]", "$$")
     js_raw = js_raw.replace(r"\\(", "$").replace(r"\\)", "$")
+    js_raw = js_raw.replace(r"\(", "$").replace(r"\)", "$")
+    # Đảm bảo không còn ký tự backslash đứng trước dấu $
+    js_raw = re.sub(r'\\+\$', '$', js_raw)
 
     # 4. Bảo vệ các ký tự escape LaTeX trong JS string literal:
     # Trong JS code, nếu ta viết `\text` thì JS parser sẽ parse `\t` thành ký tự TAB!
     # Nếu viết `\circ` thì JS parser sẽ parse thành `circ`!
+    # Nếu viết `\right` thì JS parser sẽ parse `\r` thành Carriage Return!
     # Vì thế, mọi lệnh LaTeX trong JS string literal BẮT BUỘC phải có 2 dấu gạch chéo ngược `\\`!
     print("Escaping LaTeX commands for JavaScript runtime ...")
     latex_commands = [
-        "text", "circ", "pi", "alpha", "beta", "theta", "quad", "qquad",
-        "vec", "widehat", "sin", "cos", "tan", "cot", "mathbb", "mathcal",
-        "frac", "dfrac", "sqrt", "approx", "ne", "in", "notin", "le", "ge", "pm",
-        "cdot", "times", "cap", "cup", "subset", "subseteq", "varnothing",
-        "Delta", "Sigma", "Omega"
+        "text", "circ", "pi", "alpha", "beta", "gamma", "delta", "theta", "lambda", "mu", "sigma", "omega",
+        "Delta", "Sigma", "Omega", "quad", "qquad",
+        "vec", "widehat", "sin", "cos", "tan", "cot", "arcsin", "arccos", "arctan",
+        "mathbb", "mathbf", "mathrm", "mathcal",
+        "frac", "dfrac", "sqrt", "approx", "ne", "neq", "in", "notin", "le", "ge", "leq", "geq", "pm", "mp",
+        "cdot", "times", "div", "cap", "cup", "subset", "subseteq", "varnothing",
+        "left", "right", "equiv", "dots", "cdots", "ldots", "infty",
+        "begin", "end", "array", "matrix", "pmatrix", "bmatrix", "cases"
     ]
     
     # Chuẩn hóa về 1 backslash trước
@@ -84,7 +92,17 @@ def main():
     js_raw = re.sub(r'(?<!\\)\\,', r'\\\\,', js_raw)
     js_raw = re.sub(r'(?<!\\)\\;', r'\\\\;', js_raw)
 
-    # 5. Gán thêm các alias toàn cục và auto-inject vào LESSONS_DATABASE
+    # 5. Validation check: Đảm bảo không còn lỗi syntax hoặc thiếu \right
+    print("Validating math formulas & left/right balance ...")
+    lines = js_raw.splitlines()
+    for idx, line in enumerate(lines):
+        if r'\left' in line or r'\\left' in line:
+            lefts = len(re.findall(r'\\+left\b', line))
+            rights = len(re.findall(r'\\+right\b', line))
+            if 'begin{array}' not in line and lefts != rights:
+                raise ValueError(f"CRITICAL ERROR at line {idx+1}: Mismatched left/right ({lefts} vs {rights}):\n{line}")
+
+    # 6. Gán thêm các alias toàn cục và auto-inject vào LESSONS_DATABASE
     alias_code = """
 
 // Global Aliases & Auto-Inject for Compatibility
@@ -112,7 +130,7 @@ if (typeof window !== "undefined" && window.LESSONS_DATABASE) {
 """
     final_output = js_raw + alias_code
 
-    # 6. Ghi ra đĩa
+    # 7. Ghi ra đĩa
     out_path = "js/lesson-11-1-data.js"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(final_output)
