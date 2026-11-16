@@ -2658,7 +2658,17 @@ function initDigitalLessons() {
     sidebarContainer.querySelectorAll(".tree-node").forEach(node => {
       node.addEventListener("click", () => {
         const stepId = node.dataset.stepId;
-        if (stepId) activateStep(stepId);
+        if (stepId) {
+          let firstSub = null;
+          if (stepId.startsWith("sec-")) {
+            const sIdx = parseInt(stepId.replace("sec-", ""), 10) - 1;
+            const sec = (lesson.sections || [])[sIdx];
+            if (sec && sec.subsections && sec.subsections.length > 1) {
+              firstSub = cleanSubKey(sec.subsections[0].key, 0);
+            }
+          }
+          activateStep(stepId, firstSub);
+        }
       });
 
       // Cho phép click vào icon tick để hoàn thành / đổi trạng thái
@@ -2861,6 +2871,22 @@ function initDigitalLessons() {
         b.style.display = "";
       });
     }
+
+    // NẾU CÓ SUBKEY: CHỈ HIỂN THỊ DUY NHẤT MỤC CON ĐÓ (ẨN CÁC MỤC CON KHÁC TRONG MỤC LỚN)
+    const activeBlock = document.querySelector(`[data-step-block="${currentActiveStepId}"]`);
+    if (activeBlock) {
+      const subCards = activeBlock.querySelectorAll(".subsection-card");
+      if (subCards.length > 1) {
+        if (currentActiveSubKey) {
+          subCards.forEach(sc => {
+            const isMatch = (sc.dataset.subkey === currentActiveSubKey || sc.id === `sub-${currentActiveSubKey}`);
+            sc.style.display = isMatch ? "" : "none";
+          });
+        } else {
+          subCards.forEach(sc => sc.style.display = "");
+        }
+      }
+    }
   }
 
   function activateStep(stepId, subKey, quizPart) {
@@ -2985,11 +3011,37 @@ function initDigitalLessons() {
     const flatList = getFlatLessonsList(currentGrade);
     const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
     if (!currentItem) return;
-    const steps = getLessonLinearSteps(currentItem.lesson);
+    const lesson = currentItem.lesson;
+
+    // Nếu đang ở mục lớn có nhiều mục con và chưa phải mục con cuối
+    if (fromStepId && fromStepId.startsWith("sec-")) {
+      const secIdx = parseInt(fromStepId.replace("sec-", ""), 10) - 1;
+      const sec = (lesson.sections || [])[secIdx];
+      if (sec && sec.subsections && sec.subsections.length > 1) {
+        const subs = sec.subsections;
+        const currentSubIdx = currentActiveSubKey ? subs.findIndex((s, idx) => cleanSubKey(s.key, idx) === currentActiveSubKey) : -1;
+        if (currentSubIdx !== -1 && currentSubIdx < subs.length - 1) {
+          const nextSubKey = cleanSubKey(subs[currentSubIdx + 1].key, currentSubIdx + 1);
+          activateStep(fromStepId, nextSubKey);
+          return;
+        }
+      }
+    }
+
+    const steps = getLessonLinearSteps(lesson);
     const currentIdx = steps.findIndex(s => s.id === fromStepId);
 
     if (currentIdx !== -1 && currentIdx < steps.length - 1) {
-      activateStep(steps[currentIdx + 1].id);
+      const nextStep = steps[currentIdx + 1];
+      let firstSub = null;
+      if (nextStep.id.startsWith("sec-")) {
+        const sIdx = parseInt(nextStep.id.replace("sec-", ""), 10) - 1;
+        const sObj = (lesson.sections || [])[sIdx];
+        if (sObj && sObj.subsections && sObj.subsections.length > 1) {
+          firstSub = cleanSubKey(sObj.subsections[0].key, 0);
+        }
+      }
+      activateStep(nextStep.id, firstSub);
     }
   }
 
@@ -2997,11 +3049,37 @@ function initDigitalLessons() {
     const flatList = getFlatLessonsList(currentGrade);
     const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
     if (!currentItem) return;
-    const steps = getLessonLinearSteps(currentItem.lesson);
+    const lesson = currentItem.lesson;
+
+    // Nếu đang ở mục lớn có nhiều mục con và không phải mục con đầu tiên
+    if (fromStepId && fromStepId.startsWith("sec-")) {
+      const secIdx = parseInt(fromStepId.replace("sec-", ""), 10) - 1;
+      const sec = (lesson.sections || [])[secIdx];
+      if (sec && sec.subsections && sec.subsections.length > 1) {
+        const subs = sec.subsections;
+        const currentSubIdx = currentActiveSubKey ? subs.findIndex((s, idx) => cleanSubKey(s.key, idx) === currentActiveSubKey) : -1;
+        if (currentSubIdx > 0) {
+          const prevSubKey = cleanSubKey(subs[currentSubIdx - 1].key, currentSubIdx - 1);
+          activateStep(fromStepId, prevSubKey);
+          return;
+        }
+      }
+    }
+
+    const steps = getLessonLinearSteps(lesson);
     const currentIdx = steps.findIndex(s => s.id === fromStepId);
 
     if (currentIdx > 0) {
-      activateStep(steps[currentIdx - 1].id);
+      const prevStep = steps[currentIdx - 1];
+      let targetSub = null;
+      if (prevStep.id.startsWith("sec-")) {
+        const sIdx = parseInt(prevStep.id.replace("sec-", ""), 10) - 1;
+        const sObj = (lesson.sections || [])[sIdx];
+        if (sObj && sObj.subsections && sObj.subsections.length > 1) {
+          targetSub = cleanSubKey(sObj.subsections[sObj.subsections.length - 1].key, sObj.subsections.length - 1);
+        }
+      }
+      activateStep(prevStep.id, targetSub);
     }
   }
 
@@ -3636,10 +3714,12 @@ function initDigitalLessons() {
                   </div>
                 `}
 
-                ${sub.audioUrl ? renderTeacherGoldVoiceBoxHtml(
-                  sub.buttonLabel || "Nghe thầy Sáng giảng bài",
-                  sub.summary || sub.title,
-                  sub.audioUrl
+                ${(sub.audioUrl || sub.audioScript) ? renderTeacherGoldVoiceBoxHtml(
+                  sub.buttonLabel || `Nghe thầy Sáng giảng mục ${cleanLetter}`,
+                  sub.audioScript || sub.summary || sub.title,
+                  sub.audioUrl || "",
+                  `sub-voice-${sIdx}-${cleanLetter}`,
+                  sub.checkpoints || sub.pois || []
                 ) : ""}
 
                 ${sub.workedExample ? `
@@ -3697,6 +3777,54 @@ function initDigitalLessons() {
                     </div>
                   </div>
                 ` : ""}
+
+                ${(sub.checkpoints && sub.checkpoints.length > 0) ? `
+                  <div class="section-checkpoints-card" style="margin-top: 18px; padding: 14px 16px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                      <span style="font-weight: 800; color: #166534; font-size: 0.95rem;">
+                        <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC (MỤC ${cleanLetter.toUpperCase()})
+                      </span>
+                      <span style="font-size: 0.8rem; color: #64748b; font-style: italic;">
+                        <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc làm trực tiếp tại đây:
+                      </span>
+                    </div>
+                    <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 10px;">
+                      ${sub.checkpoints.map((poi, pIdx) => {
+                        let cIdx = poi.correctIndex;
+                        if (cIdx === undefined || cIdx === null) {
+                          if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                          else if (typeof poi.correctAnswer === 'string') {
+                            const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          }
+                        }
+                        return `
+                        <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                          <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                            <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                          </div>
+                          <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                            ${poi.question}
+                          </div>
+                          <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                            ${poi.options.map((opt, oIdx) => `
+                              <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                              </button>
+                            `).join('')}
+                          </div>
+                          <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                            <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                          </div>
+                        </div>
+                      `;}).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+
+                <div style="margin-top: 20px;">
+                  ${renderStepNavFooterHtml(secAnchor, lesson)}
+                </div>
 
               </div>
               `;
@@ -4924,7 +5052,8 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.B11_1_AUDIO_CACHE && window.B11_1_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_10_AUDIO_CACHE && window.B11_10_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
@@ -5371,6 +5500,7 @@ function initDigitalLessons() {
           window.LESSON_10_C4_B9_DATA,
           window.LESSON_10_C4_B10_DATA,
           window.LESSON_10_C4_B11_DATA,
+          window.LESSON_11_C1_B1_DATA,
           window.LESSON_11_C4_B10_DATA,
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,
