@@ -150,6 +150,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Không phân biệt điểm đầu và điểm cuối"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Thứ tự đọc và viết tên vectơ luôn đi từ gốc (điểm đầu) đến ngọn có mũi tên (điểm cuối).",
           explain: "Chính xác! Kí hiệu $\\vec{AB}$ quy ước điểm viết trước ($A$) là điểm đầu, điểm viết sau ($B$) là điểm cuối có gắn mũi tên định hướng."
         },
@@ -165,6 +166,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Bằng một nửa độ dài đoạn thẳng $MN$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Độ dài vectơ chính là độ dài hình học của đoạn thẳng nối điểm đầu và điểm cuối.",
           explain: "Rất chuẩn! Theo SGK trang 47: Độ dài của vectơ là khoảng cách giữa điểm đầu và điểm cuối của vectơ đó. Ta có $|\\vec{MN}| = MN \\ge 0$."
         }
@@ -299,6 +301,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Chúng có chung điểm đầu"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Phương của vectơ gắn liền với phương của đường thẳng chứa vectơ đó (giá của vectơ).",
           explain: "Chính xác! SGK trang 48 định nghĩa: Đường thẳng đi qua điểm đầu và điểm cuối của một vectơ là giá của vectơ đó. Hai vectơ cùng phương nếu giá của chúng song song hoặc trùng nhau."
         },
@@ -314,6 +317,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Hai vectơ cùng phương thì luôn luôn cùng hướng"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Khái niệm hướng chỉ áp dụng cho hai đường thẳng song song hoặc trùng nhau.",
           explain: "Rất chuẩn! Đối với hai vectơ cùng phương, chúng có thể cùng hướng hoặc ngược hướng. Nếu hai vectơ không cùng phương thì không có khái niệm cùng hướng hay ngược hướng."
         }
@@ -472,6 +476,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Chúng có cùng độ dài và ngược hướng"
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Bằng nhau phải trọn vẹn cả hai yếu tố: cùng chiều dài và chỉ về cùng một hướng.",
           explain: "Chính xác! Theo SGK trang 48: Hai vectơ $\\vec{a}$ và $\\vec{b}$ được gọi là bằng nhau, kí hiệu $\\vec{a} = \\vec{b}$, nếu chúng có cùng độ dài và cùng hướng."
         },
@@ -487,6 +492,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Chỉ cùng phương với duy nhất chính nó"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Điểm đầu và điểm cuối trùng nhau tạo thành một điểm, độ dài bằng 0.",
           explain: "Rất chuẩn! Vectơ-không là vectơ có điểm đầu và điểm cuối trùng nhau (ví dụ $\\vec{AA}, \\vec{BB}$). Độ dài bằng 0 và được quy ước cùng phương, cùng hướng với mọi vectơ."
         }
@@ -619,6 +625,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Điểm $B$ phải nằm giữa $A$ và $C$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Hai vectơ có chung gốc A, nếu giá của chúng cùng phương (trùng nhau) thì 3 điểm cùng nằm trên một đường thẳng.",
           explain: "Chính xác! Theo SGK trang 49: Ba điểm phân biệt $A, B, C$ thẳng hàng khi và chỉ khi hai vectơ $\\vec{AB}$ và $\\vec{AC}$ cùng phương."
         },
@@ -634,6 +641,7 @@ window.LESSON_10_C4_B7_DATA = {
             "Không cùng phương"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Trọng lực luôn kéo vật thẳng đứng xuống dưới, lực đẩy Ác-si-mét nâng vật thẳng đứng lên trên.",
           explain: "Rất chuẩn! Trọng lực $\\vec{P}$ hướng thẳng đứng xuống dưới, lực đẩy Ác-si-mét $\\vec{F}$ hướng thẳng đứng lên trên. Chúng có cùng giá thẳng đứng (cùng phương) nhưng có chiều ngược nhau (ngược hướng)."
         }
@@ -792,11 +800,13 @@ window.LESSON_10_C4_B7_DATA = {
           "Độ dài của một vectơ luôn nhận giá trị âm."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định nghĩa SGK Toán 10 trang 47: Vectơ là một đoạn thẳng có hướng, nghĩa là trong hai điểm mút của đoạn thẳng, đã chỉ rõ điểm đầu, điểm cuối. Độ dài của vectơ là khoảng cách giữa điểm đầu và điểm cuối nên luôn là một số không âm. Do đó đáp án C là hoàn toàn chính xác.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho hai điểm phân biệt $M$ và $N$. Có bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là $M$ hoặc $N$?",
           options: ["1", "2", "3", "Vô số"],
           correctIndex: 1, // B (2 vectơ: MN và NM)
+          correctAnswer: "B",
           explain: "Từ hai điểm phân biệt M và N ta lập được đúng hai vectơ ngược hướng nhau là \\vec{MN} và \\vec{NM}."
         }
       },
@@ -811,11 +821,13 @@ window.LESSON_10_C4_B7_DATA = {
           "$\\dfrac{a\\sqrt{2}}{2}$."
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Độ dài của vectơ $\\vec{AC}$ chính là độ dài của đoạn thẳng đường chéo $AC$.<br>Trong tam giác vuông $ABC$, theo định lí Pythagore:<br>$$AC = \\sqrt{AB^2 + BC^2} = \\sqrt{a^2 + a^2} = a\\sqrt{2}.$$<br>Do đó: $|\\vec{AC}| = a\\sqrt{2}$. Đáp án đúng là A.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho tam giác đều $ABC$ có cạnh bằng $2a$. Độ dài của vectơ $\\vec{BC}$ bằng:",
           options: ["$a$", "$2a$", "$a\\sqrt{3}$", "$4a$"],
           correctIndex: 1, // B (2a)
+          correctAnswer: "B",
           explain: "Độ dài vectơ \\vec{BC} bằng độ dài cạnh BC = 2a."
         }
       },
@@ -830,11 +842,13 @@ window.LESSON_10_C4_B7_DATA = {
           "Hai vectơ $\\vec{AB}$ và $\\vec{AC}$ cùng phương."
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định lí SGK trang 49: Ba điểm phân biệt $A, B, C$ thẳng hàng khi và chỉ khi hai vectơ $\\vec{AB}$ và $\\vec{AC}$ cùng phương (vì hai vectơ cùng phương và có chung điểm đầu $A$ thì giá của chúng phải trùng nhau, dẫn tới $A, B, C$ cùng thuộc một đường thẳng). Do đó đáp án D là chính xác.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Nếu hai vectơ \\vec{AB} và \\vec{CD} cùng phương thì vị trí tương đối giữa đường thẳng AB và CD là:",
           options: ["Cắt nhau", "Song song hoặc trùng nhau", "Luôn trùng nhau", "Vuông góc"],
           correctIndex: 1, // B (Song song hoặc trùng nhau)
+          correctAnswer: "B",
           explain: "Hai vectơ cùng phương khi và chỉ khi giá của chúng song song hoặc trùng nhau."
         }
       },
@@ -849,11 +863,13 @@ window.LESSON_10_C4_B7_DATA = {
           "$|\\vec{OA}| \\ne |\\vec{OB}|$."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Khẳng định A sai vì $\\vec{AB}$ và $\\vec{CD}$ là hai vectơ ngược hướng nhau ($\\vec{AB} = -\\vec{CD}$).<br>- Khẳng định B đúng vì hai vectơ $\\vec{AD}$ và $\\vec{BC}$ cùng hướng (từ trên xuống dưới dọc theo hai cạnh song song) và có cùng độ dài ($AD = BC$), do đó $\\vec{AD} = \\vec{BC}$.<br>- Khẳng định C sai vì hai đường chéo $AC$ và $BD$ cắt nhau nên hai vectơ không cùng phương.<br>- Khẳng định D sai vì tâm $O$ cách đều các đỉnh của hình chữ nhật ($OA = OB$).",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho hình bình hành $ABCD$. Khẳng định nào sau đây đúng?",
           options: ["\\vec{AB} = \\vec{CD}", "\\vec{AB} = \\vec{DC}", "\\vec{AD} = \\vec{CB}", "\\vec{AC} = \\vec{BD}"],
           correctIndex: 1, // B (\\vec{AB} = \\vec{DC})
+          correctAnswer: "B",
           explain: "Trong hình bình hành ABCD, vectơ AB và DC cùng hướng và cùng độ dài nên \\vec{AB} = \\vec{DC}."
         }
       },
@@ -868,11 +884,13 @@ window.LESSON_10_C4_B7_DATA = {
           "Hai vectơ $\\vec{AB}$ và $\\vec{MB}$ là hai vectơ cùng phương."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì điểm $M$ nằm giữa hai điểm $A$ và $B$ nên tia $AM$ trùng với tia $AB$. Do đó hai vectơ $\\vec{AM}$ và $\\vec{AB}$ là hai vectơ <strong>cùng hướng</strong>. Khẳng định C nói rằng chúng 'ngược hướng' là sai. Các khẳng định A, B, D đều đúng.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho I là trung điểm của đoạn thẳng AB. Hai vectơ \\vec{IA} và \\vec{IB} là hai vectơ:",
           options: ["Cùng hướng", "Ngược hướng và có cùng độ dài", "Vuông góc", "Không cùng phương"],
           correctIndex: 1, // B (Ngược hướng và cùng độ dài)
+          correctAnswer: "B",
           explain: "Vì I nằm giữa A và B và IA = IB nên \\vec{IA} và \\vec{IB} ngược hướng và cùng độ dài."
         }
       }

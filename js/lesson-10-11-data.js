@@ -168,6 +168,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$0^\\circ < (\\vec{u}, \\vec{v}) < 360^\\circ$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Định nghĩa SGK trang 66: Số đo góc giữa hai vectơ luôn nằm từ $0^\\circ$ đến $180^\\circ$.",
           explain: "Chính xác! Quy ước góc giữa hai vectơ nhận giá trị tuỳ ý từ $0^\\circ$ đến $180^\\circ$."
         },
@@ -183,6 +184,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$45^\\circ$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Hai tia $AB$ và $AC$ trùng nhau nên số đo góc $\\widehat{BAC} = 0^\\circ$.",
           explain: "Chính xác! Khi hai vectơ cùng hướng thì góc giữa chúng bằng $0^\\circ$; khi ngược hướng thì bằng $180^\\circ$."
         }
@@ -239,6 +241,7 @@ window.LESSON_10_C4_B11_DATA = {
             "Hai vectơ có độ dài âm"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Vì độ dài $|\vec{u}| > 0, |\vec{v}| > 0$ nên dấu của tích vô hướng phụ thuộc vào $\\cos(\\vec{u}, \\vec{v})$. Côsin âm khi góc tù!",
           explain: "Chính xác! $\\cos(\\vec{u}, \\vec{v}) < 0 \\iff 90^\\circ < (\\vec{u}, \\vec{v}) \\le 180^\\circ$ (góc tù)."
         },
@@ -254,6 +257,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$\\vec{0}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "$\\vec{u} \\cdot \\vec{u} = |\\vec{u}| \\cdot |\\vec{u}| \\cdot \\cos 0^\\circ = |\\vec{u}|^2$.",
           explain: "Chính xác! Chú ý SGK trang 67: Bình phương vô hướng của một vectơ bằng bình phương độ dài của vectơ đó."
         }
@@ -308,6 +312,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$10$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "$\\vec{u} \\cdot \\vec{v} = 2 \\times 5 + (-3) \\times 3 = 10 - 9$.",
           explain: "Chính xác! $\\vec{u} \\cdot \\vec{v} = 2 \\times 5 + (-3) \\times 3 = 10 - 9 = 1$."
         },
@@ -323,6 +328,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$x + x' = y + y'$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tích vô hướng $\\vec{u} \\cdot \\vec{v} = 0 \\iff x x' + y y' = 0$.",
           explain: "Chính xác! Định lí SGK trang 68: $\\vec{u} \\perp \\vec{v} \\iff x x' + y y' = 0$."
         }
@@ -382,6 +388,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$\\vec{u} \\cdot \\vec{v} = -\\vec{v} \\cdot \\vec{u}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tính chất phân phối của tích vô hướng đối với phép cộng vectơ: $\\vec{u} \\cdot (\\vec{v} + \\vec{w}) = \\vec{u} \\cdot \\vec{v} + \\vec{u} \\cdot \\vec{w}$.",
           explain: "Chính xác! SGK trang 69: Tích vô hướng có tính chất phân phối hoàn toàn giống như phép nhân thông thường."
         },
@@ -397,6 +404,7 @@ window.LESSON_10_C4_B11_DATA = {
             "$\\vec{AH} = \\vec{BC}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Trực tâm là giao điểm của các đường cao, tức là $AH \\perp BC$ và $BH \\perp CA$.",
           explain: "Chính xác! Luyện tập 4 SGK trang 70: $H$ là trực tâm &hArr; $AH \\perp BC$ và $BH \\perp CA$ &hArr; $\\vec{AH} \\cdot \\vec{BC} = 0$ và $\\vec{BH} \\cdot \\vec{CA} = 0$."
         }
@@ -462,11 +470,13 @@ window.LESSON_10_C4_B11_DATA = {
           "$-\\dfrac{a^2}{2}$"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì tam giác $ABC$ đều nên $AB = AC = a$ và góc $\\widehat{BAC} = 60^\\circ$.<br>Áp dụng công thức định nghĩa tích vô hướng:<br>$$\\vec{AB} \\cdot \\vec{AC} = |\\vec{AB}| \\cdot |\\vec{AC}| \\cdot \\cos(\\vec{AB}, \\vec{AC}) = a \\cdot a \\cdot \\cos 60^\\circ = a^2 \\cdot \\dfrac{1}{2} = \\dfrac{a^2}{2}.$$<br>&rArr; <strong>Chọn đáp án C.</strong>",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho tam giác đều $ABC$ cạnh $2$. Tính $\\vec{AB} \\cdot \\vec{AC}$.",
           options: ["$1$", "$2$", "$4$", "$\\sqrt{3}$"],
           correctIndex: 1, // B (2)
+          correctAnswer: "B",
           solution: "$\\vec{AB} \\cdot \\vec{AC} = 2 \\times 2 \\times \\cos 60^\\circ = 4 \\times 0{,}5 = 2$."
         }
       },
@@ -482,11 +492,13 @@ window.LESSON_10_C4_B11_DATA = {
           "$-6$"
         ],
         correctIndex: 0, // A
+        correctAnswer: "A",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo biểu thức toạ độ của tích vô hướng:<br>$$\\vec{a} \\cdot \\vec{b} = x_a x_b + y_a y_b = (-3) \\times 2 + 1 \\times 6 = -6 + 6 = 0.$$<br>Do đó $\\vec{a} \\perp \\vec{b}$.<br>&rArr; <strong>Chọn đáp án A.</strong>",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho $\\vec{u} = (4; -2)$ và $\\vec{v} = (1; 2)$. Tính $\\vec{u} \\cdot \\vec{v}$.",
           options: ["$0$", "$8$", "$-4$", "$4$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$4 \\times 1 + (-2) \\times 2 = 4 - 4 = 0$."
         }
       },
@@ -502,11 +514,13 @@ window.LESSON_10_C4_B11_DATA = {
           "$45^\\circ$"
         ],
         correctIndex: 3, // D
+        correctAnswer: "D",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Ta có $\\vec{u} \\cdot \\vec{v} = 1 \\times 0 + 1 \\times 2 = 2$.<br>Độ dài: $|\\vec{u}| = \\sqrt{1^2 + 1^2} = \\sqrt{2}$; $|\\vec{v}| = \\sqrt{0^2 + 2^2} = 2$.<br>Suy ra: $$\\cos(\\vec{u}, \\vec{v}) = \\dfrac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}| \\cdot |\\vec{v}|} = \\dfrac{2}{\\sqrt{2} \\times 2} = \\dfrac{1}{\\sqrt{2}} = \\dfrac{\\sqrt{2}}{2}.$$<br>Do đó $(\\vec{u}, \\vec{v}) = 45^\\circ$.<br>&rArr; <strong>Chọn đáp án D.</strong>",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Tính góc giữa $\\vec{a} = (1; 0)$ và $\\vec{b} = (1; \\sqrt{3})$.",
           options: ["$30^\\circ$", "$60^\\circ$", "$45^\\circ$", "$90^\\circ$"],
           correctIndex: 1, // B (60 deg)
+          correctAnswer: "B",
           solution: "$\\cos = 1 / (1 \\times 2) = 1/2 \\Rightarrow 60^\\circ$."
         }
       },
@@ -522,11 +536,13 @@ window.LESSON_10_C4_B11_DATA = {
           "$-a^2\\sqrt{2}$"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Độ dài: $AB = a$ và đường chéo $BD = a\\sqrt{2}$.<br>Góc giữa $\\vec{AB}$ và $\\vec{BD}$: Vì $\\vec{AB}$ hướng sang phải, còn $\\vec{BD}$ hướng chéo xuống trái hợp với $BA$ góc $45^\\circ$, nên $(\\vec{AB}, \\vec{BD}) = 180^\\circ - 45^\\circ = 135^\\circ$.<br>Suy ra: $$\\vec{AB} \\cdot \\vec{BD} = a \\cdot a\\sqrt{2} \\cdot \\cos 135^\\circ = a^2\\sqrt{2} \\cdot \\left(-\\dfrac{\\sqrt{2}}{2}\\right) = -a^2.$$<br>&rArr; <strong>Chọn đáp án B.</strong>",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho hình vuông $ABCD$ cạnh $a$. Tính $\\vec{AB} \\cdot \\vec{AC}$.",
           options: ["$a^2$", "$2a^2$", "$0$", "$-a^2$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$\\vec{AB} \\cdot \\vec{AC} = a \\cdot a\\sqrt{2} \\cdot \\cos 45^\\circ = a^2$."
         }
       },
@@ -542,11 +558,13 @@ window.LESSON_10_C4_B11_DATA = {
           "$t = -3$ hoặc $t = 4$"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Ta có: $\\vec{MA} = (1 - t;\\, 2)$ và $\\vec{MB} = (-4 - t;\\, 3)$.<br>Tam giác $ABM$ vuông tại $M$ &hArr; $\\vec{MA} \\perp \\vec{MB} \\iff \\vec{MA} \\cdot \\vec{MB} = 0$.<br>Suy ra:<br>$$(1 - t)(-4 - t) + 2 \\times 3 = 0 \\iff -4 - t + 4t + t^2 + 6 = 0 \\iff t^2 + 3t + 2 = 0.$$<br>Giải phương trình bậc hai ta được: $t = -1$ hoặc $t = -2$.<br>&rArr; <strong>Chọn đáp án C.</strong>",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho $A(2; 1), B(-2; 2), M(t; 0)$. Tìm $t$ để $\\vec{MA} \\perp \\vec{MB}$.",
           options: ["$t = \\pm \\sqrt{2}$", "$t = 0$", "$t = \\pm 1$", "$t = 1; 2$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$(2-t)(-2-t) + 2 = 0 \\iff t^2 - 4 + 2 = 0 \\iff t^2 = 2 \\iff t = \\pm\\sqrt{2}$."
         }
       }
@@ -652,6 +670,7 @@ window.LESSON_10_C4_B11_DATA = {
         level: "Thông hiểu",
         prompt: "Trong mặt phẳng toạ độ $Oxy$, cho hai vectơ $\\vec{u} = (3; 4)$ và $\\vec{v} = (8; -6)$. Giá trị của tích vô hướng $\\vec{u} \\cdot \\vec{v}$ bằng bao nhiêu?",
         correctValue: 0,
+        correctAnswer: "0",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng biểu thức toạ độ của tích vô hướng:<br>$$\\vec{u} \\cdot \\vec{v} = x x' + y y' = 3 \\times 8 + 4 \\times (-6) = 24 - 24 = 0.$$<br>&rArr; <strong>Đáp số: 0.</strong>"
       },
       {
@@ -660,6 +679,7 @@ window.LESSON_10_C4_B11_DATA = {
         level: "Vận dụng thực tế",
         prompt: "Một kiện hàng được kéo trượt trên sàn phẳng nằm ngang một đoạn đường $s = 20\\text{ m}$ dưới tác dụng của lực kéo $\\vec{F}$ có độ lớn $150\\text{ N}$ hợp với phương chuyển động góc $60^\\circ$. Công sinh bởi lực $\\vec{F}$ bằng bao nhiêu Jun (J)?",
         correctValue: 1500,
+        correctAnswer: "1500",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng công thức tính công cơ học:<br>$$A = F \\cdot s \\cdot \\cos \\alpha = 150 \\times 20 \\times \\cos 60^\\circ = 3000 \\times 0{,}5 = 1500\\text{ J}.$$<br>&rArr; <strong>Đáp số: 1500.</strong>"
       }
     ]

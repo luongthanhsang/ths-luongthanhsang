@@ -78,6 +78,7 @@ window.LESSON_11_C4_B11_DATA = {
           "Cùng nằm trong một mặt phẳng"
         ],
         correctIndex: 0,
+        correctAnswer: "A",
         hint: "Hãy nhớ đến hai đường ray xe lửa (song song) và tuyến cầu vượt bắc qua đường bên dưới (chéo nhau).",
         explain: "Rất xuất sắc! Trong không gian, hai đường thẳng không có điểm chung có thể song song (nếu đồng phẳng) hoặc chéo nhau (nếu không đồng phẳng)."
       },
@@ -93,6 +94,7 @@ window.LESSON_11_C4_B11_DATA = {
           "Cắt nhau tạo thành một tam giác"
         ],
         correctIndex: 0,
+        correctAnswer: "A",
         hint: "Nhớ hình ảnh mái nhà (ba giao tuyến song song) hoặc đỉnh chóp (ba giao tuyến đồng quy).",
         explain: "Chính xác tuyệt đối! Định lí SGK trang 81 khẳng định: Ba giao tuyến phân biệt đó chỉ có thể đồng quy hoặc đôi một song song."
       }
@@ -204,6 +206,7 @@ window.LESSON_11_C4_B11_DATA = {
                 "Khi chúng nằm trong hai mặt phẳng song song"
               ],
               correctIndex: 0,
+              correctAnswer: "A",
               feedbackCorrect: "Rất chính xác! 'Chéo nhau' đồng nghĩa với 'không đồng phẳng', tức là không tồn tại bất kì mặt phẳng nào chứa cả hai đường thẳng đó.",
               feedbackWrong: "Lưu ý bẫy kinh điển: 'Không có điểm chung' chưa chắc đã chéo nhau, vì hai đường thẳng song song cũng không có điểm chung!"
             },
@@ -219,6 +222,7 @@ window.LESSON_11_C4_B11_DATA = {
                 "$AD$ và $BD$"
               ],
               correctIndex: 0,
+              correctAnswer: "A",
               feedbackCorrect: "Tuyệt vời! Trong tứ diện $ABCD$, ba cặp cạnh đối diện $(AB, CD), (AC, BD), (AD, BC)$ luôn luôn chéo nhau đôi một.",
               feedbackWrong: "Chú ý: Các cặp cạnh có chung một đỉnh (như $AB$ và $AC$ chung đỉnh $A$) thì luôn cắt nhau, không thể chéo nhau."
             }
@@ -333,6 +337,7 @@ window.LESSON_11_C4_B11_DATA = {
                 "$a$ vuông góc với $b$"
               ],
               correctIndex: 0,
+              correctAnswer: "A",
               feedbackCorrect: "Chính xác! Tính chất bắc cầu trong không gian: Hai đường thẳng phân biệt cùng song song với đường thẳng thứ ba thì song song với nhau.",
               feedbackWrong: "Chú ý: Đây là định lí tính chất cơ bản được phát biểu trang 80 SGK."
             },
@@ -348,6 +353,7 @@ window.LESSON_11_C4_B11_DATA = {
                 "Trùng với đường chéo $AC$"
               ],
               correctIndex: 0,
+              correctAnswer: "A",
               feedbackCorrect: "Rất xuất sắc! Vì $(SAB)$ chứa $AB$, $(SCD)$ chứa $CD$, mà $AB // CD$ và có điểm chung $S$, nên giao tuyến là đường thẳng $d$ qua $S$ và song song với $AB, CD$.",
               feedbackWrong: "Áp dụng hệ quả trang 81: Hai mặt phẳng lần lượt chứa hai đường thẳng song song thì giao tuyến của chúng phải song song với hai đường thẳng đó."
             }
@@ -414,13 +420,14 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Nhận biết",
         prompt: "Trong không gian, hai đường thẳng được gọi là <strong>song song</strong> với nhau nếu:",
         options: [
-          "Chúng cùng nằm trong một mặt phẳng và không có điểm chung.",
           "Chúng không có điểm chung.",
           "Chúng không cắt nhau.",
+          "Chúng cùng nằm trong một mặt phẳng và không có điểm chung.",
           "Chúng cùng nằm trong một mặt phẳng."
         ],
-        correctIndex: 0,
-        solution: "Theo định nghĩa chuẩn SGK trang 79: Hai đường thẳng song song trong không gian là hai đường thẳng đồng phẳng (cùng nằm trong một mặt phẳng) và không có điểm chung.",
+        correctIndex: 2,
+        correctAnswer: "C",
+        solution: "Theo định nghĩa chuẩn SGK trang 79: Hai đường thẳng song song trong không gian là hai đường thẳng đồng phẳng (cùng nằm trong một mặt phẳng) và không có điểm chung. Chọn C.",
         similarVariation: {
           prompt: "Khẳng định nào sau đây là định nghĩa của hai đường thẳng chéo nhau?",
           options: [
@@ -430,6 +437,7 @@ window.LESSON_11_C4_B11_DATA = {
             "Hai đường thẳng vuông góc với nhau."
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Chéo nhau nghĩa là không đồng phẳng."
         }
       },
@@ -445,11 +453,13 @@ window.LESSON_11_C4_B11_DATA = {
           "Không có"
         ],
         correctIndex: 0,
-        solution: "Theo tính chất SGK trang 80: 'Trong không gian, qua một điểm không nằm trên đường thẳng cho trước, có đúng một đường thẳng song song với đường thẳng đã cho'.",
+        correctAnswer: "A",
+        solution: "Theo tính chất SGK trang 80: 'Trong không gian, qua một điểm không nằm trên đường thẳng cho trước, có đúng một đường thẳng song song với đường thẳng đã cho'. Chọn A.",
         similarVariation: {
           prompt: "Qua điểm $A$ nằm ngoài đường thẳng $\\Delta$, số đường thẳng song song với $\\Delta$ là:",
           options: ["Duy nhất một", "Vô số", "Hai", "Không xác định"],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Chỉ có duy nhất 1 đường thẳng."
         }
       },
@@ -459,17 +469,19 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Nhận biết",
         prompt: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang ($AB // CD$). Số cặp đường thẳng chéo nhau tạo bởi các cạnh của hình chóp là đại lượng nào sau đây?",
         options: [
-          "Cạnh bên và cạnh đáy không chung đỉnh (ví dụ $SA$ và $BC$ chéo nhau)",
           "Hai cạnh đáy $AB$ và $CD$ chéo nhau",
           "Hai cạnh bên $SA$ và $SC$ chéo nhau",
-          "Cạnh $SB$ và $BC$ chéo nhau"
+          "Cạnh $SB$ và $BC$ chéo nhau",
+          "Cạnh bên và cạnh đáy không chung đỉnh (ví dụ $SA$ và $BC$ chéo nhau)"
         ],
-        correctIndex: 0,
-        solution: "$SA$ và $BC$ không đồng phẳng và không cắt nhau nên chúng chéo nhau.",
+        correctIndex: 3,
+        correctAnswer: "D",
+        solution: "$SA$ và $BC$ không đồng phẳng và không cắt nhau nên chúng chéo nhau. Chọn D.",
         similarVariation: {
           prompt: "Trong hình chóp $S.ABCD$, cặp đường thẳng nào sau đây chắc chắn cắt nhau?",
           options: ["$AC$ và $BD$", "$SA$ và $BC$", "$SB$ và $CD$", "$AB$ và $SC$"],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "$AC$ và $BD$ là 2 đường chéo của đáy phẳng nên cắt nhau tại giao điểm của chúng."
         }
       },
@@ -479,17 +491,19 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Nhận biết",
         prompt: "Nếu hai mặt phẳng phân biệt $(P)$ và $(Q)$ cắt nhau theo giao tuyến $d$, và $(P), (Q)$ lần lượt chứa hai đường thẳng song song $a$ và $b$ thì:",
         options: [
-          "Giao tuyến $d$ song song với $a$ và $b$ (hoặc trùng với một trong hai đường)",
           "Giao tuyến $d$ vuông góc với $a$",
+          "Giao tuyến $d$ song song với $a$ và $b$ (hoặc trùng với một trong hai đường)",
           "Giao tuyến $d$ chéo với $a$",
           "Giao tuyến $d$ cắt cả $a$ và $b$"
         ],
-        correctIndex: 0,
-        solution: "Theo hệ quả định lí ba đường giao tuyến SGK trang 81: Giao tuyến $d // a // b$.",
+        correctIndex: 1,
+        correctAnswer: "B",
+        solution: "Theo hệ quả định lí ba đường giao tuyến SGK trang 81: Giao tuyến $d // a // b$. Chọn B.",
         similarVariation: {
           prompt: "Khi hai mặt phẳng chứa hai đường thẳng song song cắt nhau, phương của giao tuyến sẽ:",
           options: ["Cùng phương song song với hai đường thẳng đó", "Vuông góc", "Chéo nhau", "Trùng với đường thứ ba"],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Giao tuyến song song với cả hai đường thẳng."
         }
       },
@@ -499,17 +513,19 @@ window.LESSON_11_C4_B11_DATA = {
         level: "Nhận biết",
         prompt: "Cho tứ diện $ABCD$. Cặp cạnh đối diện nào sau đây là hai đường thẳng chéo nhau?",
         options: [
-          "$AC$ và $BD$",
           "$AB$ và $BC$",
           "$BC$ và $CD$",
+          "$AC$ và $BD$",
           "$AD$ và $AC$"
         ],
-        correctIndex: 0,
-        solution: "Trong tứ diện $ABCD$, hai cạnh $AC$ và $BD$ không có đỉnh chung nên là hai đường chéo nhau.",
+        correctIndex: 2,
+        correctAnswer: "C",
+        solution: "Trong tứ diện $ABCD$, hai cạnh $AC$ và $BD$ không có đỉnh chung nên là hai đường chéo nhau. Chọn C.",
         similarVariation: {
           prompt: "Trong tứ diện $S.ABC$, đường thẳng chéo với cạnh $SA$ là:",
           options: ["$BC$", "$AB$", "$AC$", "$SB$"],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Cạnh đối diện không chung đỉnh là $BC$."
         }
       }

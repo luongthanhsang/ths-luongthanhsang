@@ -171,6 +171,7 @@ window.LESSON_11_C4_B12_DATA = {
             "$d$ vuông góc với $(\\alpha)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Song song nghĩa là không giao nhau, tức là số lượng điểm chung bằng 0.",
           explain: "Chính xác! Theo định nghĩa SGK trang 84: Nếu đường thẳng $d$ và mặt phẳng $(\\alpha)$ không có điểm chung thì ta nói $d$ song song với $(\\alpha)$, kí hiệu $d \\parallel (\\alpha)$."
         },
@@ -186,6 +187,7 @@ window.LESSON_11_C4_B12_DATA = {
             "$d$ chéo nhau với $(\\alpha)$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Đường thẳng được xác định duy nhất bởi 2 điểm. Nếu cả 2 điểm đều thuộc mặt phẳng thì mọi điểm của đường thẳng đều thuộc mặt phẳng đó.",
           explain: "Rất chuẩn! Một trong các tiên đề cơ bản của hình học không gian: Nếu đường thẳng có 2 điểm phân biệt thuộc mặt phẳng thì toàn bộ đường thẳng nằm trong mặt phẳng đó, kí hiệu $d \\subset (\\alpha)$."
         }
@@ -330,6 +332,7 @@ window.LESSON_11_C4_B12_DATA = {
             "$a$ cắt một đường thẳng $b$ nằm trong $(P)$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Bắt buộc phải có điều kiện loại trừ: đường thẳng a không được nằm sẵn trong mặt phẳng (P).",
           explain: "Chính xác! Định lí 1 (Dấu hiệu nhận biết) nêu rõ: Nếu $a \\not\\subset (P)$ và $a \\parallel b$ với $b \\subset (P)$ thì $a \\parallel (P)$."
         },
@@ -345,6 +348,7 @@ window.LESSON_11_C4_B12_DATA = {
             "Mặt phẳng $(SAD)$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Đáy ABCD là hình bình hành nên AB // CD. Hãy tìm mặt phẳng nào chứa cạnh CD mà không chứa AB.",
           explain: "Tuyệt vời! Ta có $AB \\parallel CD$ (do $ABCD$ là hình bình hành). Mà $CD \\subset (SCD)$ và $AB \\not\\subset (SCD)$, do đó theo Định lí 1 suy ra $AB \\parallel (SCD)$."
         }
@@ -488,6 +492,7 @@ window.LESSON_11_C4_B12_DATA = {
             "$a$ trùng với $b$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Cả a và b cùng thuộc mặt phẳng (Q) và không có điểm chung vì a song song với (P). Hai đường thẳng đồng phẳng không có điểm chung thì song song.",
           explain: "Rất chính xác! Theo Định lí 2 SGK trang 86: Nếu $a \\parallel (P)$ và $(Q)$ chứa $a$ cắt $(P)$ theo giao tuyến $b$ thì $b \\parallel a$."
         },
@@ -503,6 +508,7 @@ window.LESSON_11_C4_B12_DATA = {
             "Chéo nhau với đường thẳng $d$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Đây là hệ quả trực tiếp từ Định lí 3 về ba mặt phẳng cắt nhau đôi một theo ba giao tuyến.",
           explain: "Chuẩn xác! Theo Hệ quả SGK: Nếu hai mặt phẳng phân biệt cùng song song với một đường thẳng thì giao tuyến của chúng (nếu có) cũng song song với đường thẳng đó."
         }
@@ -609,6 +615,7 @@ window.LESSON_11_C4_B12_DATA = {
             "Hình tròn"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Bốn giao tuyến trên bốn mặt của tứ diện từng đôi một song song với hai cạnh đối ban đầu.",
           explain: "Chính xác! Thiết diện cắt bởi mặt phẳng song song với hai cạnh đối của tứ diện có các cạnh đối song song với nhau, do đó nó là một hình bình hành (hoặc hình thang)."
         },
@@ -624,6 +631,7 @@ window.LESSON_11_C4_B12_DATA = {
             "Chéo nhau với mặt sàn nhà"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Mép trên của cánh cửa luôn vuông góc với trục bản lề và giữ khoảng cách không đổi tới mặt sàn.",
           explain: "Tuyệt vời! Theo Bài 4.20 SGK tr. 87: Vì trục bản lề thẳng đứng vuông góc sàn nhà và mép cửa vuông góc bản lề nên mép cửa luôn song song với một đường thẳng nằm trên sàn, dẫn đến luôn song song với mặt sàn nhà."
         }
@@ -775,11 +783,13 @@ window.LESSON_11_C4_B12_DATA = {
           "Nếu $d$ và $(\\alpha)$ có hai điểm chung phân biệt thì $d \\subset (\\alpha)$."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Khẳng định B sai vì thiếu điều kiện $d$ không nằm trong mặt phẳng $(\\alpha)$ ($d \\not\\subset (\\alpha)$). Nếu đường thẳng $d$ nằm sẵn trong $(\\alpha)$ và song song với một đường thẳng khác cùng nằm trong $(\\alpha)$ thì $d \\subset (\\alpha)$ chứ không phải $d \\parallel (\\alpha)$. Các khẳng định A, C, D đều đúng theo định nghĩa SGK.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho đường thẳng $a$ và mặt phẳng $(P)$. Nếu $a$ song song với mặt phẳng $(P)$ thì số lượng điểm chung giữa $a$ và $(P)$ là:",
           options: ["1 điểm", "0 điểm", "Vô số điểm", "2 điểm"],
           correctIndex: 1, // B (0 điểm)
+          correctAnswer: "B",
           explain: "Theo định nghĩa SGK trang 84, đường thẳng song song với mặt phẳng khi và chỉ khi chúng không có bất kỳ điểm chung nào (số điểm chung bằng 0)."
         }
       },
@@ -794,11 +804,13 @@ window.LESSON_11_C4_B12_DATA = {
           "$MN \\subset (BCD)$."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Trong tam giác $ABC$, $M$ là trung điểm $AB$, $N$ là trung điểm $AC$ nên $MN$ là đường trung bình của tam giác $ABC \\implies MN \\parallel BC$.<br>Mặt khác, $BC \\subset (BCD)$ và $MN \\not\\subset (BCD)$ (do $M, N \\notin (BCD)$).<br>Theo Định lí 1 suy ra $MN \\parallel (BCD)$. Do đó đáp án C là đúng.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SD$. Khẳng định nào sau đây đúng?",
           options: ["$MN \\parallel (SBC)$", "$MN \\parallel (ABCD)$", "$MN \\subset (ABCD)$", "$MN$ cắt $(ABCD)$"],
           correctIndex: 1, // B (MN // ABCD)
+          correctAnswer: "B",
           explain: "Trong tam giác $SAD$, $MN$ là đường trung bình nên $MN \\parallel AD$. Mà $AD \\subset (ABCD)$ và $MN \\not\\subset (ABCD) \\implies MN \\parallel (ABCD)$."
         }
       },
@@ -813,11 +825,13 @@ window.LESSON_11_C4_B12_DATA = {
           "$OM \\parallel (SBC)$."
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Xét tam giác $SAC$: $O$ là trung điểm của đường chéo $AC$ (tính chất hình bình hành) và $M$ là trung điểm của $SC$.<br>Suy ra $OM$ là đường trung bình của tam giác $SAC \\implies OM \\parallel SA$.<br>Vì $SA \\subset (SAD)$ và $OM \\not\\subset (SAD)$ nên $OM \\parallel (SAD)$.<br>Tương tự, $SA \\subset (SAB)$ và $OM \\not\\subset (SAB)$ nên $OM \\parallel (SAB)$. Do đó đáp án A hoàn toàn chính xác.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $N$ là trung điểm của cạnh $SB$. Đường thẳng $ON$ song song với mặt phẳng nào sau đây?",
           options: ["$(SAD)$", "$(ABCD)$", "$(SBC)$", "$(SAB)$"],
           correctIndex: 0, // A ((SAD))
+          correctAnswer: "A",
           explain: "Trong tam giác $SBD$, $O$ là trung điểm $BD$, $N$ là trung điểm $SB$ nên $ON \\parallel SD$. Mà $SD \\subset (SAD) \\implies ON \\parallel (SAD)$."
         }
       },
@@ -832,11 +846,13 @@ window.LESSON_11_C4_B12_DATA = {
           "Duy nhất 1 mặt phẳng."
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo hệ quả của Định lí 3 (SGK trang 86): Cho hai đường thẳng chéo nhau $a$ và $b$. Có <strong>duy nhất một</strong> mặt phẳng chứa đường thẳng này và song song với đường thẳng kia. (Qua một điểm trên $a$, ta dựng đường thẳng $b' \\parallel b$; khi đó mặt phẳng $(a, b')$ là duy nhất thỏa mãn chứa $a$ và song song với $b$). Do đó đáp án D là chính xác.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho đường thẳng $a$ song song với mặt phẳng $(P)$. Có bao nhiêu mặt phẳng chứa $a$ và song song với mặt phẳng $(P)$?",
           options: ["Vô số", "Không có", "Duy nhất 1", "2"],
           correctIndex: 2, // C (Duy nhất 1)
+          correctAnswer: "C",
           explain: "Theo tiên đề hình học không gian, qua một đường thẳng song song với một mặt phẳng, có duy nhất một mặt phẳng song song với mặt phẳng đã cho."
         }
       },
@@ -851,11 +867,13 @@ window.LESSON_11_C4_B12_DATA = {
           "Hình ngũ giác."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Gọi $M$ là trung điểm $AB$.<br>- Vì $(\\alpha) \\parallel BC$ nên $(\\alpha)$ cắt $(ABC)$ theo giao tuyến qua $M$ song song $BC$, cắt $AC$ tại trung điểm $N \\implies MN \\parallel BC$.<br>- Tương tự, $(\\alpha)$ cắt $(ABD)$ theo giao tuyến qua $M$ song song $AD$, cắt $BD$ tại trung điểm $Q \\implies MQ \\parallel AD$.<br>- Mặt phẳng $(\\alpha)$ cắt $(ACD)$ theo giao tuyến $NP \\parallel AD$ ($P$ là trung điểm $CD$).<br>- Mặt phẳng $(\\alpha)$ cắt $(BCD)$ theo giao tuyến $PQ \\parallel BC$.<br>Tứ giác $MNPQ$ có $MN \\parallel PQ$ (cùng $\\parallel BC$) và $MQ \\parallel NP$ (cùng $\\parallel AD$). Do đó thiết diện $MNPQ$ là một <strong>hình bình hành</strong>. Đáp án đúng là B.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho tứ diện đều $ABCD$. Mặt phẳng $(\\alpha)$ song song với $AB$ và $CD$, cắt 4 cạnh $AC, BC, BD, AD$ tạo thành thiết diện có 4 cạnh bằng nhau và các góc vuông. Khi đó thiết diện là:",
           options: ["Hình chữ nhật", "Hình vuông", "Hình thoi", "Tam giác cân"],
           correctIndex: 1, // B (Hình vuông)
+          correctAnswer: "B",
           explain: "Vì tứ diện đều nên $AB \\perp CD$ và $AB = CD$. Thiết diện song song với 2 cạnh đối vuông góc và bằng nhau nên thiết diện là một hình vuông."
         }
       }

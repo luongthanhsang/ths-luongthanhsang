@@ -178,6 +178,7 @@ window.LESSON_10_C2_B3_DATA = {
             "$x + y + z \\le 10$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Bất phương trình bậc nhất hai ẩn chỉ chứa bậc 1 của x và y, không chứa số mũ bậc 2 hay tích x nhân y.",
           explain: "Chính xác! $2x + 3y < 1$ có dạng $ax + by < c$ với $a = 2, b = 3, c = 1$. Các biểu thức còn lại chứa $x^2$, tích $xy$ hoặc có 3 ẩn $x, y, z$ nên không thoả mãn."
         },
@@ -193,6 +194,7 @@ window.LESSON_10_C2_B3_DATA = {
             "$(5; 0)$"
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Thay toạ độ từng cặp số vào vế trái và so sánh với 5.",
           explain: "Rất chuẩn! Thay $(3; 4)$ vào vế trái: $3 + 2(4) = 11 > 5$ (đúng). Các cặp còn lại cho kết quả $\\le 5$ nên không phải là nghiệm."
         }
@@ -266,6 +268,7 @@ window.LESSON_10_C2_B3_DATA = {
             "Điểm $C(0; -2)$ nằm trên trục tung"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Khi đường thẳng không đi qua gốc toạ độ, thay x = 0, y = 0 vào tính toán là nhanh nhất.",
           explain: "Chính xác! Vì đường thẳng $2x - 3y = 6$ không đi qua gốc toạ độ $O(0; 0)$, việc thay $x=0, y=0$ cho kết quả $0 \\le 6$ (đúng) cực kì nhanh chóng và không sợ nhầm lẫn."
         },
@@ -281,6 +284,7 @@ window.LESSON_10_C2_B3_DATA = {
             "Vẽ bằng đường cong lượn sóng"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Bất phương trình ngặt không có dấu bằng (>) thì các điểm trên bờ không phải là nghiệm.",
           explain: "Rất chuẩn! SGK trang 24 quy ước rõ: Miền nghiệm của bất phương trình ngặt $ax + by < c$ hoặc $ax + by > c$ không kể bờ $d$, và đường thẳng bờ $d$ được biểu diễn bằng nét đứt."
         }
@@ -511,6 +515,7 @@ window.LESSON_10_C2_B3_DATA = {
             "Rạp phá sản"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Thay x = 200, y = 100 vào biểu thức 50x + 100y.",
           explain: "Chính xác! Doanh thu = 50(200) + 100(100) = 10000 + 10000 = 20000 nghìn đồng = 20 triệu đồng. Điểm (200; 100) nằm chính xác trên đường thẳng biên AB: x + 2y = 400, ứng với trạng thái hoà vốn."
         }
@@ -658,11 +663,13 @@ window.LESSON_10_C2_B3_DATA = {
           "$xy + x < 1$."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định nghĩa SGK trang 23: Bất phương trình bậc nhất hai ẩn có dạng $ax + by > c$ (với $a, b$ không đồng thời bằng 0).<br>Biểu thức $2x - 3y > 5$ có $a = 2, b = -3, c = 5$ là bất phương trình bậc nhất hai ẩn.<br>Các phương án A, B chứa số hạng bậc hai ($x^2, y^2$), phương án D chứa tích $xy$ nên đều không phải.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Trong các bất phương trình sau, đâu là bất phương trình bậc nhất hai ẩn?",
           options: ["$3x + y \\le 7$", "$x^2 + y^2 \\le 4$", "$x + y + z > 0$", "$x/y \\le 2$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           explain: "Chỉ có $3x + y \\le 7$ có dạng $ax + by \\le c$ bậc nhất với hai ẩn $x, y$."
         }
       },
@@ -677,11 +684,13 @@ window.LESSON_10_C2_B3_DATA = {
           "$(4; 0)$."
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Thay toạ độ $(1; 2)$ vào vế trái của bất phương trình:<br>$2(1) + 2 = 4 \\le 5$ (luôn đúng).<br>Vậy cặp số $(1; 2)$ là một nghiệm của bất phương trình đã cho.<br>Kiểm tra các phương án còn lại:<br>• Với $(3; 1)$: $2(3) + 1 = 7 > 5$ (sai).<br>• Với $(2; 3)$: $2(2) + 3 = 7 > 5$ (sai).<br>• Với $(4; 0)$: $2(4) + 0 = 8 > 5$ (sai).",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cặp số nào sau đây KHÔNG phải là nghiệm của bất phương trình $x - 2y < 3$?",
           options: ["$(0; 0)$", "$(1; 0)$", "$(5; 0)$", "$(2; 1)$"],
           correctIndex: 2, // C (5 - 0 = 5 > 3)
+          correctAnswer: "C",
           explain: "Thay $(5; 0)$ vào ta có $5 - 0 = 5 < 3$ là sai nên $(5; 0)$ không phải nghiệm."
         }
       },
@@ -696,11 +705,13 @@ window.LESSON_10_C2_B3_DATA = {
           "Đường thẳng bờ được biểu diễn bằng nét đứt và không thuộc miền nghiệm."
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì bất phương trình có dấu ngặt '$<$' (không có dấu bằng) nên đường thẳng bờ $d: x - 2y = 4$ được biểu diễn bằng <strong>nét đứt</strong> và các điểm nằm trên bờ không thuộc miền nghiệm.<br>Kiểm tra gốc $O(0; 0)$: $0 - 2(0) = 0 < 4$ (đúng) nên $O(0; 0)$ thuộc miền nghiệm.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Bất phương trình $3x - y \\ge 6$ có đường thẳng bờ được vẽ bằng nét gì?",
           options: ["Nét đứt", "Nét liền", "Không vẽ", "Đường lượn sóng"],
           correctIndex: 1, // B (Nét liền)
+          correctAnswer: "B",
           explain: "Vì có dấu $\\ge$ (có chứa dấu bằng) nên bờ được vẽ bằng nét liền đậm và thuộc miền nghiệm."
         }
       },
@@ -715,11 +726,13 @@ window.LESSON_10_C2_B3_DATA = {
           "$x - y < -2$."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Vì miền nghiệm kể cả bờ $d$ nên bất phương trình phải chứa dấu bằng '$\\le$' hoặc '$\\ge$'.<br>- Thay toạ độ gốc toạ độ $O(0; 0)$ vào vế trái biểu thức $x - y$:<br>$0 - 0 = 0$.<br>So sánh với 2, ta thấy $0 \\le 2$ là khẳng định đúng.<br>Do miền nghiệm chứa điểm $O(0; 0)$ nên bất phương trình cần tìm là $x - y \\le 2$.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Nửa mặt phẳng không chứa gốc toạ độ O của đường thẳng x + y = 3 (kể cả bờ) là miền nghiệm của:",
           options: ["$x + y < 3$", "$x + y \\le 3$", "$x + y \\ge 3$", "$x + y > 3$"],
           correctIndex: 2, // C
+          correctAnswer: "C",
           explain: "Vì không chứa O(0,0) nên 0 + 0 = 0 < 3 bị loại, miền nghiệm phải thoả mãn x + y >= 3."
         }
       },
@@ -734,11 +747,13 @@ window.LESSON_10_C2_B3_DATA = {
           "$x + 2y > 200$."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Số tiền cước gọi nội mạng: $1 \\cdot x = x$ (nghìn đồng).<br>- Số tiền cước gọi ngoại mạng: $2 \\cdot y = 2y$ (nghìn đồng).<br>- Tổng số tiền cước phát sinh trong tháng: $x + 2y$ (nghìn đồng).<br>- Đề bài yêu cầu số tiền phải trả <strong>nhỏ hơn</strong> $200$ nghìn đồng (dấu ngặt '$<$'):<br>Do đó ta có bất phương trình: $x + 2y < 200$ ($x, y \\ge 0$).",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Nếu cước nội mạng là 2 nghìn đồng/phút, ngoại mạng là 3 nghìn đồng/phút và số tiền không vượt quá 300 nghìn đồng thì điều kiện là:",
           options: ["$2x + 3y \\le 300$", "$2x + 3y < 300$", "$3x + 2y \\le 300$", "$2x + 3y > 300$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           explain: "'Không vượt quá' nghĩa là bé hơn hoặc bằng <= 300."
         }
       }

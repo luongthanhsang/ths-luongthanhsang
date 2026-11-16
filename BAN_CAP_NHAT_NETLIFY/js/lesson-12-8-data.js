@@ -185,6 +185,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$(3; -2; 2)$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Cộng từng thành phần hoành độ với hoành độ, tung độ với tung độ, cao độ với cao độ.",
           explain: "Chính xác! Áp dụng công thức cộng toạ độ: $\\vec{u} + \\vec{v} = (2+1; -1+3; 4+(-2)) = (3; 2; 2)$."
         },
@@ -200,6 +201,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$\\vec{b_4} = (4; -8; 10)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Hai vectơ cùng phương khi toạ độ của chúng tỉ lệ với nhau.",
           explain: "Chính xác! Ta có $\\vec{a} = 2\\vec{b_1} \\iff (2; -4; 6) = 2(1; -2; 3)$ nên hai vectơ cùng phương."
         }
@@ -280,6 +282,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$(2; 6; -2)$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Lấy toạ độ hai điểm cộng lại chia đôi.",
           explain: "Chính xác! $x_M = (2+4)/2 = 3; y_M = (-1+5)/2 = 2; z_M = (3+1)/2 = 2 \\implies M(3; 2; 2)$."
         },
@@ -295,6 +298,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$(6; 3; 3)$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Nhân 3 toạ độ của trọng tâm G rồi trừ đi toạ độ của A và B.",
           explain: "Chính xác! $x_C = 3(2) - 1 - 3 = 2; y_C = 3(1) - 2 - (-1) = 2; z_C = 3(1) - 0 - 4 = -1 \\implies C(2; 2; -1)$."
         }
@@ -376,6 +380,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$12$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Nhân hoành với hoành, tung với tung, cao với cao rồi cộng lại.",
           explain: "Chính xác! $\\vec{a} \\cdot \\vec{b} = 1(4) + (-2)(1) + 3(-2) = 4 - 2 - 6 = -4$."
         },
@@ -391,6 +396,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$\\sqrt{13}$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Căn bậc hai của tổng bình phương các hiệu toạ độ.",
           explain: "Chính xác! $AB = \\sqrt{(3-1)^2 + (-2-0)^2 + (1-2)^2} = \\sqrt{4 + 4 + 1} = \\sqrt{9} = 3$."
         }
@@ -472,6 +478,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$(1000; 580; 8)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Vì thời gian bằng 1/2 nên vectơ BC bằng 1/2 vectơ AB.",
           explain: "Chính xác! $\\vec{BC} = \\frac{1}{2}\\vec{AB} = (70; 25; 0{,}5) \\implies C(940+70; 550+25; 8+0{,}5) = (1010; 575; 8{,}5)$."
         },
@@ -487,6 +494,7 @@ window.LESSON_12_C2_B8_DATA = {
             "$5{,}10\\text{ km}$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Tính độ dài đoạn thẳng MN theo công thức khoảng cách giữa hai điểm.",
           explain: "Chính xác! $MN = \\sqrt{(-1-2)^2 + (-1{,}5-1)^2 + (0{,}8-0{,}5)^2} = \\sqrt{9 + 6{,}25 + 0{,}09} = \\sqrt{15{,}34} \\approx 3{,}92\\text{ km}$."
         }
@@ -587,6 +595,7 @@ window.LESSON_12_C2_B8_DATA = {
           "D. $(5; -3; 4)$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         solution: `
           <p><strong>Đáp án đúng: B</strong></p>
           <p>Ta có: $2\\vec{a} = 2(1;\\, -2;\\, 3) = (2;\\, -4;\\, 6)$.<br>
@@ -601,6 +610,7 @@ window.LESSON_12_C2_B8_DATA = {
             "D. $(5; 0; 5)$"
           ],
           correctIndex: 2, // Đáp án C
+          correctAnswer: "C",
           solution: "Ta có $3\\vec{a} = (6; -3; 3) \\implies \\vec{u} = (6 - 1; -3 - 3; 3 - (-2)) = (5; -6; 5)$."
         }
       },
@@ -616,6 +626,7 @@ window.LESSON_12_C2_B8_DATA = {
           "D. $(2; 1; 0)$"
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         solution: `
           <p><strong>Đáp án đúng: C</strong></p>
           <p>Áp dụng công thức toạ độ trọng tâm tam giác:<br>
@@ -631,6 +642,7 @@ window.LESSON_12_C2_B8_DATA = {
             "D. $(1; 0; 2)$"
           ],
           correctIndex: 0, // Đáp án A
+          correctAnswer: "A",
           solution: "Toạ độ trọng tâm: $x_G = (2+4+0)/3 = 2; y_G = (1-3+2)/3 = 0; z_G = (-3+1+5)/3 = 1 \\implies G(2; 0; 1)$."
         }
       },
@@ -646,6 +658,7 @@ window.LESSON_12_C2_B8_DATA = {
           "D. $m = 1$"
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         solution: `
           <p><strong>Đáp án đúng: A</strong></p>
           <p>Hai vectơ $\\vec{u}$ và $\\vec{v}$ vuông góc khi và chỉ khi tích vô hướng của chúng bằng $0$:<br>
@@ -660,6 +673,7 @@ window.LESSON_12_C2_B8_DATA = {
             "D. $m = -4$"
           ],
           correctIndex: 3, // Đáp án D
+          correctAnswer: "D",
           solution: "Ta có: $\\vec{u}\\cdot\\vec{v} = 2(1) - 1(m) + 3(-2) = 0 \\iff 2 - m - 6 = 0 \\iff m = -4$."
         }
       },
@@ -675,6 +689,7 @@ window.LESSON_12_C2_B8_DATA = {
           "D. $5$"
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         solution: `
           <p><strong>Đáp án đúng: D</strong></p>
           <p>Độ dài đoạn thẳng $MN$ được tính theo công thức:<br>
@@ -689,6 +704,7 @@ window.LESSON_12_C2_B8_DATA = {
             "D. $6$"
           ],
           correctIndex: 0, // Đáp án A
+          correctAnswer: "A",
           solution: "$AB = \\sqrt{(2-2)^2 + (4-1)^2 + (3-(-1))^2} = \\sqrt{0 + 9 + 16} = 5$."
         }
       },
@@ -704,6 +720,7 @@ window.LESSON_12_C2_B8_DATA = {
           "D. $120^\\circ$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         solution: `
           <p><strong>Đáp án đúng: B</strong></p>
           <p>Áp dụng công thức tính cô-sin góc giữa hai vectơ:<br>
@@ -719,6 +736,7 @@ window.LESSON_12_C2_B8_DATA = {
             "D. $180^\\circ$"
           ],
           correctIndex: 2, // Đáp án C
+          correctAnswer: "C",
           solution: "Ta có: $\\vec{u} \\cdot \\vec{v} = 1(0) + 0(1) + 1(0) = 0 \\implies (\\vec{u}, \\vec{v}) = 90^\\circ$."
         }
       }

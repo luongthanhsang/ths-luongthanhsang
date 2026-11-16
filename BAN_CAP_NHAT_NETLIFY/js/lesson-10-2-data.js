@@ -238,6 +238,24 @@ window.LESSON_10_C1_B2_DATA = {
       </svg>
       <div class="small text-muted mt-2">Mô hình họp trực tuyến hai chuyên đề của CLB Lịch sử 12 thành viên (SGK Kết nối tri thức trang 12).</div>
     </div>`,
+    checkpoints: [
+      {
+        id: "poi-10-2-hook-1",
+        time: 20,
+        title: "Giây 20: Tương tác bài toán dẫn nhập Họp trực tuyến",
+        question: "Dựa vào hai màn hình phòng họp trực tuyến ở tình huống mở đầu, có bao nhiêu bạn học sinh tham gia <strong>cả hai</strong> chuyên đề Toán học và Tin học?",
+        options: [
+          "3 bạn",
+          "8 bạn",
+          "5 bạn (Hương, Chi, Tú, Bình, Khánh)",
+          "10 bạn"
+        ],
+        correctIndex: 2,
+        correctAnswer: "C",
+        hint: "Em hãy quan sát những cái tên cùng xuất hiện ở cả danh sách phòng A và danh sách phòng B.",
+        explain: "Chính xác! Có 5 bạn học sinh tham gia cả hai chuyên đề là: Hương, Chi, Tú, Bình, Khánh. Trong toán học, tập hợp gồm 5 bạn này chính là giao của hai tập hợp học sinh hai phòng!"
+      }
+    ],
     audioUrl: "assets/audio/b10_2_hook.mp3",
     audioScript: "Phần 3. Tiến trình bài học. Tình huống mở đầu. Các em hãy quan sát giao diện họp trực tuyến của Câu lạc bộ Lịch sử trên màn hình. Câu lạc bộ có tất cả 12 thành viên, tổ chức hai chuyên đề thảo luận trực tuyến. Chuyên đề một có 7 bạn tham gia: Nam, Hương, Chi, Tú, Bình, Ngân, Khánh. Chuyên đề hai có 8 bạn tham gia: Hương, Chi, Tú, Khánh, Bình, Hân, Hiền, Lam. Bạn An thắc mắc: Có bao nhiêu thành viên tham gia cả hai chuyên đề, và có bao nhiêu thành viên của câu lạc bộ vắng mặt trong cả hai chuyên đề? Để giải quyết bài toán thực tế thú vị này, chúng ta sẽ cùng bước vào tìm hiểu ngôn ngữ Tập hợp và các phép toán giao, hợp, hiệu ngay sau đây!",
     poiTime: 20,
@@ -258,6 +276,24 @@ window.LESSON_10_C1_B2_DATA = {
       title: "Các khái niệm cơ bản về tập hợp",
       audioUrl: "assets/audio/b10_2_sec1.mp3",
       audioScript: "Mục 1. Các khái niệm cơ bản về tập hợp. Mục này gồm ba nội dung chính: a. Tập hợp; b. Tập hợp con; và c. Hai tập hợp bằng nhau. Trong tiểu mục a, các em cần nhớ: Một tập hợp thường được kí hiệu bằng chữ cái in hoa như A, B, C, S. Mỗi đối tượng trong tập hợp gọi là một phần tử. Kí hiệu x thuộc S nghĩa là x là phần tử của S. Kí hiệu x không thuộc S nghĩa là x không phải là phần tử của S. Ta có hai cách mô tả tập hợp: Cách một là liệt kê các phần tử; cách hai là chỉ ra tính chất đặc trưng. Số phần tử của tập S được kí hiệu là n mở ngoặc S đóng ngoặc. Tập hợp không chứa phần tử nào được gọi là tập hợp rỗng, kí hiệu là chữ O gạch chéo. Sang tiểu mục b, tập hợp con: Nếu mọi phần tử của tập hợp T đều là phần tử của tập hợp S thì ta nói T là tập hợp con của S, kí hiệu T chứa trong S. Quy ước: Tập rỗng là tập con của mọi tập hợp. Người ta thường dùng đường cong kín, gọi là biểu đồ Ven, để minh họa trực quan tập con. Ở tiểu mục c: Hai tập hợp S và T được gọi là bằng nhau nếu mỗi phần tử của T cũng là phần tử của S và ngược lại, kí hiệu S bằng T.",
+      checkpoints: [
+        {
+          id: "poi-10-2-sec1-1",
+          time: 25,
+          title: "Giây 25: Tương tác khái niệm Tập hợp con",
+          question: "Cho tập hợp $S = \\{x \\in \\mathbb{N} \\mid x \\le 5\\}$. Số phần tử của $S$ là $n(S)$ và khẳng định nào sau đây là <strong>đúng</strong>?",
+          options: [
+            "$n(S) = 5$ và $\\{0; 1\\} \\in S$",
+            "$n(S) = 6$ và $\\{1; 2; 3\\} \\subset S$",
+            "$n(S) = 6$ và $6 \\in S$",
+            "$n(S) = 5$ và $\\varnothing \\not\\subset S$"
+          ],
+          correctIndex: 1,
+          correctAnswer: "B",
+          hint: "Tập các số tự nhiên không vượt quá 5 bắt đầu từ 0 đến 5. Phân biệt kí hiệu phần tử thuộc (∈) và tập hợp con con (⊂).",
+          explain: "Chính xác! Tập $S = \\{0; 1; 2; 3; 4; 5\\}$ có 6 phần tử nên $n(S) = 6$. Tập $\\{1; 2; 3\\}$ là một tập hợp gồm các phần tử đều thuộc $S$, nên $\\{1; 2; 3\\} \\subset S$ là khẳng định hoàn toàn chính xác!"
+        }
+      ],
       subsections: [
         // --- 1a. TẬP HỢP ---
         {
@@ -477,6 +513,24 @@ window.LESSON_10_C1_B2_DATA = {
       title: "Các tập hợp số",
       audioUrl: "assets/audio/b10_2_sec2.mp3",
       audioScript: "Mục 2. Các tập hợp số. Mục này gồm hai nội dung trọng tâm: a. Mối quan hệ giữa các tập hợp số; và b. Các tập con thường dùng của tập số thực R. Trong tiểu mục a, các em nhớ lại: Tập số tự nhiên N là tập con của tập số nguyên Z. Tập số nguyên Z là tập con của tập số hữu tỉ Q. Và tập số hữu tỉ Q là tập con của tập số thực R. Mối quan hệ này được biểu diễn lồng nhau: N con Z, Z con Q, Q con R. Ở tiểu mục b: Các tập con thường dùng của R gồm có khoảng, đoạn và nửa khoảng. Kí hiệu dương vô cực và âm vô cực biểu diễn độ lớn vô hạn. Đoạn từ a đến b lấy cả hai đầu mút a và b, dùng ngoặc vuông. Khoảng từ a đến b không lấy hai đầu mút, dùng ngoặc tròn. Nửa khoảng lấy một đầu mút ngoặc vuông và bỏ đầu mút ngoặc tròn. Trong Ví dụ 5, tập hợp C gồm các số thực lớn hơn hoặc bằng 2 và nhỏ hơn hoặc bằng 7 được viết là đoạn từ vuông 2 đến vuông 7. Tập hợp D gồm các số thực nhỏ hơn 2 được viết là khoảng từ âm vô cực đến tròn 2. Các em hãy chú ý quan sát bảng vàng minh họa trực quan trên màn hình!",
+      checkpoints: [
+        {
+          id: "poi-10-2-sec2-1",
+          time: 30,
+          title: "Giây 30: Tương tác quy ước các khoảng, đoạn, nửa khoảng",
+          question: "Kí hiệu $[a; b)$ được định nghĩa như thế nào và cách biểu diễn hình học trên trục số ra sao?",
+          options: [
+            "Đoạn $[a; b) = \\{x \\in \\mathbb{R} \\mid a < x < b\\}$, dùng ngoặc tròn tại cả hai đầu mút.",
+            "Nửa khoảng $[a; b) = \\{x \\in \\mathbb{R} \\mid a \\le x < b\\}$, dùng ngoặc vuông $[$ tại $a$, ngoặc tròn $)$ tại $b$, gạch bỏ phần ngoài.",
+            "Khoảng $[a; b) = \\{x \\in \\mathbb{R} \\mid a \\le x \\le b\\}$, dùng ngoặc vuông tại cả hai đầu mút.",
+            "Nửa khoảng $[a; b) = \\{x \\in \\mathbb{R} \\mid a < x \\le b\\}$, dùng ngoặc tròn $($ tại $a$, ngoặc vuông $]$ tại $b$."
+          ],
+          correctIndex: 1,
+          correctAnswer: "B",
+          hint: "Mút vuông ứng với dấu có dấu bằng (≤), mút tròn ứng với dấu bất đẳng thức ngặt (<).",
+          explain: "Chính xác! $[a; b)$ là nửa khoảng lấy từ $a$ đến $b$, trong đó $x$ có thể bằng $a$ (ngoặc vuông $[$) nhưng phải nhỏ hơn hẳn $b$ (ngoặc tròn $)$). Trên trục số ta gạch bỏ các số nhỏ hơn $a$ và các số lớn hơn hoặc bằng $b$."
+        }
+      ],
       subsections: [
         // --- 2a. MỐI QUAN HỆ GIỮA CÁC TẬP HỢP SỐ ---
         {
@@ -777,6 +831,24 @@ window.LESSON_10_C1_B2_DATA = {
       title: "Các phép toán trên tập hợp",
       audioUrl: "assets/audio/b10_2_sec3.mp3",
       audioScript: "Mục 3. Các phép toán trên tập hợp. Mục này gồm ba nội dung then chốt: a. Giao của hai tập hợp; b. Hợp của hai tập hợp; và c. Hiệu của hai tập hợp và phần bù. Cả ba mục con này đều được minh họa trực quan sinh động bằng biểu đồ Ven. Trong tiểu mục a, Giao của hai tập hợp S và T là tập hợp gồm tất cả các phần tử vừa thuộc S vừa thuộc T, kí hiệu là S giao T. Trên biểu đồ Ven Hình 1.6, phần giao được tô màu đỏ nổi bật. Trong Ví dụ 6, giao của hai tập rời rạc C và D là tập gồm hai số 4 và 27. Giao của nửa khoảng từ vuông 1 đến dương vô cực và nửa khoảng từ âm vô cực đến vuông 3 chính là đoạn từ vuông 1 đến vuông 3. Sang tiểu mục b, Hợp của hai tập hợp S và T là tập hợp gồm tất cả các phần tử thuộc S hoặc thuộc T, kí hiệu là S hợp T. Trên biểu đồ Ven Hình 1.7, toàn bộ vùng của cả hai hình tròn được tô màu xanh lá mạ. Ví dụ 8 đã giải quyết trọn vẹn bài toán mở đầu: có 10 bạn tham gia ít nhất một chuyên đề, do đó có đúng 2 thành viên của câu lạc bộ vắng mặt trong cả hai chuyên đề. Cuối cùng ở tiểu mục c, Hiệu của S và T là tập hợp gồm các phần tử thuộc S nhưng không thuộc T, kí hiệu S trừ T, được biểu diễn bởi phần hình trăng khuyết màu xanh lam trên Hình 1.9. Khi T là tập con của S, hiệu S trừ T được gọi là phần bù của T trong S, kí hiệu C chỉ số S của T, biểu diễn bởi hình vành khăn trên Hình 1.10. Bài toán vận dụng khảo sát thể thao cho chúng ta công thức thực tế quan trọng: số phần tử của A hợp B bằng số phần tử của A cộng số phần tử của B trừ đi số phần tử của A giao B.",
+      checkpoints: [
+        {
+          id: "poi-10-2-sec3-1",
+          time: 35,
+          title: "Giây 35: Tương tác phép toán giao và hợp trên tập số",
+          question: "Cho hai tập hợp $A = [0; 4]$ và $B = (2; 6)$. Giao $A \\cap B$ và Hợp $A \\cup B$ lần lượt là:",
+          options: [
+            "$A \\cap B = (2; 4]$ và $A \\cup B = [0; 6)$",
+            "$A \\cap B = [0; 6)$ và $A \\cup B = (2; 4]$",
+            "$A \\cap B = [2; 4]$ và $A \\cup B = (0; 6)$",
+            "$A \\cap B = (2; 4)$ và $A \\cup B = [0; 6]$"
+          ],
+          correctIndex: 0,
+          correctAnswer: "A",
+          hint: "Giao lấy phần chung (vừa thuộc A vừa thuộc B), Hợp lấy tất cả các phần tử thuộc ít nhất một trong hai tập.",
+          explain: "Chính xác! Với $A = [0; 4]$ và $B = (2; 6)$:<br>• $x \\in A \\cap B \\Leftrightarrow 0 \\le x \\le 4$ và $2 < x < 6 \\Leftrightarrow 2 < x \\le 4 \\Rightarrow A \\cap B = (2; 4]$.<br>• $x \\in A \\cup B \\Leftrightarrow x \\in [0; 4]$ hoặc $x \\in (2; 6) \\Rightarrow A \\cup B = [0; 6)$."
+        }
+      ],
       subsections: [
         // --- 3a. GIAO CỦA HAI TẬP HỢP ---
         {
@@ -1170,6 +1242,24 @@ window.LESSON_10_C1_B2_DATA = {
         <p><b>3. Phép HIỆU (\\(A \\setminus B\\)):</b> Giữ lại tập \\(A\\), sau đó xóa/gạch bỏ toàn bộ phần thuộc tập \\(B\\). Lưu ý quy tắc đảo dấu đầu mút: Nếu \\(B\\) chứa ngoặc tròn tại điểm mốc \\(a\\) thì hiệu \\(A \\setminus B\\) sẽ nhận mút vuông \\([\\) tại \\(a\\), và ngược lại!</p>
       </div>
     </div>`,
+    checkpoints: [
+      {
+        id: "poi-10-2-wrapup-1",
+        time: 25,
+        title: "Giây 25: Tương tác công thức số phần tử hợp của hai tập hữu hạn",
+        question: "Gọi $A$ là tập các học sinh chơi bóng đá, $B$ là tập các học sinh chơi cầu lông trong một lớp. Công thức tính tổng số bạn chơi ít nhất một môn thể thao $n(A \\cup B)$ là:",
+        options: [
+          "$n(A \\cup B) = n(A) + n(B)$",
+          "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$",
+          "$n(A \\cup B) = n(A) \\cdot n(B)$",
+          "$n(A \\cup B) = n(A) + n(B) + n(A \\cap B)$"
+        ],
+        correctIndex: 1,
+        correctAnswer: "B",
+        hint: "Nhớ rằng các bạn chơi cả hai môn (A ∩ B) đã được đếm một lần trong n(A) và thêm một lần trong n(B).",
+        explain: "Chính xác! Đây là nguyên lí bao hàm - loại trừ (Inclusion-Exclusion Principle): $n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$. Nhờ trừ đi số bạn chơi cả hai môn một lần, mỗi bạn chỉ được tính đúng một lần!"
+      }
+    ],
     audioUrl: "assets/audio/b10_2_wrapup.mp3",
     audioScript: "Chốt kiến thức then chốt. Như vậy các em đã nắm vững toàn bộ các khái niệm và phép toán trên tập hợp. Về lịch sử toán học, Biểu đồ Ven được nhà logic học người Anh John Venn giới thiệu vào năm 1880, và ngày nay đã trở thành công cụ không thể thiếu trong khoa học máy tính và trí tuệ nhân tạo. Mẹo của Thầy Sáng: Khi tìm giao của các khoảng đoạn trên trục số, các em hãy vẽ lần lượt từng tập và gạch bỏ phần ngoài; phần còn trắng duy nhất chính là giao. Khi tìm hiệu, nhớ quy tắc đảo dấu mút: mút tròn của tập bị trừ sẽ biến thành mút vuông trong tập hiệu. Bây giờ, các em hãy cùng bước sang Phần 4 để làm bài tập trắc nghiệm củng cố nhé!"
   },
@@ -1185,6 +1275,8 @@ window.LESSON_10_C1_B2_DATA = {
       {
         id: "mc-10-2-1",
         num: 1,
+        correctIndex: 2,
+        correctAnswer: "C",
         level: "Nhận biết",
         prompt: "Cho tập hợp $A = \\{x \\in \\mathbb{R} \\mid x^2 - 5x + 6 = 0\\}$. Khẳng định nào sau đây là <strong>đúng</strong>?",
         options: [
@@ -1193,12 +1285,13 @@ window.LESSON_10_C1_B2_DATA = {
           "C. $A = \\{2; 3\\}$",
           "D. $A = \\varnothing$"
         ],
-        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Phương trình $x^2 - 5x + 6 = 0 \\Leftrightarrow (x - 2)(x - 3) = 0 \\Leftrightarrow x = 2$ hoặc $x = 3$.<br>Cả hai nghiệm đều là số thực, nên tập hợp $A$ gồm hai phần tử là 2 và 3, viết là $A = \\{2; 3\\}$.<br>&rArr; <strong>Đáp án đúng là C.</strong>"
       },
       {
         id: "mc-10-2-2",
         num: 2,
+        correctIndex: 0,
+        correctAnswer: "A",
         level: "Thông hiểu",
         prompt: "Cho tập hợp $S = \\{a; b; c\\}$. Số lượng tất cả các <strong>tập hợp con</strong> của tập hợp $S$ là:",
         options: [
@@ -1207,12 +1300,13 @@ window.LESSON_10_C1_B2_DATA = {
           "C. 6",
           "D. 7"
         ],
-        correctAnswer: "A",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định lí số tập con: Một tập hợp có $n$ phần tử thì có tất cả $2^n$ tập con.<br>Ở đây tập $S$ có 3 phần tử nên số tập con là: $2^3 = 8$.<br>Các tập con đó gồm: $\\varnothing$, 3 tập có 1 phần tử ($\\{a\\}, \\{b\\}, \\{c\\}$), 3 tập có 2 phần tử ($\\{a; b\\}, \\{b; c\\}, \\{c; a\\}$) và chính tập $S$.<br>&rArr; <strong>Đáp án đúng là A.</strong>"
       },
       {
         id: "mc-10-2-3",
         num: 3,
+        correctIndex: 3,
+        correctAnswer: "D",
         level: "Thông hiểu",
         prompt: "Cho hai tập hợp $A = [-2; 3)$ và $B = [1; 5]$. Giao của hai tập hợp $A \\cap B$ là:",
         options: [
@@ -1221,12 +1315,13 @@ window.LESSON_10_C1_B2_DATA = {
           "C. $(-2; 1)$",
           "D. $[1; 3)$"
         ],
-        correctAnswer: "D",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Ta có: $x \\in A \\cap B \\Leftrightarrow -2 \\le x < 3$ và $1 \\le x \\le 5 \\Leftrightarrow \\max(-2, 1) \\le x < \\min(3, 5) \\Leftrightarrow 1 \\le x < 3$.<br>Do đó: $A \\cap B = [1; 3)$ (nửa khoảng lấy đầu mút vuông tại 1 và bỏ mút tròn tại 3).<br>&rArr; <strong>Đáp án đúng là D.</strong>"
       },
       {
         id: "mc-10-2-4",
         num: 4,
+        correctIndex: 1,
+        correctAnswer: "B",
         level: "Vận dụng",
         prompt: "Cho hai tập hợp $A = (-\\infty; 2]$ và $B = (0; +\\infty)$. Hợp của hai tập hợp $A \\cup B$ là:",
         options: [
@@ -1235,12 +1330,13 @@ window.LESSON_10_C1_B2_DATA = {
           "C. $(-\\infty; 0)$",
           "D. $[2; +\\infty)$"
         ],
-        correctAnswer: "B",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Tập $A$ lấy toàn bộ các số $x \\le 2$. Tập $B$ lấy toàn bộ các số $x > 0$.<br>Vì $0 < 2$ nên hai tập này chồng lấn lên nhau và phủ kín toàn bộ trục số thực từ âm vô cực đến dương vô cực.<br>Do đó: $A \\cup B = (-\\infty; +\\infty) = \\mathbb{R}$.<br>&rArr; <strong>Đáp án đúng là B.</strong>"
       },
       {
         id: "mc-10-2-5",
         num: 5,
+        correctIndex: 2,
+        correctAnswer: "C",
         level: "Vận dụng",
         prompt: "Cho tập hợp $A = [-3; 2)$. Phần bù của tập hợp $A$ trong $\\mathbb{R}$, kí hiệu $C_\\mathbb{R} A$, bằng:",
         options: [
@@ -1249,7 +1345,6 @@ window.LESSON_10_C1_B2_DATA = {
           "C. $(-\\infty; -3) \\cup [2; +\\infty)$",
           "D. $[-3; 2]$"
         ],
-        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Phần bù của $A$ trong $\\mathbb{R}$ là: $C_\\mathbb{R} A = \\mathbb{R} \\setminus [-3; 2)$.<br>Tập $A$ lấy các số thực $-3 \\le x < 2$. Do đó các số không thuộc $A$ là: $x < -3$ hoặc $x \\ge 2$.<br>Biểu diễn dưới dạng hợp của hai khoảng/nửa khoảng: $(-\\infty; -3) \\cup [2; +\\infty)$.<br><em>Lưu ý mẹo Thầy Sáng:</em> Đổi dấu đầu mút: mút vuông $[-3$ đổi thành mút tròn $-3)$, và mút tròn $2)$ đổi thành mút vuông $[2$.<br>&rArr; <strong>Đáp án đúng là C.</strong>"
       }
     ],
@@ -1351,6 +1446,7 @@ window.LESSON_10_C1_B2_DATA = {
         level: "Vận dụng",
         prompt: "Trong một đợt khảo sát sở thích thể thao của 45 học sinh lớp 10, có 28 bạn thích môn Bóng đá, 20 bạn thích môn Bóng rổ và 5 bạn không thích cả hai môn này. Hỏi có bao nhiêu bạn thích cả hai môn Bóng đá và Bóng rổ?",
         correctValue: 8,
+        correctAnswer: "8",
         unit: "bạn",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Số học sinh thích ít nhất một môn thể thao là: $45 - 5 = 40$ (học sinh).<br>Gọi $A$ là tập các bạn thích bóng đá ($n(A) = 28$).<br>Gọi $B$ là tập các bạn thích bóng rổ ($n(B) = 20$).<br>Khi đó $n(A \\cup B) = 40$. Áp dụng công thức số phần tử:<br>$$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$$<br>Thay số vào: $40 = 28 + 20 - n(A \\cap B) \\Rightarrow n(A \\cap B) = 48 - 40 = 8$.<br>&rArr; <strong>Đáp số: 8.</strong>"
       },
@@ -1360,6 +1456,7 @@ window.LESSON_10_C1_B2_DATA = {
         level: "Vận dụng cao",
         prompt: "Cho hai tập hợp $A = [-4; 2]$ và $B = (m - 1; m + 3]$. Có bao nhiêu giá trị nguyên của tham số $m$ để giao của hai tập hợp $A \\cap B \\neq \\varnothing$?",
         correctValue: 10,
+        correctAnswer: "10",
         unit: "giá trị",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Xét biến cố đối: $A \\cap B = \\varnothing$.<br>Điều này xảy ra khi và chỉ khi: $m + 3 < -4$ hoặc $m - 1 \\ge 2 \\Leftrightarrow m < -7$ hoặc $m \\ge 3$.<br>Do đó để $A \\cap B \\neq \\varnothing$ thì điều kiện là: $-7 \\le m < 3$.<br>Các giá trị nguyên của $m$ thỏa mãn là: $-7, -6, -5, -4, -3, -2, -1, 0, 1, 2$.<br>Số giá trị nguyên là: $2 - (-7) + 1 = 10$ giá trị.<br>&rArr; <strong>Đáp số: 10.</strong>"
       }

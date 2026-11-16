@@ -3455,7 +3455,8 @@ function initDigitalLessons() {
               lesson.hook.buttonLabel || "Nghe thầy Sáng giảng bài",
               lesson.hook.audioScript || lesson.hook.story,
               lesson.hook.audioUrl || "",
-              "hook-voice-player"
+              "hook-voice-player",
+              lesson.hook.checkpoints || lesson.hook.pois || []
             )}
           </div>
           ${(lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml) ? `<div class="hook-story">${lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml}</div>` : (
@@ -3481,6 +3482,50 @@ function initDigitalLessons() {
             <div class="hook-question-box">
               <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
               <strong>Câu hỏi khơi gợi tư duy:</strong> ${lesson.hook.questionHtml || (/<[a-z][\s\S]*>/i.test(lesson.hook.question || "") ? lesson.hook.question : escapeHtml(lesson.hook.question))}
+            </div>
+          ` : ''}
+
+          ${(lesson.hook.checkpoints && lesson.hook.checkpoints.length > 0) ? `
+            <div class="section-checkpoints-card" style="margin-top: 20px; padding: 16px 18px; background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: 800; color: #166534; font-size: 1rem;">
+                  <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC TÌNH HUỐNG MỞ ĐẦU (POI)
+                </span>
+                <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                  <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                </span>
+              </div>
+              <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 12px;">
+                ${lesson.hook.checkpoints.map((poi, pIdx) => {
+                  let cIdx = poi.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                    else if (typeof poi.correctAnswer === 'string') {
+                      const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                      <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                    </div>
+                    <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                      ${poi.question}
+                    </div>
+                    <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                      ${poi.options.map((opt, oIdx) => `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                          <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                        </button>
+                      `).join('')}
+                    </div>
+                    <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                      <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                    </div>
+                  </div>
+                `;}).join('')}
+              </div>
             </div>
           ` : ''}
         </div>
@@ -3733,11 +3778,24 @@ function initDigitalLessons() {
                         ${poi.question}
                       </div>
                       <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
-                        ${poi.options.map((opt, oIdx) => `
-                          <button class="btn-cp-opt" data-correct="${oIdx === poi.correctIndex}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        ${poi.options.map((opt, oIdx) => {
+                          let cIdx = poi.correctIndex;
+                          if (cIdx === undefined || cIdx === null) {
+                            if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                            else if (typeof poi.correctAnswer === 'string') {
+                              const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                              if (m) cIdx = m[0].charCodeAt(0) - 65;
+                            } else if (typeof poi.answer === 'number') cIdx = poi.answer;
+                            else if (typeof poi.answer === 'string') {
+                              const m = poi.answer.trim().toUpperCase().match(/^[A-D]/);
+                              if (m) cIdx = m[0].charCodeAt(0) - 65;
+                            }
+                          }
+                          return `
+                          <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
                             <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
                           </button>
-                        `).join('')}
+                        `;}).join('')}
                       </div>
                       <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
                         <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
@@ -3767,7 +3825,8 @@ function initDigitalLessons() {
               lesson.realworldWrapup.buttonLabel || "Nghe thầy Sáng giảng bài",
               lesson.realworldWrapup.audioScript || lesson.realworldWrapup.recap,
               lesson.realworldWrapup.audioUrl || "",
-              "wrapup-voice-player"
+              "wrapup-voice-player",
+              lesson.realworldWrapup.checkpoints || lesson.realworldWrapup.pois || []
             )}
           </div>
 
@@ -3792,6 +3851,50 @@ function initDigitalLessons() {
               </div>
             </div>
           </div>
+
+          ${(lesson.realworldWrapup.checkpoints && lesson.realworldWrapup.checkpoints.length > 0) ? `
+            <div class="section-checkpoints-card" style="margin-top: 20px; padding: 16px 18px; background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: 800; color: #166534; font-size: 1rem;">
+                  <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC TỔNG KẾT VẬN DỤNG (POI)
+                </span>
+                <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                  <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                </span>
+              </div>
+              <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 12px;">
+                ${lesson.realworldWrapup.checkpoints.map((poi, pIdx) => {
+                  let cIdx = poi.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                    else if (typeof poi.correctAnswer === 'string') {
+                      const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                      <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                    </div>
+                    <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                      ${poi.question}
+                    </div>
+                    <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                      ${poi.options.map((opt, oIdx) => `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                          <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                        </button>
+                      `).join('')}
+                    </div>
+                    <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                      <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                    </div>
+                  </div>
+                `;}).join('')}
+              </div>
+            </div>
+          ` : ''}
           ${renderStepNavFooterHtml('wrapup', lesson)}
         </div>
       `;
@@ -3836,11 +3939,24 @@ function initDigitalLessons() {
                     </div>
                     <div class="exam-item-prompt" id="prompt-${q.id}">${qPrompt}</div>
                     <div class="checkpoint-options-grid" id="options-${q.id}" style="margin-top: 12px;">
-                      ${qOpts.map((opt, oIdx) => `
-                        <button class="btn-cp-opt" data-correct="${oIdx === q.correctIndex}" data-qid="${q.id}">
+                      ${qOpts.map((opt, oIdx) => {
+                        let cIdx = q.correctIndex;
+                        if (cIdx === undefined || cIdx === null) {
+                          if (typeof q.correctAnswer === 'number') cIdx = q.correctAnswer;
+                          else if (typeof q.correctAnswer === 'string') {
+                            const m = q.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          } else if (typeof q.answer === 'number') cIdx = q.answer;
+                          else if (typeof q.answer === 'string') {
+                            const m = q.answer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          }
+                        }
+                        return `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${q.id}">
                           ${opt}
                         </button>
-                      `).join("")}
+                      `;}).join("")}
                     </div>
                     <div class="exam-solution-collapse" id="sol-${q.id}">
                       <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
@@ -3986,7 +4102,14 @@ function initDigitalLessons() {
 
           ${challenges.map((act, aIdx) => {
             if (act.type === "quiz" || act.type === "multiple_choice") {
-              const correctIdx = act.correctIndex !== undefined ? act.correctIndex : act.correctAnswerIndex;
+              let correctIdx = act.correctIndex !== undefined ? act.correctIndex : act.correctAnswerIndex;
+              if (correctIdx === undefined || correctIdx === null) {
+                if (typeof act.correctAnswer === 'number') correctIdx = act.correctAnswer;
+                else if (typeof act.correctAnswer === 'string') {
+                  const m = act.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                  if (m) correctIdx = m[0].charCodeAt(0) - 65;
+                }
+              }
               return `
                 <div class="quiz-card" data-act-idx="${aIdx}">
                   <div class="quiz-card-header">
@@ -5051,7 +5174,19 @@ function initDigitalLessons() {
         const idx = parseInt(this.dataset.idx, 10);
         const chosenText = (poi.options && poi.options[idx]) ? poi.options[idx].trim() : '';
         const correctText = poi.correct ? poi.correct.trim() : '';
-        const isCorrect = (idx === poi.correctIndex) || (correctText && chosenText === correctText);
+        let targetIdx = poi.correctIndex;
+        if (targetIdx === undefined || targetIdx === null) {
+          if (typeof poi.correctAnswer === 'number') targetIdx = poi.correctAnswer;
+          else if (typeof poi.correctAnswer === 'string') {
+            const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+            if (m) targetIdx = m[0].charCodeAt(0) - 65;
+          } else if (typeof poi.answer === 'number') targetIdx = poi.answer;
+          else if (typeof poi.answer === 'string') {
+            const m = poi.answer.trim().toUpperCase().match(/^[A-D]/);
+            if (m) targetIdx = m[0].charCodeAt(0) - 65;
+          }
+        }
+        const isCorrect = (idx === targetIdx) || (correctText && chosenText === correctText);
 
         if (isCorrect) {
           this.style.background = '#dcfce7';
@@ -5263,11 +5398,20 @@ function initDigitalLessons() {
             if (sim.options) {
               const optsEl = document.getElementById(`options-${qid}`);
               if (optsEl) {
-                optsEl.innerHTML = sim.options.map((opt, oIdx) => `
-                  <button class="btn-cp-opt" data-correct="${oIdx === sim.correctIndex}" data-qid="${qid}">
+                optsEl.innerHTML = sim.options.map((opt, oIdx) => {
+                  let cIdx = sim.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof sim.correctAnswer === 'number') cIdx = sim.correctAnswer;
+                    else if (typeof sim.correctAnswer === 'string') {
+                      const m = sim.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${qid}">
                     ${opt}
                   </button>
-                `).join("");
+                `;}).join("");
                 bindDigitalLessonEvents(cardEl);
               }
             }

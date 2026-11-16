@@ -244,6 +244,7 @@ window.LESSON_10_C4_B9_DATA = {
             "Cùng phương nhưng luôn có độ dài bằng $0$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Nhớ quy tắc: $k$ âm thì ngược hướng, và độ dài là số không âm $|k|\\cdot |\\vec{a}|$.",
           explain: "Chính xác! SGK trang 56 quy định: Với $k < 0$, vectơ $k\\vec{a}$ ngược hướng với $\\vec{a}$ và có độ dài bằng $|k||\\vec{a}| = (-k)|\\vec{a}|$."
         },
@@ -259,6 +260,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$k = -1$ và $\\vec{a} \\ne \\vec{0}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tương tự như phép nhân số thực: tích bằng không khi có ít nhất một thừa số bằng không.",
           explain: "Rất chuẩn! Ta quy ước $k\\vec{a} = \\vec{0} \\iff k = 0$ hoặc $\\vec{a} = \\vec{0}$."
         }
@@ -393,6 +395,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$k(\\vec{a} + \\vec{b}) = k^2(\\vec{a} + \\vec{b})$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Nhân số $k$ vào từng số hạng vectơ bên trong dấu ngoặc.",
           explain: "Rất tốt! Tính chất phân phối đối với phép cộng vectơ: $k(\\vec{a} + \\vec{b}) = k\\vec{a} + k\\vec{b}$."
         },
@@ -408,6 +411,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$\\vec{a}$ và $\\vec{b}$ có cùng điểm đầu"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Ví dụ 1 SGK trang 56: Hai vectơ cùng phương khi vectơ này bằng k lần vectơ kia.",
           explain: "Chính xác tuyệt đối! Định lí SGK trang 56: Hai vectơ $\\vec{a}$ và $\\vec{b}$ ($\\vec{b} \\ne \\vec{0}$) cùng phương khi và chỉ khi tồn tại số thực $k$ để $\\vec{a} = k\\vec{b}$."
         }
@@ -516,6 +520,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$\\vec{OA} - \\vec{OB} = 2\\vec{OI}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Quy tắc chèn điểm $I$: $\\vec{OA} + \\vec{OB} = (\\vec{OI} + \\vec{IA}) + (\\vec{OI} + \\vec{IB}) = 2\\vec{OI} + \\vec{0}$.",
           explain: "Rất chuẩn! Ví dụ 2 SGK trang 57: Với $I$ là trung điểm $AB$, với mọi điểm $O$ ta luôn có $\\vec{OA} + \\vec{OB} = 2\\vec{OI}$."
         },
@@ -531,6 +536,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$\\vec{MA} + \\vec{MB} + \\vec{MC} = 2\\vec{MG}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Luyện tập 2 SGK trang 57: Tổng 3 vectơ từ một điểm đến 3 đỉnh bằng 3 lần vectơ nối tới trọng tâm.",
           explain: "Chính xác! Luyện tập 2 SGK trang 57: Với mọi điểm $M$, $\\vec{MA} + \\vec{MB} + \\vec{MC} = 3\\vec{MG}$."
         }
@@ -595,6 +601,7 @@ window.LESSON_10_C4_B9_DATA = {
             "Có đúng hai cặp số $(x; y)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Định lí SGK trang 57: Mọi vectơ u đều biểu thị được MỘT CÁCH DUY NHẤT.",
           explain: "Chính xác! Chú ý SGK trang 57: Cho hai vectơ không cùng phương $\\vec{a}, \\vec{b}$, mọi vectơ $\\vec{u}$ đều biểu thị được MỘT CÁCH DUY NHẤT dưới dạng $\\vec{u} = x\\vec{a} + y\\vec{b}$."
         },
@@ -610,6 +617,7 @@ window.LESSON_10_C4_B9_DATA = {
             "$\\vec{AM} = 2\\vec{AB} + \\vec{AD}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Bài tập 4.11 SGK: $\\vec{AM} = \\vec{AB} + \\vec{BM} = \\vec{AB} + \\frac{1}{2}\\vec{BC} = \\vec{AB} + \\frac{1}{2}\\vec{AD}$.",
           explain: "Rất xuất sắc! Vì $M$ là trung điểm $BC$ nên $\\vec{BM} = \\frac{1}{2}\\vec{BC} = \\frac{1}{2}\\vec{AD}$. Do đó $\\vec{AM} = \\vec{AB} + \\vec{BM} = \\vec{AB} + \\frac{1}{2}\\vec{AD}$."
         }
@@ -745,11 +753,13 @@ window.LESSON_10_C4_B9_DATA = {
           "$7$"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định nghĩa độ dài của tích vectơ với một số:<br>$$|\\vec{u}| = |-3\\vec{a}| = |-3| \\cdot |\\vec{a}| = 3 \\times 4 = 12.$$<br>&rArr; <strong>Chọn đáp án C.</strong>",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho $|\\vec{a}| = 5$. Tính độ dài của vectơ $\\vec{v} = -2\\vec{a}$.",
           options: ["$-10$", "$10$", "$3$", "$7$"],
           correctIndex: 1, // B (10)
+          correctAnswer: "B",
           solution: "$|-2\\vec{a}| = 2 \\times 5 = 10$."
         }
       },
@@ -765,11 +775,13 @@ window.LESSON_10_C4_B9_DATA = {
           "$\\vec{AI} = -\\vec{IB}$"
         ],
         correctIndex: 0, // A
+        correctAnswer: "A",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì $I$ là trung điểm của $AB$ nên hai vectơ $\\vec{IA}$ và $\\vec{IB}$ là hai vectơ đối nhau, do đó $\\vec{IA} + \\vec{IB} = \\vec{0}$.<br>Mặt khác, $\\vec{AB}$ và $\\vec{IB}$ cùng hướng và $AB = 2 IB$, do đó $\\vec{AB} = 2\\vec{IB}$.<br>&rArr; <strong>Chọn đáp án A.</strong>",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho đoạn thẳng $AB$ có trung điểm $M$. Vectơ $\\vec{MA}$ biểu diễn theo $\\vec{AB}$ là:",
           options: ["$\\vec{MA} = \\frac{1}{2}\\vec{AB}$", "$\\vec{MA} = -\\frac{1}{2}\\vec{AB}$", "$\\vec{MA} = 2\\vec{AB}$", "$\\vec{MA} = -2\\vec{AB}$"],
           correctIndex: 1, // B (-1/2 AB)
+          correctAnswer: "B",
           solution: "Vì MA ngược hướng AB và MA = 1/2 AB nên $\\vec{MA} = -\\frac{1}{2}\\vec{AB}$."
         }
       },
@@ -785,11 +797,13 @@ window.LESSON_10_C4_B9_DATA = {
           "$\\vec{AM} = 3\\vec{MG}$"
         ],
         correctIndex: 3, // D
+        correctAnswer: "D",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Ta có trọng tâm $G$ chia trung tuyến $AM$ theo tỉ lệ $AG = \\frac{2}{3}AM$ và $GM = \\frac{1}{3}AM$.<br>Do đó $\\vec{AM}$ và $\\vec{GM}$ cùng hướng, độ dài $AM = 3 GM \\implies \\vec{AM} = 3\\vec{GM}$.<br>Vì $\\vec{MG} = -\\vec{GM}$ nên $\\vec{AM} = -3\\vec{MG}$. Phát biểu $\\vec{AM} = 3\\vec{MG}$ là SAI.<br>&rArr; <strong>Chọn đáp án D.</strong>",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Cho $G$ là trọng tâm $\\triangle ABC$, $M$ là trung điểm $BC$. Hệ thức nào sau đây ĐÚNG?",
           options: ["$\\vec{GM} = \\frac{1}{3}\\vec{AM}$", "$\\vec{GM} = -\\frac{1}{3}\\vec{AM}$", "$\\vec{GM} = 2\\vec{GA}$", "$\\vec{GM} = -2\\vec{GA}$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$\\vec{GM}$ cùng hướng $\\vec{AM}$ và bằng 1/3 độ dài nên $\\vec{GM} = \\frac{1}{3}\\vec{AM}$."
         }
       },
@@ -805,11 +819,13 @@ window.LESSON_10_C4_B9_DATA = {
           "$\\vec{AC} = \\frac{1}{2}(\\vec{AB} + \\vec{AD})$"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo quy tắc hình bình hành: đường chéo $\\vec{AC}$ xuất phát từ đỉnh $A$ bằng tổng hai vectơ cạnh $\\vec{AB}$ và $\\vec{AD}$:<br>$$\\vec{AC} = \\vec{AB} + \\vec{AD}.$$<br>&rArr; <strong>Chọn đáp án B.</strong>",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho hình bình hành $ABCD$ tâm $O$. Vectơ $\\vec{AO}$ bằng:",
           options: ["$\\vec{AB} + \\vec{AD}$", "$\\frac{1}{2}(\\vec{AB} + \\vec{AD})$", "$\\vec{AB} - \\vec{AD}$", "$2(\\vec{AB} + \\vec{AD})$"],
           correctIndex: 1, // B
+          correctAnswer: "B",
           solution: "$\\vec{AO} = \\frac{1}{2}\\vec{AC} = \\frac{1}{2}(\\vec{AB} + \\vec{AD})$."
         }
       },
@@ -825,11 +841,13 @@ window.LESSON_10_C4_B9_DATA = {
           "$\\vec{AM} = \\frac{3}{4}\\vec{AB} + \\frac{1}{4}\\vec{AC}$"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì $M \\in BC$ và $MB = 2MC$ nên hai vectơ $\\vec{MB}$ và $\\vec{MC}$ ngược hướng, suy ra $\\vec{MB} = -2\\vec{MC} \\iff \\vec{MB} + 2\\vec{MC} = \\vec{0}$.<br>Chèn điểm $A$ vào hệ thức:<br>$$(\\vec{AB} - \\vec{AM}) + 2(\\vec{AC} - \\vec{AM}) = \\vec{0} \\iff 3\\vec{AM} = \\vec{AB} + 2\\vec{AC} \\iff \\vec{AM} = \\frac{1}{3}\\vec{AB} + \\frac{2}{3}\\vec{AC}.$$<br>&rArr; <strong>Chọn đáp án C.</strong>",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Điểm $N$ trên $BC$ sao cho $NC = 2NB$. Phân tích $\\vec{AN}$ theo $\\vec{AB}, \\vec{AC}$:",
           options: ["$\\vec{AN} = \\frac{2}{3}\\vec{AB} + \\frac{1}{3}\\vec{AC}$", "$\\vec{AN} = \\frac{1}{3}\\vec{AB} + \\frac{2}{3}\\vec{AC}$", "$\\vec{AN} = \\frac{1}{2}\\vec{AB} + \\frac{1}{2}\\vec{AC}$", "$\\vec{AN} = \\frac{3}{2}\\vec{AB} + \\frac{1}{2}\\vec{AC}$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "Vì NC = 2NB nên N gần B hơn, $\\vec{AN} = \\frac{2}{3}\\vec{AB} + \\frac{1}{3}\\vec{AC}$."
         }
       }

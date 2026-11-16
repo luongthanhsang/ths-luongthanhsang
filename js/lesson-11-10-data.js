@@ -162,6 +162,7 @@ window.LESSON_11_C4_B10_DATA = {
           "Vì trọng lực chỉ tác dụng lên 3 điểm"
         ],
         correctIndex: 1,
+        correctAnswer: "B",
         hint: "Xem lại tiên đề về số điểm không thẳng hàng để xác định một mặt phẳng.",
         explain: "Chính xác! Ba điểm chân tiếp xúc không thẳng hàng luôn xác định duy nhất một mặt phẳng tựa, nên vật thể không bao giờ bị bập bênh!"
       }
@@ -194,6 +195,7 @@ window.LESSON_11_C4_B10_DATA = {
             "Dấu gạch chéo / /"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Ví dụ kí hiệu mặt phẳng P hoặc mặt phẳng an pha.",
           explain: "Chính xác! Ta dùng chữ cái in hoa hoặc Hy Lạp đặt trong dấu ngoặc đơn: $(P), (Q), (\\alpha), (\\beta)$."
         }
@@ -341,6 +343,7 @@ window.LESSON_11_C4_B10_DATA = {
             "Bốn điểm đối xứng"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Xem định nghĩa đồng phẳng và tính chất 3 SGK.",
           explain: "Chính xác! Bốn điểm không cùng nằm trong một mặt phẳng gọi là bốn điểm không đồng phẳng (chúng tạo thành một tứ diện)."
         }
@@ -487,6 +490,7 @@ window.LESSON_11_C4_B10_DATA = {
             "Hai điểm phân biệt"
           ],
           correctIndex: 3,
+          correctAnswer: "D",
           hint: "Qua 2 điểm phân biệt chỉ có 1 đường thẳng, nhưng có vô số mặt phẳng đi qua đường thẳng đó (như các trang sách).",
           explain: "Chính xác! Qua hai điểm phân biệt có vô số mặt phẳng chứa chúng (chùm mặt phẳng). Cần thêm điểm thứ ba không thẳng hàng để xác định duy nhất một mặt phẳng."
         }
@@ -625,6 +629,7 @@ window.LESSON_11_C4_B10_DATA = {
             "6 đỉnh, 4 mặt, 4 cạnh"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Tứ diện gồm 4 mặt tam giác. Đếm các cạnh nối giữa từng cặp đỉnh.",
           explain: "Chính xác! Tứ diện $ABCD$ có đúng 4 đỉnh, 4 mặt tam giác và 6 đoạn thẳng cạnh ($AB, BC, CD, DA, AC, BD$)."
         }
@@ -814,6 +819,7 @@ window.LESSON_11_C4_B10_DATA = {
           "Vô số mặt phẳng"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         explain: "Theo Tính chất 2 (SGK Trang 72): Có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng, kí hiệu là mặt phẳng $(ABC)$."
       },
       {
@@ -826,6 +832,7 @@ window.LESSON_11_C4_B10_DATA = {
           "Có 1 mặt phẳng duy nhất"
         ],
         correctIndex: 3, // D
+        correctAnswer: "D",
         explain: "Theo Cách 2 xác định mặt phẳng (SGK Trang 74): Một mặt phẳng được hoàn toàn xác định khi biết nó đi qua một điểm và chứa một đường thẳng không đi qua điểm đó, kí hiệu là $\\text{mp}(A, d)$."
       },
       {
@@ -838,6 +845,7 @@ window.LESSON_11_C4_B10_DATA = {
           "2 cặp"
         ],
         correctIndex: 0, // A
+        correctAnswer: "A",
         explain: "Tứ diện $ABCD$ có 6 cạnh, chia thành đúng 3 cặp cạnh đối diện (không có đỉnh chung): $AB$ và $CD$; $AC$ và $BD$; $AD$ và $BC$."
       },
       {
@@ -850,6 +858,7 @@ window.LESSON_11_C4_B10_DATA = {
           "Đường thẳng SA"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         explain: "Ta có điểm chung thứ nhất là đỉnh $S$. Trong mặt phẳng đáy $(ABCD)$, $O = AC \\cap BD$ nên $O \\in AC \\subset (SAC)$ và $O \\in BD \\subset (SBD)$. Do đó $O$ là điểm chung thứ hai. Vậy giao tuyến là đường thẳng $SO$."
       },
       {
@@ -862,6 +871,7 @@ window.LESSON_11_C4_B10_DATA = {
           "12 cạnh"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         explain: "Hình chóp tứ giác gồm có 4 cạnh đáy ($AB, BC, CD, DA$) và 4 cạnh bên ($SA, SB, SC, SD$). Tổng số cạnh bằng $4 + 4 = 8$ cạnh."
       }
     ],
@@ -910,6 +920,7 @@ window.LESSON_11_C4_B10_DATA = {
         id: "b10-p3-q1",
         question: "Câu 1. Một người thợ mộc đóng một chiếc giá đỡ máy quay phim gồm 3 chân đỡ tiếp xúc với mặt đất tại 3 điểm phân biệt $A, B, C$ không thẳng hàng. Trong không gian, có bao nhiêu mặt phẳng đi qua cả 3 điểm tiếp xúc đó để đảm bảo giá đỡ luôn thăng bằng tuyệt đối không bị bập bênh?",
         correctValue: 1,
+        correctAnswer: "1",
         unit: "mặt phẳng",
         explain: "Theo Tính chất 2 của hình học không gian, có một và chỉ một mặt phẳng đi qua ba điểm không thẳng hàng. Do đó chỉ có duy nhất 1 mặt phẳng. Đáp số: 1."
       },
@@ -917,6 +928,7 @@ window.LESSON_11_C4_B10_DATA = {
         id: "b10-p3-q2",
         question: "Câu 2. Một mô hình lều trại dã ngoại có dạng hình chóp ngũ giác $S.ABCDE$ (đáy là đa giác 5 cạnh). Hỏi khung lều chóp này gồm tất cả bao nhiêu thanh cọc sắt (tương ứng với số cạnh của hình chóp)?",
         correctValue: 10,
+        correctAnswer: "10",
         unit: "cạnh",
         explain: "Hình chóp ngũ giác có 5 cạnh đáy và 5 cạnh bên. Tổng số cạnh bằng $5 + 5 = 10$. Đáp số: 10."
       }

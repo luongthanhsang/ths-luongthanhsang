@@ -180,6 +180,7 @@ window.LESSON_12_C2_B7_DATA = {
             "Trục đối xứng"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Trục Ox là trục hoành, trục Oy là trục tung, còn trục Oz thẳng đứng là...",
           explain: "Chính xác! Trục $Ox$ là trục hoành, trục $Oy$ là trục tung, và trục $Oz$ thẳng đứng là trục cao. Ba trục đôi một vuông góc tại gốc $O$."
         },
@@ -195,6 +196,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$\\vec{i} \\cdot \\vec{j} = 1$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Các vectơ đơn vị có độ dài bằng 1 và đôi một vuông góc nên tích vô hướng bằng 0.",
           explain: "Rất giỏi! Ba vectơ đơn vị có độ dài chuẩn hoá bằng 1 và vì ba trục đôi một vuông góc nên tích vô hướng giữa hai vectơ bất kì bằng 0."
         }
@@ -305,6 +307,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$M(4; -2; 3)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Toạ độ của điểm M chính là bộ ba hệ số trước các vectơ đơn vị i, j, k.",
           explain: "Chính xác! $\\vec{OM} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\Leftrightarrow M(x; y; z)$. Do đó $M(3; -2; 4)$."
         },
@@ -320,6 +323,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$M_4(0; 0; 5)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Chiếu lên mặt phẳng (Oxy) thì giữ nguyên x, y và cho cao độ z = 0.",
           explain: "Rất chuẩn! Chiếu lên mặt phẳng $(Oxy)$ thì giữ nguyên hoành độ và tung độ, còn cao độ triệt tiêu bằng 0: $M_1(2; -3; 0)$."
         }
@@ -453,6 +457,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$\\vec{j} = (1; 1; 0)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Trục tung Oy tương ứng với tung độ y = 1, hoành độ x = 0 và cao độ z = 0.",
           explain: "Chính xác! $\\vec{i} = (1; 0; 0)$, $\\vec{j} = (0; 1; 0)$, $\\vec{k} = (0; 0; 1)$ và vectơ-không $\\vec{0} = (0; 0; 0)$."
         },
@@ -468,6 +473,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$x \\cdot x' + y \\cdot y' + z \\cdot z' = 0$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Hai vectơ bằng nhau khi các toạ độ tương ứng đôi một bằng nhau.",
           explain: "Rất chuẩn! Hai vectơ bằng nhau khi và chỉ khi hoành độ bằng hoành độ, tung độ bằng tung độ, và cao độ bằng cao độ."
         }
@@ -535,6 +541,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$\\vec{AB} = (4; 0; -3)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Toạ độ véctơ AB = Toạ độ điểm ngọn B trừ Toạ độ điểm gốc A.",
           explain: "Chính xác! $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A) = (4 - 1; 0 - 2; -1 - 3) = (3; -2; -4)$."
         },
@@ -550,6 +557,7 @@ window.LESSON_12_C2_B7_DATA = {
             "$I(1; 3; -3)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Toạ độ trung điểm bằng trung bình cộng toạ độ hai đầu mút: (xA + xB)/2, ...",
           explain: "Rất chuẩn! $x_I = (2 + 4)/2 = 3$, $y_I = (4 - 2)/2 = 1$, $z_I = (-1 + 5)/2 = 2$. Vậy $I(3; 1; 2)$."
         }
@@ -633,13 +641,14 @@ window.LESSON_12_C2_B7_DATA = {
         level: "Nhận biết",
         prompt: "Trong không gian $Oxyz$, cho vectơ $\\vec{u} = 2\\vec{i} - 3\\vec{j} + 5\\vec{k}$. Toạ độ của vectơ $\\vec{u}$ là:",
         options: [
-          "A. $(2; -3; 5)$",
-          "B. $(2; 3; 5)$",
-          "C. $(-3; 2; 5)$",
+          "A. $(2; 3; 5)$",
+          "B. $(-3; 2; 5)$",
+          "C. $(2; -3; 5)$",
           "D. $(5; -3; 2)$"
         ],
-        correctIndex: 0,
-        solution: "Theo định nghĩa toạ độ của vectơ: $\\vec{u} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\iff \\vec{u} = (x; y; z)$. Do đó $\\vec{u} = (2; -3; 5)$. Chọn A.",
+        correctIndex: 2,
+        correctAnswer: "C",
+        solution: "Theo định nghĩa toạ độ của vectơ: $\\vec{u} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\iff \\vec{u} = (x; y; z)$. Do đó $\\vec{u} = (2; -3; 5)$. Chọn C.",
         similarVariation: {
           prompt: "Trong không gian $Oxyz$, cho vectơ $\\vec{v} = -4\\vec{i} + \\vec{j} - 6\\vec{k}$. Toạ độ của vectơ $\\vec{v}$ là:",
           options: [
@@ -649,6 +658,7 @@ window.LESSON_12_C2_B7_DATA = {
             "D. $(1; -4; -6)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Ta có $\\vec{v} = -4\\vec{i} + 1\\vec{j} - 6\\vec{k} \\implies \\vec{v} = (-4; 1; -6)$. Chọn A."
         }
       },
@@ -664,6 +674,7 @@ window.LESSON_12_C2_B7_DATA = {
           "D. $(0; 0; 7)$"
         ],
         correctIndex: 0,
+        correctAnswer: "A",
         solution: "Hình chiếu vuông góc của điểm $M(x; y; z)$ lên mặt phẳng $(Oxy)$ là $M_1(x; y; 0)$. Do đó toạ độ hình chiếu là $(3; -2; 0)$. Chọn A.",
         similarVariation: {
           prompt: "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $P(-5; 4; 9)$ lên trục cao $Oz$ có toạ độ là:",
@@ -674,6 +685,7 @@ window.LESSON_12_C2_B7_DATA = {
             "D. $(-5; 4; 0)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Hình chiếu vuông góc của điểm lên trục $Oz$ có $x = 0, y = 0$ và giữ nguyên $z$: $(0; 0; 9)$. Chọn A."
         }
       },
@@ -683,13 +695,14 @@ window.LESSON_12_C2_B7_DATA = {
         level: "Nhận biết",
         prompt: "Trong không gian $Oxyz$, cho hai điểm $A(1; 2; -3)$ và $B(3; 0; 1)$. Toạ độ của vectơ $\\vec{AB}$ là:",
         options: [
-          "A. $(2; -2; 4)$",
-          "B. $(-2; 2; -4)$",
-          "C. $(4; 2; -2)$",
-          "D. $(2; 1; -1)$"
+          "A. $(-2; 2; -4)$",
+          "B. $(4; 2; -2)$",
+          "C. $(2; 1; -1)$",
+          "D. $(2; -2; 4)$"
         ],
-        correctIndex: 0,
-        solution: "Ta có $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A) = (3 - 1; 0 - 2; 1 - (-3)) = (2; -2; 4)$. Chọn A.",
+        correctIndex: 3,
+        correctAnswer: "D",
+        solution: "Ta có $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A) = (3 - 1; 0 - 2; 1 - (-3)) = (2; -2; 4)$. Chọn D.",
         similarVariation: {
           prompt: "Trong không gian $Oxyz$, cho hai điểm $M(2; -1; 4)$ và $N(5; 2; 1)$. Toạ độ của vectơ $\\vec{MN}$ là:",
           options: [
@@ -699,6 +712,7 @@ window.LESSON_12_C2_B7_DATA = {
             "D. $(3; 1; -3)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "$\\vec{MN} = (5 - 2; 2 - (-1); 1 - 4) = (3; 3; -3)$. Chọn A."
         }
       },
@@ -708,13 +722,14 @@ window.LESSON_12_C2_B7_DATA = {
         level: "Nhận biết",
         prompt: "Trong không gian $Oxyz$, cho đoạn thẳng $AB$ với $A(-2; 3; 4)$ và $B(4; 1; -2)$. Toạ độ trung điểm $I$ của đoạn thẳng $AB$ là:",
         options: [
-          "A. $(1; 2; 1)$",
-          "B. $(2; 4; 2)$",
+          "A. $(2; 4; 2)$",
+          "B. $(1; 2; 1)$",
           "C. $(3; -1; -3)$",
           "D. $(6; -2; -6)$"
         ],
-        correctIndex: 0,
-        solution: "Toạ độ trung điểm: $x_I = \\frac{-2 + 4}{2} = 1, y_I = \\frac{3 + 1}{2} = 2, z_I = \\frac{4 + (-2)}{2} = 1 \\implies I(1; 2; 1)$. Chọn A.",
+        correctIndex: 1,
+        correctAnswer: "B",
+        solution: "Toạ độ trung điểm: $x_I = \\frac{-2 + 4}{2} = 1, y_I = \\frac{3 + 1}{2} = 2, z_I = \\frac{4 + (-2)}{2} = 1 \\implies I(1; 2; 1)$. Chọn B.",
         similarVariation: {
           prompt: "Trong không gian $Oxyz$, cho đoạn thẳng $CD$ với $C(3; -5; 1)$ và $D(1; 1; 7)$. Toạ độ trung điểm $M$ của đoạn thẳng $CD$ là:",
           options: [
@@ -724,6 +739,7 @@ window.LESSON_12_C2_B7_DATA = {
             "D. $(2; -3; 4)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "$x_M = (3+1)/2 = 2, y_M = (-5+1)/2 = -2, z_M = (1+7)/2 = 4 \\implies M(2; -2; 4)$. Chọn A."
         }
       },
@@ -733,13 +749,14 @@ window.LESSON_12_C2_B7_DATA = {
         level: "Nhận biết",
         prompt: "Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 0; 2), B(-2; 3; 1), C(4; 3; 3)$. Toạ độ trọng tâm $G$ của tam giác $ABC$ là:",
         options: [
-          "A. $(1; 2; 2)$",
-          "B. $(3; 6; 6)$",
-          "C. $(1; 3; 2)$",
+          "A. $(3; 6; 6)$",
+          "B. $(1; 3; 2)$",
+          "C. $(1; 2; 2)$",
           "D. $(0; 2; 2)$"
         ],
-        correctIndex: 0,
-        solution: "Toạ độ trọng tâm: $x_G = \\frac{1 + (-2) + 4}{3} = 1, y_G = \\frac{0 + 3 + 3}{3} = 2, z_G = \\frac{2 + 1 + 3}{3} = 2 \\implies G(1; 2; 2)$. Chọn A.",
+        correctIndex: 2,
+        correctAnswer: "C",
+        solution: "Toạ độ trọng tâm: $x_G = \\frac{1 + (-2) + 4}{3} = 1, y_G = \\frac{0 + 3 + 3}{3} = 2, z_G = \\frac{2 + 1 + 3}{3} = 2 \\implies G(1; 2; 2)$. Chọn C.",
         similarVariation: {
           prompt: "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M(2; 1; -1), N(0; 4; 2), P(4; 1; 2)$. Toạ độ trọng tâm $G$ của tam giác $MNP$ là:",
           options: [
@@ -749,6 +766,7 @@ window.LESSON_12_C2_B7_DATA = {
             "D. $(3; 2; 1)$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "$x_G = (2+0+4)/3 = 2, y_G = (1+4+1)/3 = 2, z_G = (-1+2+2)/3 = 1 \\implies G(2; 2; 1)$. Chọn A."
         }
       }

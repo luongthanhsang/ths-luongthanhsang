@@ -134,6 +134,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\cos \\alpha$ là tung độ $y_0$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Hãy nhớ: Trục hoành Ox tương ứng với cos, trục tung Oy tương ứng với sin.",
           explain: "Chính xác! $\\cos \\alpha = x_0$ (hoành độ), còn $\\sin \\alpha = y_0$ (tung độ của điểm $M$)."
         },
@@ -147,6 +148,7 @@ window.LESSON_10_C3_B5_DATA = {
             "Dấu âm ($< 0$)"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Khi góc tù, điểm M nằm ở góc phần tư thứ hai, bên trái trục tung nên hoành độ x0 âm hay dương?",
           explain: "Chính xác! Điểm $M(x_0; y_0)$ nằm ở bên trái trục $Oy$ nên hoành độ $x_0 < 0$, do đó $\\cos \\alpha < 0$."
         }
@@ -378,6 +380,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\cot(180^\\circ - \\alpha) = \\cot \\alpha$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Hãy nhớ thần chú: Sin bù (chỉ có sin bằng nhau, ba giá trị còn lại mang dấu đối).",
           explain: "Chính xác! Duy nhất $\\sin(180^\\circ - \\alpha) = \\sin \\alpha$, còn $\\cos, \\tan, \\cot$ đều đổi dấu."
         },
@@ -391,6 +394,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\cos 150^\\circ = -\\dfrac{\\sqrt{3}}{2}$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Vì 150° và 30° là hai góc bù nhau (150° = 180° - 30°) nên áp dụng cos đối.",
           explain: "Chính xác! $\\cos 150^\\circ = \\cos(180^\\circ - 30^\\circ) = -\\cos 30^\\circ = -\\dfrac{\\sqrt{3}}{2}$."
         }
@@ -553,6 +557,7 @@ window.LESSON_10_C3_B5_DATA = {
             "Góc $90^\\circ$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Một vòng trọn vẹn là 360°. Tính tỉ lệ: (20 / 30) * 360°.",
           explain: "Chính xác! Góc quay là $\\dfrac{20}{30} \\times 360^\\circ = \\dfrac{2}{3} \\times 360^\\circ = 240^\\circ$."
         },
@@ -568,6 +573,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$165\\text{ m}$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Cabin tạo với phương ngang trục Ox một góc 30° phía trên. Độ cao = 90 + 75 * sin(30°).",
           explain: "Chính xác! Độ cao = $90 + 75 \\cdot \\sin 30^\\circ = 90 + 75 \\cdot 0{,}5 = 127{,}5\\text{ m}$."
         }
@@ -687,6 +693,7 @@ window.LESSON_10_C3_B5_DATA = {
           "$\\tan \\alpha = \\dfrac{x_0}{y_0}$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         solution: "Theo định nghĩa chuẩn SGK Toán 10 trang 34: $\\sin \\alpha = y_0$ (tung độ) và $\\cos \\alpha = x_0$ (hoành độ của điểm $M$). Do đó đáp án đúng là B.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho điểm $M(x_0; y_0)$ trên nửa đường tròn đơn vị với $\\widehat{xOM} = \\alpha$. Khẳng định nào sau đây là đúng?",
@@ -697,6 +704,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\cot \\alpha = x_0 + y_0$"
           ],
           correctIndex: 2, // Đáp án C
+          correctAnswer: "C",
           solution: "Theo định nghĩa, $\\cos \\alpha = x_0$ (hoành độ của điểm $M$). Chọn C."
         }
       },
@@ -711,6 +719,7 @@ window.LESSON_10_C3_B5_DATA = {
           "$\\cot \\alpha < 0$"
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         solution: "Với góc tù $\\alpha \\in (90^\\circ; 180^\\circ)$, ta có $x_0 < 0$ và $y_0 > 0$. Do đó $\\tan \\alpha = \\dfrac{y_0}{x_0} < 0$. Khẳng định $\\tan \\alpha > 0$ là sai. Chọn C.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Dấu của $\\sin \\alpha$ và $\\cos \\alpha$ khi $\\alpha$ là góc nhọn ($0^\\circ < \\alpha < 90^\\circ$) là:",
@@ -721,6 +730,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\sin \\alpha > 0$ và $\\cos \\alpha > 0$"
           ],
           correctIndex: 3, // Đáp án D
+          correctAnswer: "D",
           solution: "Khi góc nhọn, cả hoành độ và tung độ của M đều dương nên $\\sin \\alpha > 0$ và $\\cos \\alpha > 0$. Chọn D."
         }
       },
@@ -735,6 +745,7 @@ window.LESSON_10_C3_B5_DATA = {
           "$\\dfrac{\\sqrt{3}}{2}$"
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         solution: "Ta có: $\\sin 30^\\circ = \\dfrac{1}{2}$, $\\cos 60^\\circ = \\dfrac{1}{2}$, và $\\sin 150^\\circ = \\sin(180^\\circ - 30^\\circ) = \\sin 30^\\circ = \\dfrac{1}{2}$.<br>Vậy $P = \\dfrac{1}{2} + \\dfrac{1}{2} - \\dfrac{1}{2} = \\dfrac{1}{2}$. Chọn A.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Giá trị của $Q = \\cos 120^\\circ + \\sin 150^\\circ$ bằng:",
@@ -745,6 +756,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\dfrac{1}{2}$"
           ],
           correctIndex: 2, // Đáp án C
+          correctAnswer: "C",
           solution: "$\\cos 120^\\circ = -\\cos 60^\\circ = -1/2$; $\\sin 150^\\circ = \\sin 30^\\circ = 1/2$. Do đó $Q = -1/2 + 1/2 = 0$. Chọn C."
         }
       },
@@ -759,6 +771,7 @@ window.LESSON_10_C3_B5_DATA = {
           "$\\dfrac{2\\sqrt{2}}{3}$"
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         solution: "Áp dụng $\\sin^2 \\alpha = 1 - \\cos^2 \\alpha = 1 - \\left(-\\dfrac{1}{3}\\right)^2 = 1 - \\dfrac{1}{9} = \\dfrac{8}{9}$.<br>Vì $90^\\circ < \\alpha < 180^\\circ$ (góc tù) nên $\\sin \\alpha > 0$. Suy ra $\\sin \\alpha = \\sqrt{\\dfrac{8}{9}} = \\dfrac{2\\sqrt{2}}{3}$. Chọn D.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho $\\cos \\alpha = -\\dfrac{3}{5}$ với $90^\\circ < \\alpha < 180^\\circ$. Giá trị của $\\sin \\alpha$ là:",
@@ -769,6 +782,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\dfrac{3}{5}$"
           ],
           correctIndex: 0, // Đáp án A
+          correctAnswer: "A",
           solution: "$\\sin \\alpha = \\sqrt{1 - (-3/5)^2} = 4/5$. Chọn A."
         }
       },
@@ -783,6 +797,7 @@ window.LESSON_10_C3_B5_DATA = {
           "$\\cot(180^\\circ - \\alpha) = -\\cot \\alpha \\quad (0^\\circ < \\alpha < 180^\\circ)$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         solution: "Theo công thức hai góc bù nhau, $\\cos(180^\\circ - \\alpha) = -\\cos \\alpha$ (chứ không phải $\\cos \\alpha$). Vậy đẳng thức ở phương án B là sai. Chọn B.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Đẳng thức nào sau đây đúng?",
@@ -793,6 +808,7 @@ window.LESSON_10_C3_B5_DATA = {
             "$\\cot(180^\\circ - \\alpha) = \\cot \\alpha$"
           ],
           correctIndex: 1, // Đáp án B
+          correctAnswer: "B",
           solution: "Chỉ có $\\cos(180^\\circ - \\alpha) = -\\cos \\alpha$ là đúng. Chọn B."
         }
       }

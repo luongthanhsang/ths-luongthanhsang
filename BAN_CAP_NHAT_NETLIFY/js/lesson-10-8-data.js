@@ -210,6 +210,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$\\vec{CB}$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Điểm B đứng ở giữa nối đuôi: ngọn của vectơ thứ nhất trùng với gốc của vectơ thứ hai.",
           explain: "Chính xác! Theo Quy tắc ba điểm: Với ba điểm bất kì $A, B, C$, ta luôn có $\\vec{AB} + \\vec{BC} = \\vec{AC}$."
         },
@@ -225,6 +226,7 @@ window.LESSON_10_C4_B8_DATA = {
             "Vectơ $\\vec{0}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tổng hai cạnh kề của hình bình hành bằng vectơ đường chéo xuất phát từ cùng đỉnh đó.",
           explain: "Rất chuẩn! Theo Quy tắc hình bình hành: Nếu $ABCD$ là hình bình hành thì $\\vec{AB} + \\vec{AD} = \\vec{AC}$."
         }
@@ -393,6 +395,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$\\vec{a} + \\vec{b} = \\vec{a} - \\vec{b}$"
           ],
           correctIndex: 3, // D
+          correctAnswer: "D",
           hint: "Phép cộng vectơ có đầy đủ tính chất giao hoán, kết hợp và cộng với vectơ không giống số thực.",
           explain: "Chính xác! Đẳng thức D sai hoàn toàn. Các đẳng thức A, B, C là 3 tính chất nền tảng của phép cộng vectơ theo SGK trang 52."
         },
@@ -408,6 +411,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$4\\vec{AB}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Cộng liên tiếp theo quy tắc ba điểm: (AB + BC) + (CD + DA) = AC + CA = AA = 0.",
           explain: "Rất chuẩn! Áp dụng quy tắc ba điểm liên tiếp: $\\vec{AB} + \\vec{BC} + \\vec{CD} + \\vec{DA} = \\vec{AC} + \\vec{CA} = \\vec{AA} = \\vec{0}$."
         }
@@ -476,6 +480,7 @@ window.LESSON_10_C4_B8_DATA = {
             "Đoạn thẳng $AB$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Vectơ đối có cùng độ dài nhưng đảo ngược hướng (điểm đầu thành điểm cuối).",
           explain: "Chính xác! Vectơ đối của $\\vec{AB}$ là $-\\vec{AB} = \\vec{BA}$ vì chúng cùng độ dài và ngược hướng nhau."
         },
@@ -491,6 +496,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$\\vec{NO}$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Quy tắc trừ hai vectơ chung gốc O: ngọn trừ gốc (ON - OM = MN).",
           explain: "Rất chuẩn! Quy tắc hiệu: Với ba điểm $O, M, N$ bất kì, ta luôn có $\\vec{ON} - \\vec{OM} = \\vec{MN}$."
         }
@@ -558,6 +564,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$\\vec{IA} - \\vec{IB} = \\vec{0}$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Hai vectơ IA và IB ngược hướng nhau và có cùng độ dài nên tổng của chúng bằng vectơ không.",
           explain: "Chính xác! Theo định lí SGK trang 53: $I$ là trung điểm của $AB \\iff \\vec{IA} + \\vec{IB} = \\vec{0}$."
         },
@@ -573,6 +580,7 @@ window.LESSON_10_C4_B8_DATA = {
             "$\\vec{GA} + \\vec{GB} = \\vec{GC}$"
           ],
           correctIndex: 0, // A
+          correctAnswer: "A",
           hint: "Trọng tâm tam giác là điểm cân bằng của ba đỉnh, tổng ba vectơ từ trọng tâm tới 3 đỉnh bằng vectơ không.",
           explain: "Rất chuẩn! Theo định lí SGK trang 53: $G$ là trọng tâm tam giác $ABC \\iff \\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$."
         }
@@ -728,11 +736,13 @@ window.LESSON_10_C4_B8_DATA = {
           "$\\vec{AB} - \\vec{AC} = \\vec{BC}$."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo Quy tắc ba điểm (SGK Toán 10 trang 52): Với ba điểm bất kì $A, B, C$, ta luôn có $\\vec{AB} + \\vec{BC} = \\vec{AC}$. Do đó đáp án B là hoàn toàn chính xác.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Với ba điểm M, N, P bất kì, tổng \\vec{MN} + \\vec{NP} bằng:",
           options: ["\\vec{MP}", "\\vec{PM}", "\\vec{NM}", "\\vec{0}"],
           correctIndex: 0, // A (\\vec{MP})
+          correctAnswer: "A",
           explain: "Theo quy tắc ba điểm: \\vec{MN} + \\vec{NP} = \\vec{MP}."
         }
       },
@@ -747,11 +757,13 @@ window.LESSON_10_C4_B8_DATA = {
           "$\\vec{AB} + \\vec{AD} = \\vec{AC}$."
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo Quy tắc hình bình hành (SGK trang 52): Nếu $ABCD$ là hình bình hành thì tổng hai vectơ xuất phát từ cùng đỉnh $A$ dọc theo hai cạnh bên bằng vectơ đường chéo xuất phát từ $A$: $\\vec{AB} + \\vec{AD} = \\vec{AC}$. Đáp án đúng là D.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho hình bình hành ABCD. Tổng \\vec{CB} + \\vec{CD} bằng vectơ nào?",
           options: ["\\vec{CA}", "\\vec{BD}", "\\vec{AC}", "\\vec{0}"],
           correctIndex: 0, // A (\\vec{CA})
+          correctAnswer: "A",
           explain: "Theo quy tắc hình bình hành xuất phát từ đỉnh C: \\vec{CB} + \\vec{CD} = \\vec{CA}."
         }
       },
@@ -766,11 +778,13 @@ window.LESSON_10_C4_B8_DATA = {
           "$\\vec{IA} - \\vec{IB} = \\vec{0}$."
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Vì $I$ là trung điểm của $AB$ nên hai vectơ $\\vec{IA}$ và $\\vec{IB}$ là hai vectơ đối nhau (cùng độ dài $IA = IB$ và ngược hướng nhau). Tổng của hai vectơ đối nhau luôn bằng vectơ-không: $\\vec{IA} + \\vec{IB} = \\vec{0}$. Do đó đáp án A là đúng.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Cho I là trung điểm của AB. Tổng \\vec{AI} + \\vec{BI} bằng:",
           options: ["\\vec{0}", "\\vec{AB}", "2\\vec{AB}", "-\\vec{AB}"],
           correctIndex: 0, // A (\\vec{0})
+          correctAnswer: "A",
           explain: "\\vec{AI} và \\vec{BI} là hai vectơ đối nhau nên tổng bằng \\vec{0}."
         }
       },
@@ -785,11 +799,13 @@ window.LESSON_10_C4_B8_DATA = {
           "$\\vec{MA} + \\vec{MB} + \\vec{MC} = 2\\vec{MG}$."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Chèn điểm $G$ vào từng vectơ vế trái theo quy tắc ba điểm:<br>$$\\vec{MA} + \\vec{MB} + \\vec{MC} = (\\vec{MG} + \\vec{GA}) + (\\vec{MG} + \\vec{GB}) + (\\vec{MG} + \\vec{GC}) = 3\\vec{MG} + (\\vec{GA} + \\vec{GB} + \\vec{GC}).$$<br>Vì $G$ là trọng tâm tam giác $ABC$ nên $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$.<br>Suy ra: $\\vec{MA} + \\vec{MB} + \\vec{MC} = 3\\vec{MG}$. Đáp án đúng là C.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho tam giác ABC trọng tâm G. Tổng \\vec{GA} + \\vec{GB} + \\vec{GC} bằng:",
           options: ["\\vec{0}", "3\\vec{GG}", "\\vec{AB}", "3"],
           correctIndex: 0, // A (\\vec{0})
+          correctAnswer: "A",
           explain: "Theo hệ thức trọng tâm tam giác: \\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}."
         }
       },
@@ -804,11 +820,13 @@ window.LESSON_10_C4_B8_DATA = {
           "$25\\text{ cm}$."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng quy tắc hình bình hành: $\\vec{AB} + \\vec{AD} = \\vec{AC}$.<br>Độ dài của tổng vectơ bằng độ dài đường chéo $AC$.<br>Trong tam giác vuông $ABC$ vuông tại $B$, áp dụng định lí Pythagore:<br>$$AC = \\sqrt{AB^2 + BC^2} = \\sqrt{AB^2 + AD^2} = \\sqrt{4^2 + 3^2} = \\sqrt{16 + 9} = 5\\text{ cm}.$$<br>Vậy $|\\vec{AB} + \\vec{AD}| = 5\\text{ cm}$. Đáp án đúng là B.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho hình chữ nhật ABCD có AB = 6 cm, AD = 8 cm. Độ dài vectơ \\vec{AB} + \\vec{AD} bằng:",
           options: ["14 cm", "10 cm", "2 cm", "48 cm"],
           correctIndex: 1, // B (10 cm)
+          correctAnswer: "B",
           explain: "Độ dài bằng AC = sqrt(6^2 + 8^2) = 10 cm."
         }
       }

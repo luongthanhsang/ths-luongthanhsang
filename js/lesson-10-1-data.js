@@ -151,6 +151,7 @@ window.LESSON_10_C1_B1_DATA = {
           "Cả hai câu đều không thể xác định được tính đúng hay sai."
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         hint: "Một khẳng định mang tính đúng sai dứt khoát là cốt lõi của mệnh đề.",
         explain: "Chính xác! Lời nói của An và Khoa đều là những khẳng định có tính đúng hoặc sai rõ ràng. Trong toán học, mỗi câu khẳng định như vậy được gọi là một mệnh đề logic!"
       }
@@ -183,6 +184,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Là một câu mệnh lệnh yêu cầu người khác thực hiện hành động."
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Mỗi mệnh đề phải hoặc đúng hoặc sai dứt khoát.",
           explain: "Rất xuất sắc! Mỗi mệnh đề toán học phải hoặc đúng hoặc sai, một mệnh đề không thể vừa đúng vừa sai."
         },
@@ -198,6 +200,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Tam giác đều có ba góc bằng 60 độ."
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Câu cảm thán nêu ý kiến cá nhân không xác định được tính đúng sai.",
           explain: "Chính xác! Câu 'Thời tiết hôm nay thật là tuyệt vời!' là câu cảm thán nêu cảm xúc chủ quan, không xác định được đúng sai nên không phải là mệnh đề."
         }
@@ -429,6 +432,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Kí hiệu là 1/P, cả hai luôn có cùng chân trị."
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Phủ định có kí hiệu gạch đầu và mang giá trị chân trị trái ngược.",
           explain: "Chính xác! Mệnh đề phủ định của $P$ kí hiệu là $\\overline{P}$. $P$ và $\\overline{P}$ là hai phát biểu trái ngược nhau: $P$ đúng thì $\\overline{P}$ sai, $P$ sai thì $\\overline{P}$ đúng."
         }
@@ -551,6 +555,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Khi cả P và Q đều đúng."
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Lời hứa chỉ bị phá vỡ khi tiền đề xảy ra (P đúng) nhưng kết quả không xảy ra (Q sai).",
           explain: "Chính xác! Mệnh đề $P \\Rightarrow Q$ chỉ sai trong trường hợp duy nhất khi $P$ đúng mà $Q$ sai. Nếu $P$ sai thì mệnh đề kéo theo mặc nhiên được coi là đúng."
         },
@@ -566,6 +571,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Trở thành một mệnh đề chứa biến."
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Ví dụ: tam giác đều thì cân (đúng), nhưng tam giác cân thì đều (sai).",
           explain: "Rất chuẩn xác! Mệnh đề đảo của một mệnh đề đúng không nhất thiết là đúng!"
         }
@@ -718,6 +724,7 @@ window.LESSON_10_C1_B1_DATA = {
             "Khi cả hai mệnh đề kéo theo P \\Rightarrow Q và Q \\Rightarrow P đều cùng sai."
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tương đương hai chiều đòi hỏi cả chiều xuôi và chiều ngược đều đúng.",
           explain: "Chính xác! Mệnh đề tương đương $P \\Leftrightarrow Q$ đúng khi và chỉ khi cả hai mệnh đề kéo theo $P \\Rightarrow Q$ và $Q \\Rightarrow P$ đều đúng."
         }
@@ -801,6 +808,7 @@ window.LESSON_10_C1_B1_DATA = {
             "\\forall x \\in \\mathbb{R}, x^2 + 1 < 0"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Phủ định của 'với mọi' là 'tồn tại', phủ định của '>' là '<='.",
           explain: "Chính xác! Phủ định của kí hiệu với mọi (\\forall) đổi thành tồn tại (\\exists), và phủ định của phép toán > đổi thành \\le."
         }
@@ -952,6 +960,7 @@ window.LESSON_10_C1_B1_DATA = {
           "D. Hãy giữ trật tự trong giờ học môn Toán!"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         hint: "Mệnh đề là câu khẳng định có tính đúng hoặc sai rõ ràng.",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Câu A là câu cảm thán bộc lộ cảm xúc.<br>- Câu B là câu khẳng định có tính đúng sai dứt khoát (17 là số nguyên tố, đây là khẳng định đúng). Do đó câu B là một mệnh đề.<br>- Câu C là câu hỏi nghi vấn.<br>- Câu D là câu cầu khiến, mệnh lệnh.<br>&rArr; <strong>Đáp án đúng là: B.</strong>"
       },
@@ -969,6 +978,7 @@ window.LESSON_10_C1_B1_DATA = {
           "D. Với mọi số tự nhiên $n$, ta luôn có $n^2 > 0$."
         ],
         correctIndex: 3, // D
+        correctAnswer: "D",
         hint: "Chú ý số tự nhiên nhỏ nhất là số 0.",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Mệnh đề A đúng vì có 2 nghiệm $x = 2$ và $x = -2$.<br>- Mệnh đề B đúng theo định lí tổng 3 góc tam giác.<br>- Mệnh đề C đúng vì 2 là số nguyên tố chẵn duy nhất.<br>- Mệnh đề D sai, vì với $n = 0 \\in \\mathbb{N}$ ta có $0^2 = 0 \\ngtr 0$. Phản ví dụ $n = 0$ bác bỏ mệnh đề D.<br>&rArr; <strong>Đáp án đúng là: D.</strong>"
       },
@@ -986,6 +996,7 @@ window.LESSON_10_C1_B1_DATA = {
           "D. $\\overline{P}: \"\\forall x \\in \\mathbb{R}, x^2 + 1 < 0\"$."
         ],
         correctIndex: 0, // A
+        correctAnswer: "A",
         hint: "Phủ định của 'với mọi' là 'tồn tại', phủ định của '>' là '<='.",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng quy tắc phủ định mệnh đề chứa lượng từ: Phủ định của $\\forall$ là $\\exists$, phủ định của bất đẳng thức nghiêm ngặt $>$ là $\\le$. Do đó: $\\overline{P}: \"\\exists x \\in \\mathbb{R}, x^2 + 1 \\le 0\"$.<br>&rArr; <strong>Đáp án đúng là: A.</strong>"
       },
@@ -1003,6 +1014,7 @@ window.LESSON_10_C1_B1_DATA = {
           "D. $P$ và $Q$ không có mối quan hệ tương đương logic."
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         hint: "Dấu hiệu nhận biết hình vuông: hình thoi có 2 đường chéo bằng nhau chính là hình vuông.",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Chiều thuận: Nếu $ABCD$ là hình vuông thì hiển nhiên $ABCD$ là hình thoi có hai đường chéo bằng nhau ($P \\Rightarrow Q$ đúng).<br>- Chiều ngược: Nếu $ABCD$ là hình thoi có hai đường chéo bằng nhau thì $ABCD$ là hình vuông ($Q \\Rightarrow P$ đúng).<br>Do cả hai chiều đều đúng nên $P \\Leftrightarrow Q$. Vì vậy $P$ là điều kiện cần và đủ để có $Q$.<br>&rArr; <strong>Đáp án đúng là: C.</strong>"
       },
@@ -1020,6 +1032,7 @@ window.LESSON_10_C1_B1_DATA = {
           "D. \"Nếu $n$ không có chữ số tận cùng là $0$ thì $n$ không chia hết cho $5$\" và đây là mệnh đề sai."
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         hint: "Mệnh đề đảo là đảo ngược Giả thiết và Kết luận. Thử số 15 xem sao.",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Mệnh đề ban đầu có dạng $P \\Rightarrow Q$ với $P$: \"$n$ tận cùng là 0\", $Q$: \"$n$ chia hết cho 5\".<br>- Mệnh đề đảo $Q \\Rightarrow P$ là: <em>\"Nếu $n$ chia hết cho $5$ thì $n$ có chữ số tận cùng là $0$\"</em>.<br>- Mệnh đề đảo này là <strong>sai</strong> vì có phản ví dụ: $n = 15$ chia hết cho $5$ nhưng chữ số tận cùng là $5$ (chứ không phải $0$).<br>&rArr; <strong>Đáp án đúng là: B.</strong>"
       }
@@ -1127,6 +1140,7 @@ window.LESSON_10_C1_B1_DATA = {
         level: "Thông hiểu",
         prompt: "Trong các khẳng định sau đây, có tất cả bao nhiêu khẳng định là một <strong>mệnh đề đúng</strong>?<br>(1) Số 1 là số nguyên tố nhỏ nhất.<br>(2) Tứ giác có 4 cạnh bằng nhau là hình thoi.<br>(3) $\\forall x \\in \\mathbb{R}, |x| \\ge 0$.<br>(4) Số 2025 chia hết cho 3.<br>(5) Các em hãy tích cực phát biểu xây dựng bài nhé!",
         correctValue: 3,
+        correctAnswer: "3",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- Khẳng định (1) SAI, vì số nguyên tố là số tự nhiên lớn hơn 1 và chỉ có 2 ước là 1 và chính nó. Số nguyên tố nhỏ nhất là số 2.<br>- Khẳng định (2) ĐÚNG, theo định nghĩa hình thoi.<br>- Khẳng định (3) ĐÚNG, giá trị tuyệt đối của mọi số thực luôn không âm.<br>- Khẳng định (4) ĐÚNG, vì tổng các chữ số là $2 + 0 + 2 + 5 = 9$ chia hết cho 3 nên 2025 chia hết cho 3.<br>- Khẳng định (5) KHÔNG PHẢI là mệnh đề (đây là câu cầu khiến).<br>Như vậy có chính xác <strong>3 khẳng định</strong> là mệnh đề đúng (các khẳng định 2, 3, 4).<br>&rArr; <strong>Đáp số: 3.</strong>"
       },
       {
@@ -1135,6 +1149,7 @@ window.LESSON_10_C1_B1_DATA = {
         level: "Vận dụng",
         prompt: "Có bao nhiêu giá trị nguyên của tham số $m$ thuộc đoạn $[-3; 3]$ để mệnh đề sau là một mệnh đề đúng: <em>\"$\\forall x \\in \\mathbb{R}, x^2 - 2mx + 4 > 0$\"</em>?",
         correctValue: 3,
+        correctAnswer: "3",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Tam thức bậc hai $f(x) = x^2 - 2mx + 4$ có hệ số $a = 1 > 0$.<br>Để $f(x) > 0$ đúng với mọi $x \\in \\mathbb{R}$ khi và chỉ khi biệt thức thu gọn $\\Delta' < 0$:<br>$$\\Delta' = (-m)^2 - 1 \\cdot 4 = m^2 - 4 < 0 \\Leftrightarrow -2 < m < 2.$$<br>Vì $m$ là số nguyên và $m \\in [-3; 3]$ nên $m \\in \\{-1; 0; 1\\}$.<br>Như vậy có đúng <strong>3 giá trị nguyên</strong> của $m$ thỏa mãn.<br>&rArr; <strong>Đáp số: 3.</strong>"
       }
     ]

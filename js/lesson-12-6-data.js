@@ -143,6 +143,7 @@ window.LESSON_12_C2_B6_DATA = {
             "Điểm B và Điểm A"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Vectơ $\\vec{AB}$ có gốc tại điểm thứ nhất và ngọn tại điểm thứ hai.",
           explain: "Chính xác! Điểm đầu là $A$ và điểm cuối là $B$."
         },
@@ -156,6 +157,7 @@ window.LESSON_12_C2_B6_DATA = {
             "Song song hoặc trùng nhau"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Hãy nhớ lại định nghĩa về giá của hai vectơ cùng phương trong hình học.",
           explain: "Chính xác! Hai vectơ cùng phương khi giá của chúng song song hoặc trùng nhau."
         }
@@ -269,6 +271,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{CA}$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Quy tắc xen điểm: điểm cuối của vectơ thứ nhất trùng với điểm đầu của vectơ thứ hai.",
           explain: "Chính xác! $\\vec{AB} + \\vec{BC} = \\vec{AC}$."
         },
@@ -282,6 +285,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{0}$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Vectơ đối cùng độ dài nhưng ngược hướng, đổi ngược điểm đầu và điểm cuối.",
           explain: "Chính xác! Vectơ đối của $\\vec{AB}$ là $-\\vec{AB} = \\vec{BA}$."
         }
@@ -427,6 +431,7 @@ window.LESSON_12_C2_B6_DATA = {
             "Ngược hướng"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Khi hệ số $k$ mang dấu âm, vectơ đảo chiều 180 độ.",
           explain: "Chính xác! Khi $k < 0$, vectơ $k\\vec{a}$ luôn ngược hướng với $\\vec{a}$."
         },
@@ -440,6 +445,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{GD}$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Tổng các vectơ từ trọng tâm tứ diện tới 4 đỉnh triệt tiêu nhau.",
           explain: "Chính xác! $\\vec{GA} + \\vec{GB} + \\vec{GC} + \\vec{GD} = \\vec{0}$."
         }
@@ -508,6 +514,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$180^\\circ$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Hai vectơ chỉ cùng một phía nên góc tạo bởi chúng không mở ra.",
           explain: "Chính xác! Góc giữa hai vectơ cùng hướng bằng $0^\\circ$."
         },
@@ -521,6 +528,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{a} \\cdot \\vec{b} = 0$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Vì $\\cos 90^\\circ = 0$ nên tích vô hướng phải bằng 0.",
           explain: "Chính xác! $\\vec{a} \\perp \\vec{b} \\iff \\vec{a} \\cdot \\vec{b} = 0$."
         }
@@ -601,6 +609,7 @@ window.LESSON_12_C2_B6_DATA = {
           "Hai vectơ-không"
         ],
         correctIndex: 1,
+        correctAnswer: "B",
         solution: "Theo định nghĩa chuẩn SGK, hai vectơ bằng nhau khi và chỉ khi chúng có cùng hướng và cùng độ dài.",
         similarVariation: {
           prompt: "Trong không gian, hai vectơ có độ dài bằng nhau và ngược hướng thì được gọi là:",
@@ -611,6 +620,7 @@ window.LESSON_12_C2_B6_DATA = {
             "Hai vectơ vuông góc"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Theo định nghĩa, hai vectơ có cùng độ dài và ngược hướng là hai vectơ đối nhau."
         }
       },
@@ -625,6 +635,7 @@ window.LESSON_12_C2_B6_DATA = {
           "$|\\vec{a} + \\vec{b}| = |\\vec{a}| + |\\vec{b}|$"
         ],
         correctIndex: 3,
+        correctAnswer: "D",
         solution: "Bất đẳng thức tam giác khẳng định $|\\vec{a} + \\vec{b}| \\le |\\vec{a}| + |\\vec{b}|$, dấu bằng chỉ xảy ra khi hai vectơ cùng hướng. Do đó đẳng thức không phải luôn đúng với mọi vectơ.",
         similarVariation: {
           prompt: "Khẳng định nào sau đây <b>đúng</b> với mọi vectơ $\\vec{a}, \\vec{b}$ khác $\\vec{0}$?",
@@ -635,6 +646,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$|\\vec{a} - \\vec{b}| = |\\vec{a}| - |\\vec{b}|$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Theo định nghĩa tích vô hướng: $\\vec{a} \\cdot \\vec{b} = |\\vec{a}| \\cdot |\\vec{b}| \\cdot \\cos(\\vec{a}, \\vec{b})$."
         }
       },
@@ -649,6 +661,7 @@ window.LESSON_12_C2_B6_DATA = {
           "$\\vec{BD'}$"
         ],
         correctIndex: 1,
+        correctAnswer: "B",
         solution: "Áp dụng trực tiếp quy tắc hình hộp cho ba vectơ cạnh cùng xuất phát từ đỉnh $A$, ta được vectơ đường chéo không gian $\\vec{AC'}$.",
         similarVariation: {
           prompt: "Cho hình hộp $ABCD.A'B'C'D'$. Tổng $\\vec{BA} + \\vec{BC} + \\vec{BB'}$ bằng:",
@@ -659,6 +672,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{B'D}$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Theo quy tắc hình hộp xuất phát từ đỉnh $B$, ta được $\\vec{BD'}$."
         }
       },
@@ -673,6 +687,7 @@ window.LESSON_12_C2_B6_DATA = {
           "$45^\\circ$"
         ],
         correctIndex: 2,
+        correctAnswer: "C",
         solution: "Hai vectơ cùng hướng có góc hợp bởi chúng bằng $0^\\circ$.",
         similarVariation: {
           prompt: "Góc giữa hai vectơ ngược hướng (và khác vectơ-không) là:",
@@ -683,6 +698,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$360^\\circ$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           solution: "Hai vectơ ngược hướng có góc hợp bởi chúng bằng $180^\\circ$."
         }
       },
@@ -697,6 +713,7 @@ window.LESSON_12_C2_B6_DATA = {
           "$\\vec{GA} + \\vec{GB} = \\vec{GC} + \\vec{GD}$"
         ],
         correctIndex: 0,
+        correctAnswer: "A",
         solution: "Theo định lí trọng tâm tứ diện, $\\vec{GA} + \\vec{GB} + \\vec{GC} + \\vec{GD} = \\vec{0}$.",
         similarVariation: {
           prompt: "Cho tam giác $ABC$ có trọng tâm $G$. Đẳng thức nào sau đây đúng?",
@@ -707,6 +724,7 @@ window.LESSON_12_C2_B6_DATA = {
             "$\\vec{GA} + \\vec{GB} + \\vec{GC} = 3\\vec{0}$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           solution: "Theo tính chất trọng tâm tam giác, $\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$."
         }
       }

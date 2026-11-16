@@ -144,6 +144,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$a^2 = (b + c)^2 - 2bc \\cos A$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Hãy nhớ dấu trừ trước tích 2bc cos A.",
           explain: "Chính xác! Định lí côsin chuẩn: $a^2 = b^2 + c^2 - 2bc \\cos A$."
         },
@@ -158,6 +159,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$a^2 = b^2 + c^2$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "Khi góc A tù thì cos A < 0, do đó -2bc cos A > 0.",
           explain: "Chính xác! Vì góc tù có $\\cos A < 0$ nên $-2bc \\cos A > 0$, suy ra $a^2 > b^2 + c^2$."
         }
@@ -288,6 +290,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$\\dfrac{R}{2}$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Hãy nhớ tỉ số bằng đường kính đường tròn ngoại tiếp 2R.",
           explain: "Chính xác! $\\dfrac{a}{\\sin A} = 2R$ (đường kính)."
         },
@@ -303,6 +306,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$R = 15$"
           ],
           correctIndex: 2,
+          correctAnswer: "C",
           hint: "Ta có 2R = a / sin A = 10 / sin 30° = 10 / 0.5 = 20 -> R = 10.",
           explain: "Chính xác! $2R = \\dfrac{10}{\\sin 30^\\circ} = 20 \\implies R = 10$."
         }
@@ -415,6 +419,7 @@ window.LESSON_10_C3_B6_DATA = {
             "Công thức diện tích $S = pr$"
           ],
           correctIndex: 0,
+          correctAnswer: "A",
           hint: "cos A = (b^2 + c^2 - a^2) / (2bc).",
           explain: "Chính xác! Biết 3 cạnh thì dùng Hệ quả Định lí Côsin để tính cos góc."
         },
@@ -429,6 +434,7 @@ window.LESSON_10_C3_B6_DATA = {
             "Công thức Heron"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Biết 1 cạnh và 2 góc kề -> tính được góc thứ ba, sau đó áp dụng định lí sin.",
           explain: "Chính xác! Ta tính $\\widehat{C} = 180^\\circ - (\\alpha + \\beta)$, sau đó áp dụng Định lí Sin: $AC = \\dfrac{AB \\cdot \\sin \\beta}{\\sin C}$."
         }
@@ -478,6 +484,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$S = \\dfrac{1}{4}bc \\sin A$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "Nhớ hệ số 1/2 và sin góc xen giữa.",
           explain: "Chính xác! $S = \\dfrac{1}{2}bc \\sin A$."
         },
@@ -493,6 +500,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$p = 7$ và $S = 6$"
           ],
           correctIndex: 1,
+          correctAnswer: "B",
           hint: "p = (3 + 4 + 5)/2 = 6. S = sqrt(6 * 3 * 2 * 1) = sqrt(36) = 6.",
           explain: "Chính xác! $p = 6$, $S = \\sqrt{6(6-3)(6-4)(6-5)} = \\sqrt{36} = 6$."
         }
@@ -645,6 +653,7 @@ window.LESSON_10_C3_B6_DATA = {
           "$a = 52$"
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         solution: "Áp dụng định lí côsin: $a^2 = b^2 + c^2 - 2bc \\cos A = 6^2 + 8^2 - 2 \\cdot 6 \\cdot 8 \\cdot \\cos 60^\\circ = 36 + 64 - 48 = 52$.<br>Do đó $a = \\sqrt{52} = 2\\sqrt{13}$. Chọn C.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho tam giác có b = 3, c = 4 và góc A = 60°. Độ dài a là:",
@@ -655,6 +664,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$\\sqrt{7}$"
           ],
           correctIndex: 0, // Đáp án A
+          correctAnswer: "A",
           solution: "a^2 = 9 + 16 - 2*3*4*(1/2) = 25 - 12 = 13 -> a = sqrt(13). Chọn A."
         }
       },
@@ -669,6 +679,7 @@ window.LESSON_10_C3_B6_DATA = {
           "$\\dfrac{a}{\\sin A} = \\dfrac{R}{2}$"
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         solution: "Theo định lí sin chuẩn SGK: $\\dfrac{a}{\\sin A} = \\dfrac{b}{\\sin B} = \\dfrac{c}{\\sin C} = 2R$ (với $R$ là bán kính đường tròn ngoại tiếp). Chọn A.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Bán kính đường tròn ngoại tiếp R tính theo cạnh c và góc C là:",
@@ -679,6 +690,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$R = \\dfrac{2c}{\\sin C}$"
           ],
           correctIndex: 1, // Đáp án B
+          correctAnswer: "B",
           solution: "2R = c / sin C -> R = c / (2 sin C). Chọn B."
         }
       },
@@ -693,6 +705,7 @@ window.LESSON_10_C3_B6_DATA = {
           "$S = 6\\sqrt{6}$"
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         solution: "Nửa chu vi $p = \\dfrac{5 + 6 + 7}{2} = 9$.<br>Theo công thức Heron: $S = \\sqrt{p(p-a)(p-b)(p-c)} = \\sqrt{9(9-5)(9-6)(9-7)} = \\sqrt{9 \\cdot 4 \\cdot 3 \\cdot 2} = \\sqrt{216} = 6\\sqrt{6}$. Chọn D.",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Cho tam giác có 3 cạnh là 4, 5, 7. Nửa chu vi p bằng:",
@@ -703,6 +716,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$p = 9$"
           ],
           correctIndex: 0, // Đáp án A
+          correctAnswer: "A",
           solution: "p = (4 + 5 + 7)/2 = 16/2 = 8. Chọn A."
         }
       },
@@ -717,6 +731,7 @@ window.LESSON_10_C3_B6_DATA = {
           "$r = 8$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         solution: "Áp dụng công thức $S = pr \\implies r = \\dfrac{S}{p} = \\dfrac{84}{21} = 4$. Chọn B.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho tam giác có S = 60 và r = 3. Nửa chu vi p bằng:",
@@ -727,6 +742,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$p = 30$"
           ],
           correctIndex: 2, // Đáp án C
+          correctAnswer: "C",
           solution: "p = S / r = 60 / 3 = 20. Chọn C."
         }
       },
@@ -741,6 +757,7 @@ window.LESSON_10_C3_B6_DATA = {
           "$S = 60\\sqrt{3}$"
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         solution: "Ta có: $S = \\dfrac{1}{2}bc \\sin A = \\dfrac{1}{2} \\cdot 10 \\cdot 12 \\cdot \\sin 150^\\circ = 60 \\cdot \\dfrac{1}{2} = 30$. Chọn C.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho b = 4, c = 6 và góc A = 30°. Diện tích S là:",
@@ -751,6 +768,7 @@ window.LESSON_10_C3_B6_DATA = {
             "$S = 3$"
           ],
           correctIndex: 1, // Đáp án B
+          correctAnswer: "B",
           solution: "S = 1/2 * 4 * 6 * sin 30° = 12 * 0.5 = 6. Chọn B."
         }
       }

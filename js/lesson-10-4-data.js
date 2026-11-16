@@ -189,6 +189,7 @@ window.LESSON_10_C2_B4_DATA = {
             "$\\begin{cases} x + y + z \\le 5 \\\\ x - y \\ge 1 \\end{cases}$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Mỗi bất phương trình trong hệ đều phải là bậc nhất đối với hai ẩn x và y.",
           explain: "Chính xác! Hệ ở phương án B gồm 4 bất phương trình bậc nhất hai ẩn x, y. Các hệ còn lại chứa x^2, tích xy hoặc có 3 ẩn x, y, z."
         },
@@ -204,6 +205,7 @@ window.LESSON_10_C2_B4_DATA = {
             "Không, vì $2(20) + 80 = 120$ chứ không nhỏ hơn 120"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Thay x = 20, y = 80 vào từng bất phương trình kiểm tra dấu <=.",
           explain: "Rất chuẩn! 20 + 80 = 100 <= 100 (đúng), 2(20) + 80 = 120 <= 120 (đúng), 20 >= 0 và 80 >= 0 (đúng). Vì thoả mãn cả 4 điều kiện nên (20; 80) là nghiệm của hệ."
         }
@@ -261,6 +263,7 @@ window.LESSON_10_C2_B4_DATA = {
             "Chỉ là các điểm nằm trên đường thẳng bờ"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Cặp số phải thoả mãn đồng thời tất cả các bất phương trình, trong tập hợp là phép toán giao.",
           explain: "Chính xác! Theo SGK trang 27: Miền nghiệm của hệ là giao các miền nghiệm của các bất phương trình trong hệ. Trên hình vẽ, đó là phần mặt phẳng không bị gạch sau khi đã loại bỏ từng miền không thích hợp."
         }
@@ -350,6 +353,7 @@ window.LESSON_10_C2_B4_DATA = {
             "Trọng tâm của đa giác"
           ],
           correctIndex: 2, // C
+          correctAnswer: "C",
           hint: "Xem định lí SGK trang 29: cực trị luôn đạt tại các đỉnh (biên gãy).",
           explain: "Chính xác! Định lí quy hoạch tuyến tính khẳng định: GTLN hay GTNN của biểu thức bậc nhất $F(x; y) = ax + by$ trên miền đa giác luôn đạt được tại một trong các đỉnh của đa giác đó. Do đó ta chỉ cần tính giá trị của $F$ tại các đỉnh rồi so sánh."
         }
@@ -524,11 +528,13 @@ window.LESSON_10_C2_B4_DATA = {
           "$\\begin{cases} -2x + y < 3^2 \\\\ 4^2x + 3y^2 < 1 \\end{cases}$"
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định nghĩa SGK trang 26: Hệ bất phương trình bậc nhất hai ẩn là hệ gồm hai hay nhiều bất phương trình bậc nhất hai ẩn.<br>Hệ ở phương án B gồm hai bất phương trình $x + y \\le 2$ và $2x - y > 1$, cả hai đều là bậc nhất hai ẩn $x, y$.<br>Các phương án A, D chứa $y^2$ (bậc hai); phương án C chứa 3 ẩn $x, y, z$.",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Trong các hệ sau, hệ nào là hệ bất phương trình bậc nhất hai ẩn?",
           options: ["$\\begin{cases} x \\ge 0 \\\\ y \\ge 0 \\\\ x+y \\le 5 \\end{cases}$", "$\\begin{cases} xy \\le 1 \\\\ x \\ge 0 \\end{cases}$", "$\\begin{cases} x^2+y \\le 4 \\\\ y \\ge 0 \\end{cases}$", "$\\begin{cases} x+y+z \\le 1 \\\\ x \\ge 0 \\end{cases}$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           explain: "Chỉ có hệ đầu tiên gồm các bất phương trình bậc nhất 2 ẩn."
         }
       },
@@ -543,11 +549,13 @@ window.LESSON_10_C2_B4_DATA = {
           "$(1; 1)$."
         ],
         correctIndex: 3, // Đáp án D
+        correctAnswer: "D",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Thay toạ độ điểm $(1; 1)$ vào từng bất phương trình của hệ:<br>• $1 - 2(1) = -1 < 0$ (thoả mãn).<br>• $1 + 3(1) = 4 > -2$ (thoả mãn).<br>• $1 - 1 = 0 < 3$ (thoả mãn).<br>Vì cặp $(1; 1)$ thoả mãn đồng thời cả ba bất phương trình nên điểm $(1; 1)$ thuộc miền nghiệm của hệ.<br>Các điểm còn lại đều vi phạm ít nhất một bất phương trình.",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Điểm nào sau đây KHÔNG thuộc miền nghiệm của hệ $\\begin{cases} x \\ge 0 \\\\ y \\ge 0 \\\\ x + y \\le 2 \\end{cases}$?",
           options: ["$(0; 0)$", "$(1; 1)$", "$(2; 0)$", "$(2; 1)$"],
           correctIndex: 3, // D (2+1 = 3 > 2)
+          correctAnswer: "D",
           explain: "Thay (2; 1) vào x + y <= 2 cho kết quả 3 <= 2 là sai."
         }
       },
@@ -562,11 +570,13 @@ window.LESSON_10_C2_B4_DATA = {
           "Nửa mặt phẳng không giới hạn."
         ],
         correctIndex: 0, // Đáp án A
+        correctAnswer: "A",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>- $x \\ge 0$: nửa mặt phẳng bên phải trục tung $Oy$.<br>- $y \\ge 0$: nửa mặt phẳng bên trên trục hoành $Ox$.<br>- $x + y \\le 150$: nửa mặt phẳng bờ $x + y = 150$ chứa gốc toạ độ $O(0; 0)$.<br>Giao của ba miền này là miền trong và các cạnh của tam giác vuông $OAB$ với $O(0; 0), A(150; 0), B(0; 150)$ (Hình 2.5 SGK trang 27).",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Miền nghiệm của hệ $\\begin{cases} 0 \\le x \\le 2 \\\\ 0 \\le y \\le 3 \\end{cases}$ là hình gì?",
           options: ["Hình tam giác", "Hình chữ nhật (kể cả biên)", "Hình thang", "Hình tròn"],
           correctIndex: 1, // B
+          correctAnswer: "B",
           explain: "Giao của các đoạn [0; 2] và [0; 3] tạo thành hình chữ nhật kích thước 2 x 3."
         }
       },
@@ -581,11 +591,13 @@ window.LESSON_10_C2_B4_DATA = {
           "$600$."
         ],
         correctIndex: 2, // Đáp án C
+        correctAnswer: "C",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định lí quy hoạch tuyến tính (SGK trang 29), giá trị lớn nhất của $F(x; y)$ đạt được tại một trong các đỉnh của tam giác $OAB$.<br>Tính giá trị của $F$ tại ba đỉnh:<br>• Tại $O(0; 0)$: $F(0; 0) = 2(0) + 3(0) = 0$.<br>• Tại $A(150; 0)$: $F(150; 0) = 2(150) + 3(0) = 300$.<br>• Tại $B(0; 150)$: $F(0; 150) = 2(0) + 3(150) = 450$.<br>So sánh các giá trị, ta có: $\\max F = 450$ đạt được tại đỉnh $B(0; 150)$.",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Giá trị nhỏ nhất của F(x; y) = 2x + 3y trên miền tam giác OAB trên là:",
           options: ["0", "300", "450", "-150"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           explain: "Tại O(0; 0) thì F(0; 0) = 0 là giá trị nhỏ nhất."
         }
       },
@@ -600,11 +612,13 @@ window.LESSON_10_C2_B4_DATA = {
           "250 triệu đồng khi nhập 50 máy hai chiều và 50 máy một chiều."
         ],
         correctIndex: 1, // Đáp án B
+        correctAnswer: "B",
         explain: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Miền nghiệm của bài toán là miền tứ giác $OABC$ với $O(0; 0), A(0; 100), B(20; 80), C(60; 0)$ (Hình 2.7 SGK trang 29).<br>Biểu thức lợi nhuận: $F(x; y) = 3{,}5x + 2y$ (triệu đồng).<br>Tính giá trị tại 4 đỉnh:<br>• $F(O) = 0$.<br>• $F(A) = 200$.<br>• $F(B) = 3{,}5(20) + 2(80) = 230$.<br>• $F(C) = 3{,}5(60) = 210$.<br>Vậy lợi nhuận lớn nhất là <strong>$230$ triệu đồng</strong>, đạt được khi cửa hàng nhập <strong>20 máy hai chiều và 80 máy một chiều</strong>.",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Nếu cửa hàng chỉ nhập toàn máy điều hoà hai chiều (y = 0) thoả mãn hệ ràng buộc thì lợi nhuận tối đa là:",
           options: ["200 triệu", "210 triệu", "230 triệu", "350 triệu"],
           correctIndex: 1, // B (đỉnh C: 60 máy hai chiều cho 210 triệu)
+          correctAnswer: "B",
           explain: "Tại đỉnh C(60; 0), F(60; 0) = 3,5 * 60 = 210 triệu đồng."
         }
       }

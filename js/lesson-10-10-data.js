@@ -148,6 +148,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$\\vec{i} = (1; 0)$ và $\\vec{j} = (1; 0)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "$\\vec{i}$ nằm trên trục hoành $Ox$, $\\vec{j}$ nằm trên trục tung $Oy$ và cả hai đều có độ dài bằng 1.",
           explain: "Chính xác! $\\vec{i} = 1\\vec{i} + 0\\vec{j} = (1; 0)$ và $\\vec{j} = 0\\vec{i} + 1\\vec{j} = (0; 1)$."
         },
@@ -163,6 +164,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$(3; 4)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Cẩn thận thứ tự: hoành độ là hệ số của $\\vec{i}$, tung độ là hệ số của $\\vec{j}$.",
           explain: "Rất xuất sắc! $\\vec{u} = -4\\vec{i} + 3\\vec{j}$, do đó toạ độ của $\\vec{u}$ là $(-4; 3)$."
         }
@@ -238,6 +240,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$(-1; 7)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Trừ hoành độ cho hoành độ: $2 - 1$; trừ tung độ cho tung độ: $-3 - 4$.",
           explain: "Chính xác! $\\vec{u} - \\vec{v} = (2 - 1;\\, -3 - 4) = (1; -7)$."
         },
@@ -253,6 +256,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$x y' + x' y = 0$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Tồn tại số $k$ sao cho $\\vec{b} = k\\vec{a}$, tức là hoành độ và tung độ lập thành tỉ số bằng nhau.",
           explain: "Chính xác! Định lí SGK trang 62: Hai vectơ cùng phương khi và chỉ khi các toạ độ tương ứng tỉ lệ: $\\frac{x'}{x} = \\frac{y'}{y}$."
         }
@@ -309,6 +313,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$(-3; 4)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Toạ độ vectơ $\\vec{AB} = (x_B - x_A; y_B - y_A)$. Lấy ngọn trừ gốc!",
           explain: "Chính xác! $\\vec{AB} = (-1 - 2;\\, 1 - 5) = (-3; -4)$."
         },
@@ -324,6 +329,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$25$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Độ dài $AB = \\sqrt{(-3)^2 + (-4)^2}$.",
           explain: "Chính xác! $AB = \\sqrt{(-3)^2 + (-4)^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$."
         }
@@ -377,6 +383,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$(4; 1)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Lấy trung bình cộng: $x_I = (1 + 5)/2$, $y_I = (4 - 2)/2$.",
           explain: "Chính xác! $x_I = \\frac{1 + 5}{2} = 3$, $y_I = \\frac{4 + (-2)}{2} = 1$. Suy ra $I(3; 1)$."
         },
@@ -392,6 +399,7 @@ window.LESSON_10_C4_B10_DATA = {
             "$(0; 2)$"
           ],
           correctIndex: 1, // B
+          correctAnswer: "B",
           hint: "Cộng toạ độ 3 đỉnh rồi chia cho 3.",
           explain: "Chính xác! $x_G = \\frac{1 + 3 + (-1)}{3} = 1$, $y_G = \\frac{2 + 0 + 4}{3} = 2$. Vậy $G(1; 2)$."
         }
@@ -463,11 +471,13 @@ window.LESSON_10_C4_B10_DATA = {
           "$(-2; -5)$"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo định nghĩa toạ độ vectơ: nếu $\\vec{u} = x\\vec{i} + y\\vec{j}$ thì $\\vec{u} = (x; y)$.<br>Với $\\vec{u} = 2\\vec{i} - 5\\vec{j}$, ta có ngay toạ độ là $(2; -5)$.<br>&rArr; <strong>Chọn đáp án B.</strong>",
         similarVariation: {
           prompt: "Câu 1 (Tương tự): Cho $\\vec{v} = -3\\vec{i} + 7\\vec{j}$. Toạ độ của $\\vec{v}$ là:",
           options: ["$(7; -3)$", "$(-3; 7)$", "$(3; 7)$", "$(-3; -7)$"],
           correctIndex: 1, // B
+          correctAnswer: "B",
           solution: "$\\vec{v} = (-3; 7)$."
         }
       },
@@ -483,11 +493,13 @@ window.LESSON_10_C4_B10_DATA = {
           "$(3; -4)$"
         ],
         correctIndex: 3, // D
+        correctAnswer: "D",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Toạ độ vectơ $\\vec{AB} = (x_B - x_A;\\, y_B - y_A) = (4 - 1;\\, -1 - 3) = (3; -4)$.<br>&rArr; <strong>Chọn đáp án D.</strong>",
         similarVariation: {
           prompt: "Câu 2 (Tương tự): Cho $A(2; -1)$ và $B(5; 3)$. Toạ độ $\\vec{AB}$ là:",
           options: ["$(3; 4)$", "$(-3; -4)$", "$(7; 2)$", "$(3; 2)$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$\\vec{AB} = (5 - 2; 3 - (-1)) = (3; 4)$."
         }
       },
@@ -503,11 +515,13 @@ window.LESSON_10_C4_B10_DATA = {
           "$(-1; 6)$"
         ],
         correctIndex: 0, // A
+        correctAnswer: "A",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Ta có: $2\\vec{a} = (4; -6)$ và $3\\vec{b} = (-3; 12)$.<br>Suy ra: $\\vec{u} = (4 + (-3);\\, -6 + 12) = (1; 6)$.<br>&rArr; <strong>Chọn đáp án A.</strong>",
         similarVariation: {
           prompt: "Câu 3 (Tương tự): Cho $\\vec{a} = (1; 2)$ và $\\vec{b} = (3; -1)$. Toạ độ $\\vec{u} = 3\\vec{a} - \\vec{b}$ là:",
           options: ["$(0; 7)$", "$(6; 5)$", "$(0; 5)$", "$(6; 7)$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$\\vec{u} = (3(1) - 3; 3(2) - (-1)) = (0; 7)$."
         }
       },
@@ -523,11 +537,13 @@ window.LESSON_10_C4_B10_DATA = {
           "$G(2; 3)$"
         ],
         correctIndex: 2, // C
+        correctAnswer: "C",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng công thức toạ độ trọng tâm tam giác:<br>$$x_G = \\dfrac{x_A + x_B + x_C}{3} = \\dfrac{2 + (-1) + 5}{3} = 2$$<br>$$y_G = \\dfrac{y_A + y_B + y_C}{3} = \\dfrac{1 + 3 + (-1)}{3} = 1$$<br>Vậy $G(2; 1)$.<br>&rArr; <strong>Chọn đáp án C.</strong>",
         similarVariation: {
           prompt: "Câu 4 (Tương tự): Cho tam giác $ABC$ có $A(1; 4)$, $B(2; -2)$, $C(3; 4)$. Toạ độ trọng tâm $G$ là:",
           options: ["$G(2; 3)$", "$G(2; 2)$", "$G(6; 6)$", "$G(3; 2)$"],
           correctIndex: 1, // B
+          correctAnswer: "B",
           solution: "$x_G = (1+2+3)/3 = 2$; $y_G = (4-2+4)/3 = 2$."
         }
       },
@@ -543,11 +559,13 @@ window.LESSON_10_C4_B10_DATA = {
           "$D(4; 3)$"
         ],
         correctIndex: 1, // B
+        correctAnswer: "B",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Tứ giác $ABCD$ là hình bình hành &hArr; $\\vec{AD} = \\vec{BC}$.<br>Ta có: $\\vec{BC} = (2 - 4;\\, -1 - 5) = (-2; -6)$<br>Và $\\vec{AD} = (x_D - (-2);\\, y_D - 3) = (x_D + 2;\\, y_D - 3)$.<br>Do đó: $\\begin{cases} x_D + 2 = -2 \\\\ y_D - 3 = -6 \\end{cases} \\iff \\begin{cases} x_D = -4 \\\\ y_D = -3 \\end{cases}$.<br>Vậy $D(-4; -3)$.<br>&rArr; <strong>Chọn đáp án B.</strong>",
         similarVariation: {
           prompt: "Câu 5 (Tương tự): Cho $A(1; 1), B(3; 2), C(2; 5)$. Tìm $D$ để $ABCD$ là hình bình hành.",
           options: ["$D(0; 4)$", "$D(4; 6)$", "$D(0; 2)$", "$D(-1; 4)$"],
           correctIndex: 0, // A
+          correctAnswer: "A",
           solution: "$\\vec{AD} = \\vec{BC} = (-1; 3) \\Rightarrow D(0; 4)$."
         }
       }
@@ -653,6 +671,7 @@ window.LESSON_10_C4_B10_DATA = {
         level: "Thông hiểu",
         prompt: "Trong mặt phẳng toạ độ $Oxy$, cho hai điểm $A(-3; 2)$ và $B(5; -4)$. Khoảng cách giữa hai điểm $A$ và $B$ bằng bao nhiêu?",
         correctValue: 10,
+        correctAnswer: "10",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Áp dụng công thức khoảng cách giữa hai điểm trong mặt phẳng toạ độ $Oxy$:<br>$$AB = \\sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} = \\sqrt{(5 - (-3))^2 + (-4 - 2)^2} = \\sqrt{8^2 + (-6)^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10.$$<br>&rArr; <strong>Đáp số: 10.</strong>"
       },
       {
@@ -661,6 +680,7 @@ window.LESSON_10_C4_B10_DATA = {
         level: "Vận dụng thực tế",
         prompt: "Trong một bàn cờ vua có kích thước $8 \\times 8$ (các ô có toạ độ nguyên $0 \\le x \\le 7$ và $0 \\le y \\le 7$, theo Bài 4.20 SGK trang 65), quân mã đang đứng ở vị trí có toạ độ $(1; 2)$. Sau đúng một nước đi theo luật cờ vua, quân mã có thể đến được bao nhiêu vị trí hợp lệ trên bàn cờ?",
         correctValue: 6,
+        correctAnswer: "6",
         solution: "<strong>Lời giải chi tiết của ThS. Lương Thanh Sáng:</strong><br>Theo quy tắc cờ vua, quân mã di chuyển theo vectơ độ dời $(\\pm 1; \\pm 2)$ hoặc $(\\pm 2; \\pm 1)$.<br>Từ vị trí $(1; 2)$, các vị trí đích có thể có là:<br>- $(1+1; 2+2) = (2; 4)$ (hợp lệ)<br>- $(1+1; 2-2) = (2; 0)$ (hợp lệ)<br>- $(1-1; 2+2) = (0; 4)$ (hợp lệ)<br>- $(1-1; 2-2) = (0; 0)$ (hợp lệ)<br>- $(1+2; 2+1) = (3; 3)$ (hợp lệ)<br>- $(1+2; 2-1) = (3; 1)$ (hợp lệ)<br>- $(1-2; 2+1) = (-1; 3)$ (không hợp lệ vì $x = -1 < 0$)<br>- $(1-2; 2-1) = (-1; 1)$ (không hợp lệ vì $x = -1 < 0$).<br>Như vậy, quân mã có chính xác 6 vị trí hợp lệ trên bàn cờ.<br>&rArr; <strong>Đáp số: 6.</strong>"
       }
     ]
