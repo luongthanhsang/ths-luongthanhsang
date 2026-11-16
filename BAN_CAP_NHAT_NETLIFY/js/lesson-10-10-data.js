@@ -108,7 +108,12 @@ window.LESSON_10_C4_B10_DATA = {
 
           <!-- Vectơ vận tốc v -->
           <line x1="280" y1="150" x2="430" y2="75" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr-radar)"/>
-          <text x="350" y="95" fill="#38bdf8" font-weight="bold" font-size="13" font-family="'Segoe UI', Roboto, sans-serif">\v&#8407; = (v_x; v_y)</text>
+          <g transform="translate(350, 95)">
+  <line x1="0" y1="-9" x2="11" y2="-9" stroke="#38bdf8" stroke-width="1.1"/>
+  <polyline points="8,-11 11,-9 8,-7" fill="none" stroke="#38bdf8" stroke-width="1.1"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#38bdf8">v</text>
+  <text x="14" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">= (v_x; v_y)</text>
+</g>
 
           <!-- Vị trí dự báo sau t giờ B = A + t*v -->
           <circle cx="440" cy="70" r="42" fill="url(#stormGrad)"/>

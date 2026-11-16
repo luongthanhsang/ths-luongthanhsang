@@ -3510,7 +3510,7 @@ function initDigitalLessons() {
               <div class="subsection-card" id="sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
                 <div class="subsection-header">
                   <span class="sub-key-badge">${escapeHtml(cleanLetter)}.</span>
-                  <h3 class="subsection-heading-h3">${escapeHtml(cleanLetter)}. ${escapeHtml(cleanSubTitle)}</h3>
+                  <h3 class="subsection-heading-h3">${escapeHtml(cleanSubTitle)}</h3>
                 </div>
 
                 ${sub.contentHtml ? `

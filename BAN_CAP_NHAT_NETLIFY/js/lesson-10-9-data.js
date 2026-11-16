@@ -80,7 +80,7 @@ window.LESSON_10_C4_B9_DATA = {
       </marker>
     </defs>
 
-    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">HÌNH 4.20 SGK: NGUYÊN LÍ ĐÒN BẨY CÂN BẰNG VÀ KHỐI TÂM M (m₁·MA&#8407; + m₂·MB&#8407; = 0&#8407;)</text>
+    <text x="360" y="24" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0369a1">HÌNH 4.20 SGK: NGUYÊN LÍ ĐÒN BẨY CÂN BẰNG VÀ KHỐI TÂM M (m₁·MA + m₂·MB = 0)</text>
 
     <!-- Mặt sàn đất -->
     <line x1="80" y1="225" x2="640" y2="225" stroke="#94a3b8" stroke-width="2"/>
@@ -205,9 +205,13 @@ window.LESSON_10_C4_B9_DATA = {
             <path d="M 110,120 Q 150,90 170,60" fill="none" stroke="#2563eb" stroke-width="3"/>
             <!-- Lực đẩy vuông góc cánh buồm F -->
             <line x1="140" y1="90" x2="185" y2="120" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-b9-red)"/>
-            <text x="190" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\F&#8407;</text>
+            <g transform="translate(190, 130)">
+  <line x1="0" y1="-10" x2="14" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="11,-12 14,-10 11,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">F</text>
+</g>
 
-            <text x="25" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Lực \F&#8407; = x·\a&#8407; + y·\b&#8407; đẩy thuyền tiến lên</text>
+            <text x="25" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-style="italic" fill="#475569">Lực F = x·a + y·b đẩy thuyền tiến lên</text>
           </g>
         </svg>
       </div>
@@ -303,15 +307,29 @@ window.LESSON_10_C4_B9_DATA = {
 
                     <!-- Vectơ 1/2 a (dx=30, dy=-30) -->
                     <line x1="15" y1="135" x2="42" y2="108" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-grid-blue)"/>
-                    <text x="35" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\\frac{1}{2}\a&#8407;</text>
+                    <g transform="translate(25, 130)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0284c7">1/2</text>
+  <line x1="22" y1="-9" x2="33" y2="-9" stroke="#0284c7" stroke-width="1.1"/>
+  <polyline points="30,-11 33,-9 30,-7" fill="none" stroke="#0284c7" stroke-width="1.1"/>
+  <text x="22" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
 
                     <!-- Vectơ a (dx=60, dy=-60) -->
                     <line x1="75" y1="135" x2="132" y2="78" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-grid-blue)"/>
-                    <text x="110" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\a&#8407;</text>
+                    <g transform="translate(110, 115)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#0284c7" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#0284c7" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
 
                     <!-- Vectơ 3/2 a (dx=90, dy=-90) -->
                     <line x1="135" y1="135" x2="222" y2="48" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-grid-blue)"/>
-                    <text x="180" y="105" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\\frac{3}{2}\a&#8407;</text>
+                    <g transform="translate(170, 105)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#0284c7">3/2</text>
+  <line x1="22" y1="-9" x2="33" y2="-9" stroke="#0284c7" stroke-width="1.1"/>
+  <polyline points="30,-11 33,-9 30,-7" fill="none" stroke="#0284c7" stroke-width="1.1"/>
+  <text x="22" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
                   </g>
 
                   <!-- Khung lưới bên phải: k < 0 (Hình 4.23) -->
@@ -321,15 +339,29 @@ window.LESSON_10_C4_B9_DATA = {
 
                     <!-- Vectơ a làm chuẩn -->
                     <line x1="15" y1="135" x2="72" y2="78" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-grid-blue)"/>
-                    <text x="35" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">\a&#8407;</text>
+                    <g transform="translate(35, 100)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#0284c7" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#0284c7" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
 
                     <!-- Vectơ -2a (hướng ngược lại: dx=-120, dy=120) -->
                     <line x1="210" y1="15" x2="94" y2="131" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-grid-red)"/>
-                    <text x="165" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">-2\a&#8407;</text>
+                    <g transform="translate(155, 65)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#dc2626">-2</text>
+  <line x1="16" y1="-9" x2="27" y2="-9" stroke="#dc2626" stroke-width="1.1"/>
+  <polyline points="24,-11 27,-9 24,-7" fill="none" stroke="#dc2626" stroke-width="1.1"/>
+  <text x="16" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#dc2626">a</text>
+</g>
 
                     <!-- Vectơ -3/2 a -->
                     <line x1="225" y1="45" x2="139" y2="131" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-grid-red)"/>
-                    <text x="195" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">-\\frac{3}{2}\a&#8407;</text>
+                    <g transform="translate(185, 100)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" fill="#dc2626">-3/2</text>
+  <line x1="28" y1="-9" x2="39" y2="-9" stroke="#dc2626" stroke-width="1.1"/>
+  <polyline points="36,-11 39,-9 36,-7" fill="none" stroke="#dc2626" stroke-width="1.1"/>
+  <text x="28" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#dc2626">a</text>
+</g>
                   </g>
                 </svg>
               </div>
@@ -436,8 +468,24 @@ window.LESSON_10_C4_B9_DATA = {
                   <text x="195" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">G</text>
 
                   <!-- Nhãn hệ thức vectơ -->
-                  <text x="70" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">\GA&#8407; = -2\GM&#8407;</text>
-                  <text x="240" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#047857">\MN&#8407; = -\\frac{1}{2}\AB&#8407;</text>
+                  <g transform="translate(60, 60)">
+  <line x1="0" y1="-9" x2="22" y2="-9" stroke="#dc2626" stroke-width="1.1"/>
+  <polyline points="19,-11 22,-9 19,-7" fill="none" stroke="#dc2626" stroke-width="1.1"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#dc2626">GA</text>
+  <text x="26" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#dc2626">= -2</text>
+  <line x1="56" y1="-9" x2="80" y2="-9" stroke="#dc2626" stroke-width="1.1"/>
+  <polyline points="77,-11 80,-9 77,-7" fill="none" stroke="#dc2626" stroke-width="1.1"/>
+  <text x="56" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#dc2626">GM</text>
+</g>
+                  <g transform="translate(230, 150)">
+  <line x1="0" y1="-9" x2="24" y2="-9" stroke="#047857" stroke-width="1.1"/>
+  <polyline points="21,-11 24,-9 21,-7" fill="none" stroke="#047857" stroke-width="1.1"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#047857">MN</text>
+  <text x="28" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#047857">= -1/2</text>
+  <line x1="72" y1="-9" x2="94" y2="-9" stroke="#047857" stroke-width="1.1"/>
+  <polyline points="91,-11 94,-9 91,-7" fill="none" stroke="#047857" stroke-width="1.1"/>
+  <text x="72" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#047857">AB</text>
+</g>
                 </svg>
               </div>
             </div>
@@ -602,21 +650,39 @@ window.LESSON_10_C4_B9_DATA = {
 
                   <!-- Trục cơ sở a (hướng ngang chếch nhẹ: 120,150 -> 220,150) -->
                   <line x1="120" y1="150" x2="215" y2="150" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arr-dec-blue)"/>
-                  <text x="170" y="170" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">\a&#8407;</text>
+                  <g transform="translate(170, 170)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#0284c7" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#0284c7" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
 
                   <!-- Trục cơ sở b (hướng xiên lên trái: 120,150 -> 60,80) -->
                   <line x1="120" y1="150" x2="65" y2="85" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-dec-green)"/>
-                  <text x="75" y="115" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">\b&#8407;</text>
+                  <g transform="translate(75, 115)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#16a34a" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#16a34a" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#16a34a">b</text>
+</g>
 
                   <!-- Thành phần x*a (120,150 -> 320,150: x=2) -->
                   <line x1="120" y1="150" x2="315" y2="150" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
                   <circle cx="320" cy="150" r="3.5" fill="#0284c7"/>
-                  <text x="270" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#0284c7">x\a&#8407;</text>
+                  <g transform="translate(265, 140)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0284c7">x</text>
+  <line x1="8" y1="-9" x2="19" y2="-9" stroke="#0284c7" stroke-width="1.1"/>
+  <polyline points="16,-11 19,-9 16,-7" fill="none" stroke="#0284c7" stroke-width="1.1"/>
+  <text x="8" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#0284c7">a</text>
+</g>
 
                   <!-- Thành phần y*b (120,150 -> 30,45: y=1.5) -->
                   <line x1="120" y1="150" x2="33" y2="48" stroke="#16a34a" stroke-width="2" stroke-dasharray="4,4"/>
                   <circle cx="30" cy="45" r="3.5" fill="#16a34a"/>
-                  <text x="45" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#16a34a">y\b&#8407;</text>
+                  <g transform="translate(40, 65)">
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#16a34a">y</text>
+  <line x1="8" y1="-9" x2="19" y2="-9" stroke="#16a34a" stroke-width="1.1"/>
+  <polyline points="16,-11 19,-9 16,-7" fill="none" stroke="#16a34a" stroke-width="1.1"/>
+  <text x="8" y="0" font-family="'Times New Roman', serif" font-size="13" font-weight="bold" font-style="italic" fill="#16a34a">b</text>
+</g>
 
                   <!-- Đường dóng song song hoàn thành hình bình hành -->
                   <line x1="320" y1="150" x2="230" y2="45" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -625,7 +691,19 @@ window.LESSON_10_C4_B9_DATA = {
                   <!-- Vectơ u = x*a + y*b (đường chéo đỏ: 120,150 -> 230,45) -->
                   <line x1="120" y1="150" x2="225" y2="50" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arr-dec-red)"/>
                   <circle cx="230" cy="45" r="4.5" fill="#dc2626"/>
-                  <text x="180" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">\u&#8407; = x\a&#8407; + y\b&#8407;</text>
+                  <g transform="translate(170, 85)">
+  <line x1="0" y1="-10" x2="11" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="8,-12 11,-10 8,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#dc2626">u</text>
+  <text x="15" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">= x</text>
+  <line x1="42" y1="-10" x2="53" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="50,-12 53,-10 50,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="42" y="0" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#dc2626">a</text>
+  <text x="57" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">+ y</text>
+  <line x1="84" y1="-10" x2="95" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="92,-12 95,-10 92,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="84" y="0" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#dc2626">b</text>
+</g>
                 </svg>
               </div>
             </div>

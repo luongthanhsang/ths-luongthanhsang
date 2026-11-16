@@ -101,7 +101,12 @@ window.LESSON_10_C4_B11_DATA = {
 
           <!-- Vectơ lực kéo F chếch góc alpha -->
           <line x1="220" y1="110" x2="350" y2="50" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arr-b11-red)"/>
-          <text x="310" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">Lực \F&#8407;</text>
+          <g transform="translate(310, 45)">
+  <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#dc2626">Lực </text>
+  <line x1="35" y1="-10" x2="49" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="45,-12 49,-10 45,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="35" y="0" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" font-style="italic" fill="#dc2626">F</text>
+</g>
 
           <!-- Góc alpha giữa F và phương ngang -->
           <line x1="220" y1="110" x2="330" y2="110" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -128,8 +133,13 @@ window.LESSON_10_C4_B11_DATA = {
 
           <!-- Vectơ độ dời MN -->
           <line x1="220" y1="160" x2="540" y2="160" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-b11-blue)"/>
-          <text x="350" y="152" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">Độ dời \MN&#8407;</text>
-          <text x="310" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#334155">Hình 4.42: Công cơ học A = |\F&#8407;|·|\MN&#8407;|·cos(&alpha;)</text>
+          <g transform="translate(340, 152)">
+  <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">Độ dời </text>
+  <line x1="52" y1="-10" x2="76" y2="-10" stroke="#0284c7" stroke-width="1.2"/>
+  <polyline points="72,-12 76,-10 72,-8" fill="none" stroke="#0284c7" stroke-width="1.2"/>
+  <text x="52" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#0284c7">MN</text>
+</g>
+          <text x="310" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#334155">Hình 4.42: Công cơ học A = |F|·|MN|·cos(&alpha;)</text>
         </svg>
       </div>
     `

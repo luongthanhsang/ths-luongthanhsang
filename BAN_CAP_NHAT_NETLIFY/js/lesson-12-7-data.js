@@ -100,13 +100,25 @@ window.LESSON_12_C2_B7_DATA = {
 
     <!-- Vectơ đơn vị i, j, k -->
     <line x1="260" y1="220" x2="210" y2="234" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
-    <text x="210" y="250" font-style="italic" font-weight="bold" fill="#dc2626">i&#8407;</text>
+    <g transform="translate(210, 250)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">i</text>
+</g>
 
     <line x1="260" y1="220" x2="330" y2="220" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
-    <text x="315" y="210" font-style="italic" font-weight="bold" fill="#16a34a">j&#8407;</text>
+    <g transform="translate(315, 210)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#16a34a" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#16a34a" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#16a34a">j</text>
+</g>
 
     <line x1="260" y1="220" x2="260" y2="170" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-12-ax)"/>
-    <text x="272" y="185" font-style="italic" font-weight="bold" fill="#2563eb">k&#8407;</text>
+    <g transform="translate(272, 185)">
+  <line x1="0" y1="-10" x2="12" y2="-10" stroke="#2563eb" stroke-width="1.2"/>
+  <polyline points="9,-12 12,-10 9,-8" fill="none" stroke="#2563eb" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#2563eb">k</text>
+</g>
 
     <!-- Toạ độ bóng đèn M: x = 1 (1m), y = 1.5 (1.5m), z = 2 (2m) -->
     <!-- Điểm M'(x=1, y=1.5, z=0) trên sàn: x=260 - 50 + 105 = 315, y=220 + 14 = 234 -->
@@ -134,7 +146,7 @@ window.LESSON_12_C2_B7_DATA = {
     <!-- Nhãn bóng đèn M -->
     <rect x="330" y="115" width="220" height="36" rx="6" fill="#0f172a" fill-opacity="0.9"/>
     <text x="440" y="132" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#fde047">💡 Bóng đèn M(1; 1,5; 2)</text>
-    <text x="440" y="145" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#e2e8f0">OM&#8407; = 1·i&#8407; + 1,5·j&#8407; + 2·k&#8407;</text>
+    <text x="440" y="145" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#e2e8f0">OM = 1·i + 1,5·j + 2·k</text>
   </svg>
 </div>`,
     illustration: "",
@@ -391,7 +403,11 @@ window.LESSON_12_C2_B7_DATA = {
 
                   <!-- Vectơ OM đỏ -->
                   <line x1="160" y1="170" x2="216" y2="114" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-b7-om)"/>
-                  <text x="175" y="130" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">\OM&#8407;</text>
+                  <g transform="translate(175, 130)">
+  <line x1="0" y1="-10" x2="20" y2="-10" stroke="#dc2626" stroke-width="1.2"/>
+  <polyline points="17,-12 20,-10 17,-8" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <text x="0" y="0" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" font-style="italic" fill="#dc2626">OM</text>
+</g>
                 </svg>
               </div>
               <div class="tikz-caption" style="text-align: center; color: #475569; font-size: 0.9rem;">
