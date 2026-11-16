@@ -32,7 +32,7 @@ const LESSONS_DATABASE = {
                 num: "1",
                 title: "Mệnh đề, mệnh đề chứa biến",
                 subsections: [
-                  { key: "a", title: "Mệnh đề", summary: "Khái niệm và định nghĩa mệnh đề logic, mệnh đề đúng, mệnh đề sai." },
+                  { key: "a", title: "Mệnh đề", summary: "Khái niệm và định nghĩa mệnh đề logic, mệnh đề đúng, mệnh đề sai và Luyện tập 1 bảng chuẩn SGK trang 6." },
                   { key: "b", title: "Mệnh đề chứa biến", summary: "Câu khẳng định chứa biến và cách xác định tính đúng sai khi gán giá trị cụ thể cho biến." }
                 ]
               },
@@ -40,10 +40,7 @@ const LESSONS_DATABASE = {
                 id: "10-c1-b1-s2",
                 num: "2",
                 title: "Mệnh đề phủ định",
-                subsections: [
-                  { key: "a", title: "Định nghĩa mệnh đề phủ định", summary: "Kí hiệu gạch đầu và mối quan hệ chân trị đúng - sai giữa mệnh đề ban đầu và phủ định." },
-                  { key: "b", title: "Cách thành lập mệnh đề phủ định", summary: "Quy tắc thêm hoặc bớt từ phủ định 'không', 'không phải' và ví dụ minh họa." }
-                ]
+                subsections: []
               },
               {
                 id: "10-c1-b1-s3",
@@ -58,19 +55,13 @@ const LESSONS_DATABASE = {
                 id: "10-c1-b1-s4",
                 num: "4",
                 title: "Mệnh đề tương đương",
-                subsections: [
-                  { key: "a", title: "Định nghĩa mệnh đề tương đương", summary: "Cấu trúc 'P khi và chỉ khi Q' (kí hiệu P <=> Q)." },
-                  { key: "b", title: "Điều kiện cần và đủ", summary: "Ý nghĩa toán học của điều kiện cần và đủ trong các định lý hình học và đại số." }
-                ]
+                subsections: []
               },
               {
                 id: "10-c1-b1-s5",
                 num: "5",
-                title: "Kí hiệu với mọi (∀) và tồn tại (∃)",
-                subsections: [
-                  { key: "a", title: "Kí hiệu với mọi (∀)", summary: "Cách biểu đạt mệnh đề chứa lượng từ 'với mọi' và xét tính đúng sai." },
-                  { key: "b", title: "Kí hiệu tồn tại (∃)", summary: "Cách biểu đạt mệnh đề chứa lượng từ 'tồn tại ít nhất' và phủ định của các mệnh đề chứa ∀, ∃." }
-                ]
+                title: "Mệnh đề có chứa kí hiệu với mọi và tồn tại",
+                subsections: []
               }
             ]
           },
@@ -3325,6 +3316,7 @@ if (typeof window !== "undefined") {
     }
   }
 
+  if (window.LESSON_10_C1_B1_DATA) autoInjectLesson(window.LESSON_10_C1_B1_DATA);
   if (window.LESSON_10_C3_B5_DATA) autoInjectLesson(window.LESSON_10_C3_B5_DATA);
   if (window.LESSON_10_C3_B6_DATA) autoInjectLesson(window.LESSON_10_C3_B6_DATA);
   if (window.LESSON_10_C2_B3_DATA) autoInjectLesson(window.LESSON_10_C2_B3_DATA);
