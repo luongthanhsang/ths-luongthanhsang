@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Logo Converter Perfectly Centered</title>
+</head>
+<body style="background: #0f172a; color: #fff; padding: 20px; text-align: center;">
+  <h2>Recolored Gold-on-Blue Canvas</h2>
+  <canvas id="logoCanvas" width="600" height="600" style="border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></canvas>
+
+  <script>
+    window.addEventListener('load', () => {
+      const img = new Image();
+      img.src = 'assets/images/logo-ths-sang-raw.png';
+      img.onload = () => {
+        const cvs = document.getElementById('logoCanvas');
+        const ctx = cvs.getContext('2d');
+        const size = cvs.width;
+        const outCx = size / 2;
+        const outCy = size / 2;
+        const outR = size * 0.485;
+
+        // 1. Offscreen canvas for scanning original image
+        const oc = document.createElement('canvas');
+        oc.width = img.naturalWidth;
+        oc.height = img.naturalHeight;
+        const octx = oc.getContext('2d');
+        octx.drawImage(img, 0, 0);
+
+        const idata = octx.getImageData(0, 0, oc.width, oc.height);
+        const px = idata.data;
+
+        // Find bounding box of the circular logo in source image
+        let minX = oc.width, maxX = 0, minY = oc.height, maxY = 0;
+        for (let y = 0; y < oc.height; y++) {
+          for (let x = 0; x < oc.width; x++) {
+            const i = (y * oc.width + x) * 4;
+            const diff = Math.max(255 - px[i], 255 - px[i+1], 255 - px[i+2]);
+            if (diff > 14) {
+              if (x < minX) minX = x;
+              if (x > maxX) maxX = x;
+              if (y < minY) minY = y;
+              if (y > maxY) maxY = y;
+            }
+          }
+        }
+
+        const srcCx = (minX + maxX) / 2;
+        const srcCy = (minY + maxY) / 2;
+        const srcRadius = Math.max((maxX - minX) / 2, (maxY - minY) / 2);
+
+        // Recolor all non-white artwork into Gold Metallic
+        for (let i = 0; i < px.length; i += 4) {
+          const r = px[i], g = px[i+1], b = px[i+2], a = px[i+3];
+          const diff = Math.max(255 - r, 255 - g, 255 - b);
+          if (a > 20 && diff > 7) {
+            const alphaFactor = Math.min(1.0, (diff - 4) / 40);
+
+            const pxIdx = i / 4;
+            const pxX = pxIdx % oc.width;
+            const pxY = Math.floor(pxIdx / oc.width);
+            
+            // Normalized position along 45 degree diagonal for metallic sheen
+            const t = ((pxX - minX) + (pxY - minY)) / ((maxX - minX) + (maxY - minY));
+
+            // Gold metallic sheen
+            let gr, gg, gb;
+            if (t < 0.25) {
+              // Warm amber gold
+              gr = 230; gg = 160; gb = 20;
+            } else if (t < 0.45) {
+              // Radiant sunlight gold
+              gr = 250; gg = 204; gb = 35;
+            } else if (t < 0.60) {
+              // Diamond highlight
+              gr = 255; gg = 245; gb = 160;
+            } else if (t < 0.80) {
+              // Rich classic gold
+              gr = 245; gg = 175; gb = 25;
+            } else {
+              // Deep bronze gold
+              gr = 217; gg = 135; gb = 12;
+            }
+
+            px[i] = gr;
+            px[i+1] = gg;
+            px[i+2] = gb;
+            px[i+3] = Math.round(255 * alphaFactor);
+          } else {
+            px[i+3] = 0;
+          }
+        }
+        octx.putImageData(idata, 0, 0);
+
+        // 2. Draw circular blue background on main canvas
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(outCx, outCy, outR, 0, Math.PI * 2);
+        ctx.clip();
+
+        // Academic Blue Gradient (nền xanh chuẩn sư phạm)
+        const bgGrad = ctx.createRadialGradient(outCx - outR*0.25, outCy - outR*0.25, outR * 0.05, outCx, outCy, outR);
+        bgGrad.addColorStop(0, '#2563eb');    // Primary 600
+        bgGrad.addColorStop(0.35, '#1d4ed8'); // Primary 700
+        bgGrad.addColorStop(0.75, '#1e3a8a'); // Primary 800
+        bgGrad.addColorStop(1, '#0f2445');    // Primary 900
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, size, size);
+
+        // 3. Draw recolored gold artwork aligned to center of circle
+        const scale = (outR * 0.94) / srcRadius;
+        ctx.save();
+        ctx.translate(outCx, outCy);
+        ctx.scale(scale, scale);
+        ctx.translate(-srcCx, -srcCy);
+        ctx.drawImage(oc, 0, 0);
+        ctx.restore();
+
+        ctx.restore();
+
+        // 4. Subtle gold rim on outer edge
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(outCx, outCy, outR - 1.5, 0, Math.PI * 2);
+        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = '#f59e0b';
+        ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
+        ctx.shadowBlur = 4;
+        ctx.stroke();
+        ctx.restore();
+
+        window.__DONE = true;
+      };
+    });
+  </script>
+</body>
+</html>

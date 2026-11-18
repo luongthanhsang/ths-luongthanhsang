@@ -142,9 +142,20 @@ button, input, textarea, select {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--accent-gold);
   font-size: 1.35rem;
   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+}
+
+.brand-logo-badge i,
+.brand-logo-badge .fa-square-root-variable {
+  color: #fbbf24 !important;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
 }
 
 .brand-text h1 {
@@ -344,14 +355,18 @@ button, input, textarea, select {
 }
 
 .hero-motto {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(245, 158, 11, 0.08);
   border-left: 4px solid var(--accent-gold);
   padding: 14px 18px;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   font-style: italic;
   font-size: 0.98rem;
-  color: #e0f2fe;
+  color: #fbbf24;
   margin-bottom: 30px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(245, 158, 11, 0.15);
+  border-right: 1px solid rgba(245, 158, 11, 0.15);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.15);
 }
 
 .hero-actions {
@@ -455,15 +470,22 @@ button, input, textarea, select {
   width: 90px;
   height: 90px;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--primary-700), var(--primary-400));
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 2.8rem;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
   flex-shrink: 0;
-  border: 4px solid #fff;
+  border: 3px solid #fbbf24;
+  overflow: visible;
+}
+
+.teacher-avatar-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .teacher-verify-badge {

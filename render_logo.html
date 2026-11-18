@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Logo Detector</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script>
+    async function analyze() {
+      const img = new Image();
+      img.src = 'assets/images/logo-ths-sang-raw.png';
+      await img.decode();
+
+      const cvs = document.getElementById('c');
+      cvs.width = img.width;
+      cvs.height = img.height;
+      const ctx = cvs.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const idata = ctx.getImageData(0, 0, img.width, img.height);
+      const px = idata.data;
+
+      // Find non-white pixels
+      let minX = img.width, maxX = 0, minY = img.height, maxY = 0;
+      let nonWhitePoints = [];
+
+      for (let y = 0; y < img.height; y++) {
+        for (let x = 0; x < img.width; x++) {
+          const idx = (y * img.width + x) * 4;
+          const r = px[idx], g = px[idx+1], b = px[idx+2];
+          // Check if not pure white
+          if (r < 245 || g < 245 || b < 245) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+            nonWhitePoints.push({ x, y, r, g, b });
+          }
+        }
+      }
+
+      const cx = (minX + maxX) / 2;
+      const cy = (minY + maxY) / 2;
+      const radiusX = (maxX - minX) / 2;
+      const radiusY = (maxY - minY) / 2;
+
+      window.__ANALYSIS = {
+        width: img.width,
+        height: img.height,
+        minX, maxX, minY, maxY,
+        cx, cy,
+        radiusX, radiusY,
+        totalForegroundPixels: nonWhitePoints.length
+      };
+    }
+    window.addEventListener('load', analyze);
+  </script>
+</body>
+</html>
