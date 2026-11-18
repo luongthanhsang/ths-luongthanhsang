@@ -5225,6 +5225,7 @@ function initDigitalLessons() {
           window.LESSON_10_C4_B11_DATA,
           window.LESSON_11_C1_B1_DATA,
           window.LESSON_11_C1_B2_DATA,
+          window.LESSON_11_C1_B3_DATA,
           window.LESSON_11_C4_B10_DATA,
           window.LESSON_11_C4_B11_DATA,
           window.LESSON_11_C4_B12_DATA,

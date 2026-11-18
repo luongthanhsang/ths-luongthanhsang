@@ -1,6 +1,8 @@
 with open('js/lessons-data.js', 'r', encoding='utf-8') as f:
     text = f.read()
 
-idx = text.find('function autoInjectLesson')
-if idx != -1:
-    print(text[idx:idx+1500])
+import re
+matches = [m.start() for m in re.finditer(r'autoInjectLesson', text)]
+print(f"Total autoInjectLesson calls: {len(matches)}")
+for idx in matches[-10:]:
+    print(text[idx-50:idx+250])

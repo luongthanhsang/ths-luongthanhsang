@@ -1,7 +1,7 @@
-with open("js/lesson-11-2-data.js", "r", encoding="utf-8") as f:
+with open('js/lesson-11-2-data.js', 'r', encoding='utf-8') as f:
     text = f.read()
 
 import re
-idx = text.find("examFormatPractice:")
-if idx != -1:
-    print(text[idx:idx+3500])
+m = re.search(r'examFormatPractice:\s*\{', text)
+if m:
+    print(text[m.start():m.start()+2500])

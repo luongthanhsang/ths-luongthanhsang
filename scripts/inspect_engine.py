@@ -1,8 +1,11 @@
-with open('js/olm-lesson-engine.js', 'r', encoding='utf-8') as f:
+with open('js/interactive-lesson-engine.js', 'r', encoding='utf-8') as f:
     text = f.read()
 
-print("Length:", len(text))
-for line in text.splitlines():
-    if 'url' in line.lower() or 'param' in line.lower() or 'lesson' in line.lower() or 'default' in line.lower():
-        if any(k in line for k in ['get', 'id', 'switch', 'load', 'init', 'search']):
-            print(line[:120])
+import re
+matches = [m.start() for m in re.finditer(r'subsection', text, re.IGNORECASE)]
+print(f"Found {len(matches)} occurrences of 'subsection'")
+for idx in matches[:10]:
+    start = max(0, idx - 100)
+    end = min(len(text), idx + 200)
+    print("--- MATCH ---")
+    print(text[start:end])

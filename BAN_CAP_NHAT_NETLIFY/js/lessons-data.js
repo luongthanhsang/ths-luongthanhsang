@@ -1207,24 +1207,42 @@ const LESSONS_DATABASE = {
             id: "11-c1-b3",
             number: "Bài 3",
             title: "Hàm số lượng giác",
+            isFeaturedLesson: true,
+            isInteractiveDigitalLesson: true,
             sections: [
               {
                 id: "11-c1-b3-s1",
                 num: "1",
-                title: "Hàm số y = sin x và hàm số y = cos x",
-                subsections: [
-                  { key: "a", title: "Tập xác định, chu kì và tính chẵn lẻ", summary: "y = sin x là hàm số lẻ, chu kì 2π; y = cos x là hàm số chẵn, chu kì 2π." },
-                  { key: "b", title: "Đồ thị và bảng biến thiên", summary: "Đường hình sin, cực đại, cực tiểu và các khoảng đồng biến, nghịch biến." }
-                ]
+                title: "Định nghĩa các hàm số lượng giác"
               },
               {
                 id: "11-c1-b3-s2",
                 num: "2",
-                title: "Hàm số y = tan x và hàm số y = cot x",
+                title: "Hàm số chẵn, hàm số lẻ, hàm số tuần hoàn",
                 subsections: [
-                  { key: "a", title: "Tập xác định và tính tuần hoàn", summary: "y = tan x có D = R \\ {π/2 + kπ}, chu kì π; y = cot x có D = R \\ {kπ}, chu kì π." },
-                  { key: "b", title: "Đồ thị và tính đơn điệu", summary: "Tính đồng biến của hàm tan và tính nghịch biến của hàm cot trên từng khoảng xác định." }
+                  { key: "a", title: "Hàm số chẵn và hàm số lẻ" },
+                  { key: "b", title: "Hàm số tuần hoàn và chu kì" }
                 ]
+              },
+              {
+                id: "11-c1-b3-s3",
+                num: "3",
+                title: "Đồ thị và tính chất của hàm số y = sin x"
+              },
+              {
+                id: "11-c1-b3-s4",
+                num: "4",
+                title: "Đồ thị và tính chất của hàm số y = cos x"
+              },
+              {
+                id: "11-c1-b3-s5",
+                num: "5",
+                title: "Đồ thị và tính chất của hàm số y = tan x"
+              },
+              {
+                id: "11-c1-b3-s6",
+                num: "6",
+                title: "Đồ thị và tính chất của hàm số y = cot x"
               }
             ]
           },
@@ -3347,6 +3365,7 @@ if (typeof window !== "undefined") {
   if (window.LESSON_10_C4_B11_DATA) autoInjectLesson(window.LESSON_10_C4_B11_DATA);
   if (window.LESSON_11_C1_B1_DATA) autoInjectLesson(window.LESSON_11_C1_B1_DATA);
   if (window.LESSON_11_C1_B2_DATA) autoInjectLesson(window.LESSON_11_C1_B2_DATA);
+  if (window.LESSON_11_C1_B3_DATA) autoInjectLesson(window.LESSON_11_C1_B3_DATA);
   if (window.LESSON_11_C4_B10_DATA) autoInjectLesson(window.LESSON_11_C4_B10_DATA);
   if (window.LESSON_11_C4_B11_DATA) autoInjectLesson(window.LESSON_11_C4_B11_DATA);
   if (window.LESSON_11_C4_B12_DATA) autoInjectLesson(window.LESSON_11_C4_B12_DATA);

@@ -1,6 +1,7 @@
-with open("js/lesson-11-2-data.js", "r", encoding="utf-8") as f:
+with open('js/lesson-11-2-data.js', 'r', encoding='utf-8') as f:
     text = f.read()
 
-idx = text.find("part2TrueFalse:")
-if idx != -1:
-    print(text[idx:idx+3500])
+import re
+m = re.search(r'part2TrueFalse', text)
+if m:
+    print(text[m.start()-50:m.start()+2500])
