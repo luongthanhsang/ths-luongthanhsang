@@ -362,7 +362,7 @@ window.handleDocDownload = function(docTitle) {
 /* ==========================================================================
    3. KHU VỰC THI TRẮC NGHIỆM ONLINE (QUIZ SYSTEM) - TOÁN 11 & TOÁN 12
    ========================================================================== */
-let currentExamId = "11_GK1_TK5"; // Mặc định tải lên đề Toán 11 mới nhất (TK5)
+let currentExamId = (typeof DEFAULT_ACTIVE_EXAM_ID !== "undefined") ? DEFAULT_ACTIVE_EXAM_ID : "12_BGD_0110"; // Mặc định tải lên Đề Bộ GD&ĐT 2026 - Lần 2 (Mã đề 0110)
 let currentQuizMode = "all";       // 'all', 'part1', 'part2', 'part3'
 let activeQuizQuestions = [];       // Danh sách câu hỏi đang làm
 let userAnswersPart1 = {};          // { "1": "C", "2": "A", ... }
@@ -953,6 +953,9 @@ function renderQuestionPalette() {
 // Xử lý chọn đáp án Phần I
 window.selectPart1Option = function(qId, optId) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   userAnswersPart1[qId] = optId;
 
@@ -975,6 +978,9 @@ window.selectPart1Option = function(qId, optId) {
 // Xử lý chọn Đúng / Sai cho Phần II
 window.selectPart2Choice = function(qId, itemId, isTrue) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   if (!userAnswersPart2[qId]) {
     userAnswersPart2[qId] = {};
@@ -1012,6 +1018,9 @@ function getEssayData(qId) {
 // Xử lý nhập đáp án Phần III (Trả lời ngắn hoặc Tự luận)
 window.updatePart3Answer = function(qId, val) {
   if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
 
   const q = activeQuizQuestions.find(item => item.id == qId);
   if (q && q.type === "essay") {
@@ -1019,7 +1028,7 @@ window.updatePart3Answer = function(qId, val) {
     data.text = val;
     updateMathPreview(qId);
   } else {
-    const trimmed = val.trim();
+    const trimmed = (val || "").trim();
     if (trimmed === "") {
       delete userAnswersPart3[qId];
     } else {
@@ -2130,6 +2139,17 @@ function showToast(message, type = "info") {
     }, 400);
   }, 3500);
 }
+window.showToast = showToast;
+
+window.triggerConfettiFireworks = function() {
+  if (typeof confetti === "function") {
+    confetti({
+      particleCount: 90,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }
+};
 
 function initBackToTop() {
   const backToTopBtn = document.getElementById("backToTop");
@@ -2174,21 +2194,35 @@ function initDigitalLessons() {
 
   // Đọc URL params nếu có
   const urlParams = new URLSearchParams(window.location.search);
-  let currentGrade = urlParams.get("grade") || "10";
+  let currentLessonId = urlParams.get("lesson") || "";
+  let currentGrade = urlParams.get("grade") || "";
+  
+  // Tự động suy luận khối lớp nếu chỉ có tham số lesson mà không có grade
+  if (!currentGrade && currentLessonId) {
+    if (currentLessonId.startsWith("10-")) currentGrade = "10";
+    else if (currentLessonId.startsWith("11-")) currentGrade = "11";
+    else if (currentLessonId.startsWith("12-")) currentGrade = "12";
+  }
   if (!["10", "11", "12"].includes(currentGrade)) {
-    currentGrade = "10";
+    currentGrade = "11";
   }
 
   let currentVolume = "all"; // 'all', '1', '2'
   let currentSearch = "";
-  let currentLessonId = urlParams.get("lesson") || "";
 
     if ((!urlParams.get("grade") || !currentLessonId) && window.location.hash) {
       try {
         const hashStr = window.location.hash.replace(/^#\/?/, "");
-        const hashParams = new URLSearchParams(hashStr);
-        if (hashParams.get("grade")) currentGrade = hashParams.get("grade");
-        if (hashParams.get("lesson")) currentLessonId = hashParams.get("lesson");
+        if (hashStr && !hashStr.includes("=")) {
+          currentLessonId = hashStr;
+          if (hashStr.startsWith("10-")) currentGrade = "10";
+          else if (hashStr.startsWith("11-")) currentGrade = "11";
+          else if (hashStr.startsWith("12-")) currentGrade = "12";
+        } else {
+          const hashParams = new URLSearchParams(hashStr);
+          if (hashParams.get("grade")) currentGrade = hashParams.get("grade");
+          if (hashParams.get("lesson")) currentLessonId = hashParams.get("lesson");
+        }
       } catch(e) {}
     }
 
@@ -2216,9 +2250,9 @@ function initDigitalLessons() {
 
   // Tìm bài học đầu tiên của khối lớp hiện tại nếu chưa chỉ định
   function getDefaultLessonId(grade) {
-    if (grade === "10") return "10-c4-b7";
+    if (grade === "10") return "10-c4-b8"; // Mặc định mở Bài 8 (Tổng và hiệu của hai vectơ) mới biên soạn
     if (grade === "11") return "11-c4-b12";
-    if (grade === "12") return "12-c2-b6";
+    if (grade === "12") return "12-c2-b6"; // Mặc định mở Bài 7 (Hệ trục toạ độ trong không gian) mới biên soạn
     const gradeData = db[grade];
     if (gradeData && gradeData.chapters && gradeData.chapters.length > 0) {
       for (const ch of gradeData.chapters) {
@@ -2264,8 +2298,467 @@ function initDigitalLessons() {
     });
   }
 
-  // 2. Render Tầng 2: Danh sách Chương & Bài học trong Sidebar
-  function renderSidebar() {
+  // ==========================================================================
+  // HỆ THỐNG CẤU TRÚC BÀI HỌC SỐ PHÂN CẤP & BỘ ĐIỀU HƯỚNG TỪNG MỤC (THẦY SÁNG)
+  // ==========================================================================
+  let currentSidebarMode = "lesson_tree"; // "lesson_tree" hoặc "chapter_list"
+  let currentActiveStepId = "welcome";     // Mục hiện tại đang học
+  let currentActiveSubKey = null;          // Tiểu mục a, b đang chọn
+  let currentViewMode = "step";            // "step" (Tập trung từng mục) hoặc "all" (Xem toàn bài)
+  const completedStepsCache = {};
+
+  function cleanSubKey(key, index) {
+    if (!key) return String.fromCharCode(97 + (index || 0));
+    const letters = String(key).replace(/^[0-9]+/g, '').replace(/[^a-zA-Z]/g, '').trim().toLowerCase();
+    return letters || String.fromCharCode(97 + (index || 0));
+  }
+
+  function getLessonCompletedSteps(lessonId) {
+    if (!completedStepsCache[lessonId]) {
+      try {
+        const saved = localStorage.getItem(`ths_sang_completed_steps_${lessonId}`);
+        completedStepsCache[lessonId] = new Set(saved ? JSON.parse(saved) : []);
+      } catch (e) {
+        completedStepsCache[lessonId] = new Set();
+      }
+    }
+    return completedStepsCache[lessonId];
+  }
+
+  function saveLessonCompletedSteps(lessonId) {
+    if (completedStepsCache[lessonId]) {
+      try {
+        localStorage.setItem(`ths_sang_completed_steps_${lessonId}`, JSON.stringify(Array.from(completedStepsCache[lessonId])));
+      } catch (e) {
+        console.warn("Could not save completed steps to localStorage", e);
+      }
+    }
+  }
+
+  function getLessonLinearSteps(lesson) {
+    const steps = [];
+    if (!lesson) return steps;
+
+    if (lesson.teacherWelcome) {
+      steps.push({ id: "welcome", title: "Phần I. Lời chào của Thầy Sáng", part: "Phần I", weight: 5, isContent: false });
+    }
+    if (lesson.learningGoals && lesson.learningGoals.length > 0) {
+      steps.push({ id: "goals", title: "Phần II. Mục tiêu & Yêu cầu cần đạt", part: "Phần II", weight: 5, isContent: false });
+    }
+    if (lesson.hook) {
+      steps.push({ id: "hook", title: lesson.hook.title || "Tình huống mở đầu (Bài toán dẫn nhập)", part: "Phần III", isContent: true });
+    }
+    const sections = lesson.sections || [];
+    sections.forEach((sec, idx) => {
+      const secAnchor = `sec-${idx + 1}`;
+      const secNum = (sec.num !== undefined && sec.num !== null && String(sec.num) !== 'undefined') 
+        ? sec.num 
+        : (sec.number ? String(sec.number).replace(/[^0-9]/g, '') : String(idx + 1));
+      steps.push({
+        id: secAnchor,
+        title: `Mục ${secNum}. ${sec.title || ''}`,
+        part: "Phần III",
+        isContent: true,
+        secNum: secNum,
+        subsections: sec.subsections || []
+      });
+    });
+    if (lesson.realworldWrapup) {
+      steps.push({ id: "wrapup", title: lesson.realworldWrapup.title || "Chốt kiến thức then chốt (Tổng kết)", part: "Phần III", isContent: true });
+    }
+    if (lesson.examFormatPractice || lesson.practiceQuizzes || lesson.isOlmInteractive) {
+      steps.push({ id: "quiz", title: "Phần IV. Bài tập củng cố (Trắc nghiệm)", part: "Phần IV", weight: 20, isContent: false });
+    }
+    return steps;
+  }
+
+  function calculateLessonProgress(lesson) {
+    if (!lesson) return 0;
+    const completed = getLessonCompletedSteps(lesson.id);
+
+    let totalWeight = 0;
+    if (completed.has('welcome')) totalWeight += 5;
+    if (completed.has('goals')) totalWeight += 5;
+    if (completed.has('quiz')) totalWeight += 20;
+
+    let contentUnits = [];
+    if (lesson.hook) {
+      contentUnits.push({ id: 'hook' });
+    }
+    const sections = lesson.sections || [];
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      const subs = sec.subsections || [];
+      if (subs.length > 1) {
+        subs.forEach((sub, subIdx) => {
+          const subKey = cleanSubKey(sub.key, subIdx);
+          contentUnits.push({ id: `${secAnchor}-${subKey}`, parentId: secAnchor });
+        });
+      } else {
+        contentUnits.push({ id: secAnchor });
+      }
+    });
+    if (lesson.realworldWrapup) {
+      contentUnits.push({ id: 'wrapup' });
+    }
+
+    const n = contentUnits.length || 1;
+    const unitWeight = 70.0 / n;
+
+    contentUnits.forEach(u => {
+      if (completed.has(u.id)) {
+        totalWeight += unitWeight;
+      }
+    });
+
+    return Math.min(100, Math.round(totalWeight));
+  }
+
+  function renderStepNavFooterHtml(stepId, lesson) {
+    const steps = getLessonLinearSteps(lesson);
+    const idx = steps.findIndex(s => s.id === stepId);
+    const isFirst = (idx <= 0);
+    const isLast = (idx >= steps.length - 1);
+
+    return `
+      <div class="step-nav-footer" data-step-footer="${stepId}">
+        <button type="button" class="btn-step-nav btn-step-prev" data-nav-action="prev" data-from-step="${stepId}" ${isFirst ? 'disabled' : ''}>
+          <i class="fa-solid fa-arrow-left"></i> Mục trước
+        </button>
+        <button type="button" class="btn-step-nav btn-step-complete" data-nav-action="complete" data-from-step="${stepId}">
+          <i class="fa-solid fa-circle-check"></i> Đã học xong &amp; Tiếp theo <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <button type="button" class="btn-step-nav btn-step-next" data-nav-action="next" data-from-step="${stepId}" ${isLast ? 'disabled' : ''}>
+          Mục sau <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    `;
+  }
+
+  function renderLessonStructureSidebar(lesson) {
+    const sidebarHeaderEl = sidebarEl.querySelector(".sidebar-header");
+    if (sidebarHeaderEl) {
+      sidebarHeaderEl.className = "sidebar-header lesson-structure-header";
+      const lessonNumStr = (lesson.number ? (lesson.number.trim().toLowerCase().startsWith("bài") ? lesson.number.trim() : `Bài ${lesson.number.trim()}`) : "");
+      const fullTitleStr = lessonNumStr ? `${lessonNumStr}. ${lesson.title}` : lesson.title;
+      const gradeNum = lesson.grade ? String(lesson.grade).replace(/[^0-9]/g, '') : (currentGrade ? String(currentGrade).replace(/[^0-9]/g, '') : '11');
+      const badgeText = gradeNum ? `BÀI HỌC SỐ LỚP ${gradeNum}` : 'BÀI HỌC SỐ';
+
+      sidebarHeaderEl.innerHTML = `
+        <div class="structure-header-content">
+          <div class="structure-badge-row">
+            <span class="structure-tag"><i class="fa-solid fa-layer-group"></i> ${badgeText}</span>
+            <button class="btn-switch-to-chapters" id="btnSwitchToChapters" title="Xem danh sách tất cả các bài trong chương">
+              <i class="fa-solid fa-bars-staggered"></i> Toàn bộ bài
+            </button>
+          </div>
+          <h4 class="structure-lesson-title">${escapeHtml(fullTitleStr)}</h4>
+        </div>
+      `;
+
+      const btnSwitch = sidebarHeaderEl.querySelector("#btnSwitchToChapters");
+      if (btnSwitch) {
+        btnSwitch.addEventListener("click", () => {
+          currentSidebarMode = "chapter_list";
+          renderSidebar();
+        });
+      }
+    }
+
+    const completed = getLessonCompletedSteps(lesson.id);
+    const steps = getLessonLinearSteps(lesson);
+    const contentSteps = steps.filter(s => s.isContent);
+    const k = contentSteps.length || 1;
+    const contentStepWeight = Math.round(70.0 / k);
+
+    let treeHtml = `<div class="lesson-structure-tree" id="lessonStructureTree">`;
+
+    // Phần I: Lời chào
+    if (lesson.teacherWelcome) {
+      const isDone = completed.has("welcome");
+      const isActive = currentActiveStepId === "welcome";
+      treeHtml += `
+        <div class="tree-node ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="welcome">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="tree-part-badge">I</span>
+            <span class="tree-item-label">Phần I. Lời chào của Thầy Sáng</span>
+            <span class="tree-item-percent">5%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Phần II: Mục tiêu & Yêu cầu cần đạt
+    if (lesson.learningGoals && lesson.learningGoals.length > 0) {
+      const isDone = completed.has("goals");
+      const isActive = currentActiveStepId === "goals";
+      treeHtml += `
+        <div class="tree-node ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="goals">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="tree-part-badge">II</span>
+            <span class="tree-item-label">Phần II. Mục tiêu &amp; Yêu cầu cần đạt</span>
+            <span class="tree-item-percent">5%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Phần III: Tiến trình bài học (Group Box)
+    treeHtml += `
+      <div class="tree-group-box">
+        <div class="tree-group-header">
+          <span class="tree-group-title"><i class="fa-solid fa-chalkboard-user"></i> Phần III. Tiến trình bài học</span>
+          <span class="tree-group-badge">70% tiến trình</span>
+        </div>
+    `;
+
+    // Hook
+    if (lesson.hook) {
+      const isDone = completed.has("hook");
+      const isActive = currentActiveStepId === "hook";
+      treeHtml += `
+        <div class="tree-node tree-child-1 ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="hook">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="tree-item-label">Tình huống mở đầu (Bài toán dẫn nhập)</span>
+            <span class="tree-item-percent">${contentStepWeight}%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Các mục 1, 2, 3...
+    const sections = lesson.sections || [];
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      const secNum = (sec.num !== undefined && sec.num !== null && String(sec.num) !== 'undefined') 
+        ? sec.num 
+        : (sec.number ? String(sec.number).replace(/[^0-9]/g, '') : String(sIdx + 1));
+      
+      const subs = sec.subsections || [];
+      const hasMultipleSubs = subs.length > 1;
+
+      // Nếu có từ 2 mục con trở lên: Mục cha chỉ hoàn thành khi TẤT CẢ mục con đã xong
+      const isDone = hasMultipleSubs 
+        ? subs.every((sub, subIdx) => completed.has(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`))
+        : completed.has(secAnchor);
+
+      const isActive = currentActiveStepId === secAnchor;
+
+      treeHtml += `
+        <div class="tree-node tree-child-1 ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="${secAnchor}">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="sec-num-circle">${secNum}</span>
+            <span class="tree-item-label">Mục ${secNum}. ${escapeHtml(sec.title)}</span>
+            <span class="tree-item-percent">${contentStepWeight}%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+      `;
+
+      // Nếu trong mục 1 có các mục nhỏ a, b,.. thì mới thể hiện các mục con a, b,... (không ghi 1a, 1b)
+      if (hasMultipleSubs) {
+        treeHtml += `
+        <div class="tree-subsections-list" data-parent-sec="${secAnchor}">`;
+        subs.forEach((sub, subIdx) => {
+          const cleanKey = cleanSubKey(sub.key, subIdx);
+          const subStepId = `${secAnchor}-${cleanKey}`;
+          const isSubDone = completed.has(subStepId);
+          const isSubActive = (currentActiveStepId === secAnchor && currentActiveSubKey === cleanKey);
+          const cleanSubTitle = (sub.title || "").replace(/^\s*(?:\d+[a-z][\.\)]|[a-z][\.\)])\s*/i, "");
+
+          treeHtml += `
+            <div class="tree-sub-item ${isSubActive ? 'is-active' : ''} ${isSubDone ? 'is-completed' : ''}" data-step-id="${secAnchor}" data-sub-step-id="${subStepId}" data-subkey="${cleanKey}">
+              <span class="tree-sub-status-icon">
+                <i class="fa-${isSubDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+              </span>
+              <span class="tree-sub-letter">${cleanKey}.</span>
+              <span class="tree-sub-title">${escapeHtml(cleanSubTitle)}</span>
+              ${isSubDone ? `<span class="tree-sub-done-tag"><i class="fa-solid fa-check"></i></span>` : ''}
+            </div>
+          `;
+        });
+        treeHtml += `</div>`;
+      }
+    });
+
+    // Realworld Wrapup
+    if (lesson.realworldWrapup) {
+      const isDone = completed.has("wrapup");
+      const isActive = currentActiveStepId === "wrapup";
+      treeHtml += `
+        <div class="tree-node tree-child-1 ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="wrapup">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="tree-item-label">Chốt kiến thức then chốt (Tổng kết)</span>
+            <span class="tree-item-percent">${contentStepWeight}%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    treeHtml += `</div>`; // Close tree-group-box
+
+    // Phần IV: Bài tập củng cố
+    if (lesson.examFormatPractice || lesson.practiceQuizzes || lesson.isOlmInteractive) {
+      const isDone = completed.has("quiz");
+      const isActive = currentActiveStepId === "quiz";
+      treeHtml += `
+        <div class="tree-node ${isActive ? 'is-active' : ''} ${isDone ? 'is-completed' : ''}" data-step-id="quiz">
+          <div class="tree-item-row">
+            <span class="tree-status-icon">
+              <i class="fa-${isDone ? 'solid fa-circle-check' : 'regular fa-circle'}"></i>
+            </span>
+            <span class="tree-part-badge">IV</span>
+            <span class="tree-item-label">Phần IV. Bài tập củng cố (Trắc nghiệm)</span>
+            <span class="tree-item-percent">20%</span>
+            ${isDone ? `<span class="tree-done-tag"><i class="fa-solid fa-check"></i> Đã xong</span>` : ''}
+          </div>
+        </div>
+        <div class="tree-subsections-list" data-parent-sec="quiz">
+          <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="1">
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 1: Trắc nghiệm 4 lựa chọn (5 câu)</span>
+          </div>
+          <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="2">
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 2: Trắc nghiệm Đúng / Sai (3 câu)</span>
+          </div>
+          <div class="tree-sub-item" data-step-id="quiz" data-quiz-part="3">
+            <span class="tree-sub-status-icon"><i class="fa-regular fa-circle"></i></span>
+            <span class="tree-sub-letter">•</span>
+            <span class="tree-sub-title">Dạng 3: Trả lời ngắn thực tế (2 câu)</span>
+          </div>
+        </div>
+      `;
+    }
+
+    treeHtml += `</div>`; // Close lessonStructureTree
+
+    sidebarContainer.innerHTML = treeHtml;
+
+    // Gắn sự kiện click vào các node trên cây
+    sidebarContainer.querySelectorAll(".tree-node").forEach(node => {
+      node.addEventListener("click", () => {
+        const stepId = node.dataset.stepId;
+        if (stepId) {
+          let firstSub = null;
+          if (stepId.startsWith("sec-")) {
+            const sIdx = parseInt(stepId.replace("sec-", ""), 10) - 1;
+            const sec = (lesson.sections || [])[sIdx];
+            if (sec && sec.subsections && sec.subsections.length > 1) {
+              firstSub = cleanSubKey(sec.subsections[0].key, 0);
+            }
+          }
+          activateStep(stepId, firstSub);
+        }
+      });
+
+      // Cho phép click vào icon tick để hoàn thành / đổi trạng thái
+      const icon = node.querySelector(".tree-status-icon");
+      if (icon) {
+        icon.style.cursor = "pointer";
+        icon.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const stepId = node.dataset.stepId;
+          const completed = getLessonCompletedSteps(lesson.id);
+          if (completed.has(stepId)) {
+            completed.delete(stepId);
+          } else {
+            completed.add(stepId);
+          }
+          renderLessonStructureSidebar(lesson);
+          updateLessonProgressDisplay(lesson);
+        });
+      }
+    });
+
+    sidebarContainer.querySelectorAll(".tree-sub-item").forEach(item => {
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const stepId = item.dataset.stepId;
+        const subkey = item.dataset.subkey;
+        const quizPart = item.dataset.quizPart;
+        activateStep(stepId, subkey, quizPart);
+      });
+
+      // Cho phép click vào icon tick của mục con để đánh dấu hoàn thành
+      const subIcon = item.querySelector(".tree-sub-status-icon");
+      if (subIcon) {
+        subIcon.style.cursor = "pointer";
+        subIcon.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const stepId = item.dataset.stepId;
+          const subStepId = item.dataset.subStepId || `${stepId}-${item.dataset.subkey}`;
+          const completed = getLessonCompletedSteps(lesson.id);
+          if (completed.has(subStepId)) {
+            completed.delete(subStepId);
+            completed.delete(stepId);
+          } else {
+            completed.add(subStepId);
+            // kiểm tra nếu mọi mục con đã xong thì tick cha
+            const sections = lesson.sections || [];
+            sections.forEach((sec, sIdx) => {
+              const secAnchor = `sec-${sIdx + 1}`;
+              if (secAnchor === stepId) {
+                const subs = sec.subsections || [];
+                if (subs.length > 1) {
+                  const allSubsDone = subs.every((sub, subIdx) => completed.has(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`));
+                  if (allSubsDone) {
+                    completed.add(secAnchor);
+                  }
+                }
+              }
+            });
+          }
+          renderLessonStructureSidebar(lesson);
+          updateLessonProgressDisplay(lesson);
+        });
+      }
+    });
+  }
+
+  function renderChapterListSidebar() {
+    const sidebarHeaderEl = sidebarEl.querySelector(".sidebar-header");
+    if (sidebarHeaderEl) {
+      sidebarHeaderEl.className = "sidebar-header";
+      sidebarHeaderEl.innerHTML = `
+        <h4><i class="fa-solid fa-list-check"></i> Cấu trúc Chương &amp; Bài</h4>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button class="btn-switch-to-chapters" id="btnSwitchToLessonTree" title="Quay lại cây cấu trúc bài đang chọn" style="padding: 3px 8px; font-size: 0.72rem;">
+            <i class="fa-solid fa-arrow-left"></i> Bài đang học
+          </button>
+          <span class="sidebar-counter" id="sidebarCounter"></span>
+        </div>
+      `;
+      const btnSwitch = sidebarHeaderEl.querySelector("#btnSwitchToLessonTree");
+      if (btnSwitch) {
+        btnSwitch.addEventListener("click", () => {
+          currentSidebarMode = "lesson_tree";
+          renderSidebar();
+        });
+      }
+    }
+
     const gradeData = db[currentGrade];
     if (!gradeData) return;
 
@@ -2295,12 +2788,11 @@ function initDigitalLessons() {
       }
 
       if (filteredLessons.length === 0 && search) {
-        return; // Bỏ qua chương không có bài học khớp
+        return;
       }
 
       totalMatchingLessons += filteredLessons.length;
 
-      // Xác định chương có chứa bài học đang chọn không để tự động mở (open)
       const hasActiveLesson = filteredLessons.some(l => l.id === currentLessonId);
       const isOpen = hasActiveLesson || search.length > 0;
 
@@ -2337,9 +2829,9 @@ function initDigitalLessons() {
     }
 
     sidebarContainer.innerHTML = html;
-    sidebarCounter.textContent = `${totalMatchingLessons} bài học`;
+    const counterEl = document.getElementById("sidebarCounter");
+    if (counterEl) counterEl.textContent = `${totalMatchingLessons} bài học`;
 
-    // Gắn sự kiện click vào header chương (Accordion)
     sidebarContainer.querySelectorAll(".chapter-card-header").forEach(header => {
       header.addEventListener("click", () => {
         const card = header.closest(".chapter-accordion-card");
@@ -2349,7 +2841,6 @@ function initDigitalLessons() {
       });
     });
 
-    // Gắn sự kiện click vào nút bài học
     sidebarContainer.querySelectorAll(".lesson-nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const lessonId = btn.dataset.lessonId;
@@ -2357,6 +2848,319 @@ function initDigitalLessons() {
       });
     });
   }
+
+  function applyViewMode() {
+    const blocks = document.querySelectorAll("[data-step-block]");
+    if (!blocks || blocks.length === 0) return;
+
+    if (currentViewMode === "step") {
+      let found = false;
+      blocks.forEach(b => {
+        if (b.dataset.stepBlock === currentActiveStepId) {
+          b.style.display = "";
+          found = true;
+        } else {
+          b.style.display = "none";
+        }
+      });
+
+      if (!found && blocks.length > 0) {
+        currentActiveStepId = blocks[0].dataset.stepBlock;
+        blocks[0].style.display = "";
+      }
+    } else {
+      blocks.forEach(b => {
+        b.style.display = "";
+      });
+    }
+
+    // NẾU CÓ SUBKEY: CHỈ HIỂN THỊ DUY NHẤT MỤC CON ĐÓ (ẨN CÁC MỤC CON KHÁC TRONG MỤC LỚN)
+    const activeBlock = document.querySelector(`[data-step-block="${currentActiveStepId}"]`);
+    if (activeBlock) {
+      const subCards = activeBlock.querySelectorAll(".subsection-card");
+      if (subCards.length > 1) {
+        if (currentActiveSubKey) {
+          subCards.forEach(sc => {
+            const isMatch = (sc.dataset.subkey === currentActiveSubKey || sc.id === `sub-${currentActiveSubKey}`);
+            sc.style.display = isMatch ? "" : "none";
+          });
+        } else {
+          subCards.forEach(sc => sc.style.display = "");
+        }
+      }
+    }
+  }
+
+  function activateStep(stepId, subKey, quizPart) {
+    currentActiveStepId = stepId;
+    currentActiveSubKey = subKey || null;
+
+    if (sidebarContainer) {
+      sidebarContainer.querySelectorAll(".tree-node").forEach(node => {
+        node.classList.toggle("is-active", node.dataset.stepId === stepId);
+      });
+      sidebarContainer.querySelectorAll(".tree-sub-item").forEach(item => {
+        const match = (item.dataset.stepId === stepId && (
+          (subKey && item.dataset.subkey === subKey) || 
+          (quizPart && item.dataset.quizPart === quizPart)
+        ));
+        item.classList.toggle("is-active", !!match);
+      });
+    }
+
+    applyViewMode();
+
+    const statusTextEl = document.getElementById("currentStepStatusText");
+    if (statusTextEl) {
+      const flatList = getFlatLessonsList(currentGrade);
+      const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+      const steps = currentItem ? getLessonLinearSteps(currentItem.lesson) : [];
+      const stepObj = steps.find(s => s.id === stepId);
+      let title = stepObj ? stepObj.title : stepId;
+      if (subKey) {
+        title += ` - Mục ${subKey}.`;
+      }
+      statusTextEl.innerHTML = `Đang học: <strong>${escapeHtml(title)}</strong>`;
+    }
+
+    setTimeout(() => {
+      if (subKey) {
+        const activeBlock = document.querySelector(`[data-step-block="${currentActiveStepId}"]`);
+        const subCard = activeBlock ? activeBlock.querySelector(`[data-subkey="${subKey}"]`) : (document.getElementById(`${stepId}-sub-${subKey}`) || document.querySelector(`[data-subkey="${subKey}"]`));
+        if (subCard) {
+          subCard.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+      if (quizPart) {
+        const qPart = document.getElementById(`quiz-part${quizPart}`);
+        if (qPart) {
+          qPart.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+      const targetBlock = document.querySelector(`[data-step-block="${stepId}"]`);
+      if (targetBlock) {
+        targetBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 80);
+  }
+
+  function markStepCompleted(stepId, subKey) {
+    const flatList = getFlatLessonsList(currentGrade);
+    const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+    if (!currentItem) return;
+    const lesson = currentItem.lesson;
+
+    const completed = getLessonCompletedSteps(lesson.id);
+    let targetId = stepId;
+    if (subKey) {
+      targetId = `${stepId}-${subKey}`;
+    }
+
+    const wasAlreadyDone = completed.has(targetId);
+    completed.add(targetId);
+
+    // Nếu hoàn thành mục con, kiểm tra nếu mọi mục con đã xong thì đánh dấu mục cha
+    const sections = lesson.sections || [];
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      if (secAnchor === stepId) {
+        const subs = sec.subsections || [];
+        if (subs.length > 1) {
+          const allSubsDone = subs.every((sub, subIdx) => completed.has(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`));
+          if (allSubsDone) {
+            completed.add(secAnchor);
+          }
+        }
+      }
+    });
+
+    // Nếu hoàn thành mục cha thì đánh dấu hoàn thành tất cả mục con
+    sections.forEach((sec, sIdx) => {
+      const secAnchor = `sec-${sIdx + 1}`;
+      if (secAnchor === stepId && !subKey) {
+        const subs = sec.subsections || [];
+        subs.forEach((sub, subIdx) => {
+          completed.add(`${secAnchor}-${cleanSubKey(sub.key, subIdx)}`);
+        });
+      }
+    });
+
+    saveLessonCompletedSteps(lesson.id);
+
+    const pct = calculateLessonProgress(lesson);
+    currentLessonProgress = pct;
+    updateLessonProgressDisplay();
+
+    // Render lại sidebar để cập nhật tick xanh chính xác
+    renderLessonStructureSidebar(lesson);
+
+    if (!wasAlreadyDone && typeof window.showToast === "function") {
+      window.showToast(`🎉 Tuyệt vời! Em đã hoàn thành mục này. Tiến độ: ${pct}%`, "success");
+    }
+
+    if (pct >= 100) {
+      if (typeof window.triggerConfettiFireworks === "function") {
+        window.triggerConfettiFireworks();
+      }
+      if (typeof window.showToast === "function") {
+        window.showToast(`🏆 Chúc mừng em đã hoàn thành 100% bài học số!`, "success");
+      }
+    }
+  }
+
+  function goToNextStep(fromStepId) {
+    const flatList = getFlatLessonsList(currentGrade);
+    const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+    if (!currentItem) return;
+    const lesson = currentItem.lesson;
+
+    // Nếu đang ở mục lớn có nhiều mục con và chưa phải mục con cuối
+    if (fromStepId && fromStepId.startsWith("sec-")) {
+      const secIdx = parseInt(fromStepId.replace("sec-", ""), 10) - 1;
+      const sec = (lesson.sections || [])[secIdx];
+      if (sec && sec.subsections && sec.subsections.length > 1) {
+        const subs = sec.subsections;
+        const currentSubIdx = currentActiveSubKey ? subs.findIndex((s, idx) => cleanSubKey(s.key, idx) === currentActiveSubKey) : -1;
+        if (currentSubIdx !== -1 && currentSubIdx < subs.length - 1) {
+          const nextSubKey = cleanSubKey(subs[currentSubIdx + 1].key, currentSubIdx + 1);
+          activateStep(fromStepId, nextSubKey);
+          return;
+        }
+      }
+    }
+
+    const steps = getLessonLinearSteps(lesson);
+    const currentIdx = steps.findIndex(s => s.id === fromStepId);
+
+    if (currentIdx !== -1 && currentIdx < steps.length - 1) {
+      const nextStep = steps[currentIdx + 1];
+      let firstSub = null;
+      if (nextStep.id.startsWith("sec-")) {
+        const sIdx = parseInt(nextStep.id.replace("sec-", ""), 10) - 1;
+        const sObj = (lesson.sections || [])[sIdx];
+        if (sObj && sObj.subsections && sObj.subsections.length > 1) {
+          firstSub = cleanSubKey(sObj.subsections[0].key, 0);
+        }
+      }
+      activateStep(nextStep.id, firstSub);
+    }
+  }
+
+  function goToPrevStep(fromStepId) {
+    const flatList = getFlatLessonsList(currentGrade);
+    const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+    if (!currentItem) return;
+    const lesson = currentItem.lesson;
+
+    // Nếu đang ở mục lớn có nhiều mục con và không phải mục con đầu tiên
+    if (fromStepId && fromStepId.startsWith("sec-")) {
+      const secIdx = parseInt(fromStepId.replace("sec-", ""), 10) - 1;
+      const sec = (lesson.sections || [])[secIdx];
+      if (sec && sec.subsections && sec.subsections.length > 1) {
+        const subs = sec.subsections;
+        const currentSubIdx = currentActiveSubKey ? subs.findIndex((s, idx) => cleanSubKey(s.key, idx) === currentActiveSubKey) : -1;
+        if (currentSubIdx > 0) {
+          const prevSubKey = cleanSubKey(subs[currentSubIdx - 1].key, currentSubIdx - 1);
+          activateStep(fromStepId, prevSubKey);
+          return;
+        }
+      }
+    }
+
+    const steps = getLessonLinearSteps(lesson);
+    const currentIdx = steps.findIndex(s => s.id === fromStepId);
+
+    if (currentIdx > 0) {
+      const prevStep = steps[currentIdx - 1];
+      let targetSub = null;
+      if (prevStep.id.startsWith("sec-")) {
+        const sIdx = parseInt(prevStep.id.replace("sec-", ""), 10) - 1;
+        const sObj = (lesson.sections || [])[sIdx];
+        if (sObj && sObj.subsections && sObj.subsections.length > 1) {
+          targetSub = cleanSubKey(sObj.subsections[sObj.subsections.length - 1].key, sObj.subsections.length - 1);
+        }
+      }
+      activateStep(prevStep.id, targetSub);
+    }
+  }
+
+  window.markCurrentStepDoneOnAudioEnd = function() {
+    if (currentActiveStepId) {
+      markStepCompleted(currentActiveStepId, currentActiveSubKey);
+    }
+  };
+  window.markStepCompleted = markStepCompleted;
+  window.activateStep = activateStep;
+  window.getLessonLinearSteps = getLessonLinearSteps;
+  window.calculateLessonProgress = calculateLessonProgress;
+  window.mathToVietnameseSpeech = mathToVietnameseSpeech;
+
+  function initLessonStepperEngine(lesson) {
+    const pct = calculateLessonProgress(lesson);
+    currentLessonProgress = pct;
+    updateLessonProgressDisplay();
+
+    const btnModeStep = document.getElementById("btnModeStep");
+    const btnModeAll = document.getElementById("btnModeAll");
+
+    if (btnModeStep) {
+      btnModeStep.addEventListener("click", () => {
+        currentViewMode = "step";
+        btnModeStep.classList.add("active");
+        if (btnModeAll) btnModeAll.classList.remove("active");
+        applyViewMode();
+        activateStep(currentActiveStepId, currentActiveSubKey);
+      });
+    }
+
+    if (btnModeAll) {
+      btnModeAll.addEventListener("click", () => {
+        currentViewMode = "all";
+        btnModeAll.classList.add("active");
+        if (btnModeStep) btnModeStep.classList.remove("active");
+        applyViewMode();
+      });
+    }
+
+    sectionsContainer.querySelectorAll(".btn-step-nav").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const action = btn.dataset.navAction;
+        const fromStep = btn.dataset.fromStep;
+        if (action === "prev") {
+          goToPrevStep(fromStep);
+        } else if (action === "next") {
+          goToNextStep(fromStep);
+        } else if (action === "complete") {
+          markStepCompleted(fromStep, currentActiveSubKey);
+          goToNextStep(fromStep);
+        }
+      });
+    });
+
+    const steps = getLessonLinearSteps(lesson);
+    if (!steps.some(s => s.id === currentActiveStepId)) {
+      currentActiveStepId = steps.length > 0 ? steps[0].id : "welcome";
+    }
+
+    activateStep(currentActiveStepId);
+  }
+
+  // 2. Render Tầng 2: Danh sách Chương & Bài học trong Sidebar
+  function renderSidebar() {
+    const flatList = getFlatLessonsList(currentGrade);
+    const currentItem = flatList.find(item => item.lesson.id === currentLessonId);
+    const lesson = currentItem ? currentItem.lesson : null;
+
+    if (currentSidebarMode === "lesson_tree" && lesson) {
+      renderLessonStructureSidebar(lesson);
+    } else {
+      renderChapterListSidebar();
+    }
+  }
+
 
   // 3. Render Tầng 3: Chi tiết Bài học
   function renderLessonViewer() {
@@ -2414,8 +3218,8 @@ function initDigitalLessons() {
     // Render Tầng 3: Khung Mục lớn & Khung phụ a), b), c)...
     let sectionsHtml = "";
 
-    // 0. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION CHUẨN OLM
-    if (lesson.isOlmInteractive) {
+    // 0. THANH TIẾN ĐỘ HỌC TẬP (% PROGRESS BAR) & GAMIFICATION
+    if (lesson.isInteractiveDigitalLesson || lesson.isFeaturedLesson || lesson.isOlmInteractive) {
       sectionsHtml += `
         <div class="olm-progress-sticky-wrapper" id="olmStickyProgressBar">
           <div class="olm-progress-inner">
@@ -2436,58 +3240,285 @@ function initDigitalLessons() {
           </div>
         </div>
       `;
+
+      sectionsHtml += `
+        <div class="view-mode-bar" id="lessonViewModeBar">
+          <div class="view-mode-status">
+            <i class="fa-solid fa-chalkboard-user" style="color: #0284c7;"></i>
+            <span id="currentStepStatusText">Đang học: <strong>Lời chào của Thầy Sáng</strong></span>
+          </div>
+          <div class="view-mode-toggles">
+            <button type="button" class="btn-view-toggle ${currentViewMode === 'step' ? 'active' : ''}" data-mode="step" id="btnModeStep">
+              <i class="fa-solid fa-bullseye"></i> Học từng mục (Tập trung)
+            </button>
+            <button type="button" class="btn-view-toggle ${currentViewMode === 'all' ? 'active' : ''}" data-mode="all" id="btnModeAll">
+              <i class="fa-solid fa-list-ul"></i> Xem toàn bộ bài
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    const KNOWN_AUDIO_DURATIONS = {
+      "assets/audio/b10_2_welcome.mp3": 40.2,
+      "assets/audio/b10_2_goals.mp3": 42.1,
+      "assets/audio/b10_2_hook.mp3": 45.4,
+      "assets/audio/b10_2_sec1.mp3": 70.3,
+      "assets/audio/b10_2_sec2.mp3": 67.0,
+      "assets/audio/b10_2_sec3.mp3": 94.6,
+      "assets/audio/b10_2_wrapup.mp3": 38.6,
+      "assets/audio/b10_1_welcome.mp3": 30.8,
+      "assets/audio/b10_1_goals.mp3": 36.1,
+      "assets/audio/b10_1_hook.mp3": 36.4,
+      "assets/audio/b10_1_sec1.mp3": 64.4,
+      "assets/audio/b10_1_sec2.mp3": 36.4,
+      "assets/audio/b10_1_sec3.mp3": 48.9,
+      "assets/audio/b10_1_sec4.mp3": 29.6,
+      "assets/audio/b10_1_sec5.mp3": 32.4,
+      "assets/audio/b10_1_wrapup.mp3": 35.4,
+      "assets/audio/b11_10_welcome.mp3": 35.8,
+      "assets/audio/b11_10_goals.mp3": 34.4,
+      "assets/audio/b11_10_hook.mp3": 34.7,
+      "assets/audio/b11_10_sec1.mp3": 48.9,
+      "assets/audio/b11_10_sec2.mp3": 60.7,
+      "assets/audio/b11_10_sec3.mp3": 47.7,
+      "assets/audio/b11_10_sec4.mp3": 63.7,
+      "assets/audio/b11_10_wrapup.mp3": 31.5,
+      "assets/audio/b6_welcome.mp3": 18.02,
+      "assets/audio/b6_goals.mp3": 23.59,
+      "assets/audio/b6_hook.mp3": 17.11,
+      "assets/audio/b6_sec1.mp3": 20.52,
+      "assets/audio/b6_sec2.mp3": 25.37,
+      "assets/audio/b6_sec3.mp3": 25.54,
+      "assets/audio/b6_sec4.mp3": 19.08,
+      "assets/audio/b6_wrapup.mp3": 20.04,
+      "assets/audio/b7_welcome.mp3": 18.02,
+      "assets/audio/b7_goals.mp3": 33.48,
+      "assets/audio/b7_hook.mp3": 22.85,
+      "assets/audio/b7_sec1.mp3": 29.98,
+      "assets/audio/b7_sec2.mp3": 25.46,
+      "assets/audio/b7_sec3.mp3": 26.14,
+      "assets/audio/b7_sec4.mp3": 31.25,
+      "assets/audio/b7_wrapup.mp3": 23.64,
+      "assets/audio/b8_welcome.mp3": 23.04,
+      "assets/audio/b8_goals.mp3": 33.43,
+      "assets/audio/b8_hook.mp3": 34.06,
+      "assets/audio/b8_sec1.mp3": 19.80,
+      "assets/audio/b8_sec2.mp3": 25.00,
+      "assets/audio/b8_sec3.mp3": 28.97,
+      "assets/audio/b8_sec4.mp3": 27.84,
+      "assets/audio/b8_wrapup.mp3": 26.98,
+      "assets/audio/b12_welcome.mp3": 56.28,
+      "assets/audio/b12_goals.mp3": 31.97,
+      "assets/audio/b12_hook.mp3": 29.38,
+      "assets/audio/b12_sec1.mp3": 31.92,
+      "assets/audio/b12_sec2.mp3": 28.06,
+      "assets/audio/b12_sec3.mp3": 25.01,
+      "assets/audio/b12_sec4.mp3": 23.93,
+      "assets/audio/b12_wrapup.mp3": 18.02,
+      "assets/audio/b10_7_welcome.mp3": 28.46,
+      "assets/audio/b10_7_goals.mp3": 28.75,
+      "assets/audio/b10_7_hook.mp3": 34.10,
+      "assets/audio/b10_7_sec1.mp3": 26.83,
+      "assets/audio/b10_7_sec2.mp3": 23.50,
+      "assets/audio/b10_7_sec3.mp3": 24.00,
+      "assets/audio/b10_7_sec4.mp3": 23.52,
+      "assets/audio/b10_7_wrapup.mp3": 26.14,
+      "assets/audio/b10_8_welcome.mp3": 18.5,
+      "assets/audio/b10_8_goals.mp3": 19.6,
+      "assets/audio/b10_8_hook.mp3": 42.5,
+      "assets/audio/b10_8_sec1.mp3": 26.9,
+      "assets/audio/b10_8_sec2.mp3": 20.5,
+      "assets/audio/b10_8_sec3.mp3": 21.3,
+      "assets/audio/b10_8_sec4.mp3": 24.6,
+      "assets/audio/b10_8_wrapup.mp3": 19.5,
+      "assets/audio/b10_9_welcome.mp3": 28.4,
+      "assets/audio/b10_9_goals.mp3": 27.8,
+      "assets/audio/b10_9_hook.mp3": 28.0,
+      "assets/audio/b10_9_sec1.mp3": 20.5,
+      "assets/audio/b10_9_sec2.mp3": 20.7,
+      "assets/audio/b10_9_sec3.mp3": 23.3,
+      "assets/audio/b10_9_sec4.mp3": 18.6,
+      "assets/audio/b10_9_wrapup.mp3": 24.0,
+      "assets/audio/b10_10_welcome.mp3": 28.0,
+      "assets/audio/b10_10_goals.mp3": 29.5,
+      "assets/audio/b10_10_hook.mp3": 28.8,
+      "assets/audio/b10_10_sec1.mp3": 25.3,
+      "assets/audio/b10_10_sec2.mp3": 21.3,
+      "assets/audio/b10_10_sec3.mp3": 23.7,
+      "assets/audio/b10_10_sec4.mp3": 21.1,
+      "assets/audio/b10_10_wrapup.mp3": 24.2,
+      "assets/audio/b10_11_welcome.mp3": 29.8,
+      "assets/audio/b10_11_goals.mp3": 26.1,
+      "assets/audio/b10_11_hook.mp3": 24.7,
+      "assets/audio/b10_11_sec1.mp3": 24.4,
+      "assets/audio/b10_11_sec2.mp3": 22.6,
+      "assets/audio/b10_11_sec3.mp3": 22.2,
+      "assets/audio/b10_11_sec4.mp3": 19.8,
+      "assets/audio/b10_11_wrapup.mp3": 20.2,
+      "assets/audio/b10_3_welcome.mp3": 28.3,
+      "assets/audio/b10_3_goals.mp3": 29.3,
+      "assets/audio/b10_3_hook.mp3": 27.1,
+      "assets/audio/b10_3_sec1.mp3": 28.9,
+      "assets/audio/b10_3_sec2.mp3": 32.9,
+      "assets/audio/b10_3_sec3.mp3": 28.6,
+      "assets/audio/b10_3_wrapup.mp3": 19.3,
+      "assets/audio/b10_4_welcome.mp3": 24.4,
+      "assets/audio/b10_4_goals.mp3": 30.8,
+      "assets/audio/b10_4_hook.mp3": 25.7,
+      "assets/audio/b10_4_sec1.mp3": 25.4,
+      "assets/audio/b10_4_sec2.mp3": 22.6,
+      "assets/audio/b10_4_sec3.mp3": 32.1,
+      "assets/audio/b10_4_wrapup.mp3": 26.8,
+"assets/audio/b10_5_welcome.mp3": 39.12,
+      "assets/audio/b10_5_goals.mp3": 23.09,
+      "assets/audio/b10_5_hook.mp3": 24.74,
+      "assets/audio/b10_5_sec1.mp3": 38.38,
+      "assets/audio/b10_5_sec2.mp3": 44.9,
+      "assets/audio/b10_5_sec3.mp3": 32.98,
+      "assets/audio/b10_5_wrapup.mp3": 21.0,
+      "assets/audio/b10_6_welcome.mp3": 33.98,
+      "assets/audio/b10_6_goals.mp3": 24.29,
+      "assets/audio/b10_6_hook.mp3": 21.24,
+      "assets/audio/b10_6_sec1.mp3": 37.01,
+      "assets/audio/b10_6_sec2.mp3": 19.13,
+      "assets/audio/b10_6_sec3.mp3": 32.71,
+      "assets/audio/b10_6_sec4.mp3": 27.12,
+      "assets/audio/b10_6_wrapup.mp3": 19.01,
+    };
+
+    function formatAudioTime(sec) {
+      if (isNaN(sec) || sec < 0) return "00:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    }
+
+    // Helper tạo hộp thoại âm thanh vàng đồng Thầy Sáng kèm thanh thời gian (Timeline)
+    function renderTeacherGoldVoiceBoxHtml(btnTitle, scriptText, audioUrl, customId, pois) {
+      const idAttr = customId ? ` id="${customId}"` : "";
+      if (pois && pois.length > 0) {
+        window.LESSON_POIS_MAP = window.LESSON_POIS_MAP || {};
+        if (audioUrl) window.LESSON_POIS_MAP[audioUrl] = pois;
+        if (customId) window.LESSON_POIS_MAP[customId] = pois;
+      }
+      const poisAttr = (pois && pois.length > 0) ? ` data-pois='${escapeHtml(JSON.stringify(pois))}'` : "";
+      const hasPois = (pois && pois.length > 0);
+      const initDuration = (audioUrl && KNOWN_AUDIO_DURATIONS[audioUrl]) 
+        ? formatAudioTime(KNOWN_AUDIO_DURATIONS[audioUrl]) 
+        : "00:00";
+
+      return `
+        <div class="teacher-voice-gold-box"${idAttr}>
+          <div class="teacher-voice-gold-top" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 8px;">
+            <div class="teacher-voice-gold-meta">
+              <div class="teacher-voice-gold-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <div class="teacher-voice-gold-info">
+                <span class="voice-ai-label">Giọng đọc AI của ThS. Lương Thanh Sáng</span>
+              </div>
+            </div>
+            <div class="voice-speed-pill-group">
+              <button class="btn-speed-pill" data-speed="0.75" title="Tốc độ 0.75x">0.75x</button>
+              <button class="btn-speed-pill active" data-speed="1.0" title="Tốc độ bình thường">1.0x</button>
+              <button class="btn-speed-pill" data-speed="1.25" title="Tốc độ 1.25x">1.25x</button>
+              <button class="btn-speed-pill" data-speed="1.5" title="Tốc độ 1.5x">1.5x</button>
+            </div>
+          </div>
+
+          <!-- THANH THỜI GIAN TIẾN ĐỘ BÀI GIẢNG (AUDIO TIMELINE) -->
+          <div class="gold-audio-timeline-wrap" data-audio-ref="${audioUrl || ''}">
+            <span class="gold-audio-time gold-audio-current-time">00:00</span>
+            <div class="gold-audio-seek-track" title="Kéo hoặc nhấn để tua bài giảng">
+              <div class="gold-audio-seek-fill"></div>
+              <div class="gold-audio-poi-container">
+                ${hasPois ? `
+                  <div class="gold-audio-poi-marker marker-poi-0" style="left: 35%;" title="Điểm dừng 1: Kiểm tra nhanh"></div>
+                  <div class="gold-audio-poi-marker marker-poi-1" style="left: 75%;" title="Điểm dừng 2: Kiểm tra nâng cao"></div>
+                ` : ''}
+              </div>
+              <input type="range" class="gold-audio-slider" min="0" max="100" value="0" step="0.1" aria-label="Tua thời gian">
+            </div>
+            <span class="gold-audio-time gold-audio-duration-time">${initDuration}</span>
+          </div>
+
+          <div class="teacher-voice-gold-controls" style="display: flex; align-items: center; gap: 10px; width: 100%; flex-wrap: wrap;">
+            <button class="btn-voice-gold-sang btn-play-gold-voice" data-audio="${audioUrl || ''}" data-box-id="${customId || ''}" data-script="${escapeHtml(scriptText || '')}"${poisAttr} data-original-title="${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}">
+              <i class="fa-solid fa-circle-play"></i> ${escapeHtml(btnTitle || 'Nghe thầy Sáng giảng bài')}
+            </button>
+            <button class="btn-voice-stop-sang btn-stop-gold-voice" title="Dừng phát">
+              <i class="fa-solid fa-stop"></i> Dừng
+            </button>
+            ${hasPois ? `
+              <span class="poi-indicator-note" style="font-size: 0.8rem; color: #b45309; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                <i class="fa-solid fa-circle-dot" style="color: #f59e0b;"></i> Có 2 câu hỏi tương tác tự động dừng tại các chấm vàng
+              </span>
+            ` : ''}
+          </div>
+        </div>
+      `;
     }
 
     // 1. Khung Lời chào sư phạm đầu giờ & Giọng đọc mục tiêu của Thầy Sáng
     if (lesson.teacherWelcome) {
       sectionsHtml += `
-        <div class="teacher-welcome-card" id="lessonWelcomeCard">
-          <div class="welcome-top-bar">
+        <div class="teacher-welcome-card" id="lessonWelcomeCard" data-step-block="welcome">
+          <div class="welcome-top-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
             <div class="teacher-badge-profile">
               <div class="avatar-ring-box">
                 <i class="fa-solid fa-chalkboard-user"></i>
               </div>
               <div class="teacher-titles">
-                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> Lời chào sư phạm thân thương đầu giờ</span>
+                <span class="welcome-heart-tag"><i class="fa-solid fa-heart" style="color: #ef4444;"></i> PHẦN I. LỜI CHÀO</span>
                 <h3 class="teacher-display-name">ThS. Lương Thanh Sáng</h3>
                 <p class="teacher-school-sub">Giáo viên Toán • Trường THPT Nguyễn Văn Thoại, An Giang</p>
               </div>
             </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.teacherWelcome.buttonLabel || "Nhấn nghe Lời chào",
+              lesson.teacherWelcome.audioScript || lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || "",
+              lesson.teacherWelcome.audioUrl || lesson.audioUrl || "",
+              "welcome-voice-player"
+            )}
           </div>
 
           <div class="welcome-quote-body">
             <i class="fa-solid fa-quote-left quote-corner-icon"></i>
-            <p class="welcome-quote-msg">"${escapeHtml(lesson.teacherWelcome.greetingText)}"</p>
+            <p class="welcome-quote-msg">"${lesson.teacherWelcome.greetingText || lesson.teacherWelcome.quote || lesson.teacherWelcome.audioScript || lesson.teacherWelcome.message || ""}"</p>
           </div>
-
-          <div class="welcome-voice-action-bar">
-            <button class="btn-voice-action btn-play-welcome-voice" id="btnPlayTeacherWelcome" data-script="${escapeHtml(lesson.teacherWelcome.audioScript)}" data-audio="${lesson.teacherWelcome.audioUrl || ''}">
-              <i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu
-            </button>
-            <button class="btn-voice-action btn-stop-welcome-voice" id="btnStopTeacherWelcome" title="Dừng đọc">
-              <i class="fa-solid fa-stop"></i> Dừng
-            </button>
-            <div class="voice-equalizer-bars" id="welcomeEqBars">
-              <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-            </div>
-            <div class="voice-speed-selector">
-              <button class="btn-speed" data-speed="0.85">0.85x</button>
-              <button class="btn-speed active" data-speed="1.0">1.0x</button>
-              <button class="btn-speed" data-speed="1.15">1.15x</button>
-            </div>
-          </div>
+          ${renderStepNavFooterHtml('welcome', lesson)}
         </div>
       `;
     }
 
     // 2. Khung Mục tiêu & Yêu cầu cần đạt bài học
     if (lesson.learningGoals && lesson.learningGoals.length > 0) {
+      const goalsTextForAudio = lesson.goalsAudioScript || (
+        Array.isArray(lesson.learningGoals) 
+          ? lesson.learningGoals.map(g => typeof g === 'string' ? g : (g.title ? g.title + (g.desc ? ': ' + g.desc : '') : (g.text || g.content || g.detail || ''))).join(". ")
+          : ""
+      );
       sectionsHtml += `
-        <div class="lesson-goals-box">
-          <h4><i class="fa-solid fa-bullseye"></i> Mục tiêu &amp; Yêu cầu cần đạt của bài học:</h4>
+        <div class="lesson-goals-box" id="lessonGoalsBox" data-step-block="goals">
+          <div class="goals-top-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <h4 style="margin: 0;"><i class="fa-solid fa-bullseye"></i> PHẦN II. MỤC TIÊU VÀ YÊU CẦU CẦN ĐẠT</h4>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.goalsButtonLabel || "Nghe thầy Sáng AI đọc",
+              goalsTextForAudio,
+              lesson.goalsAudioUrl || "",
+              "goals-voice-player"
+            )}
+          </div>
           <ul class="lesson-goals-list">
-            ${lesson.learningGoals.map(g => `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${escapeHtml(g)}</li>`).join("")}
+            ${lesson.learningGoals.map(g => {
+              if (typeof g === 'string') {
+                return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${g}</li>`;
+              }
+              const titlePart = (g && g.title) ? `<strong>${g.title}:</strong> ` : '';
+              const descPart = (g && (g.desc || g.text || g.content || g.detail)) || (typeof g === 'object' ? Object.values(g).join(' ') : String(g));
+              return `<li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 8px;"></i>${titlePart}${descPart}</li>`;
+            }).join("")}
           </ul>
+          ${renderStepNavFooterHtml('goals', lesson)}
         </div>
       `;
     }
@@ -2495,30 +3526,94 @@ function initDigitalLessons() {
     // 3. Khung Tình huống mở đầu thực tế (Hook)
     if (lesson.hook) {
       sectionsHtml += `
-        <div class="lesson-hook-card">
-          <div class="hook-badge"><i class="fa-solid fa-compass"></i> Tình huống thực tiễn</div>
-          <h3 class="hook-title">${escapeHtml(lesson.hook.title)}</h3>
-          <p class="hook-story">${escapeHtml(lesson.hook.story)}</p>
+        <div class="lesson-hook-card" id="lessonHookCard" data-step-block="hook">
+          <div class="hook-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <div>
+              <div class="hook-badge"><i class="fa-solid fa-compass"></i> Tình huống thực tiễn mở đầu</div>
+              <h3 class="hook-title" style="margin-top: 6px;">${escapeHtml(lesson.hook.title)}</h3>
+            </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.hook.buttonLabel || "Nghe thầy Sáng giảng bài",
+              lesson.hook.audioScript || lesson.hook.story,
+              lesson.hook.audioUrl || "",
+              "hook-voice-player",
+              lesson.hook.checkpoints || lesson.hook.pois || []
+            )}
+          </div>
+          ${(lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml) ? `<div class="hook-story">${lesson.hook.storyHtml || lesson.hook.situation || lesson.hook.problemHtml}</div>` : (
+            /<[a-z][\s\S]*>/i.test(lesson.hook.story || "")
+              ? `<div class="hook-story">${lesson.hook.story}</div>`
+              : `<p class="hook-story">${escapeHtml(lesson.hook.story || "")}</p>`
+          )}
 
-          ${lesson.hook.illustration ? `
-            <div class="lesson-illustration-box">
-              <img src="${lesson.hook.illustration}" alt="${escapeHtml(lesson.hook.title)}" class="lesson-responsive-img">
-              ${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}
+          ${lesson.hook.illustrationSvg ? lesson.hook.illustrationSvg : (lesson.hook.diagramHtml ? lesson.hook.diagramHtml : '')}
+
+          ${lesson.hook.illustration ? (
+            lesson.hook.illustration.trim().startsWith('<')
+              ? `<div class="lesson-illustration-box">${lesson.hook.illustration}${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}</div>`
+              : `
+                <div class="lesson-illustration-box">
+                  <img src="${lesson.hook.illustration}" alt="${escapeHtml(lesson.hook.title)}" class="lesson-responsive-img">
+                  ${lesson.hook.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.hook.illustrationCaption)}</div>` : ''}
+                </div>
+              `
+          ) : ''}
+
+          ${lesson.hook.question ? `
+            <div class="hook-question-box">
+              <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
+              <strong>Câu hỏi khơi gợi tư duy:</strong> ${lesson.hook.questionHtml || (/<[a-z][\s\S]*>/i.test(lesson.hook.question || "") ? lesson.hook.question : escapeHtml(lesson.hook.question))}
             </div>
           ` : ''}
 
-          <div class="hook-question-box">
-            <i class="fa-solid fa-circle-question" style="color: #f59e0b; margin-right: 6px;"></i>
-            <strong>Câu hỏi khơi gợi tư duy:</strong> ${escapeHtml(lesson.hook.question)}
-          </div>
-          <div class="hook-teacher-note">
-            <i class="fa-solid fa-chalkboard-user"></i> <strong>Thầy Sáng chia sẻ:</strong> "${escapeHtml(lesson.hook.teacherNote)}"
-          </div>
+          ${(lesson.hook.checkpoints && lesson.hook.checkpoints.length > 0) ? `
+            <div class="section-checkpoints-card" style="margin-top: 20px; padding: 16px 18px; background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: 800; color: #166534; font-size: 1rem;">
+                  <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC TÌNH HUỐNG MỞ ĐẦU (POI)
+                </span>
+                <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                  <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                </span>
+              </div>
+              <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 12px;">
+                ${lesson.hook.checkpoints.map((poi, pIdx) => {
+                  let cIdx = poi.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                    else if (typeof poi.correctAnswer === 'string') {
+                      const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                      <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                    </div>
+                    <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                      ${poi.question}
+                    </div>
+                    <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                      ${poi.options.map((opt, oIdx) => `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                          <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                        </button>
+                      `).join('')}
+                    </div>
+                    <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                      <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                    </div>
+                  </div>
+                `;}).join('')}
+              </div>
+            </div>
+          ` : ''}
         </div>
       `;
     }
 
-    // 4. Khung Giọng giảng bài AI của ThS. Lương Thanh Sáng (Toàn bài)
+    // 4. Khung Giọng giảng bài AI của ThS. Lương Thanh Sáng (Toàn bài có POI)
     if (lesson.interactiveAudio) {
       sectionsHtml += `
         <div class="olm-interactive-player-card" id="olmInteractivePlayer">
@@ -2570,50 +3665,7 @@ function initDigitalLessons() {
               </div>
             </div>
           </div>
-        </div>
-      `;
-    } else if (lesson.teacherVoiceGeneral) {
-      sectionsHtml += `
-        <div class="ai-teacher-voice-player" id="mainVoicePlayer" data-script="${escapeHtml(lesson.teacherVoiceGeneral.script)}" data-audio="${lesson.teacherVoiceGeneral.audioUrl || ''}">
-          <div class="voice-player-header">
-            <div class="voice-teacher-info">
-              <div class="voice-avatar-wrap">
-                <i class="fa-solid fa-chalkboard-user"></i>
-                <div class="voice-status-dot"></div>
-              </div>
-              <div class="voice-title-text">
-                <h4><i class="fa-solid fa-volume-high"></i> ${escapeHtml(lesson.teacherVoiceGeneral.title)}</h4>
-                <p>Giọng AI ThS. Lương Thanh Sáng • Truyền cảm, trầm ấm &amp; chuẩn ký hiệu Toán</p>
-              </div>
-            </div>
-            <div class="voice-equalizer-bars">
-              <div class="eq-bar"></div>
-              <div class="eq-bar"></div>
-              <div class="eq-bar"></div>
-              <div class="eq-bar"></div>
-              <div class="eq-bar"></div>
-            </div>
-          </div>
-          <div class="voice-controls-row" style="margin-top: 14px;">
-            <button class="btn-voice-action btn-voice-play" id="btnPlayMainVoice">
-              <i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài
-            </button>
-            <button class="btn-voice-action btn-voice-stop" id="btnStopMainVoice" title="Dừng phát âm">
-              <i class="fa-solid fa-stop"></i> Dừng
-            </button>
-            <div class="voice-speed-selector">
-              <button class="btn-speed" data-speed="0.85">0.85x</button>
-              <button class="btn-speed active" data-speed="1.0">1.0x</button>
-              <button class="btn-speed" data-speed="1.15">1.15x</button>
-            </div>
-            <button class="btn-toggle-transcript" id="btnToggleTranscript">
-              <i class="fa-solid fa-file-lines"></i> Xem lời giảng Thầy Sáng
-            </button>
-          </div>
-          <div class="voice-transcript-drawer" id="mainVoiceTranscript">
-            <i class="fa-solid fa-quote-left" style="color: #ffd875; margin-right: 6px;"></i>
-            <span>${escapeHtml(lesson.teacherVoiceGeneral.script)}</span>
-          </div>
+          ${renderStepNavFooterHtml('hook', lesson)}
         </div>
       `;
     }
@@ -2622,33 +3674,38 @@ function initDigitalLessons() {
     sections.forEach((sec, sIdx) => {
       const subsections = sec.subsections || [];
       const secAnchor = `sec-${sIdx + 1}`;
+      const secNum = (sec.num !== undefined && sec.num !== null && String(sec.num) !== 'undefined') 
+        ? sec.num 
+        : (sec.number ? String(sec.number).replace(/[^0-9]/g, '') : String(sIdx + 1));
 
       sectionsHtml += `
-        <!-- MỤC ${sec.num} -->
-        <article class="lesson-section-card" id="${secAnchor}">
-          <div class="section-card-header">
-            <div class="section-title-wrap">
-              <div class="section-num-circle">${escapeHtml(sec.num)}</div>
-              <h2 class="section-heading-h2">${escapeHtml(sec.title)}</h2>
+        <!-- MỤC ${secNum} -->
+        <article class="lesson-section-card" id="${secAnchor}" data-step-block="${secAnchor}">
+          <div class="section-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div class="section-title-wrap" style="margin-bottom: 0;">
+              <div class="section-num-circle">${escapeHtml(secNum)}</div>
+              <h2 class="section-heading-h2">Mục ${escapeHtml(secNum)}. ${escapeHtml(sec.title)}</h2>
             </div>
+            ${(sec.audioScript || sec.audioUrl) ? renderTeacherGoldVoiceBoxHtml(
+              sec.buttonLabel || "Nghe thầy Sáng giảng bài",
+              sec.audioScript || sec.title,
+              sec.audioUrl || "",
+              `sec-voice-${sIdx}`,
+              sec.checkpoints || sec.pois || []
+            ) : ""}
           </div>
           <div class="section-body-wrap">
-            ${subsections.map((sub, subIdx) => {
-              const exId = `ex-sol-${sIdx}-${sub.key || subIdx}`;
+            ${subsections.length > 0 ? subsections.map((sub, subIdx) => {
+              const cleanLetter = cleanSubKey(sub.key, subIdx);
+              const exId = `ex-sol-${sIdx}-${cleanLetter}`;
+              const cleanSubTitle = (sub.title || "").replace(/^\s*(?:\d+[a-z][\.\)]|[a-z][\.\)])\s*/i, "");
               return `
-              <!-- Khung phụ ${sub.key}) -->
-              <div class="subsection-card">
+              <!-- Khung phụ ${cleanLetter}) -->
+              <div class="subsection-card" id="${secAnchor}-sub-${escapeHtml(cleanLetter)}" data-subkey="${escapeHtml(cleanLetter)}">
                 <div class="subsection-header">
-                  <span class="sub-key-badge">${escapeHtml(sub.key)}</span>
-                  <h3 class="subsection-heading-h3">${escapeHtml(sub.key)}) ${escapeHtml(sub.title)}</h3>
+                  <span class="sub-key-badge">${escapeHtml(cleanLetter)}.</span>
+                  <h3 class="subsection-heading-h3">${escapeHtml(cleanSubTitle)}</h3>
                 </div>
-
-                ${sub.illustration ? `
-                  <div class="lesson-illustration-box">
-                    <img src="${sub.illustration}" alt="${escapeHtml(sub.title)}" class="lesson-responsive-img">
-                    ${sub.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(sub.illustrationCaption)}</div>` : ''}
-                  </div>
-                ` : ''}
 
                 ${sub.contentHtml ? `
                   <div class="sub-rich-content">
@@ -2656,32 +3713,17 @@ function initDigitalLessons() {
                   </div>
                 ` : `
                   <div class="lesson-placeholder-box">
-                    <div class="placeholder-left">
-                      <div class="placeholder-icon-circle">
-                        <i class="fa-solid fa-pen-ruler"></i>
-                      </div>
-                      <div class="placeholder-info">
-                        <h5>Nội dung mục ${escapeHtml(sub.key)} đang được cập nhật</h5>
-                        <p>${escapeHtml(sub.summary || `Lý thuyết trọng tâm, định lí và ví dụ minh họa của mục này sẽ được ThS. Lương Thanh Sáng cập nhật trong thời gian sớm nhất.`)}</p>
-                      </div>
-                    </div>
-                    <span class="placeholder-status-tag">
-                      <i class="fa-solid fa-clock-rotate-left"></i> Đang biên soạn
-                    </span>
+                    <p>${escapeHtml(sub.summary || '')}</p>
                   </div>
                 `}
 
-                ${sub.teacherLecture ? `
-                  <div class="mini-voice-lecture-box" style="margin-top: 14px; background: #f8fafc; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-                    <div style="font-size: 0.88rem; color: #1e3a8a; display: flex; align-items: center; gap: 8px;">
-                      <i class="fa-solid fa-headphones" style="color: #0284c7;"></i>
-                      <strong>Nghe Thầy Sáng giảng giải mục ${escapeHtml(sub.key)}:</strong>
-                    </div>
-                    <button class="btn-voice-action btn-voice-play btn-mini-voice-play" data-script="${escapeHtml(sub.teacherLecture)}" style="padding: 6px 12px; font-size: 0.8rem; background: #0284c7; color: #fff;">
-                      <i class="fa-solid fa-play"></i> Nghe giảng
-                    </button>
-                  </div>
-                ` : ""}
+                ${(sub.audioUrl || sub.audioScript) ? renderTeacherGoldVoiceBoxHtml(
+                  sub.buttonLabel || `Nghe thầy Sáng giảng mục ${cleanLetter}`,
+                  sub.audioScript || sub.summary || sub.title,
+                  sub.audioUrl || "",
+                  `sub-voice-${sIdx}-${cleanLetter}`,
+                  sub.checkpoints || sub.pois || []
+                ) : ""}
 
                 ${sub.workedExample ? `
                   <div class="worked-example-card">
@@ -2692,12 +3734,6 @@ function initDigitalLessons() {
                       <strong>Đề bài:</strong> ${sub.workedExample.problem}
                     </div>
 
-                    ${sub.workedExample.illustration ? `
-                      <div class="lesson-illustration-box example-img-box">
-                        <img src="${sub.workedExample.illustration}" alt="${escapeHtml(sub.workedExample.title)}" class="lesson-responsive-img">
-                      </div>
-                    ` : ""}
-
                     <!-- Ghi chú sư phạm: Học sinh làm bài tập vào vở -->
                     <div class="student-task-note">
                       <div class="note-icon"><i class="fa-solid fa-pen-to-square"></i></div>
@@ -2707,12 +3743,26 @@ function initDigitalLessons() {
                       </div>
                     </div>
 
-                    <!-- Nút bấm ẩn/hiện lời giải chi tiết -->
-                    <div class="solution-toggle-bar">
+                    <!-- Nút bấm ẩn/hiện lời giải chi tiết & Bài tập tương tự -->
+                    <div class="solution-toggle-bar" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
                       <button class="btn-toggle-solution" data-target="${exId}">
-                        <i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng
+                        <i class="fa-solid fa-eye"></i> Lời giải chi tiết của thầy Sáng
                       </button>
+                      ${sub.workedExample.similarProblem ? `
+                        <button class="btn-toggle-solution btn-toggle-similar-style" data-target="${exId}-similar" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                          <i class="fa-solid fa-arrows-rotate"></i> Bài tập tương tự
+                        </button>
+                      ` : ''}
                     </div>
+
+                    ${sub.workedExample.similarProblem ? `
+                      <div class="solution-collapse-body" id="${exId}-similar" style="display: none; border-left: 4px solid #10b981; margin-top: 10px;">
+                        <div class="solution-inner-wrap" style="background: #f0fdf4; padding: 16px; border-radius: 8px;">
+                          <div class="solution-title-tag" style="color: #047857; font-weight: bold; margin-bottom: 8px;"><i class="fa-solid fa-pen-ruler"></i> Bài tập tương tự để học sinh tự rèn luyện:</div>
+                          <div class="solution-content-text" style="color: #065f46;">${sub.workedExample.similarProblem}</div>
+                        </div>
+                      </div>
+                    ` : ''}
 
                     <!-- Khung lời giải chi tiết (Mặc định ẩn) -->
                     <div class="solution-collapse-body" id="${exId}" style="display: none;">
@@ -2720,25 +3770,10 @@ function initDigitalLessons() {
                         <div class="solution-title-tag"><i class="fa-solid fa-circle-check text-success"></i> Lời giải chi tiết chuẩn SGK:</div>
                         <div class="solution-content-text">${sub.workedExample.solution}</div>
 
-                        ${sub.workedExample.thinking ? `
-                          <div class="teacher-thinking-note">
-                            <div class="thinking-title"><i class="fa-solid fa-brain"></i> Định hướng tư duy của Thầy Sáng:</div>
-                            <p>${escapeHtml(sub.workedExample.thinking)}</p>
-                          </div>
-                        ` : ""}
-
                         ${sub.workedExample.teacherGuidance ? `
                           <div class="teacher-thinking-note">
                             <div class="thinking-title"><i class="fa-solid fa-lightbulb"></i> Lời khuyên của Thầy Sáng:</div>
                             <p>${escapeHtml(sub.workedExample.teacherGuidance)}</p>
-                          </div>
-                        ` : ""}
-
-                        ${sub.workedExample.audioScript ? `
-                          <div class="example-voice-action">
-                            <button class="btn-voice-action btn-mini-voice-play" data-script="${escapeHtml(sub.workedExample.audioScript)}">
-                              <i class="fa-solid fa-volume-high"></i> Nghe Thầy Sáng giảng giải ví dụ này
-                            </button>
                           </div>
                         ` : ""}
                       </div>
@@ -2746,91 +3781,440 @@ function initDigitalLessons() {
                   </div>
                 ` : ""}
 
+                ${(sub.checkpoints && sub.checkpoints.length > 0) ? `
+                  <div class="section-checkpoints-card" style="margin-top: 18px; padding: 14px 16px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                      <span style="font-weight: 800; color: #166534; font-size: 0.95rem;">
+                        <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC (MỤC ${cleanLetter.toUpperCase()})
+                      </span>
+                      <span style="font-size: 0.8rem; color: #64748b; font-style: italic;">
+                        <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc làm trực tiếp tại đây:
+                      </span>
+                    </div>
+                    <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 10px;">
+                      ${sub.checkpoints.map((poi, pIdx) => {
+                        let cIdx = poi.correctIndex;
+                        if (cIdx === undefined || cIdx === null) {
+                          if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                          else if (typeof poi.correctAnswer === 'string') {
+                            const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          }
+                        }
+                        return `
+                        <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                          <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                            <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                          </div>
+                          <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                            ${poi.question}
+                          </div>
+                          <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                            ${poi.options.map((opt, oIdx) => `
+                              <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                              </button>
+                            `).join('')}
+                          </div>
+                          <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                            <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                          </div>
+                        </div>
+                      `;}).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+
+                <div style="margin-top: 20px;">
+                  ${renderStepNavFooterHtml(secAnchor, lesson)}
+                </div>
+
               </div>
               `;
-            }).join("")}
-          </div>
-        </article>
+            }).join("") : `
+              ${sec.contentHtml ? `
+                <div class="sub-rich-content" style="margin-bottom: 20px;">
+                  ${sec.contentHtml}
+                </div>
+              ` : ''}
+              ${(sec.workedExamples || (sec.workedExample ? [sec.workedExample] : [])).map((ex, exIdx) => {
+                const exId = `ex-sol-${sIdx}-main-${exIdx}`;
+                return `
+                  <div class="worked-example-card">
+                    <div class="worked-example-header">
+                      <span class="example-pill"><i class="fa-solid fa-pencil"></i> ${escapeHtml(ex.title || "Ví dụ minh họa")}</span>
+                    </div>
+                    <div class="example-problem">
+                      <strong>Đề bài:</strong> ${ex.problem}
+                    </div>
+                    <div class="student-task-note">
+                      <div class="note-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                      <div class="note-content">
+                        <strong>Nhiệm vụ của học sinh:</strong>
+                        <span>Các em hãy tạm dừng ít phút, lấy vở ghi bài tập và thước kẻ ra tự làm vào vở trước khi xem lời giải của Thầy nhé!</span>
+                      </div>
+                    </div>
+                    <div class="solution-toggle-bar" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
+                      <button class="btn-toggle-solution" data-target="${exId}">
+                        <i class="fa-solid fa-eye"></i> Lời giải chi tiết của thầy Sáng
+                      </button>
+                      ${ex.similarProblem ? `
+                        <button class="btn-toggle-solution btn-toggle-similar-style" data-target="${exId}-similar" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                          <i class="fa-solid fa-arrows-rotate"></i> Bài tập tương tự
+                        </button>
+                      ` : ''}
+                    </div>
+                    ${ex.similarProblem ? `
+                      <div class="solution-collapse-body" id="${exId}-similar" style="display: none; border-left: 4px solid #10b981; margin-top: 10px;">
+                        <div class="solution-inner-wrap" style="background: #f0fdf4; padding: 16px; border-radius: 8px;">
+                          <div class="solution-title-tag" style="color: #047857; font-weight: bold; margin-bottom: 8px;"><i class="fa-solid fa-pen-ruler"></i> Bài tập tương tự để học sinh tự rèn luyện:</div>
+                          <div class="solution-content-text" style="color: #065f46;">${ex.similarProblem}</div>
+                        </div>
+                      </div>
+                    ` : ''}
+                    <div class="solution-collapse-body" id="${exId}" style="display: none;">
+                      <div class="solution-inner-wrap">
+                        <div class="solution-title-tag"><i class="fa-solid fa-circle-check text-success"></i> Lời giải chi tiết chuẩn SGK:</div>
+                        <div class="solution-content-text">${ex.solution}</div>
+                        ${ex.teacherGuidance ? `
+                          <div class="teacher-thinking-note">
+                            <div class="thinking-title"><i class="fa-solid fa-lightbulb"></i> Lời khuyên của Thầy Sáng:</div>
+                            <p>${escapeHtml(ex.teacherGuidance)}</p>
+                          </div>
+                        ` : ''}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            `}
 
-        ${(sIdx === 0 && lesson.geogebra3D) ? `
-          <div class="olm-geogebra-3d-card" id="olm3DCard">
-            <div class="olm-3d-header">
-              <div class="olm-3d-title-wrap">
-                <div class="olm-3d-icon-badge"><i class="fa-solid fa-cubes"></i></div>
-                <div>
-                  <h4>${escapeHtml(lesson.geogebra3D.title)}</h4>
-                  <p>${escapeHtml(lesson.geogebra3D.description)}</p>
+            ${(sec.checkpoints && sec.checkpoints.length > 0) ? `
+              <div class="section-poi-interactive-box" style="margin: 20px 0 10px 0; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); border: 2px solid #3b82f6; border-radius: 14px; padding: 18px; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.08);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; border-bottom: 1.5px dashed #cbd5e1; padding-bottom: 10px;">
+                  <span style="background: #2563eb; color: #facc15; font-weight: 800; font-size: 0.88rem; padding: 5px 14px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC THEO BÀI GIẢNG (POI - MỤC ${escapeHtml(sec.num)})
+                  </span>
+                  <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                    <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                  </span>
+                </div>
+                <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 14px;">
+                  ${sec.checkpoints.map((poi, pIdx) => `
+                    <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                      <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                        <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                      </div>
+                      <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                        ${poi.question}
+                      </div>
+                      <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                        ${poi.options.map((opt, oIdx) => {
+                          let cIdx = poi.correctIndex;
+                          if (cIdx === undefined || cIdx === null) {
+                            if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                            else if (typeof poi.correctAnswer === 'string') {
+                              const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                              if (m) cIdx = m[0].charCodeAt(0) - 65;
+                            } else if (typeof poi.answer === 'number') cIdx = poi.answer;
+                            else if (typeof poi.answer === 'string') {
+                              const m = poi.answer.trim().toUpperCase().match(/^[A-D]/);
+                              if (m) cIdx = m[0].charCodeAt(0) - 65;
+                            }
+                          }
+                          return `
+                          <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                            <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                          </button>
+                        `;}).join('')}
+                      </div>
+                      <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                        <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                      </div>
+                    </div>
+                  `).join('')}
                 </div>
               </div>
-              <div class="olm-3d-actions-bar">
-                <button class="olm-btn-3d-tool active" id="olmBtnToggleCanvas"><i class="fa-solid fa-vr-cardboard"></i> Mô hình 3D Canvas</button>
-                <button class="olm-btn-3d-tool" id="olmBtnToggleGgb"><i class="fa-solid fa-globe"></i> GeoGebra Web</button>
-                <button class="olm-btn-3d-tool" id="olmBtnRotateLandscape"><i class="fa-solid fa-mobile-screen-button"></i> Xoay ngang màn hình</button>
-                <button class="olm-btn-3d-tool" id="olmBtnFullscreen"><i class="fa-solid fa-expand"></i> Toàn màn hình</button>
-              </div>
-            </div>
-            <div class="olm-3d-viewport-wrapper">
-              <canvas id="olmCanvas3D"></canvas>
-              <iframe class="olm-ggb-iframe" id="olmGgbIframe" src="${lesson.geogebra3D.iframeUrl}" style="display: none;" allowfullscreen></iframe>
-              <div class="olm-3d-controls-overlay" id="olm3dControlsOverlay">
-                <div class="olm-slider-group">
-                  <div class="olm-slider-item">
-                    <label style="color: #ef4444;">x:</label>
-                    <input type="range" id="olmSliderX" min="-5" max="5" step="1" value="3">
-                    <span class="olm-slider-val" id="olmValX" style="color: #ef4444;">3</span>
-                  </div>
-                  <div class="olm-slider-item">
-                    <label style="color: #10b981;">y:</label>
-                    <input type="range" id="olmSliderY" min="-5" max="5" step="1" value="4">
-                    <span class="olm-slider-val" id="olmValY" style="color: #10b981;">4</span>
-                  </div>
-                  <div class="olm-slider-item">
-                    <label style="color: #38bdf8;">z:</label>
-                    <input type="range" id="olmSliderZ" min="-5" max="5" step="1" value="5">
-                    <span class="olm-slider-val" id="olmValZ" style="color: #38bdf8;">5</span>
-                  </div>
-                </div>
-                <div class="olm-coord-summary" id="olmCoordSummaryText">M(3; 4; 5)</div>
-              </div>
-            </div>
+            ` : ''}
           </div>
-        ` : ''}
+          ${renderStepNavFooterHtml(secAnchor, lesson)}
+        </article>
       `;
     });
 
-    // 6. Khung Vận dụng thực tế: Quay lại giải quyết bài toán tình huống ban đầu
+    // 6. Khung Vận dụng thực tế: Chốt bài học
     if (lesson.realworldWrapup) {
+      const wrapupSolId = "wrapup-sol-body";
       sectionsHtml += `
-        <div class="realworld-wrapup-card">
-          <div class="wrapup-header">
-            <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> Vận dụng thực tiễn</span>
-            <h3 class="wrapup-title">${escapeHtml(lesson.realworldWrapup.title || "QUAY LẠI GIẢI QUYẾT BÀI TOÁN TÌNH HUỐNG MỞ ĐẦU")}</h3>
+        <div class="realworld-wrapup-card" id="lessonRealworldWrapup" data-step-block="wrapup">
+          <div class="wrapup-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <div>
+              <span class="wrapup-badge"><i class="fa-solid fa-compass"></i> PHẦN IV. CHỐT BÀI HỌC</span>
+              <h3 class="wrapup-title" style="margin-top: 6px;">${escapeHtml(lesson.realworldWrapup.title || "PHẦN IV. CHỐT BÀI HỌC")}</h3>
+            </div>
+            ${renderTeacherGoldVoiceBoxHtml(
+              lesson.realworldWrapup.buttonLabel || "Nghe thầy Sáng giảng bài",
+              lesson.realworldWrapup.audioScript || lesson.realworldWrapup.recap,
+              lesson.realworldWrapup.audioUrl || "",
+              "wrapup-voice-player",
+              lesson.realworldWrapup.checkpoints || lesson.realworldWrapup.pois || []
+            )}
           </div>
 
           <div class="wrapup-recap-box">
             <div class="recap-label"><i class="fa-solid fa-rotate-left"></i> Nhắc lại bài toán mở đầu:</div>
-            <p class="recap-text">${escapeHtml(lesson.realworldWrapup.recap)}</p>
+            <p class="recap-text">${escapeHtml(lesson.realworldWrapup.recap || '')}</p>
           </div>
 
-          ${lesson.realworldWrapup.illustration ? `
-            <div class="lesson-illustration-box wrapup-img-wrap">
-              <img src="${lesson.realworldWrapup.illustration}" alt="Mô hình toán học giải quyết bài toán" class="lesson-responsive-img">
-              ${lesson.realworldWrapup.illustrationCaption ? `<div class="img-caption"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(lesson.realworldWrapup.illustrationCaption)}</div>` : ''}
+          <div class="solution-toggle-bar" style="margin: 14px 0;">
+            <button class="btn-toggle-solution" data-target="${wrapupSolId}">
+              <i class="fa-solid fa-eye"></i> Xem lời giải chi tiết của Thầy Sáng
+            </button>
+          </div>
+
+          <div class="solution-collapse-body" id="${wrapupSolId}" style="display: none;">
+            <div class="solution-inner-wrap">
+              <div class="wrapup-solution-box">
+                <h4 class="wrapup-solution-head"><i class="fa-solid fa-chalkboard-user"></i> Mô hình hóa Toán học &amp; Lời giải chi tiết của Thầy Sáng:</h4>
+                <div class="wrapup-solution-content">
+                  ${lesson.realworldWrapup.solution || ''}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          ${(lesson.realworldWrapup.checkpoints && lesson.realworldWrapup.checkpoints.length > 0) ? `
+            <div class="section-checkpoints-card" style="margin-top: 20px; padding: 16px 18px; background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: 800; color: #166534; font-size: 1rem;">
+                  <i class="fa-solid fa-bolt"></i> CÂU HỎI TƯƠNG TÁC TỔNG KẾT VẬN DỤNG (POI)
+                </span>
+                <span style="font-size: 0.82rem; color: #64748b; font-style: italic;">
+                  <i class="fa-solid fa-headphones"></i> Tự động kích hoạt khi nghe giảng hoặc thực hành trực tiếp tại đây:
+                </span>
+              </div>
+              <div class="poi-interactive-list" style="display: flex; flex-direction: column; gap: 12px;">
+                ${lesson.realworldWrapup.checkpoints.map((poi, pIdx) => {
+                  let cIdx = poi.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof poi.correctAnswer === 'number') cIdx = poi.correctAnswer;
+                    else if (typeof poi.correctAnswer === 'string') {
+                      const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <div class="poi-inline-item sub-checkpoint-card" id="poi-inline-${poi.id}" style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 0.95rem;">
+                      <i class="fa-solid fa-circle-question" style="color: #f59e0b;"></i> ${escapeHtml(poi.title || `Câu hỏi tương tác ${pIdx + 1}`)}:
+                    </div>
+                    <div style="font-size: 1rem; color: #1e293b; margin-bottom: 12px; font-weight: 500;">
+                      ${poi.question}
+                    </div>
+                    <div class="checkpoint-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                      ${poi.options.map((opt, oIdx) => `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${poi.id}" style="text-align: left; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                          <strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}
+                        </button>
+                      `).join('')}
+                    </div>
+                    <div class="checkpoint-feedback" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                      <div class="fb-correct" style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> ${poi.explain || poi.feedbackCorrect || 'Chính xác! Thầy khen em đã trả lời rất tốt!'}</div>
+                    </div>
+                  </div>
+                `;}).join('')}
+              </div>
+            </div>
+          ` : ''}
+          ${renderStepNavFooterHtml('wrapup', lesson)}
+        </div>
+      `;
+    }
+
+    // 7. BÀI TẬP TRẮC NGHIỆM TỔNG HỢP (CHUẨN 3 DẠNG THỨC THI MỚI 2025)
+    if (lesson.examFormatPractice) {
+      const ef = lesson.examFormatPractice;
+      sectionsHtml += `
+        <div class="exam-format-wrap" id="examFormatPracticeSection" data-step-block="quiz">
+          <div class="exam-format-main-title">
+            <i class="fa-solid fa-file-signature" style="font-size: 1.4rem; color: #fef08a;"></i>
+            <h3>${escapeHtml(ef.title || "PHẦN IV. BÀI TẬP TRẮC NGHIỆM TỔNG HỢP (CHUẨN CẤU TRÚC ĐỀ THI MỚI 2025 BỘ GD&ĐT)")}</h3>
+          </div>
+
+          <!-- DẠNG 1: TRẮC NGHIỆM NHIỀU LỰA CHỌN (5 CÂU) -->
+          ${ef.part1MultipleChoice && ef.part1MultipleChoice.length > 0 ? `
+            <div class="exam-sub-section" id="quiz-part1">
+              <div class="exam-sub-title-bar">
+                <h4><i class="fa-solid fa-list-ol" style="color: #0284c7;"></i> DẠNG 1. CÂU HỎI TRẮC NGHIỆM NHIỀU LỰA CHỌN (5 câu cốt lõi - Nhận biết)</h4>
+              </div>
+              <div class="exam-list-mc">
+                ${ef.part1MultipleChoice.map((q, idx) => {
+                  const mcNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
+                  const qPrompt = q.prompt || q.intro || q.question || '';
+                  const qSol = q.solution || q.explain || '';
+                  const qOpts = q.options || [];
+                  return `
+                  <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
+                    <div class="exam-item-header">
+                      <span class="exam-item-badge"><i class="fa-solid fa-circle-question"></i> Câu ${mcNum}</span>
+                      <div class="exam-item-actions-bar">
+                        ${q.similarVariation ? `
+                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang câu hỏi tương tự với số liệu mới">
+                            <i class="fa-solid fa-shuffle"></i> Bài toán tương tự
+                          </button>
+                        ` : ''}
+                        <button class="btn-show-solution-btn" data-target="sol-${q.id}">
+                          <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                        </button>
+                      </div>
+                    </div>
+                    <div class="exam-item-prompt" id="prompt-${q.id}">${qPrompt}</div>
+                    <div class="checkpoint-options-grid" id="options-${q.id}" style="margin-top: 12px;">
+                      ${qOpts.map((opt, oIdx) => {
+                        let cIdx = q.correctIndex;
+                        if (cIdx === undefined || cIdx === null) {
+                          if (typeof q.correctAnswer === 'number') cIdx = q.correctAnswer;
+                          else if (typeof q.correctAnswer === 'string') {
+                            const m = q.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          } else if (typeof q.answer === 'number') cIdx = q.answer;
+                          else if (typeof q.answer === 'string') {
+                            const m = q.answer.trim().toUpperCase().match(/^[A-D]/);
+                            if (m) cIdx = m[0].charCodeAt(0) - 65;
+                          }
+                        }
+                        return `
+                        <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${q.id}">
+                          ${opt}
+                        </button>
+                      `;}).join("")}
+                    </div>
+                    <div class="exam-solution-collapse" id="sol-${q.id}">
+                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      ${qSol}
+                    </div>
+                  </div>
+                `;}).join("")}
+              </div>
             </div>
           ` : ''}
 
-          <div class="wrapup-solution-box">
-            <h4 class="wrapup-solution-head"><i class="fa-solid fa-chalkboard-user"></i> Mô hình hóa Toán học &amp; Lời giải chi tiết của Thầy Sáng:</h4>
-            <div class="wrapup-solution-content">
-              ${lesson.realworldWrapup.solution}
+          <!-- DẠNG 2: TRẮC NGHIỆM ĐÚNG / SAI 4 Ý (3 CÂU) -->
+          ${ef.part2TrueFalse && ef.part2TrueFalse.length > 0 ? `
+            <div class="exam-sub-section" id="quiz-part2">
+              <div class="exam-sub-title-bar">
+                <h4><i class="fa-solid fa-square-check" style="color: #059669;"></i> DẠNG 2. CÂU HỎI TRẮC NGHIỆM ĐÚNG / SAI (3 câu cốt lõi - Thông hiểu)</h4>
+              </div>
+              <div class="exam-list-tf">
+                ${ef.part2TrueFalse.map((q, idx) => {
+                  const qNum = (q && q.num !== undefined && q.num !== null && String(q.num) !== 'undefined') ? q.num : (idx + 1);
+                  const qPrompt = (q && (q.prompt || q.intro)) || '';
+                  const qItems = (q && q.items) || [];
+                  const qSol = (q && (q.solution || q.explain)) || (qItems.map(it => `<strong>${it.label || it.key || ''})</strong> ${it.explain || it.text || ''}`).join('<br>'));
+                  const qId = (q && q.id) || `tf-item-${idx + 1}`;
+                  return `
+                  <div class="exam-item-card" id="card-${qId}" data-qid="${qId}">
+                    <div class="exam-item-header">
+                      <span class="exam-item-badge" style="background: #dcfce7; color: #15803d;"><i class="fa-solid fa-circle-question"></i> Câu ${qNum}</span>
+                      <div class="exam-item-actions-bar">
+                        ${q.similarVariation ? `
+                          <button class="btn-dynamic-param-btn" data-qid="${qId}" title="Đổi sang bài toán tương tự với số liệu mới">
+                            <i class="fa-solid fa-shuffle"></i> Bài toán tương tự
+                          </button>
+                        ` : ''}
+                        <button class="btn-show-solution-btn" data-target="sol-${qId}">
+                          <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                        </button>
+                      </div>
+                    </div>
+                    <div class="exam-item-prompt">${qPrompt}</div>
+                    <table class="tf-4part-table">
+                      <thead>
+                        <tr>
+                          <th style="width: 75%;">Ý mệnh đề</th>
+                          <th style="width: 25%; text-align: center;">Khẳng định của em</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${qItems.map((it, iIdx) => {
+                          if (!it) return '';
+                          let itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                          if (!itLabel || String(itLabel).trim() === 'undefined') itLabel = String.fromCharCode(97 + iIdx);
+                          let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
+                          if (!itText || String(itText).trim() === 'undefined') itText = `Mệnh đề ${itLabel.toUpperCase()}`;
+                          const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
+                          return `
+                          <tr class="tf-item-row" data-qid="${qId}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
+                            <td><strong>${escapeHtml(itLabel)})</strong> ${itText}</td>
+                            <td style="text-align: center;">
+                              <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Đ</button>
+                              <button class="btn-tf-toggle" data-val="false">S</button>
+                            </td>
+                          </tr>
+                          `;
+                        }).join("")}
+                      </tbody>
+                    </table>
+                    <div style="text-align: right; margin-top: 10px;">
+                      <button class="btn-check-tf-group" data-qid="${qId}" style="background: #059669; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
+                        <i class="fa-solid fa-check"></i> Kiểm tra câu ${qNum}
+                      </button>
+                    </div>
+                    <div class="exam-solution-collapse" id="sol-${qId}">
+                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      ${qSol}
+                    </div>
+                  </div>
+                  `;
+                }).join("")}
+              </div>
             </div>
-          </div>
+          ` : ''}
 
-          ${lesson.realworldWrapup.audioScript ? `
-            <div class="wrapup-voice-bar">
-              <button class="btn-voice-action btn-wrapup-voice-play" data-script="${escapeHtml(lesson.realworldWrapup.audioScript)}" data-audio="${lesson.realworldWrapup.audioUrl || ''}">
-                <i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học
-              </button>
+          <!-- DẠNG 3: TRẮC NGHIỆM TRẢ LỜI NGẮN (2 CÂU) -->
+          ${ef.part3ShortAnswer && ef.part3ShortAnswer.length > 0 ? `
+            <div class="exam-sub-section" id="quiz-part3">
+              <div class="exam-sub-title-bar">
+                <h4><i class="fa-solid fa-pen-clip" style="color: #d97706;"></i> DẠNG 3. CÂU HỎI TRẢ LỜI NGẮN (2 câu Toán thực tế - Vận dụng)</h4>
+              </div>
+              <div class="exam-list-sa">
+                ${ef.part3ShortAnswer.map((q, idx) => {
+                  const saNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
+                  const saPrompt = q.prompt || q.question || '';
+                  const saSol = q.solution || q.explain || '';
+                  const targetAns = (q.correctAnswer !== undefined && q.correctAnswer !== null) ? q.correctAnswer : ((q.correctValue !== undefined && q.correctValue !== null) ? q.correctValue : '');
+                  return `
+                  <div class="exam-item-card" id="card-${q.id}" data-qid="${q.id}">
+                    <div class="exam-item-header">
+                      <span class="exam-item-badge" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-circle-question"></i> Câu ${saNum}</span>
+                      <div class="exam-item-actions-bar">
+                        ${q.similarVariation ? `
+                          <button class="btn-dynamic-param-btn" data-qid="${q.id}" title="Đổi sang bài toán tương tự với số liệu mới">
+                            <i class="fa-solid fa-shuffle"></i> Bài toán tương tự
+                          </button>
+                        ` : ''}
+                        <button class="btn-show-solution-btn" data-target="sol-${q.id}">
+                          <i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết
+                        </button>
+                      </div>
+                    </div>
+                    <div class="exam-item-prompt" id="prompt-${q.id}">${saPrompt}</div>
+                    <div class="short-ans-row">
+                      <label style="font-weight: 700; color: #1e293b;">Đáp số của em:</label>
+                      <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nhập số..." data-ans="${targetAns}">
+                      <span style="font-weight: 700; color: #64748b;">${q.unit || ''}</span>
+                      <button class="btn-check-short-ans" data-qid="${q.id}">
+                        <i class="fa-solid fa-check"></i> Trả lời
+                      </button>
+                      <span class="sa-feedback-badge" id="feedback-${q.id}" style="display: none; font-weight: 700;"></span>
+                    </div>
+                    <div class="exam-solution-collapse" id="sol-${q.id}">
+                      <strong>Lời giải chi tiết của Thầy Sáng:</strong><br>
+                      ${saSol}
+                    </div>
+                  </div>
+                `;}).join("")}
+              </div>
             </div>
           ` : ''}
         </div>
@@ -2849,7 +4233,14 @@ function initDigitalLessons() {
 
           ${challenges.map((act, aIdx) => {
             if (act.type === "quiz" || act.type === "multiple_choice") {
-              const correctIdx = act.correctIndex !== undefined ? act.correctIndex : act.correctAnswerIndex;
+              let correctIdx = act.correctIndex !== undefined ? act.correctIndex : act.correctAnswerIndex;
+              if (correctIdx === undefined || correctIdx === null) {
+                if (typeof act.correctAnswer === 'number') correctIdx = act.correctAnswer;
+                else if (typeof act.correctAnswer === 'string') {
+                  const m = act.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                  if (m) correctIdx = m[0].charCodeAt(0) - 65;
+                }
+              }
               return `
                 <div class="quiz-card" data-act-idx="${aIdx}">
                   <div class="quiz-card-header">
@@ -2942,6 +4333,7 @@ function initDigitalLessons() {
             }
             return "";
           }).join("")}
+          ${renderStepNavFooterHtml('quiz', lesson)}
         </div>
       `;
     }
@@ -2984,6 +4376,9 @@ function initDigitalLessons() {
       window.initOlmLessonEngine(lesson);
     }
 
+    // Kích hoạt Stepper Engine học từng mục & tính % theo chuẩn Thầy Sáng
+    initLessonStepperEngine(lesson);
+
     // Cập nhật URL trình duyệt (không tải lại trang)
     try {
       const newUrl = `${window.location.pathname}?grade=${currentGrade}&lesson=${currentLessonId}`;
@@ -2996,6 +4391,8 @@ function initDigitalLessons() {
   // Chọn bài học mới
   function selectLesson(lessonId) {
     currentLessonId = lessonId;
+    currentSidebarMode = "lesson_tree";
+    currentActiveStepId = "welcome";
     renderSidebar();
     renderLessonViewer();
 
@@ -3141,12 +4538,33 @@ function initDigitalLessons() {
     let s = text;
     // Bỏ thẻ HTML
     s = s.replace(/<[^>]+>/g, " ");
-    // Chuyển ký hiệu Toán học sang lời phát biểu tiếng Việt chuẩn mực của Thầy Sáng
-    s = s.replace(/\\vec\{0\}/g, " vectơ-không ");
-    s = s.replace(/\\vec\{([A-Za-z0-9]+)\}/g, " vectơ $1 ");
-    s = s.replace(/\\vec\s+([A-Za-z0-9]+)/g, " vectơ $1 ");
-    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " độ dài vectơ $1 ");
-    s = s.replace(/\|\\vec\s+([^|]+)\|/g, " độ dài vectơ $1 ");
+
+    // 1. Chuẩn hóa toạ độ Oxy và Oxyz phát âm rõ từng chữ (O x y, O x y z)
+    s = s.replace(/\bOxyz\b/g, " O x y z ");
+    s = s.replace(/\bOxy\b/g, " O x y ");
+    s = s.replace(/\(Oxyz\)/g, " O x y z ");
+    s = s.replace(/\(Oxy\)/g, " O x y ");
+
+    // 2. Chuẩn hóa hàm cotang và góc an pha
+    s = s.replace(/\\cot\s*\(?\\alpha\)?/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*\(?\\alpha\)?/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*\(\s*an\s*pha\s*\)/gi, " cô tăng góc an pha ");
+    s = s.replace(/cot\s*an\s*pha/gi, " cô tăng góc an pha ");
+    s = s.replace(/\\cot/g, " cô tăng ");
+    s = s.replace(/\bcot\b/g, " cô tăng ");
+
+    // 3. Chuẩn hóa vectơ có mũi tên trên đầu (véc tơ A B...)
+    s = s.replace(/\\vec\{0\}/g, " véc tơ không ");
+    s = s.replace(/\\overrightarrow\{0\}/g, " véc tơ không ");
+    s = s.replace(/\\vec\{([A-Z])([A-Z])\}/g, " véc tơ $1 $2 ");
+    s = s.replace(/\\overrightarrow\{([A-Z])([A-Z])\}/g, " véc tơ $1 $2 ");
+    s = s.replace(/\\vec\{([A-Za-z0-9_]+)\}/g, " véc tơ $1 ");
+    s = s.replace(/\\overrightarrow\{([A-Za-z0-9_]+)\}/g, " véc tơ $1 ");
+    s = s.replace(/\\vec\s+([A-Za-z0-9_]+)/g, " véc tơ $1 ");
+    s = s.replace(/\|\\vec\{([^}]+)\}\|/g, " độ dài véc tơ $1 ");
+    s = s.replace(/\|\\overrightarrow\{([^}]+)\}\|/g, " độ dài véc tơ $1 ");
+
+    // 4. Các ký hiệu toán học phổ biến khác
     s = s.replace(/\\parallel/g, " song song với ");
     s = s.replace(/\/\//g, " song song với ");
     s = s.replace(/\\not\\subset/g, " không nằm trong ");
@@ -3155,15 +4573,14 @@ function initDigitalLessons() {
     s = s.replace(/\\cup/g, " hợp với ");
     s = s.replace(/\\emptyset/g, " tập rỗng ");
     s = s.replace(/\\perp/g, " vuông góc với ");
-    s = s.replace(/\\cdot/g, " nhân vô hướng với ");
-    s = s.replace(/\\cos/g, " cô-sin ");
+    s = s.replace(/\\cdot/g, " nhân ");
+    s = s.replace(/\\cos/g, " cô sin ");
     s = s.replace(/\\sin/g, " sin ");
     s = s.replace(/\\tan/g, " tang ");
-    s = s.replace(/\\cot/g, " cô-tang ");
     s = s.replace(/\\widehat\{([^}]+)\}/g, " góc $1 ");
-    s = s.replace(/\\alpha/g, " an-pha ");
-    s = s.replace(/\\beta/g, " bê-ta ");
-    s = s.replace(/\\gamma/g, " gam-ma ");
+    s = s.replace(/\\alpha/g, " an pha ");
+    s = s.replace(/\\beta/g, " bê ta ");
+    s = s.replace(/\\gamma/g, " gam ma ");
     s = s.replace(/\\varphi/g, " phi ");
     s = s.replace(/\\sqrt\{([^}]+)\}/g, " căn bậc hai của $1 ");
     s = s.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, " $1 phần $2 ");
@@ -3186,7 +4603,154 @@ function initDigitalLessons() {
 
   let currentHtml5Audio = null;
 
+  const KNOWN_AUDIO_DURATIONS = {
+    "assets/audio/b10_2_welcome.mp3": 40.2,
+    "assets/audio/b10_2_goals.mp3": 42.1,
+    "assets/audio/b10_2_hook.mp3": 45.4,
+    "assets/audio/b10_2_sec1.mp3": 70.3,
+    "assets/audio/b10_2_sec2.mp3": 67.0,
+    "assets/audio/b10_2_sec3.mp3": 94.6,
+    "assets/audio/b10_2_wrapup.mp3": 38.6,
+    "assets/audio/b10_1_welcome.mp3": 30.8,
+    "assets/audio/b10_1_goals.mp3": 36.1,
+    "assets/audio/b10_1_hook.mp3": 36.4,
+    "assets/audio/b10_1_sec1.mp3": 64.4,
+    "assets/audio/b10_1_sec2.mp3": 36.4,
+    "assets/audio/b10_1_sec3.mp3": 48.9,
+    "assets/audio/b10_1_sec4.mp3": 29.6,
+    "assets/audio/b10_1_sec5.mp3": 32.4,
+    "assets/audio/b10_1_wrapup.mp3": 35.4,
+    "assets/audio/b6_welcome.mp3": 18.02,
+    "assets/audio/b6_goals.mp3": 23.59,
+    "assets/audio/b6_hook.mp3": 17.11,
+    "assets/audio/b6_sec1.mp3": 20.52,
+    "assets/audio/b6_sec2.mp3": 25.37,
+    "assets/audio/b6_sec3.mp3": 25.54,
+    "assets/audio/b6_sec4.mp3": 19.08,
+    "assets/audio/b6_wrapup.mp3": 20.04,
+    "assets/audio/b7_welcome.mp3": 18.02,
+    "assets/audio/b7_goals.mp3": 33.48,
+    "assets/audio/b7_hook.mp3": 22.85,
+    "assets/audio/b7_sec1.mp3": 29.98,
+    "assets/audio/b7_sec2.mp3": 25.46,
+    "assets/audio/b7_sec3.mp3": 26.14,
+    "assets/audio/b7_sec4.mp3": 31.25,
+    "assets/audio/b7_wrapup.mp3": 23.64,
+    "assets/audio/b8_welcome.mp3": 23.04,
+    "assets/audio/b8_goals.mp3": 33.43,
+    "assets/audio/b8_hook.mp3": 34.06,
+    "assets/audio/b8_sec1.mp3": 19.80,
+    "assets/audio/b8_sec2.mp3": 25.00,
+    "assets/audio/b8_sec3.mp3": 28.97,
+    "assets/audio/b8_sec4.mp3": 27.84,
+    "assets/audio/b8_wrapup.mp3": 26.98,
+    "assets/audio/b12_welcome.mp3": 56.28,
+    "assets/audio/b12_goals.mp3": 31.97,
+    "assets/audio/b12_hook.mp3": 29.38,
+    "assets/audio/b12_sec1.mp3": 31.92,
+    "assets/audio/b12_sec2.mp3": 28.06,
+    "assets/audio/b12_sec3.mp3": 25.01,
+    "assets/audio/b12_sec4.mp3": 23.93,
+    "assets/audio/b12_wrapup.mp3": 18.02,
+    "assets/audio/b10_7_welcome.mp3": 28.46,
+    "assets/audio/b10_7_goals.mp3": 28.75,
+    "assets/audio/b10_7_hook.mp3": 34.10,
+    "assets/audio/b10_7_sec1.mp3": 26.83,
+    "assets/audio/b10_7_sec2.mp3": 23.50,
+    "assets/audio/b10_7_sec3.mp3": 24.00,
+    "assets/audio/b10_7_sec4.mp3": 23.52,
+    "assets/audio/b10_7_wrapup.mp3": 26.14,
+    "assets/audio/b10_8_welcome.mp3": 18.5,
+    "assets/audio/b10_8_goals.mp3": 19.6,
+    "assets/audio/b10_8_hook.mp3": 42.5,
+    "assets/audio/b10_8_sec1.mp3": 26.9,
+    "assets/audio/b10_8_sec2.mp3": 20.5,
+    "assets/audio/b10_8_sec3.mp3": 21.3,
+    "assets/audio/b10_8_sec4.mp3": 24.6,
+    "assets/audio/b10_8_wrapup.mp3": 19.5,
+    "assets/audio/b10_9_welcome.mp3": 28.4,
+    "assets/audio/b10_9_goals.mp3": 27.8,
+    "assets/audio/b10_9_hook.mp3": 28.0,
+    "assets/audio/b10_9_sec1.mp3": 20.5,
+    "assets/audio/b10_9_sec2.mp3": 20.7,
+    "assets/audio/b10_9_sec3.mp3": 23.3,
+    "assets/audio/b10_9_sec4.mp3": 18.6,
+    "assets/audio/b10_9_wrapup.mp3": 24.0,
+    "assets/audio/b10_10_welcome.mp3": 28.0,
+    "assets/audio/b10_10_goals.mp3": 29.5,
+    "assets/audio/b10_10_hook.mp3": 28.8,
+    "assets/audio/b10_10_sec1.mp3": 25.3,
+    "assets/audio/b10_10_sec2.mp3": 21.3,
+    "assets/audio/b10_10_sec3.mp3": 23.7,
+    "assets/audio/b10_10_sec4.mp3": 21.1,
+    "assets/audio/b10_10_wrapup.mp3": 24.2,
+    "assets/audio/b10_11_welcome.mp3": 29.8,
+    "assets/audio/b10_11_goals.mp3": 26.1,
+    "assets/audio/b10_11_hook.mp3": 24.7,
+    "assets/audio/b10_11_sec1.mp3": 24.4,
+    "assets/audio/b10_11_sec2.mp3": 22.6,
+    "assets/audio/b10_11_sec3.mp3": 22.2,
+    "assets/audio/b10_11_sec4.mp3": 19.8,
+    "assets/audio/b10_11_wrapup.mp3": 20.2,
+    "assets/audio/b10_3_welcome.mp3": 28.3,
+    "assets/audio/b10_3_goals.mp3": 29.3,
+    "assets/audio/b10_3_hook.mp3": 27.1,
+    "assets/audio/b10_3_sec1.mp3": 28.9,
+    "assets/audio/b10_3_sec2.mp3": 32.9,
+    "assets/audio/b10_3_sec3.mp3": 28.6,
+    "assets/audio/b10_3_wrapup.mp3": 19.3,
+    "assets/audio/b10_4_welcome.mp3": 24.4,
+    "assets/audio/b10_4_goals.mp3": 30.8,
+    "assets/audio/b10_4_hook.mp3": 25.7,
+    "assets/audio/b10_4_sec1.mp3": 25.4,
+    "assets/audio/b10_4_sec2.mp3": 22.6,
+    "assets/audio/b10_4_sec3.mp3": 32.1,
+    "assets/audio/b10_4_wrapup.mp3": 26.8,
+"assets/audio/b10_5_welcome.mp3": 39.12,
+      "assets/audio/b10_5_goals.mp3": 23.09,
+      "assets/audio/b10_5_hook.mp3": 24.74,
+      "assets/audio/b10_5_sec1.mp3": 38.38,
+      "assets/audio/b10_5_sec2.mp3": 44.9,
+      "assets/audio/b10_5_sec3.mp3": 32.98,
+      "assets/audio/b10_5_wrapup.mp3": 21.0,
+      "assets/audio/b10_6_welcome.mp3": 33.98,
+      "assets/audio/b10_6_goals.mp3": 24.29,
+      "assets/audio/b10_6_hook.mp3": 21.24,
+      "assets/audio/b10_6_sec1.mp3": 37.01,
+      "assets/audio/b10_6_sec2.mp3": 19.13,
+      "assets/audio/b10_6_sec3.mp3": 32.71,
+      "assets/audio/b10_6_sec4.mp3": 27.12,
+      "assets/audio/b10_6_wrapup.mp3": 19.01,
+  };
+
+  function formatAudioTime(sec) {
+    if (isNaN(sec) || !Number.isFinite(sec) || sec < 0) return "00:00";
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  function getAudioDuration(audioEl, url) {
+    if (audioEl && Number.isFinite(audioEl.duration) && audioEl.duration > 0) {
+      return audioEl.duration;
+    }
+    if (url && KNOWN_AUDIO_DURATIONS[url]) {
+      return KNOWN_AUDIO_DURATIONS[url];
+    }
+    return 20;
+  }
+
+  let timelineTicker = null;
+
+  function stopTimelineTicker() {
+    if (timelineTicker) {
+      clearInterval(timelineTicker);
+      timelineTicker = null;
+    }
+  }
+
   function stopTeacherSpeech() {
+    stopTimelineTicker();
     if (currentHtml5Audio) {
       try {
         currentHtml5Audio.pause();
@@ -3204,18 +4768,25 @@ function initDigitalLessons() {
 
     if (activeVoicePlayer) {
       activeVoicePlayer.classList.remove("playing");
-      const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
+      const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
       if (playBtn) {
-        if (playBtn.id === "btnPlayTeacherWelcome" || playBtn.classList.contains("btn-play-welcome-voice")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng chào lớp &amp; hướng dẫn mục tiêu';
-        } else if (playBtn.classList.contains("btn-wrapup-voice-play")) {
-          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe Thầy Sáng phân tích ý nghĩa thực tế của bài học';
-        } else if (playBtn.classList.contains("btn-voice-play") && playBtn.id === "btnPlayMainVoice") {
-          playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Nghe Thầy Sáng giảng bài';
+        playBtn.classList.remove("btn-voice-is-playing");
+        const origTitle = playBtn.dataset.originalTitle;
+        if (origTitle) {
+          playBtn.innerHTML = `<i class="fa-solid fa-circle-play"></i> ${origTitle}`;
         } else {
-          playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe giảng';
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Nghe thầy Sáng giảng bài';
         }
       }
+      const curTimeEl = activeVoicePlayer.querySelector(".gold-audio-current-time");
+      if (curTimeEl) curTimeEl.textContent = "00:00";
+      const fillEl = activeVoicePlayer.querySelector(".gold-audio-seek-fill");
+      if (fillEl) fillEl.style.width = "0%";
+      const sliderEl = activeVoicePlayer.querySelector(".gold-audio-slider");
+      if (sliderEl) sliderEl.value = 0;
+      const pulsingMarkers = activeVoicePlayer.querySelectorAll(".gold-audio-poi-marker.pulsing");
+      pulsingMarkers.forEach(m => m.classList.remove("pulsing"));
+
       activeVoicePlayer = null;
     }
   }
@@ -3255,8 +4826,190 @@ function initDigitalLessons() {
     return chunks.filter(c => c.length > 0);
   }
 
-  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null) {
+  function startTimelineTicker(playerBox, audioEl, totalDur, pois, playBtn, audioUrl) {
+    stopTimelineTicker();
+    if (!playerBox) return;
+
+    const curTimeEl = playerBox.querySelector(".gold-audio-current-time");
+    const durTimeEl = playerBox.querySelector(".gold-audio-duration-time");
+    const fillEl = playerBox.querySelector(".gold-audio-seek-fill");
+    const sliderEl = playerBox.querySelector(".gold-audio-slider");
+    const marker0 = playerBox.querySelector(".marker-poi-0");
+    const marker1 = playerBox.querySelector(".marker-poi-1");
+
+    if (durTimeEl && totalDur > 0) {
+      durTimeEl.textContent = formatAudioTime(totalDur);
+    }
+
+    if (pois && pois.length > 0) {
+      pois.forEach(p => {
+        if (p.completed === undefined) p.completed = false;
+        if (p.triggered === undefined) p.triggered = false;
+      });
+    }
+
+    function triggerPoi(idx) {
+      if (!pois || !pois[idx] || pois[idx].completed) return;
+      pois[idx].triggered = true;
+      if (audioEl) audioEl.pause();
+      const m = idx === 0 ? marker0 : marker1;
+      if (m) m.classList.add("pulsing");
+      if (playBtn) {
+        playBtn.innerHTML = '<i class="fa-solid fa-circle-question"></i> Tạm dừng - Chờ trả lời câu hỏi tương tác';
+        playBtn.classList.remove("btn-voice-is-playing");
+      }
+      showPoiModal(pois[idx], () => {
+        pois[idx].completed = true;
+        if (m) {
+          m.classList.remove("pulsing");
+          m.classList.add("completed");
+        }
+        if (playBtn) {
+          playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+          playBtn.classList.add("btn-voice-is-playing");
+        }
+        if (audioEl && isSpeechActive) {
+          audioEl.play().catch(e => console.warn("Audio resume error:", e));
+        }
+      });
+    }
+
+    // Gắn sự kiện click trực tiếp lên chấm vàng POI 1 & POI 2
+    if (marker0 && pois && pois.length >= 1) {
+      marker0.style.pointerEvents = "auto";
+      marker0.style.cursor = "pointer";
+      marker0.onclick = (e) => {
+        e.stopPropagation();
+        const dur = getAudioDuration(audioEl, audioUrl);
+        if (audioEl && dur > 0) audioEl.currentTime = 0.35 * dur;
+        if (fillEl) fillEl.style.width = "35%";
+        if (sliderEl) sliderEl.value = 35;
+        if (curTimeEl && dur > 0) curTimeEl.textContent = formatAudioTime(0.35 * dur);
+        triggerPoi(0);
+      };
+    }
+
+    if (marker1 && pois && pois.length >= 2) {
+      marker1.style.pointerEvents = "auto";
+      marker1.style.cursor = "pointer";
+      marker1.onclick = (e) => {
+        e.stopPropagation();
+        if (!pois[0].completed) {
+          if (typeof window.showToast === "function") {
+            window.showToast("Em hãy hoàn thành câu hỏi tương tác 1 trước nhé!", "warning");
+          }
+          triggerPoi(0);
+          return;
+        }
+        const dur = getAudioDuration(audioEl, audioUrl);
+        if (audioEl && dur > 0) audioEl.currentTime = 0.75 * dur;
+        if (fillEl) fillEl.style.width = "75%";
+        if (sliderEl) sliderEl.value = 75;
+        if (curTimeEl && dur > 0) curTimeEl.textContent = formatAudioTime(0.75 * dur);
+        triggerPoi(1);
+      };
+    }
+
+    // Gắn sự kiện kéo con trượt tua thời gian
+    if (sliderEl) {
+      sliderEl.oninput = () => {
+        const dur = getAudioDuration(audioEl, audioUrl);
+        let targetPct = parseFloat(sliderEl.value);
+
+        // Khóa không cho tua vượt qua câu hỏi chưa giải
+        if (pois && pois.length >= 1 && !pois[0].completed && targetPct > 35) {
+          targetPct = 35;
+          sliderEl.value = 35;
+          if (typeof window.showToast === "function") {
+            window.showToast("Em cần trả lời câu hỏi tương tác tại 35% trước khi nghe tiếp nhé!", "warning");
+          }
+        }
+        if (pois && pois.length >= 2 && !pois[1].completed && targetPct > 75) {
+          targetPct = 75;
+          sliderEl.value = 75;
+          if (typeof window.showToast === "function") {
+            window.showToast("Em cần trả lời câu hỏi tương tác tại 75% trước khi nghe tiếp nhé!", "warning");
+          }
+        }
+
+        if (dur > 0) {
+          const targetSec = (targetPct / 100) * dur;
+          if (audioEl) audioEl.currentTime = targetSec;
+          if (fillEl) fillEl.style.width = targetPct + "%";
+          if (curTimeEl) curTimeEl.textContent = formatAudioTime(targetSec);
+        }
+      };
+    }
+
+    timelineTicker = setInterval(() => {
+      if (!isSpeechActive || !audioEl) {
+        stopTimelineTicker();
+        return;
+      }
+
+      if (audioEl.paused) {
+        return;
+      }
+
+      let cur = audioEl.currentTime;
+      if (isNaN(cur) || cur < 0) cur = 0;
+
+      let dur = totalDur;
+      if (Number.isFinite(audioEl.duration) && audioEl.duration > 0) {
+        dur = audioEl.duration;
+      }
+
+      if (durTimeEl && dur > 0) durTimeEl.textContent = formatAudioTime(dur);
+      if (curTimeEl) curTimeEl.textContent = formatAudioTime(cur);
+
+      if (dur > 0) {
+        const pct = Math.min(100, Math.max(0, (cur / dur) * 100));
+        if (fillEl) fillEl.style.width = pct + "%";
+        if (sliderEl && !sliderEl.matches(":active")) {
+          sliderEl.value = pct;
+        }
+
+        // Kích hoạt POI 1 tại 35%
+        if (pois && pois.length >= 1 && !pois[0].completed && !pois[0].triggered && pct >= 35) {
+          triggerPoi(0);
+        }
+
+        // Kích hoạt POI 2 tại 75%
+        if (pois && pois.length >= 2 && !pois[1].completed && !pois[1].triggered && pct >= 75) {
+          triggerPoi(1);
+        }
+      }
+    }, 40);
+  }
+
+  function playTeacherSpeech(rawText, playerElement, speed = 1.0, audioUrl = null, pois = []) {
+    // 0. Toggle pause / resume nếu người học nhấn lại chính nút đang phát
     if (activeVoicePlayer === playerElement && isSpeechActive) {
+      const playBtn = playerElement.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang") || (playerElement.classList.contains("btn-play-gold-voice") ? playerElement : null);
+      if (currentHtml5Audio) {
+        // Nếu đang dừng chờ trả lời câu hỏi tương tác (POI modal mở)
+        if (pois && pois.some(p => p.triggered && !p.completed)) {
+          if (typeof window.showToast === "function") {
+            window.showToast("Em cần trả lời câu hỏi tương tác để tiếp tục nghe bài giảng nhé!", "warning");
+          }
+          return;
+        }
+
+        if (currentHtml5Audio.paused) {
+          currentHtml5Audio.play();
+          if (playBtn) {
+            playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+            playBtn.classList.add("btn-voice-is-playing");
+          }
+        } else {
+          currentHtml5Audio.pause();
+          if (playBtn) {
+            playBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i> Tiếp tục nghe bài giảng';
+            playBtn.classList.remove("btn-voice-is-playing");
+          }
+        }
+        return;
+      }
       stopTeacherSpeech();
       return;
     }
@@ -3277,39 +5030,122 @@ function initDigitalLessons() {
     activeVoicePlayer.classList.add("playing");
     isSpeechActive = true;
 
-    const playBtn = activeVoicePlayer.querySelector(".btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play");
+    // Đổi nhãn nút sang Tạm dừng
+    const playBtn = activeVoicePlayer.querySelector(".btn-play-gold-voice, .btn-voice-gold-sang, .btn-voice-play, #btnPlayTeacherWelcome, .btn-play-welcome-voice, .btn-mini-voice-play, .btn-wrapup-voice-play") || (activeVoicePlayer.classList.contains("btn-play-gold-voice") ? activeVoicePlayer : null);
     if (playBtn) {
       playBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i> Tạm dừng bài giảng';
+      playBtn.classList.add("btn-voice-is-playing");
     }
 
-    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG NAM MINH CHUẨN SƯ PHẠM ĐƯỢC TÍCH HỢP SẴN)
+    // Lấy dữ liệu POIs nếu có
+    if (!pois || pois.length === 0) {
+      if (audioUrl && window.LESSON_POIS_MAP && window.LESSON_POIS_MAP[audioUrl]) {
+        pois = window.LESSON_POIS_MAP[audioUrl];
+      } else if (playerElement && playerElement.id && window.LESSON_POIS_MAP && window.LESSON_POIS_MAP[playerElement.id]) {
+        pois = window.LESSON_POIS_MAP[playerElement.id];
+      } else if (playBtn && playBtn.dataset.boxId && window.LESSON_POIS_MAP && window.LESSON_POIS_MAP[playBtn.dataset.boxId]) {
+        pois = window.LESSON_POIS_MAP[playBtn.dataset.boxId];
+      } else if (playBtn && playBtn.dataset.pois) {
+        try { pois = JSON.parse(playBtn.dataset.pois); } catch(e){}
+      }
+    }
+
+    const totalDur = getAudioDuration(null, audioUrl);
+
+    // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        currentHtml5Audio = new Audio(audioUrl);
+        const audioSrc = (window.B11_2_AUDIO_CACHE && window.B11_2_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_1_AUDIO_CACHE && window.B11_1_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_10_AUDIO_CACHE && window.B11_10_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_5_AUDIO_CACHE && window.B10_5_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_6_AUDIO_CACHE && window.B10_6_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_4_AUDIO_CACHE && window.B10_4_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_3_AUDIO_CACHE && window.B10_3_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_11_AUDIO_CACHE && window.B10_11_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_10_AUDIO_CACHE && window.B10_10_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_9_AUDIO_CACHE && window.B10_9_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_8_AUDIO_CACHE && window.B10_8_AUDIO_CACHE[audioUrl]) ||
+                         (window.B10_7_AUDIO_CACHE && window.B10_7_AUDIO_CACHE[audioUrl]) ||
+                         (window.B12_AUDIO_CACHE && window.B12_AUDIO_CACHE[audioUrl]) ||
+                         (window.B8_AUDIO_CACHE && window.B8_AUDIO_CACHE[audioUrl]) || 
+                         (window.B7_AUDIO_CACHE && window.B7_AUDIO_CACHE[audioUrl]) || 
+                         (window.B6_AUDIO_CACHE && window.B6_AUDIO_CACHE[audioUrl]) || 
+                         audioUrl;
+        currentHtml5Audio = new Audio();
+        currentHtml5Audio.preload = "auto";
+        currentHtml5Audio.src = audioSrc;
         currentHtml5Audio.playbackRate = speed;
-        
-        currentHtml5Audio.onended = () => {
-          stopTeacherSpeech();
-        };
 
-        currentHtml5Audio.onerror = (e) => {
-          console.warn("HTML5 audio playback failed, falling back to Web Speech:", e);
-          currentHtml5Audio = null;
-          startWebSpeechSynthesis(rawText, speed);
-        };
+        // Bắt đầu ticker đồng bộ thời gian thực
+        startTimelineTicker(activeVoicePlayer, currentHtml5Audio, totalDur, pois, playBtn, audioUrl);
+
+        currentHtml5Audio.addEventListener("loadedmetadata", () => {
+          const durTimeEl = activeVoicePlayer ? activeVoicePlayer.querySelector(".gold-audio-duration-time") : null;
+          if (durTimeEl) {
+            const d = getAudioDuration(currentHtml5Audio, audioUrl);
+            durTimeEl.textContent = formatAudioTime(d);
+          }
+        });
+
+        currentHtml5Audio.addEventListener("ended", () => {
+          stopTimelineTicker();
+          if (activeVoicePlayer) {
+            const fillEl = activeVoicePlayer.querySelector(".gold-audio-seek-fill");
+            const sliderEl = activeVoicePlayer.querySelector(".gold-audio-slider");
+            const curTimeEl = activeVoicePlayer.querySelector(".gold-audio-current-time");
+            const durTimeEl = activeVoicePlayer.querySelector(".gold-audio-duration-time");
+            if (fillEl) fillEl.style.width = "100%";
+            if (sliderEl) sliderEl.value = 100;
+            if (curTimeEl && durTimeEl) curTimeEl.textContent = durTimeEl.textContent;
+          }
+          setTimeout(() => {
+            stopTeacherSpeech();
+            if (typeof window.markCurrentStepDoneOnAudioEnd === "function") {
+              window.markCurrentStepDoneOnAudioEnd();
+            } else if (typeof window.increaseLessonProgress === "function") {
+              window.increaseLessonProgress(10, 15, 1);
+            }
+          }, 400);
+        });
+
+        currentHtml5Audio.addEventListener("error", (e) => {
+          console.warn("HTML5 audio playback error with audioSrc, retrying direct URL:", e);
+          if (audioSrc !== audioUrl) {
+            currentHtml5Audio = new Audio(audioUrl);
+            currentHtml5Audio.playbackRate = speed;
+            startTimelineTicker(activeVoicePlayer, currentHtml5Audio, totalDur, pois, playBtn, audioUrl);
+            currentHtml5Audio.onended = () => {
+              stopTeacherSpeech();
+              if (typeof window.markCurrentStepDoneOnAudioEnd === "function") {
+                window.markCurrentStepDoneOnAudioEnd();
+              } else if (typeof window.increaseLessonProgress === "function") {
+                window.increaseLessonProgress(10, 15, 1);
+              }
+            };
+            currentHtml5Audio.play().catch(err => {
+              console.warn("Direct file play failed, fallback WebSpeech:", err);
+              startWebSpeechSynthesis(rawText, speed);
+            });
+          } else {
+            startWebSpeechSynthesis(rawText, speed);
+          }
+        });
 
         const playPromise = currentHtml5Audio.play();
         if (playPromise !== undefined) {
           playPromise.catch(e => {
-            console.warn("HTML5 audio play blocked, falling back to Web Speech:", e);
-            currentHtml5Audio = null;
+            console.warn("HTML5 audio play blocked/rejected:", e);
             startWebSpeechSynthesis(rawText, speed);
           });
         }
         return;
       } catch (e) {
-        console.warn("Cannot create HTML5 Audio, fallback to Web Speech:", e);
-        currentHtml5Audio = null;
+        console.warn("Cannot create HTML5 Audio:", e);
+        startWebSpeechSynthesis(rawText, speed);
+        return;
       }
     }
 
@@ -3325,7 +5161,6 @@ function initDigitalLessons() {
     }
 
     if (!("speechSynthesis" in window)) {
-      alert("Trình duyệt chưa hỗ trợ công nghệ Web Speech. Quý Thầy Cô và các em học sinh vui lòng mở trang web trên Google Chrome hoặc Microsoft Edge để lắng nghe giọng đọc Thầy Sáng nhé!");
       stopTeacherSpeech();
       return;
     }
@@ -3338,6 +5173,23 @@ function initDigitalLessons() {
     audioQueue = chunkTextForTTS(spokenText, 120);
     audioIndex = 0;
     startKeepAlive();
+
+    if (activeVoicePlayer) {
+      const durTimeEl = activeVoicePlayer.querySelector(".gold-audio-duration-time");
+      const curTimeEl = activeVoicePlayer.querySelector(".gold-audio-current-time");
+      const fillEl = activeVoicePlayer.querySelector(".gold-audio-seek-fill");
+      const estDur = Math.max(10, Math.round(spokenText.length / 15 / speed));
+      if (durTimeEl) durTimeEl.textContent = formatAudioTime(estDur);
+      let elapsed = 0;
+      stopTimelineTicker();
+      timelineTicker = setInterval(() => {
+        if (!isSpeechActive) { stopTimelineTicker(); return; }
+        elapsed += 0.2;
+        if (curTimeEl) curTimeEl.textContent = formatAudioTime(elapsed);
+        const pct = Math.min(100, (elapsed / estDur) * 100);
+        if (fillEl) fillEl.style.width = pct + "%";
+      }, 200);
+    }
 
     function speakNextChunk() {
       if (!isSpeechActive || audioIndex >= audioQueue.length) {
@@ -3354,6 +5206,10 @@ function initDigitalLessons() {
       const viVoice = getVietnameseVoice();
       if (viVoice) {
         utter.voice = viVoice;
+      } else {
+        console.warn("Trình duyệt chưa có giọng đọc tiếng Việt SAPI. Không phát giọng ngoại quốc.");
+        stopTeacherSpeech();
+        return;
       }
 
       utter.onend = () => {
@@ -3376,7 +5232,444 @@ function initDigitalLessons() {
     speakNextChunk();
   }
 
+  let activePoiTimer = null;
+  let currentLessonProgress = 0;
+  let currentLessonXp = parseInt(localStorage.getItem('ths_sang_math_xp') || '0', 10);
+  let currentLessonStars = parseInt(localStorage.getItem('ths_sang_stars') || '0', 10);
+
+  function updateLessonProgressDisplay() {
+    const fillEl = document.getElementById('olmProgressFill');
+    const percentEl = document.getElementById('olmProgressPercent');
+    const xpEl = document.getElementById('olmXpDisplay');
+    const starsEl = document.getElementById('olmStarsDisplay');
+    if (fillEl) fillEl.style.width = Math.min(100, currentLessonProgress) + '%';
+    if (percentEl) percentEl.textContent = Math.min(100, currentLessonProgress) + '%';
+    if (xpEl) xpEl.textContent = `${currentLessonXp} XP`;
+    if (starsEl) starsEl.textContent = `⭐ ${currentLessonStars}`;
+
+    if (currentLessonProgress >= 100) {
+      if (typeof window.triggerConfettiFireworks === 'function') {
+        window.triggerConfettiFireworks();
+      }
+    }
+  }
+
+  window.increaseLessonProgress = function(amount, xp = 10, star = 0) {
+    currentLessonProgress = Math.min(100, currentLessonProgress + amount);
+    currentLessonXp += xp;
+    currentLessonStars += star;
+    localStorage.setItem('ths_sang_math_xp', currentLessonXp);
+    localStorage.setItem('ths_sang_stars', currentLessonStars);
+    updateLessonProgressDisplay();
+  };
+
+    function showPoiModal(poi, onCorrect) {
+    let modal = document.getElementById('globalInteractivePoiModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'globalInteractivePoiModal';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;';
+      document.body.appendChild(modal);
+    }
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+      <div style="background:#ffffff;border-radius:20px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.35);max-width:520px;width:100%;padding:26px;border:2.5px solid #2563eb;animation:poiModalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;border-bottom:1.5px solid #e2e8f0;padding-bottom:14px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">
+            <i class="fa-solid fa-circle-question"></i>
+          </div>
+          <div>
+            <h3 style="margin:0;font-size:1.15rem;font-weight:700;color:#1e3a8a;">Thầy Sáng hỏi nhanh: Kiểm tra mức độ tập trung</h3>
+            <span style="font-size:0.82rem;color:#64748b;font-weight:500;">(Tự động tạm dừng bài giảng • Trả lời đúng để mở khóa nghe tiếp)</span>
+          </div>
+        </div>
+        <div id="poiModalQuestion" style="font-size:1.08rem;font-weight:600;color:#1e293b;margin-bottom:20px;line-height:1.6;">${poi.question}</div>
+        <div id="poiModalOptions" style="display:flex;flex-direction:column;gap:10px;">
+          ${(poi.options || []).map((opt, oIdx) => `
+            <button class="btn-modal-poi-opt" data-idx="${oIdx}" style="text-align:left;padding:13px 18px;border-radius:12px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:1rem;font-weight:500;color:#334155;cursor:pointer;transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;gap:10px;">
+              <span style="width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0;">${String.fromCharCode(65 + oIdx)}</span>
+              <span style="flex:1;">${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div id="poiModalFeedback" style="margin-top:16px;font-size:0.95rem;font-weight:600;display:none;padding:12px 16px;border-radius:10px;"></div>
+      </div>
+    `;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([modal]).catch(e => console.warn(e));
+    }
+
+    const optBtns = modal.querySelectorAll('.btn-modal-poi-opt');
+    const fb = modal.querySelector('#poiModalFeedback');
+
+    optBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(this.dataset.idx, 10);
+        const chosenText = (poi.options && poi.options[idx]) ? poi.options[idx].trim() : '';
+        const correctText = poi.correct ? poi.correct.trim() : '';
+        let targetIdx = poi.correctIndex;
+        if (targetIdx === undefined || targetIdx === null) {
+          if (typeof poi.correctAnswer === 'number') targetIdx = poi.correctAnswer;
+          else if (typeof poi.correctAnswer === 'string') {
+            const m = poi.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+            if (m) targetIdx = m[0].charCodeAt(0) - 65;
+          } else if (typeof poi.answer === 'number') targetIdx = poi.answer;
+          else if (typeof poi.answer === 'string') {
+            const m = poi.answer.trim().toUpperCase().match(/^[A-D]/);
+            if (m) targetIdx = m[0].charCodeAt(0) - 65;
+          }
+        }
+        const isCorrect = (idx === targetIdx) || (correctText && chosenText === correctText);
+
+        if (isCorrect) {
+          this.style.background = '#dcfce7';
+          this.style.borderColor = '#16a34a';
+          this.style.color = '#15803d';
+          const badge = this.querySelector('span');
+          if (badge) { badge.style.background = '#16a34a'; badge.style.color = '#fff'; }
+          fb.style.display = 'block';
+          fb.style.background = '#f0fdf4';
+          fb.style.color = '#16a34a';
+          fb.style.border = '1px solid #bbf7d0';
+          fb.innerHTML = '🎉 ' + (poi.explain || 'Chính xác! Thầy khen em đã nắm bài rất tốt!');
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([fb]).catch(e => console.warn(e));
+          }
+          optBtns.forEach(b => b.disabled = true);
+          if (typeof window.increaseLessonProgress === 'function') window.increaseLessonProgress(15, 20, 1);
+          if (typeof window.triggerConfettiFireworks === 'function') window.triggerConfettiFireworks();
+          setTimeout(() => {
+            modal.style.display = 'none';
+            if (onCorrect) onCorrect();
+          }, 1200);
+        } else {
+          this.style.background = '#fee2e2';
+          this.style.borderColor = '#dc2626';
+          this.style.color = '#991b1b';
+          const badge = this.querySelector('span');
+          if (badge) { badge.style.background = '#dc2626'; badge.style.color = '#fff'; }
+          fb.style.display = 'block';
+          fb.style.background = '#fef2f2';
+          fb.style.color = '#b91c1c';
+          fb.style.border = '1px solid #fecaca';
+          fb.innerHTML = 'Chưa chính xác! Thử lại để mở khóa bài giảng nhé.';
+        }
+      });
+    });
+  }
+
   function bindDigitalLessonEvents(container) {
+    // 0. XỬ LÝ HỘP PHÁT ÂM THANH VÀNG ĐỒNG THẦY SÁNG (GIỌNG ĐỌC AI CỦA THS. LƯƠNG THANH SÁNG)
+    container.querySelectorAll(".btn-play-gold-voice").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const script = btn.dataset.script;
+        const audioUrl = btn.dataset.audio || "";
+        const boxId = btn.dataset.boxId || "";
+        const parentBox = btn.closest(".teacher-voice-gold-box") || btn;
+        let pois = [];
+        if (audioUrl && window.LESSON_POIS_MAP && window.LESSON_POIS_MAP[audioUrl]) {
+          pois = window.LESSON_POIS_MAP[audioUrl];
+        } else if (boxId && window.LESSON_POIS_MAP && window.LESSON_POIS_MAP[boxId]) {
+          pois = window.LESSON_POIS_MAP[boxId];
+        } else if (btn.dataset.pois) {
+          try { pois = JSON.parse(btn.dataset.pois); } catch(e){}
+        }
+
+        playTeacherSpeech(script, parentBox, currentSpeed, audioUrl, pois);
+      });
+    });
+
+    container.querySelectorAll(".btn-stop-gold-voice").forEach(btn => {
+      btn.addEventListener("click", () => {
+        stopTeacherSpeech();
+      });
+    });
+
+    // 0a. GẮN SỰ KIỆN CLICK TRỰC TIẾP LÊN CHẤM VÀNG POI VÀ THANH SLIDER NGAY KHI RENDER
+    container.querySelectorAll(".teacher-voice-gold-box").forEach(box => {
+      const playBtn = box.querySelector(".btn-play-gold-voice");
+      const m0 = box.querySelector(".marker-poi-0");
+      const m1 = box.querySelector(".marker-poi-1");
+      const slider = box.querySelector(".gold-audio-slider");
+
+      if (m0 && playBtn) {
+        m0.style.pointerEvents = "auto";
+        m0.style.cursor = "pointer";
+        m0.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (activeVoicePlayer !== box || !isSpeechActive) {
+            playBtn.click();
+            setTimeout(() => { if (m0) m0.click(); }, 200);
+          }
+        });
+      }
+
+      if (m1 && playBtn) {
+        m1.style.pointerEvents = "auto";
+        m1.style.cursor = "pointer";
+        m1.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (activeVoicePlayer !== box || !isSpeechActive) {
+            playBtn.click();
+            setTimeout(() => { if (m1) m1.click(); }, 200);
+          }
+        });
+      }
+
+      if (slider && playBtn) {
+        slider.addEventListener("change", () => {
+          if (activeVoicePlayer !== box || !isSpeechActive) {
+            playBtn.click();
+          }
+        });
+      }
+    });
+
+    container.querySelectorAll(".voice-speed-pill-group .btn-speed-pill").forEach(sb => {
+      sb.addEventListener("click", function () {
+        const group = this.closest(".voice-speed-pill-group");
+        if (group) group.querySelectorAll(".btn-speed-pill").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        currentSpeed = parseFloat(this.dataset.speed);
+        if (currentHtml5Audio && isSpeechActive) {
+          currentHtml5Audio.playbackRate = currentSpeed;
+        }
+      });
+    });
+
+    // 0b. XỬ LÝ CÂU HỎI CHECKPOINT TRONG TIỂU MỤC & TRẮC NGHIỆM DẠNG 1 PHẦN IV
+    container.querySelectorAll(".btn-cp-opt").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const isCorrect = this.dataset.correct === "true";
+        const parentCard = this.closest(".sub-checkpoint-card") || this.closest(".exam-item-card");
+        if (!parentCard) return;
+
+        const allOpts = parentCard.querySelectorAll(".btn-cp-opt");
+        if (isCorrect) {
+          this.classList.add("selected-correct");
+          allOpts.forEach(b => b.disabled = true);
+          const feedback = parentCard.querySelector(".checkpoint-feedback") || parentCard.querySelector(".exam-solution-collapse");
+          if (feedback) {
+            feedback.style.display = "block";
+            feedback.classList.add("show");
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise([feedback]).catch(e => console.warn(e));
+            }
+          }
+          if (typeof window.increaseLessonProgress === "function") window.increaseLessonProgress(10, 10, 1);
+          if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
+          if (typeof window.showToast === "function") window.showToast("🎉 Chính xác! Thầy khen em đã trả lời rất chuẩn!", "success");
+        } else {
+          this.classList.add("selected-wrong");
+          if (typeof window.showToast === "function") window.showToast("Chưa chính xác rồi! Em hãy suy nghĩ và chọn lại nhé!", "warning");
+        }
+      });
+    });
+
+    // 0c. XỬ LÝ NÚT ẨN/HIỆN LỜI GIẢI CHI TIẾT TRONG PHẦN IV
+    container.querySelectorAll(".btn-show-solution-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const targetId = this.dataset.target;
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.classList.toggle("show");
+          if (targetEl.classList.contains("show")) {
+            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải';
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise([targetEl]).catch(e => console.warn(e));
+            }
+          } else {
+            this.innerHTML = '<i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết';
+          }
+        }
+      });
+    });
+
+    // 0d. XỬ LÝ NÚT BÀI TOÁN TƯƠNG TỰ (DYNAMIC PARAMETERS)
+    container.querySelectorAll(".btn-dynamic-param-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const qid = this.dataset.qid;
+        let foundQ = null;
+
+        // Tìm trong bài học hiện tại hoặc qua toàn bộ dữ liệu bài học đã nạp
+        const allLessons = [
+          window.LESSON_10_C1_B1_DATA,
+          window.LESSON_10_C1_B2_DATA,
+          window.LESSON_10_C3_B5_DATA,
+          window.LESSON_10_C3_B6_DATA,
+          window.LESSON_10_C2_B3_DATA,
+          window.LESSON_10_C2_B4_DATA,
+          window.LESSON_10_C4_B7_DATA,
+          window.LESSON_10_C4_B8_DATA,
+          window.LESSON_10_C4_B9_DATA,
+          window.LESSON_10_C4_B10_DATA,
+          window.LESSON_10_C4_B11_DATA,
+          window.LESSON_11_C1_B1_DATA,
+          window.LESSON_11_C1_B2_DATA,
+          window.LESSON_11_C4_B10_DATA,
+          window.LESSON_11_C4_B11_DATA,
+          window.LESSON_11_C4_B12_DATA,
+          window.LESSON_12_C2_B6_DATA,
+          window.LESSON_12_C2_B7_DATA,
+          window.LESSON_12_C2_B8_DATA
+        ].filter(Boolean);
+
+        for (let i = 0; i < allLessons.length; i++) {
+          const ef = allLessons[i].examFormatPractice;
+          if (ef) {
+            foundQ = (ef.part1MultipleChoice || []).find(q => q.id === qid) || 
+                     (ef.part2TrueFalse || []).find(q => q.id === qid) || 
+                     (ef.part3ShortAnswer || []).find(q => q.id === qid);
+            if (foundQ) break;
+          }
+        }
+
+        if (foundQ && foundQ.similarVariation) {
+          const sim = foundQ.similarVariation;
+          const promptEl = document.getElementById(`prompt-${qid}`);
+          if (promptEl) promptEl.innerHTML = sim.prompt;
+          const cardEl = document.getElementById(`card-${qid}`);
+          if (cardEl) {
+            if (sim.options) {
+              const optsEl = document.getElementById(`options-${qid}`);
+              if (optsEl) {
+                optsEl.innerHTML = sim.options.map((opt, oIdx) => {
+                  let cIdx = sim.correctIndex;
+                  if (cIdx === undefined || cIdx === null) {
+                    if (typeof sim.correctAnswer === 'number') cIdx = sim.correctAnswer;
+                    else if (typeof sim.correctAnswer === 'string') {
+                      const m = sim.correctAnswer.trim().toUpperCase().match(/^[A-D]/);
+                      if (m) cIdx = m[0].charCodeAt(0) - 65;
+                    }
+                  }
+                  return `
+                  <button class="btn-cp-opt" data-correct="${oIdx === cIdx}" data-qid="${qid}">
+                    ${opt}
+                  </button>
+                `;}).join("");
+                bindDigitalLessonEvents(cardEl);
+              }
+            }
+            if (sim.items) {
+              const tbody = cardEl.querySelector("tbody");
+              if (tbody) {
+                tbody.innerHTML = sim.items.map((it, iIdx) => {
+                  if (!it) return '';
+                  let itLabel = (it.label && String(it.label) !== 'undefined') ? it.label : ((it.key && String(it.key) !== 'undefined') ? it.key : String.fromCharCode(97 + iIdx));
+                  if (!itLabel || String(itLabel).trim() === 'undefined') itLabel = String.fromCharCode(97 + iIdx);
+                  let itText = (it.text || it.statement || (typeof it === 'string' ? it : '') || '').replace(/^[a-d1-4]\)\s*/i, '');
+                  if (!itText || String(itText).trim() === 'undefined') itText = `Mệnh đề ${itLabel.toUpperCase()}`;
+                  const itCorrect = (it.isTrue !== undefined) ? it.isTrue : ((it.isCorrect !== undefined) ? it.isCorrect : true);
+                  return `
+                    <tr class="tf-item-row" data-qid="${qid}" data-item-idx="${iIdx}" data-correct="${itCorrect}">
+                      <td><strong>${escapeHtml(itLabel)})</strong> ${itText}</td>
+                      <td style="text-align: center;">
+                        <button class="btn-tf-toggle" data-val="true" style="margin-right: 6px;">Đ</button>
+                        <button class="btn-tf-toggle" data-val="false">S</button>
+                      </td>
+                    </tr>
+                  `;
+                }).join("");
+                bindDigitalLessonEvents(cardEl);
+              }
+            }
+            const simAns = (sim.correctAnswer !== undefined && sim.correctAnswer !== null) ? sim.correctAnswer : ((sim.correctValue !== undefined && sim.correctValue !== null) ? sim.correctValue : '');
+            if (simAns) {
+              const inputEl = document.getElementById(`input-${qid}`);
+              if (inputEl) {
+                inputEl.value = "";
+                inputEl.dataset.ans = simAns;
+              }
+            }
+            const solEl = document.getElementById(`sol-${qid}`);
+            if (solEl) solEl.innerHTML = `<strong>Lời giải bài toán tương tự của Thầy Sáng:</strong><br>${sim.solution}`;
+          }
+          if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([cardEl]);
+          if (typeof window.showToast === "function") window.showToast("🔄 Đã đổi sang bài toán tương tự với số liệu mới!", "info");
+        }
+      });
+    });
+
+    // 0e. XỬ LÝ TRẮC NGHIỆM ĐÚNG / SAI 4 Ý (DẠNG 2)
+    container.querySelectorAll(".btn-tf-toggle").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const row = this.closest(".tf-item-row");
+        if (row) {
+          row.querySelectorAll(".btn-tf-toggle").forEach(b => b.classList.remove("selected-true", "selected-false"));
+          const val = this.dataset.val === "true";
+          this.classList.add(val ? "selected-true" : "selected-false");
+          row.dataset.userChoice = val ? "true" : "false";
+        }
+      });
+    });
+
+    container.querySelectorAll(".btn-check-tf-group").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const qid = this.dataset.qid;
+        const card = document.getElementById(`card-${qid}`);
+        if (!card) return;
+        const rows = card.querySelectorAll(".tf-item-row");
+        let allAnswered = true;
+        let allCorrect = true;
+        rows.forEach(r => {
+          const userChoice = r.dataset.userChoice;
+          const correctChoice = r.dataset.correct;
+          if (userChoice === undefined) allAnswered = false;
+          if (userChoice !== correctChoice) allCorrect = false;
+        });
+
+        if (!allAnswered) {
+          if (typeof window.showToast === "function") window.showToast("Em hãy chọn đầy đủ Đúng hoặc Sai cho cả 4 ý nhé!", "warning");
+          return;
+        }
+
+        if (allCorrect) {
+          rows.forEach(r => r.style.backgroundColor = "#f0fdf4");
+          if (typeof window.increaseLessonProgress === "function") window.increaseLessonProgress(15, 20, 2);
+          if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
+          if (typeof window.showToast === "function") window.showToast("🎉 Xuất sắc! Em đã phán đoán chính xác cả 4 ý!", "success");
+        } else {
+          rows.forEach(r => {
+            const isMatch = r.dataset.userChoice === r.dataset.correct;
+            r.style.backgroundColor = isMatch ? "#f0fdf4" : "#fef2f2";
+          });
+          if (typeof window.showToast === "function") window.showToast("Có ý chưa đúng, em hãy xem gợi ý hoặc lời giải chi tiết nhé!", "warning");
+        }
+      });
+    });
+
+    // 0f. XỬ LÝ TRẮC NGHIỆM TRẢ LỜI NGẮN SỐ HỌC (DẠNG 3)
+    container.querySelectorAll(".btn-check-short-ans").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const qid = this.dataset.qid;
+        const input = document.getElementById(`input-${qid}`);
+        const feedback = document.getElementById(`feedback-${qid}`);
+        if (!input) return;
+        const val = input.value.trim().replace(",", ".");
+        const correct = input.dataset.ans.trim();
+        if (!val) {
+          if (typeof window.showToast === "function") window.showToast("Em hãy nhập đáp số trước khi bấm kiểm tra nhé!", "warning");
+          return;
+        }
+
+        if (feedback) feedback.style.display = "inline-block";
+        if (val === correct) {
+          if (feedback) {
+            feedback.innerHTML = '<span style="color: #16a34a;"><i class="fa-solid fa-circle-check"></i> Chính xác!</span>';
+          }
+          input.style.borderColor = "#16a34a";
+          if (typeof window.triggerConfettiFireworks === "function") window.triggerConfettiFireworks();
+          if (typeof window.showToast === "function") window.showToast("🎉 Xuất sắc! Đáp số hoàn toàn chính xác!", "success");
+        } else {
+          if (feedback) {
+            feedback.innerHTML = '<span style="color: #dc2626;"><i class="fa-solid fa-circle-xmark"></i> Chưa đúng, thử lại!</span>';
+          }
+          input.style.borderColor = "#dc2626";
+          if (typeof window.showToast === "function") window.showToast("Đáp số chưa chính xác, em hãy kiểm tra lại phép tính nhé!", "warning");
+        }
+      });
+    });
+
     // 1. Lời chào sư phạm đầu giờ từ Thầy Sáng
     const welcomeCard = container.querySelector("#lessonWelcomeCard");
     if (welcomeCard) {
@@ -3477,6 +5770,19 @@ function initDigitalLessons() {
       }
     }
 
+    // 4b. Xử lý nút kiểm tra bảng Luyện tập 1
+    container.querySelectorAll(".btn-check-table-lt1").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const box = document.getElementById("lt1-feedback-box");
+        if (box) {
+          box.style.display = (box.style.display === "none" ? "block" : "none");
+          if (box.style.display === "block") {
+            box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        }
+      });
+    });
+
     // 5. Nút ẩn / hiện lời giải chi tiết của các Ví dụ
     container.querySelectorAll(".btn-toggle-solution").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -3485,16 +5791,17 @@ function initDigitalLessons() {
         if (!solEl) return;
 
         const isHidden = solEl.style.display === "none" || !solEl.style.display;
+        const isSimilar = btn.classList.contains("btn-toggle-similar-style");
         if (isHidden) {
           solEl.style.display = "block";
-          btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải chi tiết';
+          btn.innerHTML = isSimilar ? '<i class="fa-solid fa-eye-slash"></i> Đóng bài tập tương tự' : '<i class="fa-solid fa-eye-slash"></i> Đóng lời giải chi tiết';
           btn.classList.add("active-toggle");
           if (window.MathJax && window.MathJax.typesetPromise) {
             window.MathJax.typesetPromise([solEl]).catch(e => console.warn(e));
           }
         } else {
           solEl.style.display = "none";
-          btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem lời giải chi tiết &amp; Định hướng của Thầy Sáng';
+          btn.innerHTML = isSimilar ? '<i class="fa-solid fa-arrows-rotate"></i> Bài tập tương tự' : '<i class="fa-solid fa-eye"></i> Lời giải chi tiết của thầy Sáng';
           btn.classList.remove("active-toggle");
         }
       });

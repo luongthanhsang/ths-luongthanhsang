@@ -20,6 +20,7 @@ const DOCUMENTS_DATA = [
     size: "390 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 1420,
     previewUrl: "https://drive.google.com/file/d/1x9Xw8w5Bifj_kCSslzjRIZ-AN2qtRa0l/preview",
     downloadUrl: "https://drive.google.com/file/d/1x9Xw8w5Bifj_kCSslzjRIZ-AN2qtRa0l/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -34,6 +35,7 @@ const DOCUMENTS_DATA = [
     size: "524 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 1180,
     previewUrl: "https://drive.google.com/file/d/1scJP0Uow67oPuRjg2yeqWr2K3KBQ4RZw/preview",
     downloadUrl: "https://drive.google.com/file/d/1scJP0Uow67oPuRjg2yeqWr2K3KBQ4RZw/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -48,6 +50,7 @@ const DOCUMENTS_DATA = [
     size: "583 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 1350,
     previewUrl: "https://drive.google.com/file/d/1mJq2Yi_d5jwXLaD5Lt4dxqADY8C9tyzf/preview",
     downloadUrl: "https://drive.google.com/file/d/1mJq2Yi_d5jwXLaD5Lt4dxqADY8C9tyzf/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -62,6 +65,7 @@ const DOCUMENTS_DATA = [
     size: "3.2 MB",
     type: "pdf",
     date: "12/11/2024",
+    downloads: 980,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Tài liệu lưu hành nội bộ"
@@ -78,6 +82,7 @@ const DOCUMENTS_DATA = [
     size: "357 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 1650,
     previewUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/preview",
     downloadUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/view?usp=sharing",
     tag: "Tài liệu Khá - Giỏi (Chương 1)"
@@ -92,6 +97,7 @@ const DOCUMENTS_DATA = [
     size: "513 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 1480,
     previewUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/preview",
     downloadUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/view?usp=sharing",
     tag: "Tài liệu Khá - Giỏi (Chương 2)"
@@ -106,6 +112,7 @@ const DOCUMENTS_DATA = [
     size: "733 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 1220,
     previewUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/preview",
     downloadUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/view?usp=sharing",
     tag: "Hình không gian (Chương 4)"
@@ -120,6 +127,7 @@ const DOCUMENTS_DATA = [
     size: "600 KB",
     type: "pdf",
     date: "09/11/2026",
+    downloads: 2150,
     previewUrl: "tai-lieu/11.GK1.TK5.pdf",
     downloadUrl: "tai-lieu/11.GK1.TK5.pdf",
     tag: "Đề mới cập nhật (TK5)"
@@ -134,6 +142,7 @@ const DOCUMENTS_DATA = [
     size: "1.5 MB",
     type: "pdf",
     date: "09/11/2026",
+    downloads: 1890,
     previewUrl: "tai-lieu/11.GK1.TK4.pdf",
     downloadUrl: "tai-lieu/11.GK1.TK4.pdf",
     tag: "Đề thi Giữa Kì I (Mới nhất)"
@@ -148,6 +157,7 @@ const DOCUMENTS_DATA = [
     size: "1.2 MB",
     type: "pdf",
     date: "02/11/2024",
+    downloads: 1140,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Đề kiểm tra chuẩn"
@@ -164,6 +174,7 @@ const DOCUMENTS_DATA = [
     size: "2.8 MB",
     type: "pdf",
     date: "07/11/2026",
+    downloads: 2480,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Đề thi giữa kì I (Mới nhất)"
@@ -178,6 +189,7 @@ const DOCUMENTS_DATA = [
     size: "4.2 MB",
     type: "pdf",
     date: "10/09/2024",
+    downloads: 1950,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Trọng tâm thi THPT"
@@ -192,6 +204,7 @@ const DOCUMENTS_DATA = [
     size: "3.7 MB",
     type: "pdf",
     date: "14/10/2024",
+    downloads: 1720,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Giải tích 12"
@@ -206,6 +219,7 @@ const DOCUMENTS_DATA = [
     size: "3.5 MB",
     type: "pdf",
     date: "01/11/2024",
+    downloads: 1560,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Hình học Oxyz"
@@ -220,6 +234,7 @@ const DOCUMENTS_DATA = [
     size: "5.6 MB",
     type: "pdf",
     date: "04/11/2024",
+    downloads: 1380,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Đề thi thử 2025"
@@ -236,6 +251,7 @@ const DOCUMENTS_DATA = [
     size: "175 KB",
     type: "pdf",
     date: "14/11/2026",
+    downloads: 1820,
     previewUrl: "https://drive.google.com/file/d/15IvacJ6ijo8OFszkmhVPrjQxHny5X_lb/preview",
     downloadUrl: "https://drive.google.com/file/d/15IvacJ6ijo8OFszkmhVPrjQxHny5X_lb/view?usp=sharing",
     tag: "HSG Tỉnh An Giang 2025 - 2026"
@@ -250,6 +266,7 @@ const DOCUMENTS_DATA = [
     size: "200 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 1450,
     previewUrl: "https://drive.google.com/file/d/17qVKSdtDhWhl06NR6483qWQ-L8RXWcLx/preview",
     downloadUrl: "https://drive.google.com/file/d/17qVKSdtDhWhl06NR6483qWQ-L8RXWcLx/view?usp=sharing",
     tag: "HSG Tỉnh An Giang 2024 - 2025"
@@ -264,6 +281,7 @@ const DOCUMENTS_DATA = [
     size: "188 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 1120,
     previewUrl: "https://drive.google.com/file/d/177lZai6bLXWuyJxzfpZqKpUGRYLNqPDk/preview",
     downloadUrl: "https://drive.google.com/file/d/177lZai6bLXWuyJxzfpZqKpUGRYLNqPDk/view?usp=sharing",
     tag: "HSG Tỉnh An Giang 2023 - 2024"
@@ -278,6 +296,7 @@ const DOCUMENTS_DATA = [
     size: "186 KB",
     type: "pdf",
     date: "15/11/2026",
+    downloads: 980,
     previewUrl: "https://drive.google.com/file/d/1Z-WmW576EAUqSvTKYl3_mrIIPVKqeZ51/preview",
     downloadUrl: "https://drive.google.com/file/d/1Z-WmW576EAUqSvTKYl3_mrIIPVKqeZ51/view?usp=sharing",
     tag: "HSG Tỉnh Kiên Giang 2023 - 2024"
@@ -292,6 +311,7 @@ const DOCUMENTS_DATA = [
     size: "221 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 860,
     previewUrl: "https://drive.google.com/file/d/17nAUGe-QG4moqJQJ-zOwID7gMq1yF37_/preview",
     downloadUrl: "https://drive.google.com/file/d/17nAUGe-QG4moqJQJ-zOwID7gMq1yF37_/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -306,6 +326,7 @@ const DOCUMENTS_DATA = [
     size: "176 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 790,
     previewUrl: "https://drive.google.com/file/d/1zMlv5VA30oa2fm21iBA1Q8M3YhTH88CU/preview",
     downloadUrl: "https://drive.google.com/file/d/1zMlv5VA30oa2fm21iBA1Q8M3YhTH88CU/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -320,6 +341,7 @@ const DOCUMENTS_DATA = [
     size: "188 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 820,
     previewUrl: "https://drive.google.com/file/d/12gwYlvU1DV7dd8UIg5nPk1_eIhsb6wMD/preview",
     downloadUrl: "https://drive.google.com/file/d/12gwYlvU1DV7dd8UIg5nPk1_eIhsb6wMD/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -334,6 +356,7 @@ const DOCUMENTS_DATA = [
     size: "215 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 740,
     previewUrl: "https://drive.google.com/file/d/13lMXYchAzxF8rB9aTppVhy7wDueAJdyZ/preview",
     downloadUrl: "https://drive.google.com/file/d/13lMXYchAzxF8rB9aTppVhy7wDueAJdyZ/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -348,6 +371,7 @@ const DOCUMENTS_DATA = [
     size: "244 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 690,
     previewUrl: "https://drive.google.com/file/d/1CIHTpnas5zcdSjHNuADWfmoJDqcKScfZ/preview",
     downloadUrl: "https://drive.google.com/file/d/1CIHTpnas5zcdSjHNuADWfmoJDqcKScfZ/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -362,6 +386,7 @@ const DOCUMENTS_DATA = [
     size: "221 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 710,
     previewUrl: "https://drive.google.com/file/d/1rk4FbUU__8gVGkf0FnOC5KJC9IgLd-9E/preview",
     downloadUrl: "https://drive.google.com/file/d/1rk4FbUU__8gVGkf0FnOC5KJC9IgLd-9E/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -376,6 +401,7 @@ const DOCUMENTS_DATA = [
     size: "210 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 890,
     previewUrl: "https://drive.google.com/file/d/12Ci1aKCGP5fu_Zx8PgKYkmRyuobJKrNi/preview",
     downloadUrl: "https://drive.google.com/file/d/12Ci1aKCGP5fu_Zx8PgKYkmRyuobJKrNi/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -390,6 +416,7 @@ const DOCUMENTS_DATA = [
     size: "197 KB",
     type: "pdf",
     date: "08/11/2026",
+    downloads: 650,
     previewUrl: "https://drive.google.com/file/d/17Y6qOYcjkja6zvhFucblb4MS3Dimp0E1/preview",
     downloadUrl: "https://drive.google.com/file/d/17Y6qOYcjkja6zvhFucblb4MS3Dimp0E1/view?usp=sharing",
     tag: "Tài liệu Thầy Sáng"
@@ -404,6 +431,7 @@ const DOCUMENTS_DATA = [
     size: "6.5 MB",
     type: "pdf",
     date: "25/10/2026",
+    downloads: 780,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "HSG Tỉnh An Giang"
@@ -418,6 +446,7 @@ const DOCUMENTS_DATA = [
     size: "3.9 MB",
     type: "pdf",
     date: "02/11/2026",
+    downloads: 810,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "HSG Toán 11"
@@ -432,6 +461,7 @@ const DOCUMENTS_DATA = [
     size: "3.4 MB",
     type: "pdf",
     date: "05/11/2026",
+    downloads: 730,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "HSG Toán 10"
