@@ -5747,54 +5747,77 @@ function initTeacherAiChat() {
   let isThinking = false;
   let chatSessionHistory = [];
 
-  // Tải API Key đã lưu nếu có
-  const savedApiKey = localStorage.getItem("ths_sang_gemini_api_key") || "";
-  if (geminiApiKeyInput && savedApiKey) {
-    geminiApiKeyInput.value = savedApiKey;
+  // Quản lý Trạng thái Banner Google Gemini AI
+  const bannerActiveState = document.getElementById("bannerActiveState");
+  const bannerInactiveState = document.getElementById("bannerInactiveState");
+  const btnChangeApiKey = document.getElementById("btnChangeApiKey");
+  const btnRemoveApiKey = document.getElementById("btnRemoveApiKey");
+  const btnGuideToggle = document.getElementById("btnGuideToggle");
+  const geminiGuideDrawer = document.getElementById("geminiGuideDrawer");
+
+  function updateGeminiBannerUI() {
+    const key = localStorage.getItem("ths_sang_gemini_api_key") || "";
+    if (key) {
+      if (bannerActiveState) bannerActiveState.style.display = "flex";
+      if (bannerInactiveState) bannerInactiveState.style.display = "none";
+      if (geminiApiKeyInput) geminiApiKeyInput.value = key;
+    } else {
+      if (bannerActiveState) bannerActiveState.style.display = "none";
+      if (bannerInactiveState) bannerInactiveState.style.display = "flex";
+      if (geminiApiKeyInput) geminiApiKeyInput.value = "";
+    }
   }
 
-  // 1. Xử lý Toggle Panel API Key
-  if (btnToggleApiKey && apiKeyPanel) {
-    btnToggleApiKey.addEventListener("click", () => {
-      const isHidden = apiKeyPanel.style.display === "none";
-      apiKeyPanel.style.display = isHidden ? "block" : "none";
-      if (isHidden && geminiApiKeyInput) {
-        geminiApiKeyInput.focus();
-      }
+  updateGeminiBannerUI();
+
+  // Bật/tắt hướng dẫn lấy Key
+  if (btnGuideToggle && geminiGuideDrawer) {
+    btnGuideToggle.addEventListener("click", () => {
+      const isHidden = geminiGuideDrawer.style.display === "none";
+      geminiGuideDrawer.style.display = isHidden ? "block" : "none";
     });
   }
 
+  // Nút Lưu/Kích hoạt Key
   if (btnSaveApiKey && geminiApiKeyInput) {
     btnSaveApiKey.addEventListener("click", () => {
       const keyVal = geminiApiKeyInput.value.trim();
-      if (keyVal) {
+      if (keyVal && keyVal.length > 10) {
         localStorage.setItem("ths_sang_gemini_api_key", keyVal);
         if (apiKeyStatus) {
           apiKeyStatus.style.display = "block";
           apiKeyStatus.style.color = "#047857";
-          apiKeyStatus.textContent = "✓ Đã lưu Google Gemini API Key thành công! AI Thầy Sáng đã sẵn sàng.";
+          apiKeyStatus.textContent = "✓ Kích hoạt Google Gemini AI thành công! Hệ thống sẵn sàng trả lời chính xác tuyệt đối.";
         }
         setTimeout(() => {
-          if (apiKeyPanel) apiKeyPanel.style.display = "none";
-        }, 1500);
+          updateGeminiBannerUI();
+          if (apiKeyStatus) apiKeyStatus.style.display = "none";
+        }, 1200);
       } else {
         if (apiKeyStatus) {
           apiKeyStatus.style.display = "block";
           apiKeyStatus.style.color = "#b91c1c";
-          apiKeyStatus.textContent = "Vui lòng nhập API Key hợp lệ.";
+          apiKeyStatus.textContent = "Vui lòng dán Google Gemini API Key hợp lệ (bắt đầu bằng AIzaSy...).";
         }
       }
     });
   }
 
-  if (btnClearApiKey) {
-    btnClearApiKey.addEventListener("click", () => {
-      localStorage.removeItem("ths_sang_gemini_api_key");
-      if (geminiApiKeyInput) geminiApiKeyInput.value = "";
-      if (apiKeyStatus) {
-        apiKeyStatus.style.display = "block";
-        apiKeyStatus.style.color = "#64748b";
-        apiKeyStatus.textContent = "Đã xóa API Key. Hệ thống sử dụng Bộ giải toán thông minh tích hợp sẵn.";
+  // Đổi Key
+  if (btnChangeApiKey && bannerInactiveState && bannerActiveState) {
+    btnChangeApiKey.addEventListener("click", () => {
+      bannerActiveState.style.display = "none";
+      bannerInactiveState.style.display = "flex";
+      if (geminiApiKeyInput) geminiApiKeyInput.focus();
+    });
+  }
+
+  // Xóa Key
+  if (btnRemoveApiKey) {
+    btnRemoveApiKey.addEventListener("click", () => {
+      if (confirm("Em/Thầy có chắc chắn muốn ngắt kết nối Google Gemini API không?")) {
+        localStorage.removeItem("ths_sang_gemini_api_key");
+        updateGeminiBannerUI();
       }
     });
   }
@@ -6219,33 +6242,139 @@ function initTeacherAiChat() {
   function generateSmartTeacherResponse(query, imageObj) {
     const q = query.toLowerCase();
 
-    // Trường hợp học sinh gửi hình ảnh đề bài
+    // 1. Trường hợp gửi ảnh khi chưa kích hoạt Google AI Key
     if (imageObj) {
-      return `Thầy Sáng đã nhận được hình ảnh bài toán của em (**${imageObj.name}**)!
+      return `Thầy Sáng đã tiếp nhận hình ảnh đề bài: **${imageObj.name}**!
 
-Thầy hướng dẫn em **Quy trình 4 bước vàng** để giải quyết chuẩn xác dạng bài toán này:
+⚠️ **Để giải chính xác tuyệt đối 100% hình ảnh này bằng AI của Google:**
+Hiện tại trình duyệt của Thầy/em chưa kích hoạt **Google Gemini API Key** nên AI chưa thể quét trực tiếp nội dung trên ảnh.
 
-Bước 1: **Đọc kĩ giả thiết & Nhận diện dạng toán**
-- Quan sát hình vẽ/đề bài: Xác định rõ đối tượng bài toán đang xét (Hàm số lượng giác, Cấp số cộng/nhân, hay Khảo sát hàm số/Hình học không gian).
-- Chú ý các điều kiện ràng buộc như: tập xác định $D$, khoảng biến thiên, công sai $d$ hoặc công bội $q$.
+👉 **Cách kích hoạt ngay trong 1 phút (hoàn toàn miễn phí):**
+1. Nhìn lên thanh màu xanh **"TÍCH HỢP AI GOOGLE (GEMINI)"** ở ngay phía trên khung chat.
+2. Dán mã khóa Gemini API Key của Google vào ô và bấm **"Kích Hoạt Ngay"**.
+3. Sau khi kích hoạt, Thầy/em gửi lại ảnh, AI của Google sẽ phân tích từng câu chữ, hình vẽ đồ thị và giải chi tiết từng dòng chính xác tuyệt đối 100%!
 
-Bước 2: **Thiết lập công thức toán học then chốt**
-- Nếu là bài toán thực tế cấp số: Xác định ngay số hạng đầu $u_1$ và quy luật tăng/giảm ($d$ hoặc $q$).
-- Nếu là phương trình lượng giác: Đưa về cùng một hàm số lượng giác cơ bản:
-  $$\\sin u = \\sin v \\iff \\left[\\begin{array}{l} u = v + k2\\pi \\\\ u = \\pi - v + k2\\pi \\end{array}\\right. \\quad (k \\in \\mathbb{Z})$$
-  $$\\cos u = \\cos v \\iff u = \\pm v + k2\\pi \\quad (k \\in \\mathbb{Z})$$
-
-Bước 3: **Trình bày lời giải chi tiết**
-- Thực hiện biến đổi đại số cẩn thận, tránh nhầm lẫn dấu.
-- Nếu là bài toán tính tổng: Áp dụng công thức tổng $n$ số hạng đầu $S_n = \\frac{n(u_1+u_n)}{2}$ (với CSC) hoặc $S_n = \\frac{u_1(1-q^n)}{1-q}$ (với CSN, $q \\neq 1$).
-
-Bước 4: **Đối chiếu điều kiện & Kết luận**
-- Kiểm tra lại điều kiện nghiệm hoặc ý nghĩa thực tế (số hàng ghế, số tiền, số ngày... phải là số nguyên dương $n \\in \\mathbb{N}^*$).
-
-💡 *Mẹo của Thầy Sáng:* Em hãy kiểm tra xem em đang bị vướng mắc ở bước biến đổi nào trong 4 bước trên nhé. Nếu em muốn AI đọc chữ và giải trực tiếp trên ảnh bằng thị giác máy tính Gemini Vision, em có thể bấm vào biểu tượng 🔑 ở góc phải trên khung chat để nhập Gemini API Key miễn phí nhé!`;
+*(Nếu bài toán có thể gõ bằng lời, em hãy gõ trực tiếp câu hỏi vào ô chat bên dưới để Thầy giải đáp ngay nhé!)*`;
     }
 
-    // Nhận diện câu hỏi Lượng giác
+    // 2. Nhận diện và TỰ ĐỘNG TÍNH TOÁN CẤP SỐ NHÂN (u1, q, Sn, un)
+    const csnU1Match = query.match(/u1\s*=\s*(-?\d+(\.\d+)?)/i);
+    const csnQMatch = query.match(/q\s*=\s*(-?\d+(\.\d+)?)/i);
+    const csnNMatch = query.match(/([Su])(\d+)/i) || query.match(/n\s*=\s*(\d+)/i);
+
+    if ((q.includes("cấp số nhân") || q.includes("csn")) && csnU1Match && csnQMatch && csnNMatch) {
+      const u1 = parseFloat(csnU1Match[1]);
+      const qVal = parseFloat(csnQMatch[1]);
+      const type = csnNMatch[1] ? csnNMatch[1].toUpperCase() : 'S';
+      const n = parseInt(csnNMatch[2] || csnNMatch[1]);
+
+      let resVal = 0;
+      let stepExplain = "";
+
+      if (type === 'U') {
+        resVal = u1 * Math.pow(qVal, n - 1);
+        stepExplain = `Áp dụng công thức số hạng tổng quát của cấp số nhân:
+$$u_n = u_1 \\cdot q^{n-1}$$
+Thay số vào ta được:
+$$u_{${n}} = ${u1} \\cdot (${qVal})^{${n}-1} = ${u1} \\cdot (${qVal})^{${n-1}} = \\mathbf{${resVal}}$$`;
+      } else {
+        if (qVal === 1) {
+          resVal = n * u1;
+          stepExplain = `Do $q = 1$ nên tổng $n$ số hạng đầu là:
+$$S_{${n}} = ${n} \\cdot ${u1} = \\mathbf{${resVal}}$$`;
+        } else {
+          resVal = u1 * (Math.pow(qVal, n) - 1) / (qVal - 1);
+          stepExplain = `Áp dụng công thức tính tổng $n$ số hạng đầu của cấp số nhân:
+$$S_n = \\frac{u_1(q^n - 1)}{q - 1}$$
+Thay số với $u_1 = ${u1}$, $q = ${qVal}$, $n = ${n}$:
+$$S_{${n}} = \\frac{${u1} \\cdot (${qVal}^{${n}} - 1)}{${qVal} - 1} = \\frac{${u1} \\cdot (${Math.pow(qVal, n)} - 1)}{${qVal - 1}} = \\mathbf{${resVal}}$$`;
+        }
+      }
+
+      return `Chào em! Thầy Sáng giải chi tiết và tính chính xác bài toán Cấp số nhân của em như sau:
+
+### Lời giải chi tiết:
+- Giả thiết cho: Số hạng đầu $u_1 = ${u1}$, công bội $q = ${qVal}$.
+- Cần tính: $${type}_{${n}}$.
+
+${stepExplain}
+
+**Đáp số chính xác:** $\\mathbf{${type}_{${n}} = ${resVal}}$.
+
+💡 *Mẹo của Thầy:* Em có thể kích hoạt Google Gemini AI ở thanh phía trên để AI giải mọi bài toán nâng cao khác nhé!`;
+    }
+
+    // 3. Nhận diện và TỰ ĐỘNG TÍNH TOÁN CẤP SỐ CỘNG (u1, d, Sn, un)
+    const cscU1Match = query.match(/u1\s*=\s*(-?\d+(\.\d+)?)/i);
+    const cscDMatch = query.match(/d\s*=\s*(-?\d+(\.\d+)?)/i);
+    const cscNMatch = query.match(/([Su])(\d+)/i) || query.match(/n\s*=\s*(\d+)/i);
+
+    if ((q.includes("cấp số cộng") || q.includes("csc")) && cscU1Match && cscDMatch && cscNMatch) {
+      const u1 = parseFloat(cscU1Match[1]);
+      const d = parseFloat(cscDMatch[1]);
+      const type = cscNMatch[1] ? cscNMatch[1].toUpperCase() : 'S';
+      const n = parseInt(cscNMatch[2] || cscNMatch[1]);
+
+      let resVal = 0;
+      let stepExplain = "";
+
+      if (type === 'U') {
+        resVal = u1 + (n - 1) * d;
+        stepExplain = `Áp dụng công thức số hạng tổng quát cấp số cộng:
+$$u_n = u_1 + (n - 1)d$$
+Thay số ta được:
+$$u_{${n}} = ${u1} + (${n} - 1) \\cdot (${d}) = ${u1} + ${n - 1} \\cdot (${d}) = \\mathbf{${resVal}}$$`;
+      } else {
+        resVal = (n * (2 * u1 + (n - 1) * d)) / 2;
+        stepExplain = `Áp dụng công thức tính tổng $n$ số hạng đầu cấp số cộng:
+$$S_n = \\frac{n[2u_1 + (n - 1)d]}{2}$$
+Thay số với $u_1 = ${u1}$, $d = ${d}$, $n = ${n}$:
+$$S_{${n}} = \\frac{${n} \\cdot [2 \\cdot (${u1}) + (${n} - 1) \\cdot (${d})]}{2} = \\frac{${n} \\cdot [${2*u1} + ${(n-1)*d}]}{2} = \\mathbf{${resVal}}$$`;
+      }
+
+      return `Chào em! Thầy Sáng giải chi tiết và tính chính xác bài toán Cấp số cộng của em như sau:
+
+### Lời giải chi tiết:
+- Giả thiết cho: Số hạng đầu $u_1 = ${u1}$, công sai $d = ${d}$.
+- Cần tính: $${type}_{${n}}$.
+
+${stepExplain}
+
+**Đáp số chính xác:** $\\mathbf{${type}_{${n}} = ${resVal}}$.`;
+    }
+
+    // 4. Giải phương trình bậc 2 tổng quát ax^2 + bx + c = 0
+    const quadMatch = query.match(/(-?\d+)?x\^2\s*([+-]\s*\d+)?x\s*([+-]\s*\d+)?\s*=\s*0/i);
+    if (quadMatch) {
+      let a = quadMatch[1] ? parseFloat(quadMatch[1].replace(/\s/g, '')) : 1;
+      let b = quadMatch[2] ? parseFloat(quadMatch[2].replace(/\s/g, '')) : 0;
+      let c = quadMatch[3] ? parseFloat(quadMatch[3].replace(/\s/g, '')) : 0;
+
+      const delta = b * b - 4 * a * c;
+      let solText = "";
+
+      if (delta > 0) {
+        const x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(2);
+        const x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(2);
+        solText = `Phương trình có $\\Delta = ${b}^2 - 4 \\cdot ${a} \\cdot ${c} = ${delta} > 0$.
+Phương trình có 2 nghiệm phân biệt:
+$$x_1 = \\frac{-b + \\sqrt{\\Delta}}{2a} = ${x1}$$
+$$x_2 = \\frac{-b - \\sqrt{\\Delta}}{2a} = ${x2}$$`;
+      } else if (delta === 0) {
+        const x0 = (-b / (2 * a)).toFixed(2);
+        solText = `Phương trình có $\\Delta = 0$, có nghiệm kép:
+$$x_1 = x_2 = -\\frac{b}{2a} = ${x0}$$`;
+      } else {
+        solText = `Phương trình có $\\Delta = ${delta} < 0$, do đó phương trình vô nghiệm trên tập số thực $\\mathbb{R}$.`;
+      }
+
+      return `Chào em! Thầy Sáng hướng dẫn giải phương trình bậc hai:
+$$\\mathbf{${a}x^2 + (${b})x + (${c}) = 0}$$
+
+${solText}`;
+    }
+
+    // 5. Giải phương trình lượng giác: sin(2x) = căn(3)/2
     if (q.includes("sin(2x)") || q.includes("sin 2x") || (q.includes("lượng giác") && q.includes("giải"))) {
       return `Chào em! Thầy Sáng hướng dẫn em giải chi tiết phương trình lượng giác cơ bản này nhé:
 
@@ -6266,102 +6395,20 @@ Bước 4: **Kết luận**
 Vậy tập nghiệm của phương trình đã cho là:
 $$S = \\left\\{ \\frac{\\pi}{6} + k\\pi;\\; \\frac{\\pi}{3} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z} \\right\\}$$
 
-⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, rất nhiều bạn quên chia chu kì $k2\\pi$ thành $k\\pi$. Em nhớ chia đều cho cả hệ số tự do lẫn chu kì nhé!`;
+⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, nhớ chia đều cho cả hệ số tự do lẫn chu kì $k2\\pi$ nhé!`;
     }
 
-    // Nhận diện Cấp số nhân
-    if (q.includes("cấp số nhân") || q.includes("số hạng tổng quát") || q.includes("csn")) {
-      return `Chào em! Về chủ đề **Cấp số nhân (CSN)** - Bài 7 Toán 11, Thầy hệ thống lại toàn bộ kiến thức trọng tâm để em nắm chắc 100% nhé:
+    // 6. Câu trả lời mặc định khi chưa kích hoạt AI Google
+    return `Chào em! Thầy Sáng đã nhận được câu hỏi: *"**${query}**"*.
 
-### 1. Định nghĩa Cấp số nhân
-Dãy số $(u_n)$ là cấp số nhân khi:
-$$u_{n+1} = u_n \\cdot q \\quad (\\forall n \\in \\mathbb{N}^*)$$
-Trong đó $q$ gọi là **công bội** của cấp số nhân.
+✨ **Để nhận được lời giải chi tiết, chính xác tuyệt đối 100% cho bài toán cụ thể này:**
+Hiện tại khung chat đang ở chế độ giải toán offline cơ bản. Thầy/em hãy kích hoạt **Google Gemini AI** bằng cách:
 
-### 2. Số hạng tổng quát của Cấp số nhân
-Nếu cấp số nhân có số hạng đầu $u_1$ và công bội $q$, thì số hạng thứ $n$ được xác định bởi:
-$$u_n = u_1 \\cdot q^{n-1} \\quad (\\forall n \\ge 2)$$
+1. Nhìn lên thanh màu xanh **"TÍCH HỢP AI GOOGLE (GEMINI)"** ở đầu khung chat.
+2. Dán mã **Google Gemini API Key** vào ô và nhấn nút **"Kích Hoạt Ngay"**.
+3. Sau khi kích hoạt thành công (hoàn toàn miễn phí), AI của Google sẽ phân tích đề bài trực tiếp và giải chính xác tuyệt đối 100% mọi bài toán từ cơ bản đến nâng cao!
 
-Bước 1: **Xác định $u_1$ và công bội $q$:** $q = \\frac{u_{k+1}}{u_k}$.
-Bước 2: **Thay vào công thức:** Ví dụ $u_1 = 3, q = 2 \\implies u_n = 3 \\cdot 2^{n-1}$. Khi đó số hạng thứ 5 là $u_5 = 3 \\cdot 2^4 = 48$.
-
-### 3. Tổng $n$ số hạng đầu tiên ($S_n$)
-Với $q \\ne 1$, tổng của $n$ số hạng đầu là:
-$$S_n = u_1 + u_2 + \\dots + u_n = \\frac{u_1(1 - q^n)}{1 - q} = \\frac{u_1(q^n - 1)}{q - 1}$$
-*(Nếu $q = 1$ thì $S_n = n \\cdot u_1$)*.
-
-### 4. Tính chất các số hạng
-Mỗi số hạng (trừ số hạng đầu và cuối) đều có bình phương bằng tích của hai số hạng kề nó:
-$$u_k^2 = u_{k-1} \\cdot u_{k+1} \\quad (k \\ge 2)$$
-
-💡 *Lời khuyên của Thầy:* Trong bài thi trắc nghiệm, các câu hỏi về bài toán thực tế như **lãi kép ngân hàng** hay **sự tăng trưởng vi khuẩn** đều là mô hình cấp số nhân. Em chỉ cần xác định đúng $u_1$ và $q = 1 + r$ là ra ngay kết quả!`;
-    }
-
-    // Nhận diện Cấp số cộng
-    if (q.includes("cấp số cộng") || q.includes("tổng n số hạng") || q.includes("csc")) {
-      return `Chào em! Thầy hướng dẫn em công thức và phương pháp tính **Tổng $n$ số hạng đầu của Cấp số cộng** (Bài 6 Toán 11) nhé:
-
-### 1. Công thức tính tổng $S_n$
-Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1$ và công sai $d$. Tổng $n$ số hạng đầu $S_n = u_1 + u_2 + \\dots + u_n$ được tính bằng một trong hai cách:
-
-- **Cách 1 (Khi biết số hạng đầu $u_1$ và số hạng cuối $u_n$):**
-  $$S_n = \\frac{n(u_1 + u_n)}{2}$$
-
-- **Cách 2 (Khi biết số hạng đầu $u_1$ và công sai $d$):**
-  $$S_n = \\frac{n\\left[2u_1 + (n - 1)d\\right]}{2} = n \\cdot u_1 + \\frac{n(n - 1)}{2}d$$
-
-### 2. Ví dụ thực tế bài toán rạp hát (SGK):
-*Một nhà hát có 25 hàng ghế. Hàng 1 có 16 ghế, hàng 2 có 18 ghế, hàng 3 có 20 ghế... Tính tổng số ghế.*
-Bước 1: Nhận diện: Số ghế các hàng lập thành CSC với $u_1 = 16$, công sai $d = 2$, số hàng $n = 25$.
-Bước 2: Áp dụng công thức:
-$$S_{25} = \\frac{25 \\cdot [2 \\cdot 16 + (25 - 1) \\cdot 2]}{2} = \\frac{25 \\cdot [32 + 48]}{2} = 25 \\cdot 40 = 1000 \\text{ (ghế)}$$
-Vậy nhà hát có đúng $1000$ ghế.
-
-Thầy chúc em luôn học tốt và tự tin chinh phục các dạng toán Cấp số nhé!`;
-    }
-
-    // Nhận diện Mẹo thi 2026
-    if (q.includes("2026") || q.includes("đúng / sai") || q.includes("trắc nghiệm") || q.includes("mẹo")) {
-      return `Thầy chia sẻ với em **Chiến lược đạt điểm 9+ môn Toán kỳ thi tốt nghiệp THPT năm 2026** theo chuẩn cấu trúc mới của Bộ GD&ĐT:
-
-Cấu trúc đề thi mới gồm 3 Phần rõ rệt:
-
-1. **Phần I: Trắc nghiệm 4 lựa chọn (12 câu - 3.0 điểm)**
-- Mức độ: Nhận biết và Thông hiểu.
-- *Chiến thuật:* Giải quyết nhanh và chắc chắn trong 15 - 20 phút đầu tiên. Không được phép để sai sót ở phần này vì mỗi câu trị giá $0.25$ điểm tuyệt đối.
-
-2. **Phần II: Trắc nghiệm Đúng / Sai (4 câu, mỗi câu 4 ý a-b-c-d - 4.0 điểm)**
-- Cơ chế tính điểm lũy tiến cực kỳ quan trọng:
-  - Đúng 1 ý: $0.1$ điểm.
-  - Đúng 2 ý: $0.25$ điểm.
-  - Đúng 3 ý: $0.5$ điểm.
-  - Đúng cả 4 ý: $1.0$ điểm!
-- *Chiến thuật:* Đọc kĩ từng ý vì các ý thường có liên hệ logic với nhau (ví dụ: ý a tính đạo hàm, ý b tìm cực trị, ý c tìm tiệm cận, ý d giải bài toán thực tế). Em hãy làm cẩn thận để đạt trọn $1.0$ điểm mỗi câu!
-
-3. **Phần III: Trắc nghiệm Trả lời ngắn (6 câu - 3.0 điểm)**
-- Mức độ: Vận dụng và Vận dụng cao.
-- Không có đáp án A, B, C, D để đoán mò; học sinh phải tự điền số vào ô trả lời.
-- *Chiến thuật:* Chú ý đơn vị đề bài yêu cầu (làm tròn đến hàng phần mười, phần trăm, hay số nguyên). Rèn luyện kĩ năng bấm máy tính Casio và trình bày nháp khoa học.
-
-Thầy chúc em ôn luyện thật tốt và luôn vững vàng kiến thức nhé!`;
-    }
-
-    // Trả lời tổng quát
-    return `Chào em! Thầy Sáng đã đọc câu hỏi của em: *"**${query}**"*.
-
-Thầy hướng dẫn em phương pháp tiếp cận bài toán như sau:
-
-Bước 1: **Xác định rõ bản chất kiến thức**
-- Em hãy đối chiếu xem câu hỏi thuộc chuyên đề nào: Đại số (Hàm số, Lượng giác, Cấp số), Giải tích (Đạo hàm, Tích phân) hay Hình học không gian (Oxyz).
-
-Bước 2: **Vận dụng định lý và công thức tương ứng**
-- Hãy ghi lại các công thức liên quan ra nháp trước khi bắt tay vào tính toán.
-- Đừng quên kiểm tra các điều kiện tồn tại của bài toán (mẫu số khác $0$, biểu thức trong căn $\\ge 0$, biểu thức dưới dấu $\\log$ dương...).
-
-Bước 3: **Kiểm tra lại kết quả**
-- Có thể dùng máy tính cầm tay (Casio fx-580VNX hoặc fx-880BTG) để thử lại với các giá trị đặc biệt nhằm khẳng định độ chính xác của đáp án.
-
-📸 **Gợi ý cho em:** Nếu bài toán có đề bài dài hoặc có hình vẽ đồ thị phức tạp, em hãy nhấn vào nút dấu **"+"** màu vàng đồng ở góc trái thanh nhập liệu bên dưới để gửi ảnh chụp đề bài trực tiếp cho Thầy nhé! Thầy sẽ phân tích và giải chi tiết từng dòng cho em.`;
+💡 *Nếu Thầy/em đã có sẵn API Key, chỉ cần dán vào thanh phía trên 1 lần duy nhất là sử dụng được mãi mãi!*`;
   }
 
   // Expose ra window để hỗ trợ tương tác và kiểm thử mở rộng

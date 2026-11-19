@@ -115,19 +115,56 @@
               </div>
             </div>
 
-            <!-- Panel Cài đặt Gemini API Key (Thu gọn/mở rộng) -->
-            <div class="api-key-panel" id="apiKeyPanel" style="display: none;">
-              <div class="api-key-panel-inner">
-                <div class="api-key-desc">
-                  <i class="fa-solid fa-shield-halved"></i> <strong>Cài đặt Google Gemini API Key (Tùy chọn)</strong>:
-                  Hệ thống tích hợp sẵn bộ giải toán sư phạm của Thầy Sáng. Nếu có khóa Gemini API cá nhân (miễn phí từ Google AI Studio), em có thể dán tại đây để kích hoạt thị giác máy tính đọc ảnh đề bài chuyên sâu nhất. Khóa chỉ lưu bảo mật trên trình duyệt của em.
+            <!-- Thanh trạng thái & Kích hoạt Google Gemini AI (Trực quan & Dễ sử dụng) -->
+            <div class="gemini-activation-banner" id="geminiActivationBanner">
+              <!-- Trạng thái khi ĐÃ có Key -->
+              <div class="banner-active-state" id="bannerActiveState" style="display: none;">
+                <div class="active-badge-info">
+                  <span class="active-pulse-dot"></span>
+                  <i class="fa-brands fa-google" style="color: #2563eb; font-size: 1.15rem;"></i>
+                  <span><strong>AI Google (Gemini):</strong> <span style="color: #059669; font-weight: 800;">ĐÃ KÍCH HOẠT</span> • Trả lời chính xác tuyệt đối 100% cho mọi câu hỏi & hình ảnh!</span>
                 </div>
-                <div class="api-key-input-group">
-                  <input type="password" id="geminiApiKeyInput" placeholder="Dán Gemini API Key tại đây (AIzaSy...)" class="form-control form-control-sm">
-                  <button type="button" id="btnSaveApiKey" class="btn btn-sm btn-primary">Lưu Key</button>
-                  <button type="button" id="btnClearApiKey" class="btn btn-sm btn-outline">Xóa Key</button>
+                <div class="active-actions">
+                  <button type="button" id="btnChangeApiKey" class="btn-sm-text" title="Đổi Key khác"><i class="fa-solid fa-pen"></i> Đổi Key</button>
+                  <button type="button" id="btnRemoveApiKey" class="btn-sm-text text-danger" title="Xóa Key"><i class="fa-solid fa-trash"></i> Xóa Key</button>
                 </div>
-                <div id="apiKeyStatus" class="api-key-status" style="display: none;"></div>
+              </div>
+
+              <!-- Trạng thái khi CHƯA có Key -->
+              <div class="banner-inactive-state" id="bannerInactiveState">
+                <div class="inactive-title-row">
+                  <div class="inactive-title">
+                    <i class="fa-brands fa-google" style="color: #2563eb; font-size: 1.2rem;"></i>
+                    <span>TÍCH HỢP AI GOOGLE (GEMINI) ĐỂ TRẢ LỜI CHÍNH XÁC TUYỆT ĐỐI</span>
+                  </div>
+                  <button type="button" class="btn-guide-toggle" id="btnGuideToggle">
+                    <i class="fa-regular fa-circle-question"></i> Hướng dẫn lấy Key miễn phí (1 phút)
+                  </button>
+                </div>
+
+                <div class="inactive-input-row">
+                  <div class="key-input-wrapper">
+                    <i class="fa-solid fa-key key-icon"></i>
+                    <input type="password" id="geminiApiKeyInput" class="gemini-key-input" placeholder="Dán Google Gemini API Key tại đây (bắt đầu bằng AIzaSy...)">
+                  </div>
+                  <button type="button" id="btnSaveApiKey" class="btn-activate-gemini">
+                    <i class="fa-solid fa-bolt"></i> Kích Hoạt Ngay
+                  </button>
+                </div>
+
+                <!-- Hướng dẫn chi tiết lấy Key Google AI miễn phí -->
+                <div class="gemini-guide-drawer" id="geminiGuideDrawer" style="display: none;">
+                  <div class="guide-box">
+                    <div class="guide-step"><strong>Bước 1:</strong> Truy cập Google AI Studio: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a> (đăng nhập bằng Gmail).</div>
+                    <div class="guide-step"><strong>Bước 2:</strong> Nhấn nút màu xanh <strong>"Create API key"</strong> &gt; Chọn <strong>"Create key in new project"</strong>.</div>
+                    <div class="guide-step"><strong>Bước 3:</strong> Nhấn <strong>Copy</strong> mã khóa (dạng <code>AIzaSy...</code>), quay lại dán vào ô trên rồi bấm <strong>"Kích Hoạt Ngay"</strong>.</div>
+                    <div class="guide-note">
+                      <i class="fa-solid fa-circle-check"></i> <em>Hoàn toàn miễn phí từ Google, chỉ cần làm 1 lần duy nhất, trình duyệt sẽ tự động ghi nhớ vĩnh viễn trên máy của Thầy và học sinh!</em>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="apiKeyStatus" class="api-key-status-msg" style="display: none;"></div>
               </div>
             </div>
 

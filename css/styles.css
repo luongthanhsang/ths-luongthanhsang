@@ -6618,3 +6618,217 @@ textarea.form-control {
   border-radius: 12px;
   margin-right: 6px;
 }
+
+/* ==========================================================================
+   BANNER KÍCH HOẠT GOOGLE GEMINI AI
+   ========================================================================== */
+.gemini-activation-banner {
+  background: #f0f7ff;
+  border-bottom: 2px solid #bfdbfe;
+  padding: 12px 18px;
+  transition: all 0.3s ease;
+}
+
+.banner-active-state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.active-badge-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+.active-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  display: inline-block;
+  animation: pulseGemini 2s infinite;
+}
+
+@keyframes pulseGemini {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.active-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-sm-text {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.btn-sm-text:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.btn-sm-text.text-danger {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.btn-sm-text.text-danger:hover {
+  background: #fee2e2;
+  border-color: #f87171;
+}
+
+.banner-inactive-state {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inactive-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inactive-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  letter-spacing: -0.2px;
+}
+
+.btn-guide-toggle {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.btn-guide-toggle:hover {
+  color: #1d4ed8;
+}
+
+.inactive-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.key-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.key-input-wrapper .key-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.gemini-key-input {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 1.5px solid #93c5fd;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.gemini-key-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.btn-activate-gemini {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-activate-gemini:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.gemini-guide-drawer {
+  background: #ffffff;
+  border: 1.5px dashed #93c5fd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 4px;
+}
+
+.guide-step {
+  font-size: 0.84rem;
+  color: #334155;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.guide-step a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.guide-note {
+  font-size: 0.8rem;
+  color: #059669;
+  font-weight: 600;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.api-key-status-msg {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
