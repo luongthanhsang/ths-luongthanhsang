@@ -1,7 +1,9 @@
 with open('js/script.js', 'r', encoding='utf-8') as f:
-    text = f.read()
+    lines = f.readlines()
 
-import re
-m = re.search(r'const badgeText =', text)
-if m:
-    print(text[m.start()-200:m.start()+400])
+for i, l in enumerate(lines):
+    if 'BÀI HỌC SỐ' in l:
+        print(f'Line {i+1}: {l.strip()[:100]}')
+        for j in range(max(0, i-5), min(len(lines), i+20)):
+            print(f'  {j+1}: {lines[j].rstrip()}')
+        break

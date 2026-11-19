@@ -1,16 +1,12 @@
-with open('bai-hoc-so.html', 'r', encoding='utf-8') as f:
-    text = f.read()
-
 import re
-matches = [m.start() for m in re.finditer(r'BÀI HỌC SỐ', text)]
-print(f"bai-hoc-so.html: {len(matches)} matches")
-for idx in matches:
-    print(text[max(0, idx-50):min(len(text), idx+100)])
 
-with open('js/script.js', 'r', encoding='utf-8') as f:
-    text2 = f.read()
-
-matches2 = [m.start() for m in re.finditer(r'BÀI HỌC SỐ', text2)]
-print(f"js/script.js: {len(matches2)} matches")
-for idx in matches2:
-    print(text2[max(0, idx-50):min(len(text2), idx+100)])
+for filename in ['bai-hoc-so.html', 'js/script.js', 'BAN_CAP_NHAT_NETLIFY/bai-hoc-so.html', 'BAN_CAP_NHAT_NETLIFY/js/script.js']:
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            text = f.read()
+        for idx, m in enumerate(re.finditer(r'BÀI HỌC SỐ|bài học số', text, re.IGNORECASE)):
+            start = max(0, m.start() - 60)
+            end = min(len(text), m.end() + 60)
+            print(f'[{filename}] match {idx}: {repr(text[start:end])}')
+    except Exception as e:
+        print(f'Error reading {filename}: {e}')

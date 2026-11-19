@@ -276,123 +276,115 @@ window.LESSON_11_C1_B1_DATA = {
                 <div class="svg-container text-center my-3" style="overflow-x: auto;">
 <svg width="780" height="240" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; border-radius: 12px; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
   <defs>
-    <!-- Mũi tên đỏ chỉ chiều quay lượng giác -->
-    <marker id="redArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#dc2626"/>
-    </marker>
-    <!-- Mũi tên đen nhỏ cho chiều + / - -->
-    <marker id="blackArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#1e293b"/>
+    <!-- Mũi tên đen nhỏ cho hướng quay + và - -->
+    <marker id="sharpBlackArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 2 L 8 5 L 1 8 z" fill="#1e293b"/>
     </marker>
   </defs>
 
   <!-- ==================== HÌNH 1: sđ(Ou, Ov) = 360° ==================== -->
   <g>
-    <!-- Trục tia Ou, Ov trùng nhau -->
-    <line x1="45" y1="110" x2="165" y2="110" stroke="#1e293b" stroke-width="2"/>
-    <circle cx="45" cy="110" r="3.5" fill="#0284c7"/>
-    <text x="40" y="130" fill="#0284c7" font-size="14" font-weight="bold">O</text>
-    <text x="145" y="130" fill="#0284c7" font-size="14" font-style="italic">u, v</text>
+    <!-- Tia Ou, Ov nằm ngang -->
+    <line x1="80" y1="110" x2="185" y2="110" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="80" cy="110" r="3.5" fill="#0284c7"/>
+    <text x="75" y="132" fill="#0284c7" font-size="14" font-weight="bold">O</text>
+    <text x="160" y="132" fill="#0284c7" font-size="14" font-style="italic">u, v</text>
 
-    <!-- Tia Om quay ngược chiều KĐH (chiều dương) -->
-    <line x1="45" y1="110" x2="120" y2="75" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <text x="115" y="65" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
-    
-    <!-- Cung chiều dương (+) -->
-    <path d="M 85 96 A 25 25 0 0 1 78 78" fill="none" stroke="#1e293b" stroke-width="1.5" marker-end="url(#blackArrow)"/>
-    <text x="88" y="88" fill="#1e293b" font-size="13" font-weight="bold">+</text>
+    <!-- Tia phụ Om nét đứt chiều dương -->
+    <line x1="80" y1="110" x2="155" y2="68" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <text x="152" y="62" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
 
-    <!-- Xoắn ốc Archimedes 1 vòng đỏ mượt mà (360 độ) -->
-    <path d="M 55.0 110.0 L 55.2 109.5 L 55.4 108.9 L 55.5 108.3 L 55.6 107.7 L 55.7 107.1 L 55.7 106.5 L 55.8 105.9 L 55.7 105.2 L 55.6 104.6 L 55.5 103.9 L 55.4 103.3 L 55.2 102.6 L 55.0 101.9 L 54.7 101.3 L 54.4 100.6 L 54.0 100.0 L 53.6 99.4 L 53.2 98.8 L 52.7 98.2 L 52.2 97.6 L 51.6 97.0 L 51.0 96.5 L 50.4 96.0 L 49.7 95.5 L 49.0 95.1 L 48.3 94.7 L 47.5 94.3 L 46.7 94.0 L 45.9 93.7 L 45.0 93.5 L 44.1 93.3 L 43.2 93.2 L 42.3 93.1 L 41.4 93.0 L 40.4 93.0 L 39.5 93.1 L 38.5 93.2 L 37.6 93.3 L 36.6 93.6 L 35.7 93.8 L 34.7 94.2 L 33.8 94.5 L 32.8 95.0 L 31.9 95.5 L 31.0 96.0 L 30.2 96.6 L 29.3 97.3 L 28.5 98.0 L 27.7 98.8 L 27.0 99.6 L 26.2 100.4 L 25.6 101.4 L 24.9 102.3 L 24.4 103.3 L 23.8 104.3 L 23.4 105.4 L 22.9 106.5 L 22.6 107.6 L 22.2 108.8 L 22.0 110.0 L 21.8 111.2 L 21.7 112.4 L 21.6 113.7 L 21.7 115.0 L 21.7 116.2 L 21.9 117.5 L 22.1 118.8 L 22.4 120.1 L 22.8 121.3 L 23.2 122.6 L 23.7 123.8 L 24.3 125.0 L 24.9 126.2 L 25.7 127.4 L 26.4 128.6 L 27.3 129.7 L 28.2 130.7 L 29.2 131.8 L 30.2 132.7 L 31.3 133.7 L 32.5 134.5 L 33.7 135.4 L 35.0 136.1 L 36.3 136.8 L 37.6 137.4 L 39.0 138.0 L 40.5 138.5 L 42.0 138.9 L 43.5 139.2 L 45.0 139.5 L 46.6 139.7 L 48.1 139.8 L 49.7 139.8 L 51.3 139.7 L 52.9 139.5 L 54.5 139.3 L 56.1 139.0 L 57.7 138.5 L 59.3 138.0 L 60.8 137.4 L 62.4 136.7 L 63.9 136.0 L 65.3 135.1 L 66.8 134.2 L 68.2 133.2 L 69.5 132.1 L 70.8 130.9 L 72.0 129.6 L 73.2 128.3 L 74.3 126.9 L 75.3 125.5 L 76.3 123.9 L 77.2 122.4 L 78.0 120.7 L 78.7 119.0 L 79.4 117.3 L 79.9 115.5 L 80.4 113.7 L 80.7 111.9 L 81.0 110.0" fill="none" stroke="#dc2626" stroke-width="2.2"/>
-    <!-- Mũi tên kết thúc chỉ xuống vào trục u, v -->
-    <path d="M 81 106 L 81 118" stroke="#dc2626" stroke-width="2.2" marker-end="url(#redArrow)"/>
+    <!-- Mũi tên cong nhỏ chỉ chiều dương (+) -->
+    <path d="M 122 98 A 32 32 0 0 1 112 78" fill="none" stroke="#1e293b" stroke-width="1.6" marker-end="url(#sharpBlackArrow)"/>
+    <text x="125" y="86" fill="#1e293b" font-size="13" font-weight="bold">+</text>
 
-    <text x="105" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = 360°</text>
+    <!-- Xoắn ốc đỏ 360° -->
+    <path d="M 88.0,110.0 L 88.3,109.3 L 88.6,108.6 L 88.8,107.9 L 88.9,107.1 L 89.0,106.3 L 89.0,105.4 L 88.9,104.5 L 88.7,103.7 L 88.5,102.8 L 88.1,101.9 L 87.7,101.0 L 87.2,100.1 L 86.6,99.3 L 85.9,98.5 L 85.1,97.8 L 84.2,97.1 L 83.3,96.4 L 82.2,95.9 L 81.1,95.4 L 80.0,95.0 L 78.8,94.7 L 77.5,94.5 L 76.3,94.4 L 74.9,94.4 L 73.6,94.5 L 72.2,94.8 L 70.9,95.1 L 69.5,95.6 L 68.2,96.2 L 66.9,96.9 L 65.7,97.8 L 64.5,98.7 L 63.3,99.8 L 62.3,101.0 L 61.3,102.3 L 60.4,103.6 L 59.6,105.1 L 59.0,106.7 L 58.4,108.3 L 58.0,110.0 L 57.7,111.8 L 57.6,113.6 L 57.6,115.4 L 57.7,117.2 L 58.1,119.1 L 58.5,120.9 L 59.2,122.8 L 59.9,124.6 L 60.9,126.3 L 62.0,128.0 L 63.2,129.7 L 64.6,131.2 L 66.1,132.6 L 67.8,134.0 L 69.6,135.2 L 71.5,136.2 L 73.5,137.2 L 75.6,138.0 L 77.8,138.6 L 80.0,139.0 L 82.3,139.3 L 84.6,139.3 L 87.0,139.2 L 89.4,138.9 L 91.8,138.4 L 94.1,137.7 L 96.4,136.8 L 98.7,135.7 L 100.9,134.4 L 103.0,133.0 L 105.0,131.3 L 106.9,129.5 L 108.6,127.5 L 110.2,125.4 L 111.6,123.1 L 112.9,120.7 L 114.0,118.2 L 114.9,115.5 L 115.5,112.8 L 116.0,110.0" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="116,118 111.5,106 120.5,106" fill="#dc2626"/>
+
+    <text x="115" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = 360°</text>
   </g>
 
-  <!-- Đường phân cách dọc 1 -->
+  <!-- Vạch phân cách dọc 1 -->
   <line x1="185" y1="20" x2="185" y2="220" stroke="#f1f5f9" stroke-width="2"/>
 
   <!-- ==================== HÌNH 2: sđ(Ou, Ov) = 720° ==================== -->
   <g>
-    <!-- Trục tia Ou, Ov trùng nhau -->
-    <line x1="235" y1="110" x2="355" y2="110" stroke="#1e293b" stroke-width="2"/>
-    <circle cx="235" cy="110" r="3.5" fill="#0284c7"/>
-    <text x="230" y="130" fill="#0284c7" font-size="14" font-weight="bold">O</text>
-    <text x="335" y="130" fill="#0284c7" font-size="14" font-style="italic">u, v</text>
+    <!-- Tia Ou, Ov nằm ngang -->
+    <line x1="280" y1="110" x2="385" y2="110" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="280" cy="110" r="3.5" fill="#0284c7"/>
+    <text x="275" y="132" fill="#0284c7" font-size="14" font-weight="bold">O</text>
+    <text x="360" y="132" fill="#0284c7" font-size="14" font-style="italic">u, v</text>
 
-    <!-- Tia Om quay ngược chiều KĐH (chiều dương) -->
-    <line x1="235" y1="110" x2="310" y2="75" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <text x="305" y="65" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
+    <!-- Tia phụ Om nét đứt chiều dương -->
+    <line x1="280" y1="110" x2="355" y2="68" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <text x="352" y="62" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
 
-    <!-- Cung chiều dương (+) -->
-    <path d="M 275 96 A 25 25 0 0 1 268 78" fill="none" stroke="#1e293b" stroke-width="1.5" marker-end="url(#blackArrow)"/>
-    <text x="278" y="88" fill="#1e293b" font-size="13" font-weight="bold">+</text>
+    <!-- Mũi tên cong nhỏ chỉ chiều dương (+) -->
+    <path d="M 328 98 A 36 36 0 0 1 316 76" fill="none" stroke="#1e293b" stroke-width="1.6" marker-end="url(#sharpBlackArrow)"/>
+    <text x="330" y="85" fill="#1e293b" font-size="13" font-weight="bold">+</text>
 
-    <!-- Xoắn ốc Archimedes 2 vòng đỏ mượt mà (720 độ) -->
-    <path d="M 243.0 110.0 L 243.2 109.3 L 243.3 108.6 L 243.4 107.8 L 243.4 107.1 L 243.3 106.3 L 243.2 105.5 L 243.0 104.7 L 242.7 103.9 L 242.3 103.1 L 241.9 102.4 L 241.3 101.6 L 240.7 100.9 L 240.1 100.3 L 239.3 99.7 L 238.5 99.2 L 237.7 98.7 L 236.7 98.3 L 235.8 97.9 L 234.7 97.7 L 233.7 97.5 L 232.6 97.5 L 231.5 97.5 L 230.4 97.6 L 229.3 97.8 L 228.2 98.2 L 227.1 98.6 L 226.0 99.1 L 225.0 99.7 L 224.0 100.5 L 223.0 101.3 L 222.1 102.2 L 221.3 103.2 L 220.6 104.3 L 220.0 105.5 L 219.4 106.7 L 219.0 108.0 L 218.6 109.3 L 218.4 110.7 L 218.3 112.1 L 218.3 113.5 L 218.4 115.0 L 218.7 116.4 L 219.1 117.9 L 219.6 119.3 L 220.3 120.7 L 221.1 122.0 L 221.9 123.3 L 223.0 124.5 L 224.1 125.7 L 225.3 126.7 L 226.7 127.7 L 228.1 128.5 L 229.6 129.3 L 231.2 129.9 L 232.9 130.4 L 234.6 130.7 L 236.3 130.9 L 238.1 130.9 L 239.9 130.8 L 241.7 130.5 L 243.5 130.1 L 245.2 129.5 L 246.9 128.8 L 248.6 127.9 L 250.2 126.9 L 251.7 125.7 L 253.2 124.4 L 254.5 123.0 L 255.7 121.4 L 256.8 119.7 L 257.8 117.9 L 258.6 116.0 L 259.2 114.1 L 259.7 112.1 L 260.0 110.0 L 260.1 107.9 L 260.1 105.8 L 259.9 103.6 L 259.5 101.5 L 258.9 99.4 L 258.1 97.3 L 257.1 95.3 L 256.0 93.3 L 254.7 91.5 L 253.2 89.7 L 251.6 88.1 L 249.9 86.6 L 247.9 85.2 L 245.9 84.0 L 243.8 83.0 L 241.5 82.1 L 239.2 81.5 L 236.8 81.0 L 234.4 80.7 L 231.9 80.6 L 229.4 80.8 L 226.9 81.1 L 224.5 81.7 L 222.0 82.5 L 219.7 83.4 L 217.4 84.6 L 215.2 86.0 L 213.1 87.6 L 211.1 89.4 L 209.3 91.3 L 207.6 93.4 L 206.1 95.7 L 204.8 98.0 L 203.7 100.5 L 202.8 103.2 L 202.1 105.8 L 201.6 108.6 L 201.4 111.4 L 201.4 114.2 L 201.7 117.1 L 202.2 119.9 L 202.9 122.7 L 203.9 125.4 L 205.1 128.1 L 206.5 130.7 L 208.2 133.1 L 210.1 135.5 L 212.1 137.6 L 214.4 139.6 L 216.8 141.5 L 219.4 143.1 L 222.2 144.5 L 225.0 145.6 L 228.0 146.6 L 231.1 147.3 L 234.2 147.7 L 237.4 147.8 L 240.6 147.7 L 243.8 147.4 L 246.9 146.7 L 250.0 145.8 L 253.1 144.6 L 256.0 143.2 L 258.9 141.5 L 261.6 139.5 L 264.1 137.4 L 266.5 135.0 L 268.7 132.4 L 270.6 129.6 L 272.3 126.6 L 273.8 123.5 L 275.0 120.3 L 276.0 116.9 L 276.6 113.5 L 277.0 110.0" fill="none" stroke="#dc2626" stroke-width="2.2"/>
-    <!-- Mũi tên kết thúc chỉ xuống vào trục u, v -->
-    <path d="M 277 106 L 277 118" stroke="#dc2626" stroke-width="2.2" marker-end="url(#redArrow)"/>
+    <!-- Xoắn ốc đỏ 720° (2 vòng) -->
+    <path d="M 286.0,110.0 L 286.2,109.4 L 286.4,108.8 L 286.5,108.2 L 286.6,107.5 L 286.6,106.8 L 286.5,106.1 L 286.3,105.4 L 286.1,104.7 L 285.7,104.0 L 285.3,103.3 L 284.9,102.6 L 284.3,102.0 L 283.7,101.4 L 283.0,100.9 L 282.2,100.4 L 281.4,100.0 L 280.5,99.6 L 279.5,99.4 L 278.5,99.2 L 277.5,99.1 L 276.5,99.2 L 275.4,99.3 L 274.4,99.5 L 273.3,99.8 L 272.3,100.3 L 271.2,100.8 L 270.3,101.5 L 269.3,102.2 L 268.4,103.1 L 267.6,104.0 L 266.9,105.1 L 266.3,106.2 L 265.7,107.4 L 265.3,108.7 L 265.0,110.0 L 264.8,111.4 L 264.7,112.8 L 264.8,114.2 L 265.0,115.6 L 265.3,117.1 L 265.8,118.5 L 266.4,119.9 L 267.2,121.2 L 268.0,122.5 L 269.0,123.7 L 270.2,124.9 L 271.4,125.9 L 272.8,126.9 L 274.3,127.7 L 275.8,128.4 L 277.4,128.9 L 279.1,129.4 L 280.9,129.6 L 282.7,129.7 L 284.5,129.6 L 286.3,129.4 L 288.1,129.0 L 289.9,128.4 L 291.7,127.7 L 293.4,126.8 L 295.0,125.7 L 296.5,124.4 L 298.0,123.0 L 299.3,121.5 L 300.5,119.9 L 301.5,118.1 L 302.4,116.2 L 303.1,114.2 L 303.6,112.1 L 304.0,110.0 L 304.2,107.8 L 304.1,105.6 L 303.9,103.4 L 303.4,101.2 L 302.8,99.0 L 301.9,96.9 L 300.9,94.8 L 299.6,92.9 L 298.2,91.0 L 296.6,89.2 L 294.8,87.6 L 292.8,86.1 L 290.7,84.9 L 288.5,83.8 L 286.2,82.8 L 283.8,82.1 L 281.3,81.7 L 278.7,81.4 L 276.1,81.4 L 273.5,81.6 L 270.9,82.0 L 268.3,82.7 L 265.8,83.7 L 263.4,84.8 L 261.0,86.2 L 258.8,87.8 L 256.7,89.6 L 254.8,91.7 L 253.0,93.9 L 251.4,96.2 L 250.1,98.8 L 248.9,101.4 L 248.0,104.2 L 247.4,107.1 L 247.0,110.0 L 246.9,113.0 L 247.0,116.0 L 247.4,119.0 L 248.1,122.0 L 249.1,124.9 L 250.3,127.7 L 251.8,130.5 L 253.6,133.1 L 255.6,135.5 L 257.8,137.8 L 260.3,139.9 L 262.9,141.8 L 265.7,143.4 L 268.7,144.8 L 271.8,145.9 L 275.0,146.8 L 278.3,147.3 L 281.7,147.6 L 285.1,147.5 L 288.5,147.2 L 291.9,146.5 L 295.2,145.5 L 298.4,144.3 L 301.6,142.7 L 304.6,140.8 L 307.4,138.7 L 310.1,136.3 L 312.5,133.6 L 314.7,130.8 L 316.7,127.7 L 318.4,124.4 L 319.7,121.0 L 320.8,117.4 L 321.6,113.7 L 322.0,110.0" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="322,118 317.5,106 326.5,106" fill="#dc2626"/>
 
-    <text x="295" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = 720°</text>
+    <text x="315" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = 720°</text>
   </g>
 
-  <!-- Đường phân cách dọc 2 -->
-  <line x1="380" y1="20" x2="380" y2="220" stroke="#f1f5f9" stroke-width="2"/>
+  <!-- Vạch phân cách dọc 2 -->
+  <line x1="385" y1="20" x2="385" y2="220" stroke="#f1f5f9" stroke-width="2"/>
 
   <!-- ==================== HÌNH 3: sđ(Ou, Ov) = -180° ==================== -->
   <g>
-    <!-- Trục tia Ou và Ov đối nhau -->
-    <line x1="475" y1="110" x2="560" y2="110" stroke="#1e293b" stroke-width="2"/>
-    <line x1="400" y1="110" x2="475" y2="110" stroke="#dc2626" stroke-width="2"/>
-    <circle cx="475" cy="110" r="3.5" fill="#0284c7"/>
-    <text x="470" y="90" fill="#0284c7" font-size="14" font-weight="bold">O</text>
-    <text x="545" y="130" fill="#0284c7" font-size="14" font-style="italic">u</text>
-    <text x="405" y="130" fill="#0284c7" font-size="14" font-style="italic">v</text>
+    <!-- Trục ngang qua O: Ou sang phải, Ov sang trái -->
+    <line x1="405" y1="110" x2="490" y2="110" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="490" y1="110" x2="575" y2="110" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="490" cy="110" r="3.5" fill="#0284c7"/>
+    <text x="485" y="96" fill="#0284c7" font-size="14" font-weight="bold">O</text>
+    <text x="560" y="132" fill="#0284c7" font-size="14" font-style="italic">u</text>
+    <text x="415" y="132" fill="#0284c7" font-size="14" font-style="italic">v</text>
 
-    <!-- Tia Om quay cùng chiều KĐH (chiều âm) -->
-    <line x1="475" y1="110" x2="540" y2="148" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <text x="535" y="168" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
+    <!-- Tia phụ Om nét đứt chiều âm (dưới trục) -->
+    <line x1="490" y1="110" x2="555" y2="152" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <text x="550" y="170" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
 
-    <!-- Cung chiều âm (-) -->
-    <path d="M 505 116 A 25 25 0 0 1 520 132" fill="none" stroke="#1e293b" stroke-width="1.5" marker-end="url(#blackArrow)"/>
-    <text x="525" y="128" fill="#1e293b" font-size="13" font-weight="bold">-</text>
+    <!-- Mũi tên cong nhỏ chỉ chiều âm (-) -->
+    <path d="M 526 118 A 28 28 0 0 1 540 136" fill="none" stroke="#1e293b" stroke-width="1.6" marker-end="url(#sharpBlackArrow)"/>
+    <text x="546" y="130" fill="#1e293b" font-size="13" font-weight="bold">-</text>
 
-    <!-- Cung tròn nửa vòng đỏ mượt mà (-180 độ) -->
-    <path d="M 515 110 A 40 40 0 0 1 435 110" fill="none" stroke="#dc2626" stroke-width="2.2"/>
-    <!-- Mũi tên kết thúc chỉ lên chạm vào tia Ov -->
-    <path d="M 435 118 L 435 106" stroke="#dc2626" stroke-width="2.2" marker-end="url(#redArrow)"/>
+    <!-- Cung đỏ -180° -->
+    <path d="M 532 110 A 42 42 0 0 1 448 110" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="448,102 443.5,114 452.5,114" fill="#dc2626"/>
 
-    <text x="480" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = -180°</text>
+    <text x="490" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = -180°</text>
   </g>
 
-  <!-- Đường phân cách dọc 3 -->
-  <line x1="575" y1="20" x2="575" y2="220" stroke="#f1f5f9" stroke-width="2"/>
+  <!-- Vạch phân cách dọc 3 -->
+  <line x1="595" y1="20" x2="595" y2="220" stroke="#f1f5f9" stroke-width="2"/>
 
   <!-- ==================== HÌNH 4: sđ(Ou, Ov) = -540° ==================== -->
   <g>
-    <!-- Trục tia Ou và Ov đối nhau -->
-    <line x1="665" y1="110" x2="750" y2="110" stroke="#1e293b" stroke-width="2"/>
-    <line x1="590" y1="110" x2="665" y2="110" stroke="#dc2626" stroke-width="2"/>
-    <circle cx="665" cy="110" r="3.5" fill="#0284c7"/>
-    <text x="660" y="90" fill="#0284c7" font-size="14" font-weight="bold">O</text>
-    <text x="735" y="130" fill="#0284c7" font-size="14" font-style="italic">u</text>
-    <text x="595" y="130" fill="#0284c7" font-size="14" font-style="italic">v</text>
+    <!-- Trục ngang qua O: Ou sang phải, Ov sang trái -->
+    <line x1="615" y1="110" x2="700" y2="110" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="700" y1="110" x2="785" y2="110" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="700" cy="110" r="3.5" fill="#0284c7"/>
+    <text x="695" y="96" fill="#0284c7" font-size="14" font-weight="bold">O</text>
+    <text x="770" y="132" fill="#0284c7" font-size="14" font-style="italic">u</text>
+    <text x="625" y="132" fill="#0284c7" font-size="14" font-style="italic">v</text>
 
-    <!-- Tia Om quay cùng chiều KĐH (chiều âm) -->
-    <line x1="665" y1="110" x2="730" y2="148" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <text x="725" y="168" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
+    <!-- Tia phụ Om nét đứt chiều âm (dưới trục) -->
+    <line x1="700" y1="110" x2="765" y2="152" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <text x="760" y="170" fill="#0d9488" font-size="14" font-style="italic" font-weight="bold">m</text>
 
-    <!-- Cung chiều âm (-) -->
-    <path d="M 695 116 A 25 25 0 0 1 710 132" fill="none" stroke="#1e293b" stroke-width="1.5" marker-end="url(#blackArrow)"/>
-    <text x="715" y="128" fill="#1e293b" font-size="13" font-weight="bold">-</text>
+    <!-- Mũi tên cong nhỏ chỉ chiều âm (-) -->
+    <path d="M 736 118 A 28 28 0 0 1 750 136" fill="none" stroke="#1e293b" stroke-width="1.6" marker-end="url(#sharpBlackArrow)"/>
+    <text x="756" y="130" fill="#1e293b" font-size="13" font-weight="bold">-</text>
 
-    <!-- Xoắn ốc Archimedes 1.5 vòng đỏ mượt mà (-540 độ) -->
-    <path d="M 675.0 110.0 L 675.2 110.7 L 675.4 111.4 L 675.5 112.1 L 675.5 112.9 L 675.5 113.7 L 675.5 114.5 L 675.3 115.3 L 675.2 116.1 L 674.9 116.9 L 674.6 117.7 L 674.2 118.4 L 673.8 119.2 L 673.3 120.0 L 672.8 120.7 L 672.1 121.4 L 671.5 122.0 L 670.7 122.6 L 670.0 123.2 L 669.1 123.7 L 668.2 124.2 L 667.3 124.6 L 666.3 125.0 L 665.3 125.3 L 664.3 125.5 L 663.2 125.6 L 662.2 125.7 L 661.0 125.7 L 659.9 125.6 L 658.8 125.4 L 657.7 125.2 L 656.6 124.9 L 655.5 124.5 L 654.4 124.0 L 653.3 123.4 L 652.3 122.7 L 651.3 122.0 L 650.3 121.2 L 649.4 120.3 L 648.5 119.3 L 647.8 118.3 L 647.0 117.2 L 646.4 116.1 L 645.8 114.8 L 645.3 113.6 L 644.8 112.3 L 644.5 110.9 L 644.3 109.5 L 644.1 108.1 L 644.1 106.7 L 644.1 105.2 L 644.3 103.8 L 644.5 102.3 L 644.9 100.9 L 645.3 99.4 L 645.9 98.0 L 646.6 96.6 L 647.3 95.2 L 648.2 93.9 L 649.2 92.7 L 650.2 91.5 L 651.4 90.3 L 652.6 89.3 L 653.9 88.3 L 655.3 87.4 L 656.8 86.5 L 658.3 85.8 L 659.9 85.2 L 661.6 84.7 L 663.3 84.3 L 665.0 84.0 L 666.8 83.8 L 668.6 83.8 L 670.4 83.9 L 672.2 84.1 L 674.0 84.4 L 675.8 84.8 L 677.5 85.4 L 679.3 86.1 L 681.0 86.9 L 682.6 87.9 L 684.2 89.0 L 685.8 90.1 L 687.2 91.4 L 688.6 92.8 L 689.9 94.3 L 691.1 95.9 L 692.2 97.6 L 693.2 99.4 L 694.1 101.3 L 694.8 103.2 L 695.4 105.2 L 695.9 107.2 L 696.2 109.3 L 696.5 111.4 L 696.5 113.6 L 696.4 115.7 L 696.2 117.9 L 695.8 120.0 L 695.3 122.1 L 694.6 124.3 L 693.8 126.3 L 692.8 128.4 L 691.7 130.3 L 690.4 132.2 L 689.0 134.0 L 687.5 135.8 L 685.9 137.4 L 684.1 138.9 L 682.2 140.4 L 680.2 141.7 L 678.2 142.8 L 676.0 143.9 L 673.8 144.7 L 671.4 145.5 L 669.1 146.1 L 666.6 146.5 L 664.2 146.7 L 661.7 146.8 L 659.2 146.7 L 656.7 146.5 L 654.2 146.1 L 651.7 145.5 L 649.2 144.7 L 646.8 143.8 L 644.5 142.7 L 642.2 141.4 L 640.0 140.0 L 637.9 138.4 L 635.9 136.6 L 634.0 134.8 L 632.2 132.7 L 630.5 130.6 L 629.0 128.3 L 627.6 126.0 L 626.4 123.5 L 625.4 120.9 L 624.5 118.3 L 623.8 115.6 L 623.3 112.8 L 623.0 110.0" fill="none" stroke="#dc2626" stroke-width="2.2"/>
-    <!-- Mũi tên kết thúc chỉ lên chạm vào tia Ov -->
-    <path d="M 623 118 L 623 106" stroke="#dc2626" stroke-width="2.2" marker-end="url(#redArrow)"/>
+    <!-- Xoắn ốc đỏ -540° (1.5 vòng) -->
+    <path d="M 706.0,110.0 L 706.3,110.5 L 706.6,111.0 L 706.8,111.6 L 706.9,112.2 L 707.0,112.9 L 707.0,113.6 L 707.0,114.3 L 706.9,115.0 L 706.7,115.7 L 706.5,116.5 L 706.2,117.2 L 705.8,117.9 L 705.3,118.6 L 704.7,119.3 L 704.1,119.9 L 703.4,120.5 L 702.7,121.1 L 701.8,121.6 L 700.9,122.0 L 700.0,122.3 L 699.0,122.6 L 698.0,122.8 L 696.9,122.9 L 695.8,122.9 L 694.7,122.9 L 693.5,122.7 L 692.4,122.4 L 691.3,122.0 L 690.1,121.5 L 689.0,121.0 L 688.0,120.3 L 686.9,119.5 L 686.0,118.6 L 685.1,117.6 L 684.2,116.5 L 683.5,115.4 L 682.8,114.1 L 682.2,112.8 L 681.7,111.4 L 681.3,110.0 L 681.1,108.5 L 680.9,107.0 L 680.9,105.4 L 681.0,103.8 L 681.3,102.3 L 681.7,100.7 L 682.2,99.1 L 682.8,97.5 L 683.6,96.0 L 684.6,94.6 L 685.6,93.2 L 686.8,91.8 L 688.1,90.6 L 689.5,89.4 L 691.0,88.4 L 692.7,87.4 L 694.4,86.6 L 696.2,85.9 L 698.1,85.4 L 700.0,85.0 L 702.0,84.8 L 704.0,84.7 L 706.1,84.8 L 708.1,85.0 L 710.2,85.4 L 712.2,86.0 L 714.2,86.8 L 716.2,87.7 L 718.1,88.8 L 719.9,90.1 L 721.7,91.5 L 723.3,93.1 L 724.8,94.8 L 726.2,96.6 L 727.5,98.6 L 728.6,100.7 L 729.5,102.9 L 730.3,105.2 L 730.9,107.6 L 731.3,110.0 L 731.6,112.5 L 731.6,115.0 L 731.4,117.5 L 731.0,120.1 L 730.4,122.6 L 729.6,125.1 L 728.6,127.5 L 727.4,129.9 L 726.0,132.2 L 724.4,134.4 L 722.6,136.5 L 720.7,138.4 L 718.5,140.2 L 716.2,141.9 L 713.8,143.3 L 711.2,144.6 L 708.6,145.7 L 705.8,146.6 L 702.9,147.2 L 700.0,147.7 L 697.0,147.9 L 694.0,147.8 L 691.0,147.5 L 688.0,147.0 L 685.0,146.3 L 682.0,145.3 L 679.2,144.0 L 676.4,142.5 L 673.7,140.8 L 671.1,138.9 L 668.7,136.7 L 666.5,134.4 L 664.4,131.8 L 662.5,129.1 L 660.8,126.2 L 659.4,123.2 L 658.1,120.0 L 657.2,116.8 L 656.5,113.4 L 656.0,110.0" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="656,102 651.5,114 660.5,114" fill="#dc2626"/>
 
-    <text x="670" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = -540°</text>
+    <text x="700" y="210" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">sđ (Ou, Ov) = -540°</text>
   </g>
 </svg>
 </div>
@@ -583,7 +575,7 @@ window.LESSON_11_C1_B1_DATA = {
             ],
             correctIndex: 0,
             correctAnswer: "A",
-            hint: "Nhân với 180/pi: (3*pi/4) * (180/pi) = 135°.",
+            hint: "Nhân với $\\dfrac{180^\\circ}{\\pi}$: $\\left(\\dfrac{3\\pi}{4}\\right) \\cdot \\dfrac{180^\\circ}{\\pi} = 135^\\circ$.",
             explain: "Chính xác! $\\dfrac{3\\pi}{4}\\text{ rad} = \\left(\\dfrac{3\\pi}{4} \\cdot \\dfrac{180}{\\pi}\\right)^\\circ = 135^\\circ$."
           }
         ],
@@ -772,7 +764,7 @@ window.LESSON_11_C1_B1_DATA = {
             ],
             correctIndex: 2,
             correctAnswer: "C",
-            hint: "Đổi 90° = pi/2 rad. Sau đó l = 10 * (pi/2) = 5*pi cm.",
+            hint: "Đổi $90^\\circ = \\dfrac{\\pi}{2}$ rad. Sau đó $l = 10 \\cdot \\dfrac{\\pi}{2} = 5\\pi$ cm.",
             explain: "Chính xác! Đổi $90^\\circ = \\dfrac{\\pi}{2}\\text{ rad}$. Ta có: $l = R \\cdot \\alpha = 10 \\cdot \\dfrac{\\pi}{2} = 5\\pi\\text{ cm}$."
           }
         ],
@@ -838,7 +830,7 @@ window.LESSON_11_C1_B1_DATA = {
           {
             id: "poi-11-1-sec3a-1",
             time: 20,
-            title: "Tương tác Câu 1: Tọa độ điểm biểu diễn góc pi",
+            title: "Tương tác Câu 1: Tọa độ điểm biểu diễn góc $\\pi$",
             question: "Trên đường tròn lượng giác gốc $A(1; 0)$, điểm biểu diễn góc lượng giác có số đo $\\pi$ là điểm có tọa độ:",
             options: [
               "$(1; 0)$",
@@ -848,7 +840,7 @@ window.LESSON_11_C1_B1_DATA = {
             ],
             correctIndex: 2,
             correctAnswer: "C",
-            hint: "Góc pi tương ứng với 180° ngược chiều kim đồng hồ từ điểm A(1; 0).",
+            hint: "Góc $\\pi$ tương ứng với $180^\\circ$ ngược chiều kim đồng hồ từ điểm $A(1; 0)$.",
             explain: "Chính xác! Góc $\\pi = 180^\\circ$ quay từ $A(1; 0)$ ngược chiều kim đồng hồ đúng nửa vòng tròn đến điểm $A'(-1; 0)$ trên trục Ox."
           },
           {
@@ -1365,7 +1357,7 @@ window.LESSON_11_C1_B1_DATA = {
           contentHtml: `<div class="content-box" style="text-align:justify;">
             <p>Để rút gọn các biểu thức lượng giác và tính nhanh giá trị góc lớn, Thầy Sáng tặng các em <b>câu thần chú vàng bất hủ</b>:</p>
             <div class="p-3 bg-warning bg-opacity-25 border border-warning rounded text-center fw-bold text-dark fs-5 mb-3">
-              ✨ "COS ĐỐI — SIN BÙ — PHỤ CHÉO — HƠN KÉM PI" ✨
+              ✨ "COS ĐỐI — SIN BÙ — PHỤ CHÉO — HƠN KÉM $\\pi$" ✨
             </div>
 
             <!-- HÌNH BỘ 4 SƠ ĐỒ QUY TẮC -->
@@ -1505,7 +1497,7 @@ window.LESSON_11_C1_B1_DATA = {
               <p><b>Lời giải:</b> Áp dụng câu thần chú:</p>
               <p>• $\\cos(\\pi - \\alpha) = -\\cos\\alpha$ (Sin bù);</p>
               <p>• $\\sin\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\cos\\alpha$ (Phụ chéo);</p>
-              <p>• $\\tan(\\pi + \\alpha) = \\tan\\alpha$ (Hơn kém pi).</p>
+              <p>• $\\tan(\\pi + \\alpha) = \\tan\\alpha$ (Hơn kém $\\pi$).</p>
               <p>Thay vào biểu thức $A$:</p>
               <p class="fw-bold text-primary">$A = -\\cos\\alpha + \\cos\\alpha - \\tan\\alpha \\cdot \\cot\\alpha = 0 - 1 = -1$.</p>
             </div>
@@ -1537,7 +1529,7 @@ window.LESSON_11_C1_B1_DATA = {
       <li><b>Góc lượng giác:</b> Chiều quay ngược kim đồng hồ là chiều dương (+); công thức tổng quát: $\\alpha + k 360^\\circ$ hoặc $\\alpha + k 2\\pi$.</li>
       <li><b>Đơn vị radian & Cung tròn:</b> $180^\\circ = \\pi\\text{ rad}$ và công thức độ dài cung thanh lịch: $l = R \\cdot \\alpha$.</li>
       <li><b>Đường tròn lượng giác:</b> Tâm $O$, bán kính $R = 1$, gốc $A(1; 0)$; $\\cos\\alpha = x_M$, $\\sin\\alpha = y_M$.</li>
-      <li><b>Thần chú vàng:</b> <i>"Cos đối — Sin bù — Phụ chéo — Hơn kém pi tan/cot"</i>.</li>
+      <li><b>Thần chú vàng:</b> <i>"Cos đối — Sin bù — Phụ chéo — Hơn kém $\\pi$ tan/cot"</i>.</li>
     </ul>`,
     realworldApplicationHtml: `<div class="card border-info mb-3">
       <div class="card-header bg-info text-white fw-bold">🩺 VẬN DỤNG 2 (SGK TRANG 15): DAO ĐỘNG HUYẾT ÁP TÂM TRƯƠNG</div>
@@ -1588,7 +1580,7 @@ window.LESSON_11_C1_B1_DATA = {
         ],
         correctIndex: 1,
         correctAnswer: "B",
-        hint: "Tính B(6) = 80 + 7 * sin(6*pi / 12) = 80 + 7 * sin(pi/2) = 80 + 7 = 87 mmHg.",
+        hint: "Tính $B(6) = 80 + 7\\sin\\left(\\dfrac{6\\pi}{12}\\right) = 80 + 7\\sin\\left(\\dfrac{\\pi}{2}\\right) = 80 + 7 = 87$ mmHg.",
         explain: "Chính xác! Tại $t = 6$: $B(6) = 80 + 7\\sin\\left(\\dfrac{\\pi}{2}\\right) = 80 + 7(1) = 87\\text{ mmHg}$."
       }
     ]
@@ -1675,7 +1667,7 @@ window.LESSON_11_C1_B1_DATA = {
         ],
         correctIndex: 2,
         correctAnswer: "C",
-        hint: "Nhớ câu thần chú: sin(pi - alpha) = sin alpha (Sin bù) và cos(pi/2 - alpha) = sin alpha (Phụ chéo).",
+        hint: "Nhớ câu thần chú: $\\sin(\\pi - \\alpha) = \\sin\\alpha$ (Sin bù) và $\\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\sin\\alpha$ (Phụ chéo).",
         explain: "Áp dụng công thức các góc có liên quan đặc biệt:\\n$\\sin(\\pi - \\alpha) = \\sin\\alpha$, và $\\cos\\left(\\dfrac{\\pi}{2} - \\alpha\\right) = \\sin\\alpha$.\\nDo đó: $P = \\sin\\alpha + \\sin\\alpha - 2\\sin\\alpha = 0$. Đáp án C."
       }
     ],
@@ -1783,7 +1775,7 @@ window.LESSON_11_C1_B1_DATA = {
         prompt: "Theo bài toán mở đầu SGK trang 5, trạm vũ trụ quốc tế ISS bay quanh Trái Đất ở độ cao $400\\text{ km}$, bán kính Trái Đất là $6\\,400\\text{ km}$. Khi trạm quét góc ở tâm $45^\\circ$, quãng đường trạm ISS đã di chuyển làm tròn đến hàng đơn vị là bao nhiêu kilômét?",
         correctValue: 5341,
         unit: "km",
-        hint: "Bán kính quỹ đạo R = 6400 + 400 = 6800 km. Đổi 45° = pi/4 rad. Tính l = R * alpha = 6800 * pi / 4.",
+        hint: "Bán kính quỹ đạo $R = 6400 + 400 = 6800$ km. Đổi $45^\\circ = \\dfrac{\\pi}{4}$ rad. Tính $l = R \\cdot \\alpha = 6800 \\cdot \\dfrac{\\pi}{4} = 1700\\pi \\approx 5340{,}7$ km.",
         explain: "Bán kính quỹ đạo: $R = 6400 + 400 = 6800\\text{ km}$. Góc quét $\\alpha = 45^\\circ = \\dfrac{\\pi}{4}\\text{ rad}$. Quãng đường $l = 6800 \\cdot \\dfrac{\\pi}{4} = 1700\\pi \\approx 5340.71\\text{ km}$, làm tròn đến hàng đơn vị là 5341 km.",
         solution: "Bán kính quỹ đạo: $R = 6400 + 400 = 6800\\text{ km}$. Góc quét $\\alpha = 45^\\circ = \\dfrac{\\pi}{4}\\text{ rad}$. Quãng đường $l = 6800 \\cdot \\dfrac{\\pi}{4} = 1700\\pi \\approx 5340.71\\text{ km}$, làm tròn đến hàng đơn vị là 5341 km."
       },

@@ -343,7 +343,7 @@ window.LESSON_11_C1_B2_DATA = {
             {
               id: "poi-11-2-sec1b-2",
               time: 35,
-              title: "Tương tác Câu 2: Công thức góc đặc biệt pi/4 của Tang",
+              title: "Tương tác Câu 2: Công thức góc đặc biệt $\\dfrac{\\pi}{4}$ của Tang",
               question: "Rút gọn biểu thức $\\tan\\left(\\dfrac{\\pi}{4} + x\\right)$ ta được kết quả là:",
               options: [
                 "$\\dfrac{1 + \\tan x}{1 - \\tan x}$",
@@ -353,7 +353,7 @@ window.LESSON_11_C1_B2_DATA = {
               ],
               correctIndex: 0,
               correctAnswer: "A",
-              hint: "Thay tan(pi/4) = 1 vào công thức cộng tang.",
+              hint: "Thay $\\tan\\dfrac{\\pi}{4} = 1$ vào công thức cộng tang.",
               explain: "Chính xác! $\\tan\\left(\\dfrac{\\pi}{4} + x\\right) = \\dfrac{\\tan\\frac{\\pi}{4} + \\tan x}{1 - \\tan\\frac{\\pi}{4}\\tan x} = \\dfrac{1 + \\tan x}{1 - \\tan x}$."
             }
           ],
@@ -1228,7 +1228,7 @@ window.LESSON_11_C1_B2_DATA = {
         ],
         correctIndex: 0,
         correctAnswer: "A",
-        hint: "Đối chiếu biểu thức x(t) = 2*sqrt(2)*cos(pi/3*t - pi/12).",
+        hint: "Đối chiếu biểu thức $x(t) = 2\\sqrt{2}\\cos\\left(\\dfrac{\\pi}{3}t - \\dfrac{\\pi}{12}\\right)$.",
         explain: "Chính xác! Pha ban đầu của dao động là $\\varphi = -\\dfrac{\\pi}{12}\\text{ rad}$."
       }
     ],
