@@ -16,6 +16,7 @@ function initThsSangApp() {
   initDocumentRepository();
   initQuizSystem();
   initContactForm();
+  initTeacherAiChat();
   initBackToTop();
   initWebsiteCounters();
 }
@@ -5706,3 +5707,679 @@ function initDigitalLessons() {
 
 
 
+
+
+/* ==========================================================================
+   4. KHUNG CHAT AI TRỰC TIẾP VỚI THẦY SÁNG (GEMINI AI CHAT & MULTIMODAL IMAGE)
+   ========================================================================== */
+function initTeacherAiChat() {
+  const chatCard = document.getElementById("aiChatCard");
+  if (!chatCard) return;
+
+  const messagesContainer = document.getElementById("chatMessagesContainer");
+  const inputWrapper = document.getElementById("chatInputWrapper");
+  const chatInput = document.getElementById("chatInputText");
+  const btnSend = document.getElementById("btnChatSend");
+  const btnPlusUpload = document.getElementById("btnPlusUpload");
+  const fileInput = document.getElementById("chatFileInput");
+  const typingIndicator = document.getElementById("chatTypingIndicator");
+  const imagePreviewArea = document.getElementById("chatImagePreviewArea");
+  const previewImg = document.getElementById("chatImagePreviewImg");
+  const previewFileName = document.getElementById("previewFileName");
+  const previewFileSize = document.getElementById("previewFileSize");
+  const btnRemovePreview = document.getElementById("btnRemoveImagePreview");
+
+  // Các nút điều khiển phụ
+  const btnToggleApiKey = document.getElementById("btnToggleApiKey");
+  const apiKeyPanel = document.getElementById("apiKeyPanel");
+  const geminiApiKeyInput = document.getElementById("geminiApiKeyInput");
+  const btnSaveApiKey = document.getElementById("btnSaveApiKey");
+  const btnClearApiKey = document.getElementById("btnClearApiKey");
+  const apiKeyStatus = document.getElementById("apiKeyStatus");
+  const btnClearChat = document.getElementById("btnClearChat");
+  const btnToggleEmailForm = document.getElementById("btnToggleEmailForm");
+  const traditionalEmailCard = document.getElementById("traditionalEmailCard");
+  const btnBackToChat = document.getElementById("btnBackToChat");
+  const quickPills = document.querySelectorAll(".quick-pill");
+
+  // Biến trạng thái
+  let currentSelectedImage = null; // { base64, mimeType, name, size, dataUrl }
+  let isThinking = false;
+  let chatSessionHistory = [];
+
+  // Tải API Key đã lưu nếu có
+  const savedApiKey = localStorage.getItem("ths_sang_gemini_api_key") || "";
+  if (geminiApiKeyInput && savedApiKey) {
+    geminiApiKeyInput.value = savedApiKey;
+  }
+
+  // 1. Xử lý Toggle Panel API Key
+  if (btnToggleApiKey && apiKeyPanel) {
+    btnToggleApiKey.addEventListener("click", () => {
+      const isHidden = apiKeyPanel.style.display === "none";
+      apiKeyPanel.style.display = isHidden ? "block" : "none";
+      if (isHidden && geminiApiKeyInput) {
+        geminiApiKeyInput.focus();
+      }
+    });
+  }
+
+  if (btnSaveApiKey && geminiApiKeyInput) {
+    btnSaveApiKey.addEventListener("click", () => {
+      const keyVal = geminiApiKeyInput.value.trim();
+      if (keyVal) {
+        localStorage.setItem("ths_sang_gemini_api_key", keyVal);
+        if (apiKeyStatus) {
+          apiKeyStatus.style.display = "block";
+          apiKeyStatus.style.color = "#047857";
+          apiKeyStatus.textContent = "✓ Đã lưu Google Gemini API Key thành công! AI Thầy Sáng đã sẵn sàng.";
+        }
+        setTimeout(() => {
+          if (apiKeyPanel) apiKeyPanel.style.display = "none";
+        }, 1500);
+      } else {
+        if (apiKeyStatus) {
+          apiKeyStatus.style.display = "block";
+          apiKeyStatus.style.color = "#b91c1c";
+          apiKeyStatus.textContent = "Vui lòng nhập API Key hợp lệ.";
+        }
+      }
+    });
+  }
+
+  if (btnClearApiKey) {
+    btnClearApiKey.addEventListener("click", () => {
+      localStorage.removeItem("ths_sang_gemini_api_key");
+      if (geminiApiKeyInput) geminiApiKeyInput.value = "";
+      if (apiKeyStatus) {
+        apiKeyStatus.style.display = "block";
+        apiKeyStatus.style.color = "#64748b";
+        apiKeyStatus.textContent = "Đã xóa API Key. Hệ thống sử dụng Bộ giải toán thông minh tích hợp sẵn.";
+      }
+    });
+  }
+
+  // 2. Chuyển đổi giữa Chat AI và Email truyền thống
+  if (btnToggleEmailForm && traditionalEmailCard && chatCard) {
+    btnToggleEmailForm.addEventListener("click", () => {
+      chatCard.style.display = "none";
+      traditionalEmailCard.style.display = "block";
+      window.scrollTo({ top: traditionalEmailCard.offsetTop - 80, behavior: "smooth" });
+    });
+  }
+
+  if (btnBackToChat && traditionalEmailCard && chatCard) {
+    btnBackToChat.addEventListener("click", () => {
+      traditionalEmailCard.style.display = "none";
+      chatCard.style.display = "flex";
+      window.scrollTo({ top: chatCard.offsetTop - 80, behavior: "smooth" });
+    });
+  }
+
+  // 3. Xử lý Nút Dấu "+" Chọn và Tải Ảnh Đề Bài
+  function handleImageFile(file) {
+    if (!file || !file.type.startsWith("image/")) {
+      alert("Vui lòng chọn file hình ảnh hợp lệ (PNG, JPG, WEBP)!");
+      return;
+    }
+    if (file.size > 15 * 1024 * 1024) {
+      alert("Kích thước ảnh quá lớn! Vui lòng chọn ảnh dưới 15MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const fullDataUrl = e.target.result;
+      const base64Data = fullDataUrl.split(",")[1];
+      
+      const sizeStr = file.size > 1024 * 1024 
+        ? (file.size / (1024 * 1024)).toFixed(1) + " MB" 
+        : Math.round(file.size / 1024) + " KB";
+
+      currentSelectedImage = {
+        base64: base64Data,
+        mimeType: file.type,
+        name: file.name,
+        size: sizeStr,
+        dataUrl: fullDataUrl
+      };
+
+      // Cập nhật giao diện Preview
+      if (previewImg) previewImg.src = fullDataUrl;
+      if (previewFileName) previewFileName.textContent = file.name;
+      if (previewFileSize) previewFileSize.textContent = sizeStr;
+      if (imagePreviewArea) imagePreviewArea.style.display = "flex";
+
+      // Tự động focus vào ô nhập text để học sinh gõ câu hỏi hoặc gửi ngay
+      if (chatInput) {
+        chatInput.focus();
+        chatInput.placeholder = "Đã chọn ảnh! Nhập thêm lời nhắn (nếu có) rồi bấm Gửi...";
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  if (btnPlusUpload && fileInput) {
+    btnPlusUpload.addEventListener("click", () => {
+      fileInput.click();
+    });
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files[0]) {
+        handleImageFile(e.target.files[0]);
+      }
+    });
+  }
+
+  if (btnRemovePreview) {
+    btnRemovePreview.addEventListener("click", () => {
+      currentSelectedImage = null;
+      if (imagePreviewArea) imagePreviewArea.style.display = "none";
+      if (fileInput) fileInput.value = "";
+      if (chatInput) {
+        chatInput.placeholder = "Nhập câu hỏi bài tập, hoặc nhấn dấu '+' để gửi ảnh đề bài... (Enter để gửi)";
+      }
+    });
+  }
+
+  // 4. Kéo thả file ảnh (Drag and Drop)
+  if (messagesContainer) {
+    ["dragenter", "dragover"].forEach(evtName => {
+      messagesContainer.addEventListener(evtName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        messagesContainer.classList.add("dragover-active");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(evtName => {
+      messagesContainer.addEventListener(evtName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        messagesContainer.classList.remove("dragover-active");
+      });
+    });
+
+    messagesContainer.addEventListener("drop", (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files && dt.files[0]) {
+        handleImageFile(dt.files[0]);
+      }
+    });
+  }
+
+  // 5. Dán ảnh trực tiếp từ Clipboard (Ctrl + V)
+  window.addEventListener("paste", (e) => {
+    // Chỉ xử lý nếu đang ở trên trang có khung chat
+    if (!document.getElementById("aiChatCard")) return;
+    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") !== -1) {
+        const blob = items[i].getAsFile();
+        if (blob) {
+          handleImageFile(blob);
+          break;
+        }
+      }
+    }
+  });
+
+  // 6. Textarea auto-resize và phím Enter để gửi
+  if (chatInput) {
+    chatInput.addEventListener("input", function() {
+      this.style.height = "auto";
+      this.style.height = Math.min(this.scrollHeight, 120) + "px";
+    });
+
+    chatInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  }
+
+  // 7. Gợi ý câu hỏi nhanh (Quick Pills)
+  if (quickPills && quickPills.length > 0) {
+    quickPills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        const query = pill.getAttribute("data-query");
+        if (query && chatInput) {
+          chatInput.value = query;
+          chatInput.style.height = "auto";
+          chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + "px";
+          sendMessage();
+        }
+      });
+    });
+  }
+
+  // 8. Nút làm mới đoạn chat
+  if (btnClearChat && messagesContainer) {
+    btnClearChat.addEventListener("click", () => {
+      if (confirm("Em có muốn làm mới lại cuộc trò chuyện với Thầy Sáng không?")) {
+        // Giữ lại tin nhắn chào mừng đầu tiên và phần gợi ý
+        const firstAiMsg = messagesContainer.querySelector(".chat-msg-ai");
+        const suggestions = document.getElementById("chatQuickSuggestions");
+        messagesContainer.innerHTML = "";
+        if (firstAiMsg) messagesContainer.appendChild(firstAiMsg);
+        if (suggestions) messagesContainer.appendChild(suggestions);
+        chatSessionHistory = [];
+        currentSelectedImage = null;
+        if (imagePreviewArea) imagePreviewArea.style.display = "none";
+        if (fileInput) fileInput.value = "";
+      }
+    });
+  }
+
+  // 9. Nút Gửi tin nhắn
+  if (btnSend) {
+    btnSend.addEventListener("click", () => {
+      sendMessage();
+    });
+  }
+
+  // Hàm tạo chuỗi thời gian hiện tại
+  function getCurrentTimeString() {
+    const now = new Date();
+    return now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+  }
+
+  // Hàm append tin nhắn vào khung chat
+  function appendMessage(role, text, imageObj = null) {
+    const isUser = role === "user";
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `chat-msg ${isUser ? "chat-msg-user" : "chat-msg-ai"}`;
+
+    let avatarHtml = isUser 
+      ? `<div class="chat-msg-avatar"><i class="fa-solid fa-user"></i></div>`
+      : `<div class="chat-msg-avatar"><img src="assets/images/logo-ths-sang.png" alt="Thầy Sáng"></div>`;
+
+    let imageHtml = "";
+    if (imageObj && imageObj.dataUrl) {
+      imageHtml = `
+        <div class="chat-bubble-img-wrapper">
+          <a href="${imageObj.dataUrl}" target="_blank" title="Bấm để xem ảnh phóng to">
+            <img src="${imageObj.dataUrl}" alt="Ảnh đề bài">
+          </a>
+        </div>
+      `;
+    }
+
+    // Format text: hỗ trợ newline và markdown đơn giản
+    let formattedText = text;
+    if (!isUser) {
+      formattedText = formatAiResponse(text);
+    } else {
+      formattedText = `<p style="margin: 0; white-space: pre-wrap;">${escapeHtml(text)}</p>`;
+    }
+
+    msgDiv.innerHTML = `
+      ${avatarHtml}
+      <div class="chat-msg-content">
+        <div class="chat-msg-sender">${isUser ? "Em (Học sinh)" : "ThS. Lương Thanh Sáng"}</div>
+        <div class="chat-bubble">
+          ${imageHtml}
+          ${formattedText}
+        </div>
+        <div class="chat-msg-time">${getCurrentTimeString()}</div>
+      </div>
+    `;
+
+    messagesContainer.appendChild(msgDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // Typeset MathJax cho tin nhắn AI
+    if (!isUser && window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([msgDiv]).catch(err => {
+        console.log("MathJax typesetting notice:", err);
+      });
+    }
+
+    return msgDiv;
+  }
+
+  function escapeHtml(string) {
+    const div = document.createElement('div');
+    div.innerText = string;
+    return div.innerHTML;
+  }
+
+  // Format câu trả lời AI (Markdown, tiêu đề, bước giải)
+  function formatAiResponse(raw) {
+    let html = raw;
+    // Xử lý tiêu đề ###
+    html = html.replace(/^### (.*$)/gim, '<h4 style="font-size: 1rem; font-weight: 700; color: #1e3a8a; margin: 12px 0 6px 0;">$1</h4>');
+    html = html.replace(/^## (.*$)/gim, '<h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 14px 0 8px 0;">$1</h3>');
+    // Bold **text**
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Italic *text*
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Highlight bước giải
+    html = html.replace(/(Bước \d+:|Bước 1:|Bước 2:|Bước 3:|Bước 4:)/g, '<span class="step-badge">$1</span>');
+    
+    // Xử lý danh sách gạch đầu dòng
+    const lines = html.split("
+");
+    let inList = false;
+    let result = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i].trim();
+      if (line.startsWith("- ") || line.startsWith("* ")) {
+        if (!inList) {
+          result.push('<ul style="margin: 6px 0 10px 18px; padding-left: 0; line-height: 1.6;">');
+          inList = true;
+        }
+        result.push(`<li>${line.substring(2)}</li>`);
+      } else {
+        if (inList) {
+          result.push('</ul>');
+          inList = false;
+        }
+        if (line) {
+          if (!line.startsWith("<h3") && !line.startsWith("<h4")) {
+            result.push(`<p style="margin: 0 0 8px 0;">${line}</p>`);
+          } else {
+            result.push(line);
+          }
+        }
+      }
+    }
+    if (inList) result.push('</ul>');
+
+    return result.join("");
+  }
+
+  // 10. Hàm gửi tin nhắn chính
+  async function sendMessage() {
+    if (isThinking) return;
+
+    const userText = chatInput ? chatInput.value.trim() : "";
+    const attachedImg = currentSelectedImage;
+
+    if (!userText && !attachedImg) {
+      if (chatInput) {
+        chatInput.focus();
+        chatInput.style.borderColor = "#ef4444";
+        setTimeout(() => { chatInput.style.borderColor = "#cbd5e1"; }, 1200);
+      }
+      return;
+    }
+
+    // Hiển thị tin nhắn người dùng
+    const textToShow = userText || "Nhờ Thầy Sáng hướng dẫn em giải bài toán trong hình ảnh này ạ!";
+    appendMessage("user", textToShow, attachedImg);
+
+    // Reset input và preview
+    if (chatInput) {
+      chatInput.value = "";
+      chatInput.style.height = "auto";
+      chatInput.placeholder = "Nhập câu hỏi bài tập, hoặc nhấn dấu '+' để gửi ảnh đề bài... (Enter để gửi)";
+    }
+    if (imagePreviewArea) imagePreviewArea.style.display = "none";
+    if (fileInput) fileInput.value = "";
+    currentSelectedImage = null;
+
+    // Hiện typing indicator của Thầy Sáng
+    isThinking = true;
+    if (typingIndicator) {
+      typingIndicator.style.display = "flex";
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    try {
+      const apiKey = localStorage.getItem("ths_sang_gemini_api_key") || "";
+      let aiResponseText = "";
+
+      if (apiKey) {
+        // GỌI GOOGLE GEMINI API TRỰC TIẾP
+        aiResponseText = await callGeminiApi(apiKey, textToShow, attachedImg);
+      } else {
+        // DÙNG BỘ GIẢI TOÁN SƯ PHẠM THÔNG MINH CỦA THẦY SÁNG
+        // Tạo độ trễ nhẹ tự nhiên như Thầy đang suy nghĩ và gõ phím
+        await new Promise(res => setTimeout(res, 1200));
+        aiResponseText = generateSmartTeacherResponse(textToShow, attachedImg);
+      }
+
+      // Ẩn typing indicator và hiển thị câu trả lời
+      if (typingIndicator) typingIndicator.style.display = "none";
+      appendMessage("ai", aiResponseText);
+
+    } catch (error) {
+      console.error("Gemini Chat Error:", error);
+      if (typingIndicator) typingIndicator.style.display = "none";
+      
+      // Fallback về bộ giải toán của Thầy khi gặp lỗi kết nối API
+      const fallbackText = generateSmartTeacherResponse(textToShow, attachedImg);
+      appendMessage("ai", fallbackText + "
+
+*(Ghi chú: Đang sử dụng Bộ giải toán thông minh tích hợp sẵn của Thầy Sáng do đường truyền API tạm thời gián đoạn)*");
+    } finally {
+      isThinking = false;
+      if (chatInput) chatInput.focus();
+    }
+  }
+
+  // 11. Hàm gọi Gemini API
+  async function callGeminiApi(apiKey, userPrompt, imageObj) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const systemInstruction = "Bạn là ThS. Lương Thanh Sáng, Tổ trưởng chuyên môn Toán học trường THPT Nguyễn Văn Thoại, huyện Thoại Sơn, tỉnh An Giang. Bạn đang trực tiếp hỗ trợ học sinh học tập và ôn thi môn Toán theo Chương trình GDPT 2018 (bộ sách Kết nối tri thức với cuộc sống). Khi trả lời học sinh: 1. Nêu phương pháp và bản chất toán học ngắn gọn; 2. Giải chi tiết từng bước, rõ ràng, dễ hiểu; 3. Dùng công thức toán LaTeX chuẩn kẹp giữa dấu $...$ (nếu trong dòng) hoặc $$...$$ (nếu công thức riêng); 4. Nếu có ảnh đề bài, hãy đọc kĩ đề từ ảnh và giải trọn vẹn; 5. Nhắc nhở lỗi sai học sinh hay mắc và đưa lời động viên; 6. Giữ phong cách sư phạm mẫu mực, ân cần, xưng Thầy và gọi em.";
+
+    const parts = [{ text: userPrompt }];
+
+    if (imageObj && imageObj.base64) {
+      parts.push({
+        inline_data: {
+          mime_type: imageObj.mimeType,
+          data: imageObj.base64
+        }
+      });
+    }
+
+    const payload = {
+      system_instruction: {
+        parts: [{ text: systemInstruction }]
+      },
+      contents: [
+        {
+          role: "user",
+          parts: parts
+        }
+      ],
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 2048
+      }
+    };
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      throw new Error(errData.error?.message || "Lỗi kết nối Gemini API");
+    }
+
+    const data = await response.json();
+    const candidate = data.candidates && data.candidates[0];
+    if (candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]) {
+      return candidate.content.parts[0].text;
+    } else {
+      throw new Error("Không nhận được nội dung phản hồi từ Gemini");
+    }
+  }
+
+  // 12. BỘ GIẢI TOÁN SƯ PHẠM THÔNG MINH CỦA THẦY SÁNG (SMART PEDAGOGICAL ENGINE)
+  function generateSmartTeacherResponse(query, imageObj) {
+    const q = query.toLowerCase();
+
+    // Trường hợp học sinh gửi hình ảnh đề bài
+    if (imageObj) {
+      return `Thầy Sáng đã nhận được hình ảnh bài toán của em (**${imageObj.name}**)!
+
+Thầy hướng dẫn em **Quy trình 4 bước vàng** để giải quyết chuẩn xác dạng bài toán này:
+
+Bước 1: **Đọc kĩ giả thiết & Nhận diện dạng toán**
+- Quan sát hình vẽ/đề bài: Xác định rõ đối tượng bài toán đang xét (Hàm số lượng giác, Cấp số cộng/nhân, hay Khảo sát hàm số/Hình học không gian).
+- Chú ý các điều kiện ràng buộc như: tập xác định $D$, khoảng biến thiên, công sai $d$ hoặc công bội $q$.
+
+Bước 2: **Thiết lập công thức toán học then chốt**
+- Nếu là bài toán thực tế cấp số: Xác định ngay số hạng đầu $u_1$ và quy luật tăng/giảm ($d$ hoặc $q$).
+- Nếu là phương trình lượng giác: Đưa về cùng một hàm số lượng giác cơ bản:
+  $$\sin u = \sin v \iff \left[egin{array}{l} u = v + k2\pi \ u = \pi - v + k2\pi \end{array}
+ight. \quad (k \in \mathbb{Z})$$
+  $$\cos u = \cos v \iff u = \pm v + k2\pi \quad (k \in \mathbb{Z})$$
+
+Bước 3: **Trình bày lời giải chi tiết**
+- Thực hiện biến đổi đại số cẩn thận, tránh nhầm lẫn dấu.
+- Nếu là bài toán tính tổng: Áp dụng công thức tổng $n$ số hạng đầu $S_n = rac{n(u_1+u_n)}{2}$ (với CSC) hoặc $S_n = rac{u_1(1-q^n)}{1-q}$ (với CSN, $q 
+eq 1$).
+
+Bước 4: **Đối chiếu điều kiện & Kết luận**
+- Kiểm tra lại điều kiện nghiệm hoặc ý nghĩa thực tế (số hàng ghế, số tiền, số ngày... phải là số nguyên dương $n \in \mathbb{N}^*$).
+
+💡 *Mẹo của Thầy Sáng:* Em hãy kiểm tra xem em đang bị vướng mắc ở bước biến đổi nào trong 4 bước trên nhé. Nếu em muốn AI đọc chữ và giải trực tiếp trên ảnh bằng thị giác máy tính Gemini Vision, em có thể bấm vào biểu tượng 🔑 ở góc phải trên khung chat để nhập Gemini API Key miễn phí nhé!`;
+    }
+
+    // Nhận diện câu hỏi Lượng giác
+    if (q.includes("sin(2x)") || q.includes("sin 2x") || (q.includes("lượng giác") && q.includes("giải"))) {
+      return `Chào em! Thầy Sáng hướng dẫn em giải chi tiết phương trình lượng giác cơ bản này nhé:
+
+### Đề bài: Giải phương trình $\sin 2x = rac{\sqrt{3}}{2}$
+
+Bước 1: **Chuyển đổi vế phải về dạng chuẩn**
+Ta biết rằng $rac{\sqrt{3}}{2} = \sin\left(rac{\pi}{3}
+ight)$. Do đó phương trình tương đương:
+$$\sin 2x = \sin\left(rac{\pi}{3}
+ight)$$
+
+Bước 2: **Áp dụng công thức nghiệm phương trình $\sin u = \sin v$**
+$$\left[egin{array}{l} 2x = rac{\pi}{3} + k2\pi \ 2x = \pi - rac{\pi}{3} + k2\pi \end{array}
+ight. \quad (k \in \mathbb{Z})$$
+
+Bước 3: **Rút gọn tìm nghiệm $x$**
+Chia cả hai vế cho $2$, ta được:
+$$\left[egin{array}{l} x = rac{\pi}{6} + k\pi \ x = rac{\pi}{3} + k\pi \end{array}
+ight. \quad (k \in \mathbb{Z})$$
+
+Bước 4: **Kết luận**
+Vậy tập nghiệm của phương trình đã cho là:
+$$S = \left\{ rac{\pi}{6} + k\pi;\; rac{\pi}{3} + k\pi \;\middle|\; k \in \mathbb{Z} 
+ight\}$$
+
+⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, rất nhiều bạn quên chia chu kì $k2\pi$ thành $k\pi$. Em nhớ chia đều cho cả hệ số tự do lẫn chu kì nhé!`;
+    }
+
+    // Nhận diện Cấp số nhân
+    if (q.includes("cấp số nhân") || q.includes("số hạng tổng quát") || q.includes("csn")) {
+      return `Chào em! Về chủ đề **Cấp số nhân (CSN)** - Bài 7 Toán 11, Thầy hệ thống lại toàn bộ kiến thức trọng tâm để em nắm chắc 100% nhé:
+
+### 1. Định nghĩa Cấp số nhân
+Dãy số $(u_n)$ là cấp số nhân khi:
+$$u_{n+1} = u_n \cdot q \quad (orall n \in \mathbb{N}^*)$$
+Trong đó $q$ gọi là **công bội** của cấp số nhân.
+
+### 2. Số hạng tổng quát của Cấp số nhân
+Nếu cấp số nhân có số hạng đầu $u_1$ và công bội $q$, thì số hạng thứ $n$ được xác định bởi:
+$$u_n = u_1 \cdot q^{n-1} \quad (orall n \ge 2)$$
+
+Bước 1: **Xác định $u_1$ và công bội $q$:** $q = rac{u_{k+1}}{u_k}$.
+Bước 2: **Thay vào công thức:** Ví dụ $u_1 = 3, q = 2 \implies u_n = 3 \cdot 2^{n-1}$. Khi đó số hạng thứ 5 là $u_5 = 3 \cdot 2^4 = 48$.
+
+### 3. Tổng $n$ số hạng đầu tiên ($S_n$)
+Với $q 
+e 1$, tổng của $n$ số hạng đầu là:
+$$S_n = u_1 + u_2 + \dots + u_n = rac{u_1(1 - q^n)}{1 - q} = rac{u_1(q^n - 1)}{q - 1}$$
+*(Nếu $q = 1$ thì $S_n = n \cdot u_1$)*.
+
+### 4. Tính chất các số hạng
+Mỗi số hạng (trừ số hạng đầu và cuối) đều có bình phương bằng tích của hai số hạng kề nó:
+$$u_k^2 = u_{k-1} \cdot u_{k+1} \quad (k \ge 2)$$
+
+💡 *Lời khuyên của Thầy:* Trong bài thi trắc nghiệm, các câu hỏi về bài toán thực tế như **lãi kép ngân hàng** hay **sự tăng trưởng vi khuẩn** đều là mô hình cấp số nhân. Em chỉ cần xác định đúng $u_1$ và $q = 1 + r$ là ra ngay kết quả!`;
+    }
+
+    // Nhận diện Cấp số cộng
+    if (q.includes("cấp số cộng") || q.includes("tổng n số hạng") || q.includes("csc")) {
+      return `Chào em! Thầy hướng dẫn em công thức và phương pháp tính **Tổng $n$ số hạng đầu của Cấp số cộng** (Bài 6 Toán 11) nhé:
+
+### 1. Công thức tính tổng $S_n$
+Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1$ và công sai $d$. Tổng $n$ số hạng đầu $S_n = u_1 + u_2 + \dots + u_n$ được tính bằng một trong hai cách:
+
+- **Cách 1 (Khi biết số hạng đầu $u_1$ và số hạng cuối $u_n$):**
+  $$S_n = rac{n(u_1 + u_n)}{2}$$
+
+- **Cách 2 (Khi biết số hạng đầu $u_1$ và công sai $d$):**
+  $$S_n = rac{n\left[2u_1 + (n - 1)d
+ight]}{2} = n \cdot u_1 + rac{n(n - 1)}{2}d$$
+
+### 2. Ví dụ thực tế bài toán rạp hát (SGK):
+*Một nhà hát có 25 hàng ghế. Hàng 1 có 16 ghế, hàng 2 có 18 ghế, hàng 3 có 20 ghế... Tính tổng số ghế.*
+Bước 1: Nhận diện: Số ghế các hàng lập thành CSC với $u_1 = 16$, công sai $d = 2$, số hàng $n = 25$.
+Bước 2: Áp dụng công thức:
+$$S_{25} = rac{25 \cdot [2 \cdot 16 + (25 - 1) \cdot 2]}{2} = rac{25 \cdot [32 + 48]}{2} = 25 \cdot 40 = 1000 	ext{ (ghế)}$$
+Vậy nhà hát có đúng $1000$ ghế.
+
+Thầy chúc em luôn học tốt và tự tin chinh phục các dạng toán Cấp số nhé!`;
+    }
+
+    // Nhận diện Mẹo thi 2026
+    if (q.includes("2026") || q.includes("đúng / sai") || q.includes("trắc nghiệm") || q.includes("mẹo")) {
+      return `Thầy chia sẻ với em **Chiến lược đạt điểm 9+ môn Toán kỳ thi tốt nghiệp THPT năm 2026** theo chuẩn cấu trúc mới của Bộ GD&ĐT:
+
+Cấu trúc đề thi mới gồm 3 Phần rõ rệt:
+
+1. **Phần I: Trắc nghiệm 4 lựa chọn (12 câu - 3.0 điểm)**
+- Mức độ: Nhận biết và Thông hiểu.
+- *Chiến thuật:* Giải quyết nhanh và chắc chắn trong 15 - 20 phút đầu tiên. Không được phép để sai sót ở phần này vì mỗi câu trị giá $0.25$ điểm tuyệt đối.
+
+2. **Phần II: Trắc nghiệm Đúng / Sai (4 câu, mỗi câu 4 ý a-b-c-d - 4.0 điểm)**
+- Cơ chế tính điểm lũy tiến cực kỳ quan trọng:
+  - Đúng 1 ý: $0.1$ điểm.
+  - Đúng 2 ý: $0.25$ điểm.
+  - Đúng 3 ý: $0.5$ điểm.
+  - Đúng cả 4 ý: $1.0$ điểm!
+- *Chiến thuật:* Đọc kĩ từng ý vì các ý thường có liên hệ logic với nhau (ví dụ: ý a tính đạo hàm, ý b tìm cực trị, ý c tìm tiệm cận, ý d giải bài toán thực tế). Em hãy làm cẩn thận để đạt trọn $1.0$ điểm mỗi câu!
+
+3. **Phần III: Trắc nghiệm Trả lời ngắn (6 câu - 3.0 điểm)**
+- Mức độ: Vận dụng và Vận dụng cao.
+- Không có đáp án A, B, C, D để đoán mò; học sinh phải tự điền số vào ô trả lời.
+- *Chiến thuật:* Chú ý đơn vị đề bài yêu cầu (làm tròn đến hàng phần mười, phần trăm, hay số nguyên). Rèn luyện kĩ năng bấm máy tính Casio và trình bày nháp khoa học.
+
+Thầy chúc em ôn luyện thật tốt và luôn vững vàng kiến thức nhé!`;
+    }
+
+    // Trả lời tổng quát
+    return `Chào em! Thầy Sáng đã đọc câu hỏi của em: *"**${query}**"*.
+
+Thầy hướng dẫn em phương pháp tiếp cận bài toán như sau:
+
+Bước 1: **Xác định rõ bản chất kiến thức**
+- Em hãy đối chiếu xem câu hỏi thuộc chuyên đề nào: Đại số (Hàm số, Lượng giác, Cấp số), Giải tích (Đạo hàm, Tích phân) hay Hình học không gian (Oxyz).
+
+Bước 2: **Vận dụng định lý và công thức tương ứng**
+- Hãy ghi lại các công thức liên quan ra nháp trước khi bắt tay vào tính toán.
+- Đừng quên kiểm tra các điều kiện tồn tại của bài toán (mẫu số khác $0$, biểu thức trong căn $\ge 0$, biểu thức dưới dấu $\log$ dương...).
+
+Bước 3: **Kiểm tra lại kết quả**
+- Có thể dùng máy tính cầm tay (Casio fx-580VNX hoặc fx-880BTG) để thử lại với các giá trị đặc biệt nhằm khẳng định độ chính xác của đáp án.
+
+📸 **Gợi ý cho em:** Nếu bài toán có đề bài dài hoặc có hình vẽ đồ thị phức tạp, em hãy nhấn vào nút dấu **"+"** màu vàng đồng ở góc trái thanh nhập liệu bên dưới để gửi ảnh chụp đề bài trực tiếp cho Thầy nhé! Thầy sẽ phân tích và giải chi tiết từng dòng cho em.`;
+  }
+
+  // Expose ra window để hỗ trợ tương tác và kiểm thử mở rộng
+  window.thsSangChat = {
+    handleImageFile,
+    sendMessage,
+    appendMessage
+  };
+}

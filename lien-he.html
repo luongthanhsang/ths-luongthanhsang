@@ -17,6 +17,20 @@
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/styles.css?v=3.1">
+  <!-- MathJax Configuration & Script for AI Math Typesetting -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -71,13 +85,162 @@
       <div class="container">
 
         <div class="contact-grid">
-          <!-- Form gửi thắc mắc bài tập -->
-          <div class="contact-form-card">
-            <h3 style="font-size: 1.35rem; font-weight: 700; color: var(--primary-900); margin-bottom: 8px;">
-              <i class="fa-solid fa-pencil" style="color: var(--primary-600); margin-right: 6px;"></i> Gửi Câu Hỏi Bài Tập
-            </h3>
-            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 24px;">
-              Thầy sẽ phản hồi trực tiếp qua email hoặc giải đáp tại buổi sinh hoạt trên lớp.
+          <!-- ==================== KHUNG CHAT AI TRỰC TIẾP VỚI THẦY SÁNG ==================== -->
+          <div class="contact-form-card ai-chat-container-card" id="aiChatCard">
+            <!-- Header khung chat -->
+            <div class="chat-header">
+              <div class="chat-header-left">
+                <div class="chat-avatar-wrapper">
+                  <img src="assets/images/logo-ths-sang.png" alt="ThS. Lương Thanh Sáng AI" class="chat-avatar-img">
+                  <span class="chat-status-dot" title="Đang trực tuyến 24/7"></span>
+                </div>
+                <div class="chat-header-info">
+                  <div class="chat-title-row">
+                    <h3 class="chat-title">ThS. Lương Thanh Sáng</h3>
+                    <span class="ai-badge"><i class="fa-solid fa-sparkles"></i> AI Trợ Lý Toán</span>
+                  </div>
+                  <p class="chat-subtitle"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> Trực tuyến 24/7 • Giải đáp Toán THPT & Đề thi 2026</p>
+                </div>
+              </div>
+              <div class="chat-header-actions">
+                <button type="button" class="chat-action-btn" id="btnToggleApiKey" title="Cài đặt Google Gemini API Key (Tùy chọn)">
+                  <i class="fa-solid fa-key"></i>
+                </button>
+                <button type="button" class="chat-action-btn" id="btnClearChat" title="Làm mới cuộc trò chuyện">
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <button type="button" class="chat-action-btn" id="btnToggleEmailForm" title="Chuyển sang form gửi Email truyền thống">
+                  <i class="fa-solid fa-envelope"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel Cài đặt Gemini API Key (Thu gọn/mở rộng) -->
+            <div class="api-key-panel" id="apiKeyPanel" style="display: none;">
+              <div class="api-key-panel-inner">
+                <div class="api-key-desc">
+                  <i class="fa-solid fa-shield-halved"></i> <strong>Cài đặt Google Gemini API Key (Tùy chọn)</strong>:
+                  Hệ thống tích hợp sẵn bộ giải toán sư phạm của Thầy Sáng. Nếu có khóa Gemini API cá nhân (miễn phí từ Google AI Studio), em có thể dán tại đây để kích hoạt thị giác máy tính đọc ảnh đề bài chuyên sâu nhất. Khóa chỉ lưu bảo mật trên trình duyệt của em.
+                </div>
+                <div class="api-key-input-group">
+                  <input type="password" id="geminiApiKeyInput" placeholder="Dán Gemini API Key tại đây (AIzaSy...)" class="form-control form-control-sm">
+                  <button type="button" id="btnSaveApiKey" class="btn btn-sm btn-primary">Lưu Key</button>
+                  <button type="button" id="btnClearApiKey" class="btn btn-sm btn-outline">Xóa Key</button>
+                </div>
+                <div id="apiKeyStatus" class="api-key-status" style="display: none;"></div>
+              </div>
+            </div>
+
+            <!-- Vùng hiển thị tin nhắn cuộc trò chuyện -->
+            <div class="chat-messages-container" id="chatMessagesContainer">
+              <!-- Tin nhắn khởi đầu của AI Thầy Sáng -->
+              <div class="chat-msg chat-msg-ai">
+                <div class="chat-msg-avatar">
+                  <img src="assets/images/logo-ths-sang.png" alt="Thầy Sáng">
+                </div>
+                <div class="chat-msg-content">
+                  <div class="chat-msg-sender">ThS. Lương Thanh Sáng</div>
+                  <div class="chat-bubble">
+                    <p>Chào em! Thầy là <strong>AI Trợ Lý Toán Học của ThS. Lương Thanh Sáng</strong> (Tổ trưởng Toán - THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang).</p>
+                    <p>Thầy luôn đồng hành 24/7 để hướng dẫn em giải quyết mọi câu hỏi và bài tập:</p>
+                    <ul class="chat-intro-list">
+                      <li>📘 <strong>Đại số & Giải tích:</strong> Lượng giác, Cấp số cộng, Cấp số nhân, Khảo sát hàm số, Đạo hàm, Tích phân.</li>
+                      <li>📐 <strong>Hình học & Không gian:</strong> Vector, Hệ trục Oxyz, Khối đa diện, Khoảng cách & Góc.</li>
+                      <li>🎯 <strong>Luyện thi tốt nghiệp THPT 2026:</strong> Bám sát 3 dạng thức mới của Bộ GD&ĐT (Trắc nghiệm nhiều lựa chọn, Đúng/Sai, Trả lời ngắn).</li>
+                    </ul>
+                    <div class="chat-plus-highlight-box">
+                      <i class="fa-solid fa-circle-question" style="color: #d97706; font-size: 1.1rem; margin-right: 6px;"></i>
+                      <span><strong>Hỏi bài bằng hình ảnh:</strong> Em chỉ cần bấm vào nút dấu <strong>"+"</strong> màu vàng đồng - xanh dương ở thanh bên dưới để tải ảnh chụp đề bài lên, hoặc bấm <code>Ctrl + V</code> dán ảnh trực tiếp, Thầy sẽ đọc đề và giải chi tiết từng bước cho em ngay!</span>
+                    </div>
+                  </div>
+                  <div class="chat-msg-time">Vừa xong</div>
+                </div>
+              </div>
+
+              <!-- Gợi ý nhanh các câu hỏi thường gặp -->
+              <div class="chat-quick-suggestions" id="chatQuickSuggestions">
+                <div class="quick-title"><i class="fa-regular fa-lightbulb"></i> Gợi ý câu hỏi nhanh:</div>
+                <div class="quick-pill-list">
+                  <button type="button" class="quick-pill" data-query="Thầy giải giúp em phương trình lượng giác: sin(2x) = căn(3)/2">
+                    <i class="fa-solid fa-square-root-variable"></i> Giải PT $\sin 2x = \frac{\sqrt{3}}{2}$
+                  </button>
+                  <button type="button" class="quick-pill" data-query="Thầy hướng dẫn em công thức và cách tìm số hạng tổng quát của Cấp số nhân?">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Số hạng tổng quát Cấp số nhân
+                  </button>
+                  <button type="button" class="quick-pill" data-query="Thầy hướng dẫn cách tính tổng n số hạng đầu của Cấp số cộng?">
+                    <i class="fa-solid fa-calculator"></i> Tổng $n$ số hạng Cấp số cộng
+                  </button>
+                  <button type="button" class="quick-pill" data-query="Thầy chia sẻ phương pháp làm tốt dạng bài trắc nghiệm Đúng / Sai môn Toán theo cấu trúc thi 2026?">
+                    <i class="fa-solid fa-graduation-cap"></i> Mẹo thi trắc nghiệm Toán 2026
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Typing indicator khi AI đang trả lời -->
+            <div class="chat-typing-indicator" id="chatTypingIndicator" style="display: none;">
+              <div class="chat-msg-avatar">
+                <img src="assets/images/logo-ths-sang.png" alt="Thầy Sáng">
+              </div>
+              <div class="typing-bubble">
+                <span class="typing-text">Thầy Sáng đang phân tích và giải bài</span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+
+            <!-- Khung xem trước ảnh đã tải (Preview Thumbnail) -->
+            <div class="chat-image-preview-area" id="chatImagePreviewArea" style="display: none;">
+              <div class="preview-thumbnail-box">
+                <img id="chatImagePreviewImg" src="" alt="Ảnh đề bài đã chọn">
+                <button type="button" class="btn-remove-preview" id="btnRemoveImagePreview" title="Xóa ảnh này">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="preview-meta">
+                <div class="preview-filename" id="previewFileName">anh-de-bai.png</div>
+                <div class="preview-filesize" id="previewFileSize">125 KB</div>
+                <div class="preview-status"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> Đã đính kèm ảnh đề bài. Nhấn Gửi để Thầy giải đáp!</div>
+              </div>
+            </div>
+
+            <!-- Thanh nhập tin nhắn Chat có Nút dấu "+" -->
+            <div class="chat-input-wrapper" id="chatInputWrapper">
+              <!-- Input file ẩn -->
+              <input type="file" id="chatFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
+
+              <!-- NÚT DẤU "+" NỔI BẬT ĐỂ TẢI ẢNH -->
+              <button type="button" class="chat-plus-btn" id="btnPlusUpload" title="Gửi kèm hình ảnh đề bài (hoặc bấm Ctrl+V để dán ảnh)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+
+              <!-- Ô nhập văn bản câu hỏi -->
+              <textarea id="chatInputText" class="chat-textarea" rows="1" placeholder="Nhập câu hỏi bài tập, hoặc nhấn dấu '+' để gửi ảnh đề bài... (Enter để gửi)"></textarea>
+
+              <!-- Nút Gửi câu hỏi -->
+              <button type="button" class="chat-send-btn" id="btnChatSend" title="Gửi câu hỏi đến Thầy Sáng">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+
+            <div class="chat-bottom-bar">
+              <span><i class="fa-solid fa-bolt" style="color: #eab308;"></i> Trợ lý AI Thầy Sáng • Hỗ trợ tải ảnh đề bài qua dấu "+" • Công thức chuẩn LaTeX MathJax</span>
+            </div>
+          </div>
+
+          <!-- Form gửi Email truyền thống (Ban đầu ẩn, mở ra khi bấm icon thư) -->
+          <div class="contact-form-card traditional-email-card" id="traditionalEmailCard" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-900); margin: 0;">
+                <i class="fa-solid fa-envelope" style="color: var(--primary-600); margin-right: 6px;"></i> Gửi Email Trực Tiếp Đến Thầy Sáng
+              </h3>
+              <button type="button" id="btnBackToChat" class="btn btn-sm btn-outline">
+                <i class="fa-solid fa-comments"></i> Quay lại Chat AI
+              </button>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+              Nếu cần gửi đơn từ, đăng ký học tập dài hạn hoặc góp ý chuyên môn, em có thể gửi email qua biểu mẫu dưới đây.
             </p>
 
             <form id="contactForm">
@@ -136,14 +299,11 @@
 
               <div class="form-group">
                 <label class="form-label" for="questionContent">Nội dung câu hỏi hoặc bài toán <span class="required">*</span></label>
-                <textarea id="questionContent" class="form-control" rows="5" placeholder="Ghi rõ đề bài hoặc phần kiến thức em chưa hiểu rõ (có thể dán link hình ảnh đề bài nếu có)..." required></textarea>
-                <div class="form-hint">
-                  <i class="fa-solid fa-circle-info"></i> Có thể gõ công thức Toán học đơn giản hoặc mô tả chi tiết bước em đang bị vướng mắc.
-                </div>
+                <textarea id="questionContent" class="form-control" rows="4" placeholder="Ghi rõ đề bài hoặc phần kiến thức em chưa hiểu rõ..." required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem;">
-                <i class="fa-solid fa-paper-plane"></i> Gửi Thắc Mắc Đến Thầy Sáng
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem;">
+                <i class="fa-solid fa-paper-plane"></i> Gửi Thắc Mắc Đến Hòm Thư Thầy Sáng
               </button>
             </form>
           </div>
