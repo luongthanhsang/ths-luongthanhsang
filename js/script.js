@@ -4797,7 +4797,11 @@ function initDigitalLessons() {
     // 1. NẾU CÓ TỆP MP3 THỰC TẾ (GIỌNG ĐỌC AI THS. LƯƠNG THANH SÁNG ĐƯỢC TÍCH HỢP SẴN)
     if (audioUrl) {
       try {
-        const audioSrc = (window.B11_2_AUDIO_CACHE && window.B11_2_AUDIO_CACHE[audioUrl]) ||
+        const audioSrc = (window.AUDIO_CACHE && window.AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_5_AUDIO_CACHE && window.B11_5_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_4_AUDIO_CACHE && window.B11_4_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_3_AUDIO_CACHE && window.B11_3_AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_2_AUDIO_CACHE && window.B11_2_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_1_AUDIO_CACHE && window.B11_1_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_2_AUDIO_CACHE && window.B10_2_AUDIO_CACHE[audioUrl]) ||
                          (window.B10_1_AUDIO_CACHE && window.B10_1_AUDIO_CACHE[audioUrl]) ||
