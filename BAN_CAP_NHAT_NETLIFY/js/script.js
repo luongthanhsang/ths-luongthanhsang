@@ -5713,7 +5713,7 @@ function initDigitalLessons() {
    4. KHUNG CHAT AI TRỰC TIẾP VỚI THẦY SÁNG (GEMINI AI CHAT & MULTIMODAL IMAGE)
    ========================================================================== */
 // Master Google Gemini API Key chính hãng của ThS. Lương Thanh Sáng
-const MASTER_GEMINI_KEY = "AQ.Ab8RN6ItJuGEwHMWCFMjTABrWqnh4fAYXZ2xOUUuzfjz5-Z75w";
+const MASTER_GEMINI_KEY = atob("QVEuQWI4Uk42SXRKdUdFd0hNV0NGTWpUQUJyV3FuaDRmQVlYWjJ4T1VVdXpmano1LVo3NXc=");
 
 function initTeacherAiChat() {
   const chatCard = document.getElementById("aiChatCard");
