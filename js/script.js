@@ -5712,8 +5712,8 @@ function initDigitalLessons() {
 /* ==========================================================================
    4. KHUNG CHAT AI TRỰC TIẾP VỚI THẦY SÁNG (GEMINI AI CHAT & MULTIMODAL IMAGE)
    ========================================================================== */
-// Master Google Gemini API Key chính hãng của ThS. Lương Thanh Sáng
-const MASTER_GEMINI_KEY = atob("QVEuQWI4Uk42SXRKdUdFd0hNV0NGTWpUQUJyV3FuaDRmQVlYWjJ4T1VVdXpmano1LVo3NXc=");
+// Master Google Gemini API Key chính hãng của ThS. Lương Thanh Sáng (Mã chuẩn mới nhất của Google)
+const MASTER_GEMINI_KEY = atob("QVEuQWI4Uk42TDdWQ01PQlVFd0lSSW81ZXJmaS1hVXlVTWdLUktOVndKNFhhOWE4amU4U3c=");
 
 function initTeacherAiChat() {
   const chatCard = document.getElementById("aiChatCard");
@@ -6190,7 +6190,7 @@ function initTeacherAiChat() {
 
   // 11. Hàm gọi Gemini API chính thức của Google (với model mới nhất và fallback đa tầng)
   async function callGeminiApi(apiKey, userPrompt, imageObj) {
-    const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash", "gemini-pro-latest"];
+    const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash", "gemini-pro-latest"];
 
     const systemInstruction = "Bạn là ThS. Lương Thanh Sáng, Tổ trưởng chuyên môn Toán học trường THPT Nguyễn Văn Thoại, huyện Thoại Sơn, tỉnh An Giang. Bạn đang trực tiếp hỗ trợ học sinh học tập và ôn thi môn Toán theo Chương trình GDPT 2018 (bộ sách Kết nối tri thức với cuộc sống). Khi trả lời: 1. Nêu phương pháp và bản chất toán học đúng trọng tâm; 2. Giải chi tiết từng bước, rõ ràng, dễ hiểu, đáp số chuẩn xác 100%; 3. Dùng công thức toán LaTeX chuẩn kẹp giữa dấu $...$ (nếu trong dòng) hoặc $$...$$ (nếu công thức riêng); 4. Nếu có ảnh đề bài, hãy đọc kĩ đề từ ảnh và giải trọn vẹn; 5. Đưa ra mẹo hoặc lưu ý tránh bẫy; 6. Giữ phong cách sư phạm mẫu mực, ân cần, xưng Thầy và gọi em.";
 
