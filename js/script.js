@@ -2375,6 +2375,11 @@ function initDigitalLessons() {
 
     sidebarContainer.innerHTML = treeHtml;
 
+    // Kích hoạt MathJax hiển thị công thức Toán trong Sidebar Stepper
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([sidebarContainer]).catch(err => console.warn("MathJax sidebar error:", err));
+    }
+
     // Gắn sự kiện click vào các node trên cây
     sidebarContainer.querySelectorAll(".tree-node").forEach(node => {
       node.addEventListener("click", () => {

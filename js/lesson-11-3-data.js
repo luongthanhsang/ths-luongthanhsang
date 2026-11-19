@@ -200,7 +200,7 @@ window.LESSON_11_C1_B3_DATA = {
       title: "Định nghĩa các hàm số lượng giác",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
         <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-compass"></i> HĐ 1 (SGK trang 22): Khảo sát giá trị lượng giác theo biến số thực</h5>
-        <p style="color: #334155; line-height: 1.6;">Trên đường tròn lượng giác gốc $A(1;0)$, mỗi số thực $x$ xác định duy nhất một điểm $M$ sao cho số đo góc lượng giác $(OA, OM) = x\text{ rad}$.</p>
+        <p style="color: #334155; line-height: 1.6;">Trên đường tròn lượng giác gốc $A(1;0)$, mỗi số thực $x$ xác định duy nhất một điểm $M$ sao cho số đo góc lượng giác $(OA, OM) = x\\text{ rad}$.</p>
         
         <!-- BẢNG GIÁ TRỊ LƯỢNG GIÁC CÁC GÓC ĐẶC BIỆT (HÌNH 1: KẺ BẢNG LƯỚI SẮC NÉT THẨM MĨ) -->
         <div class="math-table-container">
@@ -209,47 +209,47 @@ window.LESSON_11_C1_B3_DATA = {
               <tr>
                 <th style="width: 14%;">$x$</th>
                 <th style="width: 14%;">$0$</th>
-                <th style="width: 14%;">$\dfrac{\pi}{6}$</th>
-                <th style="width: 14%;">$\dfrac{\pi}{4}$</th>
-                <th style="width: 14%;">$\dfrac{\pi}{3}$</th>
-                <th style="width: 15%;">$\dfrac{\pi}{2}$</th>
-                <th style="width: 15%;">$\pi$</th>
+                <th style="width: 14%;">$\\dfrac{\\pi}{6}$</th>
+                <th style="width: 14%;">$\\dfrac{\\pi}{4}$</th>
+                <th style="width: 14%;">$\\dfrac{\\pi}{3}$</th>
+                <th style="width: 15%;">$\\dfrac{\\pi}{2}$</th>
+                <th style="width: 15%;">$\\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$\sin x$</td>
+                <td class="fw-bold">$\\sin x$</td>
                 <td>$0$</td>
-                <td>$\dfrac{1}{2}$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
-                <td>$\dfrac{\sqrt{3}}{2}$</td>
+                <td>$\\dfrac{1}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{2}$</td>
                 <td>$1$</td>
                 <td>$0$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\cos x$</td>
+                <td class="fw-bold">$\\cos x$</td>
                 <td>$1$</td>
-                <td>$\dfrac{\sqrt{3}}{2}$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
-                <td>$\dfrac{1}{2}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{1}{2}$</td>
                 <td>$0$</td>
                 <td>$-1$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\tan x$</td>
+                <td class="fw-bold">$\\tan x$</td>
                 <td>$0$</td>
-                <td>$\dfrac{\sqrt{3}}{3}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$1$</td>
-                <td>$\sqrt{3}$</td>
+                <td>$\\sqrt{3}$</td>
                 <td class="text-danger fw-bold not-defined">Không XĐ</td>
                 <td>$0$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\cot x$</td>
+                <td class="fw-bold">$\\cot x$</td>
                 <td class="text-danger fw-bold not-defined">Không XĐ</td>
-                <td>$\sqrt{3}$</td>
+                <td>$\\sqrt{3}$</td>
                 <td>$1$</td>
-                <td>$\dfrac{\sqrt{3}}{3}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$0$</td>
                 <td class="text-danger fw-bold not-defined">Không XĐ</td>
               </tr>
@@ -264,43 +264,43 @@ window.LESSON_11_C1_B3_DATA = {
         
         <!-- 1. HÀM SỐ SIN -->
         <div class="math-func-card card-sin">
-          <div class="math-func-title"><i class="fa-solid fa-wave-square"></i> 1. HÀM SỐ SIN ($y = \sin x$)</div>
-          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\sin x$ được gọi là <b>hàm số sin</b>, kí hiệu $y = \sin x$.</p>
+          <div class="math-func-title"><i class="fa-solid fa-wave-square"></i> 1. HÀM SỐ SIN ($y = \\sin x$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\\sin x$ được gọi là <b>hàm số sin</b>, kí hiệu $y = \\sin x$.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R}$</span>
             <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
-            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \le \sin x \le 1$ với mọi $x \in \mathbb{R}$)</span>
+            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \\le \\sin x \\le 1$ với mọi $x \\in \\mathbb{R}$)</span>
           </div>
         </div>
 
         <!-- 2. HÀM SỐ CÔSIN -->
         <div class="math-func-card card-cos">
-          <div class="math-func-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> 2. HÀM SỐ CÔSIN ($y = \cos x$)</div>
-          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\cos x$ được gọi là <b>hàm số côsin</b>, kí hiệu $y = \cos x$.</p>
+          <div class="math-func-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> 2. HÀM SỐ CÔSIN ($y = \\cos x$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\\cos x$ được gọi là <b>hàm số côsin</b>, kí hiệu $y = \\cos x$.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R}$</span>
             <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
-            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \le \cos x \le 1$ với mọi $x \in \mathbb{R}$)</span>
+            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \\le \\cos x \\le 1$ với mọi $x \\in \\mathbb{R}$)</span>
           </div>
         </div>
 
         <!-- 3. HÀM SỐ TANG -->
         <div class="math-func-card card-tan">
-          <div class="math-func-title"><i class="fa-solid fa-chart-line"></i> 3. HÀM SỐ TANG ($y = \tan x = \dfrac{\sin x}{\cos x}$)</div>
-          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \dfrac{\sin x}{\cos x}$ được gọi là <b>hàm số tang</b>, kí hiệu $y = \tan x$. Biểu thức có nghĩa khi $\cos x \ne 0 \Leftrightarrow x \ne \dfrac{\pi}{2} + k\pi\ (k \in \mathbb{Z})$.</p>
+          <div class="math-func-title"><i class="fa-solid fa-chart-line"></i> 3. HÀM SỐ TANG ($y = \\tan x = \\dfrac{\\sin x}{\\cos x}$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \\dfrac{\\sin x}{\\cos x}$ được gọi là <b>hàm số tang</b>, kí hiệu $y = \\tan x$. Biểu thức có nghĩa khi $\\cos x \\ne 0 \\Leftrightarrow x \\ne \\dfrac{\\pi}{2} + k\\pi\ (k \\in \\mathbb{Z})$.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \left\{\dfrac{\pi}{2} + k\pi \;\middle|\; k \in \mathbb{Z}\right\}$</span>
-            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+            <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$</span>
+            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\\mathbb{R}$</span>
           </div>
         </div>
 
         <!-- 4. HÀM SỐ CÔTANG -->
         <div class="math-func-card card-cot">
-          <div class="math-func-title"><i class="fa-solid fa-chart-pie"></i> 4. HÀM SỐ CÔTANG ($y = \cot x = \dfrac{\cos x}{\sin x}$)</div>
-          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \dfrac{\cos x}{\sin x}$ được gọi là <b>hàm số côtang</b>, kí hiệu $y = \cot x$. Biểu thức có nghĩa khi $\sin x \ne 0 \Leftrightarrow x \ne k\pi\ (k \in \mathbb{Z})$.</p>
+          <div class="math-func-title"><i class="fa-solid fa-chart-pie"></i> 4. HÀM SỐ CÔTANG ($y = \\cot x = \\dfrac{\\cos x}{\\sin x}$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \\dfrac{\\cos x}{\\sin x}$ được gọi là <b>hàm số côtang</b>, kí hiệu $y = \\cot x$. Biểu thức có nghĩa khi $\\sin x \\ne 0 \\Leftrightarrow x \\ne k\\pi\ (k \\in \\mathbb{Z})$.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \{k\pi \mid k \in \mathbb{Z}\}$</span>
-            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+            <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$</span>
+            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\\mathbb{R}$</span>
           </div>
         </div>
       </div>
@@ -383,7 +383,7 @@ window.LESSON_11_C1_B3_DATA = {
           question: "Tập xác định của hàm số $y = \\cot x$ là:",
           options: [
             "$D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$",
-            "$D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k2\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$",
+            "$D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k2\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$",
             "$D = \\mathbb{R}$",
             "$D = (-\\infty; +\\infty) \\setminus \\{0\\}$"
           ],
@@ -691,7 +691,7 @@ window.LESSON_11_C1_B3_DATA = {
       title: "Đồ thị và tính chất của hàm số y = sin x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
         <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-chart-line"></i> HĐ 4 (SGK trang 25): Khảo sát vẽ đồ thị hàm số y = sin x</h5>
-        <p style="color: #334155; line-height: 1.6;">Do $y = \sin x$ là hàm số lẻ nên ta vẽ trên đoạn $[0; \pi]$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $[-\pi; \pi]$, rồi tịnh tiến theo chu kì $2\pi$ để thu được toàn bộ đồ thị trên $\mathbb{R}$.</p>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \\sin x$ là hàm số lẻ nên ta vẽ trên đoạn $[0; \\pi]$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $[-\\pi; \\pi]$, rồi tịnh tiến theo chu kì $2\\pi$ để thu được toàn bộ đồ thị trên $\\mathbb{R}$.</p>
         
         <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = SIN X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
         <div class="math-table-container">
@@ -699,28 +699,28 @@ window.LESSON_11_C1_B3_DATA = {
             <thead class="table-primary">
               <tr>
                 <th>$x$</th>
-                <th>$-\pi$</th>
-                <th>$-\dfrac{3\pi}{4}$</th>
-                <th>$-\dfrac{\pi}{2}$</th>
-                <th>$-\dfrac{\pi}{4}$</th>
+                <th>$-\\pi$</th>
+                <th>$-\\dfrac{3\\pi}{4}$</th>
+                <th>$-\\dfrac{\\pi}{2}$</th>
+                <th>$-\\dfrac{\\pi}{4}$</th>
                 <th>$0$</th>
-                <th>$\dfrac{\pi}{4}$</th>
-                <th>$\dfrac{\pi}{2}$</th>
-                <th>$\dfrac{3\pi}{4}$</th>
-                <th>$\pi$</th>
+                <th>$\\dfrac{\\pi}{4}$</th>
+                <th>$\\dfrac{\\pi}{2}$</th>
+                <th>$\\dfrac{3\\pi}{4}$</th>
+                <th>$\\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \sin x$</td>
+                <td class="fw-bold">$y = \\sin x$</td>
                 <td>$0$</td>
-                <td>$-\dfrac{\sqrt{2}}{2}$</td>
+                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$-1$</td>
-                <td>$-\dfrac{\sqrt{2}}{2}$</td>
+                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$1$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$0$</td>
               </tr>
             </tbody>
@@ -730,23 +730,23 @@ window.LESSON_11_C1_B3_DATA = {
 
       <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ SIN: CARD SƯ PHẠM ĐỎ NỔI BẬT -->
       <div class="math-func-card card-sin mb-3">
-        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \sin x$ (SGK TRANG 26)</div>
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \\sin x$ (SGK TRANG 26)</div>
         <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R}$</span>
           <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
           <span class="math-badge math-badge-purple"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
-          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\pi$</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\\pi$</span>
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
-          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $\left(-\dfrac{\pi}{2} + k2\pi; \dfrac{\pi}{2} + k2\pi\right), k \in \mathbb{Z}$.</div>
-          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $\left(\dfrac{\pi}{2} + k2\pi; \dfrac{3\pi}{2} + k2\pi\right), k \in \mathbb{Z}$.</div>
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $\\left(-\\dfrac{\\pi}{2} + k2\pi; \\dfrac{\\pi}{2} + k2\pi\\right), k \\in \\mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $\\left(\\dfrac{\\pi}{2} + k2\pi; \\dfrac{3\\pi}{2} + k2\pi\\right), k \\in \\mathbb{Z}$.</div>
           <div style="margin-top: 6px;"><b style="color: #1d4ed8;"><i class="fa-solid fa-wave-square"></i> Dạng đồ thị:</b> Là một đường lượn sóng liên tục gọi là <b>đường hình sin</b> (sine wave), đi qua gốc toạ độ $O(0; 0)$.</div>
         </div>
       </div>
 
       <!-- HÌNH 1.14 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.14: ĐỒ THỊ HÀM SỐ $y = \sin x$ TRÊN $\mathbb{R}$ (SGK TRANG 25)</div>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.14: ĐỒ THỊ HÀM SỐ $y = \\sin x$ TRÊN $\\mathbb{R}$ (SGK TRANG 25)</div>
         <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
           <!-- Đường dóng biên độ y = 1 và y = -1 -->
           <line x1="40" y1="70" x2="720" y2="70" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
@@ -769,30 +769,30 @@ window.LESSON_11_C1_B3_DATA = {
           <!-- Điểm cực đại (pi/2, 1) và (-3pi/2, 1) -->
           <circle cx="440" cy="70" r="4.5" fill="#dc2626"/>
           <line x1="440" y1="130" x2="440" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="424" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\pi/2; 1)</text>
+          <text x="424" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\\pi/2; 1)</text>
 
           <circle cx="200" cy="70" r="4.5" fill="#dc2626"/>
           <line x1="200" y1="130" x2="200" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="172" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-3\pi/2; 1)</text>
+          <text x="172" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-3\\pi/2; 1)</text>
 
           <!-- Điểm cực tiểu (-pi/2, -1) và (3pi/2, -1) -->
           <circle cx="320" cy="190" r="4.5" fill="#dc2626"/>
           <line x1="320" y1="130" x2="320" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="296" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\pi/2; -1)</text>
+          <text x="296" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\\pi/2; -1)</text>
 
           <circle cx="560" cy="190" r="4.5" fill="#dc2626"/>
           <line x1="560" y1="130" x2="560" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="540" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(3\pi/2; -1)</text>
+          <text x="540" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(3\\pi/2; -1)</text>
 
           <!-- Các mốc hoành độ trên trục Ox -->
-          <circle cx="140" cy="130" r="3" fill="#1e293b"/><text x="126" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-2\pi</text>
-          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\pi/2</text>
-          <circle cx="260" cy="130" r="3" fill="#1e293b"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi</text>
-          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
-          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
-          <circle cx="500" cy="130" r="3" fill="#1e293b"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi</text>
-          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
-          <circle cx="620" cy="130" r="3" fill="#1e293b"/><text x="612" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">2\pi</text>
+          <circle cx="140" cy="130" r="3" fill="#1e293b"/><text x="126" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-2\\pi</text>
+          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\\pi/2</text>
+          <circle cx="260" cy="130" r="3" fill="#1e293b"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\\pi</text>
+          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\\pi/2</text>
+          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\\pi/2</text>
+          <circle cx="500" cy="130" r="3" fill="#1e293b"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\\pi</text>
+          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\\pi/2</text>
+          <circle cx="620" cy="130" r="3" fill="#1e293b"/><text x="612" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">2\\pi</text>
           
           <!-- Hộp ghi chú sư phạm -->
           <rect x="475" y="26" width="235" height="28" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
@@ -800,7 +800,7 @@ window.LESSON_11_C1_B3_DATA = {
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec3.mp3",
-      audioScript: "Mục 3. Đồ thị và tính chất của hàm số y bằng sin x. Hàm số y bằng sin x có tập xác định là R và tập giá trị là đoạn từ trừ 1 đến 1. Vì đây là hàm số lẻ nên đồ thị nhận gốc tọa độ O làm tâm đối xứng; và vì tuần hoàn với chu kì 2 pi nên đồ thị lặp lại sau mỗi khoảng cách 2 pi dọc theo trục hoành. Đồ thị là một đường cong hình sin lượn sóng liên tục. Trên đoạn từ trừ pi đến pi, đồ thị đi qua gốc O(0; 0), đạt cực đại bằng 1 tại điểm pi chia 2, đạt cực tiểu bằng trừ 1 tại điểm trừ pi chia 2. Hàm số đồng biến trên mỗi khoảng từ trừ pi chia 2 cộng k2pi đến pi chia 2 cộng k2pi; và nghịch biến trên mỗi khoảng từ pi chia 2 cộng k2pi đến 3 pi chia 2 cộng k2pi.",
+      audioScript: "Mục 3. Đồ thị và tính chất của hàm số y bằng sin x. Hàm số y bằng sin x có tập xác định là R và tập giá trị là đoạn từ trừ 1 đến 1. Vì đây là hàm số lẻ nên đồ thị nhận gốc tọa độ O làm tâm đối xứng; và vì tuần hoàn với chu kì 2 pi nên đồ thị lặp lại sau mỗi khoảng cách 2 pi dọc theo trục hoành. Đồ thị là một đường cong hình sin lượn sóng liên tục. Trên đoạn từ trừ pi đến pi, đồ thị đi qua gốc O(0; 0), đạt cực đại bằng 1 tại điểm pi chia 2, đạt cực tiểu bằng trừ 1 tại điểm trừ pi chia 2. Hàm số đồng biến trên mỗi khoảng từ trừ pi chia 2 cộng k hai pi đến pi chia 2 cộng k hai pi; và nghịch biến trên mỗi khoảng từ pi chia 2 cộng k hai pi đến 3 pi chia 2 cộng k2\pi.",
       checkpoints: [
         {
           id: "poi-11-3-sec3-1",
@@ -808,14 +808,14 @@ window.LESSON_11_C1_B3_DATA = {
           title: "Tương tác Mục 3 Câu 1: Giá trị cực đại của hàm số Sin",
           question: "Hàm số $y = \\sin x$ đạt giá trị lớn nhất bằng $1$ tại những điểm nào sau đây?",
           options: [
-            "$x = k2\\pi\\ (k \\in \\mathbb{Z})$",
-            "$x = \\dfrac{\\pi}{2} + k2\\pi\\ (k \\in \\mathbb{Z})$",
-            "$x = \\pi + k2\\pi\\ (k \\in \\mathbb{Z})$",
-            "$x = -\\dfrac{\\pi}{2} + k2\\pi\\ (k \\in \\mathbb{Z})$"
+            "$x = k2\pi\\ (k \\in \\mathbb{Z})$",
+            "$x = \\dfrac{\\pi}{2} + k2\pi\\ (k \\in \\mathbb{Z})$",
+            "$x = \\pi + k2\pi\\ (k \\in \\mathbb{Z})$",
+            "$x = -\\dfrac{\\pi}{2} + k2\pi\\ (k \\in \\mathbb{Z})$"
           ],
           correctIndex: 1,
           correctAnswer: "B",
-          explanation: "Ta có $\\sin x = 1 \\Leftrightarrow x = \\dfrac{\\pi}{2} + k2\\pi\\ (k \\in \\mathbb{Z})$. Đây chính là hoành độ các đỉnh cao nhất trên đồ thị hình sin."
+          explanation: "Ta có $\\sin x = 1 \\Leftrightarrow x = \\dfrac{\\pi}{2} + k2\pi\\ (k \\in \\mathbb{Z})$. Đây chính là hoành độ các đỉnh cao nhất trên đồ thị hình sin."
         },
         {
           id: "poi-11-3-sec3-2",
@@ -862,7 +862,7 @@ window.LESSON_11_C1_B3_DATA = {
       title: "Đồ thị và tính chất của hàm số y = cos x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
         <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-chart-area"></i> HĐ 5 (SGK trang 26): Khảo sát vẽ đồ thị hàm số y = cos x</h5>
-        <p style="color: #334155; line-height: 1.6;">Do $\cos x = \sin\left(x + \dfrac{\pi}{2}\right)$ nên đồ thị hàm số $y = \cos x$ có được bằng cách tịnh tiến đồ thị hàm số $y = \sin x$ sang bên trái một đoạn bằng $\dfrac{\pi}{2}$. Đồng thời vì $y = \cos x$ là hàm số chẵn nên đồ thị nhận <b>trục tung $Oy$ làm trục đối xứng</b>.</p>
+        <p style="color: #334155; line-height: 1.6;">Do $\\cos x = \\sin\\left(x + \\dfrac{\\pi}{2}\\right)$ nên đồ thị hàm số $y = \\cos x$ có được bằng cách tịnh tiến đồ thị hàm số $y = \\sin x$ sang bên trái một đoạn bằng $\\dfrac{\\pi}{2}$. Đồng thời vì $y = \\cos x$ là hàm số chẵn nên đồ thị nhận <b>trục tung $Oy$ làm trục đối xứng</b>.</p>
         
         <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = COS X (HÌNH 3: KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
         <div class="math-table-container">
@@ -870,28 +870,28 @@ window.LESSON_11_C1_B3_DATA = {
             <thead class="table-warning">
               <tr>
                 <th>$x$</th>
-                <th>$-\pi$</th>
-                <th>$-\dfrac{3\pi}{4}$</th>
-                <th>$-\dfrac{\pi}{2}$</th>
-                <th>$-\dfrac{\pi}{4}$</th>
+                <th>$-\\pi$</th>
+                <th>$-\\dfrac{3\\pi}{4}$</th>
+                <th>$-\\dfrac{\\pi}{2}$</th>
+                <th>$-\\dfrac{\\pi}{4}$</th>
                 <th>$0$</th>
-                <th>$\dfrac{\pi}{4}$</th>
-                <th>$\dfrac{\pi}{2}$</th>
-                <th>$\dfrac{3\pi}{4}$</th>
-                <th>$\pi$</th>
+                <th>$\\dfrac{\\pi}{4}$</th>
+                <th>$\\dfrac{\\pi}{2}$</th>
+                <th>$\\dfrac{3\\pi}{4}$</th>
+                <th>$\\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \cos x$</td>
+                <td class="fw-bold">$y = \\cos x$</td>
                 <td>$-1$</td>
-                <td>$-\dfrac{\sqrt{2}}{2}$</td>
+                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$1$</td>
-                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$-\dfrac{\sqrt{2}}{2}$</td>
+                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
                 <td>$-1$</td>
               </tr>
             </tbody>
@@ -901,23 +901,23 @@ window.LESSON_11_C1_B3_DATA = {
 
       <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ CÔSIN: CARD SƯ PHẠM XANH SAPPHIRE NỔI BẬT -->
       <div class="math-func-card card-cos mb-3">
-        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \cos x$ (SGK TRANG 27)</div>
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \\cos x$ (SGK TRANG 27)</div>
         <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R}$</span>
           <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
           <span class="math-badge math-badge-primary" style="background:#dbeafe; color:#1e40af;"><i class="fa-solid fa-arrows-left-right"></i> Hàm số chẵn (Đối xứng qua trục tung $Oy$)</span>
-          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\pi$</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\\pi$</span>
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
-          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $(-\pi + k2\pi; k2\pi), k \in \mathbb{Z}$.</div>
-          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $(k2\pi; \pi + k2\pi), k \in \mathbb{Z}$.</div>
-          <div style="margin-top: 6px;"><b style="color: #2563eb;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Đồ thị đối xứng hoàn hảo qua trục tung $Oy$, cắt $Oy$ tại điểm cực đại $(0; 1)$, đạt cực tiểu tại các điểm $(\pi + k2\pi; -1)$.</div>
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $(-\\pi + k2\pi; k2\pi), k \\in \\mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $(k2\pi; \\pi + k2\pi), k \\in \\mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #2563eb;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Đồ thị đối xứng hoàn hảo qua trục tung $Oy$, cắt $Oy$ tại điểm cực đại $(0; 1)$, đạt cực tiểu tại các điểm $(\\pi + k2\pi; -1)$.</div>
         </div>
       </div>
 
       <!-- HÌNH 1.15 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.15: ĐỒ THỊ HÀM SỐ $y = \cos x$ TRÊN $\mathbb{R}$ (SGK TRANG 27)</div>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.15: ĐỒ THỊ HÀM SỐ $y = \\cos x$ TRÊN $\\mathbb{R}$ (SGK TRANG 27)</div>
         <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
           <!-- Đường dóng biên độ y = 1 và y = -1 -->
           <line x1="40" y1="70" x2="720" y2="70" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
@@ -943,26 +943,26 @@ window.LESSON_11_C1_B3_DATA = {
 
           <circle cx="140" cy="70" r="4.5" fill="#dc2626"/>
           <line x1="140" y1="130" x2="140" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="120" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-2\pi; 1)</text>
+          <text x="120" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-2\\pi; 1)</text>
 
           <circle cx="620" cy="70" r="4.5" fill="#dc2626"/>
           <line x1="620" y1="130" x2="620" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="605" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(2\pi; 1)</text>
+          <text x="605" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(2\\pi; 1)</text>
 
           <!-- Điểm cực tiểu (-pi, -1) và (pi, -1) -->
           <circle cx="260" cy="190" r="4.5" fill="#dc2626"/>
           <line x1="260" y1="130" x2="260" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="245" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\pi; -1)</text>
+          <text x="245" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\\pi; -1)</text>
 
           <circle cx="500" cy="190" r="4.5" fill="#dc2626"/>
           <line x1="500" y1="130" x2="500" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="488" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\pi; -1)</text>
+          <text x="488" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\\pi; -1)</text>
 
           <!-- Các mốc hoành độ trên trục Ox (Giao điểm với Ox) -->
-          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\pi/2</text>
-          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
-          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
-          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
+          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\\pi/2</text>
+          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\\pi/2</text>
+          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\\pi/2</text>
+          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\\pi/2</text>
 
           <!-- Hộp ghi chú sư phạm -->
           <rect x="475" y="26" width="235" height="28" rx="6" fill="#fef2f2" stroke="#fecaca"/>
@@ -970,7 +970,7 @@ window.LESSON_11_C1_B3_DATA = {
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec4.mp3",
-      audioScript: "Mục 4. Đồ thị và tính chất của hàm số y bằng cos x. Hàm số y bằng cos x có tập xác định là R và tập giá trị là đoạn từ trừ 1 đến 1. Vì là hàm số chẵn nên đồ thị nhận trục tung Oy làm trục đối xứng; và vì tuần hoàn với chu kì 2 pi nên đồ thị cũng là một đường cong hình sin lặp lại sau mỗi khoảng 2 pi. Đồ thị hàm số cos x có được bằng cách tịnh tiến đồ thị hàm số sin x sang trái một đoạn pi chia 2. Đồ thị cắt trục tung tại điểm (0; 1), cắt trục hoành tại các điểm pi chia 2 cộng k pi. Hàm số đồng biến trên mỗi khoảng từ trừ pi cộng k2pi đến k2pi; và nghịch biến trên mỗi khoảng từ k2pi đến pi cộng k2pi, với k thuộc Z.",
+      audioScript: "Mục 4. Đồ thị và tính chất của hàm số y bằng cos x. Hàm số y bằng cos x có tập xác định là R và tập giá trị là đoạn từ trừ 1 đến 1. Vì là hàm số chẵn nên đồ thị nhận trục tung Oy làm trục đối xứng; và vì tuần hoàn với chu kì 2 pi nên đồ thị cũng là một đường cong hình sin lặp lại sau mỗi khoảng 2 pi. Đồ thị hàm số cos x có được bằng cách tịnh tiến đồ thị hàm số sin x sang trái một đoạn pi chia 2. Đồ thị cắt trục tung tại điểm (0; 1), cắt trục hoành tại các điểm pi chia 2 cộng k pi. Hàm số đồng biến trên mỗi khoảng từ trừ pi cộng k hai pi đến k hai pi; và nghịch biến trên mỗi khoảng từ k hai pi đến pi cộng k hai pi, với k thuộc Z.",
       checkpoints: [
         {
           id: "poi-11-3-sec4-1",
@@ -1035,7 +1035,7 @@ window.LESSON_11_C1_B3_DATA = {
       title: "Đồ thị và tính chất của hàm số y = tan x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
         <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-calculator"></i> HĐ 6 (SGK trang 28): Khảo sát vẽ đồ thị hàm số y = tan x</h5>
-        <p style="color: #334155; line-height: 1.6;">Do $y = \tan x$ là hàm số lẻ và tuần hoàn với chu kì $\pi$ nên ta chỉ cần khảo sát trên nửa khoảng $\left[0; \dfrac{\pi}{2}\right)$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $\left(-\dfrac{\pi}{2}; \dfrac{\pi}{2}\right)$, rồi tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\pi$.</p>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \\tan x$ là hàm số lẻ và tuần hoàn với chu kì $\\pi$ nên ta chỉ cần khảo sát trên nửa khoảng $\\left[0; \\dfrac{\\pi}{2}\\right)$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $\\left(-\\dfrac{\\pi}{2}; \\dfrac{\\pi}{2}\\right)$, rồi tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\\pi$.</p>
         
         <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = TAN X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
         <div class="math-table-container">
@@ -1043,25 +1043,25 @@ window.LESSON_11_C1_B3_DATA = {
             <thead class="table-success">
               <tr>
                 <th>$x$</th>
-                <th>$-\dfrac{\pi}{3}$</th>
-                <th>$-\dfrac{\pi}{4}$</th>
-                <th>$-\dfrac{\pi}{6}$</th>
+                <th>$-\\dfrac{\\pi}{3}$</th>
+                <th>$-\\dfrac{\\pi}{4}$</th>
+                <th>$-\\dfrac{\\pi}{6}$</th>
                 <th>$0$</th>
-                <th>$\dfrac{\pi}{6}$</th>
-                <th>$\dfrac{\pi}{4}$</th>
-                <th>$\dfrac{\pi}{3}$</th>
+                <th>$\\dfrac{\\pi}{6}$</th>
+                <th>$\\dfrac{\\pi}{4}$</th>
+                <th>$\\dfrac{\\pi}{3}$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \tan x$</td>
-                <td>$-\sqrt{3}$</td>
+                <td class="fw-bold">$y = \\tan x$</td>
+                <td>$-\\sqrt{3}$</td>
                 <td>$-1$</td>
-                <td>$-\dfrac{\sqrt{3}}{3}$</td>
+                <td>$-\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$0$</td>
-                <td>$\dfrac{\sqrt{3}}{3}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$1$</td>
-                <td>$\sqrt{3}$</td>
+                <td>$\\sqrt{3}$</td>
               </tr>
             </tbody>
           </table>
@@ -1070,23 +1070,23 @@ window.LESSON_11_C1_B3_DATA = {
 
       <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ TANG: CARD SƯ PHẠM XANH LỤC NỔI BẬT -->
       <div class="math-func-card card-tan mb-3">
-        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \tan x$ (SGK TRANG 28)</div>
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \\tan x$ (SGK TRANG 28)</div>
         <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \left\{\dfrac{\pi}{2} + k\pi \;\middle|\; k \in \mathbb{Z}\right\}$</span>
-          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$</span>
+          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\\mathbb{R}$</span>
           <span class="math-badge math-badge-primary"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
-          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \pi$</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \\pi$</span>
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
-          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Tính đơn điệu:</b> <b>Luôn đồng biến</b> trên mỗi khoảng xác định $\left(-\dfrac{\pi}{2} + k\pi; \dfrac{\pi}{2} + k\pi\right), k \in \mathbb{Z}$.</div>
-          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = \dfrac{\pi}{2} + k\pi\ (k \in \mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
-          <div style="margin-top: 6px;"><b style="color: #059669;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong đồng biến đi lên, cắt $Ox$ tại các điểm $(k\pi; 0)$.</div>
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Tính đơn điệu:</b> <b>Luôn đồng biến</b> trên mỗi khoảng xác định $\\left(-\\dfrac{\\pi}{2} + k\\pi; \\dfrac{\\pi}{2} + k\\pi\\right), k \\in \\mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = \\dfrac{\\pi}{2} + k\\pi\ (k \\in \\mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
+          <div style="margin-top: 6px;"><b style="color: #059669;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong đồng biến đi lên, cắt $Ox$ tại các điểm $(k\\pi; 0)$.</div>
         </div>
       </div>
 
       <!-- HÌNH 1.16 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.16: ĐỒ THỊ HÀM SỐ $y = \tan x$ TRÊN $\mathbb{R}$ (SGK TRANG 28)</div>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.16: ĐỒ THỊ HÀM SỐ $y = \\tan x$ TRÊN $\\mathbb{R}$ (SGK TRANG 28)</div>
         <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
           <!-- Các đường tiệm cận đứng nét đứt màu đỏ cam x = pi/2 + k*pi -->
           <line x1="200" y1="20" x2="200" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
@@ -1094,10 +1094,10 @@ window.LESSON_11_C1_B3_DATA = {
           <line x1="440" y1="20" x2="440" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
           <line x1="560" y1="20" x2="560" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
 
-          <text x="180" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-3\pi/2</text>
-          <text x="306" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\pi/2</text>
-          <text x="432" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\pi/2</text>
-          <text x="548" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">3\pi/2</text>
+          <text x="180" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-3\\pi/2</text>
+          <text x="306" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\\pi/2</text>
+          <text x="432" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\\pi/2</text>
+          <text x="548" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">3\\pi/2</text>
 
           <!-- Hệ trục toạ độ Ox, Oy -->
           <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
@@ -1114,16 +1114,16 @@ window.LESSON_11_C1_B3_DATA = {
           <path d="M 448.0,236.0 L 450.0,236.0 L 452.0,236.0 L 454.0,221.2 L 456.0,208.6 L 458.0,198.7 L 460.0,190.6 L 462.0,183.9 L 464.0,178.2 L 466.0,173.2 L 468.0,168.9 L 470.0,165.0 L 472.0,161.5 L 474.0,158.3 L 476.0,155.4 L 478.0,152.7 L 480.0,150.2 L 482.0,147.8 L 484.0,145.6 L 486.0,143.4 L 488.0,141.4 L 490.0,139.4 L 492.0,137.4 L 494.0,135.5 L 496.0,133.7 L 498.0,131.8 L 500.0,130.0 L 502.0,128.2 L 504.0,126.3 L 506.0,124.5 L 508.0,122.6 L 510.0,120.6 L 512.0,118.6 L 514.0,116.6 L 516.0,114.4 L 518.0,112.2 L 520.0,109.8 L 522.0,107.3 L 524.0,104.6 L 526.0,101.7 L 528.0,98.5 L 530.0,95.0 L 532.0,91.1 L 534.0,86.8 L 536.0,81.8 L 538.0,76.1 L 540.0,69.4 L 542.0,61.3 L 544.0,51.4 L 546.0,38.8 L 548.0,24.0 L 550.0,24.0 L 552.0,24.0" fill="none" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>
 
           <!-- Giao điểm với trục Ox (260: -pi, 380: 0, 500: pi) -->
-          <circle cx="260" cy="130" r="4" fill="#059669"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi</text>
+          <circle cx="260" cy="130" r="4" fill="#059669"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\\pi</text>
           <circle cx="380" cy="130" r="4" fill="#059669"/>
-          <circle cx="500" cy="130" r="4" fill="#059669"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi</text>
+          <circle cx="500" cy="130" r="4" fill="#059669"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\\pi</text>
 
           <!-- Điểm mẫu pi/4: tan(pi/4) = 1 (X = 410, Y = 95) -->
           <circle cx="410" cy="95" r="3.5" fill="#dc2626"/>
           <line x1="410" y1="130" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
           <line x1="380" y1="95" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
           <text x="365" y="98" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">1</text>
-          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\pi/4</text>
+          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\\pi/4</text>
 
           <!-- Hộp ghi chú sư phạm -->
           <rect x="475" y="26" width="235" height="28" rx="6" fill="#f0fdf4" stroke="#bbf7d0"/>
@@ -1192,7 +1192,7 @@ window.LESSON_11_C1_B3_DATA = {
       title: "Đồ thị và tính chất của hàm số y = cot x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
         <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-table-cells"></i> HĐ 7 (SGK trang 29): Khảo sát vẽ đồ thị hàm số y = cot x</h5>
-        <p style="color: #334155; line-height: 1.6;">Do $y = \cot x$ là hàm số lẻ và tuần hoàn với chu kì $\pi$ nên ta chỉ cần khảo sát trên khoảng $(0; \pi)$, sau đó tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\pi$ để thu được toàn bộ đồ thị trên tập xác định.</p>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \\cot x$ là hàm số lẻ và tuần hoàn với chu kì $\\pi$ nên ta chỉ cần khảo sát trên khoảng $(0; \\pi)$, sau đó tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\\pi$ để thu được toàn bộ đồ thị trên tập xác định.</p>
         
         <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = COT X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
         <div class="math-table-container">
@@ -1200,25 +1200,25 @@ window.LESSON_11_C1_B3_DATA = {
             <thead class="table-purple">
               <tr>
                 <th>$x$</th>
-                <th>$\dfrac{\pi}{6}$</th>
-                <th>$\dfrac{\pi}{4}$</th>
-                <th>$\dfrac{\pi}{3}$</th>
-                <th>$\dfrac{\pi}{2}$</th>
-                <th>$\dfrac{2\pi}{3}$</th>
-                <th>$\dfrac{3\pi}{4}$</th>
-                <th>$\dfrac{5\pi}{6}$</th>
+                <th>$\\dfrac{\\pi}{6}$</th>
+                <th>$\\dfrac{\\pi}{4}$</th>
+                <th>$\\dfrac{\\pi}{3}$</th>
+                <th>$\\dfrac{\\pi}{2}$</th>
+                <th>$\\dfrac{2\\pi}{3}$</th>
+                <th>$\\dfrac{3\\pi}{4}$</th>
+                <th>$\\dfrac{5\\pi}{6}$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \cot x$</td>
-                <td>$\sqrt{3}$</td>
+                <td class="fw-bold">$y = \\cot x$</td>
+                <td>$\\sqrt{3}$</td>
                 <td>$1$</td>
-                <td>$\dfrac{\sqrt{3}}{3}$</td>
+                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$0$</td>
-                <td>$-\dfrac{\sqrt{3}}{3}$</td>
+                <td>$-\\dfrac{\\sqrt{3}}{3}$</td>
                 <td>$-1$</td>
-                <td>$-\sqrt{3}$</td>
+                <td>$-\\sqrt{3}$</td>
               </tr>
             </tbody>
           </table>
@@ -1227,23 +1227,23 @@ window.LESSON_11_C1_B3_DATA = {
 
       <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ CÔTANG: CARD SƯ PHẠM VÀNG CAM NỔI BẬT -->
       <div class="math-func-card card-cot mb-3">
-        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \cot x$ (SGK TRANG 30)</div>
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \\cot x$ (SGK TRANG 30)</div>
         <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \{k\pi \mid k \in \mathbb{Z}\}$</span>
-          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$</span>
+          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\\mathbb{R}$</span>
           <span class="math-badge math-badge-primary"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
-          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \pi$</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \\pi$</span>
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
-          <div><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Tính đơn điệu:</b> <b>Luôn nghịch biến</b> trên mỗi khoảng xác định $(k\pi; \pi + k\pi), k \in \mathbb{Z}$.</div>
-          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = k\pi\ (k \in \mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
-          <div style="margin-top: 6px;"><b style="color: #d97706;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong nghịch biến đi xuống, cắt $Ox$ tại các điểm $\left(\dfrac{\pi}{2} + k\pi; 0\right)$.</div>
+          <div><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Tính đơn điệu:</b> <b>Luôn nghịch biến</b> trên mỗi khoảng xác định $(k\\pi; \\pi + k\\pi), k \\in \\mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = k\\pi\ (k \\in \\mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
+          <div style="margin-top: 6px;"><b style="color: #d97706;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong nghịch biến đi xuống, cắt $Ox$ tại các điểm $\\left(\\dfrac{\\pi}{2} + k\\pi; 0\\right)$.</div>
         </div>
       </div>
 
       <!-- HÌNH 1.17 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.17: ĐỒ THỊ HÀM SỐ $y = \cot x$ TRÊN $\mathbb{R}$ (SGK TRANG 29)</div>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.17: ĐỒ THỊ HÀM SỐ $y = \\cot x$ TRÊN $\\mathbb{R}$ (SGK TRANG 29)</div>
         <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
           <!-- Các đường tiệm cận đứng nét đứt màu đỏ cam x = k*pi -->
           <line x1="140" y1="20" x2="140" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
@@ -1251,10 +1251,10 @@ window.LESSON_11_C1_B3_DATA = {
           <line x1="500" y1="20" x2="500" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
           <line x1="620" y1="20" x2="620" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
 
-          <text x="126" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-2\pi</text>
-          <text x="252" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\pi</text>
-          <text x="496" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\pi</text>
-          <text x="614" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">2\pi</text>
+          <text x="126" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-2\\pi</text>
+          <text x="252" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\\pi</text>
+          <text x="496" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\\pi</text>
+          <text x="614" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">2\\pi</text>
 
           <!-- Hệ trục toạ độ Ox, Oy (Oy trùng tiệm cận x = 0) -->
           <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
@@ -1271,16 +1271,16 @@ window.LESSON_11_C1_B3_DATA = {
           <path d="M 508.0,24.0 L 510.0,24.0 L 512.0,24.0 L 514.0,38.8 L 516.0,51.4 L 518.0,61.3 L 520.0,69.4 L 522.0,76.1 L 524.0,81.8 L 526.0,86.8 L 528.0,91.1 L 530.0,95.0 L 532.0,98.5 L 534.0,101.7 L 536.0,104.6 L 538.0,107.3 L 540.0,109.8 L 542.0,112.2 L 544.0,114.4 L 546.0,116.6 L 548.0,118.6 L 550.0,120.6 L 552.0,122.6 L 554.0,124.5 L 556.0,126.3 L 558.0,128.2 L 560.0,130.0 L 562.0,131.8 L 564.0,133.7 L 566.0,135.5 L 568.0,137.4 L 570.0,139.4 L 572.0,141.4 L 574.0,143.4 L 576.0,145.6 L 578.0,147.8 L 580.0,150.2 L 582.0,152.7 L 584.0,155.4 L 586.0,158.3 L 588.0,161.5 L 590.0,165.0 L 592.0,168.9 L 594.0,173.2 L 596.0,178.2 L 598.0,183.9 L 600.0,190.6 L 602.0,198.7 L 604.0,208.6 L 606.0,221.2 L 608.0,236.0 L 610.0,236.0 L 612.0,236.0" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linecap="round"/>
 
           <!-- Giao điểm với trục Ox (320: -pi/2, 440: pi/2, 560: 3pi/2) -->
-          <circle cx="320" cy="130" r="4" fill="#d97706"/><text x="306" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
-          <circle cx="440" cy="130" r="4" fill="#d97706"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
-          <circle cx="560" cy="130" r="4" fill="#d97706"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
+          <circle cx="320" cy="130" r="4" fill="#d97706"/><text x="306" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\\pi/2</text>
+          <circle cx="440" cy="130" r="4" fill="#d97706"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\\pi/2</text>
+          <circle cx="560" cy="130" r="4" fill="#d97706"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\\pi/2</text>
 
           <!-- Điểm mẫu pi/4: cot(pi/4) = 1 (X = 410, Y = 95) -->
           <circle cx="410" cy="95" r="3.5" fill="#dc2626"/>
           <line x1="410" y1="130" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
           <line x1="380" y1="95" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
           <text x="365" y="98" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">1</text>
-          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\pi/4</text>
+          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\\pi/4</text>
 
           <!-- Hộp ghi chú sư phạm -->
           <rect x="475" y="26" width="235" height="28" rx="6" fill="#fffbeb" stroke="#fde68a"/>
@@ -1397,8 +1397,8 @@ window.LESSON_11_C1_B3_DATA = {
           </tr>
           <tr>
             <td class="fw-bold bg-light">Tính đơn điệu</td>
-            <td>ĐB trên $\\left(-\\dfrac{\\pi}{2}+k2\\pi; \\dfrac{\\pi}{2}+k2\\pi\\right)$<br>NB trên $\\left(\\dfrac{\\pi}{2}+k2\\pi; \\dfrac{3\\pi}{2}+k2\\pi\\right)$</td>
-            <td>ĐB trên $(-\\pi+k2\\pi; k2\\pi)$<br>NB trên $(k2\\pi; \\pi+k2\\pi)$</td>
+            <td>ĐB trên $\\left(-\\dfrac{\\pi}{2}+ k2\pi; \\dfrac{\\pi}{2}+ k2\pi\\right)$<br>NB trên $\\left(\\dfrac{\\pi}{2}+ k2\pi; \\dfrac{3\\pi}{2}+ k2\pi\\right)$</td>
+            <td>ĐB trên $(-\\pi+ k2\pi; k2\pi)$<br>NB trên $(k2\pi; \\pi+ k2\pi)$</td>
             <td><span class="text-success fw-bold">Luôn đồng biến</span> trên mỗi khoảng xác định</td>
             <td><span class="text-danger fw-bold">Luôn nghịch biến</span> trên mỗi khoảng xác định</td>
           </tr>
@@ -1457,7 +1457,7 @@ window.LESSON_11_C1_B3_DATA = {
           "$D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$",
           "$D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$",
           "$D = \\mathbb{R}$",
-          "$D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k2\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$"
+          "$D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k2\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$"
         ],
         correctIndex: 1,
         correctAnswer: "B",
@@ -1584,7 +1584,7 @@ window.LESSON_11_C1_B3_DATA = {
         correctAnswer: "1",
         acceptableAnswers: ["1", "1.0", "1,0"],
         hint: "Với mọi góc u, ta luôn có sin u <= 1.",
-        explain: "Với mọi $x \\in \\mathbb{R}$, ta luôn có $\\sin\\left(x - \\dfrac{\\pi}{4}\\right) \\le 1$. Do đó: $y = 2\\sin\\left(x - \\dfrac{\\pi}{4}\\right) - 1 \\le 2(1) - 1 = 1$. Dấu đẳng thức xảy ra khi $\\sin\\left(x - \\dfrac{\\pi}{4}\\right) = 1 \\Leftrightarrow x - \\dfrac{\\pi}{4} = \\dfrac{\\pi}{2} + k2\\pi \\Leftrightarrow x = \\dfrac{3\\pi}{4} + k2\\pi\\ (k \\in \\mathbb{Z})$. Vậy giá trị lớn nhất của hàm số là 1."
+        explain: "Với mọi $x \\in \\mathbb{R}$, ta luôn có $\\sin\\left(x - \\dfrac{\\pi}{4}\\right) \\le 1$. Do đó: $y = 2\\sin\\left(x - \\dfrac{\\pi}{4}\\right) - 1 \\le 2(1) - 1 = 1$. Dấu đẳng thức xảy ra khi $\\sin\\left(x - \\dfrac{\\pi}{4}\\right) = 1 \\Leftrightarrow x - \\dfrac{\\pi}{4} = \\dfrac{\\pi}{2} + k2\pi \\Leftrightarrow x = \\dfrac{3\\pi}{4} + k2\pi\\ (k \\in \\mathbb{Z})$. Vậy giá trị lớn nhất của hàm số là 1."
       },
       {
         id: "sa-11-3-2",
