@@ -5800,3 +5800,212 @@ textarea.form-control {
 .score-badge-hist.good { background: #dbeafe; color: #1d4ed8; }
 .score-badge-hist.average { background: #fef3c7; color: #b45309; }
 .score-badge-hist.needs-work { background: #fee2e2; color: #b91c1c; }
+
+/* ==========================================================================
+   QUY CHUAN SU PHAM TOAN HOC: BANG BIEU & MAU SAC KICH THICH THI GIAC (THAY SANG 5 SAO)
+   ========================================================================== */
+
+/* 1. KHUNG VA BANG TOAN HOC CHUAN MUC (TABLE & TABLE-BORDERED) */
+.table-responsive,
+.math-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+}
+
+.table,
+.math-table,
+.table-bordered {
+  width: 100%;
+  border-collapse: collapse !important;
+  text-align: center;
+  background: #ffffff;
+  margin: 0 !important;
+  font-family: inherit;
+}
+
+.table th,
+.table td,
+.math-table th,
+.math-table td,
+.table-bordered th,
+.table-bordered td {
+  border: 1.5px solid #cbd5e1 !important;
+  padding: 11px 14px !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  font-size: 0.95rem;
+}
+
+/* Header Bang Xanh Duong Hoang Gia (Mac dinh) */
+.table thead th,
+.table th.table-primary,
+.table-primary th,
+.math-table thead th,
+.table-bordered thead th {
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.3px;
+  border-color: #1e40af !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Bang Vang Ho Phach (Muc 4: Cosin) */
+.table thead.table-warning th,
+.table-warning th {
+  background: linear-gradient(135deg, #b45309 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-color: #b45309 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Bang Xanh Ngoc Luc Bao (Muc 5: Tang) */
+.table thead.table-success th,
+.table-success th {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-color: #047857 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Bang Tim Thach Anh (Muc 6: Cotang) */
+.table thead.table-purple th,
+.table-purple th {
+  background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-color: #6b21a8 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Dong chan le & Hieu ung hover */
+.table tbody tr:nth-child(even) td,
+.math-table tbody tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
+
+.table tbody tr:hover td,
+.math-table tbody tr:hover td {
+  background-color: #eff6ff !important;
+}
+
+/* Cot tieu de hang (Cot dau tien) */
+.table td.fw-bold,
+.table th.row-header,
+.math-table td.fw-bold {
+  font-weight: 700 !important;
+  color: #1e3a8a !important;
+  background-color: #f1f5f9;
+}
+
+/* O bao loi hoac Khong xac dinh */
+.table td.text-danger,
+.table td.not-defined {
+  color: #dc2626 !important;
+  font-weight: 700 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* 2. THE CARD HAM SO SU PHAM (MATH FUNCTION CARDS) */
+.math-func-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.math-func-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09);
+}
+
+.math-func-card.card-sin {
+  border-left: 6px solid #dc2626;
+  background: linear-gradient(to right, #fff5f5 0%, #ffffff 15%);
+}
+
+.math-func-card.card-cos {
+  border-left: 6px solid #2563eb;
+  background: linear-gradient(to right, #eff6ff 0%, #ffffff 15%);
+}
+
+.math-func-card.card-tan {
+  border-left: 6px solid #059669;
+  background: linear-gradient(to right, #f0fdf4 0%, #ffffff 15%);
+}
+
+.math-func-card.card-cot {
+  border-left: 6px solid #d97706;
+  background: linear-gradient(to right, #fffbeb 0%, #ffffff 15%);
+}
+
+.math-func-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.math-func-card.card-sin .math-func-title { color: #dc2626; }
+.math-func-card.card-cos .math-func-title { color: #2563eb; }
+.math-func-card.card-tan .math-func-title { color: #059669; }
+.math-func-card.card-cot .math-func-title { color: #d97706; }
+
+/* 3. HUY HIEU SU PHAM (MATH BADGES) */
+.math-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-right: 8px;
+  margin-bottom: 6px;
+}
+
+.math-badge-primary { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.math-badge-danger { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+.math-badge-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.math-badge-warning { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+.math-badge-purple { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+/* 4. TIEU DE DE MUC MAU SAC KICH THICH THI GIAC */
+.section-heading-blue {
+  color: #1e40af !important;
+  font-weight: 800 !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-heading-red {
+  color: #dc2626 !important;
+  font-weight: 800 !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.highlight-box-pedagogy {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}

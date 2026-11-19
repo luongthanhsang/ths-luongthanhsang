@@ -199,81 +199,110 @@ window.LESSON_11_C1_B3_DATA = {
       num: "1",
       title: "Định nghĩa các hàm số lượng giác",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
-        <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-compass"></i> HĐ1 (SGK trang 22): Khảo sát giá trị lượng giác theo biến số thực</h5>
-        <p>Trên đường tròn lượng giác gốc $A(1;0)$, mỗi số thực $x$ xác định duy nhất một điểm $M$ sao cho số đo góc lượng giác $(OA, OM) = x\\text{ rad}$.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm text-center align-middle bg-white mb-0">
-            <thead class="table-primary">
+        <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-compass"></i> HĐ 1 (SGK trang 22): Khảo sát giá trị lượng giác theo biến số thực</h5>
+        <p style="color: #334155; line-height: 1.6;">Trên đường tròn lượng giác gốc $A(1;0)$, mỗi số thực $x$ xác định duy nhất một điểm $M$ sao cho số đo góc lượng giác $(OA, OM) = x\text{ rad}$.</p>
+        
+        <!-- BẢNG GIÁ TRỊ LƯỢNG GIÁC CÁC GÓC ĐẶC BIỆT (HÌNH 1: KẺ BẢNG LƯỚI SẮC NÉT THẨM MĨ) -->
+        <div class="math-table-container">
+          <table class="math-table table-bordered">
+            <thead>
               <tr>
-                <th>$x$</th>
-                <th>$0$</th>
-                <th>$\\dfrac{\\pi}{6}$</th>
-                <th>$\\dfrac{\\pi}{4}$</th>
-                <th>$\\dfrac{\\pi}{3}$</th>
-                <th>$\\dfrac{\\pi}{2}$</th>
-                <th>$\\pi$</th>
+                <th style="width: 14%;">$x$</th>
+                <th style="width: 14%;">$0$</th>
+                <th style="width: 14%;">$\dfrac{\pi}{6}$</th>
+                <th style="width: 14%;">$\dfrac{\pi}{4}$</th>
+                <th style="width: 14%;">$\dfrac{\pi}{3}$</th>
+                <th style="width: 15%;">$\dfrac{\pi}{2}$</th>
+                <th style="width: 15%;">$\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$\\sin x$</td>
+                <td class="fw-bold">$\sin x$</td>
                 <td>$0$</td>
-                <td>$\\dfrac{1}{2}$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
-                <td>$\\dfrac{\\sqrt{3}}{2}$</td>
+                <td>$\dfrac{1}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\dfrac{\sqrt{3}}{2}$</td>
                 <td>$1$</td>
                 <td>$0$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\\cos x$</td>
+                <td class="fw-bold">$\cos x$</td>
                 <td>$1$</td>
-                <td>$\\dfrac{\\sqrt{3}}{2}$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
-                <td>$\\dfrac{1}{2}$</td>
+                <td>$\dfrac{\sqrt{3}}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
+                <td>$\dfrac{1}{2}$</td>
                 <td>$0$</td>
                 <td>$-1$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\\tan x$</td>
+                <td class="fw-bold">$\tan x$</td>
                 <td>$0$</td>
-                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$\dfrac{\sqrt{3}}{3}$</td>
                 <td>$1$</td>
-                <td>$\\sqrt{3}$</td>
-                <td class="text-danger fw-bold">Không XĐ</td>
+                <td>$\sqrt{3}$</td>
+                <td class="text-danger fw-bold not-defined">Không XĐ</td>
                 <td>$0$</td>
               </tr>
               <tr>
-                <td class="fw-bold">$\\cot x$</td>
-                <td class="text-danger fw-bold">Không XĐ</td>
-                <td>$\\sqrt{3}$</td>
+                <td class="fw-bold">$\cot x$</td>
+                <td class="text-danger fw-bold not-defined">Không XĐ</td>
+                <td>$\sqrt{3}$</td>
                 <td>$1$</td>
-                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$\dfrac{\sqrt{3}}{3}$</td>
                 <td>$0$</td>
-                <td class="text-danger fw-bold">Không XĐ</td>
+                <td class="text-danger fw-bold not-defined">Không XĐ</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="alert-box alert-success mb-3">
-        <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-book-bookmark"></i> ĐỊNH NGHĨA 4 HÀM SỐ LƯỢNG GIÁC CƠ BẢN (SGK TRANG 23)</h5>
-        <ul>
-          <li><b>1. Hàm số sin:</b> Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\\sin x$ được gọi là hàm số sin, kí hiệu $y = \\sin x$.<br>
-          • <b>Tập xác định:</b> $D = \\mathbb{R}$.<br>
-          • <b>Tập giá trị:</b> $[-1; 1]$, nghĩa là $-1 \\le \\sin x \\le 1$ với mọi $x \\in \\mathbb{R}$.</li>
-          <li class="mt-2"><b>2. Hàm số côsin:</b> Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\\cos x$ được gọi là hàm số côsin, kí hiệu $y = \\cos x$.<br>
-          • <b>Tập xác định:</b> $D = \\mathbb{R}$.<br>
-          • <b>Tập giá trị:</b> $[-1; 1]$, nghĩa là $-1 \\le \\cos x \\le 1$ với mọi $x \\in \\mathbb{R}$.</li>
-          <li class="mt-2"><b>3. Hàm số tang:</b> Hàm số cho bởi công thức $y = \\dfrac{\\sin x}{\\cos x}$ được gọi là hàm số tang, kí hiệu $y = \\tan x$.<br>
-          • Biểu thức có nghĩa khi $\\cos x \\ne 0 \\Leftrightarrow x \\ne \\dfrac{\\pi}{2} + k\\pi\\ (k \\in \\mathbb{Z})$.<br>
-          • <b>Tập xác định:</b> $D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$.<br>
-          • <b>Tập giá trị:</b> $\\mathbb{R}$.</li>
-          <li class="mt-2"><b>4. Hàm số côtang:</b> Hàm số cho bởi công thức $y = \\dfrac{\\cos x}{\\sin x}$ được gọi là hàm số côtang, kí hiệu $y = \\cot x$.<br>
-          • Biểu thức có nghĩa khi $\\sin x \\ne 0 \\Leftrightarrow x \\ne k\\pi\\ (k \\in \\mathbb{Z})$.<br>
-          • <b>Tập xác định:</b> $D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$.<br>
-          • <b>Tập giá trị:</b> $\\mathbb{R}$.</li>
-        </ul>
+      <!-- ĐỊNH NGHĨA 4 HÀM SỐ LƯỢNG GIÁC (HÌNH 2: CARD SƯ PHẠM MÀU SẮC KÍCH THÍCH THỊ GIÁC) -->
+      <div class="mb-3">
+        <h5 class="fw-bold section-heading-red mb-3"><i class="fa-solid fa-book-bookmark"></i> ĐỊNH NGHĨA 4 HÀM SỐ LƯỢNG GIÁC CƠ BẢN (SGK TRANG 23)</h5>
+        
+        <!-- 1. HÀM SỐ SIN -->
+        <div class="math-func-card card-sin">
+          <div class="math-func-title"><i class="fa-solid fa-wave-square"></i> 1. HÀM SỐ SIN ($y = \sin x$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\sin x$ được gọi là <b>hàm số sin</b>, kí hiệu $y = \sin x$.</p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+            <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
+            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \le \sin x \le 1$ với mọi $x \in \mathbb{R}$)</span>
+          </div>
+        </div>
+
+        <!-- 2. HÀM SỐ CÔSIN -->
+        <div class="math-func-card card-cos">
+          <div class="math-func-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> 2. HÀM SỐ CÔSIN ($y = \cos x$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Quy tắc đặt tương ứng mỗi số thực $x$ với số thực $\cos x$ được gọi là <b>hàm số côsin</b>, kí hiệu $y = \cos x$.</p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+            <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+            <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
+            <span style="font-size: 0.88rem; color: #64748b; font-style: italic;">(nghĩa là $-1 \le \cos x \le 1$ với mọi $x \in \mathbb{R}$)</span>
+          </div>
+        </div>
+
+        <!-- 3. HÀM SỐ TANG -->
+        <div class="math-func-card card-tan">
+          <div class="math-func-title"><i class="fa-solid fa-chart-line"></i> 3. HÀM SỐ TANG ($y = \tan x = \dfrac{\sin x}{\cos x}$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \dfrac{\sin x}{\cos x}$ được gọi là <b>hàm số tang</b>, kí hiệu $y = \tan x$. Biểu thức có nghĩa khi $\cos x \ne 0 \Leftrightarrow x \ne \dfrac{\pi}{2} + k\pi\ (k \in \mathbb{Z})$.</p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+            <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \left\{\dfrac{\pi}{2} + k\pi \;\middle|\; k \in \mathbb{Z}\right\}$</span>
+            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          </div>
+        </div>
+
+        <!-- 4. HÀM SỐ CÔTANG -->
+        <div class="math-func-card card-cot">
+          <div class="math-func-title"><i class="fa-solid fa-chart-pie"></i> 4. HÀM SỐ CÔTANG ($y = \cot x = \dfrac{\cos x}{\sin x}$)</div>
+          <p style="margin-bottom: 8px; color: #1e293b; line-height: 1.6;">Hàm số cho bởi công thức $y = \dfrac{\cos x}{\sin x}$ được gọi là <b>hàm số côtang</b>, kí hiệu $y = \cot x$. Biểu thức có nghĩa khi $\sin x \ne 0 \Leftrightarrow x \ne k\pi\ (k \in \mathbb{Z})$.</p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+            <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \{k\pi \mid k \in \mathbb{Z}\}$</span>
+            <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          </div>
+        </div>
       </div>
 
       <div class="text-center my-3">
@@ -661,35 +690,37 @@ window.LESSON_11_C1_B3_DATA = {
       num: "3",
       title: "Đồ thị và tính chất của hàm số y = sin x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
-        <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-chart-line"></i> HĐ4 (SGK trang 25): Khảo sát vẽ đồ thị hàm số y = sin x</h5>
-        <p>Do $y = \\sin x$ là hàm số lẻ nên ta vẽ trên đoạn $[0; \\pi]$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $[-\\pi; \\pi]$, rồi tịnh tiến theo chu kì $2\\pi$ để thu được toàn bộ đồ thị trên $\\mathbb{R}$.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm text-center align-middle bg-white mb-0">
-            <thead class="table-info">
+        <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-chart-line"></i> HĐ 4 (SGK trang 25): Khảo sát vẽ đồ thị hàm số y = sin x</h5>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \sin x$ là hàm số lẻ nên ta vẽ trên đoạn $[0; \pi]$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $[-\pi; \pi]$, rồi tịnh tiến theo chu kì $2\pi$ để thu được toàn bộ đồ thị trên $\mathbb{R}$.</p>
+        
+        <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = SIN X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
+        <div class="math-table-container">
+          <table class="math-table table-bordered">
+            <thead class="table-primary">
               <tr>
                 <th>$x$</th>
-                <th>$-\\pi$</th>
-                <th>$-\\dfrac{3\\pi}{4}$</th>
-                <th>$-\\dfrac{\\pi}{2}$</th>
-                <th>$-\\dfrac{\\pi}{4}$</th>
+                <th>$-\pi$</th>
+                <th>$-\dfrac{3\pi}{4}$</th>
+                <th>$-\dfrac{\pi}{2}$</th>
+                <th>$-\dfrac{\pi}{4}$</th>
                 <th>$0$</th>
-                <th>$\\dfrac{\\pi}{4}$</th>
-                <th>$\\dfrac{\\pi}{2}$</th>
-                <th>$\\dfrac{3\\pi}{4}$</th>
-                <th>$\\pi$</th>
+                <th>$\dfrac{\pi}{4}$</th>
+                <th>$\dfrac{\pi}{2}$</th>
+                <th>$\dfrac{3\pi}{4}$</th>
+                <th>$\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \\sin x$</td>
+                <td class="fw-bold">$y = \sin x$</td>
                 <td>$0$</td>
-                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$-\dfrac{\sqrt{2}}{2}$</td>
                 <td>$-1$</td>
-                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$-\dfrac{\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
                 <td>$1$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
                 <td>$0$</td>
               </tr>
             </tbody>
@@ -697,109 +728,75 @@ window.LESSON_11_C1_B3_DATA = {
         </div>
       </div>
 
-      <div class="alert-box alert-success mb-3">
-        <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT CỦA HÀM SỐ $y = \\sin x$ (SGK TRANG 26)</h5>
-        <ul>
-          <li><b>Tập xác định:</b> $D = \\mathbb{R}$.</li>
-          <li><b>Tập giá trị:</b> $[-1; 1]$, nghĩa là $-1 \\le \\sin x \\le 1$.</li>
-          <li><b>Tính chất chẵn lẻ:</b> Là hàm số <b>lẻ</b>, đồ thị đối xứng qua <b>gốc toạ độ $O$</b>.</li>
-          <li><b>Tính tuần hoàn:</b> Tuần hoàn với chu kì <b>$T = 2\\pi$</b>.</li>
-          <li><b>Tính đơn điệu:</b>
-            <br>• Đồng biến trên mỗi khoảng: $\\left(-\\dfrac{\\pi}{2} + k2\\pi; \\dfrac{\\pi}{2} + k2\\pi\\right), k \\in \\mathbb{Z}$.
-            <br>• Nghịch biến trên mỗi khoảng: $\\left(\\dfrac{\\pi}{2} + k2\\pi; \\dfrac{3\\pi}{2} + k2\\pi\\right), k \\in \\mathbb{Z}$.
-          </li>
-          <li><b>Dạng đồ thị:</b> Là một đường lượn sóng liên tục gọi là <b>đường hình sin</b> (sine wave).</li>
-        </ul>
+      <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ SIN: CARD SƯ PHẠM ĐỎ NỔI BẬT -->
+      <div class="math-func-card card-sin mb-3">
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \sin x$ (SGK TRANG 26)</div>
+        <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+          <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
+          <span class="math-badge math-badge-purple"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\pi$</span>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $\left(-\dfrac{\pi}{2} + k2\pi; \dfrac{\pi}{2} + k2\pi\right), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $\left(\dfrac{\pi}{2} + k2\pi; \dfrac{3\pi}{2} + k2\pi\right), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #1d4ed8;"><i class="fa-solid fa-wave-square"></i> Dạng đồ thị:</b> Là một đường lượn sóng liên tục gọi là <b>đường hình sin</b> (sine wave), đi qua gốc toạ độ $O(0; 0)$.</div>
+        </div>
       </div>
 
-      <!-- HÌNH 1.14 SGK CHUẨN XÁC -->
+      <!-- HÌNH 1.14 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.14: ĐỒ THỊ HÀM SỐ $y = \\sin x$ TRÊN $\\mathbb{R}$ (SGK TRANG 25)</div>
-        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
-          <!-- Trục tọa độ -->
-          <line x1="30" y1="130" x2="720" y2="130" stroke="#334155" stroke-width="1.8"/>
-          <line x1="380" y1="240" x2="380" y2="20" stroke="#334155" stroke-width="1.8"/>
-          <polygon points="720,130 710,126 710,134" fill="#334155"/>
-          <polygon points="380,20 376,30 384,30" fill="#334155"/>
-          <text x="715" y="150" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">x</text>
-          <text x="360" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">y</text>
-          <text x="368" y="146" font-family="sans-serif" font-size="12" fill="#64748b">O</text>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.14: ĐỒ THỊ HÀM SỐ $y = \sin x$ TRÊN $\mathbb{R}$ (SGK TRANG 25)</div>
+        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
+          <!-- Đường dóng biên độ y = 1 và y = -1 -->
+          <line x1="40" y1="70" x2="720" y2="70" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <line x1="40" y1="190" x2="720" y2="190" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <text x="365" y="74" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e293b">1</text>
+          <text x="360" y="194" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e293b">-1</text>
 
-          <!-- Giới hạn y = 1 và y = -1 -->
-          <line x1="30" y1="70" x2="710" y2="70" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-          <line x1="30" y1="190" x2="710" y2="190" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-          <text x="365" y="74" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">1</text>
-          <text x="360" y="194" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-1</text>
+          <!-- Hệ trục toạ độ Ox, Oy -->
+          <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
+          <line x1="380" y1="240" x2="380" y2="20" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="720,130 710,125 710,135" fill="#1e293b"/>
+          <polygon points="380,20 375,30 385,30" fill="#1e293b"/>
+          <text x="715" y="150" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">x</text>
+          <text x="360" y="26" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">y</text>
+          <text x="368" y="146" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">O</text>
 
-          <!-- Đường hình sin chuẩn xác (O ở x=380, pi = 70px) -->
-          <!-- x = -2pi -> 380 - 140 = 240 -->
-          <!-- x = -pi -> 380 - 70 = 310 -->
-          <!-- x = 0 -> 380 -->
-          <!-- x = pi -> 380 + 70 = 450 -->
-          <!-- x = 2pi -> 380 + 140 = 520 -->
-          <!-- x = 3pi -> 380 + 210 = 590 -->
-          <path d="M 170 130 
-                   C 187.5 70, 222.5 70, 240 130
-                   C 257.5 190, 292.5 190, 310 130
-                   C 327.5 70, 362.5 70, 380 130
-                   C 397.5 190, 432.5 190, 450 130
-                   C 467.5 70, 502.5 70, 520 130
-                   C 537.5 190, 572.5 190, 590 130
-                   C 607.5 70, 642.5 70, 660 130"
-                fill="none" stroke="#ef4444" stroke-width="2.8"/>
+          <!-- Đường hình sin chuẩn xác y = sin x (Màu xanh dương hoàng gia) -->
+          <path d="M 50.0,172.4 L 52.0,174.6 L 54.0,176.6 L 56.0,178.5 L 58.0,180.3 L 60.0,182.0 L 62.0,183.5 L 64.0,184.8 L 66.0,186.0 L 68.0,187.1 L 70.0,188.0 L 72.0,188.7 L 74.0,189.3 L 76.0,189.7 L 78.0,189.9 L 80.0,190.0 L 82.0,189.9 L 84.0,189.7 L 86.0,189.3 L 88.0,188.7 L 90.0,188.0 L 92.0,187.1 L 94.0,186.0 L 96.0,184.8 L 98.0,183.5 L 100.0,182.0 L 102.0,180.3 L 104.0,178.5 L 106.0,176.6 L 108.0,174.6 L 110.0,172.4 L 112.0,170.1 L 114.0,167.8 L 116.0,165.3 L 118.0,162.7 L 120.0,160.0 L 122.0,157.2 L 124.0,154.4 L 126.0,151.5 L 128.0,148.5 L 130.0,145.5 L 132.0,142.5 L 134.0,139.4 L 136.0,136.3 L 138.0,133.1 L 140.0,130.0 L 142.0,126.9 L 144.0,123.7 L 146.0,120.6 L 148.0,117.5 L 150.0,114.5 L 152.0,111.5 L 154.0,108.5 L 156.0,105.6 L 158.0,102.8 L 160.0,100.0 L 162.0,97.3 L 164.0,94.7 L 166.0,92.2 L 168.0,89.9 L 170.0,87.6 L 172.0,85.4 L 174.0,83.4 L 176.0,81.5 L 178.0,79.7 L 180.0,78.0 L 182.0,76.5 L 184.0,75.2 L 186.0,74.0 L 188.0,72.9 L 190.0,72.0 L 192.0,71.3 L 194.0,70.7 L 196.0,70.3 L 198.0,70.1 L 200.0,70.0 L 202.0,70.1 L 204.0,70.3 L 206.0,70.7 L 208.0,71.3 L 210.0,72.0 L 212.0,72.9 L 214.0,74.0 L 216.0,75.2 L 218.0,76.5 L 220.0,78.0 L 222.0,79.7 L 224.0,81.5 L 226.0,83.4 L 228.0,85.4 L 230.0,87.6 L 232.0,89.9 L 234.0,92.2 L 236.0,94.7 L 238.0,97.3 L 240.0,100.0 L 242.0,102.8 L 244.0,105.6 L 246.0,108.5 L 248.0,111.5 L 250.0,114.5 L 252.0,117.5 L 254.0,120.6 L 256.0,123.7 L 258.0,126.9 L 260.0,130.0 L 262.0,133.1 L 264.0,136.3 L 266.0,139.4 L 268.0,142.5 L 270.0,145.5 L 272.0,148.5 L 274.0,151.5 L 276.0,154.4 L 278.0,157.2 L 280.0,160.0 L 282.0,162.7 L 284.0,165.3 L 286.0,167.8 L 288.0,170.1 L 290.0,172.4 L 292.0,174.6 L 294.0,176.6 L 296.0,178.5 L 298.0,180.3 L 300.0,182.0 L 302.0,183.5 L 304.0,184.8 L 306.0,186.0 L 308.0,187.1 L 310.0,188.0 L 312.0,188.7 L 314.0,189.3 L 316.0,189.7 L 318.0,189.9 L 320.0,190.0 L 322.0,189.9 L 324.0,189.7 L 326.0,189.3 L 328.0,188.7 L 330.0,188.0 L 332.0,187.1 L 334.0,186.0 L 336.0,184.8 L 338.0,183.5 L 340.0,182.0 L 342.0,180.3 L 344.0,178.5 L 346.0,176.6 L 348.0,174.6 L 350.0,172.4 L 352.0,170.1 L 354.0,167.8 L 356.0,165.3 L 358.0,162.7 L 360.0,160.0 L 362.0,157.2 L 364.0,154.4 L 366.0,151.5 L 368.0,148.5 L 370.0,145.5 L 372.0,142.5 L 374.0,139.4 L 376.0,136.3 L 378.0,133.1 L 380.0,130.0 L 382.0,126.9 L 384.0,123.7 L 386.0,120.6 L 388.0,117.5 L 390.0,114.5 L 392.0,111.5 L 394.0,108.5 L 396.0,105.6 L 398.0,102.8 L 400.0,100.0 L 402.0,97.3 L 404.0,94.7 L 406.0,92.2 L 408.0,89.9 L 410.0,87.6 L 412.0,85.4 L 414.0,83.4 L 416.0,81.5 L 418.0,79.7 L 420.0,78.0 L 422.0,76.5 L 424.0,75.2 L 426.0,74.0 L 428.0,72.9 L 430.0,72.0 L 432.0,71.3 L 434.0,70.7 L 436.0,70.3 L 438.0,70.1 L 440.0,70.0 L 442.0,70.1 L 444.0,70.3 L 446.0,70.7 L 448.0,71.3 L 450.0,72.0 L 452.0,72.9 L 454.0,74.0 L 456.0,75.2 L 458.0,76.5 L 460.0,78.0 L 462.0,79.7 L 464.0,81.5 L 466.0,83.4 L 468.0,85.4 L 470.0,87.6 L 472.0,89.9 L 474.0,92.2 L 476.0,94.7 L 478.0,97.3 L 480.0,100.0 L 482.0,102.8 L 484.0,105.6 L 486.0,108.5 L 488.0,111.5 L 490.0,114.5 L 492.0,117.5 L 494.0,120.6 L 496.0,123.7 L 498.0,126.9 L 500.0,130.0 L 502.0,133.1 L 504.0,136.3 L 506.0,139.4 L 508.0,142.5 L 510.0,145.5 L 512.0,148.5 L 514.0,151.5 L 516.0,154.4 L 518.0,157.2 L 520.0,160.0 L 522.0,162.7 L 524.0,165.3 L 526.0,167.8 L 528.0,170.1 L 530.0,172.4 L 532.0,174.6 L 534.0,176.6 L 536.0,178.5 L 538.0,180.3 L 540.0,182.0 L 542.0,183.5 L 544.0,184.8 L 546.0,186.0 L 548.0,187.1 L 550.0,188.0 L 552.0,188.7 L 554.0,189.3 L 556.0,189.7 L 558.0,189.9 L 560.0,190.0 L 562.0,189.9 L 564.0,189.7 L 566.0,189.3 L 568.0,188.7 L 570.0,188.0 L 572.0,187.1 L 574.0,186.0 L 576.0,184.8 L 578.0,183.5 L 580.0,182.0 L 582.0,180.3 L 584.0,178.5 L 586.0,176.6 L 588.0,174.6 L 590.0,172.4 L 592.0,170.1 L 594.0,167.8 L 596.0,165.3 L 598.0,162.7 L 600.0,160.0 L 602.0,157.2 L 604.0,154.4 L 606.0,151.5 L 608.0,148.5 L 610.0,145.5 L 612.0,142.5 L 614.0,139.4 L 616.0,136.3 L 618.0,133.1 L 620.0,130.0 L 622.0,126.9 L 624.0,123.7 L 626.0,120.6 L 628.0,117.5 L 630.0,114.5 L 632.0,111.5 L 634.0,108.5 L 636.0,105.6 L 638.0,102.8 L 640.0,100.0 L 642.0,97.3 L 644.0,94.7 L 646.0,92.2 L 648.0,89.9 L 650.0,87.6 L 652.0,85.4 L 654.0,83.4 L 656.0,81.5 L 658.0,79.7 L 660.0,78.0 L 662.0,76.5 L 664.0,75.2 L 666.0,74.0 L 668.0,72.9 L 670.0,72.0 L 672.0,71.3 L 674.0,70.7 L 676.0,70.3 L 678.0,70.1 L 680.0,70.0 L 682.0,70.1 L 684.0,70.3 L 686.0,70.7 L 688.0,71.3 L 690.0,72.0 L 692.0,72.9 L 694.0,74.0 L 696.0,75.2 L 698.0,76.5 L 700.0,78.0 L 702.0,79.7 L 704.0,81.5 L 706.0,83.4 L 708.0,85.4 L 710.0,87.6 L 712.0,89.9 L 714.0,92.2" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 
-          <!-- Mốc hoành độ -->
-          <!-- -5pi/2 (205) -->
-          <line x1="205" y1="130" x2="205" y2="70" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="205" cy="70" r="3.5" fill="#ef4444"/>
-          <text x="188" y="148" font-family="sans-serif" font-size="10" fill="#334155">-5π/2</text>
+          <!-- Điểm cực đại (pi/2, 1) và (-3pi/2, 1) -->
+          <circle cx="440" cy="70" r="4.5" fill="#dc2626"/>
+          <line x1="440" y1="130" x2="440" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="424" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\pi/2; 1)</text>
 
-          <!-- -2pi (240) -->
-          <circle cx="240" cy="130" r="3.5" fill="#334155"/>
-          <text x="230" y="148" font-family="sans-serif" font-size="11" fill="#334155">-2π</text>
+          <circle cx="200" cy="70" r="4.5" fill="#dc2626"/>
+          <line x1="200" y1="130" x2="200" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="172" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-3\pi/2; 1)</text>
 
-          <!-- -3pi/2 (275) -->
-          <line x1="275" y1="130" x2="275" y2="190" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="275" cy="190" r="3.5" fill="#ef4444"/>
-          <text x="260" y="148" font-family="sans-serif" font-size="10" fill="#334155">-3π/2</text>
+          <!-- Điểm cực tiểu (-pi/2, -1) và (3pi/2, -1) -->
+          <circle cx="320" cy="190" r="4.5" fill="#dc2626"/>
+          <line x1="320" y1="130" x2="320" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="296" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\pi/2; -1)</text>
 
-          <!-- -pi (310) -->
-          <circle cx="310" cy="130" r="3.5" fill="#334155"/>
-          <text x="302" y="148" font-family="sans-serif" font-size="11" fill="#334155">-π</text>
+          <circle cx="560" cy="190" r="4.5" fill="#dc2626"/>
+          <line x1="560" y1="130" x2="560" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="540" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(3\pi/2; -1)</text>
 
-          <!-- -pi/2 (345) -->
-          <line x1="345" y1="130" x2="345" y2="70" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="345" cy="70" r="3.5" fill="#ef4444"/>
-          <text x="332" y="148" font-family="sans-serif" font-size="10" fill="#334155">-π/2</text>
-
-          <!-- pi/2 (415) -->
-          <line x1="415" y1="130" x2="415" y2="190" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="415" cy="190" r="3.5" fill="#ef4444"/>
-          <text x="408" y="148" font-family="sans-serif" font-size="10" fill="#334155">π/2</text>
-
-          <!-- pi (450) -->
-          <circle cx="450" cy="130" r="3.5" fill="#334155"/>
-          <text x="446" y="148" font-family="sans-serif" font-size="11" fill="#334155">π</text>
-
-          <!-- 3pi/2 (485) -->
-          <line x1="485" y1="130" x2="485" y2="70" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="485" cy="70" r="3.5" fill="#ef4444"/>
-          <text x="475" y="148" font-family="sans-serif" font-size="10" fill="#334155">3π/2</text>
-
-          <!-- 2pi (520) -->
-          <circle cx="520" cy="130" r="3.5" fill="#334155"/>
-          <text x="515" y="148" font-family="sans-serif" font-size="11" fill="#334155">2π</text>
-
-          <!-- 5pi/2 (555) -->
-          <line x1="555" y1="130" x2="555" y2="190" stroke="#94a3b8" stroke-dasharray="3,3"/>
-          <circle cx="555" cy="190" r="3.5" fill="#ef4444"/>
-          <text x="546" y="148" font-family="sans-serif" font-size="10" fill="#334155">5π/2</text>
-
-          <!-- Chỉ báo 1 chu kì 2pi từ -pi đến pi -->
-          <line x1="310" y1="215" x2="450" y2="215" stroke="#16a34a" stroke-width="1.8"/>
-          <line x1="310" y1="205" x2="310" y2="225" stroke="#16a34a" stroke-width="1.8"/>
-          <line x1="450" y1="205" x2="450" y2="225" stroke="#16a34a" stroke-width="1.8"/>
-          <text x="365" y="235" font-family="sans-serif" font-size="11" font-weight="bold" fill="#16a34a">2π</text>
+          <!-- Các mốc hoành độ trên trục Ox -->
+          <circle cx="140" cy="130" r="3" fill="#1e293b"/><text x="126" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-2\pi</text>
+          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\pi/2</text>
+          <circle cx="260" cy="130" r="3" fill="#1e293b"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi</text>
+          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
+          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
+          <circle cx="500" cy="130" r="3" fill="#1e293b"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi</text>
+          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
+          <circle cx="620" cy="130" r="3" fill="#1e293b"/><text x="612" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">2\pi</text>
+          
+          <!-- Hộp ghi chú sư phạm -->
+          <rect x="475" y="26" width="235" height="28" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="485" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1d4ed8">Đồ thị đối xứng qua gốc toạ độ O</text>
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec3.mp3",
@@ -864,35 +861,37 @@ window.LESSON_11_C1_B3_DATA = {
       num: "4",
       title: "Đồ thị và tính chất của hàm số y = cos x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
-        <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-chart-area"></i> HĐ5 (SGK trang 26): Khảo sát vẽ đồ thị hàm số y = cos x</h5>
-        <p>Do $\\cos x = \\sin\\left(x + \\dfrac{\\pi}{2}\\right)$ nên đồ thị hàm số $y = \\cos x$ có được bằng cách tịnh tiến đồ thị hàm số $y = \\sin x$ sang bên trái một đoạn bằng $\\dfrac{\\pi}{2}$. Đồng thời vì $y = \\cos x$ là hàm số chẵn nên đồ thị nhận <b>trục tung $Oy$ làm trục đối xứng</b>.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm text-center align-middle bg-white mb-0">
+        <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-chart-area"></i> HĐ 5 (SGK trang 26): Khảo sát vẽ đồ thị hàm số y = cos x</h5>
+        <p style="color: #334155; line-height: 1.6;">Do $\cos x = \sin\left(x + \dfrac{\pi}{2}\right)$ nên đồ thị hàm số $y = \cos x$ có được bằng cách tịnh tiến đồ thị hàm số $y = \sin x$ sang bên trái một đoạn bằng $\dfrac{\pi}{2}$. Đồng thời vì $y = \cos x$ là hàm số chẵn nên đồ thị nhận <b>trục tung $Oy$ làm trục đối xứng</b>.</p>
+        
+        <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = COS X (HÌNH 3: KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
+        <div class="math-table-container">
+          <table class="math-table table-bordered">
             <thead class="table-warning">
               <tr>
                 <th>$x$</th>
-                <th>$-\\pi$</th>
-                <th>$-\\dfrac{3\\pi}{4}$</th>
-                <th>$-\\dfrac{\\pi}{2}$</th>
-                <th>$-\\dfrac{\\pi}{4}$</th>
+                <th>$-\pi$</th>
+                <th>$-\dfrac{3\pi}{4}$</th>
+                <th>$-\dfrac{\pi}{2}$</th>
+                <th>$-\dfrac{\pi}{4}$</th>
                 <th>$0$</th>
-                <th>$\\dfrac{\\pi}{4}$</th>
-                <th>$\\dfrac{\\pi}{2}$</th>
-                <th>$\\dfrac{3\\pi}{4}$</th>
-                <th>$\\pi$</th>
+                <th>$\dfrac{\pi}{4}$</th>
+                <th>$\dfrac{\pi}{2}$</th>
+                <th>$\dfrac{3\pi}{4}$</th>
+                <th>$\pi$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \\cos x$</td>
+                <td class="fw-bold">$y = \cos x$</td>
                 <td>$-1$</td>
-                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$-\dfrac{\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
                 <td>$1$</td>
-                <td>$\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$\dfrac{\sqrt{2}}{2}$</td>
                 <td>$0$</td>
-                <td>$-\\dfrac{\\sqrt{2}}{2}$</td>
+                <td>$-\dfrac{\sqrt{2}}{2}$</td>
                 <td>$-1$</td>
               </tr>
             </tbody>
@@ -900,94 +899,74 @@ window.LESSON_11_C1_B3_DATA = {
         </div>
       </div>
 
-      <div class="alert-box alert-success mb-3">
-        <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT CỦA HÀM SỐ $y = \\cos x$ (SGK TRANG 27)</h5>
-        <ul>
-          <li><b>Tập xác định:</b> $D = \\mathbb{R}$.</li>
-          <li><b>Tập giá trị:</b> $[-1; 1]$, nghĩa là $-1 \\le \\cos x \\le 1$.</li>
-          <li><b>Tính chất chẵn lẻ:</b> Là hàm số <b>chẵn</b>, đồ thị đối xứng qua <b>trục tung $Oy$</b>.</li>
-          <li><b>Tính tuần hoàn:</b> Tuần hoàn với chu kì <b>$T = 2\\pi$</b>.</li>
-          <li><b>Tính đơn điệu:</b>
-            <br>• Đồng biến trên mỗi khoảng: $(-\\pi + k2\\pi; k2\\pi), k \\in \\mathbb{Z}$.
-            <br>• Nghịch biến trên mỗi khoảng: $(k2\\pi; \\pi + k2\\pi), k \\in \\mathbb{Z}$.
-          </li>
-          <li><b>Dạng đồ thị:</b> Là một đường hình sin đối xứng hoàn hảo qua trục tung $Oy$, cắt $Oy$ tại điểm $(0; 1)$.</li>
-        </ul>
+      <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ CÔSIN: CARD SƯ PHẠM XANH SAPPHIRE NỔI BẬT -->
+      <div class="math-func-card card-cos mb-3">
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \cos x$ (SGK TRANG 27)</div>
+        <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R}$</span>
+          <span class="math-badge math-badge-danger"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $[-1; 1]$</span>
+          <span class="math-badge math-badge-primary" style="background:#dbeafe; color:#1e40af;"><i class="fa-solid fa-arrows-left-right"></i> Hàm số chẵn (Đối xứng qua trục tung $Oy$)</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = 2\pi$</span>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Đồng biến trên mỗi khoảng:</b> $(-\pi + k2\pi; k2\pi), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Nghịch biến trên mỗi khoảng:</b> $(k2\pi; \pi + k2\pi), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #2563eb;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Đồ thị đối xứng hoàn hảo qua trục tung $Oy$, cắt $Oy$ tại điểm cực đại $(0; 1)$, đạt cực tiểu tại các điểm $(\pi + k2\pi; -1)$.</div>
+        </div>
       </div>
 
-      <!-- HÌNH 1.15 SGK CHUẨN XÁC -->
+      <!-- HÌNH 1.15 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.15: ĐỒ THỊ HÀM SỐ $y = \\cos x$ TRÊN $\\mathbb{R}$ (SGK TRANG 27)</div>
-        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
-          <!-- Trục tọa độ -->
-          <line x1="30" y1="130" x2="720" y2="130" stroke="#334155" stroke-width="1.8"/>
-          <line x1="380" y1="240" x2="380" y2="20" stroke="#ef4444" stroke-width="2"/>
-          <polygon points="720,130 710,126 710,134" fill="#334155"/>
-          <polygon points="380,20 376,30 384,30" fill="#ef4444"/>
-          <text x="715" y="150" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">x</text>
-          <text x="360" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ef4444">y (Oy ĐX)</text>
-          <text x="368" y="146" font-family="sans-serif" font-size="12" fill="#64748b">O</text>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.15: ĐỒ THỊ HÀM SỐ $y = \cos x$ TRÊN $\mathbb{R}$ (SGK TRANG 27)</div>
+        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
+          <!-- Đường dóng biên độ y = 1 và y = -1 -->
+          <line x1="40" y1="70" x2="720" y2="70" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <line x1="40" y1="190" x2="720" y2="190" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <text x="365" y="74" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e293b">1</text>
+          <text x="360" y="194" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e293b">-1</text>
 
-          <!-- Giới hạn y = 1 và y = -1 -->
-          <line x1="30" y1="70" x2="710" y2="70" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-          <line x1="30" y1="190" x2="710" y2="190" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-          <text x="365" y="74" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">1</text>
-          <text x="360" y="194" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-1</text>
+          <!-- Hệ trục toạ độ Ox, Oy (Oy tô đỏ nhấn mạnh trục đối xứng) -->
+          <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
+          <line x1="380" y1="240" x2="380" y2="20" stroke="#dc2626" stroke-width="2.5"/>
+          <polygon points="720,130 710,125 710,135" fill="#1e293b"/>
+          <polygon points="380,20 375,30 385,30" fill="#dc2626"/>
+          <text x="715" y="150" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">x</text>
+          <text x="350" y="26" font-family="sans-serif" font-size="13" font-weight="bold" fill="#dc2626">y (Trục ĐX)</text>
+          <text x="368" y="146" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">O</text>
 
-          <!-- Đường hình sin của cos x (O ở 380, pi = 70px) -->
-          <!-- Cắt Oy tại (380, 70) cực đại = 1 -->
-          <!-- Đi qua (380 - 35 = 345, 130) [-pi/2] và (380 + 35 = 415, 130) [pi/2] -->
-          <path d="M 170 190 
-                   C 187.5 130, 222.5 130, 240 70
-                   C 257.5 130, 292.5 130, 310 190
-                   C 327.5 130, 362.5 130, 380 70
-                   C 397.5 130, 432.5 130, 450 190
-                   C 467.5 130, 502.5 130, 520 70
-                   C 537.5 130, 572.5 130, 590 190
-                   C 607.5 130, 642.5 130, 660 70"
-                fill="none" stroke="#d97706" stroke-width="2.8"/>
+          <!-- Đường hình sin chuẩn xác y = cos x (Màu tím thạch anh hoàng gia) -->
+          <path d="M 50.0,172.4 L 52.0,170.1 L 54.0,167.8 L 56.0,165.3 L 58.0,162.7 L 60.0,160.0 L 62.0,157.2 L 64.0,154.4 L 66.0,151.5 L 68.0,148.5 L 70.0,145.5 L 72.0,142.5 L 74.0,139.4 L 76.0,136.3 L 78.0,133.1 L 80.0,130.0 L 82.0,126.9 L 84.0,123.7 L 86.0,120.6 L 88.0,117.5 L 90.0,114.5 L 92.0,111.5 L 94.0,108.5 L 96.0,105.6 L 98.0,102.8 L 100.0,100.0 L 102.0,97.3 L 104.0,94.7 L 106.0,92.2 L 108.0,89.9 L 110.0,87.6 L 112.0,85.4 L 114.0,83.4 L 116.0,81.5 L 118.0,79.7 L 120.0,78.0 L 122.0,76.5 L 124.0,75.2 L 126.0,74.0 L 128.0,72.9 L 130.0,72.0 L 132.0,71.3 L 134.0,70.7 L 136.0,70.3 L 138.0,70.1 L 140.0,70.0 L 142.0,70.1 L 144.0,70.3 L 146.0,70.7 L 148.0,71.3 L 150.0,72.0 L 152.0,72.9 L 154.0,74.0 L 156.0,75.2 L 158.0,76.5 L 160.0,78.0 L 162.0,79.7 L 164.0,81.5 L 166.0,83.4 L 168.0,85.4 L 170.0,87.6 L 172.0,89.9 L 174.0,92.2 L 176.0,94.7 L 178.0,97.3 L 180.0,100.0 L 182.0,102.8 L 184.0,105.6 L 186.0,108.5 L 188.0,111.5 L 190.0,114.5 L 192.0,117.5 L 194.0,120.6 L 196.0,123.7 L 198.0,126.9 L 200.0,130.0 L 202.0,133.1 L 204.0,136.3 L 206.0,139.4 L 208.0,142.5 L 210.0,145.5 L 212.0,148.5 L 214.0,151.5 L 216.0,154.4 L 218.0,157.2 L 220.0,160.0 L 222.0,162.7 L 224.0,165.3 L 226.0,167.8 L 228.0,170.1 L 230.0,172.4 L 232.0,174.6 L 234.0,176.6 L 236.0,178.5 L 238.0,180.3 L 240.0,182.0 L 242.0,183.5 L 244.0,184.8 L 246.0,186.0 L 248.0,187.1 L 250.0,188.0 L 252.0,188.7 L 254.0,189.3 L 256.0,189.7 L 258.0,189.9 L 260.0,190.0 L 262.0,189.9 L 264.0,189.7 L 266.0,189.3 L 268.0,188.7 L 270.0,188.0 L 272.0,187.1 L 274.0,186.0 L 276.0,184.8 L 278.0,183.5 L 280.0,182.0 L 282.0,180.3 L 284.0,178.5 L 286.0,176.6 L 288.0,174.6 L 290.0,172.4 L 292.0,170.1 L 294.0,167.8 L 296.0,165.3 L 298.0,162.7 L 300.0,160.0 L 302.0,157.2 L 304.0,154.4 L 306.0,151.5 L 308.0,148.5 L 310.0,145.5 L 312.0,142.5 L 314.0,139.4 L 316.0,136.3 L 318.0,133.1 L 320.0,130.0 L 322.0,126.9 L 324.0,123.7 L 326.0,120.6 L 328.0,117.5 L 330.0,114.5 L 332.0,111.5 L 334.0,108.5 L 336.0,105.6 L 338.0,102.8 L 340.0,100.0 L 342.0,97.3 L 344.0,94.7 L 346.0,92.2 L 348.0,89.9 L 350.0,87.6 L 352.0,85.4 L 354.0,83.4 L 356.0,81.5 L 358.0,79.7 L 360.0,78.0 L 362.0,76.5 L 364.0,75.2 L 366.0,74.0 L 368.0,72.9 L 370.0,72.0 L 372.0,71.3 L 374.0,70.7 L 376.0,70.3 L 378.0,70.1 L 380.0,70.0 L 382.0,70.1 L 384.0,70.3 L 386.0,70.7 L 388.0,71.3 L 390.0,72.0 L 392.0,72.9 L 394.0,74.0 L 396.0,75.2 L 398.0,76.5 L 400.0,78.0 L 402.0,79.7 L 404.0,81.5 L 406.0,83.4 L 408.0,85.4 L 410.0,87.6 L 412.0,89.9 L 414.0,92.2 L 416.0,94.7 L 418.0,97.3 L 420.0,100.0 L 422.0,102.8 L 424.0,105.6 L 426.0,108.5 L 428.0,111.5 L 430.0,114.5 L 432.0,117.5 L 434.0,120.6 L 436.0,123.7 L 438.0,126.9 L 440.0,130.0 L 442.0,133.1 L 444.0,136.3 L 446.0,139.4 L 448.0,142.5 L 450.0,145.5 L 452.0,148.5 L 454.0,151.5 L 456.0,154.4 L 458.0,157.2 L 460.0,160.0 L 462.0,162.7 L 464.0,165.3 L 466.0,167.8 L 468.0,170.1 L 470.0,172.4 L 472.0,174.6 L 474.0,176.6 L 476.0,178.5 L 478.0,180.3 L 480.0,182.0 L 482.0,183.5 L 484.0,184.8 L 486.0,186.0 L 488.0,187.1 L 490.0,188.0 L 492.0,188.7 L 494.0,189.3 L 496.0,189.7 L 498.0,189.9 L 500.0,190.0 L 502.0,189.9 L 504.0,189.7 L 506.0,189.3 L 508.0,188.7 L 510.0,188.0 L 512.0,187.1 L 514.0,186.0 L 516.0,184.8 L 518.0,183.5 L 520.0,182.0 L 522.0,180.3 L 524.0,178.5 L 526.0,176.6 L 528.0,174.6 L 530.0,172.4 L 532.0,170.1 L 534.0,167.8 L 536.0,165.3 L 538.0,162.7 L 540.0,160.0 L 542.0,157.2 L 544.0,154.4 L 546.0,151.5 L 548.0,148.5 L 550.0,145.5 L 552.0,142.5 L 554.0,139.4 L 556.0,136.3 L 558.0,133.1 L 560.0,130.0 L 562.0,126.9 L 564.0,123.7 L 566.0,120.6 L 568.0,117.5 L 570.0,114.5 L 572.0,111.5 L 574.0,108.5 L 576.0,105.6 L 578.0,102.8 L 580.0,100.0 L 582.0,97.3 L 584.0,94.7 L 586.0,92.2 L 588.0,89.9 L 590.0,87.6 L 592.0,85.4 L 594.0,83.4 L 596.0,81.5 L 598.0,79.7 L 600.0,78.0 L 602.0,76.5 L 604.0,75.2 L 606.0,74.0 L 608.0,72.9 L 610.0,72.0 L 612.0,71.3 L 614.0,70.7 L 616.0,70.3 L 618.0,70.1 L 620.0,70.0 L 622.0,70.1 L 624.0,70.3 L 626.0,70.7 L 628.0,71.3 L 630.0,72.0 L 632.0,72.9 L 634.0,74.0 L 636.0,75.2 L 638.0,76.5 L 640.0,78.0 L 642.0,79.7 L 644.0,81.5 L 646.0,83.4 L 648.0,85.4 L 650.0,87.6 L 652.0,89.9 L 654.0,92.2 L 656.0,94.7 L 658.0,97.3 L 660.0,100.0 L 662.0,102.8 L 664.0,105.6 L 666.0,108.5 L 668.0,111.5 L 670.0,114.5 L 672.0,117.5 L 674.0,120.6 L 676.0,123.7 L 678.0,126.9 L 680.0,130.0 L 682.0,133.1 L 684.0,136.3 L 686.0,139.4 L 688.0,142.5 L 690.0,145.5 L 692.0,148.5 L 694.0,151.5 L 696.0,154.4 L 698.0,157.2 L 700.0,160.0 L 702.0,162.7 L 704.0,165.3 L 706.0,167.8 L 708.0,170.1 L 710.0,172.4 L 712.0,174.6 L 714.0,176.6" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 
-          <!-- Điểm cắt Oy (0, 1) -->
-          <circle cx="380" cy="70" r="4.5" fill="#ef4444"/>
+          <!-- Điểm cực đại (0, 1), (-2pi, 1), (2pi, 1) -->
+          <circle cx="380" cy="70" r="5" fill="#dc2626"/>
+          <text x="388" y="66" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(0; 1)</text>
 
-          <!-- Mốc hoành độ -->
-          <!-- -2pi (240) -> cực đại = 1 -->
-          <circle cx="240" cy="70" r="3.5" fill="#d97706"/>
-          <text x="230" y="148" font-family="sans-serif" font-size="11" fill="#334155">-2π</text>
+          <circle cx="140" cy="70" r="4.5" fill="#dc2626"/>
+          <line x1="140" y1="130" x2="140" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="120" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-2\pi; 1)</text>
 
-          <!-- -3pi/2 (275) -> y = 0 -->
-          <circle cx="275" cy="130" r="3.5" fill="#334155"/>
-          <text x="260" y="148" font-family="sans-serif" font-size="10" fill="#334155">-3π/2</text>
+          <circle cx="620" cy="70" r="4.5" fill="#dc2626"/>
+          <line x1="620" y1="130" x2="620" y2="70" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="605" y="58" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(2\pi; 1)</text>
 
-          <!-- -pi (310) -> cực tiểu = -1 -->
-          <circle cx="310" cy="190" r="3.5" fill="#d97706"/>
-          <text x="302" y="148" font-family="sans-serif" font-size="11" fill="#334155">-π</text>
+          <!-- Điểm cực tiểu (-pi, -1) và (pi, -1) -->
+          <circle cx="260" cy="190" r="4.5" fill="#dc2626"/>
+          <line x1="260" y1="130" x2="260" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="245" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(-\pi; -1)</text>
 
-          <!-- -pi/2 (345) -> y = 0 -->
-          <circle cx="345" cy="130" r="3.5" fill="#334155"/>
-          <text x="332" y="148" font-family="sans-serif" font-size="10" fill="#334155">-π/2</text>
+          <circle cx="500" cy="190" r="4.5" fill="#dc2626"/>
+          <line x1="500" y1="130" x2="500" y2="190" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <text x="488" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">(\pi; -1)</text>
 
-          <!-- pi/2 (415) -> y = 0 -->
-          <circle cx="415" cy="130" r="3.5" fill="#334155"/>
-          <text x="408" y="148" font-family="sans-serif" font-size="10" fill="#334155">π/2</text>
+          <!-- Các mốc hoành độ trên trục Ox (Giao điểm với Ox) -->
+          <circle cx="200" cy="130" r="3" fill="#1e293b"/><text x="186" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-3\pi/2</text>
+          <circle cx="320" cy="130" r="3" fill="#1e293b"/><text x="308" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
+          <circle cx="440" cy="130" r="3" fill="#1e293b"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
+          <circle cx="560" cy="130" r="3" fill="#1e293b"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
 
-          <!-- pi (450) -> cực tiểu = -1 -->
-          <circle cx="450" cy="190" r="3.5" fill="#d97706"/>
-          <text x="446" y="148" font-family="sans-serif" font-size="11" fill="#334155">π</text>
-
-          <!-- 3pi/2 (485) -> y = 0 -->
-          <circle cx="485" cy="130" r="3.5" fill="#334155"/>
-          <text x="475" y="148" font-family="sans-serif" font-size="10" fill="#334155">3π/2</text>
-
-          <!-- 2pi (520) -> cực đại = 1 -->
-          <circle cx="520" cy="70" r="3.5" fill="#d97706"/>
-          <text x="515" y="148" font-family="sans-serif" font-size="11" fill="#334155">2π</text>
-
-          <!-- Chỉ báo 1 chu kì 2pi từ -pi đến pi -->
-          <line x1="310" y1="215" x2="450" y2="215" stroke="#16a34a" stroke-width="1.8"/>
-          <line x1="310" y1="205" x2="310" y2="225" stroke="#16a34a" stroke-width="1.8"/>
-          <line x1="450" y1="205" x2="450" y2="225" stroke="#16a34a" stroke-width="1.8"/>
-          <text x="355" y="235" font-family="sans-serif" font-size="11" font-weight="bold" fill="#16a34a">T = 2π</text>
+          <!-- Hộp ghi chú sư phạm -->
+          <rect x="475" y="26" width="235" height="28" rx="6" fill="#fef2f2" stroke="#fecaca"/>
+          <text x="485" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">Đồ thị đối xứng qua trục tung Oy</text>
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec4.mp3",
@@ -1055,99 +1034,100 @@ window.LESSON_11_C1_B3_DATA = {
       num: "5",
       title: "Đồ thị và tính chất của hàm số y = tan x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
-        <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-calculator"></i> HĐ6 (SGK trang 28): Khảo sát vẽ đồ thị hàm số y = tan x</h5>
-        <p>Vì $y = \\tan x$ là hàm số lẻ và tuần hoàn với chu kì $\\pi$, ta chỉ cần vẽ trên khoảng $\\left(-\\dfrac{\\pi}{2}; \\dfrac{\\pi}{2}\\right)$ rồi tịnh tiến theo các bội của $\\pi$.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm text-center align-middle bg-white mb-0">
-            <thead class="table-danger">
+        <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-calculator"></i> HĐ 6 (SGK trang 28): Khảo sát vẽ đồ thị hàm số y = tan x</h5>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \tan x$ là hàm số lẻ và tuần hoàn với chu kì $\pi$ nên ta chỉ cần khảo sát trên nửa khoảng $\left[0; \dfrac{\pi}{2}\right)$, sau đó lấy đối xứng qua gốc toạ độ $O$ để được đồ thị trên $\left(-\dfrac{\pi}{2}; \dfrac{\pi}{2}\right)$, rồi tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\pi$.</p>
+        
+        <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = TAN X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
+        <div class="math-table-container">
+          <table class="math-table table-bordered">
+            <thead class="table-success">
               <tr>
                 <th>$x$</th>
-                <th>$-\\dfrac{\\pi}{3}$</th>
-                <th>$-\\dfrac{\\pi}{4}$</th>
-                <th>$-\\dfrac{\\pi}{6}$</th>
+                <th>$-\dfrac{\pi}{3}$</th>
+                <th>$-\dfrac{\pi}{4}$</th>
+                <th>$-\dfrac{\pi}{6}$</th>
                 <th>$0$</th>
-                <th>$\\dfrac{\\pi}{6}$</th>
-                <th>$\\dfrac{\\pi}{4}$</th>
-                <th>$\\dfrac{\\pi}{3}$</th>
+                <th>$\dfrac{\pi}{6}$</th>
+                <th>$\dfrac{\pi}{4}$</th>
+                <th>$\dfrac{\pi}{3}$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \\tan x$</td>
-                <td>$-\\sqrt{3}$</td>
+                <td class="fw-bold">$y = \tan x$</td>
+                <td>$-\sqrt{3}$</td>
                 <td>$-1$</td>
-                <td>$-\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$-\dfrac{\sqrt{3}}{3}$</td>
                 <td>$0$</td>
-                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$\dfrac{\sqrt{3}}{3}$</td>
                 <td>$1$</td>
-                <td>$\\sqrt{3}$</td>
+                <td>$\sqrt{3}$</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="alert-box alert-success mb-3">
-        <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT CỦA HÀM SỐ $y = \\tan x$ (SGK TRANG 28)</h5>
-        <ul>
-          <li><b>Tập xác định:</b> $D = \\mathbb{R} \\setminus \\left\\{\\dfrac{\\pi}{2} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z}\\right\\}$.</li>
-          <li><b>Tập giá trị:</b> $\\mathbb{R}$.</li>
-          <li><b>Tính chất chẵn lẻ:</b> Là hàm số <b>lẻ</b>, đồ thị đối xứng qua <b>gốc toạ độ $O$</b>.</li>
-          <li><b>Tính tuần hoàn:</b> Tuần hoàn với chu kì <b>$T = \\pi$</b>.</li>
-          <li><b>Tính đơn điệu:</b> <b>Luôn đồng biến</b> trên mỗi khoảng xác định $\\left(-\\dfrac{\\pi}{2} + k\\pi; \\dfrac{\\pi}{2} + k\\pi\\right), k \\in \\mathbb{Z}$.</li>
-          <li><b>Tiệm cận đứng:</b> Các đường thẳng $x = \\dfrac{\\pi}{2} + k\\pi\\ (k \\in \\mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</li>
-        </ul>
+      <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ TANG: CARD SƯ PHẠM XANH LỤC NỔI BẬT -->
+      <div class="math-func-card card-tan mb-3">
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \tan x$ (SGK TRANG 28)</div>
+        <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="math-badge math-badge-success"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \left\{\dfrac{\pi}{2} + k\pi \;\middle|\; k \in \mathbb{Z}\right\}$</span>
+          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \pi$</span>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
+          <div><b style="color: #15803d;"><i class="fa-solid fa-arrow-trend-up"></i> Tính đơn điệu:</b> <b>Luôn đồng biến</b> trên mỗi khoảng xác định $\left(-\dfrac{\pi}{2} + k\pi; \dfrac{\pi}{2} + k\pi\right), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = \dfrac{\pi}{2} + k\pi\ (k \in \mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
+          <div style="margin-top: 6px;"><b style="color: #059669;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong đồng biến đi lên, cắt $Ox$ tại các điểm $(k\pi; 0)$.</div>
+        </div>
       </div>
 
-      <!-- HÌNH 1.16 SGK CHUẨN XÁC -->
+      <!-- HÌNH 1.16 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.16: ĐỒ THỊ HÀM SỐ $y = \\tan x$ TRÊN $\\mathbb{R}$ (SGK TRANG 28)</div>
-        <svg viewBox="0 0 760 280" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
-          <!-- Trục tọa độ -->
-          <line x1="30" y1="140" x2="720" y2="140" stroke="#334155" stroke-width="1.8"/>
-          <line x1="380" y1="260" x2="380" y2="20" stroke="#334155" stroke-width="1.8"/>
-          <polygon points="720,140 710,136 710,144" fill="#334155"/>
-          <polygon points="380,20 376,30 384,30" fill="#334155"/>
-          <text x="715" y="160" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">x</text>
-          <text x="360" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">y</text>
-          <text x="368" y="156" font-family="sans-serif" font-size="12" fill="#64748b">O</text>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.16: ĐỒ THỊ HÀM SỐ $y = \tan x$ TRÊN $\mathbb{R}$ (SGK TRANG 28)</div>
+        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
+          <!-- Các đường tiệm cận đứng nét đứt màu đỏ cam x = pi/2 + k*pi -->
+          <line x1="200" y1="20" x2="200" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="320" y1="20" x2="320" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="440" y1="20" x2="440" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="560" y1="20" x2="560" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
 
-          <!-- Các đường tiệm cận đứng (x = pi/2 + k*pi) -->
-          <!-- O tại 380, pi = 120px. pi/2 = 60px -->
-          <!-- x = -3pi/2 -> 380 - 180 = 200 -->
-          <!-- x = -pi/2 -> 380 - 60 = 320 -->
-          <!-- x = pi/2 -> 380 + 60 = 440 -->
-          <!-- x = 3pi/2 -> 380 + 180 = 560 -->
-          <line x1="200" y1="20" x2="200" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="320" y1="20" x2="320" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="440" y1="20" x2="440" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="560" y1="20" x2="560" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
+          <text x="180" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-3\pi/2</text>
+          <text x="306" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\pi/2</text>
+          <text x="432" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\pi/2</text>
+          <text x="548" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">3\pi/2</text>
 
-          <text x="185" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">-3π/2</text>
-          <text x="308" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">-π/2</text>
-          <text x="432" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">π/2</text>
-          <text x="548" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">3π/2</text>
+          <!-- Hệ trục toạ độ Ox, Oy -->
+          <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
+          <line x1="380" y1="240" x2="380" y2="20" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="720,130 710,125 710,135" fill="#1e293b"/>
+          <polygon points="380,20 375,30 385,30" fill="#1e293b"/>
+          <text x="715" y="150" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">x</text>
+          <text x="360" y="26" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">y</text>
+          <text x="368" y="146" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">O</text>
 
-          <!-- Các nhánh đồ thị đồng biến dốc lên -->
-          <!-- Nhánh 1: (-3pi/2; -pi/2) đi qua -pi (260, 140) -->
-          <path d="M 215 250 C 235 220, 250 170, 260 140 C 270 110, 285 60, 305 30" fill="none" stroke="#dc2626" stroke-width="2.6"/>
-          <circle cx="260" cy="140" r="3.5" fill="#334155"/>
-          <text x="252" y="156" font-family="sans-serif" font-size="11" fill="#334155">-π</text>
+          <!-- Các nhánh đồ thị đồng biến đi lên (Màu xanh ngọc lục bảo) -->
+          <path d="M 208.0,236.0 L 210.0,236.0 L 212.0,236.0 L 214.0,221.2 L 216.0,208.6 L 218.0,198.7 L 220.0,190.6 L 222.0,183.9 L 224.0,178.2 L 226.0,173.2 L 228.0,168.9 L 230.0,165.0 L 232.0,161.5 L 234.0,158.3 L 236.0,155.4 L 238.0,152.7 L 240.0,150.2 L 242.0,147.8 L 244.0,145.6 L 246.0,143.4 L 248.0,141.4 L 250.0,139.4 L 252.0,137.4 L 254.0,135.5 L 256.0,133.7 L 258.0,131.8 L 260.0,130.0 L 262.0,128.2 L 264.0,126.3 L 266.0,124.5 L 268.0,122.6 L 270.0,120.6 L 272.0,118.6 L 274.0,116.6 L 276.0,114.4 L 278.0,112.2 L 280.0,109.8 L 282.0,107.3 L 284.0,104.6 L 286.0,101.7 L 288.0,98.5 L 290.0,95.0 L 292.0,91.1 L 294.0,86.8 L 296.0,81.8 L 298.0,76.1 L 300.0,69.4 L 302.0,61.3 L 304.0,51.4 L 306.0,38.8 L 308.0,24.0 L 310.0,24.0 L 312.0,24.0" fill="none" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M 328.0,236.0 L 330.0,236.0 L 332.0,236.0 L 334.0,221.2 L 336.0,208.6 L 338.0,198.7 L 340.0,190.6 L 342.0,183.9 L 344.0,178.2 L 346.0,173.2 L 348.0,168.9 L 350.0,165.0 L 352.0,161.5 L 354.0,158.3 L 356.0,155.4 L 358.0,152.7 L 360.0,150.2 L 362.0,147.8 L 364.0,145.6 L 366.0,143.4 L 368.0,141.4 L 370.0,139.4 L 372.0,137.4 L 374.0,135.5 L 376.0,133.7 L 378.0,131.8 L 380.0,130.0 L 382.0,128.2 L 384.0,126.3 L 386.0,124.5 L 388.0,122.6 L 390.0,120.6 L 392.0,118.6 L 394.0,116.6 L 396.0,114.4 L 398.0,112.2 L 400.0,109.8 L 402.0,107.3 L 404.0,104.6 L 406.0,101.7 L 408.0,98.5 L 410.0,95.0 L 412.0,91.1 L 414.0,86.8 L 416.0,81.8 L 418.0,76.1 L 420.0,69.4 L 422.0,61.3 L 424.0,51.4 L 426.0,38.8 L 428.0,24.0 L 430.0,24.0 L 432.0,24.0" fill="none" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M 448.0,236.0 L 450.0,236.0 L 452.0,236.0 L 454.0,221.2 L 456.0,208.6 L 458.0,198.7 L 460.0,190.6 L 462.0,183.9 L 464.0,178.2 L 466.0,173.2 L 468.0,168.9 L 470.0,165.0 L 472.0,161.5 L 474.0,158.3 L 476.0,155.4 L 478.0,152.7 L 480.0,150.2 L 482.0,147.8 L 484.0,145.6 L 486.0,143.4 L 488.0,141.4 L 490.0,139.4 L 492.0,137.4 L 494.0,135.5 L 496.0,133.7 L 498.0,131.8 L 500.0,130.0 L 502.0,128.2 L 504.0,126.3 L 506.0,124.5 L 508.0,122.6 L 510.0,120.6 L 512.0,118.6 L 514.0,116.6 L 516.0,114.4 L 518.0,112.2 L 520.0,109.8 L 522.0,107.3 L 524.0,104.6 L 526.0,101.7 L 528.0,98.5 L 530.0,95.0 L 532.0,91.1 L 534.0,86.8 L 536.0,81.8 L 538.0,76.1 L 540.0,69.4 L 542.0,61.3 L 544.0,51.4 L 546.0,38.8 L 548.0,24.0 L 550.0,24.0 L 552.0,24.0" fill="none" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>
 
-          <!-- Nhánh 2 (Trung tâm): (-pi/2; pi/2) đi qua O (380, 140) -->
-          <path d="M 335 250 C 355 220, 370 170, 380 140 C 390 110, 405 60, 425 30" fill="none" stroke="#dc2626" stroke-width="2.6"/>
-          <circle cx="380" cy="140" r="4.5" fill="#f59e0b"/>
+          <!-- Giao điểm với trục Ox (260: -pi, 380: 0, 500: pi) -->
+          <circle cx="260" cy="130" r="4" fill="#059669"/><text x="252" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi</text>
+          <circle cx="380" cy="130" r="4" fill="#059669"/>
+          <circle cx="500" cy="130" r="4" fill="#059669"/><text x="496" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi</text>
 
-          <!-- Nhánh 3: (pi/2; 3pi/2) đi qua pi (500, 140) -->
-          <path d="M 455 250 C 475 220, 490 170, 500 140 C 510 110, 525 60, 545 30" fill="none" stroke="#dc2626" stroke-width="2.6"/>
-          <circle cx="500" cy="140" r="3.5" fill="#334155"/>
-          <text x="496" y="156" font-family="sans-serif" font-size="11" fill="#334155">π</text>
+          <!-- Điểm mẫu pi/4: tan(pi/4) = 1 (X = 410, Y = 95) -->
+          <circle cx="410" cy="95" r="3.5" fill="#dc2626"/>
+          <line x1="410" y1="130" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
+          <line x1="380" y1="95" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
+          <text x="365" y="98" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">1</text>
+          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\pi/4</text>
 
-          <!-- Khoảng cách chu kì T = pi giữa 2 tiệm cận hoặc 2 tâm đối xứng -->
-          <line x1="380" y1="210" x2="500" y2="210" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="380" y1="202" x2="380" y2="218" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="500" y1="202" x2="500" y2="218" stroke="#2563eb" stroke-width="1.8"/>
-          <text x="428" y="202" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2563eb">T = π</text>
+          <!-- Hộp ghi chú sư phạm -->
+          <rect x="475" y="26" width="235" height="28" rx="6" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="485" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#15803d">Luôn đồng biến trên từng khoảng</text>
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec5.mp3",
@@ -1211,102 +1191,100 @@ window.LESSON_11_C1_B3_DATA = {
       num: "6",
       title: "Đồ thị và tính chất của hàm số y = cot x",
       contentHtml: `<div class="card p-3 mb-3 border-0 bg-light rounded-3">
-        <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-table-cells"></i> HĐ7 (SGK trang 29): Khảo sát vẽ đồ thị hàm số y = cot x</h5>
-        <p>Vì $y = \\cot x$ là hàm số lẻ và tuần hoàn với chu kì $\\pi$, ta chỉ cần vẽ trên khoảng $(0; \\pi)$ rồi tịnh tiến theo các bội của $\\pi$.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm text-center align-middle bg-white mb-0">
-            <thead class="table-secondary">
+        <h5 class="fw-bold section-heading-blue mb-2"><i class="fa-solid fa-table-cells"></i> HĐ 7 (SGK trang 29): Khảo sát vẽ đồ thị hàm số y = cot x</h5>
+        <p style="color: #334155; line-height: 1.6;">Do $y = \cot x$ là hàm số lẻ và tuần hoàn với chu kì $\pi$ nên ta chỉ cần khảo sát trên khoảng $(0; \pi)$, sau đó tịnh tiến song song với trục $Ox$ các đoạn có độ dài là bội của $\pi$ để thu được toàn bộ đồ thị trên tập xác định.</p>
+        
+        <!-- BẢNG KHẢO SÁT GIÁ TRỊ Y = COT X (KẺ BẢNG LƯỚI THẨM MĨ SẮC NÉT) -->
+        <div class="math-table-container">
+          <table class="math-table table-bordered">
+            <thead class="table-purple">
               <tr>
                 <th>$x$</th>
-                <th>$\\dfrac{\\pi}{6}$</th>
-                <th>$\\dfrac{\\pi}{4}$</th>
-                <th>$\\dfrac{\\pi}{3}$</th>
-                <th>$\\dfrac{\\pi}{2}$</th>
-                <th>$\\dfrac{2\\pi}{3}$</th>
-                <th>$\\dfrac{3\\pi}{4}$</th>
-                <th>$\\dfrac{5\\pi}{6}$</th>
+                <th>$\dfrac{\pi}{6}$</th>
+                <th>$\dfrac{\pi}{4}$</th>
+                <th>$\dfrac{\pi}{3}$</th>
+                <th>$\dfrac{\pi}{2}$</th>
+                <th>$\dfrac{2\pi}{3}$</th>
+                <th>$\dfrac{3\pi}{4}$</th>
+                <th>$\dfrac{5\pi}{6}$</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold">$y = \\cot x$</td>
-                <td>$\\sqrt{3}$</td>
+                <td class="fw-bold">$y = \cot x$</td>
+                <td>$\sqrt{3}$</td>
                 <td>$1$</td>
-                <td>$\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$\dfrac{\sqrt{3}}{3}$</td>
                 <td>$0$</td>
-                <td>$-\\dfrac{\\sqrt{3}}{3}$</td>
+                <td>$-\dfrac{\sqrt{3}}{3}$</td>
                 <td>$-1$</td>
-                <td>$-\\sqrt{3}$</td>
+                <td>$-\sqrt{3}$</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="alert-box alert-success mb-3">
-        <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT CỦA HÀM SỐ $y = \\cot x$ (SGK TRANG 30)</h5>
-        <ul>
-          <li><b>Tập xác định:</b> $D = \\mathbb{R} \\setminus \\{k\\pi \\mid k \\in \\mathbb{Z}\\}$.</li>
-          <li><b>Tập giá trị:</b> $\\mathbb{R}$.</li>
-          <li><b>Tính chất chẵn lẻ:</b> Là hàm số <b>lẻ</b>, đồ thị đối xứng qua <b>gốc toạ độ $O$</b>.</li>
-          <li><b>Tính tuần hoàn:</b> Tuần hoàn với chu kì <b>$T = \\pi$</b>.</li>
-          <li><b>Tính đơn điệu:</b> <b>Luôn nghịch biến</b> trên mỗi khoảng xác định $(k\\pi; \\pi + k\\pi), k \\in \\mathbb{Z}$.</li>
-          <li><b>Tiệm cận đứng:</b> Các đường thẳng $x = k\\pi\\ (k \\in \\mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</li>
-        </ul>
+      <!-- TỔNG KẾT TÍNH CHẤT HÀM SỐ CÔTANG: CARD SƯ PHẠM VÀNG CAM NỔI BẬT -->
+      <div class="math-func-card card-cot mb-3">
+        <div class="math-func-title"><i class="fa-solid fa-star"></i> TỔNG KẾT TÍNH CHẤT QUAN TRỌNG CỦA HÀM SỐ $y = \cot x$ (SGK TRANG 30)</div>
+        <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-compass"></i> Tập xác định: $D = \mathbb{R} \setminus \{k\pi \mid k \in \mathbb{Z}\}$</span>
+          <span class="math-badge math-badge-purple"><i class="fa-solid fa-arrows-up-down"></i> Tập giá trị: $\mathbb{R}$</span>
+          <span class="math-badge math-badge-primary"><i class="fa-solid fa-circle-nodes"></i> Hàm số lẻ (Đối xứng qua $O$)</span>
+          <span class="math-badge math-badge-warning"><i class="fa-solid fa-rotate"></i> Chu kì tuần hoàn: $T = \pi$</span>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #1e293b;">
+          <div><b style="color: #b91c1c;"><i class="fa-solid fa-arrow-trend-down"></i> Tính đơn điệu:</b> <b>Luôn nghịch biến</b> trên mỗi khoảng xác định $(k\pi; \pi + k\pi), k \in \mathbb{Z}$.</div>
+          <div style="margin-top: 6px;"><b style="color: #ea580c;"><i class="fa-solid fa-grip-lines-vertical"></i> Tiệm cận đứng:</b> Các đường thẳng $x = k\pi\ (k \in \mathbb{Z})$ là các đường tiệm cận đứng của đồ thị.</div>
+          <div style="margin-top: 6px;"><b style="color: #d97706;"><i class="fa-solid fa-chart-line"></i> Dạng đồ thị:</b> Gồm vô số nhánh uốn cong nghịch biến đi xuống, cắt $Ox$ tại các điểm $\left(\dfrac{\pi}{2} + k\pi; 0\right)$.</div>
+        </div>
       </div>
 
-      <!-- HÌNH 1.17 SGK CHUẨN XÁC -->
+      <!-- HÌNH 1.17 SGK KẾT NỐI TRI THỨC CHUẨN XÁC 100% -->
       <div class="text-center my-3">
-        <div class="fw-bold text-secondary mb-1">HÌNH 1.17: ĐỒ THỊ HÀM SỐ $y = \\cot x$ TRÊN $\\mathbb{R}$ (SGK TRANG 29)</div>
-        <svg viewBox="0 0 760 280" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
-          <!-- Trục tọa độ -->
-          <line x1="30" y1="140" x2="720" y2="140" stroke="#334155" stroke-width="1.8"/>
-          <line x1="380" y1="260" x2="380" y2="20" stroke="#334155" stroke-width="1.8"/>
-          <polygon points="720,140 710,136 710,144" fill="#334155"/>
-          <polygon points="380,20 376,30 384,30" fill="#334155"/>
-          <text x="715" y="160" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">x</text>
-          <text x="360" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">y</text>
-          <text x="368" y="156" font-family="sans-serif" font-size="12" fill="#64748b">O</text>
+        <div class="fw-bold text-secondary mb-1">HÌNH 1.17: ĐỒ THỊ HÀM SỐ $y = \cot x$ TRÊN $\mathbb{R}$ (SGK TRANG 29)</div>
+        <svg viewBox="0 0 760 260" style="max-width:100%; height:auto; background:#ffffff; border-radius:12px; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(15,23,42,0.06);">
+          <!-- Các đường tiệm cận đứng nét đứt màu đỏ cam x = k*pi -->
+          <line x1="140" y1="20" x2="140" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="260" y1="20" x2="260" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="500" y1="20" x2="500" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
+          <line x1="620" y1="20" x2="620" y2="240" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,4"/>
 
-          <!-- Các đường tiệm cận đứng x = k*pi -->
-          <!-- O tại 380, pi = 120px -->
-          <!-- x = -2pi -> 140 -->
-          <!-- x = -pi -> 260 -->
-          <!-- x = 0 (trùng trục Oy 380) -->
-          <!-- x = pi -> 500 -->
-          <!-- x = 2pi -> 620 -->
-          <line x1="140" y1="20" x2="140" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="260" y1="20" x2="260" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="380" y1="20" x2="380" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="500" y1="20" x2="500" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
-          <line x1="620" y1="20" x2="620" y2="260" stroke="#059669" stroke-width="1.6" stroke-dasharray="5,4"/>
+          <text x="126" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-2\pi</text>
+          <text x="252" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">-\pi</text>
+          <text x="496" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">\pi</text>
+          <text x="614" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">2\pi</text>
 
-          <text x="126" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">-2π</text>
-          <text x="252" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">-π</text>
-          <text x="496" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">π</text>
-          <text x="614" y="272" font-family="sans-serif" font-size="10" font-weight="bold" fill="#059669">2π</text>
+          <!-- Hệ trục toạ độ Ox, Oy (Oy trùng tiệm cận x = 0) -->
+          <line x1="40" y1="130" x2="720" y2="130" stroke="#1e293b" stroke-width="2"/>
+          <line x1="380" y1="240" x2="380" y2="20" stroke="#ea580c" stroke-width="2" stroke-dasharray="5,4"/>
+          <polygon points="720,130 710,125 710,135" fill="#1e293b"/>
+          <polygon points="380,20 375,30 385,30" fill="#ea580c"/>
+          <text x="715" y="150" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">x</text>
+          <text x="350" y="26" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ea580c">y (TCĐ)</text>
+          <text x="368" y="146" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">O</text>
 
-          <!-- Các nhánh đồ thị nghịch biến dốc xuống từ trái qua phải -->
-          <!-- Nhánh (-pi; 0): đi qua -pi/2 (320, 140) -->
-          <path d="M 275 30 C 295 60, 310 110, 320 140 C 330 170, 345 220, 365 250" fill="none" stroke="#7c3aed" stroke-width="2.6"/>
-          <circle cx="320" cy="140" r="3.5" fill="#334155"/>
-          <text x="306" y="156" font-family="sans-serif" font-size="10" fill="#334155">-π/2</text>
+          <!-- Các nhánh đồ thị nghịch biến đi xuống (Màu vàng hổ phách) -->
+          <path d="M 268.0,24.0 L 270.0,24.0 L 272.0,24.0 L 274.0,38.8 L 276.0,51.4 L 278.0,61.3 L 280.0,69.4 L 282.0,76.1 L 284.0,81.8 L 286.0,86.8 L 288.0,91.1 L 290.0,95.0 L 292.0,98.5 L 294.0,101.7 L 296.0,104.6 L 298.0,107.3 L 300.0,109.8 L 302.0,112.2 L 304.0,114.4 L 306.0,116.6 L 308.0,118.6 L 310.0,120.6 L 312.0,122.6 L 314.0,124.5 L 316.0,126.3 L 318.0,128.2 L 320.0,130.0 L 322.0,131.8 L 324.0,133.7 L 326.0,135.5 L 328.0,137.4 L 330.0,139.4 L 332.0,141.4 L 334.0,143.4 L 336.0,145.6 L 338.0,147.8 L 340.0,150.2 L 342.0,152.7 L 344.0,155.4 L 346.0,158.3 L 348.0,161.5 L 350.0,165.0 L 352.0,168.9 L 354.0,173.2 L 356.0,178.2 L 358.0,183.9 L 360.0,190.6 L 362.0,198.7 L 364.0,208.6 L 366.0,221.2 L 368.0,236.0 L 370.0,236.0 L 372.0,236.0" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M 388.0,24.0 L 390.0,24.0 L 392.0,24.0 L 394.0,38.8 L 396.0,51.4 L 398.0,61.3 L 400.0,69.4 L 402.0,76.1 L 404.0,81.8 L 406.0,86.8 L 408.0,91.1 L 410.0,95.0 L 412.0,98.5 L 414.0,101.7 L 416.0,104.6 L 418.0,107.3 L 420.0,109.8 L 422.0,112.2 L 424.0,114.4 L 426.0,116.6 L 428.0,118.6 L 430.0,120.6 L 432.0,122.6 L 434.0,124.5 L 436.0,126.3 L 438.0,128.2 L 440.0,130.0 L 442.0,131.8 L 444.0,133.7 L 446.0,135.5 L 448.0,137.4 L 450.0,139.4 L 452.0,141.4 L 454.0,143.4 L 456.0,145.6 L 458.0,147.8 L 460.0,150.2 L 462.0,152.7 L 464.0,155.4 L 466.0,158.3 L 468.0,161.5 L 470.0,165.0 L 472.0,168.9 L 474.0,173.2 L 476.0,178.2 L 478.0,183.9 L 480.0,190.6 L 482.0,198.7 L 484.0,208.6 L 486.0,221.2 L 488.0,236.0 L 490.0,236.0 L 492.0,236.0" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M 508.0,24.0 L 510.0,24.0 L 512.0,24.0 L 514.0,38.8 L 516.0,51.4 L 518.0,61.3 L 520.0,69.4 L 522.0,76.1 L 524.0,81.8 L 526.0,86.8 L 528.0,91.1 L 530.0,95.0 L 532.0,98.5 L 534.0,101.7 L 536.0,104.6 L 538.0,107.3 L 540.0,109.8 L 542.0,112.2 L 544.0,114.4 L 546.0,116.6 L 548.0,118.6 L 550.0,120.6 L 552.0,122.6 L 554.0,124.5 L 556.0,126.3 L 558.0,128.2 L 560.0,130.0 L 562.0,131.8 L 564.0,133.7 L 566.0,135.5 L 568.0,137.4 L 570.0,139.4 L 572.0,141.4 L 574.0,143.4 L 576.0,145.6 L 578.0,147.8 L 580.0,150.2 L 582.0,152.7 L 584.0,155.4 L 586.0,158.3 L 588.0,161.5 L 590.0,165.0 L 592.0,168.9 L 594.0,173.2 L 596.0,178.2 L 598.0,183.9 L 600.0,190.6 L 602.0,198.7 L 604.0,208.6 L 606.0,221.2 L 608.0,236.0 L 610.0,236.0 L 612.0,236.0" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linecap="round"/>
 
-          <!-- Nhánh (0; pi): đi qua pi/2 (440, 140) -->
-          <path d="M 395 30 C 415 60, 430 110, 440 140 C 450 170, 465 220, 485 250" fill="none" stroke="#7c3aed" stroke-width="2.6"/>
-          <circle cx="440" cy="140" r="3.5" fill="#334155"/>
-          <text x="430" y="156" font-family="sans-serif" font-size="10" fill="#334155">π/2</text>
+          <!-- Giao điểm với trục Ox (320: -pi/2, 440: pi/2, 560: 3pi/2) -->
+          <circle cx="320" cy="130" r="4" fill="#d97706"/><text x="306" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">-\pi/2</text>
+          <circle cx="440" cy="130" r="4" fill="#d97706"/><text x="432" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">\pi/2</text>
+          <circle cx="560" cy="130" r="4" fill="#d97706"/><text x="548" y="148" font-family="sans-serif" font-size="11" font-weight="bold" fill="#475569">3\pi/2</text>
 
-          <!-- Nhánh (pi; 2pi): đi qua 3pi/2 (560, 140) -->
-          <path d="M 515 30 C 535 60, 550 110, 560 140 C 570 170, 585 220, 605 250" fill="none" stroke="#7c3aed" stroke-width="2.6"/>
-          <circle cx="560" cy="140" r="3.5" fill="#334155"/>
-          <text x="548" y="156" font-family="sans-serif" font-size="10" fill="#334155">3π/2</text>
+          <!-- Điểm mẫu pi/4: cot(pi/4) = 1 (X = 410, Y = 95) -->
+          <circle cx="410" cy="95" r="3.5" fill="#dc2626"/>
+          <line x1="410" y1="130" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
+          <line x1="380" y1="95" x2="410" y2="95" stroke="#dc2626" stroke-dasharray="2,2"/>
+          <text x="365" y="98" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">1</text>
+          <text x="402" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">\pi/4</text>
 
-          <!-- Khoảng cách chu kì T = pi -->
-          <line x1="320" y1="210" x2="440" y2="210" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="320" y1="202" x2="320" y2="218" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="440" y1="202" x2="440" y2="218" stroke="#2563eb" stroke-width="1.8"/>
-          <text x="368" y="202" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2563eb">T = π</text>
+          <!-- Hộp ghi chú sư phạm -->
+          <rect x="475" y="26" width="235" height="28" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="485" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b45309">Luôn nghịch biến trên từng khoảng</text>
         </svg>
       </div>`,
       audioUrl: "assets/audio/b11_3_sec6.mp3",

@@ -3899,7 +3899,25 @@ function initDigitalLessons() {
               <div class="exam-list-sa">
                 ${ef.part3ShortAnswer.map((q, idx) => {
                   const saNum = (q.num !== undefined && q.num !== null && q.num !== 'undefined') ? q.num : (idx + 1);
-                  const saPrompt = q.prompt || q.question || '';
+                  const saQText = q.question || '';
+                  const saPText = q.prompt || '';
+                  let saRenderedHtml = '';
+                  if (saQText && saPText && saQText.trim() !== saPText.trim()) {
+                    saRenderedHtml = `
+                      <div class="sa-question-content" style="font-size: 1.05rem; line-height: 1.65; color: #0f172a; font-weight: 500; margin-bottom: 10px;">
+                        ${saQText}
+                      </div>
+                      <div class="sa-instruction-badge" style="display: inline-flex; align-items: center; gap: 8px; background: #fffbeb; border: 1.5px dashed #f59e0b; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem; color: #b45309; font-weight: 700;">
+                        <i class="fa-solid fa-pen-to-square"></i> <span>${saPText}</span>
+                      </div>
+                    `;
+                  } else {
+                    saRenderedHtml = `
+                      <div class="sa-question-content" style="font-size: 1.05rem; line-height: 1.65; color: #0f172a; font-weight: 500;">
+                        ${saQText || saPText}
+                      </div>
+                    `;
+                  }
                   const saSol = q.solution || q.explain || '';
                   const targetAns = (q.correctAnswer !== undefined && q.correctAnswer !== null) ? q.correctAnswer : ((q.correctValue !== undefined && q.correctValue !== null) ? q.correctValue : '');
                   return `
@@ -3917,7 +3935,7 @@ function initDigitalLessons() {
                         </button>
                       </div>
                     </div>
-                    <div class="exam-item-prompt" id="prompt-${q.id}">${saPrompt}</div>
+                    <div class="exam-item-prompt" id="prompt-${q.id}">${saRenderedHtml}</div>
                     <div class="short-ans-row">
                       <label style="font-weight: 700; color: #1e293b;">Đáp số của em:</label>
                       <input type="text" class="short-ans-input" id="input-${q.id}" placeholder="Nhập số..." data-ans="${targetAns}">
@@ -5248,7 +5266,23 @@ function initDigitalLessons() {
         if (foundQ && foundQ.similarVariation) {
           const sim = foundQ.similarVariation;
           const promptEl = document.getElementById(`prompt-${qid}`);
-          if (promptEl) promptEl.innerHTML = sim.prompt;
+          if (promptEl) {
+            const simQ = sim.question || '';
+            const simP = sim.prompt || '';
+            if (simQ && simP && simQ.trim() !== simP.trim()) {
+              promptEl.innerHTML = `
+                <div class="sa-question-content" style="font-size: 1.05rem; line-height: 1.65; color: #0f172a; font-weight: 500; margin-bottom: 10px;">
+                  ${simQ}
+                </div>
+                <div class="sa-instruction-badge" style="display: inline-flex; align-items: center; gap: 8px; background: #fffbeb; border: 1.5px dashed #f59e0b; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem; color: #b45309; font-weight: 700;">
+                  <i class="fa-solid fa-pen-to-square"></i> <span>${simP}</span>
+                </div>
+              `;
+            } else {
+              promptEl.innerHTML = `<div class="sa-question-content" style="font-size: 1.05rem; line-height: 1.65; color: #0f172a; font-weight: 500;">${simQ || simP}</div>`;
+            }
+            if (typeof renderMath === 'function') renderMath(promptEl);
+          }
           const cardEl = document.getElementById(`card-${qid}`);
           if (cardEl) {
             if (sim.options) {
