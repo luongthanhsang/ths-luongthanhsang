@@ -6063,8 +6063,7 @@ function initTeacherAiChat() {
     html = html.replace(/(Bước \d+:|Bước 1:|Bước 2:|Bước 3:|Bước 4:)/g, '<span class="step-badge">$1</span>');
     
     // Xử lý danh sách gạch đầu dòng
-    const lines = html.split("
-");
+    const lines = html.split(/\r?\n/);
     let inList = false;
     let result = [];
 
@@ -6156,9 +6155,7 @@ function initTeacherAiChat() {
       
       // Fallback về bộ giải toán của Thầy khi gặp lỗi kết nối API
       const fallbackText = generateSmartTeacherResponse(textToShow, attachedImg);
-      appendMessage("ai", fallbackText + "
-
-*(Ghi chú: Đang sử dụng Bộ giải toán thông minh tích hợp sẵn của Thầy Sáng do đường truyền API tạm thời gián đoạn)*");
+      appendMessage("ai", fallbackText + '\n\n*(Ghi chú: Đang sử dụng Bộ giải toán thông minh tích hợp sẵn của Thầy Sáng do đường truyền API tạm thời gián đoạn)*');
     } finally {
       isThinking = false;
       if (chatInput) chatInput.focus();
@@ -6235,17 +6232,15 @@ Bước 1: **Đọc kĩ giả thiết & Nhận diện dạng toán**
 Bước 2: **Thiết lập công thức toán học then chốt**
 - Nếu là bài toán thực tế cấp số: Xác định ngay số hạng đầu $u_1$ và quy luật tăng/giảm ($d$ hoặc $q$).
 - Nếu là phương trình lượng giác: Đưa về cùng một hàm số lượng giác cơ bản:
-  $$\sin u = \sin v \iff \left[egin{array}{l} u = v + k2\pi \ u = \pi - v + k2\pi \end{array}
-ight. \quad (k \in \mathbb{Z})$$
-  $$\cos u = \cos v \iff u = \pm v + k2\pi \quad (k \in \mathbb{Z})$$
+  $$\\sin u = \\sin v \\iff \\left[\\begin{array}{l} u = v + k2\\pi \\\\ u = \\pi - v + k2\\pi \\end{array}\\right. \\quad (k \\in \\mathbb{Z})$$
+  $$\\cos u = \\cos v \\iff u = \\pm v + k2\\pi \\quad (k \\in \\mathbb{Z})$$
 
 Bước 3: **Trình bày lời giải chi tiết**
 - Thực hiện biến đổi đại số cẩn thận, tránh nhầm lẫn dấu.
-- Nếu là bài toán tính tổng: Áp dụng công thức tổng $n$ số hạng đầu $S_n = rac{n(u_1+u_n)}{2}$ (với CSC) hoặc $S_n = rac{u_1(1-q^n)}{1-q}$ (với CSN, $q 
-eq 1$).
+- Nếu là bài toán tính tổng: Áp dụng công thức tổng $n$ số hạng đầu $S_n = \\frac{n(u_1+u_n)}{2}$ (với CSC) hoặc $S_n = \\frac{u_1(1-q^n)}{1-q}$ (với CSN, $q \\neq 1$).
 
 Bước 4: **Đối chiếu điều kiện & Kết luận**
-- Kiểm tra lại điều kiện nghiệm hoặc ý nghĩa thực tế (số hàng ghế, số tiền, số ngày... phải là số nguyên dương $n \in \mathbb{N}^*$).
+- Kiểm tra lại điều kiện nghiệm hoặc ý nghĩa thực tế (số hàng ghế, số tiền, số ngày... phải là số nguyên dương $n \\in \\mathbb{N}^*$).
 
 💡 *Mẹo của Thầy Sáng:* Em hãy kiểm tra xem em đang bị vướng mắc ở bước biến đổi nào trong 4 bước trên nhé. Nếu em muốn AI đọc chữ và giải trực tiếp trên ảnh bằng thị giác máy tính Gemini Vision, em có thể bấm vào biểu tượng 🔑 ở góc phải trên khung chat để nhập Gemini API Key miễn phí nhé!`;
     }
@@ -6254,29 +6249,24 @@ Bước 4: **Đối chiếu điều kiện & Kết luận**
     if (q.includes("sin(2x)") || q.includes("sin 2x") || (q.includes("lượng giác") && q.includes("giải"))) {
       return `Chào em! Thầy Sáng hướng dẫn em giải chi tiết phương trình lượng giác cơ bản này nhé:
 
-### Đề bài: Giải phương trình $\sin 2x = rac{\sqrt{3}}{2}$
+### Đề bài: Giải phương trình $\\sin 2x = \\frac{\\sqrt{3}}{2}$
 
 Bước 1: **Chuyển đổi vế phải về dạng chuẩn**
-Ta biết rằng $rac{\sqrt{3}}{2} = \sin\left(rac{\pi}{3}
-ight)$. Do đó phương trình tương đương:
-$$\sin 2x = \sin\left(rac{\pi}{3}
-ight)$$
+Ta biết rằng $\\frac{\\sqrt{3}}{2} = \\sin\\left(\\frac{\\pi}{3}\\right)$. Do đó phương trình tương đương:
+$$\\sin 2x = \\sin\\left(\\frac{\\pi}{3}\\right)$$
 
-Bước 2: **Áp dụng công thức nghiệm phương trình $\sin u = \sin v$**
-$$\left[egin{array}{l} 2x = rac{\pi}{3} + k2\pi \ 2x = \pi - rac{\pi}{3} + k2\pi \end{array}
-ight. \quad (k \in \mathbb{Z})$$
+Bước 2: **Áp dụng công thức nghiệm phương trình $\\sin u = \\sin v$**
+$$\\left[\\begin{array}{l} 2x = \\frac{\\pi}{3} + k2\\pi \\\\ 2x = \\pi - \\frac{\\pi}{3} + k2\\pi \\end{array}\\right. \\quad (k \\in \\mathbb{Z})$$
 
 Bước 3: **Rút gọn tìm nghiệm $x$**
 Chia cả hai vế cho $2$, ta được:
-$$\left[egin{array}{l} x = rac{\pi}{6} + k\pi \ x = rac{\pi}{3} + k\pi \end{array}
-ight. \quad (k \in \mathbb{Z})$$
+$$\\left[\\begin{array}{l} x = \\frac{\\pi}{6} + k\\pi \\\\ x = \\frac{\\pi}{3} + k\\pi \\end{array}\\right. \\quad (k \\in \\mathbb{Z})$$
 
 Bước 4: **Kết luận**
 Vậy tập nghiệm của phương trình đã cho là:
-$$S = \left\{ rac{\pi}{6} + k\pi;\; rac{\pi}{3} + k\pi \;\middle|\; k \in \mathbb{Z} 
-ight\}$$
+$$S = \\left\\{ \\frac{\\pi}{6} + k\\pi;\\; \\frac{\\pi}{3} + k\\pi \\;\\middle|\\; k \\in \\mathbb{Z} \\right\\}$$
 
-⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, rất nhiều bạn quên chia chu kì $k2\pi$ thành $k\pi$. Em nhớ chia đều cho cả hệ số tự do lẫn chu kì nhé!`;
+⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, rất nhiều bạn quên chia chu kì $k2\\pi$ thành $k\\pi$. Em nhớ chia đều cho cả hệ số tự do lẫn chu kì nhé!`;
     }
 
     // Nhận diện Cấp số nhân
@@ -6285,25 +6275,24 @@ ight\}$$
 
 ### 1. Định nghĩa Cấp số nhân
 Dãy số $(u_n)$ là cấp số nhân khi:
-$$u_{n+1} = u_n \cdot q \quad (orall n \in \mathbb{N}^*)$$
+$$u_{n+1} = u_n \\cdot q \\quad (\\forall n \\in \\mathbb{N}^*)$$
 Trong đó $q$ gọi là **công bội** của cấp số nhân.
 
 ### 2. Số hạng tổng quát của Cấp số nhân
 Nếu cấp số nhân có số hạng đầu $u_1$ và công bội $q$, thì số hạng thứ $n$ được xác định bởi:
-$$u_n = u_1 \cdot q^{n-1} \quad (orall n \ge 2)$$
+$$u_n = u_1 \\cdot q^{n-1} \\quad (\\forall n \\ge 2)$$
 
-Bước 1: **Xác định $u_1$ và công bội $q$:** $q = rac{u_{k+1}}{u_k}$.
-Bước 2: **Thay vào công thức:** Ví dụ $u_1 = 3, q = 2 \implies u_n = 3 \cdot 2^{n-1}$. Khi đó số hạng thứ 5 là $u_5 = 3 \cdot 2^4 = 48$.
+Bước 1: **Xác định $u_1$ và công bội $q$:** $q = \\frac{u_{k+1}}{u_k}$.
+Bước 2: **Thay vào công thức:** Ví dụ $u_1 = 3, q = 2 \\implies u_n = 3 \\cdot 2^{n-1}$. Khi đó số hạng thứ 5 là $u_5 = 3 \\cdot 2^4 = 48$.
 
 ### 3. Tổng $n$ số hạng đầu tiên ($S_n$)
-Với $q 
-e 1$, tổng của $n$ số hạng đầu là:
-$$S_n = u_1 + u_2 + \dots + u_n = rac{u_1(1 - q^n)}{1 - q} = rac{u_1(q^n - 1)}{q - 1}$$
-*(Nếu $q = 1$ thì $S_n = n \cdot u_1$)*.
+Với $q \\ne 1$, tổng của $n$ số hạng đầu là:
+$$S_n = u_1 + u_2 + \\dots + u_n = \\frac{u_1(1 - q^n)}{1 - q} = \\frac{u_1(q^n - 1)}{q - 1}$$
+*(Nếu $q = 1$ thì $S_n = n \\cdot u_1$)*.
 
 ### 4. Tính chất các số hạng
 Mỗi số hạng (trừ số hạng đầu và cuối) đều có bình phương bằng tích của hai số hạng kề nó:
-$$u_k^2 = u_{k-1} \cdot u_{k+1} \quad (k \ge 2)$$
+$$u_k^2 = u_{k-1} \\cdot u_{k+1} \\quad (k \\ge 2)$$
 
 💡 *Lời khuyên của Thầy:* Trong bài thi trắc nghiệm, các câu hỏi về bài toán thực tế như **lãi kép ngân hàng** hay **sự tăng trưởng vi khuẩn** đều là mô hình cấp số nhân. Em chỉ cần xác định đúng $u_1$ và $q = 1 + r$ là ra ngay kết quả!`;
     }
@@ -6313,20 +6302,19 @@ $$u_k^2 = u_{k-1} \cdot u_{k+1} \quad (k \ge 2)$$
       return `Chào em! Thầy hướng dẫn em công thức và phương pháp tính **Tổng $n$ số hạng đầu của Cấp số cộng** (Bài 6 Toán 11) nhé:
 
 ### 1. Công thức tính tổng $S_n$
-Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1$ và công sai $d$. Tổng $n$ số hạng đầu $S_n = u_1 + u_2 + \dots + u_n$ được tính bằng một trong hai cách:
+Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1$ và công sai $d$. Tổng $n$ số hạng đầu $S_n = u_1 + u_2 + \\dots + u_n$ được tính bằng một trong hai cách:
 
 - **Cách 1 (Khi biết số hạng đầu $u_1$ và số hạng cuối $u_n$):**
-  $$S_n = rac{n(u_1 + u_n)}{2}$$
+  $$S_n = \\frac{n(u_1 + u_n)}{2}$$
 
 - **Cách 2 (Khi biết số hạng đầu $u_1$ và công sai $d$):**
-  $$S_n = rac{n\left[2u_1 + (n - 1)d
-ight]}{2} = n \cdot u_1 + rac{n(n - 1)}{2}d$$
+  $$S_n = \\frac{n\\left[2u_1 + (n - 1)d\\right]}{2} = n \\cdot u_1 + \\frac{n(n - 1)}{2}d$$
 
 ### 2. Ví dụ thực tế bài toán rạp hát (SGK):
 *Một nhà hát có 25 hàng ghế. Hàng 1 có 16 ghế, hàng 2 có 18 ghế, hàng 3 có 20 ghế... Tính tổng số ghế.*
 Bước 1: Nhận diện: Số ghế các hàng lập thành CSC với $u_1 = 16$, công sai $d = 2$, số hàng $n = 25$.
 Bước 2: Áp dụng công thức:
-$$S_{25} = rac{25 \cdot [2 \cdot 16 + (25 - 1) \cdot 2]}{2} = rac{25 \cdot [32 + 48]}{2} = 25 \cdot 40 = 1000 	ext{ (ghế)}$$
+$$S_{25} = \\frac{25 \\cdot [2 \\cdot 16 + (25 - 1) \\cdot 2]}{2} = \\frac{25 \\cdot [32 + 48]}{2} = 25 \\cdot 40 = 1000 \\text{ (ghế)}$$
 Vậy nhà hát có đúng $1000$ ghế.
 
 Thầy chúc em luôn học tốt và tự tin chinh phục các dạng toán Cấp số nhé!`;
@@ -6368,7 +6356,7 @@ Bước 1: **Xác định rõ bản chất kiến thức**
 
 Bước 2: **Vận dụng định lý và công thức tương ứng**
 - Hãy ghi lại các công thức liên quan ra nháp trước khi bắt tay vào tính toán.
-- Đừng quên kiểm tra các điều kiện tồn tại của bài toán (mẫu số khác $0$, biểu thức trong căn $\ge 0$, biểu thức dưới dấu $\log$ dương...).
+- Đừng quên kiểm tra các điều kiện tồn tại của bài toán (mẫu số khác $0$, biểu thức trong căn $\\ge 0$, biểu thức dưới dấu $\\log$ dương...).
 
 Bước 3: **Kiểm tra lại kết quả**
 - Có thể dùng máy tính cầm tay (Casio fx-580VNX hoặc fx-880BTG) để thử lại với các giá trị đặc biệt nhằm khẳng định độ chính xác của đáp án.
