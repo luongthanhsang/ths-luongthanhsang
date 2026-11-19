@@ -5712,6 +5712,9 @@ function initDigitalLessons() {
 /* ==========================================================================
    4. KHUNG CHAT AI TRỰC TIẾP VỚI THẦY SÁNG (GEMINI AI CHAT & MULTIMODAL IMAGE)
    ========================================================================== */
+// Master Google Gemini API Key chính hãng của ThS. Lương Thanh Sáng
+const MASTER_GEMINI_KEY = "AQ.Ab8RN6ItJuGEwHMWCFMjTABrWqnh4fAYXZ2xOUUuzfjz5-Z75w";
+
 function initTeacherAiChat() {
   const chatCard = document.getElementById("aiChatCard");
   if (!chatCard) return;
@@ -5756,7 +5759,7 @@ function initTeacherAiChat() {
   const geminiGuideDrawer = document.getElementById("geminiGuideDrawer");
 
   function updateGeminiBannerUI() {
-    const key = localStorage.getItem("ths_sang_gemini_api_key") || "";
+    const key = localStorage.getItem("ths_sang_gemini_api_key") || MASTER_GEMINI_KEY;
     if (key) {
       if (bannerActiveState) bannerActiveState.style.display = "flex";
       if (bannerInactiveState) bannerInactiveState.style.display = "none";
@@ -6155,7 +6158,7 @@ function initTeacherAiChat() {
     }
 
     try {
-      const apiKey = localStorage.getItem("ths_sang_gemini_api_key") || "";
+      const apiKey = localStorage.getItem("ths_sang_gemini_api_key") || MASTER_GEMINI_KEY;
       let aiResponseText = "";
 
       if (apiKey) {
@@ -6185,11 +6188,11 @@ function initTeacherAiChat() {
     }
   }
 
-  // 11. Hàm gọi Gemini API
+  // 11. Hàm gọi Gemini API chính thức của Google (với model mới nhất và fallback đa tầng)
   async function callGeminiApi(apiKey, userPrompt, imageObj) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash", "gemini-pro-latest"];
 
-    const systemInstruction = "Bạn là ThS. Lương Thanh Sáng, Tổ trưởng chuyên môn Toán học trường THPT Nguyễn Văn Thoại, huyện Thoại Sơn, tỉnh An Giang. Bạn đang trực tiếp hỗ trợ học sinh học tập và ôn thi môn Toán theo Chương trình GDPT 2018 (bộ sách Kết nối tri thức với cuộc sống). Khi trả lời học sinh: 1. Nêu phương pháp và bản chất toán học ngắn gọn; 2. Giải chi tiết từng bước, rõ ràng, dễ hiểu; 3. Dùng công thức toán LaTeX chuẩn kẹp giữa dấu $...$ (nếu trong dòng) hoặc $$...$$ (nếu công thức riêng); 4. Nếu có ảnh đề bài, hãy đọc kĩ đề từ ảnh và giải trọn vẹn; 5. Nhắc nhở lỗi sai học sinh hay mắc và đưa lời động viên; 6. Giữ phong cách sư phạm mẫu mực, ân cần, xưng Thầy và gọi em.";
+    const systemInstruction = "Bạn là ThS. Lương Thanh Sáng, Tổ trưởng chuyên môn Toán học trường THPT Nguyễn Văn Thoại, huyện Thoại Sơn, tỉnh An Giang. Bạn đang trực tiếp hỗ trợ học sinh học tập và ôn thi môn Toán theo Chương trình GDPT 2018 (bộ sách Kết nối tri thức với cuộc sống). Khi trả lời: 1. Nêu phương pháp và bản chất toán học đúng trọng tâm; 2. Giải chi tiết từng bước, rõ ràng, dễ hiểu, đáp số chuẩn xác 100%; 3. Dùng công thức toán LaTeX chuẩn kẹp giữa dấu $...$ (nếu trong dòng) hoặc $$...$$ (nếu công thức riêng); 4. Nếu có ảnh đề bài, hãy đọc kĩ đề từ ảnh và giải trọn vẹn; 5. Đưa ra mẹo hoặc lưu ý tránh bẫy; 6. Giữ phong cách sư phạm mẫu mực, ân cần, xưng Thầy và gọi em.";
 
     const parts = [{ text: userPrompt }];
 
@@ -6213,29 +6216,40 @@ function initTeacherAiChat() {
         }
       ],
       generationConfig: {
-        temperature: 0.3,
+        temperature: 0.2,
         maxOutputTokens: 2048
       }
     };
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    let lastError = null;
 
-    if (!response.ok) {
-      const errData = await response.json();
-      throw new Error(errData.error?.message || "Lỗi kết nối Gemini API");
+    for (const model of candidateModels) {
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const candidate = data.candidates && data.candidates[0];
+          if (candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]) {
+            return candidate.content.parts[0].text;
+          }
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          lastError = new Error(errData.error?.message || `HTTP ${response.status}`);
+          console.warn(`Model ${model} not available (${response.status}), trying next model...`);
+        }
+      } catch (err) {
+        lastError = err;
+        console.warn(`Error connecting to model ${model}:`, err);
+      }
     }
 
-    const data = await response.json();
-    const candidate = data.candidates && data.candidates[0];
-    if (candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]) {
-      return candidate.content.parts[0].text;
-    } else {
-      throw new Error("Không nhận được nội dung phản hồi từ Gemini");
-    }
+    throw lastError || new Error("Không thể kết nối đến Google Gemini API");
   }
 
   // 12. BỘ GIẢI TOÁN SƯ PHẠM THÔNG MINH CỦA THẦY SÁNG (SMART PEDAGOGICAL ENGINE)
