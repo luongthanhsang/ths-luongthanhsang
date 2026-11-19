@@ -4798,6 +4798,7 @@ function initDigitalLessons() {
     if (audioUrl) {
       try {
         const audioSrc = (window.AUDIO_CACHE && window.AUDIO_CACHE[audioUrl]) ||
+                         (window.B11_7_AUDIO_CACHE && window.B11_7_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_6_AUDIO_CACHE && window.B11_6_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_5_AUDIO_CACHE && window.B11_5_AUDIO_CACHE[audioUrl]) ||
                          (window.B11_4_AUDIO_CACHE && window.B11_4_AUDIO_CACHE[audioUrl]) ||
