@@ -1254,20 +1254,41 @@ const LESSONS_DATABASE = {
               {
                 id: "11-c1-b4-s1",
                 num: "1",
-                title: "Phương trình sin x = m và cos x = m",
+                title: "Khái niệm phương trình tương đương",
                 subsections: [
-                  { key: "a", title: "Công thức nghiệm phương trình sin x = m", summary: "Điều kiện có nghiệm |m| <= 1; x = α + k2π hoặc x = π - α + k2π." },
-                  { key: "b", title: "Công thức nghiệm phương trình cos x = m", summary: "Điều kiện có nghiệm |m| <= 1; x = ±α + k2π." }
+                  { key: "a", title: "Khái niệm hai phương trình tương đương", summary: "Hai phương trình có cùng tập nghiệm; hai phương trình vô nghiệm luôn tương đương nhau." },
+                  { key: "b", title: "Các phép biến đổi tương đương", summary: "Cộng/trừ cùng một biểu thức, hoặc nhân/chia với một biểu thức luôn khác 0." }
                 ]
               },
               {
                 id: "11-c1-b4-s2",
                 num: "2",
-                title: "Phương trình tan x = m và cot x = m",
-                subsections: [
-                  { key: "a", title: "Công thức nghiệm phương trình tan x = m", summary: "Luôn có nghiệm với mọi m; x = arctan m + kπ." },
-                  { key: "b", title: "Công thức nghiệm phương trình cot x = m", summary: "Luôn có nghiệm với mọi m; x = arccot m + kπ." }
-                ]
+                title: "Phương trình sin x = m",
+                summary: "Điều kiện có nghiệm |m| <= 1; x = α + k2π hoặc x = π - α + k2π (k ∈ ℤ)."
+              },
+              {
+                id: "11-c1-b4-s3",
+                num: "3",
+                title: "Phương trình cos x = m",
+                summary: "Điều kiện có nghiệm |m| <= 1; x = ±α + k2π (k ∈ ℤ)."
+              },
+              {
+                id: "11-c1-b4-s4",
+                num: "4",
+                title: "Phương trình tan x = m",
+                summary: "Luôn có nghiệm với mọi m; x = α + kπ (k ∈ ℤ) với x ≠ π/2 + kπ."
+              },
+              {
+                id: "11-c1-b4-s5",
+                num: "5",
+                title: "Phương trình cot x = m",
+                summary: "Luôn có nghiệm với mọi m; x = α + kπ (k ∈ ℤ) với x ≠ kπ."
+              },
+              {
+                id: "11-c1-b4-s6",
+                num: "6",
+                title: "Sử dụng máy tính cầm tay tìm góc khi biết giá trị lượng giác",
+                summary: "Sử dụng các phím SHIFT sin, SHIFT cos, SHIFT tan và phím độ-phút-giây."
               }
             ]
           }
@@ -3366,6 +3387,7 @@ if (typeof window !== "undefined") {
   if (window.LESSON_11_C1_B1_DATA) autoInjectLesson(window.LESSON_11_C1_B1_DATA);
   if (window.LESSON_11_C1_B2_DATA) autoInjectLesson(window.LESSON_11_C1_B2_DATA);
   if (window.LESSON_11_C1_B3_DATA) autoInjectLesson(window.LESSON_11_C1_B3_DATA);
+  if (window.LESSON_11_C1_B4_DATA) autoInjectLesson(window.LESSON_11_C1_B4_DATA);
   if (window.LESSON_11_C4_B10_DATA) autoInjectLesson(window.LESSON_11_C4_B10_DATA);
   if (window.LESSON_11_C4_B11_DATA) autoInjectLesson(window.LESSON_11_C4_B11_DATA);
   if (window.LESSON_11_C4_B12_DATA) autoInjectLesson(window.LESSON_11_C4_B12_DATA);
