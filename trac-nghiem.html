@@ -82,240 +82,463 @@
     </section>
 
     <!-- ==================== KHU VỰC THI TRẮC NGHIỆM ==================== -->
-    <section class="quiz-section" id="quiz" style="padding-top: 50px;">
+    <section class="quiz-section" id="quiz" style="padding-top: 35px;">
       <div class="container">
 
-        <div class="quiz-wrapper">
-          <!-- BỘ CHỌN ĐỀ THI TRỰC TUYẾN (TOÁN 11 & TOÁN 12) -->
-          <div class="exam-selector-card">
-            <div class="exam-selector-header">
-              <i class="fa-solid fa-graduation-cap"></i>
-              <span>Chọn bộ đề thi trực tuyến:</span>
-            </div>
-            <div class="exam-selector-tabs">
-              <button class="exam-tab-btn active" data-exam="12_BGD_0110" onclick="switchExam('12_BGD_0110')">
-                <div class="exam-tab-status hot" style="background:#ef4444; color:#fff;"><i class="fa-solid fa-fire"></i> Bộ GD&ĐT 2026 Lần 2 Mới Nhất</div>
-                <div class="exam-tab-title"><i class="fa-solid fa-award" style="color:#d97706;"></i> ĐỀ TOÁN 12 - BỘ GIÁO DỤC VÀ ĐÀO TẠO (LẦN 2)</div>
-                <div class="exam-tab-sub">Mã đề: <strong>0110</strong> • 22 câu • 90 phút (Đề thi chính thức - Lời giải chi tiết Thầy Sáng)</div>
+        <!-- ==================== CẤP ĐỘ 1: DANH SÁCH BỘ ĐỀ THI TRỰC TUYẾN ==================== -->
+        <div class="exam-catalog-view" id="examCatalogView">
+          <div class="catalog-hero-box">
+            <div class="catalog-hero-badge"><i class="fa-solid fa-graduation-cap"></i> PHÒNG THI &amp; KHẢO SÁT TRỰC TUYẾN CHUẨN BỘ GD&amp;ĐT 2026</div>
+            <h2 class="catalog-hero-title">Kho Đề Thi Toán Trực Tuyến ThS. Lương Thanh Sáng</h2>
+            <p class="catalog-hero-desc">
+              Hệ thống khảo sát năng lực Toán 11 &amp; Toán 12 bám sát cấu trúc đề thi mới nhất của Bộ GD&amp;ĐT. Đề thi tích hợp tính năng hoán vị đề ngẫu nhiên, đồng hồ đếm ngược tự động, chấm điểm chuẩn xác và trang tổng hợp nhận diện lỗi sai chi tiết giúp em khắc phục lỗ hổng kiến thức ngay tức thì.
+            </p>
+
+            <!-- Thanh lọc đề theo khối lớp -->
+            <div class="catalog-filter-bar">
+              <span class="catalog-filter-label"><i class="fa-solid fa-filter"></i> Lọc theo khối:</span>
+              <button type="button" class="catalog-filter-btn active" data-filter="all" onclick="filterCatalogExams('all')">
+                <i class="fa-solid fa-layer-group"></i> Tất cả bộ đề (5)
               </button>
-              <button class="exam-tab-btn" data-exam="12_BGD_0101" onclick="switchExam('12_BGD_0101')">
-                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đề Bộ GD 2026 Lần 1</div>
-                <div class="exam-tab-title"><i class="fa-solid fa-award" style="color:#2563eb;"></i> ĐỀ TOÁN 12 - BỘ GIÁO DỤC VÀ ĐÀO TẠO</div>
-                <div class="exam-tab-sub">Mã đề: <strong>0101</strong> • 22 câu • 90 phút (Đề thi chính thức - Lời giải chi tiết Thầy Sáng)</div>
+              <button type="button" class="catalog-filter-btn" data-filter="12" onclick="filterCatalogExams('12')">
+                <i class="fa-solid fa-graduation-cap"></i> Toán 12 - Ôn thi Tốt nghiệp 2026 (3)
               </button>
-              <button class="exam-tab-btn" data-exam="11_GK1_TK5" onclick="switchExam('11_GK1_TK5')">
-                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
-                <div class="exam-tab-title"><i class="fa-solid fa-file-signature"></i> ĐỀ TOÁN 11 - GIỮA KÌ I</div>
-                <div class="exam-tab-sub">Mã đề: <strong>11.GK1.TK5</strong> • 21 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Tự luận)</div>
-              </button>
-              <button class="exam-tab-btn" data-exam="11_GK1_TK4" onclick="switchExam('11_GK1_TK4')">
-                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
-                <div class="exam-tab-title"><i class="fa-solid fa-file-signature"></i> ĐỀ TOÁN 11 - GIỮA KÌ I</div>
-                <div class="exam-tab-sub">Mã đề: <strong>11.GK1.TK4</strong> • 21 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Tự luận)</div>
-              </button>
-              <button class="exam-tab-btn" data-exam="12_GK1_0002" onclick="switchExam('12_GK1_0002')">
-                <div class="exam-tab-status standard"><i class="fa-solid fa-check"></i> Đã tích hợp</div>
-                <div class="exam-tab-title"><i class="fa-solid fa-file-lines"></i> ĐỀ TOÁN 12 - GIỮA KÌ I</div>
-                <div class="exam-tab-sub">Mã đề: <strong>0002</strong> • 22 câu • 90 phút (Trắc nghiệm + Đúng/Sai + Trả lời ngắn)</div>
+              <button type="button" class="catalog-filter-btn" data-filter="11" onclick="filterCatalogExams('11')">
+                <i class="fa-solid fa-book-bookmark"></i> Toán 11 - Giữa kì I (2)
               </button>
             </div>
           </div>
 
-          <!-- Thanh chọn chế độ thi (Cả đề / Phần I / Phần II / Phần III) -->
-          <div class="quiz-mode-bar" id="quizModeBar">
-            <span class="quiz-mode-label"><i class="fa-solid fa-sliders"></i> Chế độ thi:</span>
-            <button class="quiz-mode-btn active" data-mode="all" id="modeBtnAll">
-              <i class="fa-solid fa-file-lines"></i> Cả đề thi (22 câu - 90 phút)
-            </button>
-            <button class="quiz-mode-btn" data-mode="part1" id="modeBtnPart1">
-              <i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (12 câu - 3.0đ)
-            </button>
-            <button class="quiz-mode-btn" data-mode="part2" id="modeBtnPart2">
-              <i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (4 câu - 4.0đ)
-            </button>
-            <button class="quiz-mode-btn" data-mode="part3" id="modeBtnPart3">
-              <i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)
-            </button>
-          </div>
-
-          <!-- Topbar của hệ thống trắc nghiệm -->
-          <div class="quiz-topbar">
-            <div class="quiz-title-info">
-              <h3 id="quizTitleDisplay">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0101)</h3>
-              <p><i class="fa-solid fa-user-tie"></i> Biên soạn & Đồ họa TikZ: <strong>ThS. Lương Thanh Sáng</strong> • Thời gian: <strong id="quizTimeLabel">90 phút (Cả đề thi gồm 3 phần - 22 câu)</strong></p>
-            </div>
-
-            <div class="quiz-timer-box" id="timerBox">
-              <i class="fa-solid fa-hourglass-half"></i>
-              <div>
-                <div class="quiz-timer-text">Thời gian còn lại</div>
-                <div class="quiz-timer-clock" id="quizClock">90:00</div>
+          <!-- Lưới Card đề thi trực tuyến (Grid) -->
+          <div class="catalog-exams-grid" id="catalogExamsGrid">
+            <!-- Đề 1: 12_BGD_0110 -->
+            <div class="catalog-exam-card card-hot" data-grade="12" data-exam="12_BGD_0110">
+              <div class="exam-card-topbar">
+                <span class="exam-grade-pill grade-12"><i class="fa-solid fa-graduation-cap"></i> Toán 12</span>
+                <span class="exam-badge-highlight badge-fire"><i class="fa-solid fa-fire"></i> Bộ GD&amp;ĐT 2026 Lần 2 Mới Nhất</span>
               </div>
-            </div>
-          </div>
-
-          <!-- BẢNG KHỞI ĐỘNG VÀ NÚT BẮT ĐẦU LÀM BÀI (NỀN XANH, CHỮ VÀNG ĐỒNG) -->
-          <div class="exam-start-banner" id="examStartBanner">
-            <div class="start-banner-card">
-              <div class="start-banner-badge"><i class="fa-solid fa-graduation-cap"></i> CHUẨN BỊ LÀM BÀI THI TRỰC TUYẾN</div>
-              <h3 class="start-banner-title" id="startBannerTitle">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0101)</h3>
-              <p class="start-banner-desc" id="startBannerDesc">
-                Học sinh vui lòng chuẩn bị giấy nháp, bút viết và máy tính cầm tay trước khi bắt đầu. Khi em đã sẵn sàng, hãy bấm nút <strong>"Bắt đầu làm bài"</strong> bên dưới để hệ thống kích hoạt tính giờ đếm ngược!
-              </p>
-
-              <!-- FORM NHẬP THÔNG TIN HỌC SINH DỰ THI -->
-              <div class="student-info-form-card" id="studentInfoFormCard">
-                <div class="student-info-form-title">
-                  <i class="fa-solid fa-id-card-clip"></i> Thông tin học sinh dự thi:
-                </div>
-                <div class="student-inputs-grid">
-                  <div class="student-input-field">
-                    <label for="studentNameInput"><i class="fa-solid fa-user-pen"></i> Họ và tên học sinh <span class="req-star">*</span>:</label>
-                    <input type="text" id="studentNameInput" class="student-text-input" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name" required>
-                  </div>
-                  <div class="student-input-field">
-                    <label for="studentClassInput"><i class="fa-solid fa-chalkboard-user"></i> Lớp học <span class="req-star">*</span>:</label>
-                    <input type="text" id="studentClassInput" class="student-text-input" placeholder="Ví dụ: 12A1 (hoặc 11B2, 10A3...)" autocomplete="off" required>
-                  </div>
-                </div>
-                <div class="student-info-note">
-                  <i class="fa-solid fa-circle-check"></i> Thông tin được lưu tự động để xuất phiếu điểm &amp; nhận xét sư phạm chính thức từ ThS. Lương Thanh Sáng.
-                </div>
+              <h3 class="exam-card-title">Đề Toán 12 - Bộ Giáo Dục và Đào Tạo (Lần 2)</h3>
+              <p class="exam-card-desc">Đề thi khảo sát tốt nghiệp chính thức mới nhất năm 2026. Lời giải chi tiết từng bước &amp; đồ họa TikZ chuẩn xác từ ThS. Lương Thanh Sáng.</p>
+              
+              <div class="exam-card-specs">
+                <div class="spec-item"><i class="fa-solid fa-barcode"></i> Mã đề: <strong>0110</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-list-check"></i> Số lượng: <strong>22 câu hỏi</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong>90 phút</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></div>
               </div>
 
-              <div class="start-banner-meta" id="startBannerMeta">
-                <span><i class="fa-solid fa-clock"></i> Thời gian: <strong id="startMetaTime">90 phút</strong></span>
-                <span><i class="fa-solid fa-list-check"></i> Số lượng: <strong id="startMetaCount">22 câu</strong></span>
-                <span><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></span>
-                <span class="shuffle-badge-meta"><i class="fa-solid fa-shuffle"></i> Hoán vị đề: <strong id="startMetaShuffleCode">HV-101</strong></span>
+              <div class="exam-card-features">
+                <span><i class="fa-solid fa-check"></i> Trắc nghiệm 4 lựa chọn (12 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Đúng / Sai (4 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Trả lời ngắn (6 câu)</span>
               </div>
 
-              <div class="start-banner-action" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
-                <button type="button" class="btn-start-exam" id="btnStartExam" onclick="startExamSession()">
-                  <i class="fa-solid fa-play"></i> BẮT ĐẦU LÀM BÀI
-                </button>
-                <button type="button" class="btn-reshuffle-exam" id="btnReshuffleExam" onclick="reshuffleCurrentExam()" title="Xáo trộn lại thứ tự câu hỏi và phương án để làm đề hoán vị mới">
-                  <i class="fa-solid fa-shuffle"></i> Đổi đề hoán vị mới
+              <div class="exam-card-footer">
+                <button type="button" class="btn-card-enter" onclick="openExamWorkspace('12_BGD_0110')">
+                  <i class="fa-solid fa-play"></i> Vào Làm Bài Ngay <i class="fa-solid fa-arrow-right"></i>
                 </button>
               </div>
             </div>
-          </div>
 
-          <!-- Thanh định vị câu hỏi (Question Palette) -->
-          <div class="quiz-palette-bar">
-            <div class="palette-status-legend">
-              <div class="legend-item"><span class="legend-dot unanswered"></span> Chưa chọn</div>
-              <div class="legend-item"><span class="legend-dot answered"></span> Đã chọn</div>
-              <div class="legend-item"><span class="legend-dot correct"></span> Đúng (Sau khi nộp)</div>
-              <div class="legend-item"><span class="legend-dot wrong"></span> Sai (Sau khi nộp)</div>
-            </div>
-
-            <div class="palette-buttons" id="paletteButtons">
-              <!-- Nút chuyển nhanh câu hỏi 1 -> 22 do JS render -->
-            </div>
-          </div>
-
-          <!-- Kết quả chấm điểm (Ẩn khi đang làm bài, hiện ra sau khi nộp bài) -->
-          <div class="quiz-result-card" id="quizResultCard">
-            <div class="result-badge-icon" id="resultIcon">
-              <i class="fa-solid fa-trophy"></i>
-            </div>
-            <h3 class="result-title" id="resultTitle">Hoàn Thành Bài Thi!</h3>
-
-            <!-- THẺ THÔNG TIN HỌC SINH ĐÃ LÀM BÀI -->
-            <div class="student-result-pill" id="studentResultPill">
-              <span class="student-name-tag"><i class="fa-solid fa-user-graduate"></i> Học sinh: <strong id="resStudentName">Nguyễn Văn An</strong></span>
-              <span class="student-class-tag"><i class="fa-solid fa-chalkboard"></i> Lớp: <strong id="resStudentClass">12A1</strong></span>
-              <span class="student-exam-tag"><i class="fa-solid fa-file-signature"></i> Đề thi: <strong id="resExamCode">0110</strong> (<span id="resShuffleCode">HV-101</span>)</span>
-              <span class="student-date-tag"><i class="fa-regular fa-clock"></i> <span id="resDateFormatted">18/11/2026</span></span>
-            </div>
-
-            <!-- KHUNG NHẬN XÉT SƯ PHẠM CỦA THS. LƯƠNG THANH SÁNG -->
-            <div class="teacher-evaluation-box" id="teacherEvaluationBox">
-              <div class="eval-box-header">
-                <div class="eval-teacher-avatar">
-                  <i class="fa-solid fa-chalkboard-user"></i>
-                </div>
-                <div>
-                  <h4 class="eval-teacher-title" id="evalTeacherTitle"><i class="fa-solid fa-award"></i> NHẬN XÉT CỦA THS. LƯƠNG THANH SÁNG</h4>
-                  <span class="eval-teacher-sub">Tổ trưởng chuyên môn Toán • THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang</span>
-                </div>
+            <!-- Đề 2: 12_BGD_0101 -->
+            <div class="catalog-exam-card" data-grade="12" data-exam="12_BGD_0101">
+              <div class="exam-card-topbar">
+                <span class="exam-grade-pill grade-12"><i class="fa-solid fa-graduation-cap"></i> Toán 12</span>
+                <span class="exam-badge-highlight badge-official"><i class="fa-solid fa-certificate"></i> Bộ GD&amp;ĐT 2026 Lần 1</span>
               </div>
-              <div class="eval-box-content" id="resTeacherComment">
-                "Thầy Sáng chúc mừng em đã hoàn thành bài thi!..."
+              <h3 class="exam-card-title">Đề Toán 12 - Bộ Giáo Dục và Đào Tạo</h3>
+              <p class="exam-card-desc">Đề minh họa chính thức đầu tiên cho kỳ thi tốt nghiệp 2026. Phân hóa toàn diện kiến thức lớp 12 và lời giải chuẩn mực.</p>
+              
+              <div class="exam-card-specs">
+                <div class="spec-item"><i class="fa-solid fa-barcode"></i> Mã đề: <strong>0101</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-list-check"></i> Số lượng: <strong>22 câu hỏi</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong>90 phút</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></div>
               </div>
-            </div>
 
-            <div class="result-stats-row">
-              <div class="result-stat-box">
-                <div class="result-stat-val score" id="resScore">0.0</div>
-                <div class="result-stat-lbl">Điểm số (Thang 10)</div>
+              <div class="exam-card-features">
+                <span><i class="fa-solid fa-check"></i> Trắc nghiệm 4 lựa chọn (12 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Đúng / Sai (4 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Trả lời ngắn (6 câu)</span>
               </div>
-              <div class="result-stat-box">
-                <div class="result-stat-val correct" id="resCorrect">0 / 22</div>
-                <div class="result-stat-lbl">Số câu đúng</div>
-              </div>
-              <div class="result-stat-box">
-                <div class="result-stat-val wrong" id="resWrong">0 / 22</div>
-                <div class="result-stat-lbl">Số câu sai</div>
-              </div>
-              <div class="result-stat-box">
-                <div class="result-stat-val" style="color: var(--primary-600);" id="resTimeUsed">00:00</div>
-                <div class="result-stat-lbl">Thời gian làm bài</div>
-              </div>
-            </div>
 
-            <div class="result-actions" style="margin-bottom: 20px;">
-              <button class="btn btn-primary" id="btnToggleAllSolutions">
-                <i class="fa-solid fa-list-check"></i> Xem đáp án &amp; Lời giải chi tiết
-              </button>
-              <button class="btn btn-secondary" id="btnRetakeQuiz" style="color: var(--primary-800); border-color: var(--primary-300);">
-                <i class="fa-solid fa-arrow-rotate-right"></i> Làm lại bài thi (Đề hoán vị mới)
-              </button>
-              <button class="btn btn-accent" id="btnPrintResultBtn" onclick="printQuizResult()" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none;">
-                <i class="fa-solid fa-print"></i> In phiếu kết quả / Tải PDF
-              </button>
-            </div>
-
-            <!-- BẢNG LỊCH SỬ CÁC LẦN THI CỦA HỌC SINH -->
-            <div class="quiz-history-card" id="quizHistoryCard">
-              <div class="history-card-header">
-                <div class="history-card-title">
-                  <i class="fa-solid fa-clock-rotate-left" style="color: #0284c7;"></i>
-                  <span>Lịch sử các lần làm bài thi của em:</span>
-                </div>
-                <button type="button" class="btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
-                  <i class="fa-solid fa-trash-can"></i> Xóa lịch sử
+              <div class="exam-card-footer">
+                <button type="button" class="btn-card-enter" onclick="openExamWorkspace('12_BGD_0101')">
+                  <i class="fa-solid fa-play"></i> Vào Làm Bài Ngay <i class="fa-solid fa-arrow-right"></i>
                 </button>
               </div>
-              <div class="history-table-wrapper" id="historyTableWrapper">
-                <!-- Render by JS -->
+            </div>
+
+            <!-- Đề 3: 11_GK1_TK5 -->
+            <div class="catalog-exam-card" data-grade="11" data-exam="11_GK1_TK5">
+              <div class="exam-card-topbar">
+                <span class="exam-grade-pill grade-11"><i class="fa-solid fa-book-bookmark"></i> Toán 11</span>
+                <span class="exam-badge-highlight badge-green"><i class="fa-solid fa-check-double"></i> Đề Chuẩn Có Tự Luận</span>
+              </div>
+              <h3 class="exam-card-title">Đề Toán 11 - Giữa Kì I (Mã 11.GK1.TK5)</h3>
+              <p class="exam-card-desc">Khảo sát kiến thức Lượng giác, Cấp số cộng, Cấp số nhân &amp; Hình không gian. Có chức năng tự chấm Tự luận tự động theo barem 0.25đ.</p>
+              
+              <div class="exam-card-specs">
+                <div class="spec-item"><i class="fa-solid fa-barcode"></i> Mã đề: <strong>11.GK1.TK5</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-list-check"></i> Số lượng: <strong>21 câu hỏi</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong>90 phút</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></div>
+              </div>
+
+              <div class="exam-card-features">
+                <span><i class="fa-solid fa-check"></i> Trắc nghiệm 4 lựa chọn (16 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Đúng / Sai (3 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Tự luận có barem (2 câu)</span>
+              </div>
+
+              <div class="exam-card-footer">
+                <button type="button" class="btn-card-enter" onclick="openExamWorkspace('11_GK1_TK5')">
+                  <i class="fa-solid fa-play"></i> Vào Làm Bài Ngay <i class="fa-solid fa-arrow-right"></i>
+                </button>
               </div>
             </div>
 
-          </div>
+            <!-- Đề 4: 11_GK1_TK4 -->
+            <div class="catalog-exam-card" data-grade="11" data-exam="11_GK1_TK4">
+              <div class="exam-card-topbar">
+                <span class="exam-grade-pill grade-11"><i class="fa-solid fa-book-bookmark"></i> Toán 11</span>
+                <span class="exam-badge-highlight badge-green"><i class="fa-solid fa-check"></i> Đã Tích Hợp</span>
+              </div>
+              <h3 class="exam-card-title">Đề Toán 11 - Giữa Kì I (Mã 11.GK1.TK4)</h3>
+              <p class="exam-card-desc">Bộ đề rèn luyện kỹ năng giải nhanh phương trình lượng giác, bài toán thực tế giếng khoan &amp; trò chơi đu Hội Lim với đồ họa sắc nét.</p>
+              
+              <div class="exam-card-specs">
+                <div class="spec-item"><i class="fa-solid fa-barcode"></i> Mã đề: <strong>11.GK1.TK4</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-list-check"></i> Số lượng: <strong>21 câu hỏi</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong>90 phút</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></div>
+              </div>
 
-          <!-- Danh sách câu hỏi thi (render tự động từ quiz-data.js) -->
-          <div class="quiz-main-body" id="quizQuestionsContainer">
-            <!-- Questions rendered by JS -->
-          </div>
+              <div class="exam-card-features">
+                <span><i class="fa-solid fa-check"></i> Trắc nghiệm 4 lựa chọn (16 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Đúng / Sai (3 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Tự luận có barem (2 câu)</span>
+              </div>
 
-          <!-- Footer điều khiển nộp bài -->
-          <div class="quiz-footer">
-            <div class="quiz-progress-text" id="quizProgressText">
-              Đã làm: <span id="answeredCount">0</span> / <span id="totalQuestionsCount">21</span> câu hỏi
+              <div class="exam-card-footer">
+                <button type="button" class="btn-card-enter" onclick="openExamWorkspace('11_GK1_TK4')">
+                  <i class="fa-solid fa-play"></i> Vào Làm Bài Ngay <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
             </div>
 
-            <div class="quiz-footer-actions">
-              <button class="btn btn-secondary" id="btnResetCurrent" style="color: var(--text-main); border-color: var(--border-color);">
-                <i class="fa-solid fa-eraser"></i> Xóa lựa chọn
+            <!-- Đề 5: 12_GK1_0002 -->
+            <div class="catalog-exam-card" data-grade="12" data-exam="12_GK1_0002">
+              <div class="exam-card-topbar">
+                <span class="exam-grade-pill grade-12"><i class="fa-solid fa-graduation-cap"></i> Toán 12</span>
+                <span class="exam-badge-highlight badge-blue"><i class="fa-solid fa-check"></i> Đã Tích Hợp</span>
+              </div>
+              <h3 class="exam-card-title">Đề Toán 12 - Giữa Kì I (Mã Đề 0002)</h3>
+              <p class="exam-card-desc">Khảo sát kiến thức Khảo sát hàm số, Ứng dụng đạo hàm, Tiệm cận &amp; Khối đa diện. Chuẩn 3 phần ma trận Bộ Giáo dục.</p>
+              
+              <div class="exam-card-specs">
+                <div class="spec-item"><i class="fa-solid fa-barcode"></i> Mã đề: <strong>0002</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-list-check"></i> Số lượng: <strong>22 câu hỏi</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong>90 phút</strong></div>
+                <div class="spec-item"><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></div>
+              </div>
+
+              <div class="exam-card-features">
+                <span><i class="fa-solid fa-check"></i> Trắc nghiệm 4 lựa chọn (12 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Đúng / Sai (4 câu)</span>
+                <span><i class="fa-solid fa-check"></i> Trả lời ngắn (6 câu)</span>
+              </div>
+
+              <div class="exam-card-footer">
+                <button type="button" class="btn-card-enter" onclick="openExamWorkspace('12_GK1_0002')">
+                  <i class="fa-solid fa-play"></i> Vào Làm Bài Ngay <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lịch sử làm bài thi tại trang danh sách -->
+          <div class="quiz-history-card" id="catalogHistoryCard" style="display: none; margin-top: 36px;">
+            <div class="history-card-header">
+              <div class="history-card-title">
+                <i class="fa-solid fa-clock-rotate-left" style="color: #0284c7;"></i>
+                <span>Lịch sử các lần làm bài thi của em:</span>
+              </div>
+              <button type="button" class="btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
+                <i class="fa-solid fa-trash-can"></i> Xóa lịch sử
               </button>
-              <button class="btn btn-primary" id="btnSubmitQuiz">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Nộp bài thi
-              </button>
+            </div>
+            <div class="history-table-wrapper" id="catalogHistoryTableWrapper">
+              <!-- Render by JS -->
             </div>
           </div>
         </div>
+
+        <!-- ==================== CẤP ĐỘ 2: TRANG LÀM BÀI CỦA RIÊNG ĐỀ ĐÃ CHỌN ==================== -->
+        <div class="exam-workspace-view" id="examWorkspaceView" style="display: none;">
+          
+          <!-- THANH ĐIỀU HƯỚNG QUAY VỀ & TIÊU ĐỀ ĐỀ ĐANG CHỌN -->
+          <div class="exam-nav-header">
+            <button type="button" class="btn-back-to-catalog" id="btnBackToCatalog" onclick="confirmAndExitExam()">
+              <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách đề thi
+            </button>
+            <div class="exam-current-badge-wrapper">
+              <span class="current-grade-tag" id="currentGradeTag">Toán 12</span>
+              <span class="current-exam-name" id="currentExamName">Đề Toán 12 - Bộ Giáo Dục và Đào Tạo (Mã đề 0110)</span>
+            </div>
+          </div>
+
+          <div class="quiz-wrapper">
+            <!-- Thanh chọn chế độ thi (Cả đề / Phần I / Phần II / Phần III) -->
+            <div class="quiz-mode-bar" id="quizModeBar">
+              <span class="quiz-mode-label"><i class="fa-solid fa-sliders"></i> Chế độ thi:</span>
+              <button class="quiz-mode-btn active" data-mode="all" id="modeBtnAll">
+                <i class="fa-solid fa-file-lines"></i> Cả đề thi (22 câu - 90 phút)
+              </button>
+              <button class="quiz-mode-btn" data-mode="part1" id="modeBtnPart1">
+                <i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (12 câu - 3.0đ)
+              </button>
+              <button class="quiz-mode-btn" data-mode="part2" id="modeBtnPart2">
+                <i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (4 câu - 4.0đ)
+              </button>
+              <button class="quiz-mode-btn" data-mode="part3" id="modeBtnPart3">
+                <i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)
+              </button>
+            </div>
+
+            <!-- Topbar của hệ thống trắc nghiệm -->
+            <div class="quiz-topbar">
+              <div class="quiz-title-info">
+                <h3 id="quizTitleDisplay">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0110)</h3>
+                <p><i class="fa-solid fa-user-tie"></i> Biên soạn &amp; Đồ họa TikZ: <strong>ThS. Lương Thanh Sáng</strong> • Thời gian: <strong id="quizTimeLabel">90 phút (Cả đề thi gồm 3 phần - 22 câu)</strong></p>
+              </div>
+
+              <div class="quiz-timer-box" id="timerBox">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <div>
+                  <div class="quiz-timer-text">Thời gian còn lại</div>
+                  <div class="quiz-timer-clock" id="quizClock">90:00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BẢNG KHỞI ĐỘNG VÀ NÚT BẮT ĐẦU LÀM BÀI -->
+            <div class="exam-start-banner" id="examStartBanner">
+              <div class="start-banner-card">
+                <div class="start-banner-badge"><i class="fa-solid fa-graduation-cap"></i> CHUẨN BỊ LÀM BÀI THI TRỰC TUYẾN</div>
+                <h3 class="start-banner-title" id="startBannerTitle">Đề Thi Tốt Nghiệp THPT Năm 2026 - Môn Toán (Mã Đề 0110)</h3>
+                <p class="start-banner-desc" id="startBannerDesc">
+                  Học sinh vui lòng chuẩn bị giấy nháp, bút viết và máy tính cầm tay trước khi bắt đầu. Khi em đã sẵn sàng, hãy bấm nút <strong>"Bắt đầu làm bài"</strong> bên dưới để hệ thống kích hoạt tính giờ đếm ngược!
+                </p>
+
+                <!-- FORM NHẬP THÔNG TIN HỌC SINH DỰ THI -->
+                <div class="student-info-form-card" id="studentInfoFormCard">
+                  <div class="student-info-form-title">
+                    <i class="fa-solid fa-id-card-clip"></i> Thông tin học sinh dự thi:
+                  </div>
+                  <div class="student-inputs-grid">
+                    <div class="student-input-field">
+                      <label for="studentNameInput"><i class="fa-solid fa-user-pen"></i> Họ và tên học sinh <span class="req-star">*</span>:</label>
+                      <input type="text" id="studentNameInput" class="student-text-input" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name" required>
+                    </div>
+                    <div class="student-input-field">
+                      <label for="studentClassInput"><i class="fa-solid fa-chalkboard-user"></i> Lớp học <span class="req-star">*</span>:</label>
+                      <input type="text" id="studentClassInput" class="student-text-input" placeholder="Ví dụ: 12A1 (hoặc 11B2, 10A3...)" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="student-info-note">
+                    <i class="fa-solid fa-circle-check"></i> Thông tin được lưu tự động để xuất phiếu điểm &amp; nhận xét sư phạm chính thức từ ThS. Lương Thanh Sáng.
+                  </div>
+                </div>
+
+                <div class="start-banner-meta" id="startBannerMeta">
+                  <span><i class="fa-solid fa-clock"></i> Thời gian: <strong id="startMetaTime">90 phút</strong></span>
+                  <span><i class="fa-solid fa-list-check"></i> Số lượng: <strong id="startMetaCount">22 câu</strong></span>
+                  <span><i class="fa-solid fa-award"></i> Thang điểm: <strong>10.0 điểm</strong></span>
+                  <span class="shuffle-badge-meta"><i class="fa-solid fa-shuffle"></i> Hoán vị đề: <strong id="startMetaShuffleCode">HV-101</strong></span>
+                </div>
+
+                <div class="start-banner-action" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
+                  <button type="button" class="btn-start-exam" id="btnStartExam" onclick="startExamSession()">
+                    <i class="fa-solid fa-play"></i> BẮT ĐẦU LÀM BÀI
+                  </button>
+                  <button type="button" class="btn-reshuffle-exam" id="btnReshuffleExam" onclick="reshuffleCurrentExam()" title="Xáo trộn lại thứ tự câu hỏi và phương án để làm đề hoán vị mới">
+                    <i class="fa-solid fa-shuffle"></i> Đổi đề hoán vị mới
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thanh định vị câu hỏi (Question Palette) -->
+            <div class="quiz-palette-bar">
+              <div class="palette-status-legend">
+                <div class="legend-item"><span class="legend-dot unanswered"></span> Chưa chọn</div>
+                <div class="legend-item"><span class="legend-dot answered"></span> Đã chọn</div>
+                <div class="legend-item"><span class="legend-dot correct"></span> Đúng (Sau khi nộp)</div>
+                <div class="legend-item"><span class="legend-dot wrong"></span> Sai (Sau khi nộp)</div>
+              </div>
+
+              <div class="palette-buttons" id="paletteButtons">
+                <!-- Nút chuyển nhanh câu hỏi 1 -> 22 do JS render -->
+              </div>
+            </div>
+
+            <!-- ==================== KẾT QUẢ CHẤM ĐIỂM TINH GỌN ==================== -->
+            <div class="quiz-result-card" id="quizResultCard">
+              <!-- 1. Header kết quả & Điểm số tinh gọn -->
+              <div class="result-summary-header">
+                <div class="result-score-circle" id="resultScoreCircle">
+                  <div class="score-circle-inner">
+                    <span class="score-main-val" id="resScore">0.0</span>
+                    <span class="score-max-val">/ 10</span>
+                  </div>
+                </div>
+
+                <div class="result-meta-info">
+                  <div class="result-status-badge" id="resStatusBadge">
+                    <span id="resultIcon"><i class="fa-solid fa-trophy"></i></span> <span id="resEvaluationLevel">Hoàn Thành Bài Thi</span>
+                  </div>
+                  <h3 class="result-headline" id="resultTitle">Hoàn Thành Bài Thi!</h3>
+
+                  <!-- THẺ THÔNG TIN HỌC SINH ĐÃ LÀM BÀI -->
+                  <div class="student-result-pill" id="studentResultPill">
+                    <span class="student-name-tag"><i class="fa-solid fa-user-graduate"></i> Học sinh: <strong id="resStudentName">Nguyễn Văn An</strong></span>
+                    <span class="student-class-tag"><i class="fa-solid fa-chalkboard"></i> Lớp: <strong id="resStudentClass">12A1</strong></span>
+                    <span class="student-exam-tag"><i class="fa-solid fa-file-signature"></i> Đề thi: <strong id="resExamCode">0110</strong> (<span id="resShuffleCode">HV-101</span>)</span>
+                    <span class="student-date-tag"><i class="fa-regular fa-clock"></i> <span id="resDateFormatted">21/11/2026</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Hàng chỉ số thống kê 4 ô tinh gọn -->
+              <div class="result-stats-row">
+                <div class="result-stat-box stat-score">
+                  <div class="result-stat-val score" id="resScoreBox">0.0</div>
+                  <div class="result-stat-lbl">Tổng điểm số</div>
+                </div>
+                <div class="result-stat-box stat-correct">
+                  <div class="result-stat-val correct" id="resCorrect">0 / 22</div>
+                  <div class="result-stat-lbl">Số câu đúng</div>
+                </div>
+                <div class="result-stat-box stat-wrong">
+                  <div class="result-stat-val wrong" id="resWrong">0 / 22</div>
+                  <div class="result-stat-lbl">Số câu sai / thiếu</div>
+                </div>
+                <div class="result-stat-box stat-time">
+                  <div class="result-stat-val time" style="color: var(--primary-600);" id="resTimeUsed">00:00</div>
+                  <div class="result-stat-lbl">Thời gian làm bài</div>
+                </div>
+              </div>
+
+              <!-- 3. Khung nhận xét sư phạm của ThS. Lương Thanh Sáng -->
+              <div class="teacher-evaluation-box" id="teacherEvaluationBox">
+                <div class="eval-box-header">
+                  <div class="eval-teacher-avatar">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                  </div>
+                  <div>
+                    <h4 class="eval-teacher-title" id="evalTeacherTitle"><i class="fa-solid fa-award"></i> NHẬN XÉT CỦA THS. LƯƠNG THANH SÁNG</h4>
+                    <span class="eval-teacher-sub">Tổ trưởng chuyên môn Toán • THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang</span>
+                  </div>
+                </div>
+                <div class="eval-box-content" id="resTeacherComment">
+                  "Thầy Sáng chúc mừng em đã hoàn thành bài thi!..."
+                </div>
+              </div>
+
+              <!-- 4. KHU VỰC VÀNG: BẢNG NHẬN DIỆN LỖI SAI & PHƯƠNG ÁN KHẮC PHỤC -->
+              <div class="mistake-diagnostic-section" id="mistakeDiagnosticSection">
+                <div class="diagnostic-section-header">
+                  <div class="diagnostic-title">
+                    <i class="fa-solid fa-stethoscope" style="color: #ef4444;"></i>
+                    <span>Bảng Nhận Diện Lỗi Sai &amp; Phương Án Khắc Phục</span>
+                  </div>
+                  <div class="diagnostic-badge" id="diagnosticCountBadge">
+                    <span id="diagnosticMistakeCount">0</span> câu cần khắc phục
+                  </div>
+                </div>
+
+                <div class="diagnostic-intro-note" id="diagnosticIntroNote">
+                  Dưới đây là phân tích chi tiết từng câu em trả lời chưa chính xác hoặc chưa đạt điểm tối đa. Thầy Sáng chỉ rõ đối chiếu đáp án, bẫy thường gặp và phương pháp khắc phục:
+                </div>
+
+                <!-- Danh sách thẻ câu sai (Render động bằng JS) -->
+                <div class="diagnostic-cards-list" id="diagnosticCardsList">
+                  <!-- Render by JS -->
+                </div>
+              </div>
+
+              <!-- 5. THANH BỘ LỌC CÂU HỎI TIỆN ÍCH DÀNH CHO XEM LẠI BÀI THI -->
+              <div class="solution-filter-toolbar" id="solutionFilterToolbar">
+                <span class="solution-filter-label"><i class="fa-solid fa-filter"></i> Bộ lọc xem lại:</span>
+                <button type="button" class="sol-filter-btn active" data-filter="all" onclick="filterQuestionReview('all')">
+                  <i class="fa-solid fa-list-ol"></i> Tất cả câu hỏi (<span id="filterAllCount">22</span>)
+                </button>
+                <button type="button" class="sol-filter-btn filter-wrong" data-filter="wrong" onclick="filterQuestionReview('wrong')">
+                  <i class="fa-solid fa-triangle-exclamation"></i> Chỉ xem câu làm sai (<span id="filterWrongCount">0</span>)
+                </button>
+                <button type="button" class="sol-filter-btn filter-correct" data-filter="correct" onclick="filterQuestionReview('correct')">
+                  <i class="fa-solid fa-circle-check"></i> Xem các câu làm đúng (<span id="filterCorrectCount">0</span>)
+                </button>
+              </div>
+
+              <!-- 6. HÀNG NÚT HÀNH ĐỘNG TINH GỌN -->
+              <div class="result-actions" style="margin-bottom: 20px;">
+                <button class="btn btn-primary" id="btnToggleAllSolutions">
+                  <i class="fa-solid fa-book-open"></i> Xem tất cả đáp án &amp; Lời giải
+                </button>
+                <button class="btn btn-secondary" id="btnRetakeQuiz" style="color: var(--primary-800); border-color: var(--primary-300);">
+                  <i class="fa-solid fa-arrow-rotate-right"></i> Làm lại bài thi (Đề hoán vị mới)
+                </button>
+                <button class="btn btn-accent" id="btnPrintResultBtn" onclick="printQuizResult()" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none;">
+                  <i class="fa-solid fa-print"></i> In phiếu kết quả / Tải PDF
+                </button>
+                <button type="button" class="btn btn-outline-catalog" onclick="confirmAndExitExam()">
+                  <i class="fa-solid fa-arrow-left"></i> Danh sách đề thi khác
+                </button>
+              </div>
+
+              <!-- 7. BẢNG LỊCH SỬ CÁC LẦN THI -->
+              <div class="quiz-history-card" id="quizHistoryCard">
+                <div class="history-card-header">
+                  <div class="history-card-title">
+                    <i class="fa-solid fa-clock-rotate-left" style="color: #0284c7;"></i>
+                    <span>Lịch sử các lần làm bài thi của em:</span>
+                  </div>
+                  <button type="button" class="btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
+                    <i class="fa-solid fa-trash-can"></i> Xóa lịch sử
+                  </button>
+                </div>
+                <div class="history-table-wrapper" id="historyTableWrapper">
+                  <!-- Render by JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Danh sách câu hỏi thi (render tự động từ quiz-data.js) -->
+            <div class="quiz-main-body" id="quizQuestionsContainer">
+              <!-- Questions rendered by JS -->
+            </div>
+
+            <!-- Footer điều khiển nộp bài -->
+            <div class="quiz-footer">
+              <div class="quiz-progress-text" id="quizProgressText">
+                Đã làm: <span id="answeredCount">0</span> / <span id="totalQuestionsCount">22</span> câu hỏi
+              </div>
+
+              <div class="quiz-footer-actions">
+                <button class="btn btn-secondary" id="btnResetCurrent" style="color: var(--text-main); border-color: var(--border-color);">
+                  <i class="fa-solid fa-eraser"></i> Xóa lựa chọn
+                </button>
+                <button class="btn btn-primary" id="btnSubmitQuiz">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Nộp bài thi
+                </button>
+              </div>
+            </div>
+
+          </div><!-- /quiz-wrapper -->
+        </div><!-- /exam-workspace-view -->
 
       </div>
     </section>

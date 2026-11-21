@@ -583,7 +583,8 @@ function prepareShuffledQuestions(exam, mode) {
 
 function initQuizSystem() {
   const quizContainer = document.getElementById("quizQuestionsContainer");
-  if (!quizContainer) return; // Chỉ khởi động khi đang ở trang trắc nghiệm
+  const catalogView = document.getElementById("examCatalogView");
+  if (!quizContainer && !catalogView) return; // Chỉ khởi động khi đang ở trang trắc nghiệm
 
   // Khôi phục thông tin học sinh đã lưu trước đó nếu có
   const savedName = localStorage.getItem("ths_sang_student_name") || "";
@@ -593,8 +594,6 @@ function initQuizSystem() {
   if (nameInp && savedName) nameInp.value = savedName;
   if (classInp && savedClass) classInp.value = savedClass;
 
-  updateModeButtonsLabels();
-  loadQuestionsForMode(currentQuizMode);
   setupQuizModeButtons();
   renderQuizHistoryTable();
 
@@ -621,34 +620,130 @@ function initQuizSystem() {
   if (btnRetake) {
     btnRetake.onclick = () => retakeQuiz();
   }
+
+  // Phân cấp: Mặc định hiển thị Màn hình Danh sách đề thi (Catalog View)
+  // Chỉ khi có tham số trên URL (?exam=... hoặc #...) thì mới mở trực tiếp đề đó
+  const urlParams = new URLSearchParams(window.location.search);
+  const examParam = urlParams.get("exam") || window.location.hash.replace("#", "");
+  if (examParam && typeof EXAMS_DATABASE !== "undefined" && EXAMS_DATABASE[examParam]) {
+    openExamWorkspace(examParam);
+  } else {
+    if (catalogView) catalogView.style.display = "block";
+    const workspaceView = document.getElementById("examWorkspaceView");
+    if (workspaceView) workspaceView.style.display = "none";
+  }
 }
 
-// Chuyển đổi giữa các bộ đề thi (Toán 11 & Toán 12)
-window.switchExam = function(examId) {
+// ==================== CẤP ĐỘ 2: MỞ TRANG LÀM BÀI CỦA RIÊNG ĐỀ ĐƯỢC CHỌN ====================
+window.openExamWorkspace = function(examId) {
   if (typeof EXAMS_DATABASE === "undefined" || !EXAMS_DATABASE[examId]) return;
 
-  if (!isQuizSubmitted && isExamStarted && (Object.keys(userAnswersPart1).length + Object.keys(userAnswersPart2).length + Object.keys(userAnswersPart3).length > 0)) {
-    if (!confirm("Chuyển đề thi sẽ làm mới các câu trả lời của đề hiện tại. Em có chắc chắn muốn chuyển không?")) {
-      return;
-    }
-  }
+  const catalogView = document.getElementById("examCatalogView");
+  const workspaceView = document.getElementById("examWorkspaceView");
 
   currentExamId = examId;
   window.currentExamId = examId;
   const exam = EXAMS_DATABASE[examId];
 
-  // Cập nhật trạng thái active của nút chọn đề
-  document.querySelectorAll(".exam-tab-btn").forEach(btn => {
-    if (btn.getAttribute("data-exam") === examId) {
+  // Cập nhật thẻ breadcrumb & tiêu đề đề thi hiện tại trên thanh điều hướng
+  const gradeTag = document.getElementById("currentGradeTag");
+  const examName = document.getElementById("currentExamName");
+  if (gradeTag) {
+    const isG11 = exam.config.grade === "11" || examId.startsWith("11_");
+    gradeTag.textContent = isG11 ? "Toán 11" : "Toán 12";
+    gradeTag.className = `current-grade-tag ${isG11 ? 'grade-11' : 'grade-12'}`;
+  }
+  if (examName) {
+    examName.textContent = exam.config.title;
+  }
+
+  // ẨN HOÀN TOÀN Catalog, CHỈ HIỂN THỊ DUY NHẤT trang làm bài của đề này
+  if (catalogView) catalogView.style.display = "none";
+  if (workspaceView) workspaceView.style.display = "block";
+
+  // Cập nhật nhãn chế độ thi và nạp toàn bộ câu hỏi
+  updateModeButtonsLabels();
+  loadQuestionsForMode("all");
+
+  // Đặt lại các nút lọc bài giải về trạng thái mặc định
+  const filterBtns = document.querySelectorAll(".sol-filter-btn");
+  filterBtns.forEach(b => b.classList.remove("active"));
+  const allFilterBtn = document.querySelector('.sol-filter-btn[data-filter="all"]');
+  if (allFilterBtn) allFilterBtn.classList.add("active");
+
+  // Cuộn nhẹ lên đầu khu vực làm bài
+  const quizSection = document.getElementById("quiz");
+  if (quizSection) {
+    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  showToast(`📖 Đã mở đề thi: ${exam.config.title}`, "info");
+};
+
+// Bí danh tương thích ngược
+window.switchExam = function(examId) {
+  openExamWorkspace(examId);
+};
+
+// ==================== ĐIỀU CHỈNH NÚT QUAY VỀ DANH SÁCH ĐỀ THI ====================
+window.confirmAndExitExam = function() {
+  const hasAnswers = (Object.keys(userAnswersPart1).length + Object.keys(userAnswersPart2).length + Object.keys(userAnswersPart3).length) > 0;
+  
+  // Nếu học sinh đang làm bài dở và chưa nộp, cảnh báo an toàn sư phạm
+  if (isExamStarted && !isQuizSubmitted && hasAnswers) {
+    if (!confirm("⚠️ Bài làm của em đang diễn ra!\n\nNếu quay lại danh sách đề thi, bài làm hiện tại sẽ bị hủy và thời gian đếm ngược sẽ dừng. Em có chắc chắn muốn quay về không?")) {
+      return;
+    }
+  }
+
+  // Dừng đồng hồ đếm ngược nếu đang chạy
+  if (quizTimerInterval) {
+    clearInterval(quizTimerInterval);
+    quizTimerInterval = null;
+  }
+  isExamStarted = false;
+  isQuizSubmitted = false;
+
+  const catalogView = document.getElementById("examCatalogView");
+  const workspaceView = document.getElementById("examWorkspaceView");
+
+  // Ẩn vùng làm bài, hiển thị lại Danh sách bộ đề thi
+  if (workspaceView) workspaceView.style.display = "none";
+  if (catalogView) {
+    catalogView.style.display = "block";
+    renderQuizHistoryTable(); // cập nhật lại bảng lịch sử nếu có
+  }
+
+  // Cuộn mượt lên đầu danh sách đề thi
+  const quizSection = document.getElementById("quiz");
+  if (quizSection) {
+    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  showToast("Đã quay về danh sách đề thi trực tuyến", "info");
+};
+
+// Lọc danh sách đề thi ở Catalog (Tất cả / Khối 12 / Khối 11)
+window.filterCatalogExams = function(grade) {
+  const cards = document.querySelectorAll(".catalog-exam-card");
+  const btns = document.querySelectorAll(".catalog-filter-btn");
+
+  btns.forEach(btn => {
+    if (btn.getAttribute("data-filter") === grade) {
       btn.classList.add("active");
     } else {
       btn.classList.remove("active");
     }
   });
 
-  updateModeButtonsLabels();
-  loadQuestionsForMode(currentQuizMode);
-  showToast(`Đã chọn: ${exam.config.title}`, "info");
+  cards.forEach(card => {
+    const cardGrade = card.getAttribute("data-grade");
+    if (grade === "all" || cardGrade === grade) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
 };
 
 // Cập nhật nhãn và mô tả trên các nút chế độ thi (Phần I, II, III)
@@ -1305,6 +1400,154 @@ Em có chắc chắn muốn nộp bài ngay bây giờ không?`)) {
   submitQuiz(false);
 }
 
+// ==================== CÁC HÀM BỔ TRỢ TỰ LUẬN & BẢNG KÝ HIỆU TOÁN HỌC ====================
+const essayStudentData = {};
+
+function getEssayData(qId) {
+  if (!essayStudentData[qId]) {
+    essayStudentData[qId] = { text: "", images: [] };
+  }
+  return essayStudentData[qId];
+}
+
+window.handleEssayTextInput = function(qId, val) {
+  if (isQuizSubmitted) return;
+  if (!isExamStarted && typeof startExamSession === "function") {
+    startExamSession();
+  }
+  const ed = getEssayData(qId);
+  ed.text = val;
+  updatePaletteStatus();
+  updateAnsweredCount();
+};
+
+function renderEssayImageThumbnails(qId) {}
+function setupEssayPasteAndDrop(qId) {}
+function updateMathPreview(qId) {}
+
+window.switchMathTab = function(qId, tabName) {
+  const tb = document.getElementById(`math-toolbar-${qId}`);
+  if (!tb) return;
+  tb.querySelectorAll(".toolbar-tab").forEach(t => {
+    t.classList.toggle("active", t.getAttribute("data-tab") === tabName);
+  });
+};
+
+window.insertMathSymbol = function(qId, symbol, selOffset = 0, selLen = 0) {
+  const ta = document.getElementById(`essay-input-${qId}`);
+  if (!ta) return;
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const val = ta.value;
+  ta.value = val.substring(0, start) + symbol + val.substring(end);
+  ta.focus();
+  if (selOffset > 0) {
+    ta.setSelectionRange(start + selOffset, start + selOffset + selLen);
+  } else {
+    ta.setSelectionRange(start + symbol.length, start + symbol.length);
+  }
+  window.handleEssayTextInput(qId, ta.value);
+};
+
+window.toggleFractionPopover = function(qId, event) {
+  window.insertMathSymbol(qId, "\\frac{a}{b}", 6, 1);
+};
+
+function autoGradeEssayQuestion(q, essayData) {
+  let earnedScore = 0;
+  const rubricResults = [];
+  const text = (essayData && essayData.text) ? essayData.text.toLowerCase() : "";
+  const maxScore = q.maxScore || 1.5;
+  const rubrics = q.rubric || [];
+
+  if (rubrics.length > 0) {
+    rubrics.forEach(r => {
+      let matched = false;
+      if (r.keywords && Array.isArray(r.keywords)) {
+        matched = r.keywords.some(kw => text.includes(kw.toLowerCase()));
+      }
+      if (matched) {
+        earnedScore += r.points;
+      }
+      rubricResults.push({
+        id: r.id,
+        label: r.label,
+        points: r.points,
+        matched: matched
+      });
+    });
+  } else {
+    if (text.length > 20) earnedScore = maxScore;
+  }
+  if (earnedScore > maxScore) earnedScore = maxScore;
+  return { earnedScore, maxScore, rubricResults };
+}
+
+function renderAutoGradeRubricCard(q, qKey, gradeResult) {
+  const solBox = document.getElementById(`solution-box-${qKey}`);
+  if (!solBox) return;
+  let rubricBox = document.getElementById(`rubric-box-${qKey}`);
+  if (!rubricBox) {
+    rubricBox = document.createElement("div");
+    rubricBox.id = `rubric-box-${qKey}`;
+    rubricBox.className = "auto-grade-rubric-card";
+    rubricBox.style.cssText = "background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 12px 16px; margin-bottom: 12px;";
+    solBox.insertBefore(rubricBox, solBox.querySelector(".solution-body"));
+  }
+  rubricBox.innerHTML = `
+    <div style="font-weight: 700; color: #166534; margin-bottom: 6px;">
+      <i class="fa-solid fa-calculator"></i> Barem chấm điểm tự động: ${gradeResult.earnedScore.toFixed(2)} / ${gradeResult.maxScore.toFixed(2)} điểm
+    </div>
+    <div style="font-size: 0.85rem; color: #334155;">
+      ${(gradeResult.rubricResults || []).map(r => `
+        <div style="display: flex; align-items: center; gap: 8px; margin: 4px 0;">
+          <i class="fa-solid ${r.matched ? 'fa-circle-check' : 'fa-circle-xmark'}" style="color: ${r.matched ? '#16a34a' : '#dc2626'};"></i>
+          <span>${escapeHtml(r.label)}: <strong>${r.matched ? '+' + r.points + 'đ' : '0đ'}</strong></span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+// Sinh chẩn đoán bẫy đề thi & Lời khuyên sư phạm của Thầy Sáng
+function getDiagnosticTip(q) {
+  if (q.diagnosticTip) return q.diagnosticTip;
+  const topic = (q.topic || "").toLowerCase();
+  const text = (q.question || "").toLowerCase();
+
+  if (topic.includes("tiệm cận") || text.includes("tiệm cận")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Cần nhớ tiệm cận đứng là nghiệm của mẫu số $x = x_0$ sao cho tử khác 0. Tiệm cận ngang tìm bằng $\\lim_{x \\to \\pm\\infty} y$. Cẩn thận dấu âm/dương khi đưa căn bậc hai ra ngoài trị tuyệt đối $|x|$!";
+  }
+  if (topic.includes("cực trị") || text.includes("cực đại") || text.includes("cực tiểu")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Điểm cực trị của hàm số là $x_0$, còn giá trị cực trị là $y(x_0)$. Đạo hàm $y'$ phải đổi dấu khi đi qua $x_0$. Nếu $y'$ không đổi dấu qua nghiệm bội chẵn thì nghiệm đó không phải là cực trị!";
+  }
+  if (topic.includes("đồng biến") || topic.includes("nghịch biến") || text.includes("khoảng đồng biến")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Kết luận khoảng đơn điệu phải dùng dấu chấm phẩy hoặc từ 'và', tuyệt đối không dùng dấu hợp $\\cup$ hay từ 'hoặc'. Với hàm phân thức bậc nhất/bậc nhất, đạo hàm $y'$ không bằng 0 tại bất kỳ điểm nào!";
+  }
+  if (topic.includes("lớn nhất") || topic.includes("nhỏ nhất") || text.includes("max") || text.includes("min")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Khi tìm GTLN, GTNN trên đoạn $[a; b]$, em cần tính đạo hàm, lọc các nghiệm $x_i \\in [a; b]$, rồi so sánh các giá trị $y(x_i)$ cùng với hai đầu mút $y(a), y(b)$. Tránh lấy nhầm nghiệm nằm ngoài đoạn!";
+  }
+  if (topic.includes("cấp số cộng") || text.includes("cấp số cộng")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Chú ý công thức số hạng tổng quát $u_n = u_1 + (n-1)d$ (lưu ý là $n-1$, không phải $n$) và công sai $d = u_{k+1} - u_k$. Tổng $n$ số hạng đầu $S_n = \\frac{n(u_1 + u_n)}{2} = \\frac{n[2u_1 + (n-1)d]}{2}$.";
+  }
+  if (topic.includes("cấp số nhân") || text.includes("cấp số nhân")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Số hạng tổng quát $u_n = u_1 \\cdot q^{n-1}$. Khi công bội $q < 0$, các số hạng sẽ đan dấu âm dương. Tổng $n$ số hạng đầu $S_n = \\frac{u_1(1 - q^n)}{1 - q}$ ($q \\ne 1$).";
+  }
+  if (topic.includes("dãy số") || text.includes("dãy số tăng") || text.includes("bị chặn")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Để xét tính tăng giảm, xét hiệu $u_{n+1} - u_n$ hoặc tỉ số $\\frac{u_{n+1}}{u_n}$ (nếu $u_n > 0$). Chú ý thay $n$ bằng $n+1$ vào toàn bộ biểu thức của $u_n$ trước khi quy đồng.";
+  }
+  if (topic.includes("lượng giác") || text.includes("sin") || text.includes("cos")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Chú ý điều kiện xác định của $\\tan$ và $\\cot$. Khi giải phương trình lượng giác, đừng quên họ nghiệm cộng $k2\\pi$ (cho sin, cos) hoặc $k\\pi$ (cho tan, cot), và phân biệt rõ đơn vị radian với độ ($^\\circ$)!";
+  }
+  if (topic.includes("thể tích") || topic.includes("khối chóp") || topic.includes("lăng trụ") || text.includes("thể tích")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Xác định chính xác chân đường cao và công thức: $V_{\\text{chóp}} = \\frac{1}{3} S_{\\text{đáy}} \\cdot h$, còn $V_{\\text{lăng trụ}} = S_{\\text{đáy}} \\cdot h$ (không có hệ số $\\frac{1}{3}$). Chú ý tính diện tích đáy cẩn thận!";
+  }
+  if (topic.includes("xác suất") || topic.includes("thống kê") || text.includes("xác suất")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Xác định rõ không gian mẫu $n(\\Omega)$. Cẩn thận phân biệt biến cố độc lập (dùng quy tắc nhân $P(AB) = P(A)P(B)$) và biến cố xung khắc (dùng quy tắc cộng). Thử dùng biến cố đối $1 - P(\\overline{A})$ nếu có từ 'ít nhất một'!";
+  }
+  return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Đọc kỹ lại giả thiết đề bài, tránh nhầm lẫn dấu và bước biến đổi rút gọn. Em hãy bấm nút <em>'Xem lời giải câu này'</em> bên cạnh để đối chiếu phương pháp chuẩn của Thầy Sáng nhé!";
+}
+
 // Chấm điểm chuẩn theo quy định của Bộ Giáo dục & Đào tạo
 function submitQuiz(isAuto = false) {
   if (isQuizSubmitted) return;
@@ -1317,18 +1560,24 @@ function submitQuiz(isAuto = false) {
 
   let correctCountTotal = 0;
   let wrongCountTotal = 0;
+  const diagnosticMistakes = [];
 
   const isExam11 = currentExamId.startsWith("11_");
 
-  activeQuizQuestions.forEach(q => {
+  activeQuizQuestions.forEach((q, index) => {
     const qPart = q.part || "I";
     const qKey = `${qPart}_${q.id}`;
+    const displayNum = q.displayNum || (index + 1);
     const card = document.getElementById(`question-card-${qKey}`);
     const navBtn = document.getElementById(`nav-btn-${qKey}`);
 
     if (qPart === "I") {
       const studentAns = userAnswersPart1[q.id];
       const isCorrect = studentAns === q.correctAnswer;
+
+      if (card) {
+        card.setAttribute("data-result-status", isCorrect ? "correct" : "wrong");
+      }
 
       if (isCorrect) {
         scorePart1 += 0.25;
@@ -1343,9 +1592,31 @@ function submitQuiz(isAuto = false) {
           navBtn.classList.remove("answered");
           navBtn.classList.add("result-wrong");
         }
+
+        // Lấy nội dung phương án chọn vs phương án đúng
+        let studentAnsText = "Chưa chọn đáp án";
+        let correctAnsText = `Phương án ${q.correctAnswer}`;
+        if (q.options && Array.isArray(q.options)) {
+          const sOpt = q.options.find(o => o.id === studentAns);
+          if (sOpt) studentAnsText = `[${sOpt.id}] ${sOpt.text}`;
+          const cOpt = q.options.find(o => o.id === q.correctAnswer);
+          if (cOpt) correctAnsText = `[${cOpt.id}] ${cOpt.text}`;
+        }
+
+        diagnosticMistakes.push({
+          qKey,
+          qId: q.id,
+          displayNum,
+          part: "I",
+          topic: q.topic || "Trắc nghiệm nhiều phương án",
+          questionSnippet: q.question,
+          studentAnsText,
+          correctAnsText,
+          tip: getDiagnosticTip(q)
+        });
       }
 
-      // Tô màu đáp án
+      // Tô màu đáp án trên card
       if (card) {
         card.querySelectorAll(".option-label").forEach(lbl => {
           const opt = lbl.getAttribute("data-opt");
@@ -1361,11 +1632,20 @@ function submitQuiz(isAuto = false) {
       // Đề thi đúng/sai: 1 ý đúng = 0.1đ; 2 ý đúng = 0.25đ; 3 ý đúng = 0.5đ; 4 ý đúng = 1.0đ
       const studentObj = userAnswersPart2[q.id] || {};
       let subCorrectCount = 0;
+      const tfItemsReview = [];
 
       q.items.forEach(item => {
         const studentChoice = studentObj[item.id];
         const isItemCorrect = studentChoice === item.correct;
         if (isItemCorrect) subCorrectCount++;
+
+        tfItemsReview.push({
+          id: item.id,
+          text: item.text,
+          studentChoice: studentChoice === true ? "Đúng" : (studentChoice === false ? "Sai" : "Chưa chọn"),
+          correctChoice: item.correct === true ? "Đúng" : "Sai",
+          isItemCorrect: isItemCorrect
+        });
 
         // Tô màu nút True / False
         const btnTrue = document.getElementById(`tf-btn-${q.id}-${item.id}-true`);
@@ -1387,8 +1667,31 @@ function submitQuiz(isAuto = false) {
       else if (subCorrectCount === 4) qScore = 1.0;
 
       scorePart2 += qScore;
-      if (subCorrectCount === 4) correctCountTotal++;
-      else wrongCountTotal++;
+      const isAllCorrect = (subCorrectCount === 4);
+
+      if (card) {
+        card.setAttribute("data-result-status", isAllCorrect ? "correct" : "wrong");
+      }
+
+      if (isAllCorrect) {
+        correctCountTotal++;
+      } else {
+        wrongCountTotal++;
+        diagnosticMistakes.push({
+          qKey,
+          qId: q.id,
+          displayNum,
+          part: "II",
+          topic: q.topic || "Trắc nghiệm Đúng / Sai",
+          questionSnippet: q.question,
+          subCorrectCount,
+          totalItems: q.items.length,
+          earnedScore: qScore,
+          maxScore: 1.0,
+          tfItems: tfItemsReview,
+          tip: getDiagnosticTip(q)
+        });
+      }
 
       if (navBtn) {
         navBtn.classList.remove("answered");
@@ -1398,14 +1701,19 @@ function submitQuiz(isAuto = false) {
 
     } else if (qPart === "III") {
       if (q.type === "essay") {
-        // Tự luận (Toán 11 - Mỗi câu 1.5đ - Chấm tự động theo Barem 0.25đ)
+        // Tự luận (Toán 11 - Mỗi câu 1.5đ - Chấm tự động theo Barem)
         const essayData = getEssayData(q.id);
         const gradeResult = autoGradeEssayQuestion(q, essayData);
         essayGradeResults[q.id] = gradeResult;
 
         scorePart3 += gradeResult.earnedScore;
+        const isPassing = gradeResult.earnedScore >= (q.maxScore || 1.5);
 
-        if (gradeResult.earnedScore >= (q.maxScore || 1.5) * 0.5) {
+        if (card) {
+          card.setAttribute("data-result-status", isPassing ? "correct" : "wrong");
+        }
+
+        if (isPassing) {
           correctCountTotal++;
           if (navBtn) {
             navBtn.classList.remove("answered");
@@ -1417,6 +1725,20 @@ function submitQuiz(isAuto = false) {
             navBtn.classList.remove("answered");
             navBtn.classList.add("result-wrong");
           }
+          diagnosticMistakes.push({
+            qKey,
+            qId: q.id,
+            displayNum,
+            part: "III",
+            type: "essay",
+            topic: q.topic || "Tự luận",
+            questionSnippet: q.question,
+            earnedScore: gradeResult.earnedScore,
+            maxScore: q.maxScore || 1.5,
+            studentAnsText: (essayData && essayData.text) ? essayData.text : "Chưa có lời giải chi tiết",
+            correctAnsText: "Xem barem chi tiết từng bước 0,25đ của Thầy Sáng ở khung lời giải",
+            tip: getDiagnosticTip(q)
+          });
         }
 
         renderAutoGradeRubricCard(q, qKey, gradeResult);
@@ -1428,6 +1750,10 @@ function submitQuiz(isAuto = false) {
 
         const isCorrect = acceptable.includes(normalized);
         const inputEl = document.getElementById(`short-input-${q.id}`);
+
+        if (card) {
+          card.setAttribute("data-result-status", isCorrect ? "correct" : "wrong");
+        }
 
         if (isCorrect) {
           scorePart3 += 0.5;
@@ -1444,6 +1770,19 @@ function submitQuiz(isAuto = false) {
             navBtn.classList.remove("answered");
             navBtn.classList.add("result-wrong");
           }
+
+          diagnosticMistakes.push({
+            qKey,
+            qId: q.id,
+            displayNum,
+            part: "III",
+            type: "short",
+            topic: q.topic || "Trả lời ngắn",
+            questionSnippet: q.question,
+            studentAnsText: studentRaw !== "" ? studentRaw : "Chưa nhập đáp số",
+            correctAnsText: q.correctAnswer || (q.acceptableAnswers ? q.acceptableAnswers.join(" hoặc ") : ""),
+            tip: getDiagnosticTip(q)
+          });
         }
       }
     }
@@ -1485,8 +1824,8 @@ function submitQuiz(isAuto = false) {
     inp.disabled = true;
   });
 
-  // Hiển thị Card kết quả
-  displayQuizResults(finalScore, scorePart1, scorePart2, scorePart3, correctCountTotal, wrongCountTotal);
+  // Hiển thị Card kết quả tinh gọn cùng bảng chẩn đoán lỗi sai
+  displayQuizResults(finalScore, scorePart1, scorePart2, scorePart3, correctCountTotal, wrongCountTotal, diagnosticMistakes);
 }
 
 // Sinh lời nhận xét sư phạm chi tiết của Thầy Sáng
@@ -1556,11 +1895,12 @@ function saveQuizAttemptRecord(record) {
   }
 }
 
-// Render bảng lịch sử làm bài thi
+// Render bảng lịch sử làm bài thi (đồng bộ cả Catalog & Workspace)
 function renderQuizHistoryTable() {
   const card = document.getElementById("quizHistoryCard");
   const wrapper = document.getElementById("historyTableWrapper");
-  if (!wrapper) return;
+  const catalogCard = document.getElementById("catalogHistoryCard");
+  const catalogWrapper = document.getElementById("catalogHistoryTableWrapper");
 
   let history = [];
   try {
@@ -1575,12 +1915,14 @@ function renderQuizHistoryTable() {
 
   if (history.length === 0) {
     if (card) card.style.display = "none";
+    if (catalogCard) catalogCard.style.display = "none";
     return;
   }
 
   if (card) card.style.display = "block";
+  if (catalogCard) catalogCard.style.display = "block";
 
-  wrapper.innerHTML = `
+  const tableHtml = `
     <table class="history-table">
       <thead>
         <tr>
@@ -1628,6 +1970,9 @@ function renderQuizHistoryTable() {
       </tbody>
     </table>
   `;
+
+  if (wrapper) wrapper.innerHTML = tableHtml;
+  if (catalogWrapper) catalogWrapper.innerHTML = tableHtml;
 }
 
 window.clearQuizHistory = function() {
@@ -1642,9 +1987,13 @@ window.printQuizResult = function() {
   window.print();
 };
 
-function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
+// ==================== HIỂN THỊ KẾT QUẢ TINH GỌN & CHẨN ĐOÁN LỖI SAI ====================
+function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount, diagnosticMistakes = []) {
   const resultCard = document.getElementById("quizResultCard");
   const resScore = document.getElementById("resScore");
+  const resScoreBox = document.getElementById("resScoreBox");
+  const resEvaluationLevel = document.getElementById("resEvaluationLevel");
+  const resultScoreCircle = document.getElementById("resultScoreCircle");
   const resCorrect = document.getElementById("resCorrect");
   const resWrong = document.getElementById("resWrong");
   const resTimeUsed = document.getElementById("resTimeUsed");
@@ -1665,9 +2014,33 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
   const nowFormatted = new Date().toLocaleString("vi-VN");
 
   if (resScore) resScore.textContent = finalScore.toFixed(2);
+  if (resScoreBox) resScoreBox.textContent = finalScore.toFixed(2);
   if (resCorrect) resCorrect.textContent = `${correctCount} / ${activeQuizQuestions.length}`;
   if (resWrong) resWrong.textContent = `${wrongCount} / ${activeQuizQuestions.length}`;
   if (resTimeUsed) resTimeUsed.textContent = timeUsedStr;
+
+  // Cập nhật xếp loại & vòng tròn điểm số
+  const feedback = generateTeacherFeedback(finalScore, studentName, studentClass, exam.config.title);
+
+  if (resEvaluationLevel) {
+    resEvaluationLevel.textContent = feedback.level;
+    resEvaluationLevel.style.borderColor = feedback.badgeColor;
+    resEvaluationLevel.style.color = feedback.badgeColor;
+  }
+
+  if (resultScoreCircle) {
+    if (finalScore >= 9.0) {
+      resultScoreCircle.style.background = "linear-gradient(135deg, #f59e0b, #d97706)";
+    } else if (finalScore >= 8.0) {
+      resultScoreCircle.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+    } else if (finalScore >= 6.5) {
+      resultScoreCircle.style.background = "linear-gradient(135deg, #0284c7, #0369a1)";
+    } else if (finalScore >= 5.0) {
+      resultScoreCircle.style.background = "linear-gradient(135deg, #d97706, #b45309)";
+    } else {
+      resultScoreCircle.style.background = "linear-gradient(135deg, #ef4444, #dc2626)";
+    }
+  }
 
   // Cập nhật thông tin học sinh trên phiếu điểm
   const resStudentNameEl = document.getElementById("resStudentName");
@@ -1685,9 +2058,6 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
   const resDateEl = document.getElementById("resDateFormatted");
   if (resDateEl) resDateEl.textContent = nowFormatted;
 
-  // Tạo nhận xét đánh giá của Thầy Sáng
-  const feedback = generateTeacherFeedback(finalScore, studentName, studentClass, exam.config.title);
-
   if (resTitle) resTitle.textContent = feedback.headerTitle;
   if (resIcon) resIcon.innerHTML = `<i class="fa-solid ${feedback.icon}" style="color: ${feedback.badgeColor};"></i>`;
 
@@ -1700,6 +2070,124 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
   if (commentEl) {
     commentEl.innerHTML = `"${feedback.comment}"`;
   }
+
+  // ==================== RENDER BẢNG NHẬN DIỆN LỖI SAI & PHƯƠNG ÁN KHẮC PHỤC ====================
+  const diagCountBadge = document.getElementById("diagnosticCountBadge");
+  const diagMistakeCount = document.getElementById("diagnosticMistakeCount");
+  const diagIntroNote = document.getElementById("diagnosticIntroNote");
+  const diagCardsList = document.getElementById("diagnosticCardsList");
+
+  if (diagMistakeCount) diagMistakeCount.textContent = diagnosticMistakes.length;
+
+  if (diagCardsList) {
+    if (diagnosticMistakes.length === 0) {
+      if (diagCountBadge) diagCountBadge.style.display = "none";
+      if (diagIntroNote) diagIntroNote.style.display = "none";
+      diagCardsList.innerHTML = `
+        <div class="diagnostic-perfect-box">
+          <div class="perfect-icon"><i class="fa-solid fa-crown"></i></div>
+          <div class="perfect-title">Chúc mừng em! Bài làm hoàn hảo 10/10!</div>
+          <div class="perfect-desc">
+            Em đã trả lời chính xác tất cả các câu hỏi trong đề thi. Không có lỗi sai nào cần chẩn đoán. Thầy Sáng rất tự hào về tư duy toán học chuẩn xác và phong độ đỉnh cao của em!
+          </div>
+        </div>
+      `;
+    } else {
+      if (diagCountBadge) diagCountBadge.style.display = "inline-flex";
+      if (diagIntroNote) diagIntroNote.style.display = "block";
+
+      diagCardsList.innerHTML = diagnosticMistakes.map(item => {
+        let compareHtml = "";
+        if (item.part === "I" || (item.part === "III" && item.type === "short")) {
+          compareHtml = `
+            <div class="diag-answers-compare">
+              <div class="diag-ans-student">
+                <i class="fa-solid fa-xmark" style="color: #dc2626;"></i>
+                <div>
+                  <strong>Lựa chọn của em:</strong> <span>${escapeHtml(item.studentAnsText || "Chưa chọn")}</span>
+                </div>
+              </div>
+              <div class="diag-ans-correct">
+                <i class="fa-solid fa-check-double" style="color: #16a34a;"></i>
+                <div>
+                  <strong>Đáp án chuẩn của Thầy:</strong> <span>${item.correctAnsText}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (item.part === "II") {
+          // Bảng chi tiết 4 ý Đúng/Sai
+          compareHtml = `
+            <div class="diag-tf-details">
+              <div style="font-size: 0.84rem; font-weight: 700; color: #475569; margin-bottom: 6px;">
+                <i class="fa-solid fa-list-check"></i> Chi tiết 4 ý Đúng / Sai (Đạt ${item.earnedScore}/${item.maxScore}đ):
+              </div>
+              <div class="diag-tf-grid">
+                ${(item.tfItems || []).map(sub => `
+                  <div class="diag-tf-item">
+                    <span class="diag-tf-stmt"><strong>Ý ${sub.id})</strong> ${sub.text}</span>
+                    <div class="diag-tf-compare">
+                      <span class="tf-student ${sub.isItemCorrect ? 'tf-correct' : 'tf-wrong'}">
+                        <i class="fa-solid ${sub.isItemCorrect ? 'fa-check' : 'fa-xmark'}"></i> Em chọn: <strong>${sub.studentChoice}</strong>
+                      </span>
+                      <span class="tf-correct">
+                        <i class="fa-solid fa-circle-check"></i> Đáp án đúng: <strong>${sub.correctChoice}</strong>
+                      </span>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          `;
+        } else if (item.part === "III" && item.type === "essay") {
+          compareHtml = `
+            <div class="diag-answers-compare">
+              <div class="diag-ans-student" style="flex-direction: column; align-items: flex-start;">
+                <div><i class="fa-solid fa-pen-nib" style="color: #dc2626;"></i> <strong>Bài làm của em (Đạt ${item.earnedScore}/${item.maxScore}đ):</strong></div>
+                <div style="font-size: 0.82rem; margin-top: 4px; white-space: pre-wrap; max-height: 80px; overflow-y: auto;">${escapeHtml(item.studentAnsText)}</div>
+              </div>
+              <div class="diag-ans-correct" style="flex-direction: column; align-items: flex-start;">
+                <div><i class="fa-solid fa-check-double" style="color: #16a34a;"></i> <strong>Hướng dẫn chấm của Thầy Sáng:</strong></div>
+                <div style="font-size: 0.82rem; margin-top: 4px;">${item.correctAnsText}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="diagnostic-card" id="diag-card-${item.qKey}">
+            <div class="diag-card-header">
+              <div class="diag-q-title">
+                <span class="diag-num-badge">Câu ${item.displayNum} (Phần ${item.part})</span>
+                <span class="diag-topic-badge"><i class="fa-solid fa-bookmark"></i> ${escapeHtml(item.topic)}</span>
+              </div>
+              <button type="button" class="btn-quick-view-sol" onclick="jumpToQuestionAndExpand('${item.qKey}')">
+                <i class="fa-solid fa-arrow-down"></i> Xem lời giải câu này
+              </button>
+            </div>
+
+            <div style="font-size: 0.88rem; color: #334155; margin-bottom: 8px; line-height: 1.4;">
+              ${item.questionSnippet}
+            </div>
+
+            ${compareHtml}
+
+            <div class="diag-teacher-tip">
+              ${item.tip}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // Cập nhật số đếm trên thanh bộ lọc xem lại bài thi
+  const filterAllCount = document.getElementById("filterAllCount");
+  const filterWrongCount = document.getElementById("filterWrongCount");
+  const filterCorrectCount = document.getElementById("filterCorrectCount");
+  if (filterAllCount) filterAllCount.textContent = activeQuizQuestions.length;
+  if (filterWrongCount) filterWrongCount.textContent = wrongCount;
+  if (filterCorrectCount) filterCorrectCount.textContent = correctCount;
 
   // Lưu lịch sử làm bài vào localStorage
   saveQuizAttemptRecord({
@@ -1729,8 +2217,77 @@ function displayQuizResults(finalScore, s1, s2, s3, correctCount, wrongCount) {
     resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  triggerMathJax();
   showToast(`Chấm điểm hoàn tất: ${finalScore.toFixed(2)} / 10 điểm!`, "success");
 }
+
+// ==================== BỘ LỌC XEM LẠI BÀI THI & ĐIỀU HƯỚNG NHẢY ĐẾN CÂU HỎI ====================
+window.filterQuestionReview = function(filterType) {
+  const btns = document.querySelectorAll(".sol-filter-btn");
+  btns.forEach(btn => {
+    if (btn.getAttribute("data-filter") === filterType) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  const cards = document.querySelectorAll(".question-item-card");
+  let firstVisible = null;
+
+  cards.forEach(card => {
+    const status = card.getAttribute("data-result-status");
+    if (filterType === "all") {
+      card.style.display = "block";
+      if (!firstVisible) firstVisible = card;
+    } else if (filterType === "wrong") {
+      if (status === "wrong") {
+        card.style.display = "block";
+        // Tự động mở bung lời giải của các câu sai để học sinh xem ngay
+        const solBox = card.querySelector(".solution-box");
+        if (solBox) solBox.classList.add("show");
+        if (!firstVisible) firstVisible = card;
+      } else {
+        card.style.display = "none";
+      }
+    } else if (filterType === "correct") {
+      if (status === "correct") {
+        card.style.display = "block";
+        if (!firstVisible) firstVisible = card;
+      } else {
+        card.style.display = "none";
+      }
+    }
+  });
+
+  // Ẩn/hiện banner phần
+  const partBanners = document.querySelectorAll(".quiz-part-banner");
+  partBanners.forEach(banner => {
+    if (filterType === "all") {
+      banner.style.display = "block";
+    }
+  });
+
+  if (firstVisible) {
+    firstVisible.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  triggerMathJax();
+};
+
+window.jumpToQuestionAndExpand = function(qKey) {
+  const card = document.getElementById(`question-card-${qKey}`);
+  if (card) {
+    card.style.display = "block";
+    const solBox = document.getElementById(`solution-box-${qKey}`);
+    if (solBox) solBox.classList.add("show");
+
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    card.classList.add("highlight");
+    setTimeout(() => card.classList.remove("highlight"), 1600);
+    triggerMathJax();
+  }
+};
 
 function toggleAllSolutions() {
   if (!isQuizSubmitted) {

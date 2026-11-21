@@ -6832,3 +6832,753 @@ textarea.form-control {
   font-weight: 700;
   margin-top: 4px;
 }
+
+/* ==========================================================================
+   PHÂN CẤP THI TRẮC NGHIỆM ONLINE & BẢNG NHẬN DIỆN LỖI SAI (THS. LƯƠNG THANH SÁNG)
+   ========================================================================== */
+
+/* 1. Màn hình Cấp độ 1: Danh sách bộ đề thi trực tuyến (Catalog View) */
+.exam-catalog-view {
+  animation: fadeIn 0.3s ease;
+}
+
+.catalog-hero-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 2px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.06);
+  text-align: center;
+}
+
+.catalog-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e40af;
+  color: #ffffff;
+  padding: 5px 16px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.catalog-hero-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.catalog-hero-desc {
+  font-size: 0.98rem;
+  color: #475569;
+  max-width: 820px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+
+.catalog-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.catalog-filter-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+}
+
+.catalog-filter-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.catalog-filter-btn:hover {
+  border-color: #2563eb;
+  color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.catalog-filter-btn.active {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* Lưới Card đề thi (Catalog Grid) */
+.catalog-exams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.catalog-exam-card {
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.catalog-exam-card:hover {
+  border-color: #2563eb;
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.12);
+}
+
+.catalog-exam-card.card-hot {
+  border-top: 5px solid #ef4444;
+}
+
+.exam-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.exam-grade-pill {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exam-grade-pill.grade-12 {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.exam-grade-pill.grade-11 {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.exam-badge-highlight {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-fire {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.badge-official {
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+}
+
+.badge-green {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-blue {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.exam-card-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.exam-card-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.exam-card-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.spec-item {
+  font-size: 0.82rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spec-item strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.exam-card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: #334155;
+  margin-bottom: 18px;
+}
+
+.exam-card-features span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exam-card-features i {
+  color: #16a34a;
+  font-size: 0.75rem;
+}
+
+.btn-card-enter {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.btn-card-enter:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.32);
+}
+
+/* 2. Màn hình Cấp độ 2: Vùng làm bài thi của đề đã chọn (Workspace View) */
+.exam-workspace-view {
+  animation: fadeIn 0.3s ease;
+}
+
+.exam-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 12px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.btn-back-to-catalog {
+  background: #f1f5f9;
+  border: 1.5px solid #94a3b8;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-back-to-catalog:hover {
+  background: #e2e8f0;
+  border-color: #475569;
+  color: #0f172a;
+  transform: translateX(-2px);
+}
+
+.exam-current-badge-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.current-grade-tag {
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.current-grade-tag.grade-12 {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.current-grade-tag.grade-11 {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.current-exam-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+/* 3. Trang tổng hợp kết quả tinh gọn & Vòng tròn điểm số */
+.result-summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.result-score-circle {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  flex-shrink: 0;
+}
+
+.score-circle-inner {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.score-main-val {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.score-max-val {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.result-meta-info {
+  max-width: 600px;
+}
+
+.result-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.result-headline {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+/* 4. Bảng nhận diện lỗi sai & Hướng dẫn khắc phục (Diagnostic Section) */
+.mistake-diagnostic-section {
+  background: #ffffff;
+  border: 2px solid #fed7aa;
+  border-radius: 18px;
+  padding: 24px;
+  margin: 24px auto;
+  text-align: left;
+  box-shadow: 0 4px 18px rgba(234, 88, 12, 0.06);
+}
+
+.diagnostic-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.diagnostic-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #9a3412;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diagnostic-badge {
+  background: #ffedd5;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.diagnostic-intro-note {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.diagnostic-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.diagnostic-card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-left: 5px solid #ef4444;
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+}
+
+.diagnostic-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.diag-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.diag-q-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #1e293b;
+}
+
+.diag-num-badge {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+.diag-topic-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.diag-answers-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.diag-ans-student {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #991b1b;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diag-ans-correct {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #166534;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diag-tf-details {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+
+.diag-tf-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.diag-tf-item {
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diag-tf-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.diag-tf-stmt {
+  font-size: 0.86rem;
+  color: #334155;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.diag-tf-compare {
+  display: flex;
+  gap: 12px;
+  font-size: 0.82rem;
+}
+
+.tf-student {
+  color: #dc2626;
+}
+
+.tf-correct {
+  color: #16a34a;
+}
+
+.diag-teacher-tip {
+  background: #fffbeb;
+  border: 1px dashed #f59e0b;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #92400e;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.diag-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-quick-view-sol {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-quick-view-sol:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.diagnostic-perfect-box {
+  background: #f0fdf4;
+  border: 2px dashed #16a34a;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+
+.perfect-icon {
+  font-size: 2.5rem;
+  color: #f59e0b;
+  margin-bottom: 8px;
+}
+
+.perfect-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #15803d;
+  margin-bottom: 6px;
+}
+
+.perfect-desc {
+  font-size: 0.92rem;
+  color: #166534;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* 5. Thanh bộ lọc câu hỏi xem lại bài thi (Solution Filter Toolbar) */
+.solution-filter-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 24px 0;
+  justify-content: center;
+}
+
+.solution-filter-label {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+}
+
+.sol-filter-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sol-filter-btn:hover {
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+.sol-filter-btn.active {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.sol-filter-btn.filter-wrong.active {
+  background: #dc2626;
+  border-color: #b91c1c;
+  color: #ffffff;
+}
+
+.sol-filter-btn.filter-correct.active {
+  background: #16a34a;
+  border-color: #15803d;
+  color: #ffffff;
+}
+
+.btn-outline-catalog {
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  color: #1d4ed8;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-outline-catalog:hover {
+  background: #eff6ff;
+  border-color: #1d4ed8;
+}
