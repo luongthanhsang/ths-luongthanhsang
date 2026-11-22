@@ -758,16 +758,27 @@ function updateModeButtonsLabels() {
   const btnP2 = document.getElementById("modeBtnPart2") || document.querySelector('.quiz-mode-btn[data-mode="part2"]');
   const btnP3 = document.getElementById("modeBtnPart3") || document.querySelector('.quiz-mode-btn[data-mode="part3"]');
 
-  if (currentExamId.startsWith("11_")) {
+  if (currentExamId === "12_KTTX3_VEC") {
+    if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cả đề thi (8 câu - 15 phút)';
+    if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (6 câu - 6.0đ)';
+    if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (2 câu - 4.0đ)';
+    if (btnP3) btnP3.style.display = "none";
+  } else if (currentExamId.startsWith("11_")) {
     if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cả đề thi (21 câu - 90 phút)';
     if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (16 câu - 4.0đ)';
     if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (3 câu - 3.0đ)';
-    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Phần III: Tự luận (2 câu - 3.0đ)';
+    if (btnP3) {
+      btnP3.style.display = "";
+      btnP3.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Phần III: Tự luận (2 câu - 3.0đ)';
+    }
   } else {
     if (btnAll) btnAll.innerHTML = '<i class="fa-solid fa-file-lines"></i> Cả đề thi (22 câu - 90 phút)';
     if (btnP1) btnP1.innerHTML = '<i class="fa-solid fa-list-check"></i> Phần I: Trắc nghiệm (12 câu - 3.0đ)';
     if (btnP2) btnP2.innerHTML = '<i class="fa-solid fa-square-check"></i> Phần II: Đúng / Sai (4 câu - 4.0đ)';
-    if (btnP3) btnP3.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)';
+    if (btnP3) {
+      btnP3.style.display = "";
+      btnP3.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Phần III: Trả lời ngắn (6 câu - 3.0đ)';
+    }
   }
 }
 
@@ -883,7 +894,21 @@ function loadQuestionsForMode(mode) {
   const shuffledData = prepareShuffledQuestions(exam, mode);
   activeQuizQuestions = shuffledData.selected;
 
-  if (mode === "part1") {
+  if (currentExamId === "12_KTTX3_VEC") {
+    if (mode === "part1") {
+      totalQuizSeconds = 10 * 60; // 10 phút
+      if (timeLabel) timeLabel.textContent = `10 phút (Phần I: ${activeQuizQuestions.length} câu trắc nghiệm - 6.0 điểm • ${currentShuffleCode})`;
+      if (titleDisplay) titleDisplay.textContent = `Phần I: Câu Hỏi Trắc Nghiệm Nhiều Phương Án (${exam.config.title})`;
+    } else if (mode === "part2") {
+      totalQuizSeconds = 8 * 60; // 8 phút
+      if (timeLabel) timeLabel.textContent = `8 phút (Phần II: ${activeQuizQuestions.length} câu Đúng / Sai - 4.0 điểm • ${currentShuffleCode})`;
+      if (titleDisplay) titleDisplay.textContent = `Phần II: Câu Hỏi Trắc Nghiệm Đúng / Sai (${exam.config.title})`;
+    } else {
+      totalQuizSeconds = 15 * 60; // 15 phút
+      if (timeLabel) timeLabel.textContent = `15 phút (Đề KTTX Lần 3: ${activeQuizQuestions.length} câu - 10.0 điểm • ${currentShuffleCode})`;
+      if (titleDisplay) titleDisplay.textContent = `${exam.config.title} [${currentShuffleCode}]`;
+    }
+  } else if (mode === "part1") {
     totalQuizSeconds = 45 * 60; // 45 phút
     const maxScoreP1 = currentExamId.startsWith("11_") ? "4.0 điểm" : "3.0 điểm";
     if (timeLabel) timeLabel.textContent = `45 phút (Phần I: ${activeQuizQuestions.length} câu trắc nghiệm - ${maxScoreP1} • ${currentShuffleCode})`;
@@ -1541,6 +1566,9 @@ function getDiagnosticTip(q) {
   const topic = (q.topic || "").toLowerCase();
   const text = (q.question || "").toLowerCase();
 
+  if (topic.includes("vectơ") || topic.includes("vector") || text.includes("vectơ") || text.includes("tọa độ") || text.includes("hệ trục")) {
+    return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Cần nhớ thứ tự $(x; y; z)$ tương ứng với các vectơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$. Vectơ nối hai điểm $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A)$ (lấy điểm ngọn trừ điểm gốc). Tích vô hướng $\\vec{u} \\cdot \\vec{v} = x_1 x_2 + y_1 y_2 + z_1 z_2$, hai vectơ vuông góc khi và chỉ khi tích vô hướng bằng 0!";
+  }
   if (topic.includes("tiệm cận") || text.includes("tiệm cận")) {
     return "💡 <strong>Bẫy thường gặp &amp; Khắc phục:</strong> Cần nhớ tiệm cận đứng là nghiệm của mẫu số $x = x_0$ sao cho tử khác 0. Tiệm cận ngang tìm bằng $\\lim_{x \\to \\pm\\infty} y$. Cẩn thận dấu âm/dương khi đưa căn bậc hai ra ngoài trị tuyệt đối $|x|$!";
   }
@@ -1589,6 +1617,7 @@ function submitQuiz(isAuto = false) {
   const diagnosticMistakes = [];
 
   const isExam11 = currentExamId.startsWith("11_");
+  const isExamKTTX3 = (currentExamId === "12_KTTX3_VEC");
 
   activeQuizQuestions.forEach((q, index) => {
     const qPart = q.part || "I";
@@ -1606,7 +1635,7 @@ function submitQuiz(isAuto = false) {
       }
 
       if (isCorrect) {
-        scorePart1 += 0.25;
+        scorePart1 += isExamKTTX3 ? 1.0 : 0.25;
         correctCountTotal++;
         if (navBtn) {
           navBtn.classList.remove("answered");
@@ -1689,10 +1718,17 @@ function submitQuiz(isAuto = false) {
       });
 
       let qScore = 0;
-      if (subCorrectCount === 1) qScore = 0.1;
-      else if (subCorrectCount === 2) qScore = 0.25;
-      else if (subCorrectCount === 3) qScore = 0.5;
-      else if (subCorrectCount === 4) qScore = 1.0;
+      if (isExamKTTX3) {
+        if (subCorrectCount === 1) qScore = 0.2;
+        else if (subCorrectCount === 2) qScore = 0.5;
+        else if (subCorrectCount === 3) qScore = 1.0;
+        else if (subCorrectCount === 4) qScore = 2.0;
+      } else {
+        if (subCorrectCount === 1) qScore = 0.1;
+        else if (subCorrectCount === 2) qScore = 0.25;
+        else if (subCorrectCount === 3) qScore = 0.5;
+        else if (subCorrectCount === 4) qScore = 1.0;
+      }
 
       scorePart2 += qScore;
       const isAllCorrect = (subCorrectCount === 4);
@@ -1715,7 +1751,7 @@ function submitQuiz(isAuto = false) {
           subCorrectCount,
           totalItems: q.items.length,
           earnedScore: qScore,
-          maxScore: 1.0,
+          maxScore: isExamKTTX3 ? 2.0 : 1.0,
           tfItems: tfItemsReview,
           tip: getDiagnosticTip(q)
         });
@@ -1818,7 +1854,15 @@ function submitQuiz(isAuto = false) {
 
   // Tính tổng điểm theo chế độ
   let finalScore = 0;
-  if (isExam11) {
+  if (isExamKTTX3) {
+    if (currentQuizMode === "part1") {
+      finalScore = (scorePart1 / 6.0) * 10.0;
+    } else if (currentQuizMode === "part2") {
+      finalScore = (scorePart2 / 4.0) * 10.0;
+    } else {
+      finalScore = scorePart1 + scorePart2;
+    }
+  } else if (isExam11) {
     if (currentQuizMode === "part1") {
       finalScore = (scorePart1 / 4.0) * 10.0;
     } else if (currentQuizMode === "part2") {
