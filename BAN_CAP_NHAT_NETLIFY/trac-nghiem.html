@@ -257,17 +257,61 @@
             </div>
           </div>
 
-          <!-- Lịch sử làm bài thi tại trang danh sách -->
-          <div class="quiz-history-card" id="catalogHistoryCard" style="display: none; margin-top: 36px;">
-            <div class="history-card-header">
-              <div class="history-card-title">
-                <i class="fa-solid fa-clock-rotate-left" style="color: #0284c7;"></i>
-                <span>Lịch sử các lần làm bài thi của em:</span>
+          <!-- KHU VỰC BẢO MẬT GIÁO VIÊN: NHẬT KÝ LÀM BÀI CỦA HỌC SINH (CHỈ THẦY SÁNG MỚI XEM ĐƯỢC) -->
+          <div class="teacher-portal-entry-card" id="teacherPortalEntryCard">
+            <div class="teacher-portal-inner">
+              <div class="teacher-portal-info">
+                <div class="teacher-shield-avatar">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                  <h4 class="teacher-portal-title">Khu Vực Quản Trị Dành Cho Giáo Viên (ThS. Lương Thanh Sáng)</h4>
+                  <p class="teacher-portal-desc">Sổ nhật ký làm bài và dữ liệu bài thi của học sinh được bảo mật sư phạm. Chỉ giáo viên bộ môn mới có quyền truy cập, theo dõi và xuất bảng điểm.</p>
+                </div>
               </div>
-              <button type="button" class="btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
-                <i class="fa-solid fa-trash-can"></i> Xóa lịch sử
-              </button>
+              <div class="teacher-portal-action">
+                <button type="button" class="btn-teacher-portal-trigger" id="btnTeacherPortalTrigger" onclick="toggleTeacherAdminModal()">
+                  <i class="fa-solid fa-lock" id="teacherPortalBtnIcon"></i> <span id="teacherPortalBtnText">Xem Nhật Ký Học Sinh (Dành Cho Thầy)</span>
+                </button>
+              </div>
             </div>
+          </div>
+
+          <!-- BẢNG SỔ NHẬT KÝ LÀM BÀI THI CỦA HỌC SINH (CHỈ HIỂN THỊ KHI THẦY ĐÃ XÁC THỰC MÃ BẢO MẬT) -->
+          <div class="quiz-history-card teacher-admin-panel" id="catalogHistoryCard" style="display: none; margin-top: 24px;">
+            <div class="history-card-header teacher-admin-header">
+              <div class="history-card-title">
+                <i class="fa-solid fa-clipboard-user" style="color: #0284c7;"></i>
+                <span>Sổ Nhật Ký &amp; Kết Quả Làm Bài Thi Của Học Sinh</span>
+                <span class="teacher-verified-badge"><i class="fa-solid fa-circle-check"></i> ThS. Lương Thanh Sáng</span>
+              </div>
+              <div class="teacher-admin-actions">
+                <button type="button" class="btn-teacher-action btn-teacher-export" onclick="exportQuizHistoryCSV()" title="Tải toàn bộ bảng điểm của học sinh về máy (Excel CSV)">
+                  <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                </button>
+                <button type="button" class="btn-teacher-action btn-teacher-pwd" onclick="promptChangeTeacherPassword()" title="Thay đổi mã bảo mật giáo viên">
+                  <i class="fa-solid fa-key"></i> Đổi mã
+                </button>
+                <button type="button" class="btn-teacher-action btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
+                  <i class="fa-solid fa-trash-can"></i> Xóa dữ liệu
+                </button>
+                <button type="button" class="btn-teacher-action btn-teacher-lock" onclick="lockTeacherAdmin()" title="Khóa lại ngay để bảo mật thông tin trước học sinh">
+                  <i class="fa-solid fa-lock"></i> Khóa lại
+                </button>
+              </div>
+            </div>
+
+            <!-- Thanh tìm kiếm & thống kê nhanh của Thầy -->
+            <div class="teacher-history-filter-bar">
+              <div class="teacher-search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="teacherHistorySearchInput" placeholder="Tìm kiếm theo họ tên học sinh, lớp hoặc đề thi..." oninput="filterTeacherHistoryTable()">
+              </div>
+              <div class="teacher-stats-summary" id="teacherHistorySummary">
+                Đã ghi nhận: <strong id="teacherTotalRecordCount">0</strong> lượt nộp bài
+              </div>
+            </div>
+
             <div class="history-table-wrapper" id="catalogHistoryTableWrapper">
               <!-- Render by JS -->
             </div>
@@ -498,19 +542,10 @@
                 </button>
               </div>
 
-              <!-- 7. BẢNG LỊCH SỬ CÁC LẦN THI -->
-              <div class="quiz-history-card" id="quizHistoryCard">
-                <div class="history-card-header">
-                  <div class="history-card-title">
-                    <i class="fa-solid fa-clock-rotate-left" style="color: #0284c7;"></i>
-                    <span>Lịch sử các lần làm bài thi của em:</span>
-                  </div>
-                  <button type="button" class="btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
-                    <i class="fa-solid fa-trash-can"></i> Xóa lịch sử
-                  </button>
-                </div>
+              <!-- 7. BẢNG LỊCH SỬ THI (ẨN ĐỐI VỚI HỌC SINH - BẢO MẬT CHỈ GIÁO VIÊN MỚI XEM ĐƯỢC) -->
+              <div class="quiz-history-card" id="quizHistoryCard" style="display: none !important;">
                 <div class="history-table-wrapper" id="historyTableWrapper">
-                  <!-- Render by JS -->
+                  <!-- Render by JS only for Teacher -->
                 </div>
               </div>
 
@@ -602,6 +637,33 @@
   <button class="back-to-top" id="backToTop" title="Lên đầu trang">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+
+  <!-- ==================== MODAL XÁC THỰC BẢO MẬT DÀNH CHO THẦY SÁNG ==================== -->
+  <div class="teacher-modal-backdrop" id="teacherAuthModal" style="display: none;">
+    <div class="teacher-modal-card">
+      <div class="teacher-modal-header">
+        <div class="teacher-modal-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Xác Thực Quyền Giáo Viên</h3>
+        <p>Khu vực bảo mật hồ sơ &amp; kết quả làm bài của học sinh<br><strong>ThS. Lương Thanh Sáng • THPT Nguyễn Văn Thoại</strong></p>
+        <button type="button" class="btn-close-modal" onclick="closeTeacherAuthModal()" title="Đóng">&times;</button>
+      </div>
+      <div class="teacher-modal-body">
+        <label for="teacherAuthInput"><i class="fa-solid fa-key"></i> Nhập mã bảo mật của Thầy Sáng:</label>
+        <div class="teacher-input-wrapper">
+          <input type="password" id="teacherAuthInput" placeholder="Nhập mã bảo mật..." autocomplete="off" onkeydown="if(event.key==='Enter') submitTeacherAuth()">
+          <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility()" title="Ẩn / Hiện mã"><i class="fa-solid fa-eye" id="eyeIconTeacher"></i></button>
+        </div>
+        <p class="teacher-modal-hint"><i class="fa-solid fa-circle-info"></i> Mã mặc định của Thầy: <code>thaysang</code> (hoặc <code>123456</code>). Thầy có thể đổi mã mới bất kỳ lúc nào.</p>
+        <div id="teacherAuthError" class="teacher-auth-error" style="display: none;"></div>
+      </div>
+      <div class="teacher-modal-footer">
+        <button type="button" class="btn-modal-cancel" onclick="closeTeacherAuthModal()">Hủy bỏ</button>
+        <button type="button" class="btn-modal-submit" onclick="submitTeacherAuth()">
+          <i class="fa-solid fa-unlock"></i> Xác nhận mở khóa
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Khung thông báo Toast Message -->
   <div class="toast-container" id="toastContainer"></div>

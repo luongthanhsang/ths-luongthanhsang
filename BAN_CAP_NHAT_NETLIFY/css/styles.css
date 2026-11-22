@@ -1528,6 +1528,8 @@ button, input, textarea, select {
   flex-direction: column;
   gap: 12px;
   margin-top: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tf-row {
@@ -1536,69 +1538,134 @@ button, input, textarea, select {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 18px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color, #cbd5e1);
+  border-radius: var(--radius-md, 12px);
   background: #ffffff;
-  transition: var(--transition);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .tf-row:hover {
-  border-color: var(--primary-300);
+  border-color: #38bdf8;
   background: #f8fafc;
 }
 
 .tf-text {
   font-size: 0.95rem;
-  color: var(--text-main);
+  color: var(--text-main, #0f172a);
   line-height: 1.55;
   flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .tf-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .tf-btn {
-  border: 1.5px solid var(--border-color);
+  border: 1.5px solid #cbd5e1;
   background: #ffffff;
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: var(--transition);
-  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 82px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tf-btn i {
+  pointer-events: none;
 }
 
 .tf-btn:hover {
-  border-color: var(--primary-400);
-  color: var(--primary-700);
-}
-
-.tf-btn.selected-true {
-  background: #0284c7;
-  color: #ffffff;
   border-color: #0284c7;
+  color: #0284c7;
+  background: #f0f9ff;
+  transform: translateY(-1px);
 }
 
-.tf-btn.selected-false {
-  background: #64748b;
-  color: #ffffff;
-  border-color: #64748b;
+.tf-btn:active {
+  transform: translateY(0);
 }
 
-.tf-btn.correct-state {
-  background: var(--success) !important;
+/* TRẠNG THÁI NÚT ĐƯỢC CHỌN - ĐÚNG (XANH DƯƠNG CHUYÊN NGHIỆP) */
+.tf-btn.selected-true,
+.tf-btn.btn-true.selected {
+  background: #0284c7 !important;
   color: #ffffff !important;
-  border-color: var(--success) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35) !important;
+}
+
+/* TRẠNG THÁI NÚT ĐƯỢC CHỌN - SAI (ĐỎ TƯƠI NỔI BẬT DỄ PHÂN BIỆT) */
+.tf-btn.selected-false,
+.tf-btn.btn-false.selected {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;
+}
+
+/* TRẠNG THÁI CHẤM ĐIỂM SAU NỘP BÀI THI */
+.tf-btn.correct-state {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.35) !important;
 }
 
 .tf-btn.wrong-state {
-  background: var(--danger) !important;
+  background: #e11d48 !important;
   color: #ffffff !important;
-  border-color: var(--danger) !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.35) !important;
+}
+
+/* RESPONSIVE TRÊN ĐIỆN THOẠI DI ĐỘNG (DƯỚI 680px) */
+/* Đảm bảo nút "Sai" không bao giờ bị ẩn hoặc tràn mép màn hình */
+@media (max-width: 680px) {
+  .tf-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    padding: 14px 12px !important;
+  }
+
+  .tf-text {
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .tf-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .tf-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 10px 14px !important;
+    font-size: 0.92rem !important;
+    border-radius: 8px !important;
+    justify-content: center !important;
+  }
 }
 
 /* Phần III: Trả lời ngắn */
@@ -7581,4 +7648,397 @@ textarea.form-control {
 .btn-outline-catalog:hover {
   background: #eff6ff;
   border-color: #1d4ed8;
+}
+
+/* ==========================================================================
+   6. KHU VỰC QUẢN TRỊ BẢO MẬT & NHẬT KÝ HỌC SINH (DÀNH CHO THẦY SÁNG)
+   ========================================================================== */
+.teacher-portal-entry-card {
+  margin-top: 40px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  border: 1.5px solid #7dd3fc;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);
+}
+
+.teacher-portal-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.teacher-portal-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 700px;
+}
+
+.teacher-shield-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+}
+
+.teacher-portal-title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.teacher-portal-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.btn-teacher-portal-trigger {
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.btn-teacher-portal-trigger:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
+}
+
+/* Bảng Quản trị Giáo viên */
+.teacher-admin-panel {
+  border: 2px solid #38bdf8 !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 30px rgba(2, 132, 199, 0.12) !important;
+}
+
+.teacher-admin-header {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 14px;
+}
+
+.teacher-verified-badge {
+  background: #dcfce7;
+  color: #166534;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid #bbf7d0;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.teacher-admin-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-teacher-action {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-teacher-export {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.btn-teacher-export:hover {
+  background: #15803d;
+}
+
+.btn-teacher-pwd {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #334155;
+}
+
+.btn-teacher-pwd:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-teacher-lock {
+  background: #e11d48;
+  color: #ffffff;
+}
+
+.btn-teacher-lock:hover {
+  background: #be123c;
+}
+
+.teacher-history-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0 16px;
+  border-bottom: 1px dashed #cbd5e1;
+  margin-bottom: 14px;
+}
+
+.teacher-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 14px;
+  flex-grow: 1;
+  max-width: 450px;
+}
+
+.teacher-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.88rem;
+  width: 100%;
+  color: #0f172a;
+}
+
+.teacher-stats-summary {
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.teacher-stats-summary strong {
+  color: #0284c7;
+  font-size: 1rem;
+}
+
+/* MODAL BẢO MẬT DÀNH CHO GIÁO VIÊN */
+.teacher-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeInModal 0.25s ease;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.teacher-modal-card {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  animation: scaleInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleInModal {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.teacher-modal-header {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  padding: 24px 24px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.teacher-modal-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  color: #bae6fd;
+}
+
+.teacher-modal-header h3 {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.teacher-modal-header p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #e0f2fe;
+  line-height: 1.4;
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: #bae6fd;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-close-modal:hover {
+  color: #ffffff;
+}
+
+.teacher-modal-body {
+  padding: 24px;
+}
+
+.teacher-modal-body label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.teacher-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.teacher-input-wrapper input {
+  width: 100%;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 45px 10px 14px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.teacher-input-wrapper input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.btn-toggle-eye {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.btn-toggle-eye:hover {
+  color: #0284c7;
+}
+
+.teacher-modal-hint {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 10px 0 0;
+  line-height: 1.4;
+}
+
+.teacher-modal-hint code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #0369a1;
+}
+
+.teacher-auth-error {
+  margin-top: 10px;
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #fecaca;
+}
+
+.teacher-modal-footer {
+  padding: 16px 24px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-modal-cancel {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-cancel:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.btn-modal-submit {
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+}
+
+.btn-modal-submit:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
 }

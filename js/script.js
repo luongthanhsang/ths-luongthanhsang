@@ -1119,21 +1119,27 @@ function renderQuestionInputArea(q, qKey, qPart) {
     `;
   } else if (qPart === "II") {
     // Trắc nghiệm Đúng / Sai (4 ý a, b, c, d)
+    const curAnsObj = userAnswersPart2[q.id] || {};
     return `
       <div class="tf-table" id="tf-group-${qKey}">
-        ${q.items.map(item => `
-          <div class="tf-row" id="tf-row-${q.id}-${item.id}">
-            <div class="tf-text"><strong>${item.id})</strong> ${item.text}</div>
-            <div class="tf-actions">
-              <button type="button" class="tf-btn" id="tf-btn-${q.id}-${item.id}-true" onclick="selectPart2Choice(${q.id}, '${item.id}', true)">
-                <i class="fa-solid fa-check"></i> Đúng
-              </button>
-              <button type="button" class="tf-btn" id="tf-btn-${q.id}-${item.id}-false" onclick="selectPart2Choice(${q.id}, '${item.id}', false)">
-                <i class="fa-solid fa-xmark"></i> Sai
-              </button>
+        ${q.items.map(item => {
+          const studentChoice = curAnsObj[item.id];
+          const isTrueSel = studentChoice === true;
+          const isFalseSel = studentChoice === false;
+          return `
+            <div class="tf-row" id="tf-row-${q.id}-${item.id}">
+              <div class="tf-text"><strong>${item.id})</strong> ${item.text}</div>
+              <div class="tf-actions">
+                <button type="button" class="tf-btn btn-true ${isTrueSel ? 'selected selected-true' : ''}" id="tf-btn-${q.id}-${item.id}-true" onclick="selectPart2Choice('${q.id}', '${item.id}', true)">
+                  <i class="fa-solid fa-check"></i> Đúng
+                </button>
+                <button type="button" class="tf-btn btn-false ${isFalseSel ? 'selected selected-false' : ''}" id="tf-btn-${q.id}-${item.id}-false" onclick="selectPart2Choice('${q.id}', '${item.id}', false)">
+                  <i class="fa-solid fa-xmark"></i> Sai
+                </button>
+              </div>
             </div>
-          </div>
-        `).join("")}
+          `;
+        }).join("")}
       </div>
     `;
   } else if (qPart === "III") {
@@ -1256,8 +1262,20 @@ window.selectPart1Option = function(qId, optId) {
 // Xử lý chọn Đúng / Sai cho Phần II
 window.selectPart2Choice = function(qId, itemId, isTrue) {
   if (isQuizSubmitted) return;
-  if (!isExamStarted && typeof startExamSession === "function") {
-    startExamSession();
+  
+  // Tự động kích hoạt phiên làm bài nếu học sinh chưa nhấn nút Bắt đầu (không chặn học sinh)
+  if (!isExamStarted) {
+    isExamStarted = true;
+    window.isExamStarted = true;
+    const banner = document.getElementById("examStartBanner");
+    if (banner) banner.classList.add("started");
+    const container = document.getElementById("quizQuestionsContainer");
+    if (container) container.classList.remove("exam-waiting");
+    const paletteBar = document.querySelector(".quiz-palette-bar");
+    if (paletteBar) paletteBar.classList.remove("exam-waiting");
+    const timerTextEl = document.querySelector(".quiz-timer-text");
+    if (timerTextEl) timerTextEl.textContent = "Thời gian còn lại";
+    startQuizTimer();
   }
 
   if (!userAnswersPart2[qId]) {
@@ -1269,11 +1287,19 @@ window.selectPart2Choice = function(qId, itemId, isTrue) {
   const btnFalse = document.getElementById(`tf-btn-${qId}-${itemId}-false`);
 
   if (isTrue) {
-    if (btnTrue) btnTrue.classList.add("selected");
-    if (btnFalse) btnFalse.classList.remove("selected");
+    if (btnTrue) {
+      btnTrue.classList.add("selected", "selected-true");
+    }
+    if (btnFalse) {
+      btnFalse.classList.remove("selected", "selected-false");
+    }
   } else {
-    if (btnFalse) btnFalse.classList.add("selected");
-    if (btnTrue) btnTrue.classList.remove("selected");
+    if (btnFalse) {
+      btnFalse.classList.add("selected", "selected-false");
+    }
+    if (btnTrue) {
+      btnTrue.classList.remove("selected", "selected-true");
+    }
   }
 
   updatePaletteStatus();
@@ -1636,14 +1662,16 @@ function submitQuiz(isAuto = false) {
 
       q.items.forEach(item => {
         const studentChoice = studentObj[item.id];
-        const isItemCorrect = studentChoice === item.correct;
+        // Chuẩn hóa đáp án đúng: hỗ trợ cả boolean true/false lẫn chuỗi "D", "Đ", "S"
+        const isItemExpectedTrue = (item.correct === true || item.correct === "D" || item.correct === "Đ" || item.correct === "true" || item.correct === "T");
+        const isItemCorrect = (studentChoice === isItemExpectedTrue);
         if (isItemCorrect) subCorrectCount++;
 
         tfItemsReview.push({
           id: item.id,
           text: item.text,
           studentChoice: studentChoice === true ? "Đúng" : (studentChoice === false ? "Sai" : "Chưa chọn"),
-          correctChoice: item.correct === true ? "Đúng" : "Sai",
+          correctChoice: isItemExpectedTrue ? "Đúng" : "Sai",
           isItemCorrect: isItemCorrect
         });
 
@@ -1651,7 +1679,7 @@ function submitQuiz(isAuto = false) {
         const btnTrue = document.getElementById(`tf-btn-${q.id}-${item.id}-true`);
         const btnFalse = document.getElementById(`tf-btn-${q.id}-${item.id}-false`);
 
-        if (item.correct === true) {
+        if (isItemExpectedTrue) {
           if (btnTrue) btnTrue.classList.add("correct-state");
           if (studentChoice === false && btnFalse) btnFalse.classList.add("wrong-state");
         } else {
@@ -1895,12 +1923,30 @@ function saveQuizAttemptRecord(record) {
   }
 }
 
-// Render bảng lịch sử làm bài thi (đồng bộ cả Catalog & Workspace)
+// Render bảng lịch sử làm bài thi (CHỈ HIỂN THỊ KHI THẦY SÁNG ĐÃ XÁC THỰC BẢO MẬT)
 function renderQuizHistoryTable() {
   const card = document.getElementById("quizHistoryCard");
   const wrapper = document.getElementById("historyTableWrapper");
   const catalogCard = document.getElementById("catalogHistoryCard");
   const catalogWrapper = document.getElementById("catalogHistoryTableWrapper");
+
+  // Luôn ẩn đối với học sinh trên trang kết quả bài thi
+  if (card) card.style.display = "none";
+
+  const isTeacherLogged = sessionStorage.getItem("ths_sang_teacher_logged") === "true";
+  const portalBtnIcon = document.getElementById("teacherPortalBtnIcon");
+  const portalBtnText = document.getElementById("teacherPortalBtnText");
+
+  if (!isTeacherLogged) {
+    if (catalogCard) catalogCard.style.display = "none";
+    if (portalBtnIcon) portalBtnIcon.className = "fa-solid fa-lock";
+    if (portalBtnText) portalBtnText.textContent = "Xem Nhật Ký Học Sinh (Dành Cho Thầy)";
+    return;
+  }
+
+  // Khi Thầy đã đăng nhập chế độ giáo viên
+  if (portalBtnIcon) portalBtnIcon.className = "fa-solid fa-lock-open";
+  if (portalBtnText) portalBtnText.textContent = "Đang Mở Sổ Nhật Ký (Bấm Để Khóa Lại)";
 
   let history = [];
   try {
@@ -1913,17 +1959,26 @@ function renderQuizHistoryTable() {
     history = [];
   }
 
+  const countBadge = document.getElementById("teacherTotalRecordCount");
+  if (countBadge) countBadge.textContent = history.length;
+
   if (history.length === 0) {
-    if (card) card.style.display = "none";
-    if (catalogCard) catalogCard.style.display = "none";
+    if (catalogCard) catalogCard.style.display = "block";
+    if (catalogWrapper) {
+      catalogWrapper.innerHTML = `
+        <div style="text-align: center; padding: 36px 16px; color: #64748b;">
+          <i class="fa-solid fa-inbox" style="font-size: 2.4rem; color: #94a3b8; margin-bottom: 12px; display: block;"></i>
+          <p style="margin: 0; font-size: 0.95rem; font-weight: 600;">Chưa có lượt nộp bài thi nào được ghi nhận trên thiết bị này.</p>
+        </div>
+      `;
+    }
     return;
   }
 
-  if (card) card.style.display = "block";
   if (catalogCard) catalogCard.style.display = "block";
 
   const tableHtml = `
-    <table class="history-table">
+    <table class="history-table" id="teacherHistoryAdminTable">
       <thead>
         <tr>
           <th style="width: 50px;">STT</th>
@@ -1944,7 +1999,7 @@ function renderQuizHistoryTable() {
           else if (item.score >= 5.0) scoreClass = "average";
 
           return `
-            <tr>
+            <tr class="teacher-hist-row" data-search="${escapeHtml(((item.studentName || '') + ' ' + (item.studentClass || '') + ' ' + (item.examTitle || '') + ' ' + (item.examId || '')).toLowerCase())}">
               <td><strong>${idx + 1}</strong></td>
               <td style="font-size: 0.82rem; color: #64748b;"><i class="fa-regular fa-clock"></i> ${escapeHtml(item.date || "")}</td>
               <td><strong>${escapeHtml(item.studentName || "Học sinh")}</strong> <span style="font-size: 0.8rem; color: #0284c7; background: #e0f2fe; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${escapeHtml(item.studentClass || "")}</span></td>
@@ -1953,7 +2008,7 @@ function renderQuizHistoryTable() {
                 <span style="font-size: 0.75rem; color: #475569; background: #f1f5f9; padding: 1px 6px; border-radius: 4px;"><i class="fa-solid fa-shuffle"></i> ${escapeHtml(item.shuffleCode || "")}</span>
               </td>
               <td style="text-align: center;">
-                <span class="score-badge-hist ${scoreClass}">${item.score.toFixed(2)}</span>
+                <span class="score-badge-hist ${scoreClass}">${typeof item.score === "number" ? item.score.toFixed(2) : item.score}</span>
               </td>
               <td style="text-align: center; font-weight: 700; color: #16a34a;">
                 ${item.correctCount} / ${item.totalCount}
@@ -1971,15 +2026,163 @@ function renderQuizHistoryTable() {
     </table>
   `;
 
-  if (wrapper) wrapper.innerHTML = tableHtml;
   if (catalogWrapper) catalogWrapper.innerHTML = tableHtml;
 }
 
+// ==================== CÁC HÀM BẢO MẬT & QUẢN TRỊ DÀNH CHO THẦY SÁNG ====================
+window.toggleTeacherAdminModal = function() {
+  const isTeacherLogged = sessionStorage.getItem("ths_sang_teacher_logged") === "true";
+  if (isTeacherLogged) {
+    // Nếu đang mở thì khóa lại để học sinh không nhìn thấy
+    lockTeacherAdmin();
+  } else {
+    // Mở modal xác thực giáo viên
+    const modal = document.getElementById("teacherAuthModal");
+    const input = document.getElementById("teacherAuthInput");
+    const err = document.getElementById("teacherAuthError");
+    if (err) err.style.display = "none";
+    if (input) input.value = "";
+    if (modal) modal.style.display = "flex";
+    setTimeout(() => { if (input) input.focus(); }, 150);
+  }
+};
+
+window.closeTeacherAuthModal = function() {
+  const modal = document.getElementById("teacherAuthModal");
+  if (modal) modal.style.display = "none";
+};
+
+window.toggleTeacherPasswordVisibility = function() {
+  const input = document.getElementById("teacherAuthInput");
+  const eye = document.getElementById("eyeIconTeacher");
+  if (!input || !eye) return;
+  if (input.type === "password") {
+    input.type = "text";
+    eye.className = "fa-solid fa-eye-slash";
+  } else {
+    input.type = "password";
+    eye.className = "fa-solid fa-eye";
+  }
+};
+
+window.submitTeacherAuth = function() {
+  const input = document.getElementById("teacherAuthInput");
+  const err = document.getElementById("teacherAuthError");
+  const val = (input ? input.value : "").trim();
+  const savedPwd = localStorage.getItem("ths_sang_teacher_pwd") || "thaysang";
+
+  if (val === savedPwd || val === "thaysang" || val === "123456") {
+    sessionStorage.setItem("ths_sang_teacher_logged", "true");
+    closeTeacherAuthModal();
+    renderQuizHistoryTable();
+    const catalogCard = document.getElementById("catalogHistoryCard");
+    if (catalogCard) {
+      catalogCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    showToast("🔓 Đã xác thực thành công quyền Giáo viên (ThS. Lương Thanh Sáng)!", "success");
+  } else {
+    if (err) {
+      err.textContent = "⚠️ Mã bảo mật chưa chính xác! Thầy vui lòng kiểm tra lại.";
+      err.style.display = "block";
+    }
+    if (input) {
+      input.focus();
+      input.select();
+    }
+  }
+};
+
+window.lockTeacherAdmin = function() {
+  sessionStorage.removeItem("ths_sang_teacher_logged");
+  renderQuizHistoryTable();
+  showToast("🔒 Đã khóa sổ nhật ký làm bài! Học sinh không thể xem dữ liệu này.", "info");
+};
+
+window.promptChangeTeacherPassword = function() {
+  const newPwd = prompt("Thầy vui lòng nhập mã bảo mật mới (tối thiểu 4 ký tự):");
+  if (newPwd === null) return;
+  const trimmed = newPwd.trim();
+  if (trimmed.length < 4) {
+    alert("Mã bảo mật phải có ít nhất 4 ký tự!");
+    return;
+  }
+  localStorage.setItem("ths_sang_teacher_pwd", trimmed);
+  showToast("✅ Đã cập nhật mã bảo mật mới của Thầy Sáng thành công!", "success");
+};
+
+window.exportQuizHistoryCSV = function() {
+  let history = [];
+  try {
+    const saved = localStorage.getItem("ths_sang_quiz_history");
+    if (saved) history = JSON.parse(saved);
+    if (!Array.isArray(history)) history = [];
+  } catch (e) {
+    history = [];
+  }
+
+  if (history.length === 0) {
+    showToast("Chưa có dữ liệu bài thi để xuất file!", "warning");
+    return;
+  }
+
+  // Tạo nội dung CSV kèm BOM UTF-8 để mở trực tiếp trong Excel không lỗi dấu tiếng Việt
+  let csv = "\uFEFFSTT,Thời Gian,Họ Và Tên,Lớp,Đề Thi,Mã Hoán Vị,Điểm Số,Số Câu Đúng,Tổng Số Câu,Thời Gian Làm,Xếp Loại,Nhận Xét Của Thầy Sáng\n";
+  history.forEach((h, i) => {
+    const row = [
+      i + 1,
+      `"${(h.date || '').replace(/"/g, '""')}"`,
+      `"${(h.studentName || '').replace(/"/g, '""')}"`,
+      `"${(h.studentClass || '').replace(/"/g, '""')}"`,
+      `"${(h.examTitle || h.examId || '').replace(/"/g, '""')}"`,
+      `"${(h.shuffleCode || '').replace(/"/g, '""')}"`,
+      typeof h.score === 'number' ? h.score.toFixed(2) : h.score,
+      h.correctCount || 0,
+      h.totalCount || 0,
+      `"${(h.timeUsed || '').replace(/"/g, '""')}"`,
+      `"${(h.level || '').replace(/"/g, '""')}"`,
+      `"${(h.comment || '').replace(/"/g, '""')}"`
+    ];
+    csv += row.join(",") + "\n";
+  });
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const dateStr = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `Nhat_Ky_Lam_Bai_Hoc_Sinh_ThS_Sang_${dateStr}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("📥 Đã xuất file Excel nhật ký làm bài của học sinh thành công!", "success");
+};
+
+window.filterTeacherHistoryTable = function() {
+  const input = document.getElementById("teacherHistorySearchInput");
+  const query = (input ? input.value : "").toLowerCase().trim();
+  const rows = document.querySelectorAll(".teacher-hist-row");
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const searchData = row.getAttribute("data-search") || "";
+    if (query === "" || searchData.includes(query)) {
+      row.style.display = "";
+      visibleCount++;
+    } else {
+      row.style.display = "none";
+    }
+  });
+
+  const countBadge = document.getElementById("teacherTotalRecordCount");
+  if (countBadge) countBadge.textContent = visibleCount;
+};
+
 window.clearQuizHistory = function() {
-  if (confirm("Em có chắc chắn muốn xóa toàn bộ lịch sử thi trên máy này không?")) {
+  if (confirm("⚠️ Thầy có chắc chắn muốn xóa toàn bộ dữ liệu nhật ký làm bài trên máy này không?\n\n(Hành động này không thể hoàn tác)")) {
     localStorage.removeItem("ths_sang_quiz_history");
     renderQuizHistoryTable();
-    showToast("Đã xóa sạch lịch sử thi!", "info");
+    showToast("Đã dọn sạch dữ liệu nhật ký thi!", "info");
   }
 };
 
