@@ -180,24 +180,6 @@ const DOCUMENTS_DATA = [
 
   // ==================== 4. ĐỀ KIỂM TRA (ĐỊNH KÌ & THƯỜNG XUYÊN) ====================
   {
-    id: "doc-kttx-12-03",
-    group: "dekiemtra",
-    grade: "12",
-    category: "dekiemtra",
-    title: "Đề Kiểm Tra Thường Xuyên Lần 3 – Toán 12: Tọa độ & Các phép toán vector trong không gian (Chuẩn cấu trúc 15 phút) - THPT Nguyễn Văn Thoại",
-    description: "Đề kiểm tra thường xuyên (KTTX Lần 3) năm học 2026 – 2027 được soạn chuẩn hóa 100% từ ma trận kiến thức theo đúng định dạng mẫu của trường: Gồm bảng thông tin học sinh, khung điền đáp án, Phần I (6 câu trắc nghiệm nhiều phương án – 6.0 điểm) và Phần II (2 câu trắc nghiệm Đúng/Sai đa ý có hình vẽ Oxyz chuẩn TikZ – 4.0 điểm). Kèm hướng dẫn chấm, barem điểm và lời giải chi tiết (Hỗ trợ cả bản PDF và Word .docx).",
-    pages: 2,
-    size: "409 KB (PDF) / 31 KB (Word)",
-    type: "pdf",
-    hasWord: true,
-    date: "22/11/2026",
-    downloads: 1980,
-    previewUrl: "tai-lieu/De_KTTX_Lan3_Toan12.html",
-    downloadUrl: "tai-lieu/De_KTTX_Lan3_Toan12.pdf",
-    downloadWordUrl: "tai-lieu/De_KTTX_Lan3_Toan12.docx",
-    tag: "KTTX Lần 3 (Mới nhất)"
-  },
-  {
     id: "doc-11-00-tk5",
     group: "dekiemtra",
     grade: "11",
