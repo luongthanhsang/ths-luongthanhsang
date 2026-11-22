@@ -1,17 +1,21 @@
 /**
- * DỮ LIỆU KHO TÀI LIỆU TOÁN - THẦY LƯƠNG THANH SÁNG
+ * DỮ LIỆU KHO TÀI LIỆU TOÁN - THS. LƯƠNG THANH SÁNG
  * ========================================================
- * Hướng dẫn dành cho Thầy Sáng:
- * - Để thêm tài liệu mới hoặc sửa link: Thầy chỉ cần sửa các thông tin bên dưới.
- * - Link Google Drive: Sử dụng link chia sẻ ở chế độ "Bất kỳ ai có đường liên kết đều có thể xem".
- *   Ví dụ link Drive: https://drive.google.com/file/d/1a2b3c4d5e/view?usp=sharing
- *   Hệ thống sẽ tự động chuyển thành link xem trước (preview) và link tải về.
+ * Phân loại khoa học theo 7 Thẻ con chuẩn quy chế:
+ * 1. "all": Tất cả tài liệu PDF và Word
+ * 2. "lop10": Các chương, các bài của lớp 10
+ * 3. "lop11": Các chương, các bài của lớp 11
+ * 4. "lop12": Các chương, các bài của lớp 12
+ * 5. "dekiemtra": Bao gồm đề kiểm tra định kì (Giữa kì, cuối kì 10, 11, 12) & Đề kiểm tra thường xuyên (KTTX)
+ * 6. "tnthpt": Bao gồm đề thi Tốt nghiệp THPT các năm trước & Đề thi thử của các trường
+ * 7. "hsg": Gồm các chuyên đề & Đề thi học sinh giỏi các năm
  */
 
 const DOCUMENTS_DATA = [
-  // ==================== KHỐI 10 ====================
+  // ==================== 1. CÁC CHƯƠNG, CÁC BÀI LỚP 10 ====================
   {
     id: "doc-10-01",
+    group: "lop10",
     grade: "10",
     category: "daiso",
     title: "Chương 1: Mệnh Đề Và Tập Hợp - Lý Thuyết & Bài Tập Rèn Luyện",
@@ -23,10 +27,11 @@ const DOCUMENTS_DATA = [
     downloads: 1420,
     previewUrl: "https://drive.google.com/file/d/1x9Xw8w5Bifj_kCSslzjRIZ-AN2qtRa0l/preview",
     downloadUrl: "https://drive.google.com/file/d/1x9Xw8w5Bifj_kCSslzjRIZ-AN2qtRa0l/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chương 1 (Mệnh đề & Tập hợp)"
   },
   {
     id: "doc-10-02",
+    group: "lop10",
     grade: "10",
     category: "daiso",
     title: "Chương 2: Bất Phương Trình & Hệ Bất Phương Trình Bậc Nhất Hai Ẩn",
@@ -38,10 +43,11 @@ const DOCUMENTS_DATA = [
     downloads: 1180,
     previewUrl: "https://drive.google.com/file/d/1scJP0Uow67oPuRjg2yeqWr2K3KBQ4RZw/preview",
     downloadUrl: "https://drive.google.com/file/d/1scJP0Uow67oPuRjg2yeqWr2K3KBQ4RZw/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chương 2 (BPT Bậc Nhất 2 Ẩn)"
   },
   {
     id: "doc-10-03",
+    group: "lop10",
     grade: "10",
     category: "hinhhoc",
     title: "Chương 3: Hệ Thức Lượng Trong Tam Giác & Giá Trị Lượng Giác",
@@ -53,10 +59,11 @@ const DOCUMENTS_DATA = [
     downloads: 1350,
     previewUrl: "https://drive.google.com/file/d/1mJq2Yi_d5jwXLaD5Lt4dxqADY8C9tyzf/preview",
     downloadUrl: "https://drive.google.com/file/d/1mJq2Yi_d5jwXLaD5Lt4dxqADY8C9tyzf/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chương 3 (Hệ thức lượng tam giác)"
   },
   {
     id: "doc-10-05",
+    group: "lop10",
     grade: "10",
     category: "hinhhoc",
     title: "Toán 10 | Chương IV: Vectơ - Lý Thuyết Trọng Tâm, Phương Pháp Thực Chiến & Bài Tập Toàn Tập (74 trang) - ThS. Lương Thanh Sáng",
@@ -70,25 +77,11 @@ const DOCUMENTS_DATA = [
     downloadUrl: "https://drive.google.com/file/d/11w68qwjGldxUQuCzM2a7NixpEwwlHE-9/view?usp=sharing",
     tag: "Chương 4 Trọn bộ (74 trang)"
   },
-  {
-    id: "doc-10-04",
-    grade: "10",
-    category: "dekiemtra",
-    title: "Đề cương ôn tập Học kỳ I môn Toán 10 - THPT Nguyễn Văn Thoại",
-    description: "Hệ thống hóa kiến thức trọng tâm kèm ma trận đề thi và 3 đề ôn luyện cấu trúc chuẩn trắc nghiệm mới (Đúng/Sai, Nhiều lựa chọn).",
-    pages: 32,
-    size: "3.2 MB",
-    type: "pdf",
-    date: "12/11/2024",
-    downloads: 980,
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Tài liệu lưu hành nội bộ"
-  },
 
-  // ==================== KHỐI 11 ====================
+  // ==================== 2. CÁC CHƯƠNG, CÁC BÀI LỚP 11 ====================
   {
     id: "doc-11-01",
+    group: "lop11",
     grade: "11",
     category: "daiso",
     title: "Toán 11 (Dạy học kiến tạo) | Chương I: Lượng giác - ThS. Lương Thanh Sáng",
@@ -100,10 +93,11 @@ const DOCUMENTS_DATA = [
     downloads: 1650,
     previewUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/preview",
     downloadUrl: "https://drive.google.com/file/d/1J-wTZ9GENRNFEo1Nqk7ifdLIeHTDfqME/view?usp=sharing",
-    tag: "Tài liệu Khá - Giỏi (Chương 1)"
+    tag: "Chương 1 (Lượng giác kiến tạo)"
   },
   {
     id: "doc-11-02",
+    group: "lop11",
     grade: "11",
     category: "daiso",
     title: "Toán 11 | Chương II: Dãy số – Cấp số cộng – Cấp số nhân - ThS. Lương Thanh Sáng",
@@ -115,10 +109,11 @@ const DOCUMENTS_DATA = [
     downloads: 1480,
     previewUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/preview",
     downloadUrl: "https://drive.google.com/file/d/18aJzBDVx09H07UeBsibyTfld8Noz5fyl/view?usp=sharing",
-    tag: "Tài liệu Khá - Giỏi (Chương 2)"
+    tag: "Chương 2 (Dãy số & Cấp số)"
   },
   {
     id: "doc-11-03",
+    group: "lop11",
     grade: "11",
     category: "hinhhoc",
     title: "Toán 11 | Chương IV: Quan hệ song song trong không gian - ThS. Lương Thanh Sáng",
@@ -130,10 +125,79 @@ const DOCUMENTS_DATA = [
     downloads: 1220,
     previewUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/preview",
     downloadUrl: "https://drive.google.com/file/d/1L31cOiKYP9mn6IZ5yyHS-uyIXe7MUPl8/view?usp=sharing",
-    tag: "Hình không gian (Chương 4)"
+    tag: "Chương 4 (Hình không gian 64 trang)"
+  },
+
+  // ==================== 3. CÁC CHƯƠNG, CÁC BÀI LỚP 12 ====================
+  {
+    id: "doc-12-01",
+    group: "lop12",
+    grade: "12",
+    category: "giaitich",
+    title: "Bí kíp Ứng dụng Đạo hàm Khảo sát & Vẽ đồ thị hàm số (Chinh phục 8+)",
+    description: "Tổng hợp các dạng cực trị, tính đơn điệu, tiệm cận, bài toán tương giao đồ thị và bài toán thực tế tối ưu hóa (Max - Min) bám sát cấu trúc thi tốt nghiệp mới.",
+    pages: 48,
+    size: "4.2 MB",
+    type: "pdf",
+    date: "10/09/2024",
+    downloads: 1950,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Chuyên đề Đạo hàm & Đồ thị"
+  },
+  {
+    id: "doc-12-02",
+    group: "lop12",
+    grade: "12",
+    category: "giaitich",
+    title: "Chuyên đề Nguyên hàm - Tích phân & Ứng dụng tính Diện tích, Thể tích",
+    description: "Bảng nguyên hàm đầy đủ, phương pháp đổi biến số, tích phân từng phần và các bài toán tính diện tích hình phẳng, thể tích vật thể tròn xoay trong thực tiễn.",
+    pages: 42,
+    size: "3.7 MB",
+    type: "pdf",
+    date: "14/10/2024",
+    downloads: 1720,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Nguyên hàm & Tích phân"
+  },
+  {
+    id: "doc-12-03",
+    group: "lop12",
+    grade: "12",
+    category: "hinhhoc",
+    title: "Phương pháp Tọa độ trong không gian Oxyz - Cẩm nang toàn tập",
+    description: "Phương trình mặt cầu, mặt phẳng, đường thẳng và các bài toán liên quan đến góc, khoảng cách, vị trí tương đối có hình minh họa không gian 3D chi tiết.",
+    pages: 38,
+    size: "3.5 MB",
+    type: "pdf",
+    date: "01/11/2024",
+    downloads: 1560,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Hình học Tọa độ Oxyz"
+  },
+
+  // ==================== 4. ĐỀ KIỂM TRA (ĐỊNH KÌ & THƯỜNG XUYÊN) ====================
+  {
+    id: "doc-kttx-12-03",
+    group: "dekiemtra",
+    grade: "12",
+    category: "dekiemtra",
+    title: "Đề Kiểm Tra Thường Xuyên Lần 3 Môn Toán 12: Tọa độ và các phép toán vector trong không gian (Bản Word .docx & PDF) - ThS. Lương Thanh Sáng",
+    description: "Đề kiểm tra thường xuyên (KTTX Lần 3) năm học 2026 - 2027 chuẩn cấu trúc mới 3 Phần của Bộ GD&ĐT: 04 câu trắc nghiệm nhiều lựa chọn, 02 câu trắc nghiệm Đúng/Sai (đa ý) và 02 câu trả lời ngắn. Định dạng file Microsoft Word (.docx) và PDF kèm ma trận, hình vẽ SVG trực quan và lời giải chi tiết 100%.",
+    pages: 4,
+    size: "128 KB",
+    type: "word",
+    date: "22/11/2026",
+    downloads: 1850,
+    previewUrl: "tai-lieu/L12_NoiDungKTTX_Lan3.docx",
+    downloadUrl: "tai-lieu/L12_NoiDungKTTX_Lan3.docx",
+    tag: "KTTX Lần 3 (Mới nhất)"
   },
   {
     id: "doc-11-00-tk5",
+    group: "dekiemtra",
     grade: "11",
     category: "dekiemtra",
     title: "Đề Kiểm Tra Giữa Học Kì I Năm Học 2026 - 2027 Môn Toán 11 (Mã Đề: 11.GK1.TK5)",
@@ -145,10 +209,11 @@ const DOCUMENTS_DATA = [
     downloads: 2150,
     previewUrl: "tai-lieu/11.GK1.TK5.pdf",
     downloadUrl: "tai-lieu/11.GK1.TK5.pdf",
-    tag: "Đề mới cập nhật (TK5)"
+    tag: "Định kì Giữa kì 1 (TK5)"
   },
   {
     id: "doc-11-00",
+    group: "dekiemtra",
     grade: "11",
     category: "dekiemtra",
     title: "Đề Kiểm Tra Giữa Học Kì I Năm Học 2026 - 2027 Môn Toán 11 (Mã Đề: 11.GK1.TK4)",
@@ -160,27 +225,11 @@ const DOCUMENTS_DATA = [
     downloads: 1890,
     previewUrl: "tai-lieu/11.GK1.TK4.pdf",
     downloadUrl: "tai-lieu/11.GK1.TK4.pdf",
-    tag: "Đề thi Giữa Kì I (Mới nhất)"
+    tag: "Định kì Giữa kì 1 (TK4)"
   },
-  {
-    id: "doc-11-04",
-    grade: "11",
-    category: "dekiemtra",
-    title: "Đề kiểm tra giữa kỳ 1 Toán 11 có đáp án - THPT Nguyễn Văn Thoại",
-    description: "Đề kiểm tra đánh giá định kỳ 45 phút, bám sát năng lực học sinh, có bảng phân tích ma trận và hướng dẫn chấm điểm cụ thể.",
-    pages: 14,
-    size: "1.2 MB",
-    type: "pdf",
-    date: "02/11/2024",
-    downloads: 1140,
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Đề kiểm tra chuẩn"
-  },
-
-  // ==================== KHỐI 12 ====================
   {
     id: "doc-12-00",
+    group: "dekiemtra",
     grade: "12",
     category: "dekiemtra",
     title: "Đề Kiểm Tra Giữa Kì I Năm Học 2026 - 2027 Môn Toán 12 (Mã Đề: 0002)",
@@ -192,59 +241,65 @@ const DOCUMENTS_DATA = [
     downloads: 2480,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Đề thi giữa kì I (Mới nhất)"
+    tag: "Định kì Giữa kì 1 (Mã 0002)"
   },
   {
-    id: "doc-12-01",
-    grade: "12",
-    category: "giaitich",
-    title: "Bí kíp Ứng dụng Đạo hàm Khảo sát & Vẽ đồ thị hàm số (Chinh phục 8+)",
-    description: "Tổng hợp các dạng cực trị, tính đơn điệu, tiệm cận, bài toán tương giao đồ thị và bài toán thực tế tối ưu hóa (Max - Min).",
-    pages: 48,
-    size: "4.2 MB",
+    id: "doc-10-04",
+    group: "dekiemtra",
+    grade: "10",
+    category: "dekiemtra",
+    title: "Đề cương ôn tập & Đề kiểm tra Học kỳ I môn Toán 10 - THPT Nguyễn Văn Thoại",
+    description: "Hệ thống hóa kiến thức trọng tâm kèm ma trận đề thi và 3 đề ôn luyện cấu trúc chuẩn trắc nghiệm mới (Đúng/Sai, Nhiều lựa chọn) phục vụ kiểm tra đánh giá định kì cuối học kỳ.",
+    pages: 32,
+    size: "3.2 MB",
     type: "pdf",
-    date: "10/09/2024",
-    downloads: 1950,
+    date: "12/11/2024",
+    downloads: 980,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Trọng tâm thi THPT"
+    tag: "Định kì Học kỳ 1"
   },
   {
-    id: "doc-12-02",
-    grade: "12",
-    category: "giaitich",
-    title: "Chuyên đề Nguyên hàm - Tích phân & Ứng dụng tính Diện tích, Thể tích",
-    description: "Bảng nguyên hàm đầy đủ, phương pháp đổi biến số, tích phân từng phần và các bài toán tính thể tích vật thể tròn xoay trong thực tiễn.",
-    pages: 42,
-    size: "3.7 MB",
+    id: "doc-11-04",
+    group: "dekiemtra",
+    grade: "11",
+    category: "dekiemtra",
+    title: "Đề kiểm tra giữa kỳ 1 Toán 11 có đáp án - THPT Nguyễn Văn Thoại",
+    description: "Đề kiểm tra đánh giá định kỳ 45 phút, bám sát năng lực học sinh, có bảng phân tích ma trận và hướng dẫn chấm điểm cụ thể.",
+    pages: 14,
+    size: "1.2 MB",
     type: "pdf",
-    date: "14/10/2024",
-    downloads: 1720,
+    date: "02/11/2024",
+    downloads: 1140,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Giải tích 12"
+    tag: "Định kì 45 phút"
   },
   {
-    id: "doc-12-03",
-    grade: "12",
-    category: "hinhhoc",
-    title: "Phương pháp Tọa độ trong không gian Oxyz - Cẩm nang toàn tập",
-    description: "Phương trình mặt cầu, mặt phẳng, đường thẳng và các bài toán liên quan đến góc, khoảng cách, vị trí tương đối có hình minh họa 3D.",
-    pages: 38,
-    size: "3.5 MB",
-    type: "pdf",
-    date: "01/11/2024",
-    downloads: 1560,
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Hình học Oxyz"
-  },
-  {
-    id: "doc-12-04",
+    id: "doc-kt-hk1-12",
+    group: "dekiemtra",
     grade: "12",
     category: "dekiemtra",
+    title: "Đề Kiểm Tra Cuối Học Kì I Môn Toán Lớp 12 - THPT Nguyễn Văn Thoại (Có ma trận & lời giải)",
+    description: "Đề kiểm tra định kì cuối Học kì I bao quát toàn bộ nội dung Đạo hàm, Khảo sát hàm số, Khối đa diện và Tọa độ Oxyz. Thời gian làm bài 90 phút có bảng barem chấm điểm chi tiết.",
+    pages: 14,
+    size: "1.9 MB",
+    type: "pdf",
+    date: "15/11/2026",
+    downloads: 1670,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Định kì Cuối kì 1"
+  },
+
+  // ==================== 5. ĐỀ THI TNTHPT (CÁC NĂM TRƯỚC & THI THỬ) ====================
+  {
+    id: "doc-12-04",
+    group: "tnthpt",
+    grade: "12",
+    category: "tnthpt",
     title: "Bộ 05 Đề thi thử Tốt nghiệp THPT 2025 Môn Toán (Cấu trúc mới của Bộ GD&ĐT)",
-    description: "Cập nhật đúng định dạng đề thi mới: Trắc nghiệm 4 lựa chọn, Trắc nghiệm Đúng/Sai và Câu hỏi trả lời ngắn có lời giải siêu chi tiết.",
+    description: "Cập nhật đúng định dạng đề thi mới: Trắc nghiệm 4 lựa chọn, Trắc nghiệm Đúng/Sai và Câu hỏi trả lời ngắn có lời giải siêu chi tiết phục vụ kỳ thi Tốt nghiệp THPT.",
     pages: 60,
     size: "5.6 MB",
     type: "pdf",
@@ -254,10 +309,43 @@ const DOCUMENTS_DATA = [
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Đề thi thử 2025"
   },
+  {
+    id: "doc-tnthpt-official-2024",
+    group: "tnthpt",
+    grade: "12",
+    category: "tnthpt",
+    title: "Tuyển tập Đề thi chính thức Tốt nghiệp THPT Môn Toán các năm trước (Bộ GD&ĐT) & Lời giải 100%",
+    description: "Tổng hợp toàn bộ các mã đề thi chính thức kỳ thi Tốt nghiệp THPT Quốc gia các năm gần đây của Bộ Giáo dục và Đào tạo, phân tích phổ điểm, các câu hỏi phân hóa 8+ 9+ và phương pháp giải nhanh CASIO kết hợp tự luận.",
+    pages: 52,
+    size: "4.8 MB",
+    type: "pdf",
+    date: "20/10/2026",
+    downloads: 3120,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Đề thi TN chính thức Bộ GD"
+  },
+  {
+    id: "doc-tnthpt-chuyen-2025",
+    group: "tnthpt",
+    grade: "12",
+    category: "tnthpt",
+    title: "Tuyển tập Đề thi thử Tốt nghiệp THPT Môn Toán từ các Trường THPT Chuyên & Sở GD&ĐT",
+    description: "Hệ thống đề thi thử chọn lọc từ các trường THPT Chuyên nổi tiếng (Chuyên Sư Phạm, Chuyên KHTN, Chuyên Thoại Ngọc Hầu - An Giang, Chuyên Lê Khiết,...) và Sở GD&ĐT các tỉnh có lời giải chi tiết và nhận xét phương pháp làm bài.",
+    pages: 68,
+    size: "5.4 MB",
+    type: "pdf",
+    date: "10/11/2026",
+    downloads: 2790,
+    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
+    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
+    tag: "Đề thi thử các trường Chuyên"
+  },
 
-  // ==================== BỒI DƯỠNG THI HỌC SINH GIỎI ====================
+  // ==================== 6. BỒI DƯỠNG THI HỌC SINH GIỎI ====================
   {
     id: "doc-hsg-ag-2026",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Đề thi chính thức & Lời giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT năm học 2025 – 2026 (Sở GD&ĐT An Giang)",
@@ -273,6 +361,7 @@ const DOCUMENTS_DATA = [
   },
   {
     id: "doc-hsg-ag-2025",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT 2024 – 2025 (Sở GD&ĐT An Giang)",
@@ -288,6 +377,7 @@ const DOCUMENTS_DATA = [
   },
   {
     id: "doc-hsg-ag-2024",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG cấp Tỉnh môn Toán THPT 2023 – 2024 (Sở GD&ĐT An Giang)",
@@ -303,6 +393,7 @@ const DOCUMENTS_DATA = [
   },
   {
     id: "doc-hsg-kg-2024",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Đề thi chính thức & Hướng dẫn giải chi tiết Kỳ thi chọn HSG Vòng Tỉnh môn Toán THPT 2023 – 2024 (Sở GD&ĐT Kiên Giang)",
@@ -318,6 +409,7 @@ const DOCUMENTS_DATA = [
   },
   {
     id: "doc-hsg-sang-01",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 1: Phép chia hết, phép chia có dư",
@@ -329,10 +421,11 @@ const DOCUMENTS_DATA = [
     downloads: 860,
     previewUrl: "https://drive.google.com/file/d/17nAUGe-QG4moqJQJ-zOwID7gMq1yF37_/preview",
     downloadUrl: "https://drive.google.com/file/d/17nAUGe-QG4moqJQJ-zOwID7gMq1yF37_/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 1 (Số học Thầy Sáng)"
   },
   {
     id: "doc-hsg-sang-02",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 2: Số nguyên tố",
@@ -344,10 +437,11 @@ const DOCUMENTS_DATA = [
     downloads: 790,
     previewUrl: "https://drive.google.com/file/d/1zMlv5VA30oa2fm21iBA1Q8M3YhTH88CU/preview",
     downloadUrl: "https://drive.google.com/file/d/1zMlv5VA30oa2fm21iBA1Q8M3YhTH88CU/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 2 (Số nguyên tố)"
   },
   {
     id: "doc-hsg-sang-03",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 3: Số chính phương",
@@ -359,10 +453,11 @@ const DOCUMENTS_DATA = [
     downloads: 820,
     previewUrl: "https://drive.google.com/file/d/12gwYlvU1DV7dd8UIg5nPk1_eIhsb6wMD/preview",
     downloadUrl: "https://drive.google.com/file/d/12gwYlvU1DV7dd8UIg5nPk1_eIhsb6wMD/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 3 (Số chính phương)"
   },
   {
     id: "doc-hsg-sang-04",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 4: Phương trình nghiệm nguyên (Diophantine)",
@@ -374,10 +469,11 @@ const DOCUMENTS_DATA = [
     downloads: 740,
     previewUrl: "https://drive.google.com/file/d/13lMXYchAzxF8rB9aTppVhy7wDueAJdyZ/preview",
     downloadUrl: "https://drive.google.com/file/d/13lMXYchAzxF8rB9aTppVhy7wDueAJdyZ/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 4 (Diophantine)"
   },
   {
     id: "doc-hsg-sang-05",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 5: Đa thức & Định lý Bézout",
@@ -389,10 +485,11 @@ const DOCUMENTS_DATA = [
     downloads: 690,
     previewUrl: "https://drive.google.com/file/d/1CIHTpnas5zcdSjHNuADWfmoJDqcKScfZ/preview",
     downloadUrl: "https://drive.google.com/file/d/1CIHTpnas5zcdSjHNuADWfmoJDqcKScfZ/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 5 (Đa thức & Bézout)"
   },
   {
     id: "doc-hsg-sang-06",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 6: Đa thức & Định lý Bézout (Nâng cao)",
@@ -404,10 +501,11 @@ const DOCUMENTS_DATA = [
     downloads: 710,
     previewUrl: "https://drive.google.com/file/d/1rk4FbUU__8gVGkf0FnOC5KJC9IgLd-9E/preview",
     downloadUrl: "https://drive.google.com/file/d/1rk4FbUU__8gVGkf0FnOC5KJC9IgLd-9E/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 6 (Đa thức nâng cao)"
   },
   {
     id: "doc-hsg-01",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 7: Bất đẳng thức Cauchy - Schwarz (Dạng Engel)",
@@ -419,10 +517,11 @@ const DOCUMENTS_DATA = [
     downloads: 890,
     previewUrl: "https://drive.google.com/file/d/12Ci1aKCGP5fu_Zx8PgKYkmRyuobJKrNi/preview",
     downloadUrl: "https://drive.google.com/file/d/12Ci1aKCGP5fu_Zx8PgKYkmRyuobJKrNi/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 7 (BĐT Cauchy-Schwarz)"
   },
   {
     id: "doc-hsg-sang-08",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tài liệu Ôn thi HSG 10 - 11 | Chuyên đề 8: Nguyên lý Dirichlet trong Số học & Tổ hợp",
@@ -434,10 +533,11 @@ const DOCUMENTS_DATA = [
     downloads: 650,
     previewUrl: "https://drive.google.com/file/d/17Y6qOYcjkja6zvhFucblb4MS3Dimp0E1/preview",
     downloadUrl: "https://drive.google.com/file/d/17Y6qOYcjkja6zvhFucblb4MS3Dimp0E1/view?usp=sharing",
-    tag: "Tài liệu Thầy Sáng"
+    tag: "Chuyên đề 8 (Nguyên lý Dirichlet)"
   },
   {
     id: "doc-hsg-02",
+    group: "hsg",
     grade: "all",
     category: "hsg",
     title: "Tuyển tập Đề thi Học sinh giỏi môn Toán cấp Tỉnh An Giang (Có lời giải chi tiết)",
@@ -449,10 +549,11 @@ const DOCUMENTS_DATA = [
     downloads: 780,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "HSG Tỉnh An Giang"
+    tag: "Tuyển tập HSG Tỉnh An Giang"
   },
   {
     id: "doc-hsg-03",
+    group: "hsg",
     grade: "11",
     category: "hsg",
     title: "Chuyên đề Phương trình, Hệ phương trình và Dãy số nâng cao thi HSG",
@@ -464,10 +565,11 @@ const DOCUMENTS_DATA = [
     downloads: 810,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "HSG Toán 11"
+    tag: "Chuyên đề PT - Hệ PT - Dãy số"
   },
   {
     id: "doc-hsg-04",
+    group: "hsg",
     grade: "10",
     category: "hsg",
     title: "Hình học phẳng nâng cao: Định lý Ceva, Menelaus & Hàng điểm điều hòa",
@@ -479,7 +581,6 @@ const DOCUMENTS_DATA = [
     downloads: 730,
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "HSG Toán 10"
+    tag: "Hình học phẳng nâng cao"
   }
 ];
-

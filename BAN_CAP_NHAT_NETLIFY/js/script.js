@@ -234,37 +234,107 @@ function initNavigation() {
 /* ==========================================================================
    2. KHO TÀI LIỆU (DOCUMENT REPOSITORY & PDF PREVIEW MODAL)
    ========================================================================== */
-let currentGradeFilter = "all";
-let currentCategoryFilter = "all";
+let currentDocTab = "all";
 let currentSearchKeyword = "";
+
+const DOC_TAB_INFO = {
+  all: {
+    title: "Tất cả tài liệu",
+    desc: "Bao gồm toàn bộ bài giảng, chuyên đề, tài liệu định dạng PDF và Word chất lượng cao của ThS. Lương Thanh Sáng."
+  },
+  lop10: {
+    title: "Lớp 10",
+    desc: "Các chương, các bài của môn Toán Lớp 10 (Mệnh đề & Tập hợp, Bất phương trình bậc nhất 2 ẩn, Hệ thức lượng tam giác, Toàn tập Vectơ 74 trang,...)."
+  },
+  lop11: {
+    title: "Lớp 11",
+    desc: "Các chương, các bài của môn Toán Lớp 11 (Lượng giác kiến tạo, Dãy số - Cấp số cộng - Cấp số nhân, Quan hệ song song trong không gian 64 trang,...)."
+  },
+  lop12: {
+    title: "Lớp 12",
+    desc: "Các chương, các bài của môn Toán Lớp 12 (Ứng dụng đạo hàm khảo sát đồ thị, Nguyên hàm - Tích phân & Ứng dụng, Phương pháp tọa độ Oxyz,...)."
+  },
+  dekiemtra: {
+    title: "Đề kiểm tra",
+    desc: "Bao gồm đề kiểm tra định kì (Giữa kì, cuối kì của lớp 10, 11, 12) và đề Kiểm tra thường xuyên (KTTX)."
+  },
+  tnthpt: {
+    title: "Đề thi TNTHPT",
+    desc: "Bao gồm đề thi Tốt nghiệp THPT các năm trước của Bộ GD&ĐT và đề thi thử của các trường THPT / Trường Chuyên trên toàn quốc."
+  },
+  hsg: {
+    title: "Bồi dưỡng học sinh giỏi",
+    desc: "Gồm các chuyên đề chuyên sâu (Số học, Đa thức, BĐT Cauchy-Schwarz, Dirichlet,...) và đề thi học sinh giỏi cấp Tỉnh các năm."
+  }
+};
+
+function getDocGroup(doc) {
+  if (doc.group) return doc.group;
+  if (doc.category === "hsg") return "hsg";
+  if (doc.category === "tnthpt" || (doc.category === "dekiemtra" && (doc.title.includes("Tốt nghiệp") || doc.title.includes("TNTHPT")))) return "tnthpt";
+  if (doc.category === "dekiemtra") return "dekiemtra";
+  if (doc.grade === "10") return "lop10";
+  if (doc.grade === "11") return "lop11";
+  if (doc.grade === "12") return "lop12";
+  return "lop12";
+}
 
 function initDocumentRepository() {
   const grid = document.getElementById("documentsGrid");
   if (!grid) return;
 
+  // Cập nhật số đếm badge cho từng Thẻ con (tab counts)
+  updateDocTabCounts();
+
+  // Render danh sách tài liệu ban đầu
   renderDocuments();
 
-  // Sự kiện chọn tab Khối lớp (10, 11, 12, tất cả)
-  const gradeTabBtns = document.querySelectorAll(".grade-tab-btn");
-  gradeTabBtns.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      gradeTabBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentGradeFilter = btn.getAttribute("data-grade");
-      renderDocuments();
+  // Bắt sự kiện chuyển đổi giữa 7 Thẻ con
+  const tabBtns = document.querySelectorAll(".doc-tab-btn");
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab") || "all";
+      setDocTab(targetTab);
     });
   });
 
-  // Sự kiện chọn lọc chuyên đề bộ môn
-  const categoryFilterBtns = document.querySelectorAll(".filter-pill");
-  categoryFilterBtns.forEach(btn => {
+  // Hỗ trợ bắt sự kiện cũ (nếu còn nút .grade-tab-btn hoặc .filter-pill)
+  const legacyGradeBtns = document.querySelectorAll(".grade-tab-btn");
+  legacyGradeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      categoryFilterBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentCategoryFilter = btn.getAttribute("data-category");
-      renderDocuments();
+      const g = btn.getAttribute("data-grade");
+      if (g === "10") setDocTab("lop10");
+      else if (g === "11") setDocTab("lop11");
+      else if (g === "12") setDocTab("lop12");
+      else setDocTab("all");
     });
   });
+
+  const legacyCatBtns = document.querySelectorAll(".filter-pill");
+  legacyCatBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const c = btn.getAttribute("data-category");
+      if (c === "hsg") setDocTab("hsg");
+      else if (c === "dekiemtra") setDocTab("dekiemtra");
+      else if (c === "daiso") setDocTab("lop10");
+      else if (c === "giaitich") setDocTab("lop12");
+      else if (c === "hinhhoc") setDocTab("lop11");
+      else setDocTab("all");
+    });
+  });
+
+  // Tự động kích hoạt thẻ con nếu có tham số trên URL (?tab=...) hoặc hash (#lop10, #dekiemtra,...)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get("tab");
+    const hashParam = window.location.hash ? window.location.hash.replace("#", "") : "";
+    const initialTab = tabParam || hashParam;
+    if (initialTab && DOC_TAB_INFO[initialTab]) {
+      setDocTab(initialTab);
+    }
+  } catch (err) {
+    console.warn("Lỗi đọc tham số URL tab:", err);
+  }
 
   // Sự kiện tìm kiếm tài liệu theo từ khóa
   const searchInput = document.getElementById("docSearchInput");
@@ -279,31 +349,84 @@ function initDocumentRepository() {
   initPreviewModal();
 }
 
-// Hàm hỗ trợ lọc ngoài menu gọi nhanh từ Footer hoặc các nút liên kết
-window.filterByGrade = function(grade) {
-  const gradeTabBtns = document.querySelectorAll(".grade-tab-btn");
-  gradeTabBtns.forEach(btn => {
-    if (btn.getAttribute("data-grade") === grade) {
-      btn.click();
+function setDocTab(tabKey) {
+  currentDocTab = tabKey;
+
+  // Cập nhật class active cho các nút tab
+  const tabBtns = document.querySelectorAll(".doc-tab-btn");
+  tabBtns.forEach(btn => {
+    const isTarget = btn.getAttribute("data-tab") === tabKey;
+    btn.classList.toggle("active", isTarget);
+    btn.setAttribute("aria-selected", isTarget ? "true" : "false");
+  });
+
+  // Cập nhật banner mô tả thẻ con
+  const bannerTitle = document.getElementById("bannerCategoryTitle");
+  const bannerDesc = document.getElementById("bannerCategoryDesc");
+  if (bannerTitle && bannerDesc && DOC_TAB_INFO[tabKey]) {
+    bannerTitle.textContent = DOC_TAB_INFO[tabKey].title;
+    bannerDesc.textContent = DOC_TAB_INFO[tabKey].desc;
+  }
+
+  renderDocuments();
+}
+
+function updateDocTabCounts() {
+  if (typeof DOCUMENTS_DATA === "undefined" || !Array.isArray(DOCUMENTS_DATA)) return;
+
+  const counts = {
+    all: DOCUMENTS_DATA.length,
+    lop10: 0,
+    lop11: 0,
+    lop12: 0,
+    dekiemtra: 0,
+    tnthpt: 0,
+    hsg: 0
+  };
+
+  DOCUMENTS_DATA.forEach(doc => {
+    const grp = getDocGroup(doc);
+    if (counts[grp] !== undefined) {
+      counts[grp]++;
     }
   });
+
+  // Cập nhật số lên các badge
+  Object.keys(counts).forEach(key => {
+    const el = document.getElementById(`tabCount-${key}`);
+    if (el) {
+      el.textContent = counts[key];
+    }
+  });
+
+  const totalOverviewEl = document.getElementById("totalDocCountOverview");
+  if (totalOverviewEl) {
+    totalOverviewEl.textContent = counts.all + "+";
+  }
+}
+
+// Hàm hỗ trợ lọc ngoài menu gọi nhanh từ Footer hoặc các nút liên kết
+window.filterByGrade = function(grade) {
+  if (grade === "10") setDocTab("lop10");
+  else if (grade === "11") setDocTab("lop11");
+  else if (grade === "12") setDocTab("lop12");
+  else setDocTab("all");
+
+  const docSection = document.getElementById("documents");
+  if (docSection) docSection.scrollIntoView({ behavior: "smooth" });
 };
 
 window.filterByCategory = function(category) {
-  // Đặt lại lọc khối về tất cả
-  window.filterByGrade("all");
-
-  const categoryFilterBtns = document.querySelectorAll(".filter-pill");
-  categoryFilterBtns.forEach(btn => {
-    if (btn.getAttribute("data-category") === category) {
-      btn.click();
-    }
-  });
+  if (category === "hsg") setDocTab("hsg");
+  else if (category === "dekiemtra") setDocTab("dekiemtra");
+  else if (category === "tnthpt") setDocTab("tnthpt");
+  else if (category === "daiso") setDocTab("lop10");
+  else if (category === "giaitich") setDocTab("lop12");
+  else if (category === "hinhhoc") setDocTab("lop11");
+  else setDocTab("all");
 
   const docSection = document.getElementById("documents");
-  if (docSection) {
-    docSection.scrollIntoView({ behavior: "smooth" });
-  }
+  if (docSection) docSection.scrollIntoView({ behavior: "smooth" });
 };
 
 function renderDocuments() {
@@ -315,26 +438,32 @@ function renderDocuments() {
     return;
   }
 
-  // Lọc theo Khối, Chuyên đề và Từ khóa tìm kiếm
+  // Lọc theo Thẻ con (currentDocTab) và Từ khóa tìm kiếm
   const filtered = DOCUMENTS_DATA.filter(doc => {
-    const matchGrade = currentGradeFilter === "all" || doc.grade === currentGradeFilter || doc.grade === "all";
-    const matchCategory = currentCategoryFilter === "all" || doc.category === currentCategoryFilter;
-    
+    const grp = getDocGroup(doc);
+    const matchTab = currentDocTab === "all" || grp === currentDocTab;
+
     let matchSearch = true;
     if (currentSearchKeyword !== "") {
-      const fullText = (doc.title + " " + doc.description + " " + (doc.tag || "")).toLowerCase();
+      const fullText = (doc.title + " " + doc.description + " " + (doc.tag || "") + " " + (doc.group || "")).toLowerCase();
       matchSearch = fullText.includes(currentSearchKeyword);
     }
 
-    return matchGrade && matchCategory && matchSearch;
+    return matchTab && matchSearch;
   });
+
+  // Cập nhật số lượng tài liệu đang hiển thị lên banner
+  const bannerCount = document.getElementById("bannerCategoryCount");
+  if (bannerCount) {
+    bannerCount.textContent = `Đang hiển thị: ${filtered.length} tài liệu`;
+  }
 
   if (filtered.length === 0) {
     grid.innerHTML = `
       <div class="no-doc-found">
         <i class="fa-regular fa-folder-open"></i>
         <h3>Không tìm thấy tài liệu phù hợp</h3>
-        <p>Thầy Sáng đang biên soạn thêm. Thầy hoặc các em có thể thử đổi từ khóa tìm kiếm hoặc chọn khối lớp khác nhé!</p>
+        <p>Thầy Sáng đang biên soạn thêm nội dung cho mục này. Thầy hoặc các em có thể thử đổi từ khóa tìm kiếm hoặc chọn thẻ con khác nhé!</p>
       </div>
     `;
     return;
@@ -345,6 +474,19 @@ function renderDocuments() {
     const isPdf = doc.type === "pdf";
     const iconClass = isPdf ? "fa-solid fa-file-pdf" : "fa-solid fa-file-word";
     const boxClass = isPdf ? "doc-icon-box" : "doc-icon-box word";
+    const fileTypeBadge = isPdf 
+      ? `<span class="doc-tag-badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;"><i class="fa-solid fa-file-pdf"></i> PDF</span>` 
+      : `<span class="doc-tag-badge" style="background:#dbeafe; color:#1d4ed8; font-weight:700;"><i class="fa-solid fa-file-word"></i> Word (.docx)</span>`;
+
+    // Hiển thị nhãn khối hoặc nhãn chuyên mục phù hợp
+    let categoryBadgeText = "";
+    const grp = getDocGroup(doc);
+    if (grp === "lop10") categoryBadgeText = "Lớp 10";
+    else if (grp === "lop11") categoryBadgeText = "Lớp 11";
+    else if (grp === "lop12") categoryBadgeText = "Lớp 12";
+    else if (grp === "dekiemtra") categoryBadgeText = "Đề kiểm tra";
+    else if (grp === "tnthpt") categoryBadgeText = "Thi TNTHPT";
+    else if (grp === "hsg") categoryBadgeText = "Bồi dưỡng HSG";
 
     return `
       <div class="doc-card" data-id="${doc.id}">
@@ -355,7 +497,8 @@ function renderDocuments() {
             </div>
             <div>
               <div class="doc-badges">
-                <span class="doc-grade-badge">Khối ${doc.grade}</span>
+                ${categoryBadgeText ? `<span class="doc-grade-badge">${categoryBadgeText}</span>` : ""}
+                ${fileTypeBadge}
                 ${doc.tag ? `<span class="doc-tag-badge">${doc.tag}</span>` : ""}
               </div>
               <h3 class="doc-title">${escapeHtml(doc.title)}</h3>
@@ -374,9 +517,15 @@ function renderDocuments() {
           </div>
 
           <div class="doc-actions">
-            <button class="btn-preview" onclick="openDocPreview('${doc.id}')">
-              <i class="fa-solid fa-eye"></i> Xem trực tiếp
-            </button>
+            ${isPdf ? `
+              <button class="btn-preview" onclick="openDocPreview('${doc.id}')">
+                <i class="fa-solid fa-eye"></i> Xem trực tiếp
+              </button>
+            ` : `
+              <a href="${doc.downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-preview" style="background:#0284c7; color:#fff;" onclick="handleDocDownload('${doc.id}', '${escapeHtml(doc.title)}')">
+                <i class="fa-solid fa-file-arrow-down"></i> Tải bản Word (.docx)
+              </a>
+            `}
             <a href="${doc.downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-download" onclick="handleDocDownload('${doc.id}', '${escapeHtml(doc.title)}')">
               <i class="fa-solid fa-download"></i> Tải về máy
             </a>

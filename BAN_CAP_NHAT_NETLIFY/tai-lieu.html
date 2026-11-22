@@ -69,35 +69,24 @@
     <!-- ==================== NỘI DUNG KHO TÀI LIỆU ==================== -->
     <section class="section" id="documents">
       <div class="container">
-        <!-- Bộ điều khiển: Phân loại khối & Tìm kiếm -->
+        <!-- Bộ điều khiển: Tìm kiếm & Tiêu đề danh mục -->
         <div class="repo-controls">
-          <!-- Tab chọn khối lớp -->
-          <div class="grade-tabs" id="gradeTabs">
-            <button class="grade-tab-btn active" data-grade="all">
-              <i class="fa-solid fa-layer-group"></i> Tất cả khối
-            </button>
-            <button class="grade-tab-btn" data-grade="10">
-              <i class="fa-solid fa-graduation-cap"></i> Khối 10
-            </button>
-            <button class="grade-tab-btn" data-grade="11">
-              <i class="fa-solid fa-graduation-cap"></i> Khối 11
-            </button>
-            <button class="grade-tab-btn" data-grade="12">
-              <i class="fa-solid fa-graduation-cap"></i> Khối 12 (Ôn thi tốt nghiệp)
-            </button>
+          <div class="repo-header-info">
+            <h2 class="repo-section-title"><i class="fa-solid fa-folder-tree" style="color: #0284c7; margin-right: 8px;"></i>Danh Mục Phân Loại Kho Tài Liệu</h2>
+            <p class="repo-section-subtitle">Tài liệu và đề thi được phân loại khoa học theo 7 nhóm chuẩn phục vụ học tập & ôn thi</p>
           </div>
 
           <!-- Thanh tìm kiếm nhanh tài liệu -->
           <div class="repo-search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="docSearchInput" placeholder="Tìm tên bài giảng, chuyên đề, đề cương...">
+            <input type="text" id="docSearchInput" placeholder="Tìm tên bài học, chuyên đề, đề kiểm tra...">
           </div>
         </div>
 
         <!-- Khung thống kê số liệu kho tài liệu & lượt tải -->
         <div class="repo-stats-overview" style="margin: 15px 0 25px; padding: 18px 24px; background: linear-gradient(135deg, #f0fdfa, #e0f2fe, #f8fafc); border: 1.5px solid #bae6fd; border-radius: 16px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.08);">
           <div class="repo-stat-col" style="text-align: center;">
-            <div style="font-size: 1.7rem; font-weight: 800; color: #0369a1;"><i class="fa-solid fa-book-bookmark" style="color: #0284c7;"></i> 30+</div>
+            <div style="font-size: 1.7rem; font-weight: 800; color: #0369a1;"><i class="fa-solid fa-book-bookmark" style="color: #0284c7;"></i> <span id="totalDocCountOverview">30+</span></div>
             <div style="font-size: 0.85rem; color: #475569; font-weight: 600;">Tài liệu chuyên đề chất lượng</div>
           </div>
           <div style="width: 1px; height: 35px; background: #cbd5e1;"></div>
@@ -112,15 +101,57 @@
           </div>
         </div>
 
-        <!-- Thanh lọc theo chuyên đề bộ môn -->
-        <div class="category-filter-bar">
-          <span class="filter-label"><i class="fa-solid fa-filter"></i> Lọc theo phân môn:</span>
-          <button class="filter-pill active" data-category="all">Tất cả bài giảng</button>
-          <button class="filter-pill" data-category="daiso">Đại số 10 & 11</button>
-          <button class="filter-pill" data-category="giaitich">Giải tích 12</button>
-          <button class="filter-pill" data-category="hinhhoc">Hình học (Phẳng & Oxyz)</button>
-          <button class="filter-pill" data-category="dekiemtra">Đề kiểm tra & Đề thi thử</button>
-          <button class="filter-pill" data-category="hsg"><i class="fa-solid fa-trophy" style="color: #d97706; margin-right: 4px;"></i> Bồi dưỡng HSG</button>
+        <!-- ==================== 7 THẺ CON PHÂN LOẠI KHOA HỌC ==================== -->
+        <div class="doc-subtabs-wrapper">
+          <div class="doc-subtabs-nav" id="docSubTabsNav" role="tablist" aria-label="Phân loại tài liệu">
+            <button class="doc-tab-btn active" data-tab="all" role="tab" aria-selected="true" title="Tất cả tài liệu PDF và Word">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="tab-text">Tất cả</span>
+              <span class="tab-count-badge" id="tabCount-all">0</span>
+            </button>
+            <button class="doc-tab-btn" data-tab="lop10" role="tab" aria-selected="false" title="Các chương, các bài của lớp 10">
+              <i class="fa-solid fa-book-bookmark"></i>
+              <span class="tab-text">Lớp 10</span>
+              <span class="tab-count-badge" id="tabCount-lop10">0</span>
+            </button>
+            <button class="doc-tab-btn" data-tab="lop11" role="tab" aria-selected="false" title="Các chương, các bài của lớp 11">
+              <i class="fa-solid fa-book-open"></i>
+              <span class="tab-text">Lớp 11</span>
+              <span class="tab-count-badge" id="tabCount-lop11">0</span>
+            </button>
+            <button class="doc-tab-btn" data-tab="lop12" role="tab" aria-selected="false" title="Các chương, các bài của lớp 12">
+              <i class="fa-solid fa-book"></i>
+              <span class="tab-text">Lớp 12</span>
+              <span class="tab-count-badge" id="tabCount-lop12">0</span>
+            </button>
+            <button class="doc-tab-btn" data-tab="dekiemtra" role="tab" aria-selected="false" title="Bao gồm đề kiểm tra định kì (Giữa kì, cuối kì của lớp 10, 11, 12) và đề Kiểm tra thường xuyên">
+              <i class="fa-solid fa-file-pen"></i>
+              <span class="tab-text">Đề kiểm tra</span>
+              <span class="tab-count-badge" id="tabCount-dekiemtra">0</span>
+            </button>
+            <button class="doc-tab-btn" data-tab="tnthpt" role="tab" aria-selected="false" title="Bao gồm đề thi TN các năm trước và đề thi thử của các trường">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span class="tab-text">Đề thi TNTHPT</span>
+              <span class="tab-count-badge" id="tabCount-tnthpt">0</span>
+            </button>
+            <button class="doc-tab-btn hsg-tab" data-tab="hsg" role="tab" aria-selected="false" title="Gồm các chuyên đề, đề thi học sinh giỏi các năm">
+              <i class="fa-solid fa-trophy" style="color: #f59e0b;"></i>
+              <span class="tab-text">Bồi dưỡng học sinh giỏi</span>
+              <span class="tab-count-badge" id="tabCount-hsg">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Khung mô tả chi tiết của Thẻ con đang chọn -->
+        <div class="doc-category-desc-banner" id="docCategoryDescBanner">
+          <div class="desc-banner-icon"><i class="fa-solid fa-circle-info"></i></div>
+          <div class="desc-banner-content">
+            <h4 id="bannerCategoryTitle">Tất cả tài liệu</h4>
+            <p id="bannerCategoryDesc">Bao gồm toàn bộ bài giảng, chuyên đề, tài liệu định dạng PDF và Word chất lượng cao của ThS. Lương Thanh Sáng.</p>
+          </div>
+          <div class="desc-banner-meta">
+            <span id="bannerCategoryCount" class="badge-total">Đang hiển thị: 0 tài liệu</span>
+          </div>
         </div>
 
         <!-- Lưới danh sách thẻ tài liệu (được render tự động bằng JS) -->
@@ -221,8 +252,8 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
-  <script src="js/document-data.js?v=3.1"></script>
-  <script src="js/script.js?v=3.1"></script>
+  <script src="js/document-data.js?v=3.2"></script>
+  <script src="js/script.js?v=3.2"></script>
 </body>
 </html>
 
