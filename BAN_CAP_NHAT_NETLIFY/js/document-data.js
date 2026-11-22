@@ -56,6 +56,21 @@ const DOCUMENTS_DATA = [
     tag: "Tài liệu Thầy Sáng"
   },
   {
+    id: "doc-10-05",
+    grade: "10",
+    category: "hinhhoc",
+    title: "Toán 10 | Chương IV: Vectơ - Lý Thuyết Trọng Tâm, Phương Pháp Thực Chiến & Bài Tập Toàn Tập (74 trang) - ThS. Lương Thanh Sáng",
+    description: "Cẩm nang toàn tập Toán 10 Chương IV: Vectơ do ThS. Lương Thanh Sáng (THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang) trực tiếp biên soạn theo chuẩn SGK Kết nối tri thức với cuộc sống và cấu trúc đề thi mới nhất (74 trang trọn bộ). Bao quát toàn diện 5 bài học lớn: Bài 7 (Khái niệm mở đầu, đếm số vectơ, tính độ dài, mô hình Lực - Vận tốc - La bàn định vị); Bài 8 (Tổng & hiệu vectơ, quy tắc 3 điểm, hình bình hành, trung điểm, trọng tâm, bài toán tĩnh học cân bằng lực và quỹ tích); Bài 9 (Tích của một số với vectơ, tỉ số độ dài, phân tích vectơ, chứng minh thẳng hàng, tâm tỉ cự và ứng dụng đòn bẩy Archimedes); Bài 10 (Vectơ trong mặt phẳng tọa độ Oxy, công thức tọa độ, mô hình chuyển động thẳng đều, định vị radar, đường đi của bão); Bài 11 (Tích vô hướng, góc giữa hai vectơ, biểu thức tọa độ, điều kiện vuông góc và ứng dụng công cơ học liên môn Vật lý). Tích hợp khung 'Phương pháp tư duy thực chiến', 'Bẫy kinh điển - Phân tích lỗi sai' và hệ thống trắc nghiệm đánh giá tổng hợp chuẩn 3 Phần (Nhiều lựa chọn, Đúng/Sai, Trả lời ngắn).",
+    pages: 74,
+    size: "785 KB",
+    type: "pdf",
+    date: "22/11/2026",
+    downloads: 1580,
+    previewUrl: "https://drive.google.com/file/d/11w68qwjGldxUQuCzM2a7NixpEwwlHE-9/preview",
+    downloadUrl: "https://drive.google.com/file/d/11w68qwjGldxUQuCzM2a7NixpEwwlHE-9/view?usp=sharing",
+    tag: "Chương 4 Trọn bộ (74 trang)"
+  },
+  {
     id: "doc-10-04",
     grade: "10",
     category: "dekiemtra",
