@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ĐỀ KTTX LẦN 3 – TOÁN 12 | THPT NGUYỄN VĂN THOẠI</title>
+  
+  <!-- KaTeX CSS & JS for Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #e2e8f0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 14pt;
+      line-height: 1.45;
+      color: #000000;
+      padding: 20px 10px;
+    }
+
+    /* Thanh điều khiển nổi phía trên */
+    .action-bar {
+      max-width: 210mm;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #0369a1;
+    }
+
+    .btn-toggle {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-toggle:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-word {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .btn-word:hover {
+      background: #1d4ed8;
+    }
+
+    /* Tờ giấy thi A4 chuẩn */
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto 25px;
+      background: #ffffff;
+      padding: 16mm 18mm 16mm 18mm;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      position: relative;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page-content {
+      flex-grow: 1;
+    }
+
+    /* Tiêu đề đầu đề thi */
+    .exam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .header-left {
+      text-align: center;
+      width: 48%;
+    }
+
+    .header-left h3 {
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .header-left h4 {
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .header-right {
+      text-align: center;
+      width: 50%;
+    }
+
+    .header-right h3 {
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .header-right p {
+      font-size: 12.5pt;
+      margin: 1px 0;
+    }
+
+    .header-divider {
+      border: none;
+      border-top: 1px solid #000000;
+      margin: 6px 0 10px;
+    }
+
+    /* Khung điền thông tin học sinh */
+    .student-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 6px 20px;
+      font-size: 13pt;
+      margin-bottom: 12px;
+    }
+
+    .dot-line {
+      border-bottom: 1px dotted #000000;
+      display: inline-block;
+      min-width: 120px;
+    }
+
+    /* Phần trả lời trắc nghiệm */
+    .answer-section {
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .section-guide {
+      text-align: center;
+      font-size: 11pt;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .answer-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 12pt;
+      background: transparent;
+    }
+
+    .answer-table th, 
+    .answer-table td {
+      border: 1px solid #000000;
+      padding: 4px 2px;
+      height: 24px;
+    }
+
+    .answer-table th {
+      font-weight: bold;
+    }
+
+    /* Phần Đề bài */
+    .exam-title-center {
+      text-align: center;
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 10px 0 6px;
+    }
+
+    .part-title {
+      font-size: 13pt;
+      font-weight: bold;
+      margin: 8px 0 4px;
+    }
+
+    .part-guide {
+      font-size: 11pt;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .question-block {
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    .question-text {
+      margin-bottom: 3px;
+    }
+
+    .question-text strong {
+      font-weight: bold;
+    }
+
+    /* Lưới 4 phương án trắc nghiệm */
+    .options-grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 4px 10px;
+      margin: 2px 0 4px;
+      padding-left: 6px;
+    }
+
+    .options-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 15px;
+      margin: 2px 0 4px;
+      padding-left: 6px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .option-item strong {
+      font-weight: bold;
+    }
+
+    /* Câu hỏi Đúng / Sai */
+    .tf-items-list {
+      margin: 3px 0 4px 10px;
+    }
+
+    .tf-item {
+      margin-bottom: 3px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .tf-item strong {
+      font-weight: bold;
+    }
+
+    .exam-end-mark {
+      text-align: center;
+      font-weight: bold;
+      font-size: 13pt;
+      margin: 12px 0 4px;
+    }
+
+    /* Số trang góc dưới */
+    .page-footer {
+      text-align: center;
+      font-size: 11pt;
+      border-top: 1px solid #cbd5e1;
+      padding-top: 4px;
+      margin-top: 8px;
+    }
+
+    /* Đáp án & Lời giải (Mặc định hiển thị hoặc ẩn khi in) */
+    .solution-page {
+      border-top: 4px double #0284c7;
+    }
+
+    .solution-header {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      padding: 10px 15px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .solution-header h3 {
+      font-size: 13pt;
+      color: #0369a1;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .solution-step-item {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #e2e8f0;
+      text-align: justify;
+      font-size: 12.5pt;
+    }
+
+    .solution-step-item strong {
+      color: #1e3a8a;
+    }
+
+    .badge-correct {
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    .badge-wrong {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    /* Cài đặt khi bấm In / Xuất PDF */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .action-bar {
+        display: none !important;
+      }
+      .a4-page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+        padding: 14mm 16mm 14mm 16mm;
+      }
+      .hide-on-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== THANH CÔNG CỤ ĐIỀU KHIỂN ==================== -->
+  <div class="action-bar">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: 700; color: #0284c7;"><i class="fa-solid fa-file-invoice"></i> ĐỀ KTTX LẦN 3 – TOÁN 12</span>
+      <span style="background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">15 Phút</span>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button class="action-btn btn-print" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> In Đề / Xuất PDF
+      </button>
+      <button class="action-btn btn-toggle" id="toggleSolutionBtn" onclick="toggleSolutions()">
+        <i class="fa-solid fa-key"></i> <span id="toggleText">Xem Đáp Án & Lời Giải</span>
+      </button>
+      <a href="L12_NoiDungKTTX_Lan3.docx" download class="action-btn btn-word">
+        <i class="fa-solid fa-file-word"></i> Tải file Word (.docx)
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================== TRANG 1 ĐỀ THI (CHUẨN A4) ==================== -->
+  <div class="a4-page" id="page1">
+    <div class="page-content">
+      <!-- Đầu đề thi -->
+      <div class="exam-header">
+        <div class="header-left">
+          <h3>TRƯỜNG THPT NGUYỄN VĂN THOẠI</h3>
+          <h4>TỔ TOÁN</h4>
+        </div>
+        <div class="header-right">
+          <h3>ĐỀ KTTX LẦN 3 – TOÁN 12</h3>
+          <p>Năm học: 2026–2027</p>
+          <p>Thời gian: 15 phút</p>
+        </div>
+      </div>
+
+      <hr class="header-divider">
+
+      <!-- Thông tin học sinh -->
+      <div class="student-info-grid">
+        <div>Họ và tên học sinh: <span class="dot-line" style="width: 72%;"></span></div>
+        <div>Lớp: <span class="dot-line" style="width: 60px;"></span></div>
+        <div>Nhận xét của giáo viên: <span class="dot-line" style="width: 65%;"></span></div>
+        <div>Điểm: <span class="dot-line" style="width: 55px;"></span></div>
+      </div>
+
+      <!-- Phần trả lời của học sinh -->
+      <div class="answer-section">
+        <div class="section-title">PHẦN TRẢ LỜI</div>
+        <div class="section-guide">Học sinh ghi đáp án vào bảng: Phần I chọn A, B, C hoặc D; Phần II ghi Đ (Đúng) hoặc S (Sai).</div>
+        <table class="answer-table">
+          <thead>
+            <tr>
+              <th rowspan="2" style="width: 58px;">Câu</th>
+              <th colspan="6">PHẦN I</th>
+              <th colspan="8">PHẦN II</th>
+            </tr>
+            <tr>
+              <th style="width: 32px;">1</th>
+              <th style="width: 32px;">2</th>
+              <th style="width: 32px;">3</th>
+              <th style="width: 32px;">4</th>
+              <th style="width: 32px;">5</th>
+              <th style="width: 32px;">6</th>
+              <th colspan="4" style="width: 140px;">7</th>
+              <th colspan="4" style="width: 140px;">8</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: bold;">Ý</td>
+              <td colspan="6" style="font-size: 11pt;">A, B, C hoặc D</td>
+              <td style="font-weight: bold; width: 35px;">a)</td>
+              <td style="font-weight: bold; width: 35px;">b)</td>
+              <td style="font-weight: bold; width: 35px;">c)</td>
+              <td style="font-weight: bold; width: 35px;">d)</td>
+              <td style="font-weight: bold; width: 35px;">a)</td>
+              <td style="font-weight: bold; width: 35px;">b)</td>
+              <td style="font-weight: bold; width: 35px;">c)</td>
+              <td style="font-weight: bold; width: 35px;">d)</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; height: 32px;">Đáp án</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Đề bài phần I -->
+      <div class="exam-title-center">ĐỀ BÀI</div>
+
+      <div class="part-title">PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn (6 điểm).</div>
+      <div class="part-guide">Thí sinh trả lời từ câu 1 đến câu 6. Mỗi câu hỏi thí sinh chỉ chọn một phương án.</div>
+
+      <!-- Câu 1 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 1.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\vec{u} = (2;\; -3;\; 1)$ và $\vec{v} = (-1;\; 4;\; 2)$. Tìm tọa độ của vectơ $\vec{w} = \vec{u} + \vec{v}$.
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $(1;\; 1;\; 3)$.</div>
+          <div class="option-item"><strong>B.</strong> $(3;\; -7;\; -1)$.</div>
+          <div class="option-item"><strong>C.</strong> $(1;\; -1;\; 3)$.</div>
+          <div class="option-item"><strong>D.</strong> $(-2;\; -12;\; 2)$.</div>
+        </div>
+      </div>
+
+      <!-- Câu 2 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 2.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\vec{a} = 2\vec{i} - 5\vec{j} + 3\vec{k}$. Tọa độ của vectơ $\vec{a}$ là:
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $(2;\; -5;\; 3)$.</div>
+          <div class="option-item"><strong>B.</strong> $(-5;\; 2;\; 3)$.</div>
+          <div class="option-item"><strong>C.</strong> $(2;\; 5;\; 3)$.</div>
+          <div class="option-item"><strong>D.</strong> $(3;\; -5;\; 2)$.</div>
+        </div>
+      </div>
+
+      <!-- Câu 3 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 3.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\vec{u} = (1;\; -2;\; 3)$ và $\vec{v} = (4;\; 1;\; -1)$. Giá trị của tích vô hướng $\vec{u} \cdot \vec{v}$ bằng:
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $-1$.</div>
+          <div class="option-item"><strong>B.</strong> $3$.</div>
+          <div class="option-item"><strong>C.</strong> $5$.</div>
+          <div class="option-item"><strong>D.</strong> $-5$.</div>
+        </div>
+      </div>
+
+      <!-- Câu 4 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 4.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(1;\; 2;\; -3)$ và $B(3;\; -1;\; 2)$. Tìm tọa độ của vectơ $\vec{AB}$.
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $(2;\; -3;\; 5)$.</div>
+          <div class="option-item"><strong>B.</strong> $(-2;\; 3;\; -5)$.</div>
+          <div class="option-item"><strong>C.</strong> $(4;\; 1;\; -1)$.</div>
+          <div class="option-item"><strong>D.</strong> $(2;\; 1;\; 5)$.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">1</div>
+  </div>
+
+  <!-- ==================== TRANG 2 ĐỀ THI (CHUẨN A4) ==================== -->
+  <div class="a4-page" id="page2">
+    <div class="page-content">
+      <!-- Câu 5 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 5.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ có các đỉnh $A(2;\; -1;\; 3)$, $B(1;\; 3;\; -2)$ và $C(3;\; 1;\; 2)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là:
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $G(2;\; 1;\; 1)$.</div>
+          <div class="option-item"><strong>B.</strong> $G(6;\; 3;\; 3)$.</div>
+          <div class="option-item"><strong>C.</strong> $G(1;\; 2;\; 1)$.</div>
+          <div class="option-item"><strong>D.</strong> $G(2;\; -1;\; 1)$.</div>
+        </div>
+      </div>
+
+      <!-- Câu 6 -->
+      <div class="question-block" style="margin-bottom: 12px;">
+        <div class="question-text">
+          <strong>Câu 6.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M(3;\; -2;\; 5)$. Tọa độ hình chiếu vuông góc $H$ của điểm $M$ lên mặt phẳng tọa độ $(Oxy)$ là:
+        </div>
+        <div class="options-grid-4">
+          <div class="option-item"><strong>A.</strong> $H(3;\; -2;\; 0)$.</div>
+          <div class="option-item"><strong>B.</strong> $H(3;\; 0;\; 5)$.</div>
+          <div class="option-item"><strong>C.</strong> $H(0;\; -2;\; 5)$.</div>
+          <div class="option-item"><strong>D.</strong> $H(0;\; 0;\; 5)$.</div>
+        </div>
+      </div>
+
+      <!-- Phần II: Đúng Sai -->
+      <div class="part-title">PHẦN II. Câu trắc nghiệm đúng sai (4 điểm).</div>
+      <div class="part-guide">Thí sinh trả lời từ câu 7 đến câu 8. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.</div>
+
+      <!-- Câu 7 -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 7.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1;\; 0;\; 2)$, $B(-1;\; 1;\; 3)$ và $C(3;\; 2;\; 4)$. Xét tính đúng hoặc sai của các khẳng định sau:
+        </div>
+        <div class="tf-items-list">
+          <div class="tf-item"><strong>a)</strong> Tọa độ của vectơ $\vec{AB}$ là $(-2;\; 1;\; 1)$.</div>
+          <div class="tf-item"><strong>b)</strong> Độ dài đoạn thẳng $AC$ bằng $2\sqrt{3}$.</div>
+          <div class="tf-item"><strong>c)</strong> Số đo của góc $\widehat{BAC}$ bằng $60^\circ$.</div>
+          <div class="tf-item"><strong>d)</strong> Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(5;\; 1;\; 3)$.</div>
+        </div>
+      </div>
+
+      <!-- Câu 8: Có hình vẽ SVG Oxyz -->
+      <div class="question-block">
+        <div class="question-text">
+          <strong>Câu 8.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O(0;\; 0;\; 0)$, các đỉnh $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Biết $AB = 3$, $AD = 4$ và $AA' = 5$ (như hình vẽ bên). Xét tính đúng hoặc sai của các khẳng định sau:
+        </div>
+
+        <div style="display: grid; grid-template-columns: 145px 1fr; gap: 14px; align-items: center; margin: 4px 0;">
+          <!-- Khung hình vẽ SVG chuẩn TikZ -->
+          <div style="text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 320" style="width: 140px; height: auto; display: block; margin: 0 auto; background: #ffffff;">
+              <defs>
+                <marker id="arr-axis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000"/>
+                </marker>
+              </defs>
+              <!-- Trục Oz -->
+              <line x1="120" y1="210" x2="120" y2="25" stroke="#000000" stroke-width="1.6" marker-end="url(#arr-axis)"/>
+              <text x="120" y="16" font-family="Times New Roman" font-size="15" font-style="italic" font-weight="bold" text-anchor="middle">z</text>
+              <!-- Trục Oy -->
+              <line x1="120" y1="210" x2="350" y2="210" stroke="#000000" stroke-width="1.6" marker-end="url(#arr-axis)"/>
+              <text x="358" y="214" font-family="Times New Roman" font-size="15" font-style="italic" font-weight="bold">y</text>
+              <!-- Trục Ox -->
+              <line x1="120" y1="210" x2="20" y2="285" stroke="#000000" stroke-width="1.6" marker-end="url(#arr-axis)"/>
+              <text x="12" y="296" font-family="Times New Roman" font-size="15" font-style="italic" font-weight="bold">x</text>
+              <!-- Gốc A trùng O -->
+              <circle cx="120" cy="210" r="2.5" fill="#000000"/>
+              <text x="102" y="224" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">A ≡ O</text>
+              <!-- Nét đứt (cạnh khuất) -->
+              <line x1="120" y1="210" x2="55" y2="260" stroke="#000000" stroke-width="1.3" stroke-dasharray="4,3"/>
+              <line x1="120" y1="210" x2="270" y2="210" stroke="#000000" stroke-width="1.3" stroke-dasharray="4,3"/>
+              <line x1="120" y1="210" x2="120" y2="85" stroke="#000000" stroke-width="1.3" stroke-dasharray="4,3"/>
+              <!-- Nét liền các cạnh thấy -->
+              <!-- Đáy dưới: B(55,260), C(205,260), D(270,210) -->
+              <line x1="55" y1="260" x2="205" y2="260" stroke="#000000" stroke-width="1.5"/>
+              <line x1="205" y1="260" x2="270" y2="210" stroke="#000000" stroke-width="1.5"/>
+              <!-- Các cạnh bên -->
+              <line x1="55" y1="260" x2="55" y2="135" stroke="#000000" stroke-width="1.5"/>
+              <line x1="205" y1="260" x2="205" y2="135" stroke="#000000" stroke-width="1.5"/>
+              <line x1="270" y1="210" x2="270" y2="85" stroke="#000000" stroke-width="1.5"/>
+              <!-- Đáy trên: A'(120,85), B'(55,135), C'(205,135), D'(270,85) -->
+              <line x1="120" y1="85" x2="55" y2="135" stroke="#000000" stroke-width="1.5"/>
+              <line x1="55" y1="135" x2="205" y2="135" stroke="#000000" stroke-width="1.5"/>
+              <line x1="205" y1="135" x2="270" y2="85" stroke="#000000" stroke-width="1.5"/>
+              <line x1="270" y1="85" x2="120" y2="85" stroke="#000000" stroke-width="1.5"/>
+              <!-- Tên các đỉnh -->
+              <circle cx="55" cy="260" r="2" fill="#000000"/>
+              <text x="38" y="268" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">B</text>
+              <circle cx="205" cy="260" r="2" fill="#000000"/>
+              <text x="212" y="272" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">C</text>
+              <circle cx="270" cy="210" r="2" fill="#000000"/>
+              <text x="278" y="214" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">D</text>
+              <circle cx="120" cy="85" r="2" fill="#000000"/>
+              <text x="105" y="80" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">A'</text>
+              <circle cx="55" cy="135" r="2" fill="#000000"/>
+              <text x="38" y="132" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">B'</text>
+              <circle cx="205" cy="135" r="2" fill="#000000"/>
+              <text x="212" y="132" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">C'</text>
+              <circle cx="270" cy="85" r="2" fill="#000000"/>
+              <text x="276" y="80" font-family="Times New Roman" font-size="13" font-style="italic" font-weight="bold">D'</text>
+            </svg>
+          </div>
+
+          <!-- Các ý a, b, c, d của câu 8 -->
+          <div style="margin: 0; text-align: left;" class="tf-items-list">
+            <div class="tf-item" style="text-align: left; line-height: 1.45; margin-bottom: 4px; display: block;"><strong>a)</strong> Tọa độ của đỉnh $C'$ là $C'(3;\; 4;\; 5)$.</div>
+            <div class="tf-item" style="text-align: left; line-height: 1.45; margin-bottom: 4px; display: block;"><strong>b)</strong> Tọa độ của vectơ $\vec{BD'}$ là $(3;\; -4;\; -5)$.</div>
+            <div class="tf-item" style="text-align: left; line-height: 1.45; margin-bottom: 4px; display: block;"><strong>c)</strong> Hình chiếu vuông góc của điểm $C'$ lên trục cao $Oz$ có tọa độ là $(0;\; 0;\; 5)$.</div>
+            <div class="tf-item" style="text-align: left; line-height: 1.45; margin-bottom: 4px; display: block;"><strong>d)</strong> Số đo của góc giữa hai vectơ $\vec{AB'}$ và $\vec{AD}$ bằng $60^\circ$.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-end-mark">— HẾT —</div>
+    </div>
+
+    <div class="page-footer">2</div>
+  </div>
+
+  <!-- ==================== TRANG 3: BẢNG ĐÁP ÁN & HƯỚNG DẪN CHẤM (TỰ ĐỘNG BẬT/TẮT) ==================== -->
+  <div class="a4-page solution-page" id="solutionSection">
+    <div class="page-content">
+      <div class="solution-header">
+        <h3>HƯỚNG DẪN CHẤM & LỜI GIẢI CHI TIẾT – ĐỀ KTTX LẦN 3</h3>
+        <p style="font-size: 11pt; color: #475569; margin: 0;">Biên soạn: ThS. Lương Thanh Sáng • Môn Toán 12 • Thời gian 15 phút</p>
+      </div>
+
+      <!-- Bảng đáp án chính thức -->
+      <div style="margin-bottom: 14px;">
+        <div style="font-weight: bold; margin-bottom: 4px; font-size: 12pt; text-transform: uppercase;">I. BẢNG ĐÁP ÁN CHÍNH THỨC</div>
+        <table class="answer-table" style="background: #f8fafc;">
+          <thead>
+            <tr style="background: #e2e8f0;">
+              <th rowspan="2" style="width: 58px;">Câu</th>
+              <th colspan="6">PHẦN I (Mỗi câu đúng 1.0 điểm)</th>
+              <th colspan="8">PHẦN II (1 ý = 0.25đ, 2 ý = 0.5đ, 3 ý = 1.0đ, 4 ý = 2.0đ)</th>
+            </tr>
+            <tr style="background: #edf2f7;">
+              <th style="width: 32px;">1</th>
+              <th style="width: 32px;">2</th>
+              <th style="width: 32px;">3</th>
+              <th style="width: 32px;">4</th>
+              <th style="width: 32px;">5</th>
+              <th style="width: 32px;">6</th>
+              <th colspan="4" style="width: 140px;">7</th>
+              <th colspan="4" style="width: 140px;">8</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: bold;">Ý</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>a</td>
+              <td>b</td>
+              <td>c</td>
+              <td>d</td>
+              <td>a</td>
+              <td>b</td>
+              <td>c</td>
+              <td>d</td>
+            </tr>
+            <tr style="background: #f0fdf4; font-weight: bold;">
+              <td>Đáp án</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">A</td>
+              <td style="color: #16a34a;">Đ</td>
+              <td style="color: #16a34a;">Đ</td>
+              <td style="color: #dc2626;">S</td>
+              <td style="color: #16a34a;">Đ</td>
+              <td style="color: #16a34a;">Đ</td>
+              <td style="color: #dc2626;">S</td>
+              <td style="color: #16a34a;">Đ</td>
+              <td style="color: #dc2626;">S</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tóm tắt phương pháp giải -->
+      <div style="font-weight: bold; margin-bottom: 6px; font-size: 12pt; text-transform: uppercase;">II. LỜI GIẢI CHI TIẾT TỪNG CÂU</div>
+      
+      <div class="solution-step-item">
+        <strong>Câu 1 [Đáp án A]:</strong> $\vec{w} = \vec{u} + \vec{v} = (2 + (-1);\; -3 + 4;\; 1 + 2) = (1;\; 1;\; 3)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 2 [Đáp án A]:</strong> Theo định nghĩa vectơ đơn vị $\vec{a} = x\vec{i} + y\vec{j} + z\vec{k} \iff \vec{a} = (x;\; y;\; z) = (2;\; -5;\; 3)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 3 [Đáp án A]:</strong> Tích vô hướng $\vec{u} \cdot \vec{v} = 1 \cdot 4 + (-2) \cdot 1 + 3 \cdot (-1) = 4 - 2 - 3 = -1$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 4 [Đáp án A]:</strong> $\vec{AB} = (x_B - x_A;\; y_B - y_A;\; z_B - z_A) = (3 - 1;\; -1 - 2;\; 2 - (-3)) = (2;\; -3;\; 5)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 5 [Đáp án A]:</strong> Trọng tâm $G$: $x_G = \dfrac{2 + 1 + 3}{3} = 2$; $y_G = \dfrac{-1 + 3 + 1}{3} = 1$; $z_G = \dfrac{3 - 2 + 2}{3} = 1 \implies G(2;\; 1;\; 1)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 6 [Đáp án A]:</strong> Chiếu vuông góc điểm $M(3;\; -2;\; 5)$ lên mặt phẳng $(Oxy)$ giữ nguyên $x, y$ và cho $z = 0 \implies H(3;\; -2;\; 0)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 7:</strong>
+        <br>&bull; <em>Ý a) [<span class="badge-correct">ĐÚNG</span>]:</em> $\vec{AB} = (-1 - 1;\; 1 - 0;\; 3 - 2) = (-2;\; 1;\; 1)$.
+        <br>&bull; <em>Ý b) [<span class="badge-correct">ĐÚNG</span>]:</em> $\vec{AC} = (2;\; 2;\; 2) \implies AC = \sqrt{2^2 + 2^2 + 2^2} = \sqrt{12} = 2\sqrt{3}$.
+        <br>&bull; <em>Ý c) [<span class="badge-wrong">SAI</span>]:</em> $\vec{AB} \cdot \vec{AC} = (-2)(2) + 1(2) + 1(2) = 0 \implies \vec{AB} \perp \vec{AC} \implies \widehat{BAC} = 90^\circ \neq 60^\circ$.
+        <br>&bull; <em>Ý d) [<span class="badge-correct">ĐÚNG</span>]:</em> $ABCD$ là hình bình hành $\iff \vec{AD} = \vec{BC} = (4;\; 1;\; 1) \implies D(5;\; 1;\; 3)$.
+      </div>
+
+      <div class="solution-step-item">
+        <strong>Câu 8:</strong> Gắn tọa độ: $A(0;0;0)$, $B(3;0;0)$, $D(0;4;0)$, $A'(0;0;5) \implies C(3;4;0)$, $B'(3;0;5)$, $D'(0;4;5)$, $C'(3;4;5)$.
+        <br>&bull; <em>Ý a) [<span class="badge-correct">ĐÚNG</span>]:</em> Tọa độ $C'(3;\; 4;\; 5)$.
+        <br>&bull; <em>Ý b) [<span class="badge-wrong">SAI</span>]:</em> $\vec{BD'} = (0 - 3;\; 4 - 0;\; 5 - 0) = (-3;\; 4;\; 5) \neq (3;\; -4;\; -5)$.
+        <br>&bull; <em>Ý c) [<span class="badge-correct">ĐÚNG</span>]:</em> Chiếu $C'(3;4;5)$ lên trục cao $Oz$ được điểm $(0;\; 0;\; 5)$ (trùng với đỉnh $A'$).
+        <br>&bull; <em>Ý d) [<span class="badge-wrong">SAI</span>]:</em> $\vec{AB'} = (3;\; 0;\; 5)$ và $\vec{AD} = (0;\; 4;\; 0) \implies \vec{AB'} \cdot \vec{AD} = 0 \implies \vec{AB'} \perp \vec{AD} \implies \text{góc } 90^\circ \neq 60^\circ$.
+      </div>
+    </div>
+
+    <div class="page-footer">3</div>
+  </div>
+
+  <script>
+    function toggleSolutions() {
+      const sol = document.getElementById("solutionSection");
+      const text = document.getElementById("toggleText");
+      if (sol.style.display === "none") {
+        sol.style.display = "block";
+        text.textContent = "Ẩn Đáp Án & Lời Giải";
+      } else {
+        sol.style.display = "none";
+        text.textContent = "Xem Đáp Án & Lời Giải";
+      }
+    }
+  </script>
+</body>
+</html>

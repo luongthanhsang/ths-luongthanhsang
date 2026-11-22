@@ -474,9 +474,17 @@ function renderDocuments() {
     const isPdf = doc.type === "pdf";
     const iconClass = isPdf ? "fa-solid fa-file-pdf" : "fa-solid fa-file-word";
     const boxClass = isPdf ? "doc-icon-box" : "doc-icon-box word";
-    const fileTypeBadge = isPdf 
-      ? `<span class="doc-tag-badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;"><i class="fa-solid fa-file-pdf"></i> PDF</span>` 
-      : `<span class="doc-tag-badge" style="background:#dbeafe; color:#1d4ed8; font-weight:700;"><i class="fa-solid fa-file-word"></i> Word (.docx)</span>`;
+    let fileTypeBadge = "";
+    if (doc.hasWord) {
+      fileTypeBadge = `
+        <span class="doc-tag-badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+        <span class="doc-tag-badge" style="background:#dbeafe; color:#1d4ed8; font-weight:700;"><i class="fa-solid fa-file-word"></i> Word (.docx)</span>
+      `;
+    } else {
+      fileTypeBadge = isPdf 
+        ? `<span class="doc-tag-badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;"><i class="fa-solid fa-file-pdf"></i> PDF</span>` 
+        : `<span class="doc-tag-badge" style="background:#dbeafe; color:#1d4ed8; font-weight:700;"><i class="fa-solid fa-file-word"></i> Word (.docx)</span>`;
+    }
 
     // Hiển thị nhãn khối hoặc nhãn chuyên mục phù hợp
     let categoryBadgeText = "";
@@ -516,7 +524,7 @@ function renderDocuments() {
             <span class="doc-downloads-meta"><i class="fa-solid fa-cloud-arrow-down" style="color: #0284c7;"></i> <strong id="dl-count-${doc.id}">${((doc.downloads || 950) + (parseInt(localStorage.getItem("ths_sang_doc_dl_" + doc.id), 10) || 0)).toLocaleString("vi-VN")}</strong> lượt tải</span>
           </div>
 
-          <div class="doc-actions">
+          <div class="doc-actions" style="display: flex; flex-wrap: wrap; gap: 8px;">
             ${isPdf ? `
               <button class="btn-preview" onclick="openDocPreview('${doc.id}')">
                 <i class="fa-solid fa-eye"></i> Xem trực tiếp
@@ -526,6 +534,11 @@ function renderDocuments() {
                 <i class="fa-solid fa-file-arrow-down"></i> Tải bản Word (.docx)
               </a>
             `}
+            ${doc.downloadWordUrl ? `
+              <a href="${doc.downloadWordUrl}" download class="btn-preview" style="background:#2563eb; color:#fff;" onclick="handleDocDownload('${doc.id}', '${escapeHtml(doc.title)}')">
+                <i class="fa-solid fa-file-word"></i> Tải bản Word (.docx)
+              </a>
+            ` : ""}
             <a href="${doc.downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-download" onclick="handleDocDownload('${doc.id}', '${escapeHtml(doc.title)}')">
               <i class="fa-solid fa-download"></i> Tải về máy
             </a>
