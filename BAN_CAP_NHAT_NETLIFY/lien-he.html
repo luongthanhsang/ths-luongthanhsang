@@ -89,7 +89,7 @@
           <div class="contact-form-card ai-chat-container-card" id="aiChatCard">
             <!-- Header khung chat -->
             <div class="chat-header">
-              <div class="chat-header-left">
+              <div class="chat-header-left" title="ThS. Lương Thanh Sáng - AI Trợ Lý Toán" style="cursor: pointer;" ondblclick="handleTeacherSecretKeyAccess()">
                 <div class="chat-avatar-wrapper">
                   <img src="assets/images/logo-ths-sang.png" alt="ThS. Lương Thanh Sáng AI" class="chat-avatar-img">
                   <span class="chat-status-dot" title="Đang trực tuyến 24/7"></span>
@@ -103,7 +103,7 @@
                 </div>
               </div>
               <div class="chat-header-actions">
-                <button type="button" class="chat-action-btn" id="btnToggleApiKey" title="Cài đặt Google Gemini API Key (Tùy chọn)">
+                <button type="button" class="chat-action-btn" id="btnToggleApiKey" title="Cài đặt Google Gemini API Key (Tùy chọn)" style="display: none;">
                   <i class="fa-solid fa-key"></i>
                 </button>
                 <button type="button" class="chat-action-btn" id="btnClearChat" title="Làm mới cuộc trò chuyện">
@@ -115,8 +115,8 @@
               </div>
             </div>
 
-            <!-- Thanh trạng thái & Kích hoạt Google Gemini AI (Trực quan & Dễ sử dụng) -->
-            <div class="gemini-activation-banner" id="geminiActivationBanner">
+            <!-- Thanh trạng thái & Kích hoạt Google Gemini AI (Ẩn hoàn toàn trên giao diện để bảo mật key) -->
+            <div class="gemini-activation-banner" id="geminiActivationBanner" style="display: none !important;">
               <!-- Trạng thái khi ĐÃ có Key -->
               <div class="banner-active-state" id="bannerActiveState" style="display: none;">
                 <div class="active-badge-info">
@@ -468,6 +468,37 @@
 
   <!-- Khung thông báo Toast Message -->
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==================== MODAL BẢO MẬT CÀI ĐẶT GOOGLE AI KEY DÀNH CHO THẦY SÁNG ==================== -->
+  <div class="teacher-modal-backdrop" id="teacherGeminiKeyModal" style="display: none;">
+    <div class="teacher-modal-card">
+      <div class="teacher-modal-header" style="background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);">
+        <div class="teacher-modal-icon" style="color: #93c5fd;"><i class="fa-brands fa-google"></i></div>
+        <h3>Quản Lý Google Gemini API Key</h3>
+        <p>Bảo mật hệ thống AI Trợ Lý Toán Học<br><strong>ThS. Lương Thanh Sáng • THPT Nguyễn Văn Thoại</strong></p>
+        <button type="button" class="btn-close-modal" onclick="closeTeacherGeminiKeyModal()" title="Đóng">&times;</button>
+      </div>
+      <div class="teacher-modal-body">
+        <div style="margin-bottom: 14px;">
+          <label for="teacherGeminiKeyInput"><i class="fa-solid fa-key"></i> Google Gemini API Key của Thầy:</label>
+          <div class="teacher-input-wrapper">
+            <input type="password" id="teacherGeminiKeyInput" placeholder="Nhập Google Gemini API Key..." autocomplete="off">
+            <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility('teacherGeminiKeyInput', 'eyeIconGemini')" title="Ẩn / Hiện"><i class="fa-solid fa-eye" id="eyeIconGemini"></i></button>
+          </div>
+          <p style="font-size: 0.82rem; color: #64748b; margin-top: 8px; line-height: 1.4;">
+            <i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Mã Key được mã hóa và bảo mật ngầm. Học sinh chỉ thấy khung chat tương tác bình thường và không thể nhìn thấy Key này.
+          </p>
+        </div>
+        <div id="teacherGeminiKeyStatus" class="teacher-auth-error" style="display: none;"></div>
+      </div>
+      <div class="teacher-modal-footer">
+        <button type="button" class="btn-modal-cancel" onclick="closeTeacherGeminiKeyModal()">Đóng</button>
+        <button type="button" class="btn-modal-submit" onclick="saveTeacherGeminiKey()" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+          <i class="fa-solid fa-floppy-disk"></i> Lưu Key Mới
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/script.js?v=3.1"></script>

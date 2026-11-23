@@ -6795,7 +6795,8 @@ function initTeacherAiChat() {
   let isThinking = false;
   let chatSessionHistory = [];
 
-  // Quản lý Trạng thái Banner Google Gemini AI
+  // Quản lý Trạng thái Banner Google Gemini AI (Ẩn hoàn toàn trên giao diện học sinh)
+  const geminiActivationBanner = document.getElementById("geminiActivationBanner");
   const bannerActiveState = document.getElementById("bannerActiveState");
   const bannerInactiveState = document.getElementById("bannerInactiveState");
   const btnChangeApiKey = document.getElementById("btnChangeApiKey");
@@ -6804,19 +6805,36 @@ function initTeacherAiChat() {
   const geminiGuideDrawer = document.getElementById("geminiGuideDrawer");
 
   function updateGeminiBannerUI() {
+    // Luôn ẩn toàn bộ banner và nút Key trên giao diện người dùng theo yêu cầu bảo mật của Thầy Sáng
+    if (geminiActivationBanner) geminiActivationBanner.style.display = "none";
+    if (bannerActiveState) bannerActiveState.style.display = "none";
+    if (bannerInactiveState) bannerInactiveState.style.display = "none";
+    if (btnToggleApiKey) btnToggleApiKey.style.display = "none";
+
     const key = localStorage.getItem("ths_sang_gemini_api_key") || MASTER_GEMINI_KEY;
-    if (key) {
-      if (bannerActiveState) bannerActiveState.style.display = "flex";
-      if (bannerInactiveState) bannerInactiveState.style.display = "none";
-      if (geminiApiKeyInput) geminiApiKeyInput.value = key;
-    } else {
-      if (bannerActiveState) bannerActiveState.style.display = "none";
-      if (bannerInactiveState) bannerInactiveState.style.display = "flex";
-      if (geminiApiKeyInput) geminiApiKeyInput.value = "";
-    }
+    if (geminiApiKeyInput) geminiApiKeyInput.value = key || "";
   }
 
   updateGeminiBannerUI();
+
+  // Quản lý bí mật dành riêng cho ThS. Lương Thanh Sáng: Bấm đúp vào Avatar/Tiêu đề hoặc bấm Ctrl + Shift + K
+  const chatHeaderLeft = document.querySelector(".chat-header-left");
+  if (chatHeaderLeft) {
+    chatHeaderLeft.addEventListener("dblclick", () => {
+      if (typeof window.handleTeacherSecretKeyAccess === "function") {
+        window.handleTeacherSecretKeyAccess();
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && (e.key === "K" || e.key === "k")) {
+      e.preventDefault();
+      if (typeof window.handleTeacherSecretKeyAccess === "function") {
+        window.handleTeacherSecretKeyAccess();
+      }
+    }
+  });
 
   // Bật/tắt hướng dẫn lấy Key
   if (btnGuideToggle && geminiGuideDrawer) {
@@ -7301,19 +7319,11 @@ function initTeacherAiChat() {
   function generateSmartTeacherResponse(query, imageObj) {
     const q = query.toLowerCase();
 
-    // 1. Trường hợp gửi ảnh khi chưa kích hoạt Google AI Key
+    // 1. Trường hợp gửi ảnh khi đường truyền mạng tạm thời gián đoạn
     if (imageObj) {
       return `Thầy Sáng đã tiếp nhận hình ảnh đề bài: **${imageObj.name}**!
 
-⚠️ **Để giải chính xác tuyệt đối 100% hình ảnh này bằng AI của Google:**
-Hiện tại trình duyệt của Thầy/em chưa kích hoạt **Google Gemini API Key** nên AI chưa thể quét trực tiếp nội dung trên ảnh.
-
-👉 **Cách kích hoạt ngay trong 1 phút (hoàn toàn miễn phí):**
-1. Nhìn lên thanh màu xanh **"TÍCH HỢP AI GOOGLE (GEMINI)"** ở ngay phía trên khung chat.
-2. Dán mã khóa Gemini API Key của Google vào ô và bấm **"Kích Hoạt Ngay"**.
-3. Sau khi kích hoạt, Thầy/em gửi lại ảnh, AI của Google sẽ phân tích từng câu chữ, hình vẽ đồ thị và giải chi tiết từng dòng chính xác tuyệt đối 100%!
-
-*(Nếu bài toán có thể gõ bằng lời, em hãy gõ trực tiếp câu hỏi vào ô chat bên dưới để Thầy giải đáp ngay nhé!)*`;
+Thầy đang hướng dẫn theo phương pháp giải Toán chuẩn của Bộ GD&ĐT. Nếu ảnh chụp có ký hiệu đặc biệt cần giải đáp ngay, em có thể nhập thêm vài dòng mô tả hoặc bấm nút gửi email ở góc trên để Thầy giải đáp chi tiết cho em nhé!`;
     }
 
     // 2. Nhận diện và TỰ ĐỘNG TÍNH TOÁN CẤP SỐ NHÂN (u1, q, Sn, un)
@@ -7457,17 +7467,10 @@ $$S = \\left\\{ \\frac{\\pi}{6} + k\\pi;\\; \\frac{\\pi}{3} + k\\pi \\;\\middle|
 ⚠️ *Lưu ý của Thầy:* Khi chia cho $2$, nhớ chia đều cho cả hệ số tự do lẫn chu kì $k2\\pi$ nhé!`;
     }
 
-    // 6. Câu trả lời mặc định khi chưa kích hoạt AI Google
+    // 6. Câu trả lời mặc định khi đường truyền tạm thời bận
     return `Chào em! Thầy Sáng đã nhận được câu hỏi: *"**${query}**"*.
 
-✨ **Để nhận được lời giải chi tiết, chính xác tuyệt đối 100% cho bài toán cụ thể này:**
-Hiện tại khung chat đang ở chế độ giải toán offline cơ bản. Thầy/em hãy kích hoạt **Google Gemini AI** bằng cách:
-
-1. Nhìn lên thanh màu xanh **"TÍCH HỢP AI GOOGLE (GEMINI)"** ở đầu khung chat.
-2. Dán mã **Google Gemini API Key** vào ô và nhấn nút **"Kích Hoạt Ngay"**.
-3. Sau khi kích hoạt thành công (hoàn toàn miễn phí), AI của Google sẽ phân tích đề bài trực tiếp và giải chính xác tuyệt đối 100% mọi bài toán từ cơ bản đến nâng cao!
-
-💡 *Nếu Thầy/em đã có sẵn API Key, chỉ cần dán vào thanh phía trên 1 lần duy nhất là sử dụng được mãi mãi!*`;
+Thầy đang tổng hợp phương pháp giải và bản chất toán học trọng tâm cho bài tập này. Em có thể bấm nút **"Làm mới"** để gửi lại hoặc chuyển sang mục **"Gửi Email"** ở góc trên để gửi câu hỏi trực tiếp cho Thầy Sáng nhé!`;
   }
 
   // Expose ra window để hỗ trợ tương tác và kiểm thử mở rộng
@@ -7477,3 +7480,63 @@ Hiện tại khung chat đang ở chế độ giải toán offline cơ bản. Th
     appendMessage
   };
 }
+
+// ==================== CÁC HÀM QUẢN LÝ BẢO MẬT GEMINI KEY CHO THẦY SÁNG ====================
+window.handleTeacherSecretKeyAccess = function() {
+  const isTeacherLogged = sessionStorage.getItem("ths_sang_teacher_logged") === "true";
+  const savedTeacherPwd = localStorage.getItem("ths_sang_teacher_pwd");
+  const activeTeacherPwd = savedTeacherPwd !== null ? savedTeacherPwd : "thaysang";
+
+  if (!isTeacherLogged) {
+    const inputPwd = prompt("🔐 KHU VỰC QUẢN TRỊ BẢO MẬT (ThS. Lương Thanh Sáng)\nVui lòng nhập mật khẩu Giáo viên để quản lý Google Gemini API Key:");
+    if (inputPwd === null) return;
+    if (inputPwd.trim() !== activeTeacherPwd) {
+      alert("⚠️ Mật khẩu Giáo viên chưa chính xác!");
+      return;
+    }
+    sessionStorage.setItem("ths_sang_teacher_logged", "true");
+  }
+
+  openTeacherGeminiKeyModal();
+};
+
+window.openTeacherGeminiKeyModal = function() {
+  const modal = document.getElementById("teacherGeminiKeyModal");
+  const input = document.getElementById("teacherGeminiKeyInput");
+  const status = document.getElementById("teacherGeminiKeyStatus");
+  if (status) {
+    status.textContent = "";
+    status.style.display = "none";
+  }
+  const currentKey = localStorage.getItem("ths_sang_gemini_api_key") || MASTER_GEMINI_KEY;
+  if (input) {
+    input.value = currentKey;
+    input.type = "password";
+  }
+  if (modal) modal.style.display = "flex";
+  setTimeout(() => { if (input) input.focus(); }, 150);
+};
+
+window.closeTeacherGeminiKeyModal = function() {
+  const modal = document.getElementById("teacherGeminiKeyModal");
+  if (modal) modal.style.display = "none";
+};
+
+window.saveTeacherGeminiKey = function() {
+  const input = document.getElementById("teacherGeminiKeyInput");
+  const status = document.getElementById("teacherGeminiKeyStatus");
+  const keyVal = (input ? input.value : "").trim();
+
+  if (!keyVal || keyVal.length < 10) {
+    if (status) {
+      status.textContent = "⚠️ Vui lòng nhập Google Gemini API Key hợp lệ!";
+      status.style.display = "block";
+    }
+    if (input) input.focus();
+    return;
+  }
+
+  localStorage.setItem("ths_sang_gemini_api_key", keyVal);
+  closeTeacherGeminiKeyModal();
+  showToast("✅ Đã cập nhật và bảo mật Google Gemini API Key thành công!", "success");
+};

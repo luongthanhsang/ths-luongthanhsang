@@ -6861,13 +6861,10 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   BANNER KÍCH HOẠT GOOGLE GEMINI AI
+   BANNER KÍCH HOẠT GOOGLE GEMINI AI (ẨN HOÀN TOÀN ĐỂ BẢO MẬT KEY)
    ========================================================================== */
 .gemini-activation-banner {
-  background: #f0f7ff;
-  border-bottom: 2px solid #bfdbfe;
-  padding: 12px 18px;
-  transition: all 0.3s ease;
+  display: none !important;
 }
 
 .banner-active-state {
