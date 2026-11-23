@@ -2258,9 +2258,11 @@ window.closeTeacherAuthModal = function() {
   if (modal) modal.style.display = "none";
 };
 
-window.toggleTeacherPasswordVisibility = function() {
-  const input = document.getElementById("teacherAuthInput");
-  const eye = document.getElementById("eyeIconTeacher");
+window.toggleTeacherPasswordVisibility = function(inputId, iconId) {
+  const targetInputId = inputId || "teacherAuthInput";
+  const targetIconId = iconId || "eyeIconTeacher";
+  const input = document.getElementById(targetInputId);
+  const eye = document.getElementById(targetIconId);
   if (!input || !eye) return;
   if (input.type === "password") {
     input.type = "text";
@@ -2270,14 +2272,19 @@ window.toggleTeacherPasswordVisibility = function() {
     eye.className = "fa-solid fa-eye";
   }
 };
+window.togglePasswordEye = window.toggleTeacherPasswordVisibility;
 
 window.submitTeacherAuth = function() {
   const input = document.getElementById("teacherAuthInput");
   const err = document.getElementById("teacherAuthError");
   const val = (input ? input.value : "").trim();
-  const savedPwd = localStorage.getItem("ths_sang_teacher_pwd") || "thaysang";
+  
+  // Mật khẩu hiện hành do Thầy Sáng thiết lập (mặc định ban đầu duy nhất là "thaysang" nếu chưa từng đổi)
+  const savedPwd = localStorage.getItem("ths_sang_teacher_pwd");
+  const activePwd = savedPwd !== null ? savedPwd : "thaysang";
 
-  if (val === savedPwd || val === "thaysang" || val === "123456") {
+  // CHỈ chấp nhận mật khẩu đang có hiệu lực. Khi đã đổi mật khẩu mới, mật khẩu cũ bị vô hiệu hóa 100%
+  if (val && val === activePwd) {
     sessionStorage.setItem("ths_sang_teacher_logged", "true");
     closeTeacherAuthModal();
     renderQuizHistoryTable();
@@ -2288,7 +2295,7 @@ window.submitTeacherAuth = function() {
     showToast("🔓 Đã xác thực thành công quyền Giáo viên (ThS. Lương Thanh Sáng)!", "success");
   } else {
     if (err) {
-      err.textContent = "⚠️ Mã bảo mật chưa chính xác! Thầy vui lòng kiểm tra lại.";
+      err.textContent = "⚠️ Mã bảo mật chưa chính xác! Vui lòng kiểm tra lại.";
       err.style.display = "block";
     }
     if (input) {
@@ -2301,19 +2308,91 @@ window.submitTeacherAuth = function() {
 window.lockTeacherAdmin = function() {
   sessionStorage.removeItem("ths_sang_teacher_logged");
   renderQuizHistoryTable();
-  showToast("🔒 Đã khóa sổ nhật ký làm bài! Học sinh không thể xem dữ liệu này.", "info");
+  showToast("🔒 Đã khóa sổ nhật ký làm bài! Dữ liệu được bảo mật an toàn.", "info");
 };
 
-window.promptChangeTeacherPassword = function() {
-  const newPwd = prompt("Thầy vui lòng nhập mã bảo mật mới (tối thiểu 4 ký tự):");
-  if (newPwd === null) return;
-  const trimmed = newPwd.trim();
-  if (trimmed.length < 4) {
-    alert("Mã bảo mật phải có ít nhất 4 ký tự!");
+// Mở modal đổi mật khẩu giáo viên chuyên nghiệp & bảo mật
+window.openChangeTeacherPasswordModal = function() {
+  const modal = document.getElementById("teacherChangePasswordModal");
+  const oldInp = document.getElementById("pwdOldInput");
+  const newInp = document.getElementById("pwdNewInput");
+  const cfmInp = document.getElementById("pwdConfirmInput");
+  const err = document.getElementById("teacherChangePwdError");
+  if (oldInp) oldInp.value = "";
+  if (newInp) newInp.value = "";
+  if (cfmInp) cfmInp.value = "";
+  if (err) {
+    err.textContent = "";
+    err.style.display = "none";
+  }
+  if (modal) modal.style.display = "flex";
+  setTimeout(() => { if (oldInp) oldInp.focus(); }, 150);
+};
+
+window.closeChangeTeacherPasswordModal = function() {
+  const modal = document.getElementById("teacherChangePasswordModal");
+  if (modal) modal.style.display = "none";
+};
+
+window.submitChangeTeacherPassword = function() {
+  const oldInp = document.getElementById("pwdOldInput");
+  const newInp = document.getElementById("pwdNewInput");
+  const cfmInp = document.getElementById("pwdConfirmInput");
+  const err = document.getElementById("teacherChangePwdError");
+
+  const oldVal = (oldInp ? oldInp.value : "").trim();
+  const newVal = (newInp ? newInp.value : "").trim();
+  const cfmVal = (cfmInp ? cfmInp.value : "").trim();
+
+  const savedPwd = localStorage.getItem("ths_sang_teacher_pwd");
+  const activePwd = savedPwd !== null ? savedPwd : "thaysang";
+
+  const showError = (msg, targetInput) => {
+    if (err) {
+      err.textContent = msg;
+      err.style.display = "block";
+    }
+    if (targetInput) {
+      targetInput.focus();
+      if (targetInput.select) targetInput.select();
+    }
+  };
+
+  // 1. Kiểm tra mật khẩu cũ
+  if (!oldVal) {
+    showError("⚠️ Vui lòng nhập mật khẩu hiện tại để xác minh quyền giáo viên!", oldInp);
     return;
   }
-  localStorage.setItem("ths_sang_teacher_pwd", trimmed);
-  showToast("✅ Đã cập nhật mã bảo mật mới của Thầy Sáng thành công!", "success");
+  if (oldVal !== activePwd) {
+    showError("⚠️ Mật khẩu hiện tại chưa chính xác! Thầy vui lòng kiểm tra lại.", oldInp);
+    return;
+  }
+
+  // 2. Kiểm tra mật khẩu mới
+  if (!newVal || newVal.length < 6) {
+    showError("⚠️ Mật khẩu mới phải có ít nhất 6 ký tự để bảo mật an toàn!", newInp);
+    return;
+  }
+  if (newVal === activePwd) {
+    showError("⚠️ Mật khẩu mới phải khác với mật khẩu đang sử dụng!", newInp);
+    return;
+  }
+
+  // 3. Kiểm tra xác nhận mật khẩu mới
+  if (newVal !== cfmVal) {
+    showError("⚠️ Mật khẩu xác nhận không trùng khớp với mật khẩu mới!", cfmInp);
+    return;
+  }
+
+  // 4. Lưu mật khẩu mới vào localStorage -> Mật khẩu cũ bị vô hiệu hóa hoàn toàn
+  localStorage.setItem("ths_sang_teacher_pwd", newVal);
+  closeChangeTeacherPasswordModal();
+  showToast("✅ Đổi mật khẩu thành công! Mật khẩu cũ đã bị vô hiệu hóa hoàn toàn.", "success");
+};
+
+// Tương thích ngược với các nút gọi hàm cũ
+window.promptChangeTeacherPassword = function() {
+  openChangeTeacherPasswordModal();
 };
 
 window.exportQuizHistoryCSV = function() {

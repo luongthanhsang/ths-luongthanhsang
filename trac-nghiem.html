@@ -318,7 +318,7 @@
                 <button type="button" class="btn-teacher-action btn-teacher-export" onclick="exportQuizHistoryCSV()" title="Tải toàn bộ bảng điểm của học sinh về máy (Excel CSV)">
                   <i class="fa-solid fa-file-excel"></i> Xuất Excel
                 </button>
-                <button type="button" class="btn-teacher-action btn-teacher-pwd" onclick="promptChangeTeacherPassword()" title="Thay đổi mã bảo mật giáo viên">
+                <button type="button" class="btn-teacher-action btn-teacher-pwd" onclick="openChangeTeacherPasswordModal()" title="Thay đổi mã bảo mật giáo viên">
                   <i class="fa-solid fa-key"></i> Đổi mã
                 </button>
                 <button type="button" class="btn-teacher-action btn-clear-history" onclick="clearQuizHistory()" title="Xóa toàn bộ lịch sử thi trên máy này">
@@ -682,13 +682,55 @@
           <input type="password" id="teacherAuthInput" placeholder="Nhập mã bảo mật..." autocomplete="off" onkeydown="if(event.key==='Enter') submitTeacherAuth()">
           <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility()" title="Ẩn / Hiện mã"><i class="fa-solid fa-eye" id="eyeIconTeacher"></i></button>
         </div>
-        <p class="teacher-modal-hint"><i class="fa-solid fa-circle-info"></i> Mã mặc định của Thầy: <code>thaysang</code> (hoặc <code>123456</code>). Thầy có thể đổi mã mới bất kỳ lúc nào.</p>
+        <p class="teacher-modal-hint"><i class="fa-solid fa-lock" style="color: #0284c7;"></i> Khu vực giới hạn riêng cho ThS. Lương Thanh Sáng quản lý điểm số và nhật ký làm bài của học sinh.</p>
         <div id="teacherAuthError" class="teacher-auth-error" style="display: none;"></div>
       </div>
       <div class="teacher-modal-footer">
         <button type="button" class="btn-modal-cancel" onclick="closeTeacherAuthModal()">Hủy bỏ</button>
         <button type="button" class="btn-modal-submit" onclick="submitTeacherAuth()">
           <i class="fa-solid fa-unlock"></i> Xác nhận mở khóa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL ĐỔI MẬT KHẨU GIÁO VIÊN BẢO MẬT ==================== -->
+  <div class="teacher-modal-backdrop" id="teacherChangePasswordModal" style="display: none;">
+    <div class="teacher-modal-card">
+      <div class="teacher-modal-header" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);">
+        <div class="teacher-modal-icon" style="color: #93c5fd;"><i class="fa-solid fa-key"></i></div>
+        <h3>Đổi Mật Khẩu Giáo Viên</h3>
+        <p>Bảo mật quản trị nhật ký làm bài của học sinh<br><strong>ThS. Lương Thanh Sáng • THPT Nguyễn Văn Thoại</strong></p>
+        <button type="button" class="btn-close-modal" onclick="closeChangeTeacherPasswordModal()" title="Đóng">&times;</button>
+      </div>
+      <div class="teacher-modal-body">
+        <div style="margin-bottom: 14px;">
+          <label for="pwdOldInput"><i class="fa-solid fa-shield"></i> Mật khẩu hiện tại:</label>
+          <div class="teacher-input-wrapper">
+            <input type="password" id="pwdOldInput" placeholder="Nhập mật khẩu hiện tại..." autocomplete="off">
+            <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility('pwdOldInput', 'eyeIconOld')" title="Ẩn / Hiện"><i class="fa-solid fa-eye" id="eyeIconOld"></i></button>
+          </div>
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label for="pwdNewInput"><i class="fa-solid fa-lock"></i> Mật khẩu mới:</label>
+          <div class="teacher-input-wrapper">
+            <input type="password" id="pwdNewInput" placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)..." autocomplete="off">
+            <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility('pwdNewInput', 'eyeIconNew')" title="Ẩn / Hiện"><i class="fa-solid fa-eye" id="eyeIconNew"></i></button>
+          </div>
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label for="pwdConfirmInput"><i class="fa-solid fa-check-double"></i> Nhập lại mật khẩu mới:</label>
+          <div class="teacher-input-wrapper">
+            <input type="password" id="pwdConfirmInput" placeholder="Xác nhận lại mật khẩu mới..." autocomplete="off" onkeydown="if(event.key==='Enter') submitChangeTeacherPassword()">
+            <button type="button" class="btn-toggle-eye" onclick="toggleTeacherPasswordVisibility('pwdConfirmInput', 'eyeIconConfirm')" title="Ẩn / Hiện"><i class="fa-solid fa-eye" id="eyeIconConfirm"></i></button>
+          </div>
+        </div>
+        <div id="teacherChangePwdError" class="teacher-auth-error" style="display: none;"></div>
+      </div>
+      <div class="teacher-modal-footer">
+        <button type="button" class="btn-modal-cancel" onclick="closeChangeTeacherPasswordModal()">Hủy bỏ</button>
+        <button type="button" class="btn-modal-submit" onclick="submitChangeTeacherPassword()" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+          <i class="fa-solid fa-floppy-disk"></i> Lưu mật khẩu mới
         </button>
       </div>
     </div>
