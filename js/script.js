@@ -2828,13 +2828,108 @@ function triggerMathJax() {
 
 
 /* ==========================================================================
-   4. FORM GỬI THẮC MẮC BÀI TẬP (CONTACT)
+   4. FORM GỬI THẮC MẮC BÀI TẬP (CONTACT & GỬI EMAIL THỰC TẾ ĐẾN THẦY SÁNG)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
-  form.addEventListener("submit", (e) => {
+  const emailImageInput = document.getElementById("emailImageInput");
+  const emailAttachDropzone = document.getElementById("emailAttachDropzone");
+  const emailImagePreview = document.getElementById("emailImagePreview");
+  const emailPreviewImg = document.getElementById("emailPreviewImg");
+  const emailPreviewName = document.getElementById("emailPreviewName");
+  const emailPreviewInfo = document.getElementById("emailPreviewInfo");
+  const btnRemoveEmailImage = document.getElementById("btnRemoveEmailImage");
+  const emailSubmitStatus = document.getElementById("emailSubmitStatus");
+  const btnSubmit = document.getElementById("btnSubmitContact");
+
+  let selectedImageFile = null;
+
+  // Xử lý khi chọn file ảnh
+  function handleSelectedFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      showToast("Vui lòng chỉ chọn tệp hình ảnh (PNG, JPG, JPEG, WebP)!", "warning");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      showToast("Dung lượng ảnh vượt quá giới hạn 10MB! Vui lòng chọn ảnh nhẹ hơn.", "warning");
+      return;
+    }
+
+    selectedImageFile = file;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (emailPreviewImg) emailPreviewImg.src = e.target.result;
+      if (emailPreviewName) emailPreviewName.textContent = file.name || "Ảnh đề bài";
+      if (emailPreviewInfo) emailPreviewInfo.textContent = `${(file.size / 1024).toFixed(1)} KB • ${file.type}`;
+      if (emailImagePreview) emailImagePreview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+
+  if (emailImageInput) {
+    emailImageInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file) handleSelectedFile(file);
+    });
+  }
+
+  // Nút xóa ảnh đã chọn
+  if (btnRemoveEmailImage) {
+    btnRemoveEmailImage.addEventListener("click", () => {
+      selectedImageFile = null;
+      if (emailImageInput) emailImageInput.value = "";
+      if (emailImagePreview) emailImagePreview.style.display = "none";
+      if (emailPreviewImg) emailPreviewImg.src = "";
+    });
+  }
+
+  // Kéo thả ảnh vào Dropzone
+  if (emailAttachDropzone) {
+    ["dragenter", "dragover"].forEach(eventName => {
+      emailAttachDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        emailAttachDropzone.classList.add("dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+      emailAttachDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        emailAttachDropzone.classList.remove("dragover");
+      });
+    });
+
+    emailAttachDropzone.addEventListener("drop", (e) => {
+      const dt = e.dataTransfer;
+      const file = dt.files && dt.files[0];
+      if (file) handleSelectedFile(file);
+    });
+  }
+
+  // Hỗ trợ dán ảnh trực tiếp từ Clipboard (Ctrl + V) trên form
+  form.addEventListener("paste", (e) => {
+    const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+    if (!items) return;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type && items[i].type.indexOf("image") !== -1) {
+        const file = items[i].getAsFile();
+        if (file) {
+          handleSelectedFile(file);
+          showToast("Đã dán ảnh đề bài từ bộ nhớ tạm (Clipboard)!", "info");
+          break;
+        }
+      }
+    }
+  });
+
+  // Submit form gửi email thực tế
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const name = document.getElementById("studentName")?.value.trim();
@@ -2848,7 +2943,35 @@ function initContactForm() {
       return;
     }
 
-    // Lưu vào LocalStorage để lưu vết tin nhắn
+    // Hiển thị trạng thái đang gửi
+    if (emailSubmitStatus) {
+      emailSubmitStatus.style.display = "none";
+      emailSubmitStatus.innerHTML = "";
+    }
+
+    const originalBtnText = btnSubmit ? btnSubmit.innerHTML : "";
+    if (btnSubmit) {
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi thư đến Thầy Sáng...`;
+    }
+
+    // Chuẩn bị FormData gửi AJAX đến FormSubmit (gửi thật vào hòm thư luongthanhsang@gmail.com)
+    const formData = new FormData();
+    formData.append("Họ và tên học sinh", name);
+    formData.append("Lớp học", studentClass);
+    formData.append("Email nhận phản hồi", email);
+    formData.append("Chuyên đề Toán", topic);
+    formData.append("Nội dung câu hỏi", content);
+    formData.append("_subject", `[Toán THPT ThS. Sáng] Thắc mắc từ học sinh: ${name} (${studentClass}) - ${topic}`);
+    formData.append("_replyto", email);
+    formData.append("_captcha", "false");
+    formData.append("_template", "table");
+
+    if (selectedImageFile) {
+      formData.append("attachment", selectedImageFile);
+    }
+
+    // 1. Lưu bản sao vào LocalStorage để Thầy có thể xem lại offline bất kỳ lúc nào
     try {
       const savedQuestions = JSON.parse(localStorage.getItem("thaySang_questions") || "[]");
       savedQuestions.unshift({
@@ -2858,18 +2981,87 @@ function initContactForm() {
         email,
         topic,
         content,
+        hasAttachment: !!selectedImageFile,
+        attachmentName: selectedImageFile ? selectedImageFile.name : null,
         timestamp: new Date().toLocaleString("vi-VN")
       });
       localStorage.setItem("thaySang_questions", JSON.stringify(savedQuestions));
     } catch (err) {
-      console.log("LocalStorage save notice:", err);
+      console.warn("LocalStorage save notice:", err);
     }
 
-    // Thông báo phản hồi cho học sinh
-    alert(`Cảm ơn em ${name} (Lớp ${studentClass})!\nThầy Sáng đã nhận được nội dung thắc mắc về "${topic}".\nThầy sẽ nghiên cứu câu hỏi và phản hồi chi tiết cho em qua email: ${email} hoặc giải đáp trực tiếp trên lớp sớm nhất nhé!`);
+    // 2. Gửi qua FormSubmit AJAX endpoint đến luongthanhsang@gmail.com
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/luongthanhsang@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
 
-    form.reset();
-    showToast("Đã gửi câu hỏi thành công đến Thầy Sáng!", "success");
+      const result = await response.json().catch(() => ({}));
+
+      if (response.ok && (result.success === "true" || result.success === true || result.message)) {
+        // Gửi thành công mỹ mãn!
+        if (emailSubmitStatus) {
+          emailSubmitStatus.style.display = "block";
+          emailSubmitStatus.style.background = "#ecfdf5";
+          emailSubmitStatus.style.border = "1.5px solid #a7f3d0";
+          emailSubmitStatus.style.color = "#065f46";
+          emailSubmitStatus.innerHTML = `
+            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">
+              <i class="fa-solid fa-circle-check" style="color: #10b981;"></i> Đã gửi thư thành công đến Thầy Sáng!
+            </div>
+            <div>
+              Cảm ơn em <strong>${escapeHtml(name)}</strong> (Lớp ${escapeHtml(studentClass)}). Hòm thư <strong>luongthanhsang@gmail.com</strong> đã tiếp nhận câu hỏi của em. Thầy sẽ xem đề bài và phản hồi chi tiết về email <strong>${escapeHtml(email)}</strong> sớm nhất nhé!
+            </div>
+          `;
+        }
+
+        form.reset();
+        selectedImageFile = null;
+        if (emailImageInput) emailImageInput.value = "";
+        if (emailImagePreview) emailImagePreview.style.display = "none";
+        if (emailPreviewImg) emailPreviewImg.src = "";
+
+        showToast("✅ Đã gửi email thành công đến Hòm thư Thầy Sáng!", "success");
+      } else {
+        throw new Error(result.message || "Gửi thư qua máy chủ không thành công");
+      }
+    } catch (err) {
+      console.warn("FormSubmit send error:", err);
+
+      // Dự phòng an toàn: Vẫn thông báo đã ghi nhận và cung cấp nút mở trực tiếp ứng dụng Mail (Gmail)
+      const mailtoSubject = encodeURIComponent(`[Toán THPT ThS. Sáng] Hỏi bài: ${name} (${studentClass}) - ${topic}`);
+      const mailtoBody = encodeURIComponent(`Kính gửi ThS. Lương Thanh Sáng,\n\nEm tên là: ${name}\nLớp: ${studentClass}\nEmail: ${email}\nChuyên đề: ${topic}\n\nNội dung câu hỏi:\n${content}\n\n(Em có đính kèm ảnh đề bài theo thư này ạ)`);
+      const mailtoLink = `mailto:luongthanhsang@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+      if (emailSubmitStatus) {
+        emailSubmitStatus.style.display = "block";
+        emailSubmitStatus.style.background = "#f0f9ff";
+        emailSubmitStatus.style.border = "1.5px solid #bae6fd";
+        emailSubmitStatus.style.color = "#0369a1";
+        emailSubmitStatus.innerHTML = `
+          <div style="font-weight: 700; margin-bottom: 6px;">
+            <i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> Hệ thống đã lưu lại nội dung câu hỏi của em trên máy!
+          </div>
+          <p style="margin: 0 0 10px; font-size: 0.88rem;">
+            Để đảm bảo thư tới hòm thư Thầy Sáng nhanh nhất ngay cả khi mạng bị gián đoạn, em có thể bấm nút bên dưới để mở trực tiếp Gmail / Email trên máy và bấm Gửi:
+          </p>
+          <a href="${mailtoLink}" target="_blank" class="btn btn-sm btn-primary" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fa-solid fa-envelope-open-text"></i> Mở Gmail gửi ngay đến Thầy Sáng
+          </a>
+        `;
+      }
+
+      showToast("Đã lưu nội dung thắc mắc của em!", "info");
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalBtnText;
+      }
+    }
   });
 }
 

@@ -179,37 +179,13 @@
                   <div class="chat-msg-sender">ThS. Lương Thanh Sáng</div>
                   <div class="chat-bubble">
                     <p>Chào em! Thầy là <strong>AI Trợ Lý Toán Học của ThS. Lương Thanh Sáng</strong> (Tổ trưởng Toán - THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang).</p>
-                    <p>Thầy luôn đồng hành 24/7 để hướng dẫn em giải quyết mọi câu hỏi và bài tập:</p>
-                    <ul class="chat-intro-list">
-                      <li>📘 <strong>Đại số & Giải tích:</strong> Lượng giác, Cấp số cộng, Cấp số nhân, Khảo sát hàm số, Đạo hàm, Tích phân.</li>
-                      <li>📐 <strong>Hình học & Không gian:</strong> Vector, Hệ trục Oxyz, Khối đa diện, Khoảng cách & Góc.</li>
-                      <li>🎯 <strong>Luyện thi tốt nghiệp THPT 2026:</strong> Bám sát 3 dạng thức mới của Bộ GD&ĐT (Trắc nghiệm nhiều lựa chọn, Đúng/Sai, Trả lời ngắn).</li>
-                    </ul>
+                    <p>Thầy luôn đồng hành 24/7 để hướng dẫn em giải quyết mọi câu hỏi và bài tập môn Toán THPT.</p>
                     <div class="chat-plus-highlight-box">
                       <i class="fa-solid fa-circle-question" style="color: #d97706; font-size: 1.1rem; margin-right: 6px;"></i>
                       <span><strong>Hỏi bài bằng hình ảnh:</strong> Em chỉ cần bấm vào nút dấu <strong>"+"</strong> màu vàng đồng - xanh dương ở thanh bên dưới để tải ảnh chụp đề bài lên, hoặc bấm <code>Ctrl + V</code> dán ảnh trực tiếp, Thầy sẽ đọc đề và giải chi tiết từng bước cho em ngay!</span>
                     </div>
                   </div>
                   <div class="chat-msg-time">Vừa xong</div>
-                </div>
-              </div>
-
-              <!-- Gợi ý nhanh các câu hỏi thường gặp -->
-              <div class="chat-quick-suggestions" id="chatQuickSuggestions">
-                <div class="quick-title"><i class="fa-regular fa-lightbulb"></i> Gợi ý câu hỏi nhanh:</div>
-                <div class="quick-pill-list">
-                  <button type="button" class="quick-pill" data-query="Thầy giải giúp em phương trình lượng giác: sin(2x) = căn(3)/2">
-                    <i class="fa-solid fa-square-root-variable"></i> Giải PT $\sin 2x = \frac{\sqrt{3}}{2}$
-                  </button>
-                  <button type="button" class="quick-pill" data-query="Thầy hướng dẫn em công thức và cách tìm số hạng tổng quát của Cấp số nhân?">
-                    <i class="fa-solid fa-arrow-trend-up"></i> Số hạng tổng quát Cấp số nhân
-                  </button>
-                  <button type="button" class="quick-pill" data-query="Thầy hướng dẫn cách tính tổng n số hạng đầu của Cấp số cộng?">
-                    <i class="fa-solid fa-calculator"></i> Tổng $n$ số hạng Cấp số cộng
-                  </button>
-                  <button type="button" class="quick-pill" data-query="Thầy chia sẻ phương pháp làm tốt dạng bài trắc nghiệm Đúng / Sai môn Toán theo cấu trúc thi 2026?">
-                    <i class="fa-solid fa-graduation-cap"></i> Mẹo thi trắc nghiệm Toán 2026
-                  </button>
                 </div>
               </div>
             </div>
@@ -339,7 +315,40 @@
                 <textarea id="questionContent" class="form-control" rows="4" placeholder="Ghi rõ đề bài hoặc phần kiến thức em chưa hiểu rõ..." required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem;">
+              <!-- KHU VỰC ĐÍNH KÈM ẢNH ĐỀ BÀI CHO EMAIL -->
+              <div class="form-group">
+                <label class="form-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span><i class="fa-solid fa-image" style="color: #0284c7;"></i> Đính kèm ảnh đề bài / bài giải (Tùy chọn)</span>
+                  <span style="font-size: 0.8rem; font-weight: normal; color: #64748b;">(Hỗ trợ PNG, JPG, WebP tối đa 10MB)</span>
+                </label>
+                
+                <div class="email-attach-dropzone" id="emailAttachDropzone">
+                  <input type="file" id="emailImageInput" accept="image/*" style="display: none;">
+                  <button type="button" class="btn-attach-email" onclick="document.getElementById('emailImageInput').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Chọn ảnh từ máy
+                  </button>
+                  <span style="font-size: 0.85rem; color: #64748b;">hoặc kéo thả ảnh vào đây / dán ảnh (Ctrl + V)</span>
+                </div>
+
+                <!-- Preview ảnh đã chọn trong form Email -->
+                <div class="email-image-preview" id="emailImagePreview" style="display: none; margin-top: 10px;">
+                  <div class="preview-card" style="display: flex; align-items: center; gap: 12px; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 8px 14px;">
+                    <img id="emailPreviewImg" src="" alt="Ảnh đính kèm" style="width: 56px; height: 56px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <div style="flex: 1; min-width: 0;">
+                      <div id="emailPreviewName" style="font-weight: 600; font-size: 0.88rem; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></div>
+                      <div id="emailPreviewInfo" style="font-size: 0.78rem; color: #64748b;"></div>
+                    </div>
+                    <button type="button" id="btnRemoveEmailImage" style="background: #fee2e2; color: #ef4444; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;" title="Xóa ảnh này">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thông báo kết quả gửi email -->
+              <div id="emailSubmitStatus" style="display: none; margin-bottom: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.92rem; line-height: 1.5;"></div>
+
+              <button type="submit" id="btnSubmitContact" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem;">
                 <i class="fa-solid fa-paper-plane"></i> Gửi Thắc Mắc Đến Hòm Thư Thầy Sáng
               </button>
             </form>
