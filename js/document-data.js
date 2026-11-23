@@ -130,6 +130,22 @@ const DOCUMENTS_DATA = [
 
   // ==================== 3. CÁC CHƯƠNG, CÁC BÀI LỚP 12 ====================
   {
+    id: "doc-12-05",
+    group: "lop12",
+    grade: "12",
+    category: "hinhhoc",
+    title: "Toán 12 | Chương II: Vectơ và Hệ Trục Tọa Độ Trong Không Gian (Oxyz) - Toàn Tập Lý Thuyết, Phương Pháp Tư Duy Thực Chiến & Ứng Dụng Thực Tế (56 trang) - ThS. Lương Thanh Sáng",
+    description: "Cẩm nang chuyên đề toàn tập Toán 12 Chương II: Vectơ và Hệ trục tọa độ trong không gian (Oxyz) do ThS. Lương Thanh Sáng (Tổ trưởng Toán - THPT Nguyễn Văn Thoại, Thoại Sơn, An Giang) trực tiếp biên soạn theo chuẩn chương trình GDPT 2018 và cấu trúc đề thi tốt nghiệp mới nhất (56 trang trọn bộ). Tài liệu bao quát toàn diện 3 bài học nền tảng cùng chuyên đề bài toán thực tiễn đỉnh cao: Bài 6 (Vectơ trong không gian, quy tắc hình hộp, quy tắc 3 điểm, tích vô hướng, mô hình động học lực kéo xe rùa, góc nâng Flycam, lực nâng tàu bay Boeing 787); Bài 7 (Khung tọa độ Descartes Oxyz, tọa độ điểm và vectơ, hình chiếu vuông góc, điểm đối xứng, mô hình định vị Radar phòng không, khinh khí cầu đo gió, tọa độ định vị tàu ngầm); Bài 8 (Biểu thức tọa độ của các phép toán vectơ, tích vô hướng, độ dài, khoảng cách, tích có hướng và ứng dụng tính diện tích, thể tích khối chóp, khối hộp; giải mã bài toán cân bằng hệ 3 dây cáp treo chịu lực và thiết kế nhà gỗ Homestay 3D); Chuyên đề bài toán thực tiễn nâng cao liên môn (Chùm vệ tinh LEO truyền dẫn Internet tầm thấp, cứu nạn trực thăng dốc núi, phao thu hải dương học, robot kho bãi tự động). Tích hợp toàn diện khung 'Phương pháp tư duy thực chiến', 'Bẫy kinh điển - Phân tích lỗi sai' và ngân hàng trắc nghiệm đánh giá năng lực 3 Phần chuẩn Bộ GD&ĐT (Nhiều lựa chọn, Đúng/Sai, Trả lời ngắn).",
+    pages: 56,
+    size: "727 KB",
+    type: "pdf",
+    date: "23/11/2026",
+    downloads: 1680,
+    previewUrl: "https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview",
+    downloadUrl: "https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/view?usp=sharing",
+    tag: "Chương 2 Oxyz Trọn Bộ (56 trang)"
+  },
+  {
     id: "doc-12-01",
     group: "lop12",
     grade: "12",
