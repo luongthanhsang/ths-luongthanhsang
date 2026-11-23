@@ -7213,7 +7213,7 @@ function initTeacherAiChat() {
   if (chatInput) {
     chatInput.addEventListener("input", function() {
       this.style.height = "auto";
-      this.style.height = Math.min(this.scrollHeight, 120) + "px";
+      this.style.height = Math.max(72, Math.min(this.scrollHeight, 140)) + "px";
     });
 
     chatInput.addEventListener("keydown", function(e) {
@@ -7253,6 +7253,10 @@ function initTeacherAiChat() {
         currentSelectedImage = null;
         if (imagePreviewArea) imagePreviewArea.style.display = "none";
         if (fileInput) fileInput.value = "";
+        if (chatInput) {
+          chatInput.value = "";
+          chatInput.style.height = "72px";
+        }
       }
     });
   }
@@ -7398,7 +7402,7 @@ function initTeacherAiChat() {
     // Reset input và preview
     if (chatInput) {
       chatInput.value = "";
-      chatInput.style.height = "auto";
+      chatInput.style.height = "72px";
       chatInput.placeholder = "Nhập câu hỏi bài tập, hoặc nhấn dấu '+' để gửi ảnh đề bài... (Enter để gửi)";
     }
     if (imagePreviewArea) imagePreviewArea.style.display = "none";
