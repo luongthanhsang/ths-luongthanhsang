@@ -196,6 +196,54 @@ const DOCUMENTS_DATA = [
 
   // ==================== 4. ĐỀ KIỂM TRA (ĐỊNH KÌ & THƯỜNG XUYÊN) ====================
   {
+    id: "doc-kt-hk1-toan12-2026",
+    group: "dekiemtra",
+    grade: "12",
+    category: "dekiemtra",
+    title: "Đề Kiểm Tra Cuối Học Kì I Năm Học 2025 - 2026 Môn Toán 12 (Mã Đề: 0102) - THPT Nguyễn Văn Thoại (Kèm Lời Giải Chi Tiết & Bình Luận Sư Phạm)",
+    description: "Đề kiểm tra định kì Cuối Học kỳ I môn Toán 12 năm học 2025 – 2026 chính thức của Trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) do ThS. Lương Thanh Sáng trực tiếp biên soạn lời giải (12 trang trọn bộ). Đề thi chuẩn cấu trúc ma trận định hướng mới 100% của Bộ Giáo dục & Đào tạo gồm 3 phần: Phần I (12 câu trắc nghiệm 4 lựa chọn: Đồ thị bậc ba, thống kê ghép nhóm ném tạ, tích có hướng Oxyz, cực trị, GTLN–GTNN, tiệm cận, quy tắc hình hộp); Phần II (04 câu Đúng/Sai: Tọa độ tam giác Oxyz, Khảo sát hàm hypebol phân thức bậc hai/bậc nhất, Cực trị bậc ba, Độ phân tán mẫu ghép nhóm chiều cao); Phần III (06 câu trả lời ngắn: Tốc độ đàn ong Logistic, Thiết kế dây cáp treo cầu vòm thép Parabol & bậc ba, Điểm vàng tăng trưởng nóng dự án đô thị PMI, Quỹ đạo máy bay Oxyz, Cú bổ nhào xé nước săn mồi 3D của chim bói cá, Nồng độ cực đại của thuốc trong máu). Tích hợp: Bảng ma trận, Hướng dẫn giải chi tiết, Phân tích bẫy đề thi và Cẩm nang độc quyền hướng dẫn bấm máy tính Casio (Mode 5, 6, 8, Shift Solve).",
+    pages: 12,
+    size: "215 KB",
+    type: "pdf",
+    date: "23/11/2026",
+    downloads: 2250,
+    previewUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview",
+    downloadUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/view?usp=sharing",
+    tag: "Định kì Cuối kì 1 (Mã 0102 - 12 trang)"
+  },
+  {
+    id: "doc-kt-hk1-toan11-2026",
+    group: "dekiemtra",
+    grade: "11",
+    category: "dekiemtra",
+    title: "Đề Kiểm Tra Cuối Học Kì I Năm Học 2025 - 2026 Môn Toán 11 (Mã Đề: 0104) - THPT Nguyễn Văn Thoại (Kèm Đáp Án & Hướng Dẫn Giải Chi Tiết Chuẩn Barem)",
+    description: "Đề kiểm tra định kì Cuối Học kỳ I môn Toán 11 năm học 2025 – 2026 chính thức của Trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) kèm Bảng đáp án, Ma trận phân tích và Lời giải chi tiết công phu 14 trang do ThS. Lương Thanh Sáng trực tiếp biên soạn theo chuẩn chương trình GDPT 2018: Phần I (16 câu trắc nghiệm nhiều lựa chọn: Công thức lượng giác, Cấp số nhân lùi vô hạn hình học, Hình lăng trụ tam giác, Ứng dụng định lý Talet đo mực nước bồn bê tông bằng sào tre, Giới hạn, Dao động điều hòa lò xo, Khấu hao xe ô tô theo năm, Cấp số cộng); Phần II (03 câu Đúng/Sai: Quan hệ song song hình chóp đáy hình bình hành, Bài toán tài chính tăng lương & tiết kiệm qua chuỗi sai phân lồng nhau, Cấp số cộng); Phần III (03 câu Tự luận barem 0,25đ: Giải PT lượng giác tang, Kế hoạch đi bộ duy trì sức khỏe & tổng cấp số cộng, Chứng minh đường thẳng song song mặt phẳng). Kèm khung 'Nhận xét sư phạm của Thầy Sáng' hướng dẫn kỹ thuật Casio Table quét nghiệm và dặn dò biểu điểm chuẩn tuyệt đối.",
+    pages: 14,
+    size: "212 KB",
+    type: "pdf",
+    date: "23/11/2026",
+    downloads: 2180,
+    previewUrl: "https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/preview",
+    downloadUrl: "https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/view?usp=sharing",
+    tag: "Định kì Cuối kì 1 (Mã 0104 - 14 trang)"
+  },
+  {
+    id: "doc-kt-hk1-toan10-2026",
+    group: "dekiemtra",
+    grade: "10",
+    category: "dekiemtra",
+    title: "Đề Kiểm Tra Cuối Học Kì I Năm Học 2025 - 2026 Môn Toán 10 (Mã Đề: 0104) - THPT Nguyễn Văn Thoại (Kèm Ma Trận, Đáp Án & Bình Luận Sư Phạm 100%)",
+    description: "Đề kiểm tra định kì Cuối Học kỳ I môn Toán 10 năm học 2025 – 2026 chính thức của Trường THPT Nguyễn Văn Thoại (Thoại Sơn, An Giang) do ThS. Lương Thanh Sáng trực tiếp biên soạn lời giải và bình luận sư phạm (12 trang đầy đủ). Đề thi bao quát toàn diện chương trình GDPT 2018: Phần I (16 câu trắc nghiệm: Hàm số bậc hai nghịch biến, Định lý côsin tam giác, Vận tốc máy bay gặp gió Đông Bắc, Biểu đồ Ven thích Toán - Văn, Tọa độ đỉnh Parabol, Tính tiền điện sinh hoạt bậc thang lũy tiến 6 bậc, BPT hai ẩn, Điểm mút tập hợp, Xét dấu tam thức, Vectơ hình bình hành, Giải phương trình chứa căn, Bài toán tối ưu doanh thu tour Đà Lạt); Phần II (03 câu Đúng/Sai: Quy hoạch tuyến tính tối ưu chi phí nguyên liệu sản xuất chiết xuất chất A và B, Vectơ hình chữ nhật, Khảo sát đồ thị Parabol); Phần III (02 câu Tự luận: Lập BBT xét dấu tam thức bậc hai & giải BPT, Bài toán thực tế đo góc ngọn hải đăng tính khoảng cách bờ biển bằng định lý Sin). Tích hợp ma trận chuẩn, barem 0,25đ Sở GD&ĐT, cảnh báo bẫy đề thi và mẹo Casio fx-580VN X.",
+    pages: 12,
+    size: "190 KB",
+    type: "pdf",
+    date: "23/11/2026",
+    downloads: 1960,
+    previewUrl: "https://drive.google.com/file/d/1W_DhY7oTjnyValgmKH6RHxeEi2FEKI1p/preview",
+    downloadUrl: "https://drive.google.com/file/d/1W_DhY7oTjnyValgmKH6RHxeEi2FEKI1p/view?usp=sharing",
+    tag: "Định kì Cuối kì 1 (Mã 0104 - 12 trang)"
+  },
+  {
     id: "doc-11-00-tk5",
     group: "dekiemtra",
     grade: "11",
@@ -274,22 +322,6 @@ const DOCUMENTS_DATA = [
     previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
     downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
     tag: "Định kì 45 phút"
-  },
-  {
-    id: "doc-kt-hk1-12",
-    group: "dekiemtra",
-    grade: "12",
-    category: "dekiemtra",
-    title: "Đề Kiểm Tra Cuối Học Kì I Môn Toán Lớp 12 - THPT Nguyễn Văn Thoại (Có ma trận & lời giải)",
-    description: "Đề kiểm tra định kì cuối Học kì I bao quát toàn bộ nội dung Đạo hàm, Khảo sát hàm số, Khối đa diện và Tọa độ Oxyz. Thời gian làm bài 90 phút có bảng barem chấm điểm chi tiết.",
-    pages: 14,
-    size: "1.9 MB",
-    type: "pdf",
-    date: "15/11/2026",
-    downloads: 1670,
-    previewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    downloadUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view?usp=sharing",
-    tag: "Định kì Cuối kì 1"
   },
 
   // ==================== 5. ĐỀ THI TNTHPT (CÁC NĂM TRƯỚC & THI THỬ) ====================
