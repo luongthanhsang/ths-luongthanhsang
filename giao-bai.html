@@ -1187,6 +1187,303 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+
+    /* ==================== PHÂN QUYỀN GIÁO VIÊN & CẤU HÌNH AZOTA 100% ==================== */
+    .teacher-auth-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .teacher-auth-chip.logged-in {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+    .teacher-auth-chip.student-mode {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-teacher-auth-action {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .btn-teacher-auth-action.login {
+      background: #0284c7;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .btn-teacher-auth-action.login:hover {
+      background: #0369a1;
+    }
+    .btn-logout-teacher {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .btn-logout-teacher:hover {
+      background: #fca5a5;
+    }
+
+    /* Anti Quiz Catalog */
+    .anti-quiz-list-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .anti-quiz-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .anti-quiz-card:hover {
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+      transform: translateY(-2px);
+    }
+    .anti-filter-chip {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .anti-filter-chip.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #0284c7;
+    }
+
+    /* Azota Full Config Dialog */
+    .azota-config-dialog {
+      max-width: 860px !important;
+      width: 95% !important;
+      border-radius: 16px !important;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+    .azota-cfg-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .azota-cfg-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+    .cfg-pill-toggle {
+      display: inline-flex;
+      background: #e2e8f0;
+      border-radius: 999px;
+      padding: 3px;
+    }
+    .cfg-pill-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cfg-pill-btn.active {
+      background: #1e3a8a;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+    }
+    .cfg-hint-banner {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 0.8rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cfg-input, .cfg-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: #ffffff;
+      transition: border-color 0.2s;
+    }
+    .cfg-input:focus, .cfg-select:focus {
+      outline: none;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+    }
+    .cfg-radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .cfg-radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #334155;
+      cursor: pointer;
+    }
+    .cfg-keyboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .cfg-keyboard-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #ffffff;
+    }
+    .cfg-keyboard-card:hover {
+      border-color: #93c5fd;
+    }
+    .cfg-keyboard-card.active {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+    .kb-check-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.75rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .cfg-keyboard-card.active .kb-check-icon {
+      display: flex;
+    }
+    .btn-azota-subtle {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-azota-subtle.active, .btn-azota-subtle:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      border-color: #7dd3fc;
+    }
+    .btn-azota-draft {
+      background: #f97316;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-azota-draft:hover {
+      background: #ea580c;
+    }
+    .btn-azota-publish-final {
+      background: #1e3a8a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+      transition: all 0.2s;
+    }
+    .btn-azota-publish-final:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
+    }
+    .btn-azota-back-nav {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+    }
+    .btn-azota-back-nav:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .badge-new-pill {
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body>
@@ -1245,13 +1542,14 @@
         <div class="azota-top-bar">
           <div class="azota-top-title">
             <i class="fa-solid fa-list-check"></i>
-            <span>Danh Sách Đề Thi Đã Giao (Cấu Trúc 2018)</span>
+            <span>Danh Sách Đề Thi Đã Giao</span>
             <span id="examCountBadge" class="azota-card-code" style="margin-left: 6px;">0 đề</span>
           </div>
 
           <div class="azota-top-actions">
+            <div id="teacherAuthChipWrap" style="display: inline-flex; align-items: center;"></div>
             <button class="btn-create-exam" id="btnOpenCreateModal">
-              <i class="fa-solid fa-plus"></i> Tạo bài tập / Đề thi 2018 mới
+              <i class="fa-solid fa-plus"></i> Tạo bài tập / Đề thi
             </button>
           </div>
         </div>
@@ -1571,7 +1869,7 @@
         <div class="upload-tab-btns">
           <button class="upload-tab-btn active" id="tabBtnDrive"><i class="fa-brands fa-google-drive"></i> Link Google Drive / URL</button>
           <button class="upload-tab-btn" id="tabBtnUpload"><i class="fa-solid fa-upload"></i> Upload từ máy tính</button>
-          <button class="upload-tab-btn" id="tabBtnSample"><i class="fa-solid fa-book-bookmark"></i> Đề mẫu Thầy Sáng</button>
+          <button class="upload-tab-btn" id="tabBtnAntiQuiz"><i class="fa-solid fa-cloud-arrow-up"></i> Upload từ Anti</button>
         </div>
 
         <div id="tabContentDrive">
@@ -1601,30 +1899,22 @@
           </div>
         </div>
 
-        <div id="tabContentSample" style="display: none;">
-          <p style="font-size: 0.85rem; color: #475569; margin-bottom: 12px;">Chọn một trong các đề cương/chuyên đề có sẵn của Thầy Sáng để tạo thử nghiệm nhanh:</p>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)', 'standard_2018')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
-              <div style="text-align: left;">
-                <div style="font-weight: 700; color: #0f172a;">Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)</div>
-                <div style="font-size: 0.75rem; color: #64748b;">3 Dạng thức: 12 câu P1 (3.0đ) • 4 câu P2 Đ/S (4.0đ) • 6 câu P3 TLN (3.0đ)</div>
-              </div>
-            </button>
-            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview', 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)', 'mcq_only')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
-              <div style="text-align: left;">
-                <div style="font-weight: 700; color: #0f172a;">Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)</div>
-                <div style="font-size: 0.75rem; color: #64748b;">1 Dạng thức: 10 câu Phần I (10.0đ - mỗi câu 1.0đ)</div>
-              </div>
-            </button>
-            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)', 'standard_2018')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
-              <div style="text-align: left;">
-                <div style="font-weight: 700; color: #0f172a;">Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)</div>
-                <div style="font-size: 0.75rem; color: #64748b;">3 Dạng thức: 12 câu P1 (3.0đ) • 4 câu P2 Đ/S (4.0đ) • 6 câu P3 TLN (3.0đ)</div>
-              </div>
-            </button>
+        <div id="tabContentAntiQuiz" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <p style="font-size: 0.85rem; color: #475569; margin: 0;">
+              <i class="fa-solid fa-sparkles" style="color: #0284c7;"></i> Chọn đề thi trực tuyến từ kho đề Anti đã biên soạn sẵn:
+            </p>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="anti-filter-chip active" id="chipGradeAll" onclick="filterAntiQuizGrade('all')">Tất cả</button>
+              <button type="button" class="anti-filter-chip" id="chipGrade12" onclick="filterAntiQuizGrade('12')">Toán 12</button>
+              <button type="button" class="anti-filter-chip" id="chipGrade11" onclick="filterAntiQuizGrade('11')">Toán 11</button>
+            </div>
+          </div>
+          <div class="anti-quiz-list-container" id="antiQuizListContainer">
+            <!-- Render danh sách đề Anti từ EXAMS_DATABASE bằng JS -->
+          </div>
+          <div style="margin-top: 10px; font-size: 0.8rem; color: #0369a1; background: #f0f9ff; padding: 10px 14px; border-radius: 8px; border: 1px solid #bae6fd;">
+            <i class="fa-solid fa-circle-check" style="color: #0284c7;"></i> <strong>Đề thi Trắc nghiệm Online tương tác:</strong> Đề được cấu hình xuất bản từ Anti sẽ cho phép học sinh làm bài Online trực tiếp, tương tác chọn đáp án trên câu hỏi, tự động chấm điểm và đếm ngược theo quy chuẩn Azota!
           </div>
         </div>
       </div>
@@ -2144,6 +2434,465 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL XÁC THỰC GIÁO VIÊN (THS. LƯƠNG THANH SÁNG) ==================== -->
+  <div class="azota-modal-overlay" id="teacherAuthModal" style="display: none; z-index: 100000;">
+    <div class="azota-modal-card" style="max-width: 440px;">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #1e3a8a, #0284c7); color: #fff;">
+        <div class="azota-modal-title" style="color: #fff;">
+          <i class="fa-solid fa-chalkboard-user"></i> Xác Thực Quyền Giáo Viên
+        </div>
+        <button class="azota-modal-close" onclick="closeTeacherAuthModal()" style="color: #fff;">&times;</button>
+      </div>
+
+      <div class="azota-modal-body" style="padding: 24px 20px;">
+        <div style="text-align: center; margin-bottom: 18px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 10px;">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; color: #0f172a; margin-bottom: 6px;">Khu Vực Quản Trị Của Thầy Sáng</h4>
+          <p style="font-size: 0.82rem; color: #64748b; line-height: 1.5;">Vui lòng nhập mật khẩu Giáo viên để mở quyền tạo đề, chỉnh sửa, xóa đề và xem bảng điểm thống kê.</p>
+        </div>
+
+        <div class="settings-group">
+          <label for="teacherAuthPwdInput" style="font-weight: 600;">Mật khẩu Giáo viên:</label>
+          <div style="position: relative;">
+            <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 42px;">
+            <button type="button" onclick="toggleTeacherPwdVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
+              <i class="fa-solid fa-eye" id="teacherPwdEyeIcon"></i>
+            </button>
+          </div>
+          <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 6px;">* Mật khẩu mặc định: <code>thaysang</code></div>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer" style="padding: 12px 20px;">
+        <button type="button" class="editor-back-btn" onclick="closeTeacherAuthModal()">Hủy bỏ</button>
+        <button type="button" class="btn-create-exam" onclick="submitTeacherAuth()" style="padding: 9px 20px;">
+          <i class="fa-solid fa-key"></i> Xác nhận & Mở quyền
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL CẤU HÌNH ĐỀ THI CHUẨN 100% AZOTA (ẢNH 8-14) ==================== -->
+  <div class="azota-modal-overlay" id="azotaFullConfigModal" style="display: none; z-index: 99999;">
+    <div class="azota-modal-card azota-config-dialog">
+      <!-- Header -->
+      <div class="azota-modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 14px 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <button type="button" class="btn-azota-back-nav" onclick="closeAzotaConfigModal()">
+            <i class="fa-solid fa-chevron-left"></i> Quay lại
+          </button>
+          <div>
+            <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem;" id="cfgTopExamTitle">Tên đề thi: Đề Kiểm Tra...</div>
+            <div style="font-size: 0.8rem; color: #64748b;">Mã đề thi: <strong id="cfgTopExamCode" style="color: #0284c7; font-family: monospace;">AZ-XXXXX</strong></div>
+          </div>
+        </div>
+        <button class="azota-modal-close" onclick="closeAzotaConfigModal()">&times;</button>
+      </div>
+
+      <div class="azota-modal-body" style="padding: 20px; max-height: calc(88vh - 130px); overflow-y: auto;">
+        <!-- Card 0: Loại cấu hình (Pill tab) -->
+        <div class="azota-cfg-card">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
+            <span style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">Loại cấu hình</span>
+            <div class="cfg-pill-toggle">
+              <button type="button" class="cfg-pill-btn active" id="btnCfgTypeExam" onclick="switchConfigType('exam')">Kiểm tra</button>
+              <button type="button" class="cfg-pill-btn" id="btnCfgTypePractice" onclick="switchConfigType('practice')">Luyện tập</button>
+            </div>
+          </div>
+          <div class="cfg-hint-banner" id="cfgTypeHintBanner">
+            <i class="fa-solid fa-circle-info"></i> Cấu hình này thường dùng cho các kỳ thi nghiêm túc, cần bảo mật đáp án và đề thi cho tới khi kết thúc kỳ thi.
+          </div>
+        </div>
+
+        <!-- Card 1: CẤU HÌNH CHUNG (Ảnh 8, 10) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-gear" style="color: #0284c7;"></i> Cấu hình chung</h3>
+          
+          <div class="settings-group">
+            <label for="azotaCfgTitle">Tên đề thi: *</label>
+            <input type="text" id="azotaCfgTitle" class="cfg-input" placeholder="Nhập tên đề thi">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="settings-group">
+              <label for="azotaCfgGrade">Khối học:</label>
+              <select id="azotaCfgGrade" class="cfg-select">
+                <option value="12">Khối 12</option>
+                <option value="11">Khối 11</option>
+                <option value="10">Khối 10</option>
+              </select>
+            </div>
+            <div class="settings-group">
+              <label for="azotaCfgSubject">Môn học:</label>
+              <select id="azotaCfgSubject" class="cfg-select">
+                <option value="Toán">Toán</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <label for="azotaCfgPurpose">Mục đích tạo đề:</label>
+            <select id="azotaCfgPurpose" class="cfg-select">
+              <option value="kttx">Kiểm tra thường xuyên (15 phút)</option>
+              <option value="ontap">Ôn tập theo chương bài</option>
+              <option value="ktgk">Kiểm tra giữa kì</option>
+              <option value="ktck">Kiểm tra cuối kì</option>
+              <option value="kscl">Khảo sát chất lượng</option>
+              <option value="thithu">Thi thử tốt nghiệp THPT</option>
+              <option value="other">Mục đích khác</option>
+            </select>
+          </div>
+
+          <div class="settings-group">
+            <label for="azotaCfgDuration">Thời gian làm bài (phút): <i class="fa-regular fa-circle-question" title="Nhập 0 để không giới hạn thời gian làm bài"></i></label>
+            <input type="number" id="azotaCfgDuration" class="cfg-input" value="15" min="0" max="300">
+            <div class="hint">Nhập 0 để không giới hạn thời gian</div>
+          </div>
+
+          <div class="settings-group">
+            <label>Thời gian giao đề: <i class="fa-regular fa-circle-question" title="Thời gian bắt đầu và kết thúc làm bài"></i></label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: center;">
+              <div>
+                <span style="font-size: 0.75rem; color: #64748b; display: block; margin-bottom: 2px;">Từ:</span>
+                <input type="datetime-local" id="azotaCfgOpenTime" class="cfg-input">
+              </div>
+              <div>
+                <span style="font-size: 0.75rem; color: #64748b; display: block; margin-bottom: 2px;">Đến:</span>
+                <input type="datetime-local" id="azotaCfgCloseTime" class="cfg-input">
+              </div>
+              <button type="button" class="btn-azota-subtle" onclick="resetConfigDeliveryTime()" title="Đặt lại không giới hạn thời gian" style="margin-top: 16px;">
+                <i class="fa-solid fa-rotate-right"></i> Đặt lại
+              </button>
+            </div>
+            <div class="hint">Chỉ được phép gia hạn thêm 'Thời gian giao đề' hoặc 'Thời gian làm bài'. Bỏ trống nếu không muốn giới hạn thời gian.</div>
+          </div>
+        </div>
+
+        <!-- Card 2: PHÂN QUYỀN & BẢO MẬT (Ảnh 11) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Phân quyền & Bảo mật</h3>
+
+          <div class="settings-group">
+            <label>Ai được phép làm:</label>
+            <div class="cfg-radio-group">
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgTarget" value="all" checked>
+                <span>Tất cả mọi người</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgTarget" value="class">
+                <span>Giao theo lớp</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgTarget" value="student">
+                <span>Giao theo học sinh</span>
+              </label>
+            </div>
+            <div class="cfg-hint-banner" style="margin-top: 8px;">
+              <i class="fa-solid fa-circle-info"></i> Mọi học sinh đều có thể tìm kiếm và tham gia đề thi, kể cả học sinh không thuộc lớp. Lựa chọn này cho phép những học sinh không đăng ký/đăng nhập tài khoản vẫn có thể tham gia thi.
+            </div>
+          </div>
+
+          <div class="toggle-row" style="padding: 10px 0; border-top: 1px dashed #e2e8f0; border-bottom: 1px dashed #e2e8f0; margin: 12px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Thi tại phòng máy</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Sau khi học sinh nộp bài hệ thống sẽ tự động đăng xuất tài khoản để đảm bảo học sinh khác khi sử dụng cùng máy tính sẽ không bị nhầm tài khoản</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgComputerLab">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-group">
+            <label for="azotaCfgMaxAttempts">Số lượt làm:</label>
+            <input type="number" id="azotaCfgMaxAttempts" class="cfg-input" value="0" min="0" placeholder="0">
+            <div class="hint">*Nhập 0 hoặc để trống để không giới hạn số lượt làm đề thi</div>
+          </div>
+
+          <div class="settings-group">
+            <label for="azotaCfgPassword">Mật khẩu đề thi:</label>
+            <input type="text" id="azotaCfgPassword" class="cfg-input" placeholder="Nhập mật khẩu (để trống nếu không yêu cầu)...">
+          </div>
+
+          <div class="settings-group">
+            <label>Giám sát tự động:</label>
+            <div class="cfg-radio-group">
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgAntiCheat" value="off">
+                <span>Tắt</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgAntiCheat" value="screen" checked>
+                <span>Giám sát thoát màn hình <i class="fa-regular fa-circle-question" title="Đếm số lần học sinh chuyển tab hoặc rời màn hình"></i></span>
+              </label>
+            </div>
+            <div class="hint">Hỗ trợ giám sát thoát màn hình tốt nhất trên trình duyệt máy tính và điện thoại</div>
+          </div>
+
+          <div class="toggle-row" style="padding: 10px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Xác thực thông tin học sinh</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Khi học sinh vào làm bài sẽ phải khai báo Họ tên, Lớp học</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgRequireInfo" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" style="padding: 10px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Chỉ thi trên ứng dụng an toàn <span class="badge-new-pill">Mới</span></div>
+              <div style="font-size: 0.78rem; color: #64748b;">Khóa các phím tắt sao chép, chuột phải và chụp màn hình</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgSafeBrowser">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Card 3: ĐẢO CÂU HỎI & BÀN PHÍM (Ảnh 12) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-shuffle" style="color: #8b5cf6;"></i> Đảo câu hỏi và đáp án</h3>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Đảo câu hỏi và đáp án</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Hệ thống sẽ tự động đảo các câu hỏi và thứ tự đáp án trong mỗi câu hỏi trong mỗi lần học sinh truy cập làm bài.</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgShuffle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-group" style="margin-top: 10px;">
+            <label>Đảo vị trí nhóm:</label>
+            <div class="cfg-radio-group">
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgShuffleGroup" value="none" checked>
+                <span>Không đảo (Giữ nguyên vị trí các nhóm câu hỏi như trong đề gốc)</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgShuffleGroup" value="all">
+                <span>Đảo tất cả các nhóm</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Ẩn tiêu đề nhóm</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Hệ thống sẽ ẩn toàn bộ tiêu đề nhóm có trong đề thi khi học sinh thi Online</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgHideGroupTitle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Các phần bắt đầu từ câu 1</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Đánh số câu hỏi từng phần độc lập (Câu 1, 2, 3...) theo quy định Bộ GD&ĐT</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgResetQNum" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <label style="font-weight: 600; color: #1e293b; margin-bottom: 8px; display: block;">Cấu hình bàn phím nhập liệu:</label>
+            <div class="cfg-keyboard-grid">
+              <div class="cfg-keyboard-card active" id="kbCardBasic" onclick="selectKeyboardType('basic')">
+                <i class="fa-regular fa-keyboard" style="font-size: 1.4rem; color: #0284c7; margin-bottom: 6px;"></i>
+                <div style="font-weight: 700; font-size: 0.85rem; color: #0f172a;">Bàn phím cơ bản</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Bàn phím văn bản thông thường</div>
+                <div class="kb-check-icon"><i class="fa-solid fa-check"></i></div>
+              </div>
+              <div class="cfg-keyboard-card" id="kbCardMath" onclick="selectKeyboardType('math')">
+                <span style="font-size: 1.3rem; font-weight: 800; font-style: italic; color: #0284c7; margin-bottom: 4px;">fx</span>
+                <div style="font-weight: 700; font-size: 0.85rem; color: #0f172a;">Bàn phím toán học</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Hỗ trợ nhập công thức toán học</div>
+                <div class="kb-check-icon"><i class="fa-solid fa-check"></i></div>
+              </div>
+              <div class="cfg-keyboard-card" id="kbCardRich" onclick="selectKeyboardType('rich')">
+                <span style="font-size: 1.3rem; font-weight: 800; color: #64748b; margin-bottom: 4px;">T</span>
+                <div style="font-weight: 700; font-size: 0.85rem; color: #0f172a;">Soạn thảo văn bản</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Hỗ trợ định dạng phong phú</div>
+                <div class="kb-check-icon"><i class="fa-solid fa-check"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: CẤU HÌNH THANG ĐIỂM (Ảnh 13) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-scale-balanced" style="color: #f59e0b;"></i> Cấu hình thang điểm</h3>
+          <p style="font-size: 0.82rem; color: #475569; margin-bottom: 12px;">Cấu hình thang điểm cho câu hỏi đúng sai: Chức năng này cho phép Người dùng có thể cấu hình % số điểm mong muốn với từng câu trả lời đúng với loại câu hỏi đúng sai.</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="azotaCfgP2_1">Trả lời đúng 1 ý:</label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="number" id="azotaCfgP2_1" class="cfg-input" value="10" min="0" max="100">
+                <span style="font-weight: 700; color: #475569;">%</span>
+              </div>
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="azotaCfgP2_2">Trả lời đúng 2 ý:</label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="number" id="azotaCfgP2_2" class="cfg-input" value="25" min="0" max="100">
+                <span style="font-weight: 700; color: #475569;">%</span>
+              </div>
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="azotaCfgP2_3">Trả lời đúng 3 ý:</label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="number" id="azotaCfgP2_3" class="cfg-input" value="50" min="0" max="100">
+                <span style="font-weight: 700; color: #475569;">%</span>
+              </div>
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="azotaCfgP2_4">Trả lời đúng 4 ý:</label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="number" id="azotaCfgP2_4" class="cfg-input" value="100" min="0" max="100">
+                <span style="font-weight: 700; color: #475569;">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-azota-subtle active" id="btnPresetMoet" onclick="applyAzotaP2Preset('moet')">
+              <i class="fa-solid fa-graduation-cap"></i> Chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
+            </button>
+            <button type="button" class="btn-azota-subtle" id="btnPresetEqual" onclick="applyAzotaP2Preset('equal')">
+              <i class="fa-solid fa-equals"></i> Chia đều (25% - 50% - 75% - 100%)
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5: ĐIỂM VÀ ĐÁP ÁN KHI LÀM XONG (Ảnh 13) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-square-poll-vertical" style="color: #0284c7;"></i> Điểm và đáp án khi làm xong</h3>
+
+          <div class="settings-group">
+            <label>Cho xem điểm:</label>
+            <div class="cfg-radio-group">
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewScore" value="none">
+                <span>Không</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewScore" value="after_submit" checked>
+                <span>Khi làm bài xong</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewScore" value="after_all">
+                <span>Khi tất cả thi xong</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <label>Cho xem đề thi và đáp án:</label>
+            <div class="cfg-radio-group">
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewSolution" value="none">
+                <span>Không</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewSolution" value="after_submit" checked>
+                <span>Khi làm bài xong</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewSolution" value="after_all">
+                <span>Khi tất cả thi xong</span>
+              </label>
+              <label class="cfg-radio-label">
+                <input type="radio" name="azotaCfgViewSolution" value="threshold">
+                <span>Khi đạt đến số điểm nhất định</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="toggle-row" style="padding: 10px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Ẩn đáp án cho câu trả lời sai</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Khi bật tính năng này, với những câu học sinh làm sai, hệ thống sẽ ẩn đáp án đúng và phần giải thích (học sinh chỉ biết là làm đúng hay sai, không thấy đáp án đúng). Nhờ đó, học sinh phải tự làm lại các câu sai nhiều lần để tìm ra đáp án đúng, giúp tăng hiệu quả khi luyện tập trắc nghiệm nhiều lần.</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgHideWrongKey">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Card 6: KHÁC (Ảnh 14) -->
+        <div class="azota-cfg-card">
+          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-ellipsis" style="color: #64748b;"></i> Khác</h3>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div style="font-weight: 600; color: #1e293b;">Ẩn thống kê số lượt làm đề</div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgHideAttempts">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div style="font-weight: 600; color: #1e293b;">Ẩn bảng xếp hạng</div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgHideRanking">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Thêm thông tin tiêu đề</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Hệ thống sẽ thêm thông tin này lên phần tiêu đề của đề thi khi học sinh vào thi.</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgAddHeaderInfo">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" style="padding: 8px 0;">
+            <div>
+              <div style="font-weight: 600; color: #1e293b;">Thông báo trước khi vào thi</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Thông báo này sẽ hiển thị cho học sinh đọc trước khi bắt đầu bài thi</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="azotaCfgEnableNotice" onchange="toggleNoticeTextarea()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-group" id="noticeTextareaWrap" style="display: none; margin-top: 10px;">
+            <textarea id="azotaCfgNoticeText" class="cfg-input" rows="3" placeholder="Ví dụ: Chúc các em làm bài thật tốt! Nghiêm túc, không chuyển tab và nộp bài đúng giờ."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons (Ảnh 14) -->
+      <div class="azota-modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 20px; display: flex; justify-content: flex-end; gap: 12px;">
+        <button type="button" class="btn-azota-draft" onclick="saveAzotaConfigAsDraft()">
+          Lưu nháp
+        </button>
+        <button type="button" class="btn-azota-publish-final" onclick="publishAzotaConfigExam()">
+          Xuất bản
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast phản hồi -->
   <div class="azota-toast" id="azotaToast">
     <i class="fa-solid fa-circle-check"></i>
@@ -2160,6 +2909,7 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="js/quiz-data.js?v=20261124_01"></script>
   <script src="js/azota-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -2186,8 +2936,116 @@
         setTimeout(() => toast.classList.remove('show'), 2600);
       }
 
+      // ==================== HỆ THỐNG PHÂN QUYỀN GIÁO VIÊN & HỌC SINH ====================
+      function isTeacherLogged() {
+        return sessionStorage.getItem("ths_sang_teacher_logged") === "true";
+      }
+
+      function updateTeacherUI() {
+        const wrap = document.getElementById('teacherAuthChipWrap');
+        if (!wrap) return;
+        if (isTeacherLogged()) {
+          wrap.innerHTML = `
+            <div class="teacher-auth-chip logged-in">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span>Giáo viên: ThS. Lương Thanh Sáng</span>
+              <button class="btn-logout-teacher" onclick="handleTeacherLogout()" title="Thoát quyền Quản trị"><i class="fa-solid fa-right-from-bracket"></i> Thoát</button>
+            </div>
+          `;
+        } else {
+          wrap.innerHTML = `
+            <div class="teacher-auth-chip student-mode">
+              <i class="fa-solid fa-user-graduate"></i>
+              <span>Chế độ Học sinh (Chỉ xem)</span>
+              <button class="btn-teacher-auth-action login" onclick="openTeacherAuthModal()"><i class="fa-solid fa-lock"></i> Đăng nhập GV</button>
+            </div>
+          `;
+        }
+      }
+
+      let pendingTeacherAction = null;
+      window.requireTeacherAuth = function(callback) {
+        if (isTeacherLogged()) {
+          callback();
+        } else {
+          pendingTeacherAction = callback;
+          openTeacherAuthModal();
+        }
+      };
+
+      window.openTeacherAuthModal = function() {
+        const modal = document.getElementById('teacherAuthModal');
+        if (modal) {
+          modal.style.display = 'flex';
+          const input = document.getElementById('teacherAuthPwdInput');
+          if (input) { input.value = ''; input.focus(); }
+        }
+      };
+
+      window.closeTeacherAuthModal = function() {
+        const modal = document.getElementById('teacherAuthModal');
+        if (modal) modal.style.display = 'none';
+        pendingTeacherAction = null;
+      };
+
+      window.toggleTeacherPwdVisibility = function() {
+        const input = document.getElementById('teacherAuthPwdInput');
+        const icon = document.getElementById('teacherPwdEyeIcon');
+        if (!input) return;
+        if (input.type === 'password') {
+          input.type = 'text';
+          if (icon) icon.className = 'fa-solid fa-eye-slash';
+        } else {
+          input.type = 'password';
+          if (icon) icon.className = 'fa-solid fa-eye';
+        }
+      };
+
+      window.submitTeacherAuth = function() {
+        const input = document.getElementById('teacherAuthPwdInput');
+        const pwdVal = (input ? input.value : '').trim();
+        const savedTeacherPwd = localStorage.getItem("ths_sang_teacher_pwd");
+        const activeTeacherPwd = savedTeacherPwd !== null ? savedTeacherPwd : "thaysang";
+
+        if (!pwdVal) {
+          alert("Vui lòng nhập mật khẩu Giáo viên!");
+          return;
+        }
+
+        if (pwdVal !== activeTeacherPwd) {
+          alert("⚠️ Mật khẩu Giáo viên chưa chính xác! (Mật khẩu mặc định: thaysang)");
+          return;
+        }
+
+        sessionStorage.setItem("ths_sang_teacher_logged", "true");
+        closeTeacherAuthModal();
+        updateTeacherUI();
+        renderExamGrid();
+        showToast("Chào mừng Thầy Sáng! Đã kích hoạt đầy đủ quyền quản trị đề thi.", "fa-chalkboard-user");
+
+        if (typeof pendingTeacherAction === 'function') {
+          const act = pendingTeacherAction;
+          pendingTeacherAction = null;
+          act();
+        }
+      };
+
+      window.handleTeacherLogout = function() {
+        if (confirm("Thầy có chắc chắn muốn thoát quyền quản trị và chuyển sang Chế độ Học sinh không?")) {
+          sessionStorage.removeItem("ths_sang_teacher_logged");
+          updateTeacherUI();
+          renderExamGrid();
+          showToast("Đã chuyển sang Chế độ Học sinh (Chỉ xem)!", "fa-user-graduate");
+        }
+      };
+
+      window.enterExamRoom = function(examId) {
+        window.location.href = `lam-bai.html?code=${encodeURIComponent(examId)}`;
+      };
+
       // 1. Tải và render danh sách đề thi
       async function loadExamDashboard() {
+        updateTeacherUI();
         currentExams = await store.fetchExams();
         renderExamGrid();
       }
@@ -2204,11 +3062,13 @@
             <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; background: #fff; border-radius: 16px; border: 1px dashed #cbd5e1;">
               <i class="fa-solid fa-folder-open" style="font-size: 3rem; color: #94a3b8; margin-bottom: 12px;"></i>
               <h3 style="font-size: 1.15rem; color: #334155; margin-bottom: 6px;">Chưa có đề thi nào được tạo</h3>
-              <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Bấm nút "+ Tạo bài tập / Đề thi 2018 mới" bên trên để bắt đầu giao bài cho học sinh</p>
+              <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Bấm nút "+ Tạo bài tập / Đề thi" bên trên để bắt đầu giao bài cho học sinh</p>
             </div>
           `;
           return;
         }
+
+        const isTeacher = isTeacherLogged();
 
         container.innerHTML = currentExams.map(exam => {
           const isActive = (exam.status !== 'closed');
@@ -2230,10 +3090,12 @@
           const p3Q = p3Active ? (exam.part3.numQuestions || 6) : 0;
           const totalQ = p1Q + p2Q + p3Q;
 
+          const isAntiQuiz = exam.sourceType === 'anti_quiz';
+
           return `
             <div class="azota-card" id="card-${exam.id}">
               <div class="azota-card-header">
-                <span class="azota-card-code">${exam.id}</span>
+                <span class="azota-card-code">${exam.id} ${isAntiQuiz ? '<span style="background: #e0f2fe; color: #0369a1; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px; font-weight: 700; margin-left: 4px;">Online Anti</span>' : ''}</span>
                 ${statusHtml}
               </div>
               <h3 class="azota-card-title" title="${exam.title}">${exam.title}</h3>
@@ -2252,18 +3114,33 @@
               </div>
 
               <div class="azota-card-footer">
+                <button class="btn-azota-action" style="background: #0284c7; color: #fff; font-weight: 700;" onclick="enterExamRoom('${exam.id}')" title="Vào làm bài ngay">
+                  <i class="fa-solid fa-play"></i> Vào thi
+                </button>
                 <button class="btn-azota-action primary" onclick="copyExamShareLink('${exam.id}')" title="Sao chép link làm bài">
                   <i class="fa-solid fa-link"></i> Copy Link
                 </button>
-                <button class="btn-azota-action success" onclick="openStatsModal('${exam.id}')" title="Xem kết quả & Bảng điểm">
-                  <i class="fa-solid fa-chart-column"></i> Thống kê
-                </button>
-                <button class="btn-azota-action" onclick="editExam('${exam.id}')" title="Chỉnh sửa đề">
-                  <i class="fa-solid fa-pen-to-square"></i> Sửa
-                </button>
-                <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+                ${isTeacher ? `
+                  <button class="btn-azota-action success" onclick="openStatsModal('${exam.id}')" title="Xem kết quả & Bảng điểm">
+                    <i class="fa-solid fa-chart-column"></i> Thống kê
+                  </button>
+                  <button class="btn-azota-action" onclick="editExam('${exam.id}')" title="Chỉnh sửa đề">
+                    <i class="fa-solid fa-pen-to-square"></i> Sửa
+                  </button>
+                  <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                ` : `
+                  <button class="btn-azota-action" style="opacity: 0.65;" onclick="requireTeacherAuth(() => openStatsModal('${exam.id}'))" title="Chỉ Thầy Sáng mới xem được thống kê">
+                    <i class="fa-solid fa-lock"></i> Thống kê
+                  </button>
+                  <button class="btn-azota-action" style="opacity: 0.65;" onclick="requireTeacherAuth(() => editExam('${exam.id}'))" title="Chỉ Thầy Sáng mới sửa được đề">
+                    <i class="fa-solid fa-lock"></i> Sửa
+                  </button>
+                  <button class="btn-azota-action danger" style="opacity: 0.65;" onclick="requireTeacherAuth(() => deleteExamConfirm('${exam.id}'))" title="Chỉ Thầy Sáng mới xóa được đề">
+                    <i class="fa-solid fa-lock"></i>
+                  </button>
+                `}
               </div>
             </div>
           `;
@@ -2279,9 +3156,12 @@
         });
       };
 
-      // Mở Modal Upload Đề
+      // Mở Modal Upload Đề (Yêu cầu quyền Giáo viên)
       document.getElementById('btnOpenCreateModal').addEventListener('click', () => {
-        document.getElementById('uploadModal').style.display = 'flex';
+        requireTeacherAuth(() => {
+          document.getElementById('uploadModal').style.display = 'flex';
+          renderAntiQuizCatalog('all');
+        });
       });
       document.getElementById('btnCloseUploadModal').addEventListener('click', () => {
         document.getElementById('uploadModal').style.display = 'none';
@@ -2293,21 +3173,349 @@
       // ==================== QUẢN LÝ NGUỒN TÀI LIỆU & ĐẾM SỐ CÂU TỰ ĐỘNG ====================
       const tabBtnDrive = document.getElementById('tabBtnDrive');
       const tabBtnUpload = document.getElementById('tabBtnUpload');
-      const tabBtnSample = document.getElementById('tabBtnSample');
+      const tabBtnAntiQuiz = document.getElementById('tabBtnAntiQuiz');
       const tabContentDrive = document.getElementById('tabContentDrive');
       const tabContentUpload = document.getElementById('tabContentUpload');
-      const tabContentSample = document.getElementById('tabContentSample');
+      const tabContentAntiQuiz = document.getElementById('tabContentAntiQuiz');
 
       function switchUploadTab(activeBtn, activeContent) {
-        [tabBtnDrive, tabBtnUpload, tabBtnSample].forEach(b => { if (b) b.classList.remove('active'); });
-        [tabContentDrive, tabContentUpload, tabContentSample].forEach(c => { if (c) c.style.display = 'none'; });
+        [tabBtnDrive, tabBtnUpload, tabBtnAntiQuiz].forEach(b => { if (b) b.classList.remove('active'); });
+        [tabContentDrive, tabContentUpload, tabContentAntiQuiz].forEach(c => { if (c) c.style.display = 'none'; });
         if (activeBtn) activeBtn.classList.add('active');
         if (activeContent) activeContent.style.display = 'block';
+        if (activeBtn === tabBtnAntiQuiz) {
+          renderAntiQuizCatalog('all');
+        }
       }
 
-      tabBtnDrive.addEventListener('click', () => switchUploadTab(tabBtnDrive, tabContentDrive));
-      tabBtnUpload.addEventListener('click', () => switchUploadTab(tabBtnUpload, tabContentUpload));
-      tabBtnSample.addEventListener('click', () => switchUploadTab(tabBtnSample, tabContentSample));
+      if (tabBtnDrive) tabBtnDrive.addEventListener('click', () => switchUploadTab(tabBtnDrive, tabContentDrive));
+      if (tabBtnUpload) tabBtnUpload.addEventListener('click', () => switchUploadTab(tabBtnUpload, tabContentUpload));
+      if (tabBtnAntiQuiz) tabBtnAntiQuiz.addEventListener('click', () => switchUploadTab(tabBtnAntiQuiz, tabContentAntiQuiz));
+
+      // ==================== KHÁM PHÁ & QUẢN LÝ ĐỀ THI TỪ KHO ANTI ====================
+      let currentSelectedAntiQuizKey = null;
+      let currentAntiConfigData = null;
+      let currentSelectedKeyboardType = 'basic';
+
+      window.filterAntiQuizGrade = function(grade) {
+        ['chipGradeAll', 'chipGrade12', 'chipGrade11'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('active');
+        });
+        if (grade === '12') document.getElementById('chipGrade12')?.classList.add('active');
+        else if (grade === '11') document.getElementById('chipGrade11')?.classList.add('active');
+        else document.getElementById('chipGradeAll')?.classList.add('active');
+        renderAntiQuizCatalog(grade);
+      };
+
+      function renderAntiQuizCatalog(filterGrade = 'all') {
+        const container = document.getElementById('antiQuizListContainer');
+        if (!container) return;
+
+        const db = window.EXAMS_DATABASE || {};
+        const keys = Object.keys(db);
+
+        if (keys.length === 0) {
+          container.innerHTML = `<div style="text-align: center; padding: 20px; color: #64748b;">Đang nạp dữ liệu đề thi từ Anti...</div>`;
+          return;
+        }
+
+        const filteredKeys = keys.filter(k => {
+          const ex = db[k];
+          if (!ex || !ex.config) return false;
+          if (filterGrade === 'all') return true;
+          return String(ex.config.grade) === String(filterGrade);
+        });
+
+        container.innerHTML = filteredKeys.map(k => {
+          const ex = db[k];
+          const cfg = ex.config || {};
+          const p1Count = Array.isArray(ex.part1) ? ex.part1.length : (ex.part1?.numQuestions || 0);
+          const p2Count = Array.isArray(ex.part2) ? ex.part2.length : (ex.part2?.numQuestions || 0);
+          const p3Count = Array.isArray(ex.part3) ? ex.part3.length : (ex.part3?.numQuestions || 0);
+          const totalQ = cfg.totalQuestions || (p1Count + p2Count + p3Count);
+          const durMin = cfg.timeLimitMinutes || 15;
+          const grade = cfg.grade || '12';
+
+          return `
+            <div class="anti-quiz-card" onclick="selectAntiQuizAndOpenAzotaConfig('${k}')">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span style="background: ${grade === '12' ? '#1e3a8a' : '#0284c7'}; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
+                    Lớp ${grade}
+                  </span>
+                  <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; font-weight: 600;">
+                    ${k}
+                  </span>
+                  <span style="background: #fef3c7; color: #92400e; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
+                    <i class="fa-solid fa-clock"></i> ${durMin} phút
+                  </span>
+                </div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">${cfg.title || k}</h4>
+                <div style="font-size: 0.78rem; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap;">
+                  <span><i class="fa-solid fa-list-ol"></i> <strong>${totalQ}</strong> câu hỏi</span>
+                  ${p1Count > 0 ? `<span>• P1: ${p1Count} câu trắc nghiệm</span>` : ''}
+                  ${p2Count > 0 ? `<span>• P2: ${p2Count} câu Đúng/Sai</span>` : ''}
+                  ${p3Count > 0 ? `<span>• P3: ${p3Count} câu Trả lời ngắn</span>` : ''}
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn-create-exam" style="padding: 8px 16px; font-size: 0.82rem; white-space: nowrap;">
+                  <i class="fa-solid fa-sliders"></i> Cấu hình & Xuất bản
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.selectAntiQuizAndOpenAzotaConfig = function(examKey) {
+        const db = window.EXAMS_DATABASE || {};
+        const ex = db[examKey];
+        if (!ex) {
+          alert('Không tìm thấy dữ liệu đề thi này trong Anti!');
+          return;
+        }
+
+        currentSelectedAntiQuizKey = examKey;
+        currentAntiConfigData = ex;
+
+        // Đóng uploadModal
+        document.getElementById('uploadModal').style.display = 'none';
+
+        // Điền dữ liệu vào Azota Full Config Modal
+        const cfg = ex.config || {};
+        const title = cfg.title || examKey;
+        const grade = cfg.grade || '12';
+        const dur = cfg.timeLimitMinutes || (/TX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
+
+        const genCode = `AZ-${examKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+
+        document.getElementById('cfgTopExamTitle').textContent = `Tên đề thi: ${title}`;
+        document.getElementById('cfgTopExamCode').textContent = genCode;
+        document.getElementById('azotaCfgTitle').value = title;
+        document.getElementById('azotaCfgGrade').value = grade;
+        document.getElementById('azotaCfgDuration').value = dur;
+        document.getElementById('azotaCfgSubject').value = 'Toán';
+        document.getElementById('azotaCfgPassword').value = '';
+        document.getElementById('azotaCfgMaxAttempts').value = '0';
+        document.getElementById('azotaCfgOpenTime').value = '';
+        document.getElementById('azotaCfgCloseTime').value = '';
+
+        if (/TX|THUONG\s*XUYEN|15/i.test(title)) {
+          document.getElementById('azotaCfgPurpose').value = 'kttx';
+        } else if (/GIUA\s*K/i.test(title)) {
+          document.getElementById('azotaCfgPurpose').value = 'ktgk';
+        } else if (/CUOI\s*K/i.test(title)) {
+          document.getElementById('azotaCfgPurpose').value = 'ktck';
+        } else {
+          document.getElementById('azotaCfgPurpose').value = 'kscl';
+        }
+
+        // Mặc định thang điểm đúng sai chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
+        applyAzotaP2Preset('moet');
+
+        // Mở Modal cấu hình đầy đủ
+        document.getElementById('azotaFullConfigModal').style.display = 'flex';
+      };
+
+      window.closeAzotaConfigModal = function() {
+        document.getElementById('azotaFullConfigModal').style.display = 'none';
+      };
+
+      window.switchConfigType = function(type) {
+        const btnExam = document.getElementById('btnCfgTypeExam');
+        const btnPractice = document.getElementById('btnCfgTypePractice');
+        const hint = document.getElementById('cfgTypeHintBanner');
+        if (type === 'exam') {
+          btnExam.classList.add('active');
+          btnPractice.classList.remove('active');
+          hint.innerHTML = `<i class="fa-solid fa-circle-info"></i> Cấu hình này thường dùng cho các kỳ thi nghiêm túc, cần bảo mật đáp án và đề thi cho tới khi kết thúc kỳ thi.`;
+        } else {
+          btnPractice.classList.add('active');
+          btnExam.classList.remove('active');
+          hint.innerHTML = `<i class="fa-solid fa-circle-info"></i> Cấu hình này phù hợp cho học sinh tự ôn luyện tại nhà, có thể xem ngay điểm số và lời giải chi tiết sau khi nộp bài.`;
+        }
+      };
+
+      window.selectKeyboardType = function(type) {
+        currentSelectedKeyboardType = type;
+        ['kbCardBasic', 'kbCardMath', 'kbCardRich'].forEach(id => {
+          document.getElementById(id)?.classList.remove('active');
+        });
+        if (type === 'math') document.getElementById('kbCardMath')?.classList.add('active');
+        else if (type === 'rich') document.getElementById('kbCardRich')?.classList.add('active');
+        else document.getElementById('kbCardBasic')?.classList.add('active');
+      };
+
+      window.applyAzotaP2Preset = function(preset) {
+        const p1 = document.getElementById('azotaCfgP2_1');
+        const p2 = document.getElementById('azotaCfgP2_2');
+        const p3 = document.getElementById('azotaCfgP2_3');
+        const p4 = document.getElementById('azotaCfgP2_4');
+        const btnMoet = document.getElementById('btnPresetMoet');
+        const btnEqual = document.getElementById('btnPresetEqual');
+
+        if (preset === 'equal') {
+          p1.value = 25; p2.value = 50; p3.value = 75; p4.value = 100;
+          btnEqual.classList.add('active');
+          btnMoet.classList.remove('active');
+        } else {
+          p1.value = 10; p2.value = 25; p3.value = 50; p4.value = 100;
+          btnMoet.classList.add('active');
+          btnEqual.classList.remove('active');
+        }
+      };
+
+      window.resetConfigDeliveryTime = function() {
+        document.getElementById('azotaCfgOpenTime').value = '';
+        document.getElementById('azotaCfgCloseTime').value = '';
+        showToast('Đã đặt lại thời gian giao đề (Không giới hạn)', 'fa-rotate-right');
+      };
+
+      window.toggleNoticeTextarea = function() {
+        const chk = document.getElementById('azotaCfgEnableNotice');
+        const wrap = document.getElementById('noticeTextareaWrap');
+        if (wrap) wrap.style.display = chk.checked ? 'block' : 'none';
+      };
+
+      // XUẤT BẢN ĐỀ THI AZOTA TỪ ANTI
+      window.publishAzotaConfigExam = async function() {
+        if (!currentAntiConfigData || !currentSelectedAntiQuizKey) {
+          alert('Chưa có thông tin đề thi Anti được chọn!');
+          return;
+        }
+
+        const title = document.getElementById('azotaCfgTitle').value.trim() || currentAntiConfigData.config.title;
+        const grade = document.getElementById('azotaCfgGrade').value;
+        const dur = parseInt(document.getElementById('azotaCfgDuration').value) || 15;
+        const openT = document.getElementById('azotaCfgOpenTime').value || '';
+        const closeT = document.getElementById('azotaCfgCloseTime').value || '';
+        const pwd = document.getElementById('azotaCfgPassword').value.trim();
+        const maxAttempts = parseInt(document.getElementById('azotaCfgMaxAttempts').value) || 0;
+        const antiCheat = document.querySelector('input[name="azotaCfgAntiCheat"]:checked')?.value === 'screen';
+        const targetMode = document.querySelector('input[name="azotaCfgTarget"]:checked')?.value || 'all';
+        const viewScore = document.querySelector('input[name="azotaCfgViewScore"]:checked')?.value || 'after_submit';
+        const viewSolution = document.querySelector('input[name="azotaCfgViewSolution"]:checked')?.value || 'after_submit';
+        const hideWrongKey = document.getElementById('azotaCfgHideWrongKey').checked;
+        const noticeText = document.getElementById('azotaCfgEnableNotice').checked ? document.getElementById('azotaCfgNoticeText').value.trim() : '';
+        const p2Percents = {
+          1: parseFloat(document.getElementById('azotaCfgP2_1').value) || 10,
+          2: parseFloat(document.getElementById('azotaCfgP2_2').value) || 25,
+          3: parseFloat(document.getElementById('azotaCfgP2_3').value) || 50,
+          4: parseFloat(document.getElementById('azotaCfgP2_4').value) || 100
+        };
+
+        const ex = currentAntiConfigData;
+        const p1Raw = ex.part1 || [];
+        const p2Raw = ex.part2 || [];
+        const p3Raw = ex.part3 || [];
+
+        // Trích xuất answerKey cho Phần I
+        const p1Key = {};
+        const p1Points = {};
+        p1Raw.forEach((q, idx) => {
+          const qStr = String(idx + 1);
+          p1Key[qStr] = (q.answer || q.correctAnswer || 'A').toUpperCase();
+          p1Points[qStr] = q.score || (p1Raw.length > 0 ? +(3.0 / p1Raw.length).toFixed(2) : 0.25);
+        });
+
+        // Trích xuất answerKey cho Phần II (Đúng/Sai)
+        const p2Key = {};
+        p2Raw.forEach((q, idx) => {
+          const qStr = String(idx + 1);
+          p2Key[qStr] = {
+            a: (q.a_ans || q.answerA || (q.options && q.options.a && q.options.a.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S',
+            b: (q.b_ans || q.answerB || (q.options && q.options.b && q.options.b.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S',
+            c: (q.c_ans || q.answerC || (q.options && q.options.c && q.options.c.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S',
+            d: (q.d_ans || q.answerD || (q.options && q.options.d && q.options.d.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S'
+          };
+        });
+
+        // Trích xuất answerKey cho Phần III (Trả lời ngắn)
+        const p3Key = {};
+        const p3Points = {};
+        p3Raw.forEach((q, idx) => {
+          const qStr = String(idx + 1);
+          p3Key[qStr] = String(q.answer || q.correctAnswer || '').trim();
+          p3Points[qStr] = q.score || (p3Raw.length > 0 ? +(3.0 / p3Raw.length).toFixed(2) : 0.5);
+        });
+
+        const examId = `AZ-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+
+        const newAzotaExam = {
+          id: examId,
+          title: title,
+          description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100% từ Anti`,
+          sourceType: 'anti_quiz',
+          antiQuizId: currentSelectedAntiQuizKey,
+          grade: grade,
+          totalPoints: 10,
+          durationMinutes: dur,
+          openTime: openT,
+          closeTime: closeT,
+          password: pwd,
+          maxAttempts: maxAttempts,
+          enableTabTracking: antiCheat,
+          targetMode: targetMode,
+          viewScoreMode: viewScore,
+          viewResultMode: viewSolution === 'none' ? 'none' : (viewSolution === 'after_submit' ? 'all' : 'score_only'),
+          hideWrongAnswerKey: hideWrongKey,
+          noticeMessage: noticeText,
+          status: 'active',
+          submissionsCount: 0,
+          createdAt: new Date().toISOString(),
+
+          part1: {
+            enabled: (p1Raw.length > 0),
+            numQuestions: p1Raw.length,
+            defaultPoint: p1Raw.length > 0 ? +(3.0 / p1Raw.length).toFixed(2) : 0.25,
+            answerKey: p1Key,
+            points: p1Points
+          },
+
+          part2: {
+            enabled: (p2Raw.length > 0),
+            numQuestions: p2Raw.length,
+            maxPointPerQuestion: p2Raw.length > 0 ? +(4.0 / p2Raw.length).toFixed(2) : 1.0,
+            percentMode: 'custom',
+            percentages: p2Percents,
+            answerKey: p2Key
+          },
+
+          part3: {
+            enabled: (p3Raw.length > 0),
+            numQuestions: p3Raw.length,
+            defaultPoint: p3Raw.length > 0 ? +(3.0 / p3Raw.length).toFixed(2) : 0.5,
+            answerKey: p3Key,
+            points: p3Points
+          }
+        };
+
+        await store.saveExam(newAzotaExam);
+
+        closeAzotaConfigModal();
+        await loadExamDashboard();
+
+        // Mở popup thành công
+        const shareLink = `${window.location.origin}/lam-bai.html?code=${examId}`;
+        document.getElementById('successExamCode').textContent = examId;
+        document.getElementById('successShareLink').value = shareLink;
+        document.getElementById('btnTestStudentExam').href = shareLink;
+
+        const qrImg = document.getElementById('qrCodeImg');
+        if (qrImg) {
+          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareLink)}`;
+        }
+
+        document.getElementById('publishSuccessModal').style.display = 'flex';
+        showToast('Xuất bản đề thi Online từ Anti thành công!', 'fa-circle-check');
+      };
+
+      window.saveAzotaConfigAsDraft = function() {
+        alert('Đã lưu cấu hình bản nháp đề thi thành công!');
+        closeAzotaConfigModal();
+      };
 
       let detectedUploadStructure = null;
       let selectedLocalFile = null;

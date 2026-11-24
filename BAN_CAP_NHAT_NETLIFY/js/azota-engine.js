@@ -201,28 +201,41 @@
   const AzotaStore = {
     LOCAL_KEY_EXAMS: 'AZOTA_TEACHER_EXAMS_2018_V3',
     LOCAL_KEY_SUBS: 'AZOTA_STUDENT_SUBS_2018_V3',
+    LOCAL_KEY_DELETED: 'AZOTA_DELETED_EXAM_IDS_V4',
+
+    getDeletedExamIds: function() {
+      try {
+        const raw = localStorage.getItem(this.LOCAL_KEY_DELETED);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    },
 
     getLocalExams: function() {
       try {
+        const deletedIds = this.getDeletedExamIds();
         const raw = localStorage.getItem(this.LOCAL_KEY_EXAMS);
         if (!raw) {
-          const initial = [DEFAULT_SAMPLE_EXAM, DEFAULT_TX_SAMPLE_EXAM];
+          const initial = [DEFAULT_SAMPLE_EXAM].filter(e => !deletedIds.includes(e.id));
           localStorage.setItem(this.LOCAL_KEY_EXAMS, JSON.stringify(initial));
           return initial;
         }
         const parsed = JSON.parse(raw);
-        if (!parsed.find(e => e.id === "AZ-TX21-2018")) {
-          parsed.push(DEFAULT_TX_SAMPLE_EXAM);
-        }
-        return parsed;
+        // Lọc bỏ triệt để các đề đã xóa vĩnh viễn
+        const filtered = (Array.isArray(parsed) ? parsed : []).filter(e => e && e.id && !deletedIds.includes(e.id));
+        return filtered;
       } catch (e) {
-        return [DEFAULT_SAMPLE_EXAM, DEFAULT_TX_SAMPLE_EXAM];
+        const deletedIds = this.getDeletedExamIds();
+        return [DEFAULT_SAMPLE_EXAM].filter(e => !deletedIds.includes(e.id));
       }
     },
 
     saveLocalExams: function(exams) {
       try {
-        localStorage.setItem(this.LOCAL_KEY_EXAMS, JSON.stringify(exams));
+        const deletedIds = this.getDeletedExamIds();
+        const validExams = (Array.isArray(exams) ? exams : []).filter(e => e && e.id && !deletedIds.includes(e.id));
+        localStorage.setItem(this.LOCAL_KEY_EXAMS, JSON.stringify(validExams));
       } catch (e) {
         console.error('Lỗi lưu LocalStorage:', e);
       }
@@ -263,13 +276,15 @@
     },
 
     async fetchExams() {
+      const deletedIds = this.getDeletedExamIds();
       try {
         const resp = await fetch('/api/exams');
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && Array.isArray(resJson.data)) {
-            this.saveLocalExams(resJson.data);
-            return resJson.data;
+            const filtered = resJson.data.filter(e => e && e.id && !deletedIds.includes(e.id));
+            this.saveLocalExams(filtered);
+            return filtered;
           }
         }
       } catch (e) {}
@@ -277,6 +292,10 @@
     },
 
     async fetchExamDetail(id, role) {
+      const deletedIds = this.getDeletedExamIds();
+      if (deletedIds.includes(id)) {
+        return null;
+      }
       const isStudent = (role === 'student');
       try {
         const url = `/api/exams?id=${encodeURIComponent(id)}${isStudent ? '&role=student' : ''}`;
@@ -284,6 +303,7 @@
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && resJson.data) {
+            if (deletedIds.includes(resJson.data.id)) return null;
             return resJson.data;
           }
         }
@@ -291,7 +311,7 @@
 
       const exams = this.getLocalExams();
       const exam = exams.find(function(e) { return e.id === id; });
-      if (!exam) return null;
+      if (!exam || deletedIds.includes(exam.id)) return null;
       
       const copy = JSON.parse(JSON.stringify(exam));
       // Tự động chuẩn hóa thời gian 15 phút nếu là đề KTTX
@@ -349,10 +369,21 @@
     },
 
     async deleteExam(id) {
+      // 1. Thêm vĩnh viễn vào Blacklist để không bao giờ xuất hiện lại
+      const deletedIds = this.getDeletedExamIds();
+      if (!deletedIds.includes(id)) {
+        deletedIds.push(id);
+        try {
+          localStorage.setItem(this.LOCAL_KEY_DELETED, JSON.stringify(deletedIds));
+        } catch (e) {}
+      }
+
+      // 2. Gửi request DELETE lên API nếu có backend
       try {
         await fetch(`/api/exams?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
       } catch (e) {}
 
+      // 3. Xóa khỏi danh sách local hiện tại
       let exams = this.getLocalExams();
       exams = exams.filter(function(e) { return e.id !== id; });
       this.saveLocalExams(exams);
@@ -418,12 +449,14 @@
 
         // Bảng tỷ lệ phần trăm: [1 ý: %, 2 ý: %, 3 ý: %, 4 ý: %]
         // Mặc định chuẩn Bộ GD&ĐT: 10%, 25%, 50%, 100%
-        const percentages = (exam.part2.percentages) ? exam.part2.percentages : {
-          1: 10,
-          2: 25,
-          3: 50,
-          4: 100
-        };
+        const percentages = (exam.part2 && exam.part2.percentages) 
+          ? exam.part2.percentages 
+          : (exam.part2Percentages ? exam.part2Percentages : {
+              1: 10,
+              2: 25,
+              3: 50,
+              4: 100
+            });
 
         for (let i = 1; i <= nQ2; i++) {
           const qStr = String(i);
