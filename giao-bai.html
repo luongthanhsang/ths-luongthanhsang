@@ -3213,7 +3213,14 @@
         if (!container) return;
 
         const db = window.EXAMS_DATABASE || {};
-        const keys = Object.keys(db);
+        let keys = Object.keys(db);
+
+        // Luôn ưu tiên đưa đề Chuẩn Ma Trận 12_KTTX3_VEC lên đầu tiên
+        keys.sort((a, b) => {
+          if (a === '12_KTTX3_VEC') return -1;
+          if (b === '12_KTTX3_VEC') return 1;
+          return 0;
+        });
 
         if (keys.length === 0) {
           container.innerHTML = `<div style="text-align: center; padding: 20px; color: #64748b;">Đang nạp dữ liệu đề thi từ Anti...</div>`;
@@ -3236,14 +3243,16 @@
           const totalQ = cfg.totalQuestions || (p1Count + p2Count + p3Count);
           const durMin = cfg.timeLimitMinutes || 15;
           const grade = cfg.grade || '12';
+          const isMatrixMatch = (k === '12_KTTX3_VEC');
 
           return `
-            <div class="anti-quiz-card" onclick="selectAntiQuizAndOpenAzotaConfig('${k}')">
+            <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenAzotaConfig('${k}')">
               <div style="flex: 1;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
                   <span style="background: ${grade === '12' ? '#1e3a8a' : '#0284c7'}; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
                     Lớp ${grade}
                   </span>
+                  ${isMatrixMatch ? `<span style="background: #10b981; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;"><i class="fa-solid fa-award"></i> Chuẩn Ma Trận Bộ GD 2026</span>` : ''}
                   <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; font-weight: 600;">
                     ${k}
                   </span>
@@ -3424,12 +3433,23 @@
         const p2Key = {};
         p2Raw.forEach((q, idx) => {
           const qStr = String(idx + 1);
-          p2Key[qStr] = {
-            a: (q.a_ans || q.answerA || (q.options && q.options.a && q.options.a.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S',
-            b: (q.b_ans || q.answerB || (q.options && q.options.b && q.options.b.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S',
-            c: (q.c_ans || q.answerC || (q.options && q.options.c && q.options.c.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S',
-            d: (q.d_ans || q.answerD || (q.options && q.options.d && q.options.d.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S'
-          };
+          let aCorr = 'D', bCorr = 'S', cCorr = 'D', dCorr = 'S';
+          if (Array.isArray(q.items)) {
+            const itemA = q.items.find(it => it.id === 'a');
+            const itemB = q.items.find(it => it.id === 'b');
+            const itemC = q.items.find(it => it.id === 'c');
+            const itemD = q.items.find(it => it.id === 'd');
+            if (itemA) aCorr = itemA.correct ? 'D' : 'S';
+            if (itemB) bCorr = itemB.correct ? 'D' : 'S';
+            if (itemC) cCorr = itemC.correct ? 'D' : 'S';
+            if (itemD) dCorr = itemD.correct ? 'D' : 'S';
+          } else {
+            aCorr = (q.a_ans || q.answerA || (q.options && q.options.a && q.options.a.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S';
+            bCorr = (q.b_ans || q.answerB || (q.options && q.options.b && q.options.b.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S';
+            cCorr = (q.c_ans || q.answerC || (q.options && q.options.c && q.options.c.correct ? 'D' : 'S') || 'D').toUpperCase().startsWith('D') ? 'D' : 'S';
+            dCorr = (q.d_ans || q.answerD || (q.options && q.options.d && q.options.d.correct ? 'D' : 'S') || 'S').toUpperCase().startsWith('D') ? 'D' : 'S';
+          }
+          p2Key[qStr] = { a: aCorr, b: bCorr, c: cCorr, d: dCorr };
         });
 
         // Trích xuất answerKey cho Phần III (Trả lời ngắn)

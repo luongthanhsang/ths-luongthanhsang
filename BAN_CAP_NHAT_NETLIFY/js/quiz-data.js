@@ -4402,7 +4402,7 @@ Giá trị trung bình của mẫu số liệu ghép nhóm đó bằng (làm tr�
 
 // ==================== CÁC HÌNH VẼ SVG ĐỒ HỌA CHUẨN TIKZ (TOÁN 12 - KTTX LẦN 3) ====================
 
-// SVG Câu 2 Phần II: Hình hộp chữ nhật ABCD.A'B'C'D' gắn hệ trục tọa độ Oxyz
+// SVG Câu 7 (Câu 1 Phần II): Hình hộp chữ nhật ABCD.A'B'C'D' gắn hệ trục tọa độ Oxyz chuẩn mực TikZ
 const SVG_TOAN12_KTTX3_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 380" class="tikz-svg" style="max-width: 100%; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
   <defs>
     <marker id="arrow-kttx3-axis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -4410,35 +4410,36 @@ const SVG_TOAN12_KTTX3_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox
     </marker>
   </defs>
 
-  <!-- HỆ TRỤC TỌA ĐỘ Oxyz (Màu xanh dương #0284c7) -->
-  <!-- Trục Oz thẳng đứng -->
-  <line x1="150" y1="250" x2="150" y2="35" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-kttx3-axis)"/>
-  <text x="150" y="24" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0284c7">z</text>
+  <!-- HỆ TRỤC TỌA ĐỘ Oxyz (CHUẨN TIKZ: ĐOẠN KHUẤT NÉT ĐỨT, ĐOẠN NHÔ RA NGOÀI NÉT LIỀN CÓ MŨI TÊN) -->
+  <!-- Trục Oz: từ A' lên mũi tên z là nét liền -->
+  <line x1="150" y1="100" x2="150" y2="35" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-axis)"/>
+  <text x="150" y="24" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0284c7">z</text>
 
-  <!-- Trục Oy nằm ngang -->
-  <line x1="150" y1="250" x2="420" y2="250" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-kttx3-axis)"/>
-  <text x="428" y="255" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#0284c7">y</text>
+  <!-- Trục Oy: từ D sang mũi tên y là nét liền -->
+  <line x1="330" y1="250" x2="420" y2="250" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-axis)"/>
+  <text x="428" y="255" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" fill="#0284c7">y</text>
 
-  <!-- Trục Ox hướng chéo ra trước bên trái -->
-  <line x1="150" y1="250" x2="28" y2="341" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-kttx3-axis)"/>
-  <text x="18" y="354" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#0284c7">x</text>
+  <!-- Trục Ox: từ B xuống trước mũi tên x là nét liền -->
+  <line x1="70" y1="310" x2="28" y2="341" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-axis)"/>
+  <text x="18" y="354" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" fill="#0284c7">x</text>
 
-  <!-- Gốc tọa độ O (trùng với đỉnh A) -->
-  <circle cx="150" cy="250" r="3.5" fill="#1e293b"/>
-  <text x="130" y="268" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">A ≡ O</text>
+  <!-- CÁC CẠNH KHUẤT CỦA HÌNH HỘP (NÉT ĐỨT CHUẨN MỰC HÌNH HỌC KHÔNG GIAN) -->
+  <!-- Cạnh AA' nằm trên trục Oz (nét đứt màu xanh dương #0284c7) -->
+  <line x1="150" y1="250" x2="150" y2="100" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
 
-  <!-- CÁC CẠNH KHUẤT CỦA HÌNH HỘP (NÉT ĐỨT CHUẨN MỰC TIKZ) -->
-  <line x1="150" y1="250" x2="70" y2="310" stroke="#64748b" stroke-width="2" stroke-dasharray="5,4"/>
-  <line x1="150" y1="250" x2="330" y2="250" stroke="#64748b" stroke-width="2" stroke-dasharray="5,4"/>
-  <line x1="150" y1="250" x2="150" y2="100" stroke="#64748b" stroke-width="2" stroke-dasharray="5,4"/>
+  <!-- Cạnh AD nằm trên trục Oy (nét đứt màu xanh dương #0284c7) -->
+  <line x1="150" y1="250" x2="330" y2="250" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
 
-  <!-- Đường chéo đáy BD (nét đứt hỗ trợ tư duy) -->
-  <line x1="70" y1="310" x2="330" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Cạnh AB nằm trên trục Ox (nét đứt màu xanh dương #0284c7) -->
+  <line x1="150" y1="250" x2="70" y2="310" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
 
-  <!-- Đường chéo không gian BD' (nét đứt màu cam đậm) -->
-  <line x1="70" y1="310" x2="330" y2="100" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <!-- Đường chéo đáy BD (nét đứt màu xám hỗ trợ tư duy) -->
+  <line x1="70" y1="310" x2="330" y2="250" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4,4"/>
 
-  <!-- CÁC CẠNH NHÌN THẤY (NÉT LIỀN ĐẬM SẮC NÉT) -->
+  <!-- Đường chéo không gian AC' (nét đứt màu cam đậm từ A đến C') -->
+  <line x1="150" y1="250" x2="250" y2="160" stroke="#ea580c" stroke-width="2.0" stroke-dasharray="5,3"/>
+
+  <!-- CÁC CẠNH NHÌN THẤY (NÉT LIỀN ĐẬM RÕ NÉT) -->
   <!-- Đáy dưới: BC và CD -->
   <line x1="70" y1="310" x2="250" y2="310" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="250" y1="310" x2="330" y2="250" stroke="#1e293b" stroke-width="2.2"/>
@@ -4448,13 +4449,17 @@ const SVG_TOAN12_KTTX3_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox
   <line x1="250" y1="310" x2="250" y2="160" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="330" y1="250" x2="330" y2="100" stroke="#1e293b" stroke-width="2.2"/>
 
-  <!-- Mặt đáy trên: A'B'C'D' (toàn bộ nét liền) -->
+  <!-- Mặt đáy trên: A'B'C'D' (toàn bộ 4 cạnh nét liền) -->
   <line x1="150" y1="100" x2="70" y2="160" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="70" y1="160" x2="250" y2="160" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="250" y1="160" x2="330" y2="100" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="330" y1="100" x2="150" y2="100" stroke="#1e293b" stroke-width="2.2"/>
 
-  <!-- ĐỈNH HÌNH HỘP (CHUẨN HÓA: CHỈ HIỂN THỊ TÊN ĐIỂM, KHÔNG LỘ TỌA ĐỘ) -->
+  <!-- CÁC ĐỈNH HÌNH HỘP (CHUẨN HÓA: CHỈ HIỂN THỊ TÊN ĐIỂM, KHÔNG LỘ TỌA ĐỘ) -->
+  <!-- Gốc tọa độ O trùng đỉnh A -->
+  <circle cx="150" cy="250" r="3.5" fill="#1e293b"/>
+  <text x="130" y="268" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">A ≡ O</text>
+
   <!-- Đỉnh B -->
   <circle cx="70" cy="310" r="3.5" fill="#1e293b"/>
   <text x="52" y="326" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">B</text>
@@ -4479,21 +4484,22 @@ const SVG_TOAN12_KTTX3_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox
   <circle cx="330" cy="100" r="3.5" fill="#1e293b"/>
   <text x="338" y="96" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">D'</text>
 
-  <!-- Đỉnh C' - Điểm nổi bật màu đỏ -->
+  <!-- Đỉnh C' - Điểm nổi bật màu đỏ rực rỡ -->
   <circle cx="250" cy="160" r="4.5" fill="#dc2626"/>
   <text x="258" y="155" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#dc2626">C'</text>
 
-  <!-- KÍCH THƯỚC ĐỘ DÀI CẠNH HỘP -->
+  <!-- KÍCH THƯỚC ĐỘ DÀI CẠNH HÌNH HỘP -->
   <text x="100" y="292" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">3</text>
   <text x="235" y="244" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">4</text>
   <text x="158" y="180" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">5</text>
 </svg>`;
 
 // ==================== BỘ ĐỀ THI TOÁN 12 - KIỂM TRA THƯỜNG XUYÊN LẦN 3 (15 PHÚT) ====================
+// CHUẨN MA TRẬN BỘ GD&ĐT 2026: GỒM 6 CÂU PHẦN I + 2 CÂU PHẦN II (CÂU 7 HÌNH KHÔNG GIAN SVG + CÂU 8 TAM GIÁC)
 const EXAM_12_KTTX3_VEC = {
   id: "12_KTTX3_VEC",
   config: {
-    title: "Đề KTTX Lần 3 - Tọa Độ & Phép Toán Vectơ Oxyz (Toán 12)",
+    title: "Đề KTTX Lần 3 - Tọa Độ Vectơ & Hình Không Gian Oxyz (Toán 12 - Chuẩn Ma Trận)",
     school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
     schoolYear: "2026 - 2027",
     teacher: "ThS. Lương Thanh Sáng (Tổ trưởng chuyên môn)",
@@ -4508,7 +4514,7 @@ const EXAM_12_KTTX3_VEC = {
     }
   },
 
-  // PHẦN I: (6.0 ĐIỂM) CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (6 CÂU)
+  // PHẦN I: (6.0 ĐIỂM) CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (6 CÂU CHUẨN MA TRẬN)
   part1: [
     {
       id: 1,
@@ -4675,47 +4681,16 @@ const EXAM_12_KTTX3_VEC = {
     }
   ],
 
-  // PHẦN II: (4.0 ĐIỂM) CÂU TRẮC NGHIỆM ĐÚNG / SAI (2 CÂU)
+  // PHẦN II: (4.0 ĐIỂM) CÂU TRẮC NGHIỆM ĐÚNG / SAI (2 CÂU CHUẨN MA TRẬN)
+  // CÂU 7: HÌNH HỘP CHỮ NHẬT CHỌN SẴN HỆ TRỤC Oxyz CÓ HÌNH VẼ SVG TIKZ CHUẨN MỰC
+  // CÂU 8: TAM GIÁC CÓ TỌA ĐỘ CÁC ĐỈNH TRONG KHÔNG GIAN Oxyz
   part2: [
     {
       id: 1,
       part: "II",
       grade: "12",
-      topic: "Tọa độ đỉnh, độ dài cạnh, góc và điểm thỏa mãn đẳng thức vectơ trong tam giác",
-      question: "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1;\\; 0;\\; 2)$, $B(-1;\\; 1;\\; 3)$ và $C(3;\\; 2;\\; 4)$. Xét tính đúng hoặc sai của các mệnh đề sau:",
-      svg: "",
-      items: [
-        { id: "a", text: "Tọa độ của vectơ $\\vec{AB}$ là $(-2;\\; 1;\\; 1)$.", correct: true },
-        { id: "b", text: "Độ dài đoạn thẳng $AC$ bằng $2\\sqrt{3}$.", correct: true },
-        { id: "c", text: "Số đo của góc $\\widehat{BAC}$ bằng $60^\\circ$.", correct: false },
-        { id: "d", text: "Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(5;\\; 1;\\; 3)$.", correct: true }
-      ],
-      explanation: `
-<div class="solution-step">
-  <strong>Lời giải chi tiết từng ý từ ThS. Lương Thanh Sáng:</strong>
-  <ul>
-    <li><strong>Ý a) [ĐÚNG]:</strong> Ta có $\\vec{AB} = (x_B - x_A;\\; y_B - y_A;\\; z_B - z_A) = (-1 - 1;\\; 1 - 0;\\; 3 - 2) = (-2;\\; 1;\\; 1)$. Mệnh đề đúng.</li>
-    <li><strong>Ý b) [ĐÚNG]:</strong> Vectơ $\\vec{AC} = (3 - 1;\\; 2 - 0;\\; 4 - 2) = (2;\\; 2;\\; 2)$. Độ dài đoạn thẳng $AC = |\\vec{AC}| = \\sqrt{2^2 + 2^2 + 2^2} = \\sqrt{12} = 2\\sqrt{3}$. Mệnh đề đúng.</li>
-    <li><strong>Ý c) [SAI]:</strong> Xét tích vô hướng của hai vectơ $\\vec{AB} = (-2;\\; 1;\\; 1)$ và $\\vec{AC} = (2;\\; 2;\\; 2)$:<br>
-      $$\\vec{AB} \\cdot \\vec{AC} = (-2) \\cdot 2 + 1 \\cdot 2 + 1 \\cdot 2 = -4 + 2 + 2 = 0.$$
-      Vì $\\vec{AB} \\cdot \\vec{AC} = 0$ nên $\\vec{AB} \\perp \\vec{AC}$, suy ra góc $\\widehat{BAC} = 90^\\circ$ (tam giác $ABC$ vuông tại $A$), không phải $60^\\circ$. Mệnh đề sai.
-    </li>
-    <li><strong>Ý d) [ĐÚNG]:</strong> Tứ giác $ABCD$ là hình bình hành khi và chỉ khi $\\vec{AD} = \\vec{BC}$.<br>
-      Ta có $\\vec{BC} = (3 - (-1);\\; 2 - 1;\\; 4 - 3) = (4;\\; 1;\\; 1)$.<br>
-      Gọi $D(x;\\; y;\\; z) \\implies \\vec{AD} = (x - 1;\\; y;\\; z - 2)$.<br>
-      $$\\vec{AD} = \\vec{BC} \\iff \\begin{cases} x - 1 = 4 \\\\ y = 1 \\\\ z - 2 = 1 \\end{cases} \\iff \\begin{cases} x = 5 \\\\ y = 1 \\\\ z = 3 \\end{cases} \\implies D(5;\\; 1;\\; 3).$$
-      Mệnh đề đúng.
-    </li>
-  </ul>
-  <p class="final-answer">&rArr; <strong>Đáp án: a) Đ &bull; b) Đ &bull; c) S &bull; d) Đ.</strong></p>
-</div>`
-    },
-    {
-      id: 2,
-      part: "II",
-      grade: "12",
       topic: "Hệ tọa độ Oxyz gắn vào hình hộp chữ nhật và các tính chất vectơ",
-      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O(0;\\; 0;\\; 0)$, các đỉnh $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Biết $AB = 3$, $AD = 4$ và $AA' = 5$ (như hình vẽ bên dưới). Xét tính đúng hoặc sai của các mệnh đề sau:",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O(0;\\; 0;\\; 0)$, các đỉnh $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Biết các kích thước $AB = 3$, $AD = 4$ và $AA' = 5$ (như hình vẽ bên dưới). Xét tính đúng hoặc sai của các khẳng định sau:",
       svg: SVG_TOAN12_KTTX3_HOPHOP,
       items: [
         { id: "a", text: "Tọa độ của đỉnh $C'$ là $C'(3;\\; 4;\\; 5)$.", correct: true },
@@ -4735,17 +4710,50 @@ const EXAM_12_KTTX3_VEC = {
     <li>Đáy $ABCD$ là hình chữ nhật trong mặt phẳng $(Oxy) \\implies C(3;\\; 4;\\; 0)$.</li>
     <li>Các đỉnh thuộc đáy trên: $B'(3;\\; 0;\\; 5)$, $D'(0;\\; 4;\\; 5)$, $C'(3;\\; 4;\\; 5)$.</li>
   </ul>
-  <p>Đối chiếu từng mệnh đề:</p>
+  <p>Đối chiếu từng khẳng định:</p>
   <ul>
-    <li><strong>Ý a) [ĐÚNG]:</strong> Tọa độ đỉnh $C'$ là $(3;\\; 4;\\; 5)$. Mệnh đề đúng.</li>
-    <li><strong>Ý b) [SAI]:</strong> Với $B(3;\\; 0;\\; 0)$ và $D'(0;\\; 4;\\; 5)$, ta có $\\vec{BD'} = (0 - 3;\\; 4 - 0;\\; 5 - 0) = (-3;\\; 4;\\; 5)$, khác với $(3;\\; -4;\\; -5)$. Mệnh đề sai.</li>
-    <li><strong>Ý c) [ĐÚNG]:</strong> Hình chiếu vuông góc của điểm $C'(3;\\; 4;\\; 5)$ lên trục cao $Oz$ giữ nguyên cao độ và cho hoành độ, tung độ bằng $0$, tức là điểm $(0;\\; 0;\\; 5)$ (trùng với đỉnh $A'$). Mệnh đề đúng.</li>
+    <li><strong>Ý a) [ĐÚNG]:</strong> Tọa độ đỉnh $C'$ là $(3;\\; 4;\\; 5)$. Khẳng định đúng.</li>
+    <li><strong>Ý b) [SAI]:</strong> Với $B(3;\\; 0;\\; 0)$ và $D'(0;\\; 4;\\; 5)$, ta có $\\vec{BD'} = (0 - 3;\\; 4 - 0;\\; 5 - 0) = (-3;\\; 4;\\; 5)$, khác với $(3;\\; -4;\\; -5)$. Khẳng định sai.</li>
+    <li><strong>Ý c) [ĐÚNG]:</strong> Hình chiếu vuông góc của điểm $C'(3;\\; 4;\\; 5)$ lên trục cao $Oz$ giữ nguyên cao độ và cho hoành độ, tung độ bằng $0$, tức là điểm $(0;\\; 0;\\; 5)$ (trùng với đỉnh $A'$). Khẳng định đúng.</li>
     <li><strong>Ý d) [SAI]:</strong> Ta có $\\vec{AB'} = (3;\\; 0;\\; 5)$ và $\\vec{AD} = (0;\\; 4;\\; 0)$.<br>
       Tích vô hướng $\\vec{AB'} \\cdot \\vec{AD} = 3 \\cdot 0 + 0 \\cdot 4 + 5 \\cdot 0 = 0$.<br>
-      Vì $\\vec{AB'} \\cdot \\vec{AD} = 0$ nên $\\vec{AB'} \\perp \\vec{AD}$, góc giữa chúng bằng $90^\\circ$ (không phải $60^\\circ$). Mệnh đề sai.
+      Vì $\\vec{AB'} \\cdot \\vec{AD} = 0$ nên $\\vec{AB'} \\perp \\vec{AD}$, góc giữa chúng bằng $90^\\circ$ (không phải $60^\\circ$). Khẳng định sai.
     </li>
   </ul>
   <p class="final-answer">&rArr; <strong>Đáp án: a) Đ &bull; b) S &bull; c) Đ &bull; d) S.</strong></p>
+</div>`
+    },
+    {
+      id: 2,
+      part: "II",
+      grade: "12",
+      topic: "Tọa độ đỉnh, độ dài cạnh, góc và điểm thỏa mãn đẳng thức vectơ trong tam giác",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1;\\; 0;\\; 2)$, $B(-1;\\; 1;\\; 3)$ và $C(3;\\; 2;\\; 4)$. Xét tính đúng hoặc sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        { id: "a", text: "Tọa độ của vectơ $\\vec{AB}$ là $(-2;\\; 1;\\; 1)$.", correct: true },
+        { id: "b", text: "Độ dài đoạn thẳng $AC$ bằng $2\\sqrt{3}$.", correct: true },
+        { id: "c", text: "Số đo của góc $\\widehat{BAC}$ bằng $60^\\circ$.", correct: false },
+        { id: "d", text: "Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(5;\\; 1;\\; 3)$.", correct: true }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từng ý từ ThS. Lương Thanh Sáng:</strong>
+  <ul>
+    <li><strong>Ý a) [ĐÚNG]:</strong> Ta có $\\vec{AB} = (x_B - x_A;\\; y_B - y_A;\\; z_B - z_A) = (-1 - 1;\\; 1 - 0;\\; 3 - 2) = (-2;\\; 1;\\; 1)$. Khẳng định đúng.</li>
+    <li><strong>Ý b) [ĐÚNG]:</strong> Vectơ $\\vec{AC} = (3 - 1;\\; 2 - 0;\\; 4 - 2) = (2;\\; 2;\\; 2)$. Độ dài đoạn thẳng $AC = |\\vec{AC}| = \\sqrt{2^2 + 2^2 + 2^2} = \\sqrt{12} = 2\\sqrt{3}$. Khẳng định đúng.</li>
+    <li><strong>Ý c) [SAI]:</strong> Xét tích vô hướng của hai vectơ $\\vec{AB} = (-2;\\; 1;\\; 1)$ và $\\vec{AC} = (2;\\; 2;\\; 2)$:<br>
+      $$\\vec{AB} \\cdot \\vec{AC} = (-2) \\cdot 2 + 1 \\cdot 2 + 1 \\cdot 2 = -4 + 2 + 2 = 0.$$
+      Vì $\\vec{AB} \\cdot \\vec{AC} = 0$ nên $\\vec{AB} \\perp \\vec{AC}$, suy ra góc $\\widehat{BAC} = 90^\\circ$ (tam giác $ABC$ vuông tại $A$), không phải $60^\\circ$. Khẳng định sai.
+    </li>
+    <li><strong>Ý d) [ĐÚNG]:</strong> Tứ giác $ABCD$ là hình bình hành khi và chỉ khi $\\vec{AD} = \\vec{BC}$.<br>
+      Ta có $\\vec{BC} = (3 - (-1);\\; 2 - 1;\\; 4 - 3) = (4;\\; 1;\\; 1)$.<br>
+      Gọi $D(x;\\; y;\\; z) \\implies \\vec{AD} = (x - 1;\\; y;\\; z - 2)$.<br>
+      $$\\vec{AD} = \\vec{BC} \\iff \\begin{cases} x - 1 = 4 \\\\ y = 1 \\\\ z - 2 = 1 \\end{cases} \\iff \\begin{cases} x = 5 \\\\ y = 1 \\\\ z = 3 \\end{cases} \\implies D(5;\\; 1;\\; 3).$$
+      Khẳng định đúng.
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) Đ &bull; b) Đ &bull; c) S &bull; d) Đ.</strong></p>
 </div>`
     }
   ],

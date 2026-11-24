@@ -1449,13 +1449,14 @@
           `;
           exam.part2.forEach((q, idx) => {
             const qNum = idx + 1;
+            const globalQNum = (exam.part1 && Array.isArray(exam.part1)) ? (exam.part1.length + qNum) : (6 + qNum);
             const qAnswers = studentAnswers.part2[String(qNum)] || {};
             const items = Array.isArray(q.items) ? q.items : [];
 
             html += `
               <div class="interactive-q-card" id="qcard-p2-${qNum}">
                 <div class="interactive-q-header">
-                  <span class="interactive-q-num" style="color: #0d9488;">Câu ${qNum} (Đúng / Sai).</span>
+                  <span class="interactive-q-num" style="color: #0d9488;">Câu ${globalQNum} (Câu ${qNum} Phần II - Đúng / Sai).</span>
                   ${q.topic ? `<span style="font-size: 0.75rem; color: #64748b; font-style: italic;">${q.topic}</span>` : ''}
                 </div>
                 <div class="interactive-q-content">
