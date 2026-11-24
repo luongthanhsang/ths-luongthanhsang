@@ -11,6 +11,64 @@ const path = require('path');
 // Đề thi mặc định mẫu chuẩn của ThS. Lương Thanh Sáng để Thầy trải nghiệm được ngay
 const SEED_EXAMS = [
   {
+    id: "AZ-TOAN12-2018",
+    title: "Đề Khảo Sát Toán 12 - Chuẩn Cấu Trúc 3 Phần Mới Bộ GD&ĐT (Năm Học 2026 - 2027)",
+    description: "Biên soạn: ThS. Lương Thanh Sáng - Linh hoạt 1, 2 hoặc 3 dạng thức, chia điểm Đúng/Sai theo tỷ lệ %",
+    createdAt: new Date().toISOString(),
+    totalPoints: 10,
+    durationMinutes: 45,
+    openTime: "",
+    closeTime: "",
+    password: "",
+    maxAttempts: 1,
+    viewResultMode: "all",
+    enableTabTracking: true,
+    fileSourceType: "url",
+    fileUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview",
+    fileName: "De_Kiem_Tra_Chuan_2018_Thay_Sang.pdf",
+    status: "active",
+    submissionsCount: 2,
+    formatVersion: "2018_flexible",
+    part1: {
+      enabled: true,
+      numQuestions: 12,
+      defaultPoint: 0.25,
+      answerKey: {
+        "1": "A", "2": "C", "3": "B", "4": "D",
+        "5": "A", "6": "B", "7": "C", "8": "D",
+        "9": "A", "10": "B", "11": "C", "12": "D"
+      },
+      points: {
+        "1": 0.25, "2": 0.25, "3": 0.25, "4": 0.25,
+        "5": 0.25, "6": 0.25, "7": 0.25, "8": 0.25,
+        "9": 0.25, "10": 0.25, "11": 0.25, "12": 0.25
+      }
+    },
+    part2: {
+      enabled: true,
+      numQuestions: 4,
+      maxPointPerQuestion: 1.0,
+      percentMode: "moet",
+      percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
+      customPoints: { "1": 1.0, "2": 1.0, "3": 1.0, "4": 1.0 },
+      answerKey: {
+        "1": { "a": "D", "b": "S", "c": "D", "d": "S" },
+        "2": { "a": "S", "b": "D", "c": "D", "d": "S" },
+        "3": { "a": "D", "b": "D", "c": "S", "d": "S" },
+        "4": { "a": "S", "b": "S", "c": "D", "d": "D" }
+      }
+    },
+    part3: {
+      enabled: true,
+      numQuestions: 6,
+      defaultPoint: 0.5,
+      points: { "1": 0.5, "2": 0.5, "3": 0.5, "4": 0.5, "5": 0.5, "6": 0.5 },
+      answerKey: {
+        "1": "1.5", "2": "-4", "3": "2026", "4": "0.75", "5": "12", "6": "3.14"
+      }
+    }
+  },
+  {
     id: "AZ-TOAN12-01",
     title: "Đề Khảo Sát Chất Lượng Toán 12 - Phương Pháp Tọa Độ Trong Không Gian (Oxyz)",
     description: "Đề kiểm tra trọng tâm Hệ tọa độ trong không gian Oxyz và Vectơ - Biên soạn: ThS. Lương Thanh Sáng",
@@ -27,17 +85,22 @@ const SEED_EXAMS = [
     fileSourceType: "url", // "upload" hoặc "url"
     fileUrl: "https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview",
     fileName: "De_Khao_Sat_Oxyz_Toan12_Thay_Sang.pdf",
-    // Bảng đáp án chuẩn (CHỈ LƯU TRÊN SERVER, KHÔNG TRẢ VỀ CHO HỌC SINH LÀM BÀI)
-    answerKey: {
-      "1": "A", "2": "C", "3": "B", "4": "D", "5": "A",
-      "6": "B", "7": "C", "8": "D", "9": "A", "10": "B"
+    part1: {
+      enabled: true,
+      numQuestions: 10,
+      defaultPoint: 1.0,
+      answerKey: {
+        "1": "A", "2": "C", "3": "B", "4": "D", "5": "A",
+        "6": "B", "7": "C", "8": "D", "9": "A", "10": "B"
+      },
+      points: {
+        "1": 1.0, "2": 1.0, "3": 1.0, "4": 1.0, "5": 1.0,
+        "6": 1.0, "7": 1.0, "8": 1.0, "9": 1.0, "10": 1.0
+      }
     },
-    // Điểm số mỗi câu
-    questionPoints: {
-      "1": 1.0, "2": 1.0, "3": 1.0, "4": 1.0, "5": 1.0,
-      "6": 1.0, "7": 1.0, "8": 1.0, "9": 1.0, "10": 1.0
-    },
-    status: "active", // "active" hoặc "closed"
+    part2: { enabled: false, numQuestions: 0 },
+    part3: { enabled: false, numQuestions: 0 },
+    status: "active",
     submissionsCount: 2
   }
 ];

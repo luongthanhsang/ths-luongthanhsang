@@ -778,7 +778,7 @@
       <div class="room-right-pane" id="roomRightPane">
         
         <!-- 3 Tabs chuyển Phần của Học sinh -->
-        <div class="student-part-tabs">
+        <div class="student-part-tabs" id="studentPartTabs">
           <button class="student-part-tab active" id="stuTabP1" onclick="switchStudentPartTab('part1')">
             <strong>Phần I</strong>
             <span>Nhiều lựa chọn</span>
@@ -823,17 +823,17 @@
       </div>
 
       <div class="result-body">
-        <!-- Tóm tắt 3 phần -->
-        <div class="result-parts-summary-grid">
-          <div class="res-part-box">
+        <!-- Tóm tắt các phần thi của đề -->
+        <div class="result-parts-summary-grid" id="resPartsGrid">
+          <div class="res-part-box" id="resP1Box">
             <div class="res-part-title">Phần I (Nhiều lựa chọn)</div>
             <div class="res-part-val" id="resP1Score">0.0đ</div>
           </div>
-          <div class="res-part-box">
+          <div class="res-part-box" id="resP2Box">
             <div class="res-part-title">Phần II (Đúng / Sai)</div>
             <div class="res-part-val" id="resP2Score">0.0đ</div>
           </div>
-          <div class="res-part-box">
+          <div class="res-part-box" id="resP3Box">
             <div class="res-part-title">Phần III (Trả lời ngắn)</div>
             <div class="res-part-val" id="resP3Score">0.0đ</div>
           </div>
@@ -912,19 +912,24 @@
           return;
         }
 
-        // Tự động chuẩn hóa cấu trúc 3 phần
+        // Kiểm tra và chuẩn hóa cấu trúc dạng thức linh hoạt
         if (!examData.part1) examData.part1 = { enabled: true, numQuestions: 12 };
         if (!examData.part2) examData.part2 = { enabled: true, numQuestions: 4 };
         if (!examData.part3) examData.part3 = { enabled: true, numQuestions: 6 };
 
-        const p1N = parseInt(examData.part1.numQuestions) || 12;
-        const p2N = parseInt(examData.part2.numQuestions) || 4;
-        const p3N = parseInt(examData.part3.numQuestions) || 6;
+        const hasP1 = examData.part1 && (examData.part1.enabled !== false) && (parseInt(examData.part1.numQuestions) > 0);
+        const hasP2 = examData.part2 && (examData.part2.enabled !== false) && (parseInt(examData.part2.numQuestions) > 0);
+        const hasP3 = examData.part3 && (examData.part3.enabled !== false) && (parseInt(examData.part3.numQuestions) > 0);
+
+        const p1N = hasP1 ? parseInt(examData.part1.numQuestions) : 0;
+        const p2N = hasP2 ? parseInt(examData.part2.numQuestions) : 0;
+        const p3N = hasP3 ? parseInt(examData.part3.numQuestions) : 0;
         const totalQ = p1N + p2N + p3N;
+        const activeCount = (hasP1 ? 1 : 0) + (hasP2 ? 1 : 0) + (hasP3 ? 1 : 0);
 
         document.getElementById('entryExamTitle').textContent = examData.title;
         document.getElementById('infoExamCode').textContent = examData.id;
-        document.getElementById('infoTotalQ').textContent = `${totalQ} câu (3 Phần)`;
+        document.getElementById('infoTotalQ').textContent = `${totalQ} câu (${activeCount} Dạng thức)`;
         document.getElementById('infoDuration').textContent = `${examData.durationMinutes || 45} phút`;
         document.getElementById('infoAntiCheat').textContent = (examData.enableTabTracking !== false) ? 'Bật theo dõi' : 'Tắt';
 
@@ -976,7 +981,28 @@
           if (draft) studentAnswers = JSON.parse(draft) || { part1: {}, part2: {}, part3: {} };
         } catch (e) {}
 
-        switchStudentPartTab('part1');
+        // Điều chỉnh thanh Tabs 3 Phần thích ứng theo các dạng thức đang bật
+        const hasP1 = examData.part1 && (examData.part1.enabled !== false) && (parseInt(examData.part1.numQuestions) > 0);
+        const hasP2 = examData.part2 && (examData.part2.enabled !== false) && (parseInt(examData.part2.numQuestions) > 0);
+        const hasP3 = examData.part3 && (examData.part3.enabled !== false) && (parseInt(examData.part3.numQuestions) > 0);
+        const activeCount = (hasP1 ? 1 : 0) + (hasP2 ? 1 : 0) + (hasP3 ? 1 : 0);
+
+        const tabsWrap = document.getElementById('studentPartTabs');
+        if (activeCount <= 1) {
+          // Đề 1 dạng thức: ẩn thanh tabs để phòng thi tối giản, gọn gàng
+          if (tabsWrap) tabsWrap.style.display = 'none';
+        } else {
+          if (tabsWrap) {
+            tabsWrap.style.display = 'grid';
+            tabsWrap.style.gridTemplateColumns = `repeat(${activeCount}, 1fr)`;
+          }
+          document.getElementById('stuTabP1').style.display = hasP1 ? 'flex' : 'none';
+          document.getElementById('stuTabP2').style.display = hasP2 ? 'flex' : 'none';
+          document.getElementById('stuTabP3').style.display = hasP3 ? 'flex' : 'none';
+        }
+
+        const firstActive = hasP1 ? 'part1' : (hasP2 ? 'part2' : 'part3');
+        switchStudentPartTab(firstActive);
         startTimer();
         initAntiCheat();
         isExamActive = true;
@@ -1280,6 +1306,20 @@
           document.getElementById('resScoreCircle').textContent = (res.score !== undefined) ? res.score : '--';
           document.getElementById('resStudentInfo').textContent = `${studentName} - Lớp ${studentClass}`;
           
+          const hasP1 = examData.part1 && (examData.part1.enabled !== false) && (parseInt(examData.part1.numQuestions) > 0);
+          const hasP2 = examData.part2 && (examData.part2.enabled !== false) && (parseInt(examData.part2.numQuestions) > 0);
+          const hasP3 = examData.part3 && (examData.part3.enabled !== false) && (parseInt(examData.part3.numQuestions) > 0);
+          const activeCount = (hasP1 ? 1 : 0) + (hasP2 ? 1 : 0) + (hasP3 ? 1 : 0);
+
+          document.getElementById('resP1Box').style.display = hasP1 ? 'block' : 'none';
+          document.getElementById('resP2Box').style.display = hasP2 ? 'block' : 'none';
+          document.getElementById('resP3Box').style.display = hasP3 ? 'block' : 'none';
+
+          const resGrid = document.getElementById('resPartsGrid');
+          if (resGrid) {
+            resGrid.style.gridTemplateColumns = `repeat(${Math.max(1, activeCount)}, 1fr)`;
+          }
+
           document.getElementById('resP1Score').textContent = `${res.part1Score !== undefined ? res.part1Score : '--'}đ`;
           document.getElementById('resP2Score').textContent = `${res.part2Score !== undefined ? res.part2Score : '--'}đ`;
           document.getElementById('resP3Score').textContent = `${res.part3Score !== undefined ? res.part3Score : '--'}đ`;

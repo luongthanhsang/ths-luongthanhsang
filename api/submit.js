@@ -75,9 +75,10 @@ module.exports = async (req, res) => {
     let totalUnanswered = 0;
     const detailResult = { part1: {}, part2: {}, part3: {} };
 
-    // 1. Chấm Phần I
+    // 1. Chấm Phần I (Nhiều lựa chọn)
     let p1Earned = 0;
-    if (exam.part1 && exam.part1.enabled) {
+    const isP1Active = exam.part1 && (exam.part1.enabled !== false) && (parseInt(exam.part1.numQuestions) > 0);
+    if (isP1Active) {
       const p1Key = exam.part1.answerKey || {};
       const p1Points = exam.part1.points || {};
       const defP1 = parseFloat(exam.part1.defaultPoint) || 0.25;
@@ -109,14 +110,24 @@ module.exports = async (req, res) => {
       }
     }
 
-    // 2. Chấm Phần II: Đúng / Sai
+    // 2. Chấm Phần II: Đúng / Sai THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN AZOTA
     let p2Earned = 0;
-    if (exam.part2 && exam.part2.enabled) {
+    const isP2Active = exam.part2 && (exam.part2.enabled !== false) && (parseInt(exam.part2.numQuestions) > 0);
+    if (isP2Active) {
       const p2Key = exam.part2.answerKey || {};
       const nQ2 = parseInt(exam.part2.numQuestions) || Object.keys(p2Key).length || 0;
-      const scoringMode = exam.part2.scoringMode || 'moet_progressive';
       const customPts = exam.part2.customPoints || {};
-      const subPts = exam.part2.subItemPoints || {};
+
+      // Xác định bảng tỷ lệ phần trăm (%)
+      let percentages = exam.part2.percentages;
+      if (!percentages) {
+        if (exam.part2.percentMode === 'equal' || exam.part2.scoringMode === 'equal_sub') {
+          percentages = { 1: 25, 2: 50, 3: 75, 4: 100 };
+        } else {
+          // Mặc định chuẩn Bộ GD&ĐT
+          percentages = { 1: 10, 2: 25, 3: 50, 4: 100 };
+        }
+      }
 
       for (let i = 1; i <= nQ2; i++) {
         const qStr = String(i);
@@ -149,30 +160,18 @@ module.exports = async (req, res) => {
           };
         });
 
-        let qPoint = 0;
-        if (scoringMode === 'moet_progressive') {
-          let multiplier = 0;
-          if (correctSubsCount === 1) multiplier = 0.10;
-          else if (correctSubsCount === 2) multiplier = 0.25;
-          else if (correctSubsCount === 3) multiplier = 0.50;
-          else if (correctSubsCount === 4) multiplier = 1.00;
-          qPoint = maxPt * multiplier;
-        } else if (scoringMode === 'equal_sub') {
-          qPoint = correctSubsCount * (maxPt / 4.0);
-        } else if (scoringMode === 'custom') {
-          const itemMap = subPts[qStr] || { a: 0.25, b: 0.25, c: 0.25, d: 0.25 };
-          ['a', 'b', 'c', 'd'].forEach(function(it) {
-            if (subDetails[it].isCorrect) {
-              qPoint += parseFloat(itemMap[it]) || 0.25;
-            }
-          });
+        // Tính điểm theo Tỷ Lệ Phần Trăm (%)
+        let earnedPercent = 0;
+        if (correctSubsCount > 0) {
+          earnedPercent = parseFloat(percentages[correctSubsCount]) || (correctSubsCount * 25);
         }
-
+        let qPoint = maxPt * (earnedPercent / 100.0);
         qPoint = Math.round(qPoint * 100) / 100;
         p2Earned += qPoint;
 
         detailResult.part2[qStr] = {
           correctSubsCount: correctSubsCount,
+          earnedPercent: earnedPercent,
           subDetails: subDetails,
           point: qPoint,
           maxPoint: maxPt
@@ -182,7 +181,8 @@ module.exports = async (req, res) => {
 
     // 3. Chấm Phần III: Trả lời ngắn
     let p3Earned = 0;
-    if (exam.part3 && exam.part3.enabled) {
+    const isP3Active = exam.part3 && (exam.part3.enabled !== false) && (parseInt(exam.part3.numQuestions) > 0);
+    if (isP3Active) {
       const p3Key = exam.part3.answerKey || {};
       const p3Points = exam.part3.points || {};
       const defP3 = parseFloat(exam.part3.defaultPoint) || 0.5;
