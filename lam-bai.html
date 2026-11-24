@@ -657,37 +657,97 @@
       75% { transform: rotate(8deg); }
     }
 
-    /* Mobile switcher giữa Đề và Đáp án */
+    /* Mobile switcher giữa Đề và Đáp án + Nộp bài */
     .mobile-view-tabs {
       display: none;
       height: 44px;
       background: #ffffff;
       border-bottom: 1px solid #cbd5e1;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1.1fr;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
     .mobile-view-tab {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      font-size: 0.88rem;
+      gap: 5px;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #64748b;
       cursor: pointer;
       border-bottom: 3px solid transparent;
+      user-select: none;
     }
     .mobile-view-tab.active {
       color: #0284c7;
       border-bottom-color: #0284c7;
       background: #f0f9ff;
     }
+    .mobile-view-tab.mobile-submit-tab {
+      color: #047857;
+      background: #ecfdf5;
+      border-left: 1px solid #a7f3d0;
+      font-weight: 800;
+    }
+    .mobile-view-tab.mobile-submit-tab:active {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    /* Thanh Nộp Bài Cố Định Ở Đáy Mobile */
+    .mobile-bottom-submit-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      border-top: 1px solid #334155;
+      padding: 8px 12px;
+      z-index: 1000;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.25);
+    }
+    .btn-mobile-floating-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
+    }
+    .btn-mobile-floating-submit:active {
+      transform: scale(0.98);
+      background: #047857;
+    }
+
+    @keyframes pulseWait {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25); }
+      50% { transform: scale(1.08); box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45); }
+    }
 
     @media (max-width: 900px) {
       .mobile-view-tabs { display: grid; }
-      .room-body { flex-direction: column; height: calc(100vh - 104px); }
+      .mobile-bottom-submit-bar { display: block; }
+      .room-header { padding: 0 10px; height: 52px; }
+      .room-header-left { gap: 8px; }
+      .room-exam-badge { font-size: 0.7rem; padding: 2px 6px; }
+      .room-exam-title { max-width: 110px; font-size: 0.85rem; }
+      .room-student-info { display: none; } /* Ẩn tên học sinh trên header hẹp để dành trọn chỗ cho đồng hồ và nút nộp */
+      .room-timer-badge { font-size: 0.9rem; padding: 4px 8px; gap: 4px; }
+      .btn-submit-exam { padding: 6px 12px; font-size: 0.8rem; gap: 4px; flex-shrink: 0; }
+      .room-body { flex-direction: column; height: calc(100vh - 52px - 44px - 58px); }
       .room-left-pane { width: 100%; height: 100%; border-right: none; }
       .room-right-pane { width: 100%; height: 100%; display: none; }
-      .room-exam-title { max-width: 150px; }
       .result-parts-summary-grid { grid-template-columns: 1fr; }
     }
 
@@ -843,6 +903,84 @@
 </head>
 <body>
 
+  <!-- ==================== 0. MÀN HÌNH PHÒNG CHỜ THI TRỰC TUYẾN (KHI CHƯA TỚI GIỜ MỞ ĐỀ) ==================== -->
+  <div class="entry-screen" id="waitingRoomScreen" style="display: none;">
+    <div class="entry-card" style="max-width: 520px; text-align: center; border-top: 5px solid #0284c7;">
+      <div style="width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25); animation: pulseWait 2s infinite;">
+        <i class="fa-solid fa-hourglass-half"></i>
+      </div>
+      <span style="background: #e0f2fe; color: #0369a1; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px;">
+        Phòng Chờ Thi Trực Tuyến
+      </span>
+      <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 12px 0 6px 0;" id="waitExamTitle">
+        Đề thi chưa đến giờ mở
+      </h2>
+      <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 16px;">
+        Mã đề: <strong id="waitExamCode" style="color: #0284c7; font-family: monospace;">--</strong> • Thí sinh: <strong id="waitStudentName">--</strong>
+      </div>
+
+      <!-- Khung đồng hồ đếm ngược thời gian thực đến giờ mở đề -->
+      <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff; border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);">
+        <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <i class="fa-solid fa-clock-rotate-left fa-spin" style="color: #38bdf8;"></i> ĐẾM NGƯỢC THỜI GIAN MỞ ĐỀ THI:
+        </div>
+        <div id="waitCountdownDisplay" style="font-family: 'Fira Code', monospace; font-size: 2.2rem; font-weight: 800; color: #38bdf8; letter-spacing: 2px;">
+          00:00:00
+        </div>
+        <div style="font-size: 0.75rem; color: #cbd5e1; margin-top: 8px;">
+          Hệ thống sẽ <strong style="color: #4ade80;">TỰ ĐỘNG MỞ ĐỀ THI</strong> ngay khi đồng hồ về 00:00:00 (Học sinh không cần tải lại trang).
+        </div>
+      </div>
+
+      <!-- Lịch thi giáo viên đã cài đặt -->
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; text-align: left; font-size: 0.82rem; margin-bottom: 16px;">
+        <div style="margin-bottom: 6px;">
+          <i class="fa-solid fa-calendar-check" style="color: #059669; width: 20px;"></i>
+          <strong>Thời gian bắt đầu:</strong> <span id="waitOpenTimeStr">--</span>
+        </div>
+        <div style="margin-bottom: 6px;">
+          <i class="fa-solid fa-calendar-xmark" style="color: #dc2626; width: 20px;"></i>
+          <strong>Hạn chót nộp bài:</strong> <span id="waitCloseTimeStr">Không giới hạn</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-stopwatch" style="color: #0284c7; width: 20px;"></i>
+          <strong>Thời lượng làm bài:</strong> <span id="waitDurationStr">15 phút</span>
+        </div>
+      </div>
+
+      <div style="font-size: 0.78rem; color: #64748b;">
+        <i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> Trong lúc chờ đợi, vui lòng chuẩn bị giấy nháp, máy tính cầm tay và giữ kết nối mạng ổn định.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 0.1 MÀN HÌNH ĐỀ THI ĐÃ ĐÓNG (KHI QUÁ HẠN NỘP BÀI) ==================== -->
+  <div class="entry-screen" id="closedRoomScreen" style="display: none;">
+    <div class="entry-card" style="max-width: 500px; text-align: center; border-top: 5px solid #dc2626;">
+      <div style="width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 50%; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <span style="background: #fee2e2; color: #b91c1c; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">
+        Đề Thi Đã Đóng
+      </span>
+      <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 12px 0 6px 0;" id="closedExamTitle">
+        Đề thi đã hết hạn làm bài
+      </h2>
+      <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 16px;">
+        Mã đề: <strong id="closedExamCode" style="color: #0284c7; font-family: monospace;">--</strong>
+      </div>
+
+      <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px; text-align: left; font-size: 0.85rem; color: #991b1b; margin-bottom: 20px;">
+        <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+        Thời gian làm bài cho đề thi này đã kết thúc vào lúc <strong id="closedDeadlineStr">--</strong>. Hệ thống hiện không nhận thêm bài thi.
+      </div>
+
+      <a href="index.html" class="btn-start-exam-now" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-house"></i> Quay lại Trang Chủ
+      </a>
+    </div>
+  </div>
+
   <!-- ==================== 1. MÀN HÌNH NHẬP THÔNG TIN TRƯỚC KHI VÀO THI ==================== -->
   <div class="entry-screen" id="entryScreen">
     <div class="entry-card">
@@ -926,6 +1064,9 @@
       <div class="mobile-view-tab" id="tabSheetBtn" onclick="switchMobileView('sheet')">
         <i class="fa-solid fa-circle-dot"></i> Phiếu trả lời
       </div>
+      <div class="mobile-view-tab mobile-submit-tab" id="tabSubmitBtnMobile" onclick="confirmAndSubmitExam()">
+        <i class="fa-solid fa-paper-plane"></i> Nộp bài
+      </div>
     </div>
 
     <!-- 2 Cột làm việc -->
@@ -980,6 +1121,13 @@
         </div>
 
       </div>
+    </div>
+
+    <!-- Thanh Nổi Cố Định Ở Đáy Mobile Cho Phép Nộp Bài Mọi Lúc -->
+    <div class="mobile-bottom-submit-bar" id="mobileBottomSubmitBar">
+      <button type="button" class="btn-mobile-floating-submit" onclick="confirmAndSubmitExam()">
+        <i class="fa-solid fa-paper-plane"></i> NỘP BÀI THI NGAY
+      </button>
     </div>
   </div>
 
@@ -1071,9 +1219,77 @@
       let totalDurationSeconds = 2700;
       let tabViolations = 0;
       let isExamActive = false;
+      let waitTimerInterval = null;
 
       const urlParams = new URLSearchParams(window.location.search);
       const examCode = urlParams.get('code') || 'AZ-TOAN12-2018';
+
+      // ==================== KIỂM TRA KHUNG GIỜ THI & PHÒNG CHỜ ====================
+      function showClosedExamScreen(exam) {
+        document.getElementById('entryScreen').style.display = 'none';
+        document.getElementById('waitingRoomScreen').style.display = 'none';
+        document.getElementById('examRoomScreen').style.display = 'none';
+        document.getElementById('resultScreen').style.display = 'none';
+        document.getElementById('closedRoomScreen').style.display = 'flex';
+
+        document.getElementById('closedExamTitle').textContent = exam.title || 'Đề thi';
+        document.getElementById('closedExamCode').textContent = exam.id || examCode;
+        const closeDateStr = exam.closeTime 
+          ? new Date(exam.closeTime).toLocaleString('vi-VN', { dateStyle: 'full', timeStyle: 'short' })
+          : 'Hết hạn làm bài';
+        document.getElementById('closedDeadlineStr').textContent = closeDateStr;
+      }
+
+      function enterWaitingRoom(openDate) {
+        document.getElementById('entryScreen').style.display = 'none';
+        document.getElementById('closedRoomScreen').style.display = 'none';
+        document.getElementById('examRoomScreen').style.display = 'none';
+        document.getElementById('resultScreen').style.display = 'none';
+        document.getElementById('waitingRoomScreen').style.display = 'flex';
+
+        document.getElementById('waitExamTitle').textContent = examData.title || 'Đề thi trực tuyến';
+        document.getElementById('waitExamCode').textContent = examData.id || examCode;
+        document.getElementById('waitStudentName').textContent = `${studentName} - Lớp ${studentClass}`;
+        document.getElementById('waitOpenTimeStr').textContent = new Date(examData.openTime).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+        document.getElementById('waitCloseTimeStr').textContent = examData.closeTime 
+          ? new Date(examData.closeTime).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' }) 
+          : 'Không giới hạn';
+        document.getElementById('waitDurationStr').textContent = `${examData.durationMinutes} phút`;
+
+        if (waitTimerInterval) clearInterval(waitTimerInterval);
+
+        function updateWaitCountdown() {
+          const now = new Date();
+          const diffMs = openDate - now;
+
+          if (diffMs <= 0) {
+            clearInterval(waitTimerInterval);
+            document.getElementById('waitCountdownDisplay').textContent = '00:00:00';
+            // TỰ ĐỘNG MỞ ĐỀ KHI ĐẾN GIỜ (HỌC SINH KHÔNG CẦN F5)
+            setTimeout(() => {
+              openExamRoomNow();
+            }, 800);
+            return;
+          }
+
+          const totalSec = Math.floor(diffMs / 1000);
+          const days = Math.floor(totalSec / 86400);
+          const hours = Math.floor((totalSec % 86400) / 3600);
+          const mins = Math.floor((totalSec % 3600) / 60);
+          const secs = totalSec % 60;
+
+          if (days > 0) {
+            document.getElementById('waitCountdownDisplay').textContent = 
+              `${days} ngày ${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+          } else {
+            document.getElementById('waitCountdownDisplay').textContent = 
+              `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+          }
+        }
+
+        updateWaitCountdown();
+        waitTimerInterval = setInterval(updateWaitCountdown, 1000);
+      }
 
       async function initExamPage() {
         examData = await store.fetchExamDetail(examCode, 'student');
@@ -1081,6 +1297,15 @@
           alert(`Không tìm thấy đề thi với mã [${examCode}]!`);
           window.location.href = 'index.html';
           return;
+        }
+
+        // KIỂM TRA HẠN CHÓT NỘP BÀI (closeTime)
+        if (examData.closeTime) {
+          const closeDate = new Date(examData.closeTime);
+          if (new Date() >= closeDate) {
+            showClosedExamScreen(examData);
+            return;
+          }
         }
 
         // Tự động nhận diện thời gian làm bài chuẩn sư phạm nếu là đề KTTX (15 phút)
@@ -1161,6 +1386,35 @@
         localStorage.setItem('AZOTA_SAVED_NAME', studentName);
         localStorage.setItem('AZOTA_SAVED_CLASS', studentClass);
 
+        const now = new Date();
+
+        // 1. Kiểm tra hạn chót nộp bài
+        if (examData.closeTime) {
+          const closeDate = new Date(examData.closeTime);
+          if (now >= closeDate) {
+            showClosedExamScreen(examData);
+            return;
+          }
+        }
+
+        // 2. Kiểm tra thời gian mở đề thi (openTime)
+        if (examData.openTime) {
+          const openDate = new Date(examData.openTime);
+          if (now < openDate) {
+            // CHƯA ĐẾN GIỜ MỞ ĐỀ: Đưa học sinh vào Phòng Chờ với đồng hồ đếm ngược tự động mở
+            enterWaitingRoom(openDate);
+            return;
+          }
+        }
+
+        // 3. Đúng khung giờ hoặc không cài thời gian: Mở phòng thi ngay
+        openExamRoomNow();
+      };
+
+      function openExamRoomNow() {
+        if (waitTimerInterval) clearInterval(waitTimerInterval);
+
+        document.getElementById('waitingRoomScreen').style.display = 'none';
         document.getElementById('entryScreen').style.display = 'none';
         document.getElementById('examRoomScreen').style.display = 'flex';
 
@@ -1225,7 +1479,7 @@
         startTimer();
         initAntiCheat();
         isExamActive = true;
-      };
+      }
 
       // Chuyển Tab 3 Phần của học sinh
       window.switchStudentPartTab = function(partName) {
@@ -1389,8 +1643,9 @@
         const container = document.getElementById('roomInteractiveQuizContainer');
         if (!container) return;
 
-        const db = window.EXAMS_DATABASE || {};
-        const exam = db[antiQuizId] || db['12_KTTX3_VEC'];
+        const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
+        const publicDb = window.EXAMS_DATABASE || {};
+        const exam = secretDb[antiQuizId] || publicDb[antiQuizId] || secretDb['12_KTTX3_VEC'] || publicDb['12_KTTX3_VEC'];
         if (!exam) {
           container.innerHTML = `<div style="padding: 20px; color: #ef4444;">Không tìm thấy dữ liệu đề thi trực tuyến từ Anti.</div>`;
           return;
@@ -1638,7 +1893,17 @@
         if (!durMin || (durMin === 45 && isTxExam)) {
           durMin = isTxExam ? 15 : 45;
         }
-        totalDurationSeconds = durMin * 60;
+        let maxSec = durMin * 60;
+
+        // Nếu có closeTime, tính thời gian còn lại đến khi đóng đề
+        if (examData.closeTime) {
+          const now = new Date();
+          const closeDate = new Date(examData.closeTime);
+          const diffToClose = Math.max(0, Math.floor((closeDate - now) / 1000));
+          maxSec = Math.min(maxSec, diffToClose);
+        }
+
+        totalDurationSeconds = maxSec;
         remainingSeconds = totalDurationSeconds;
 
         const timerBadge = document.getElementById('roomTimer');
@@ -1652,8 +1917,8 @@
         if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
           remainingSeconds--;
-          const mins = Math.floor(remainingSeconds / 60);
-          const secs = remainingSeconds % 60;
+          const mins = Math.max(0, Math.floor(remainingSeconds / 60));
+          const secs = Math.max(0, remainingSeconds % 60);
           timerText.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
           if (remainingSeconds <= 300 && remainingSeconds > 60) {
@@ -1664,7 +1929,7 @@
 
           if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
-            alert('Hết giờ làm bài! Hệ thống tự động nộp bài.');
+            alert('Đã hết thời gian làm bài thi! Hệ thống tự động ghi nhận kết quả và nộp bài.');
             submitExamAction(true);
           }
         }, 1000);
@@ -1692,12 +1957,68 @@
         document.getElementById('tabWarningOverlay').style.display = 'none';
       };
 
-      // Nộp bài
-      document.getElementById('btnSubmitExamTop').addEventListener('click', () => {
-        if (confirm('Bạn có chắc chắn muốn nộp bài thi?')) {
+      // Xác nhận và Nộp bài (Dùng chung cho Desktop Header, Mobile Tab và Mobile Sticky Bar)
+      window.confirmAndSubmitExam = function() {
+        if (!isExamActive) return;
+
+        // Đếm số câu hỏi học sinh đã làm và chưa làm
+        let expectedTotal = 0;
+        let answeredTotal = 0;
+
+        // Phần I
+        if (examData.part1 && examData.part1.enabled !== false) {
+          const p1N = parseInt(examData.part1.numQuestions) || 0;
+          expectedTotal += p1N;
+          for (let i = 1; i <= p1N; i++) {
+            if (studentAnswers.part1[String(i)]) answeredTotal++;
+          }
+        }
+
+        // Phần II
+        if (examData.part2 && examData.part2.enabled !== false) {
+          const p2N = parseInt(examData.part2.numQuestions) || 0;
+          expectedTotal += p2N;
+          for (let i = 1; i <= p2N; i++) {
+            const subs = studentAnswers.part2[String(i)] || {};
+            const subCount = Object.keys(subs).length;
+            if (subCount === 4) answeredTotal++;
+            else if (subCount > 0) answeredTotal += 0.5;
+          }
+        }
+
+        // Phần III
+        if (examData.part3 && examData.part3.enabled !== false) {
+          const p3N = parseInt(examData.part3.numQuestions) || 0;
+          expectedTotal += p3N;
+          for (let i = 1; i <= p3N; i++) {
+            if (studentAnswers.part3[String(i)] && String(studentAnswers.part3[String(i)]).trim() !== '') {
+              answeredTotal++;
+            }
+          }
+        }
+
+        const roundAnswered = Math.floor(answeredTotal);
+        const unanswered = Math.max(0, expectedTotal - roundAnswered);
+
+        let confirmMsg = '';
+        if (unanswered > 0) {
+          confirmMsg = `Bạn đã hoàn thành ${roundAnswered}/${expectedTotal} câu (còn ${unanswered} câu chưa xong).\n\nBạn có chắc chắn muốn nộp bài thi ngay bây giờ?`;
+        } else {
+          confirmMsg = `Tuyệt vời! Bạn đã hoàn thành đầy đủ ${expectedTotal}/${expectedTotal} câu hỏi.\n\nBạn có chắc chắn muốn nộp bài thi?`;
+        }
+
+        if (confirm(confirmMsg)) {
           submitExamAction(false);
         }
-      });
+      };
+
+      // Gắn sự kiện cho nút nộp bài trên header
+      const topSubmitBtn = document.getElementById('btnSubmitExamTop');
+      if (topSubmitBtn) {
+        topSubmitBtn.addEventListener('click', () => {
+          window.confirmAndSubmitExam();
+        });
+      }
 
       async function submitExamAction(isTimeout) {
         isExamActive = false;

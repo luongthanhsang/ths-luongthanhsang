@@ -1900,9 +1900,28 @@
         </div>
 
         <div id="tabContentAntiQuiz" style="display: none;">
+          <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff; padding: 12px 16px; border-radius: 10px; margin-bottom: 14px; border: 1px solid #334155;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="background: #ef4444; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.5px;">
+                  <i class="fa-solid fa-user-shield"></i> BẢO MẬT GIÁO VIÊN
+                </span>
+                <span style="font-size: 0.9rem; font-weight: 700; color: #f8fafc;">
+                  Kho Đề Kiểm Tra Bảo Mật Từ Anti
+                </span>
+              </div>
+              <div style="font-size: 0.75rem; color: #94a3b8;">
+                <i class="fa-solid fa-lock"></i> Chỉ dùng kiểm tra đánh giá • Không công khai ở mục ôn tập
+              </div>
+            </div>
+            <p style="font-size: 0.78rem; color: #cbd5e1; margin: 6px 0 0 0;">
+              Thầy Sáng chọn đề thi kiểm tra biên soạn sẵn từ Anti, sau đó nhấn <strong>Cấu hình & Xuất bản</strong> để cài đặt khung giờ thi, thời gian làm bài và chia điểm trước khi gửi link cho học sinh.
+            </p>
+          </div>
+
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-            <p style="font-size: 0.85rem; color: #475569; margin: 0;">
-              <i class="fa-solid fa-sparkles" style="color: #0284c7;"></i> Chọn đề thi trực tuyến từ kho đề Anti đã biên soạn sẵn:
+            <p style="font-size: 0.85rem; color: #475569; margin: 0; font-weight: 600;">
+              <i class="fa-solid fa-folder-tree" style="color: #0284c7;"></i> Danh sách đề kiểm tra bí mật:
             </p>
             <div style="display: flex; gap: 6px;">
               <button type="button" class="anti-filter-chip active" id="chipGradeAll" onclick="filterAntiQuizGrade('all')">Tất cả</button>
@@ -1911,10 +1930,10 @@
             </div>
           </div>
           <div class="anti-quiz-list-container" id="antiQuizListContainer">
-            <!-- Render danh sách đề Anti từ EXAMS_DATABASE bằng JS -->
+            <!-- Render danh sách đề bí mật Anti từ ANTI_SECRET_EXAMS_DATABASE bằng JS -->
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; color: #0369a1; background: #f0f9ff; padding: 10px 14px; border-radius: 8px; border: 1px solid #bae6fd;">
-            <i class="fa-solid fa-circle-check" style="color: #0284c7;"></i> <strong>Đề thi Trắc nghiệm Online tương tác:</strong> Đề được cấu hình xuất bản từ Anti sẽ cho phép học sinh làm bài Online trực tiếp, tương tác chọn đáp án trên câu hỏi, tự động chấm điểm và đếm ngược theo quy chuẩn Azota!
+            <i class="fa-solid fa-circle-check" style="color: #0284c7;"></i> <strong>Đề thi Trắc nghiệm Online tương tác:</strong> Đề kiểm tra xuất bản từ Anti sẽ cho phép học sinh làm bài Online trực tiếp, tương tác chọn đáp án câu hỏi, đếm ngược tự động và bảo mật theo quy chuẩn Azota!
           </div>
         </div>
       </div>
@@ -3306,11 +3325,11 @@
       };
 
       function getAntiExamsDatabase() {
-        if (typeof window !== 'undefined' && window.EXAMS_DATABASE && Object.keys(window.EXAMS_DATABASE).length > 0) {
-          return window.EXAMS_DATABASE;
+        if (typeof window !== 'undefined' && window.ANTI_SECRET_EXAMS_DATABASE && Object.keys(window.ANTI_SECRET_EXAMS_DATABASE).length > 0) {
+          return window.ANTI_SECRET_EXAMS_DATABASE;
         }
-        if (typeof EXAMS_DATABASE !== 'undefined' && EXAMS_DATABASE && Object.keys(EXAMS_DATABASE).length > 0) {
-          return EXAMS_DATABASE;
+        if (typeof ANTI_SECRET_EXAMS_DATABASE !== 'undefined' && ANTI_SECRET_EXAMS_DATABASE && Object.keys(ANTI_SECRET_EXAMS_DATABASE).length > 0) {
+          return ANTI_SECRET_EXAMS_DATABASE;
         }
         return FALLBACK_DEFAULT_ANTI_EXAMS;
       }
@@ -3383,6 +3402,9 @@
             <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenAzotaConfig('${k}')">
               <div style="flex: 1;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
+                  <span style="background: #dc2626; color: #fff; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px;">
+                    <i class="fa-solid fa-shield-halved"></i> Đề Kiểm Tra Bảo Mật
+                  </span>
                   <span style="background: ${grade === '12' ? '#1e3a8a' : '#0284c7'}; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
                     Lớp ${grade}
                   </span>
@@ -3404,6 +3426,10 @@
               </div>
               <div>
                 <button type="button" class="btn-create-exam" style="padding: 8px 16px; font-size: 0.82rem; white-space: nowrap;">
+                  <i class="fa-solid fa-sliders"></i> Cấu hình & Xuất bản
+                </button>
+              </div>
+            </div>
                   <i class="fa-solid fa-sliders"></i> Cấu hình & Xuất bản
                 </button>
               </div>

@@ -4762,9 +4762,8 @@ const EXAM_12_KTTX3_VEC = {
   part3: []
 };
 
-// ==================== CƠ SỞ DỮ LIỆU ĐỀ THI TOÀN TRƯỜNG ====================
+// ==================== CƠ SỞ DỮ LIỆU ĐỀ ÔN LUYỆN CÔNG KHAI (DÀNH CHO HỌC SINH ÔN TẬP TỰ DO) ====================
 var EXAMS_DATABASE = {
-  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC,
   "12_BGD_0110": EXAM_12_BGD_0110,
   "12_BGD_0101": EXAM_12_BGD_0101,
   "11_GK1_TK5": EXAM_11_GK1_TK5,
@@ -4772,8 +4771,14 @@ var EXAMS_DATABASE = {
   "12_GK1_0002": EXAM_12_GK1_0002
 };
 
+// ==================== KHO ĐỀ KIỂM TRA BẢO MẬT (DÀNH RIÊNG CHO GIÁO VIÊN KIỂM TRA TRONG "UPLOAD TỪ ANTI") ====================
+var ANTI_SECRET_EXAMS_DATABASE = {
+  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC
+};
+
 if (typeof window !== 'undefined') {
   window.EXAMS_DATABASE = EXAMS_DATABASE;
+  window.ANTI_SECRET_EXAMS_DATABASE = ANTI_SECRET_EXAMS_DATABASE;
 }
 
 // Đặt đề mặc định ban đầu là Đề thi chính thức môn Toán năm 2026 - Bộ GD&ĐT (Mã đề 0101)
