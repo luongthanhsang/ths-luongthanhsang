@@ -3788,6 +3788,10 @@ textarea.form-control {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .btn-start-exam i {
@@ -3824,6 +3828,7 @@ textarea.form-control {
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
   transform: rotate(30deg);
   animation: shineStartBtn 3s infinite;
+  pointer-events: none;
 }
 
 @keyframes shineStartBtn {
@@ -7235,6 +7240,9 @@ textarea.form-control {
   transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(37, 99, 235, 0.08);
 }
 
 .catalog-exam-card:hover {
@@ -8314,4 +8322,90 @@ textarea.form-control {
 
 .email-image-preview {
   animation: fadeIn 0.25s ease-out;
+}
+
+/* ==========================================================================
+   HUY HIỆU THÔNG BÁO MÀU ĐỎ TRÊN THẺ THÔNG BÁO (NAV BADGE & PORTAL BADGE)
+   ========================================================================== */
+.nav-link-notice {
+  position: relative !important;
+}
+
+.nav-notify-badge {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  transform: translate(50%, -40%);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff !important;
+  font-size: 0.68rem;
+  font-weight: 800;
+  font-family: var(--font-primary, sans-serif);
+  min-width: 19px;
+  height: 19px;
+  line-height: 19px;
+  padding: 0 5px;
+  border-radius: 9999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.45);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  animation: badgePulse 2.4s infinite ease-in-out;
+  z-index: 15;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: translate(50%, -40%) scale(1);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.45);
+  }
+  50% {
+    transform: translate(50%, -40%) scale(1.18);
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.85);
+  }
+}
+
+.portal-card-badge-notify {
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  border: 2px solid #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+  animation: badgePulse 2.4s infinite ease-in-out;
+}
+
+.notice-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.25);
+  margin-top: 10px;
+}
+
+.notice-link-btn:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(2, 132, 199, 0.35);
+  color: #ffffff !important;
 }

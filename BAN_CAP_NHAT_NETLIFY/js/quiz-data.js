@@ -4454,34 +4454,34 @@ const SVG_TOAN12_KTTX3_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox
   <line x1="250" y1="160" x2="330" y2="100" stroke="#1e293b" stroke-width="2.2"/>
   <line x1="330" y1="100" x2="150" y2="100" stroke="#1e293b" stroke-width="2.2"/>
 
-  <!-- ĐỈNH VÀ TỌA ĐỘ -->
-  <!-- Đỉnh B(3;0;0) -->
+  <!-- ĐỈNH HÌNH HỘP (CHUẨN HÓA: CHỈ HIỂN THỊ TÊN ĐIỂM, KHÔNG LỘ TỌA ĐỘ) -->
+  <!-- Đỉnh B -->
   <circle cx="70" cy="310" r="3.5" fill="#1e293b"/>
-  <text x="46" y="326" font-family="Times New Roman, serif" font-size="14" font-style="italic" font-weight="bold" fill="#1e293b">B(3;0;0)</text>
+  <text x="52" y="326" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">B</text>
 
-  <!-- Đỉnh D(0;4;0) -->
+  <!-- Đỉnh D -->
   <circle cx="330" cy="250" r="3.5" fill="#1e293b"/>
-  <text x="338" y="265" font-family="Times New Roman, serif" font-size="14" font-style="italic" font-weight="bold" fill="#1e293b">D(0;4;0)</text>
+  <text x="338" y="265" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">D</text>
 
-  <!-- Đỉnh C(3;4;0) -->
+  <!-- Đỉnh C -->
   <circle cx="250" cy="310" r="3.5" fill="#1e293b"/>
-  <text x="256" y="326" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">C</text>
+  <text x="256" y="326" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">C</text>
 
-  <!-- Đỉnh A'(0;0;5) -->
+  <!-- Đỉnh A' -->
   <circle cx="150" cy="100" r="3.5" fill="#1e293b"/>
-  <text x="124" y="96" font-family="Times New Roman, serif" font-size="14" font-style="italic" font-weight="bold" fill="#1e293b">A'(0;0;5)</text>
+  <text x="130" y="94" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">A'</text>
 
-  <!-- Đỉnh B'(3;0;5) -->
+  <!-- Đỉnh B' -->
   <circle cx="70" cy="160" r="3.5" fill="#1e293b"/>
-  <text x="46" y="160" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">B'</text>
+  <text x="50" y="160" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">B'</text>
 
-  <!-- Đỉnh D'(0;4;5) -->
+  <!-- Đỉnh D' -->
   <circle cx="330" cy="100" r="3.5" fill="#1e293b"/>
-  <text x="338" y="96" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">D'</text>
+  <text x="338" y="96" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">D'</text>
 
-  <!-- Đỉnh C'(3;4;5) - Điểm nổi bật màu đỏ -->
+  <!-- Đỉnh C' - Điểm nổi bật màu đỏ -->
   <circle cx="250" cy="160" r="4.5" fill="#dc2626"/>
-  <text x="258" y="155" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#dc2626">C'(3;4;5)</text>
+  <text x="258" y="155" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#dc2626">C'</text>
 
   <!-- KÍCH THƯỚC ĐỘ DÀI CẠNH HỘP -->
   <text x="100" y="292" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">3</text>

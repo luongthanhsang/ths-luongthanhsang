@@ -37,7 +37,7 @@
       <nav class="nav-links" id="navLinks">
         <a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Trang chủ</a>
         <a href="bai-hoc-so.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Bài học số</a>
-        <a href="thong-bao.html" class="nav-link"><i class="fa-solid fa-bell"></i> Thông báo</a>
+        <a href="thong-bao.html" class="nav-link nav-link-notice"><i class="fa-solid fa-bell"></i> Thông báo <span class="nav-notify-badge" id="navNotifyBadge">4</span></a>
         <a href="tai-lieu.html" class="nav-link"><i class="fa-solid fa-book-open"></i> Kho tài liệu</a>
         <a href="thi-hsg.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Thi học sinh giỏi</a>
         <a href="trac-nghiem.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Trắc nghiệm Online</a>
@@ -178,7 +178,8 @@
 
         <div class="portal-grid">
           <!-- Card 1: Bảng thông báo -->
-          <div class="portal-card">
+          <div class="portal-card" style="position: relative;">
+            <span class="portal-card-badge-notify"><i class="fa-solid fa-bell"></i> 4 Mới</span>
             <div class="portal-card-icon">
               <i class="fa-solid fa-bullhorn"></i>
             </div>
@@ -263,46 +264,52 @@
 
         <div class="notice-board-container" style="max-width: 900px; margin: 0 auto;">
           <div class="notice-list">
-            <!-- Thông báo 1 -->
+            <!-- Thông báo 1: Mới nhất - Bộ 3 Đề Cuối Kì 1 -->
             <article class="notice-card pinned">
-              <div class="notice-date-box">
-                <div class="notice-date-day">09</div>
+              <div class="notice-date-box" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: #fff;">
+                <div class="notice-date-day">23</div>
                 <div class="notice-date-month">Tháng 11</div>
               </div>
               <div class="notice-content">
                 <div class="notice-meta">
-                  <span class="notice-tag exam"><i class="fa-solid fa-fire"></i> Đề Bộ GD 2026 Lần 2</span>
-                  <span class="notice-tag">Toán 12</span>
+                  <span class="notice-tag exam" style="background:#fee2e2; color:#b91c1c;"><i class="fa-solid fa-fire"></i> Mới Nhất</span>
+                  <span class="notice-tag" style="background:#dbeafe; color:#1e40af;"><i class="fa-solid fa-file-signature"></i> Đề Cuối Kì I</span>
+                  <span class="notice-tag">Khối 10, 11, 12</span>
                 </div>
-                <h3 class="notice-title">Cập nhật Đề thi tốt nghiệp THPT Năm 2026 Lần 2 môn Toán của Bộ GD&ĐT (Mã đề: 0110) trên hệ thống Online</h3>
+                <h3 class="notice-title" style="color: #b91c1c;">Công bố Bộ 3 Đề Kiểm Tra Cuối Học Kì I Năm Học 2025 - 2026 Chính Thức (Kèm Đáp Án &amp; Lời Giải 100%)</h3>
                 <p class="notice-excerpt">
-                  Thầy đã cập nhật trọn vẹn Đề thi tốt nghiệp THPT năm 2026 lần 2 của Bộ GD&ĐT (Mã đề: 0110 - 22 câu chuẩn cấu trúc mới) có đồng hồ đếm ngược 90 phút, chấm điểm tự động 3 phần, đồ họa TikZ/SVG sắc nét 100% (đặc biệt đồ họa Elip & Đường tròn) cùng Lời giải chi tiết của ThS. Lương Thanh Sáng. Các em học sinh khối 12 vào thử sức ngay!
+                  Thầy Sáng đã đăng tải trọn bộ 03 Đề kiểm tra Cuối Học kì I năm học 2025 – 2026 chính thức của Trường THPT Nguyễn Văn Thoại kèm đầy đủ ma trận, đáp án và lời giải chi tiết công phu (Mã 0104 Khối 10, Mã 0104 Khối 11, Mã 0102 Khối 12) chuẩn định hướng mới Bộ GD&amp;ĐT. Đã tích hợp sẵn file PDF chuẩn sắc nét và cẩm nang Casio.
                 </p>
-                <div class="notice-footer">
-                  <span><i class="fa-regular fa-clock"></i> Đăng bởi: Thầy Lương Thanh Sáng</span>
-                  <a href="trac-nghiem.html">Vào phòng thi <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="notice-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+                  <span><i class="fa-regular fa-clock"></i> Đăng bởi: ThS. Lương Thanh Sáng • Ngày 23/11/2026</span>
+                  <a href="tai-lieu.html?tab=dekiemtra" class="notice-link-btn" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">
+                    <i class="fa-solid fa-file-pen"></i> Đến Thẻ Đề Kiểm Tra Trong Kho Tài Liệu <i class="fa-solid fa-arrow-right"></i>
+                  </a>
                 </div>
               </div>
             </article>
 
-            <!-- Thông báo 2 -->
+            <!-- Thông báo 2: KTTX Lần 3 Toán 12 -->
             <article class="notice-card">
               <div class="notice-date-box">
-                <div class="notice-date-day">05</div>
+                <div class="notice-date-day">22</div>
                 <div class="notice-date-month">Tháng 11</div>
               </div>
               <div class="notice-content">
                 <div class="notice-meta">
-                  <span class="notice-tag urgent"><i class="fa-solid fa-calendar-check"></i> Lịch kiểm tra</span>
-                  <span class="notice-tag">Khối 12</span>
+                  <span class="notice-tag" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-bolt"></i> Thi Online</span>
+                  <span class="notice-tag">Toán 12</span>
+                  <span class="notice-tag">KTTX Lần 3</span>
                 </div>
-                <h3 class="notice-title">Kế hoạch kiểm tra định kỳ Giữa Học Kỳ I môn Toán khối 12</h3>
+                <h3 class="notice-title">Khởi động Đề Kiểm Tra Thường Xuyên Lần 3 Môn Toán 12 Trực Tuyến (KTTX 3 - 15 Phút)</h3>
                 <p class="notice-excerpt">
-                  Nội dung kiểm tra gồm: Khảo sát sự biến thiên và vẽ đồ thị hàm số, bài toán cực trị và tương giao đồ thị. Học sinh xem đề cương trong mục Kho tài liệu Khối 12.
+                  Hệ thống thi trắc nghiệm đã kích hoạt Đề KTTX Lần 3 chuyên đề Tọa độ và phép toán vectơ trong không gian Oxyz (Mã đề: 12.KTTX3). Đề thi gồm 8 câu hỏi chuẩn ma trận (6 câu trắc nghiệm 4 lựa chọn, 2 câu Đúng/Sai) với hình vẽ không gian SVG chuẩn hóa chuẩn mực. Học sinh vào làm bài thi trực tuyến ngay!
                 </p>
-                <div class="notice-footer">
-                  <span><i class="fa-regular fa-clock"></i> Áp dụng: Tuần 11 theo thời khóa biểu trường</span>
-                  <a href="tai-lieu.html">Xem tài liệu <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="notice-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+                  <span><i class="fa-regular fa-clock"></i> Thời gian: 15 phút • Tự động tính giờ và xuất điểm</span>
+                  <a href="trac-nghiem.html?exam=12_KTTX3_VEC" class="notice-link-btn" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+                    <i class="fa-solid fa-laptop-code"></i> Vào Phòng Thi Trực Tuyến Ngay <i class="fa-solid fa-arrow-right"></i>
+                  </a>
                 </div>
               </div>
             </article>

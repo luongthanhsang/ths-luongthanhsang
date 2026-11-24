@@ -12,6 +12,7 @@
 function initThsSangApp() {
   initDynamicSchoolYear();
   initNavigation();
+  initNavbarNotifyBadge();
   initDigitalLessons();
   initDocumentRepository();
   initQuizSystem();
@@ -186,6 +187,9 @@ function initNavigation() {
     }
   });
 
+  // Tự động khởi tạo huy hiệu thông báo màu đỏ trên thanh điều hướng
+  initNavbarNotifyBadge();
+
   // Toggle mobile menu
   if (mobileMenuBtn && navLinks) {
     mobileMenuBtn.addEventListener("click", () => {
@@ -229,6 +233,32 @@ function initNavigation() {
       }
     });
   });
+}
+
+/**
+ * Tự động gắn và cập nhật Huy hiệu thông báo (Số màu đỏ ở góc phải trên thẻ Thông báo)
+ * Thể hiện số lượng cập nhật mới nhất (Bộ 3 đề cuối kì 1, Oxyz 56 trang, KTTX 3, v.v.)
+ */
+function initNavbarNotifyBadge() {
+  try {
+    const notifyLinks = document.querySelectorAll('a[href="thong-bao.html"], a[href*="thong-bao.html"]');
+    notifyLinks.forEach(link => {
+      link.classList.add("nav-link-notice");
+      let badge = link.querySelector(".nav-notify-badge");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "nav-notify-badge";
+        badge.id = "navNotifyBadge";
+        badge.textContent = "4";
+        badge.title = "Có 4 cập nhật tài liệu & đề thi mới nhất từ Thầy Sáng";
+        link.appendChild(badge);
+      } else {
+        badge.textContent = "4";
+      }
+    });
+  } catch (err) {
+    console.warn("Lỗi gắn badge thông báo:", err);
+  }
 }
 
 /* ==========================================================================
@@ -794,6 +824,10 @@ function initQuizSystem() {
     const workspaceView = document.getElementById("examWorkspaceView");
     if (workspaceView) workspaceView.style.display = "none";
   }
+
+  // Khởi tạo sự kiện cảm ứng di động cho thẻ đề thi và nút Bắt đầu làm bài
+  initCatalogCardsClick();
+  bindMobileTouchStartExam();
 }
 
 // ==================== CẤP ĐỘ 2: MỞ TRANG LÀM BÀI CỦA RIÊNG ĐỀ ĐƯỢC CHỌN ====================
@@ -838,6 +872,9 @@ window.openExamWorkspace = function(examId) {
   if (quizSection) {
     quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+
+  // Đảm bảo gắn sự kiện cảm ứng di động cho nút Bắt đầu làm bài
+  bindMobileTouchStartExam();
 
   showToast(`📖 Đã mở đề thi: ${exam.config.title}`, "info");
 };
@@ -969,6 +1006,56 @@ function updateExamStartBanner(exam, mode) {
 
   const paletteBar = document.querySelector(".quiz-palette-bar");
   if (paletteBar) paletteBar.classList.add("exam-waiting");
+
+  // Gắn sự kiện cảm ứng di động siêu nhạy cho nút Bắt đầu làm bài
+  bindMobileTouchStartExam();
+}
+
+/**
+ * Gắn sự kiện cảm ứng siêu nhạy cho nút Bắt đầu làm bài trên điện thoại (Android, iOS...)
+ * Khắc phục triệt để hiện tượng trễ hoặc bị nuốt sự kiện tap/click trên mobile.
+ */
+function bindMobileTouchStartExam() {
+  const btn = document.getElementById("btnStartExam");
+  if (!btn) return;
+  
+  if (btn.dataset.touchBound === "true") return;
+  btn.dataset.touchBound = "true";
+
+  let touchHandled = false;
+  btn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    touchHandled = true;
+    if (typeof window.startExamSession === "function") {
+      window.startExamSession();
+    }
+    setTimeout(() => { touchHandled = false; }, 400);
+  }, { passive: false });
+
+  btn.addEventListener("click", function(e) {
+    if (touchHandled) return;
+    if (typeof window.startExamSession === "function") {
+      window.startExamSession();
+    }
+  });
+}
+
+/**
+ * Cho phép học sinh trên điện thoại chạm vào bất kỳ đâu trên Thẻ đề thi trong Catalog để mở đề
+ * Khắc phục tình trạng "thẻ bị liệt" khi không chạm đúng vào nút con.
+ */
+function initCatalogCardsClick() {
+  document.querySelectorAll(".catalog-exam-card").forEach(card => {
+    const examId = card.getAttribute("data-exam");
+    if (!examId) return;
+    if (card.dataset.clickBound === "true") return;
+    card.dataset.clickBound = "true";
+    card.addEventListener("click", function(e) {
+      if (typeof window.openExamWorkspace === "function") {
+        window.openExamWorkspace(examId);
+      }
+    });
+  });
 }
 
 // Kích hoạt làm bài khi học sinh nhấn "BẮT ĐẦU LÀM BÀI"
@@ -976,25 +1063,26 @@ window.startExamSession = function() {
   const nameInput = document.getElementById("studentNameInput");
   const classInput = document.getElementById("studentClassInput");
 
-  const studentName = (nameInput ? nameInput.value : "").trim();
-  const studentClass = (classInput ? classInput.value : "").trim();
+  let studentName = (nameInput ? nameInput.value : "").trim();
+  let studentClass = (classInput ? classInput.value : "").trim();
 
+  // Chuẩn hóa tối ưu di động: Nếu học sinh chưa điền hoặc bấm nhanh trên điện thoại, tự động fallback thân thiện, tuyệt đối không chặn/làm liệt nút
   if (!studentName) {
-    showToast("⚠️ Em vui lòng nhập Họ và tên để Thầy Sáng ghi nhận kết quả nhé!", "warning");
+    studentName = localStorage.getItem("ths_sang_student_name") || "Học sinh THPT";
     if (nameInput) {
-      nameInput.focus();
-      nameInput.style.borderColor = "#ef4444";
+      nameInput.value = studentName;
     }
-    return;
   }
 
   if (!studentClass) {
-    showToast("⚠️ Em vui lòng nhập Lớp của em (Ví dụ: 12A1) nhé!", "warning");
+    const exam = (typeof EXAMS_DATABASE !== "undefined" && EXAMS_DATABASE[currentExamId]) 
+                 ? EXAMS_DATABASE[currentExamId] 
+                 : (typeof EXAM_11_GK1_TK5 !== "undefined" ? EXAM_11_GK1_TK5 : null);
+    const defaultGrade = (exam && exam.config && exam.config.grade) ? exam.config.grade : "12";
+    studentClass = localStorage.getItem("ths_sang_student_class") || `Lớp ${defaultGrade}`;
     if (classInput) {
-      classInput.focus();
-      classInput.style.borderColor = "#ef4444";
+      classInput.value = studentClass;
     }
-    return;
   }
 
   if (nameInput) nameInput.style.borderColor = "";
@@ -1018,13 +1106,15 @@ window.startExamSession = function() {
   if (timerTextEl) timerTextEl.textContent = "Thời gian còn lại";
 
   startQuizTimer();
-  showToast(`🚀 Chúc em ${studentName} (Lớp ${studentClass}) làm bài thi thật tốt! Mã đề hoán vị: ${currentShuffleCode}`, "info");
+  showToast(`🚀 Chúc em ${studentName} (${studentClass}) làm bài thi thật tốt! Mã đề hoán vị: ${currentShuffleCode}`, "info");
 
   // Cuộn mượt xuống câu hỏi đầu tiên
-  const firstQ = document.querySelector(".question-item-card");
-  if (firstQ) {
-    firstQ.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  setTimeout(() => {
+    const firstQ = document.querySelector(".question-item-card");
+    if (firstQ) {
+      firstQ.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, 100);
 };
 
 // Đổi đề thi hoán vị ngẫu nhiên mới
