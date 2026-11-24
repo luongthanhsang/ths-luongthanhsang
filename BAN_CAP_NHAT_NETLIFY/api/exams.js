@@ -38,6 +38,11 @@ module.exports = async (req, res) => {
           if (studentSafeExam.part1) delete studentSafeExam.part1.answerKey;
           if (studentSafeExam.part2) delete studentSafeExam.part2.answerKey;
           if (studentSafeExam.part3) delete studentSafeExam.part3.answerKey;
+          if (/TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((studentSafeExam.title || '') + ' ' + (studentSafeExam.fileName || ''))) {
+            if (!studentSafeExam.durationMinutes || studentSafeExam.durationMinutes === 45) {
+              studentSafeExam.durationMinutes = 15;
+            }
+          }
           return res.status(200).json({ success: true, data: studentSafeExam });
         }
 

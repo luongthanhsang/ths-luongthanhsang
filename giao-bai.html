@@ -2499,6 +2499,7 @@
       window.applyQuickStructurePreset = function(presetKey) {
         if (presetKey === 'tx_6_2') {
           // Đề kiểm tra thường xuyên: 6 câu P1 + 2 câu P2 Đúng/Sai
+          document.getElementById('epDuration').value = 15;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 6;
           document.getElementById('epP1DefPt').value = 0.5; // 6 x 0.5 = 3.0đ
@@ -2512,11 +2513,12 @@
           document.getElementById('epP3Num').value = 0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
-            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (6 câu) + Phần II (2 câu Đ/S)`;
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (6 câu) + Phần II (2 câu Đ/S) • Thời gian 15 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
             `Phân bổ 10đ: Phần I (6 câu x 0.5đ = 3.0đ) • Phần II (2 câu x 3.5đ = 7.0đ theo % Lũy tiến chuẩn Bộ).`;
 
         } else if (presetKey === 'tx_8_2') {
+          document.getElementById('epDuration').value = 15;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 8;
           document.getElementById('epP1DefPt').value = 0.5; // 8 x 0.5 = 4.0đ
@@ -2530,12 +2532,13 @@
           document.getElementById('epP3Num').value = 0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
-            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (8 câu) + Phần II (2 câu Đ/S)`;
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (8 câu) + Phần II (2 câu Đ/S) • Thời gian 15 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
             `Phân bổ 10đ: Phần I (8 câu x 0.5đ = 4.0đ) • Phần II (2 câu x 3.0đ = 6.0đ theo % Lũy tiến).`;
 
         } else if (presetKey === 'gk_12_4_6') {
           // Chuẩn Bộ GD&ĐT 2018 (12-4-6)
+          document.getElementById('epDuration').value = 45;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 12;
           document.getElementById('epP1DefPt').value = 0.25;
@@ -2550,12 +2553,13 @@
           document.getElementById('epP3DefPt').value = 0.5;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
-            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Chuẩn Bộ GD&ĐT: 12 P1 + 4 P2 + 6 P3`;
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Chuẩn Bộ GD&ĐT: 12 P1 + 4 P2 + 6 P3 • Thời gian 45 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
             `Phân bổ chuẩn 10đ: Phần I (3.0đ) • Phần II (4.0đ) • Phần III (3.0đ).`;
 
         } else if (presetKey.startsWith('mcq_')) {
           const num = parseInt(presetKey.replace('mcq_', '')) || 10;
+          document.getElementById('epDuration').value = (num <= 10) ? 15 : ((num <= 20) ? 25 : ((num <= 40) ? 50 : 90));
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = num;
           document.getElementById('epP1DefPt').value = Math.round((10.0 / num) * 100) / 100;
@@ -2566,7 +2570,7 @@
           document.getElementById('epP3Num').value = 0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
-            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đề 1 Dạng thức: ${num} câu Phần I`;
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đề 1 Dạng thức: ${num} câu Phần I • Thời gian ${document.getElementById('epDuration').value} phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
             `100% Trắc nghiệm nhiều lựa chọn: ${num} câu = 10.0đ (mỗi câu ${(10.0 / num).toFixed(2)}đ).`;
         }
@@ -2632,6 +2636,10 @@
           rawName = rawName.replace(/TX/i, "Kiểm Tra Thường Xuyên ");
         }
         document.getElementById('epExamTitle').value = rawName;
+
+        // Tự động nhận diện thời gian làm bài chuẩn: KTTX/15P = 15 phút, Đề định kỳ = 45 phút
+        const isTxDoc = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((rawName || '') + ' ' + (docSource.name || ''));
+        document.getElementById('epDuration').value = isTxDoc ? 15 : 45;
 
         // Điền tóm tắt quét tự động & gợi ý điểm
         if (structure && structure.summary) {
@@ -2835,7 +2843,9 @@
       // Tạo cấu trúc object exam từ các ô nhập trong Edit & Publish Modal
       function buildExamFromEditModal() {
         const title = document.getElementById('epExamTitle').value.trim() || 'Đề Kiểm Tra Môn Toán 12';
-        const duration = parseInt(document.getElementById('epDuration').value) || 45;
+        const isTx = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test(title + ' ' + (tempDocSource ? tempDocSource.name : ''));
+        const autoDur = isTx ? 15 : 45;
+        const duration = parseInt(document.getElementById('epDuration').value) || autoDur;
         const password = document.getElementById('epPassword').value.trim();
         const maxAttempts = parseInt(document.getElementById('epMaxAttempts').value);
         const viewResultMode = document.getElementById('epViewResultMode').value;
@@ -2948,49 +2958,55 @@
         iframe.src = docSource.url;
         document.getElementById('editorDocName').textContent = `Tài liệu: ${docSource.name}`;
 
+        const isTxDoc = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((docSource.name || '') + ' ' + (existingExam ? (existingExam.title || '') : ''));
+        const autoDuration = isTxDoc ? 15 : 45;
+
         if (existingExam) {
           activeEditingExam = JSON.parse(JSON.stringify(existingExam));
+          if (!activeEditingExam.durationMinutes || (activeEditingExam.durationMinutes === 45 && isTxDoc)) {
+            activeEditingExam.durationMinutes = autoDuration;
+          }
           // Chuẩn hóa cấu trúc 3 phần nếu chưa có
           if (!activeEditingExam.part1) {
-            activeEditingExam.part1 = { enabled: true, numQuestions: 12, defaultPoint: 0.25, answerKey: activeEditingExam.answerKey || {}, points: {} };
+            activeEditingExam.part1 = { enabled: true, numQuestions: isTxDoc ? 6 : 12, defaultPoint: isTxDoc ? 0.5 : 0.25, answerKey: activeEditingExam.answerKey || {}, points: {} };
           }
           if (!activeEditingExam.part2) {
-            activeEditingExam.part2 = { enabled: true, numQuestions: 4, percentMode: 'moet', percentages: { 1: 10, 2: 25, 3: 50, 4: 100 }, maxPointPerQuestion: 1.0, answerKey: {}, customPoints: {} };
+            activeEditingExam.part2 = { enabled: true, numQuestions: isTxDoc ? 2 : 4, percentMode: 'moet', percentages: { 1: 10, 2: 25, 3: 50, 4: 100 }, maxPointPerQuestion: isTxDoc ? 3.5 : 1.0, answerKey: {}, customPoints: {} };
           }
           if (!activeEditingExam.part3) {
-            activeEditingExam.part3 = { enabled: true, numQuestions: 6, defaultPoint: 0.5, answerKey: {}, points: {} };
+            activeEditingExam.part3 = { enabled: !isTxDoc, numQuestions: isTxDoc ? 0 : 6, defaultPoint: 0.5, answerKey: {}, points: {} };
           }
         } else {
           // Tạo đề mới chuẩn
           activeEditingExam = {
             id: null,
-            title: document.getElementById('editorExamTitle').value || 'Đề Kiểm Tra Môn Toán 12 - Chuẩn Cấu Trúc 2018',
+            title: document.getElementById('editorExamTitle').value || (isTxDoc ? 'Đề Kiểm Tra Thường Xuyên - Môn Toán 12' : 'Đề Kiểm Tra Môn Toán 12 - Chuẩn Cấu Trúc 2018'),
             fileSourceType: docSource.type,
             fileUrl: docSource.url,
             fileName: docSource.name,
             totalPoints: 10,
-            durationMinutes: 45,
+            durationMinutes: autoDuration,
             formatVersion: '2018_flexible',
             status: 'active',
             part1: {
               enabled: true,
-              numQuestions: 12,
-              defaultPoint: 0.25,
+              numQuestions: isTxDoc ? 6 : 12,
+              defaultPoint: isTxDoc ? 0.5 : 0.25,
               answerKey: {},
               points: {}
             },
             part2: {
               enabled: true,
-              numQuestions: 4,
+              numQuestions: isTxDoc ? 2 : 4,
               percentMode: 'moet',
               percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
-              maxPointPerQuestion: 1.0,
+              maxPointPerQuestion: isTxDoc ? 3.5 : 1.0,
               customPoints: {},
               answerKey: {}
             },
             part3: {
-              enabled: true,
-              numQuestions: 6,
+              enabled: !isTxDoc,
+              numQuestions: isTxDoc ? 0 : 6,
               defaultPoint: 0.5,
               answerKey: {},
               points: {}
@@ -3673,7 +3689,11 @@
       document.getElementById('btnOpenPublishModal').addEventListener('click', () => {
         activeEditingExam.title = document.getElementById('editorExamTitle').value.trim() || 'Đề Kiểm Tra Môn Toán 12';
         document.getElementById('cfgExamTitle').value = activeEditingExam.title;
-        document.getElementById('cfgDuration').value = activeEditingExam.durationMinutes || 45;
+
+        const isTx = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((activeEditingExam.title || '') + ' ' + (activeEditingExam.fileName || ''));
+        const autoDur = isTx ? 15 : 45;
+        document.getElementById('cfgDuration').value = (activeEditingExam.durationMinutes && (activeEditingExam.durationMinutes !== 45 || !isTx)) ? activeEditingExam.durationMinutes : autoDur;
+
         document.getElementById('cfgOpenTime').value = activeEditingExam.openTime || '';
         document.getElementById('cfgCloseTime').value = activeEditingExam.closeTime || '';
         document.getElementById('cfgPassword').value = activeEditingExam.password || '';
@@ -3693,7 +3713,9 @@
 
       document.getElementById('btnPublishExamNow').addEventListener('click', async () => {
         activeEditingExam.title = document.getElementById('cfgExamTitle').value.trim();
-        activeEditingExam.durationMinutes = parseInt(document.getElementById('cfgDuration').value) || 45;
+        const isTx = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((activeEditingExam.title || '') + ' ' + (activeEditingExam.fileName || ''));
+        const autoDur = isTx ? 15 : 45;
+        activeEditingExam.durationMinutes = parseInt(document.getElementById('cfgDuration').value) || autoDur;
         activeEditingExam.openTime = document.getElementById('cfgOpenTime').value;
         activeEditingExam.closeTime = document.getElementById('cfgCloseTime').value;
         activeEditingExam.password = document.getElementById('cfgPassword').value.trim();

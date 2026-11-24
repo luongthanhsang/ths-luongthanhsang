@@ -102,6 +102,52 @@ const SEED_EXAMS = [
     part3: { enabled: false, numQuestions: 0 },
     status: "active",
     submissionsCount: 2
+  },
+  {
+    id: "AZ-TX21-2018",
+    title: "Đề Kiểm Tra Thường Xuyên 2.1 - Môn Toán 12 (Năm Học 2026 - 2027)",
+    description: "Biên soạn: ThS. Lương Thanh Sáng - Đề KTTX 15 phút: 6 câu Phần I (3.0đ) + 2 câu Phần II Đúng/Sai (7.0đ)",
+    createdAt: new Date().toISOString(),
+    totalPoints: 10,
+    durationMinutes: 15,
+    openTime: "",
+    closeTime: "",
+    password: "",
+    maxAttempts: 1,
+    viewResultMode: "all",
+    enableTabTracking: true,
+    fileSourceType: "url",
+    fileUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview",
+    fileName: "De_Kiem_Tra_Thuong_Xuyen_2.1_Toan_12.pdf",
+    status: "active",
+    submissionsCount: 0,
+    formatVersion: "2018_flexible",
+    part1: {
+      enabled: true,
+      numQuestions: 6,
+      defaultPoint: 0.5,
+      answerKey: { "1": "A", "2": "C", "3": "B", "4": "D", "5": "A", "6": "C" },
+      points: {}
+    },
+    part2: {
+      enabled: true,
+      numQuestions: 2,
+      maxPointPerQuestion: 3.5,
+      percentMode: "moet",
+      percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
+      customPoints: {},
+      answerKey: {
+        "1": { "a": "D", "b": "S", "c": "D", "d": "S" },
+        "2": { "a": "S", "b": "D", "c": "D", "d": "S" }
+      }
+    },
+    part3: {
+      enabled: false,
+      numQuestions: 0,
+      defaultPoint: 0.5,
+      answerKey: {},
+      points: {}
+    }
   }
 ];
 

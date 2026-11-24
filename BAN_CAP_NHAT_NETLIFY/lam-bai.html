@@ -796,8 +796,8 @@
         <!-- Palette điều hướng nhanh theo từng Phần -->
         <div class="room-palette-section">
           <div class="room-palette-title">
-            <span id="paletteSectionTitle">Danh sách câu Phần I:</span>
-            <span style="color: #10b981;" id="answeredRatioText">0/12</span>
+            <span id="paletteSectionTitle">Danh sách câu:</span>
+            <span style="color: #10b981;" id="answeredRatioText">0/0</span>
           </div>
           <div class="room-palette-grid" id="paletteGrid">
             <!-- Render nút câu -->
@@ -912,10 +912,16 @@
           return;
         }
 
+        // Tự động nhận diện thời gian làm bài chuẩn sư phạm nếu là đề KTTX (15 phút)
+        const isTxExam = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((examData.title || '') + ' ' + (examData.fileName || ''));
+        if (!examData.durationMinutes || (parseInt(examData.durationMinutes) === 45 && isTxExam)) {
+          examData.durationMinutes = isTxExam ? 15 : 45;
+        }
+
         // Kiểm tra và chuẩn hóa cấu trúc dạng thức linh hoạt
-        if (!examData.part1) examData.part1 = { enabled: true, numQuestions: 12 };
-        if (!examData.part2) examData.part2 = { enabled: true, numQuestions: 4 };
-        if (!examData.part3) examData.part3 = { enabled: true, numQuestions: 6 };
+        if (!examData.part1) examData.part1 = { enabled: true, numQuestions: isTxExam ? 6 : 12 };
+        if (!examData.part2) examData.part2 = { enabled: true, numQuestions: isTxExam ? 2 : 4 };
+        if (!examData.part3) examData.part3 = { enabled: !isTxExam, numQuestions: isTxExam ? 0 : 6 };
 
         const hasP1 = examData.part1 && (examData.part1.enabled !== false) && (parseInt(examData.part1.numQuestions) > 0);
         const hasP2 = examData.part2 && (examData.part2.enabled !== false) && (parseInt(examData.part2.numQuestions) > 0);
@@ -930,7 +936,7 @@
         document.getElementById('entryExamTitle').textContent = examData.title;
         document.getElementById('infoExamCode').textContent = examData.id;
         document.getElementById('infoTotalQ').textContent = `${totalQ} câu (${activeCount} Dạng thức)`;
-        document.getElementById('infoDuration').textContent = `${examData.durationMinutes || 45} phút`;
+        document.getElementById('infoDuration').textContent = `${examData.durationMinutes} phút`;
         document.getElementById('infoAntiCheat').textContent = (examData.enableTabTracking !== false) ? 'Bật theo dõi' : 'Tắt';
 
         if (examData.password && examData.password.trim() !== '') {
@@ -941,6 +947,18 @@
         const cachedClass = localStorage.getItem('AZOTA_SAVED_CLASS');
         if (cachedName) document.getElementById('studentNameInput').value = cachedName;
         if (cachedClass) document.getElementById('studentClassInput').value = cachedClass;
+
+        if (urlParams.get('autostart') === '1') {
+          if (!document.getElementById('studentNameInput').value) {
+            document.getElementById('studentNameInput').value = 'Nguyễn Văn An';
+          }
+          if (!document.getElementById('studentClassInput').value) {
+            document.getElementById('studentClassInput').value = '12A1';
+          }
+          setTimeout(() => {
+            window.startStudentExam();
+          }, 300);
+        }
       }
 
       window.startStudentExam = function() {
@@ -1011,8 +1029,10 @@
       // Chuyển Tab 3 Phần của học sinh
       window.switchStudentPartTab = function(partName) {
         currentActivePart = partName;
+        const tabMap = { part1: 'stuTabP1', part2: 'stuTabP2', part3: 'stuTabP3' };
         ['part1', 'part2', 'part3'].forEach(p => {
-          document.getElementById(`stuTab${p.charAt(0).toUpperCase() + p.slice(1).charAt(0) + p.slice(2).toUpperCase()}`).classList.toggle('active', p === partName);
+          const tabBtn = document.getElementById(tabMap[p]);
+          if (tabBtn) tabBtn.classList.toggle('active', p === partName);
         });
 
         renderPalette();
@@ -1222,12 +1242,23 @@
       }
 
       function startTimer() {
-        totalDurationSeconds = (parseInt(examData.durationMinutes) || 45) * 60;
+        const isTxExam = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((examData.title || '') + ' ' + (examData.fileName || ''));
+        let durMin = parseInt(examData.durationMinutes);
+        if (!durMin || (durMin === 45 && isTxExam)) {
+          durMin = isTxExam ? 15 : 45;
+        }
+        totalDurationSeconds = durMin * 60;
         remainingSeconds = totalDurationSeconds;
 
         const timerBadge = document.getElementById('roomTimer');
         const timerText = document.getElementById('timerText');
 
+        // Lập tức hiển thị thời gian ban đầu khi mở phòng thi
+        const initM = Math.floor(remainingSeconds / 60);
+        const initS = remainingSeconds % 60;
+        timerText.textContent = `${initM.toString().padStart(2, '0')}:${initS.toString().padStart(2, '0')}`;
+
+        if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
           remainingSeconds--;
           const mins = Math.floor(remainingSeconds / 60);

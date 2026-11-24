@@ -149,6 +149,54 @@
     }
   ];
 
+  // Đề mẫu Kiểm tra Thường xuyên 2.1 (6 câu P1 + 2 câu P2 Đúng/Sai, thời gian 15 phút)
+  const DEFAULT_TX_SAMPLE_EXAM = {
+    id: "AZ-TX21-2018",
+    title: "Đề Kiểm Tra Thường Xuyên 2.1 - Môn Toán 12 (Năm Học 2026 - 2027)",
+    description: "Biên soạn: ThS. Lương Thanh Sáng - Đề KTTX 15 phút: 6 câu Phần I (3.0đ) + 2 câu Phần II Đúng/Sai (7.0đ)",
+    createdAt: "2026-11-24T09:00:00.000Z",
+    totalPoints: 10,
+    durationMinutes: 15,
+    openTime: "",
+    closeTime: "",
+    password: "",
+    maxAttempts: 1,
+    viewResultMode: "all",
+    enableTabTracking: true,
+    fileSourceType: "url",
+    fileUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview",
+    fileName: "De_Kiem_Tra_Thuong_Xuyen_2.1_Toan_12.pdf",
+    status: "active",
+    submissionsCount: 0,
+    formatVersion: "2018_flexible",
+    part1: {
+      enabled: true,
+      numQuestions: 6,
+      defaultPoint: 0.5,
+      answerKey: { "1": "A", "2": "C", "3": "B", "4": "D", "5": "A", "6": "C" },
+      points: {}
+    },
+    part2: {
+      enabled: true,
+      numQuestions: 2,
+      maxPointPerQuestion: 3.5,
+      percentMode: "moet",
+      percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
+      customPoints: {},
+      answerKey: {
+        "1": { "a": "D", "b": "S", "c": "D", "d": "S" },
+        "2": { "a": "S", "b": "D", "c": "D", "d": "S" }
+      }
+    },
+    part3: {
+      enabled: false,
+      numQuestions: 0,
+      defaultPoint: 0.5,
+      answerKey: {},
+      points: {}
+    }
+  };
+
   // Storage Driver
   const AzotaStore = {
     LOCAL_KEY_EXAMS: 'AZOTA_TEACHER_EXAMS_2018_V3',
@@ -158,13 +206,17 @@
       try {
         const raw = localStorage.getItem(this.LOCAL_KEY_EXAMS);
         if (!raw) {
-          const initial = [DEFAULT_SAMPLE_EXAM];
+          const initial = [DEFAULT_SAMPLE_EXAM, DEFAULT_TX_SAMPLE_EXAM];
           localStorage.setItem(this.LOCAL_KEY_EXAMS, JSON.stringify(initial));
           return initial;
         }
-        return JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        if (!parsed.find(e => e.id === "AZ-TX21-2018")) {
+          parsed.push(DEFAULT_TX_SAMPLE_EXAM);
+        }
+        return parsed;
       } catch (e) {
-        return [DEFAULT_SAMPLE_EXAM];
+        return [DEFAULT_SAMPLE_EXAM, DEFAULT_TX_SAMPLE_EXAM];
       }
     },
 
@@ -242,6 +294,12 @@
       if (!exam) return null;
       
       const copy = JSON.parse(JSON.stringify(exam));
+      // Tự động chuẩn hóa thời gian 15 phút nếu là đề KTTX
+      if (/TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((copy.title || '') + ' ' + (copy.fileName || ''))) {
+        if (!copy.durationMinutes || copy.durationMinutes === 45) {
+          copy.durationMinutes = 15;
+        }
+      }
       if (isStudent) {
         if (copy.answerKey) delete copy.answerKey;
         if (copy.part1) delete copy.part1.answerKey;
