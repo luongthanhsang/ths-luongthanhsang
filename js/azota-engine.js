@@ -633,25 +633,34 @@
    * - Phần II: Trắc nghiệm Đúng / Sai (các câu có ý a, b, c, d hoặc Đ/S)
    * - Phần III: Trắc nghiệm Trả lời ngắn
    * - Đề 1 dạng thức: Nếu không chia phần mà chỉ có Câu 1 -> Câu N (A, B, C, D)
+   * Hỗ trợ nhận diện thông minh qua văn bản hoặc gợi ý theo tên file (Đề KTTX: 6 câu P1 + 2 câu P2).
    */
-  function detectExamStructure(rawText) {
-    if (!rawText || typeof rawText !== 'string') {
+  function detectExamStructure(rawText, fileName = '') {
+    const fUpper = (fileName || '').toUpperCase();
+    const isTxName = /TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test(fUpper);
+
+    if (!rawText || typeof rawText !== 'string' || rawText.trim().length === 0) {
+      if (isTxName) {
+        return {
+          hasPart1: true, p1Count: 6,
+          hasPart2: true, p2Count: 2,
+          hasPart3: false, p3Count: 0,
+          detectedFormats: 2,
+          summary: "Nhận diện từ tên file Đề KTTX: Phần I (6 câu) + Phần II (2 câu Đ/S)"
+        };
+      }
       return {
         hasPart1: true, p1Count: 12,
         hasPart2: true, p2Count: 4,
         hasPart3: true, p3Count: 6,
         isCustom: false,
-        summary: "Mặc định chuẩn Bộ GD&ĐT 2018 (12 câu P1, 4 câu P2, 6 câu P3)"
+        summary: "Cấu hình chuẩn Bộ GD&ĐT 2018 (12 câu P1, 4 câu P2, 6 câu P3)"
       };
     }
 
     const text = rawText.toUpperCase();
     
     // Tách các phân đoạn Phần I, Phần II, Phần III
-    let p1Text = '';
-    let p2Text = '';
-    let p3Text = '';
-
     const p1Idx = text.search(/PHẦN\s*(?:I|1|THỨ\s*NHẤT)|TRẮC\s*NGHIỆM\s*NHIỀU\s*LỰA\s*CHỌN/i);
     const p2Idx = text.search(/PHẦN\s*(?:II|2|THỨ\s*HAI)|TRẮC\s*NGHIỆM\s*ĐÚNG\s*[\/\-]?\s*SAI/i);
     const p3Idx = text.search(/PHẦN\s*(?:III|3|THỨ\s*BA)|TRẮC\s*NGHIỆM\s*TRẢ\s*LỜI\s*NGẮN|CÂU\s*HỎI\s*TRẢ\s*LỜI\s*NGẮN/i);
@@ -664,17 +673,27 @@
     let p2Count = 0;
     let p3Count = 0;
 
-    // Đếm số câu bằng regex tìm "Câu 1", "Câu 2"...
+    // Đếm số câu bằng regex tìm "từ câu 1 đến câu N", hoặc "Câu 1", "Câu 2"...
     function countQuestionsInBlock(block) {
       if (!block) return 0;
+      
+      // 1. Kiểm tra xem văn bản đề có ghi "từ câu 1 đến câu N" hoặc "gồm N câu"
+      let rangeCount = 0;
+      const rangeMatch = block.match(/(?:TỪ\s*CÂU\s*1\s*ĐẾN\s*CÂU|ĐẾN\s*CÂU|GỒM)\s*(\d+)/i) || 
+                         block.match(/(?:TRẢ\s*LỜI\s*TỪ\s*CÂU\s*1\s*ĐẾN\s*(\d+))/i);
+      if (rangeMatch) {
+        rangeCount = parseInt(rangeMatch[1]);
+      }
+
+      // 2. Tìm các câu "Câu 1", "Câu 2"...
       const matches = block.match(/(?:CÂU|BÀI)\s*\d+[\s.:-]/gi) || [];
-      // Đếm các số câu lớn nhất tìm thấy
       const qNumMatches = [...block.matchAll(/(?:CÂU|BÀI)\s*(\d+)[\s.:-]/gi)];
+      let maxNum = 0;
       if (qNumMatches.length > 0) {
         const nums = qNumMatches.map(m => parseInt(m[1])).filter(n => !isNaN(n));
-        if (nums.length > 0) return Math.max(...nums, matches.length);
+        if (nums.length > 0) maxNum = Math.max(...nums);
       }
-      return matches.length;
+      return Math.max(rangeCount, maxNum, matches.length);
     }
 
     if (p1Idx !== -1 || p2Idx !== -1 || p3Idx !== -1) {
@@ -711,32 +730,43 @@
       }
     }
 
-    // Chuẩn hóa dự phòng nếu đếm = 0
-    if (hasPart1 && p1Count === 0) p1Count = 12;
-    if (hasPart2 && p2Count === 0) p2Count = 4;
-    if (hasPart3 && p3Count === 0) p3Count = 6;
-
-    // Nếu không tìm thấy gì cả thì mặc định 3 dạng thức chuẩn
-    if (!hasPart1 && !hasPart2 && !hasPart3) {
-      hasPart1 = true; p1Count = 12;
-      hasPart2 = true; p2Count = 4;
-      hasPart3 = true; p3Count = 6;
+    // Nếu là đề thường xuyên (TX) mà đếm = 0
+    if (isTxName) {
+      if (hasPart1 && p1Count === 0) p1Count = 6;
+      if (hasPart2 && p2Count === 0) p2Count = 2;
+    } else {
+      if (hasPart1 && p1Count === 0) p1Count = 12;
+      if (hasPart2 && p2Count === 0) p2Count = 4;
+      if (hasPart3 && p3Count === 0) p3Count = 6;
     }
 
-    const detectedFormats = (hasPart1 ? 1 : 0) + (hasPart2 ? 1 : 0) + (hasPart3 ? 1 : 0);
+    // Nếu không tìm thấy gì cả: kiểm tra tên file
+    if (!hasPart1 && !hasPart2 && !hasPart3) {
+      if (isTxName) {
+        hasPart1 = true; p1Count = 6;
+        hasPart2 = true; p2Count = 2;
+        hasPart3 = false; p3Count = 0;
+      } else {
+        hasPart1 = true; p1Count = 12;
+        hasPart2 = true; p2Count = 4;
+        hasPart3 = true; p3Count = 6;
+      }
+    }
+
+    const detectedFormats = (hasPart1 && p1Count > 0 ? 1 : 0) + (hasPart2 && p2Count > 0 ? 1 : 0) + (hasPart3 && p3Count > 0 ? 1 : 0);
     let summary = `Đã phát hiện ${detectedFormats} dạng thức: `;
     const parts = [];
-    if (hasPart1) parts.push(`Phần I (${p1Count} câu)`);
-    if (hasPart2) parts.push(`Phần II (${p2Count} câu Đ/S)`);
-    if (hasPart3) parts.push(`Phần III (${p3Count} câu TLN)`);
+    if (hasPart1 && p1Count > 0) parts.push(`Phần I (${p1Count} câu)`);
+    if (hasPart2 && p2Count > 0) parts.push(`Phần II (${p2Count} câu Đ/S)`);
+    if (hasPart3 && p3Count > 0) parts.push(`Phần III (${p3Count} câu TLN)`);
     summary += parts.join(' + ');
 
     return {
-      hasPart1,
+      hasPart1: hasPart1 && p1Count > 0,
       p1Count,
-      hasPart2,
+      hasPart2: hasPart2 && p2Count > 0,
       p2Count,
-      hasPart3,
+      hasPart3: hasPart3 && p3Count > 0,
       p3Count,
       detectedFormats,
       summary
@@ -761,28 +791,38 @@
       description: ""
     };
 
-    if (nFormats === 3) {
-      // Chuẩn Bộ GD&ĐT 2018: Phần I = 3.0đ, Phần II = 4.0đ, Phần III = 3.0đ
-      suggestion.part1.totalPoints = 3.0;
-      suggestion.part1.pointPerQuestion = Math.round((3.0 / suggestion.part1.numQuestions) * 100) / 100;
-
-      suggestion.part2.totalPoints = 4.0;
-      suggestion.part2.maxPointPerQuestion = Math.round((4.0 / suggestion.part2.numQuestions) * 100) / 100;
-      suggestion.part2.percentMode = "moet";
-
-      suggestion.part3.totalPoints = 3.0;
-      suggestion.part3.pointPerQuestion = Math.round((3.0 / suggestion.part3.numQuestions) * 100) / 100;
-
-      suggestion.description = `Gợi ý chuẩn 10đ Bộ GD&ĐT: Phần I (3.0đ - ${suggestion.part1.pointPerQuestion}đ/câu) • Phần II (4.0đ - ${suggestion.part2.maxPointPerQuestion}đ/câu theo % Lũy tiến) • Phần III (3.0đ - ${suggestion.part3.pointPerQuestion}đ/câu).`;
-    } else if (nFormats === 2) {
-      // Có 2 dạng thức: chia 5.0đ - 5.0đ
-      if (has1 && has2) {
+    if (has1 && has2 && !has3) {
+      // 2 Dạng thức P1 + P2 (Đặc biệt phổ biến cho kiểm tra thường xuyên TX)
+      if (suggestion.part1.numQuestions === 6 && suggestion.part2.numQuestions === 2) {
+        // 6 câu P1 (0.5đ/câu = 3.0đ) + 2 câu P2 (3.5đ/câu = 7.0đ) = 10.0đ tròn đẹp
+        suggestion.part1.totalPoints = 3.0;
+        suggestion.part1.pointPerQuestion = 0.5;
+        suggestion.part2.totalPoints = 7.0;
+        suggestion.part2.maxPointPerQuestion = 3.5;
+        suggestion.description = `Gợi ý Đề KTTX: Phần I (6 câu x 0.5đ = 3.0đ) • Phần II (2 câu x 3.5đ = 7.0đ theo % Lũy tiến).`;
+      } else if (suggestion.part1.numQuestions === 8 && suggestion.part2.numQuestions === 2) {
+        suggestion.part1.totalPoints = 4.0;
+        suggestion.part1.pointPerQuestion = 0.5;
+        suggestion.part2.totalPoints = 6.0;
+        suggestion.part2.maxPointPerQuestion = 3.0;
+        suggestion.description = `Gợi ý Đề KTTX: Phần I (8 câu x 0.5đ = 4.0đ) • Phần II (2 câu x 3.0đ = 6.0đ theo % Lũy tiến).`;
+      } else {
         suggestion.part1.totalPoints = 4.0;
         suggestion.part1.pointPerQuestion = Math.round((4.0 / suggestion.part1.numQuestions) * 100) / 100;
         suggestion.part2.totalPoints = 6.0;
         suggestion.part2.maxPointPerQuestion = Math.round((6.0 / suggestion.part2.numQuestions) * 100) / 100;
-        suggestion.description = `Gợi ý 2 dạng thức (P1 + P2): Phần I (4.0đ) • Phần II (6.0đ - Lũy tiến %).`;
-      } else if (has1 && has3) {
+        suggestion.description = `Gợi ý 2 dạng thức: Phần I (${suggestion.part1.totalPoints}đ) • Phần II (${suggestion.part2.totalPoints}đ theo % Lũy tiến).`;
+      }
+    } else if (nFormats === 3) {
+      suggestion.part1.totalPoints = 3.0;
+      suggestion.part1.pointPerQuestion = Math.round((3.0 / suggestion.part1.numQuestions) * 100) / 100;
+      suggestion.part2.totalPoints = 4.0;
+      suggestion.part2.maxPointPerQuestion = Math.round((4.0 / suggestion.part2.numQuestions) * 100) / 100;
+      suggestion.part3.totalPoints = 3.0;
+      suggestion.part3.pointPerQuestion = Math.round((3.0 / suggestion.part3.numQuestions) * 100) / 100;
+      suggestion.description = `Gợi ý chuẩn 10đ Bộ GD&ĐT: Phần I (3.0đ - ${suggestion.part1.pointPerQuestion}đ/câu) • Phần II (4.0đ - ${suggestion.part2.maxPointPerQuestion}đ/câu theo % Lũy tiến) • Phần III (3.0đ - ${suggestion.part3.pointPerQuestion}đ/câu).`;
+    } else if (nFormats === 2) {
+      if (has1 && has3) {
         suggestion.part1.totalPoints = 5.0;
         suggestion.part1.pointPerQuestion = Math.round((5.0 / suggestion.part1.numQuestions) * 100) / 100;
         suggestion.part3.totalPoints = 5.0;
@@ -796,7 +836,6 @@
         suggestion.description = `Gợi ý 2 dạng thức (P2 + P3): Phần II (6.0đ) • Phần III (4.0đ).`;
       }
     } else if (nFormats === 1) {
-      // Chỉ có 1 dạng thức: 100% điểm toàn đề = 10.0đ
       if (has1) {
         suggestion.part1.totalPoints = targetTotal;
         suggestion.part1.pointPerQuestion = Math.round((targetTotal / suggestion.part1.numQuestions) * 100) / 100;
