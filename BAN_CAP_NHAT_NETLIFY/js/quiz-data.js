@@ -4763,7 +4763,7 @@ const EXAM_12_KTTX3_VEC = {
 };
 
 // ==================== CƠ SỞ DỮ LIỆU ĐỀ THI TOÀN TRƯỜNG ====================
-const EXAMS_DATABASE = {
+var EXAMS_DATABASE = {
   "12_KTTX3_VEC": EXAM_12_KTTX3_VEC,
   "12_BGD_0110": EXAM_12_BGD_0110,
   "12_BGD_0101": EXAM_12_BGD_0101,
@@ -4771,6 +4771,10 @@ const EXAMS_DATABASE = {
   "11_GK1_TK4": EXAM_11_GK1_TK4,
   "12_GK1_0002": EXAM_12_GK1_0002
 };
+
+if (typeof window !== 'undefined') {
+  window.EXAMS_DATABASE = EXAMS_DATABASE;
+}
 
 // Đặt đề mặc định ban đầu là Đề thi chính thức môn Toán năm 2026 - Bộ GD&ĐT (Mã đề 0101)
 const DEFAULT_ACTIVE_EXAM_ID = "12_BGD_0110";
