@@ -12,15 +12,29 @@ import urllib.error
 
 PROJECT_NAME = "thpt-luongthanhsang"
 
-# Các tệp tĩnh cần triển khai
+# Các tệp tĩnh và API cần triển khai
 DEPLOY_FILES = [
     "index.html",
+    "giao-bai.html",
+    "lam-bai.html",
+    "thong-bao.html",
+    "trac-nghiem.html",
+    "tai-lieu.html",
+    "thi-hsg.html",
+    "bai-hoc-so.html",
+    "lien-he.html",
     "vercel.json",
     "package.json",
+    "_redirects",
     "css/styles.css",
     "js/document-data.js",
     "js/quiz-data.js",
-    "js/script.js"
+    "js/script.js",
+    "js/azota-engine.js",
+    "api/db.js",
+    "api/exams.js",
+    "api/submit.js",
+    "api/results.js"
 ]
 
 def load_files():

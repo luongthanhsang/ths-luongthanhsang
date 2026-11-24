@@ -1,0 +1,20 @@
+{
+  "name": "thpt-luongthanhsang",
+  "version": "1.0.0",
+  "description": "Website giao duc ca nhan - ThS. Luong Thanh Sang - THPT Nguyen Van Thoai, An Giang",
+  "private": true,
+  "scripts": {
+    "start": "serve .",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "education",
+    "math",
+    "thpt",
+    "toan-12",
+    "luongthanhsang"
+  ],
+  "author": "ThS. Luong Thanh Sang <luongthanhsang@gmail.com>",
+  "license": "MIT"
+}
+

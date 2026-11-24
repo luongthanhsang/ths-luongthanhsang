@@ -5,6 +5,8 @@
   "rewrites": [
     { "source": "/bai-hoc-so", "destination": "/bai-hoc-so.html" },
     { "source": "/trac-nghiem", "destination": "/trac-nghiem.html" },
+    { "source": "/giao-bai", "destination": "/giao-bai.html" },
+    { "source": "/lam-bai", "destination": "/lam-bai.html" },
     { "source": "/thi-hsg", "destination": "/thi-hsg.html" },
     { "source": "/tai-lieu", "destination": "/tai-lieu.html" },
     { "source": "/thong-bao", "destination": "/thong-bao.html" },

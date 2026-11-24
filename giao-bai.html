@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hệ thống giao bài tập và đề thi trực tuyến chuẩn 100% quy trình Azota - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
+  <meta name="author" content="ThS. Lương Thanh Sáng">
+  <meta name="theme-color" content="#0284c7">
+  <title>Giao Bài Trực Tuyến Chuẩn Azota | ThS. Lương Thanh Sáng</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* CSS RIÊNG BIỆT CHO PHÂN HỆ GIAO BÀI AZOTA */
+    .azota-dashboard {
+      padding: 30px 0 60px 0;
+      background: #f8fafc;
+      min-height: calc(100vh - 250px);
+    }
+    .azota-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+      background: #ffffff;
+      padding: 20px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .azota-top-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .azota-top-title i {
+      color: #0284c7;
+    }
+    .azota-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-create-exam {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      transition: all 0.25s ease;
+    }
+    .btn-create-exam:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+    }
+
+    /* Grid danh sách đề thi */
+    .azota-exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 22px;
+    }
+    .azota-card {
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid #e2e8f0;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .azota-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.12);
+      border-color: #bae6fd;
+    }
+    .azota-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+    .azota-card-code {
+      background: #eff6ff;
+      color: #0284c7;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid #bfdbfe;
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.5px;
+    }
+    .azota-badge-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .azota-badge-status.active {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    .azota-badge-status.closed {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+    .azota-card-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .azota-card-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+      font-size: 0.85rem;
+      color: #475569;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .azota-card-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .azota-card-meta-item i {
+      color: #0284c7;
+      font-size: 0.85rem;
+      width: 16px;
+    }
+    .azota-card-footer {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-azota-action {
+      flex: 1 1 calc(50% - 4px);
+      padding: 8px 12px;
+      border-radius: 9px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-azota-action:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .btn-azota-action.primary {
+      background: #eff6ff;
+      color: #0284c7;
+      border-color: #bfdbfe;
+    }
+    .btn-azota-action.primary:hover {
+      background: #dbeafe;
+    }
+    .btn-azota-action.success {
+      background: #f0fdf4;
+      color: #16a34a;
+      border-color: #bbf7d0;
+    }
+    .btn-azota-action.success:hover {
+      background: #dcfce7;
+    }
+    .btn-azota-action.danger {
+      flex: 0 0 36px;
+      color: #ef4444;
+      border-color: #fecaca;
+      background: #fef2f2;
+    }
+    .btn-azota-action.danger:hover {
+      background: #fee2e2;
+    }
+
+    /* SPLIT-SCREEN EDITOR CHUẨN AZOTA */
+    .azota-split-editor {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #f1f5f9;
+      z-index: 9999;
+      flex-direction: column;
+    }
+    .editor-navbar {
+      height: 60px;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      border-bottom: 1px solid #334155;
+    }
+    .editor-navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .editor-back-btn {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #475569;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .editor-back-btn:hover {
+      background: #334155;
+    }
+    .editor-exam-title-input {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
+      width: 450px;
+      max-width: 50vw;
+      transition: all 0.2s;
+    }
+    .editor-exam-title-input:hover,
+    .editor-exam-title-input:focus {
+      background: #1e293b;
+      border-color: #475569;
+      outline: none;
+    }
+    .editor-navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .editor-body {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+    .editor-left-pane {
+      width: 70%;
+      height: 100%;
+      background: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid #94a3b8;
+      position: relative;
+    }
+    .editor-doc-toolbar {
+      height: 48px;
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .doc-toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-tool-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .doc-tool-btn:hover {
+      background: #e2e8f0;
+    }
+    .editor-doc-viewer {
+      flex: 1;
+      height: calc(100% - 48px);
+      position: relative;
+      background: #64748b;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+    }
+    .editor-doc-viewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+    .editor-right-pane {
+      width: 30%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .editor-sheet-header {
+      padding: 16px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .sheet-controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .sheet-control-item label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .sheet-control-item input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .quick-answer-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .quick-answer-box textarea {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.82rem;
+      resize: none;
+      font-family: 'Fira Code', monospace;
+    }
+    .quick-answer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+    .editor-sheet-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+    }
+    .sheet-q-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      transition: all 0.15s;
+    }
+    .sheet-q-row:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+    .sheet-q-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 90px;
+    }
+    .sheet-q-num {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #0f172a;
+    }
+    .sheet-q-point {
+      font-size: 0.75rem;
+      color: #64748b;
+      width: 42px;
+      padding: 2px 4px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .sheet-q-options {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-sheet-opt {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-sheet-opt:hover {
+      border-color: #0284c7;
+      color: #0284c7;
+    }
+    .btn-sheet-opt.selected {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+    }
+
+    /* Toast thông báo */
+    .azota-toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .azota-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .azota-toast i {
+      color: #38bdf8;
+    }
+
+    /* Modal chung */
+    .azota-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .azota-modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .azota-modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .azota-modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .azota-modal-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .azota-modal-close:hover {
+      color: #0f172a;
+    }
+    .azota-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .azota-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Modal Upload đề thi */
+    .upload-tab-btns {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+    .upload-tab-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .upload-tab-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+    .dropzone-box {
+      border: 2px dashed #0284c7;
+      background: #f0f9ff;
+      border-radius: 14px;
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dropzone-box:hover {
+      background: #e0f2fe;
+    }
+    .dropzone-icon {
+      font-size: 2.8rem;
+      color: #0284c7;
+      margin-bottom: 10px;
+    }
+
+    /* Modal cài đặt */
+    .settings-group {
+      margin-bottom: 18px;
+    }
+    .settings-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .settings-group input,
+    .settings-group select {
+      width: 100%;
+      padding: 9px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+    .settings-group .hint {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      margin-top: 6px;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .toggle-slider {
+      background-color: #0284c7;
+    }
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Modal thống kê bảng điểm */
+    .stats-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-box-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0284c7;
+    }
+    .stat-box-lbl {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .stats-table-wrap {
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+    }
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .stats-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .stats-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+    .stats-table tr:hover td {
+      background: #f8fafc;
+    }
+    .violation-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .violation-pill.clean {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .violation-pill.warn {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .editor-body {
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .editor-left-pane {
+        width: 100%;
+        height: 50vh;
+        border-right: none;
+        border-bottom: 2px solid #94a3b8;
+      }
+      .editor-right-pane {
+        width: 100%;
+        height: 50vh;
+      }
+      .stats-summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER & THANH ĐIỀU HƯỚNG ==================== -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-logo-badge">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="gold-metallic-text">ThS. Lương Thanh Sáng</h1>
+          <span>THPT Nguyễn Văn Thoại • An Giang</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="bai-hoc-so.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Bài học số</a>
+        <a href="thong-bao.html" class="nav-link nav-link-notice"><i class="fa-solid fa-bell"></i> Thông báo <span class="nav-notify-badge" id="navNotifyBadge">4</span></a>
+        <a href="tai-lieu.html" class="nav-link"><i class="fa-solid fa-book-open"></i> Kho tài liệu</a>
+        <a href="thi-hsg.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Thi học sinh giỏi</a>
+        <a href="trac-nghiem.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Trắc nghiệm Online</a>
+        <a href="lien-he.html" class="nav-link"><i class="fa-solid fa-envelope-open-text"></i> Liên hệ</a>
+        <a href="giao-bai.html" class="nav-cta active"><i class="fa-solid fa-cloud-arrow-up"></i> Giao bài</a>
+      </nav>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mở menu điện thoại">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== BANNER ĐẦU TRANG ==================== -->
+    <section class="page-banner">
+      <div class="container page-banner-inner">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <ul class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li class="breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+            <li class="breadcrumb-item active" aria-current="page">Giao bài Azota</li>
+          </ul>
+        </nav>
+        <h1 class="page-banner-title"><i class="fa-solid fa-cloud-arrow-up"></i> Hệ Thống Giao Bài Chuẩn Azota</h1>
+        <p class="page-banner-desc">Quy trình giao đề thi và bài tập trắc nghiệm thông minh: Tạo đề chia đôi màn hình (Split-Screen), tải file PDF/Ảnh hoặc link Google Drive, tự động chia điểm, chống gian lận chuyển tab và chấm điểm tức thì trên server.</p>
+      </div>
+    </section>
+
+    <!-- ==================== KHU VỰC QUẢN LÝ GIAO BÀI (DASHBOARD) ==================== -->
+    <section class="azota-dashboard">
+      <div class="container">
+        
+        <!-- Thanh điều khiển trên cùng -->
+        <div class="azota-top-bar">
+          <div class="azota-top-title">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Danh Sách Đề Thi & Bài Tập Đã Tạo</span>
+            <span id="examCountBadge" class="azota-card-code" style="margin-left: 6px;">0 đề</span>
+          </div>
+
+          <div class="azota-top-actions">
+            <button class="btn-create-exam" id="btnOpenCreateModal">
+              <i class="fa-solid fa-plus"></i> Tạo bài tập / Đề thi mới
+            </button>
+          </div>
+        </div>
+
+        <!-- Lưới danh sách các đề thi đã tạo -->
+        <div class="azota-exam-grid" id="examGridContainer">
+          <!-- Render động bằng JS -->
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== TRÌNH TẠO ĐỀ CHIA ĐÔI MÀN HÌNH (SPLIT-SCREEN EDITOR) ==================== -->
+  <div class="azota-split-editor" id="splitEditor">
+    <!-- Navbar Editor -->
+    <div class="editor-navbar">
+      <div class="editor-navbar-left">
+        <button class="editor-back-btn" id="btnBackFromEditor">
+          <i class="fa-solid fa-arrow-left"></i> Quay lại
+        </button>
+        <input type="text" class="editor-exam-title-input" id="editorExamTitle" value="Đề Kiểm Tra Định Kỳ Môn Toán 12" title="Bấm để đổi tên đề thi">
+      </div>
+
+      <div class="editor-navbar-right">
+        <button class="btn-create-exam" id="btnOpenPublishModal" style="padding: 8px 18px; font-size: 0.9rem;">
+          <i class="fa-solid fa-gear"></i> Cấu hình & Xuất bản đề
+        </button>
+      </div>
+    </div>
+
+    <!-- Body Editor: 2 Cột chuẩn Azota -->
+    <div class="editor-body">
+      <!-- Cột Trái (70%): Tài liệu đề thi -->
+      <div class="editor-left-pane">
+        <div class="editor-doc-toolbar">
+          <div class="doc-toolbar-group">
+            <button class="doc-tool-btn" id="btnChangeDocSource"><i class="fa-solid fa-folder-open"></i> Đổi tài liệu đề</button>
+            <span id="editorDocName" style="font-size: 0.8rem; font-weight: 600; color: #475569; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Tài liệu: Oxyz_Toan12.pdf</span>
+          </div>
+          <div class="doc-toolbar-group">
+            <button class="doc-tool-btn" id="btnDocOpenNewTab"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mở tab mới</button>
+          </div>
+        </div>
+
+        <div class="editor-doc-viewer" id="docViewerContainer">
+          <iframe id="docViewerIframe" src="" title="Xem đề thi"></iframe>
+        </div>
+      </div>
+
+      <!-- Cột Phải (30%): Bảng tạo phiếu đáp án -->
+      <div class="editor-right-pane">
+        <div class="editor-sheet-header">
+          <div class="sheet-controls-grid">
+            <div class="sheet-control-item">
+              <label for="inputTotalQuestions">Số câu hỏi:</label>
+              <input type="number" id="inputTotalQuestions" min="1" max="100" value="10">
+            </div>
+            <div class="sheet-control-item">
+              <label for="inputTotalPoints">Tổng thang điểm:</label>
+              <input type="number" id="inputTotalPoints" min="1" max="100" step="0.5" value="10">
+            </div>
+          </div>
+
+          <!-- Nhập nhanh đáp án -->
+          <div class="quick-answer-box">
+            <textarea id="quickAnswerInput" placeholder="Nhập nhanh đáp án: 1A 2B 3C... hoặc chuỗi ABCD..."></textarea>
+            <div class="quick-answer-actions">
+              <span style="font-size: 0.72rem; color: #64748b;">Hỗ trợ dán chuỗi ABCD</span>
+              <button class="doc-tool-btn" id="btnApplyQuickAnswers" style="background: #0284c7; color: #fff; border-color: #0284c7;">
+                <i class="fa-solid fa-bolt"></i> Điền nhanh
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bảng các dòng câu 1..N -->
+        <div class="editor-sheet-body" id="sheetQuestionList">
+          <!-- Render các dòng câu bằng JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 1: CHỌN NGUỒN TÀI LIỆU ĐỀ THI ==================== -->
+  <div class="azota-modal-overlay" id="uploadModal">
+    <div class="azota-modal-card">
+      <div class="azota-modal-header">
+        <div class="azota-modal-title">
+          <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Chọn Tài Liệu Đề Thi
+        </div>
+        <button class="azota-modal-close" id="btnCloseUploadModal">&times;</button>
+      </div>
+
+      <div class="azota-modal-body">
+        <div class="upload-tab-btns">
+          <button class="upload-tab-btn active" id="tabBtnDrive"><i class="fa-brands fa-google-drive"></i> Link Google Drive / URL</button>
+          <button class="upload-tab-btn" id="tabBtnUpload"><i class="fa-solid fa-upload"></i> Upload từ máy tính</button>
+          <button class="upload-tab-btn" id="tabBtnSample"><i class="fa-solid fa-book-bookmark"></i> Đề mẫu Thầy Sáng</button>
+        </div>
+
+        <!-- Tab 1: Link Google Drive -->
+        <div id="tabContentDrive">
+          <div class="settings-group">
+            <label for="driveUrlInput">Dán đường liên kết file PDF từ Google Drive hoặc URL công khai:</label>
+            <input type="url" id="driveUrlInput" placeholder="https://drive.google.com/file/d/.../view?usp=sharing">
+            <div class="hint">Hệ thống sẽ tự động chuyển link "/view" sang "/preview" để nhúng mượt mà vào khung đề thi. Đảm bảo file được bật quyền "Bất kỳ ai có đường liên kết đều có thể xem".</div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Upload File -->
+        <div id="tabContentUpload" style="display: none;">
+          <div class="dropzone-box" id="dropzoneBox">
+            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+            <p style="font-weight: 600; color: #0f172a; margin-bottom: 6px;">Kéo & thả file PDF hoặc Ảnh đề thi vào đây</p>
+            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 14px;">Hỗ trợ file .pdf, .png, .jpg (dung lượng tối đa 25MB)</p>
+            <button class="doc-tool-btn" style="background: #0284c7; color: #fff; border-color: #0284c7;">
+              <i class="fa-solid fa-folder-open"></i> Chọn file từ máy tính
+            </button>
+            <input type="file" id="localFileInput" accept=".pdf,image/*" style="display: none;">
+          </div>
+          <div id="uploadFileInfo" style="margin-top: 12px; font-size: 0.85rem; color: #15803d; font-weight: 600; display: none;"></div>
+        </div>
+
+        <!-- Tab 3: Đề mẫu có sẵn -->
+        <div id="tabContentSample" style="display: none;">
+          <p style="font-size: 0.85rem; color: #475569; margin-bottom: 12px;">Chọn một trong các đề cương/chuyên đề có sẵn của Thầy Sáng để tạo thử nghiệm nhanh:</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview', 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)
+            </button>
+            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức)')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức)
+            </button>
+            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer">
+        <button class="editor-back-btn" id="btnCancelUpload">Hủy bỏ</button>
+        <button class="btn-create-exam" id="btnConfirmDocSource" style="padding: 8px 20px;">
+          <i class="fa-solid fa-arrow-right"></i> Tiếp tục vào Editor
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: CẤU HÌNH ĐỀ THI (SETTINGS MODAL) ==================== -->
+  <div class="azota-modal-overlay" id="settingsModal">
+    <div class="azota-modal-card">
+      <div class="azota-modal-header">
+        <div class="azota-modal-title">
+          <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Cài Đặt Cấu Hình Đề Thi
+        </div>
+        <button class="azota-modal-close" id="btnCloseSettingsModal">&times;</button>
+      </div>
+
+      <div class="azota-modal-body">
+        <div class="settings-group">
+          <label for="cfgExamTitle">Tên đề thi / bài tập: *</label>
+          <input type="text" id="cfgExamTitle" placeholder="Ví dụ: Đề Kiểm Tra Thường Xuyên Lần 3 Toán 12">
+        </div>
+
+        <div class="settings-group">
+          <label for="cfgDuration">Thời gian làm bài (phút): *</label>
+          <input type="number" id="cfgDuration" min="1" max="180" value="15">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="settings-group">
+            <label for="cfgOpenTime">Thời gian mở đề (tùy chọn):</label>
+            <input type="datetime-local" id="cfgOpenTime">
+          </div>
+          <div class="settings-group">
+            <label for="cfgCloseTime">Hạn chót nộp bài (tùy chọn):</label>
+            <input type="datetime-local" id="cfgCloseTime">
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <label for="cfgPassword">Mật khẩu vào thi (để trống nếu không yêu cầu):</label>
+          <input type="text" id="cfgPassword" placeholder="Ví dụ: 123456 (để trống nếu cho phép tự do)">
+        </div>
+
+        <div class="settings-group">
+          <label for="cfgMaxAttempts">Số lần làm bài:</label>
+          <select id="cfgMaxAttempts">
+            <option value="1">Chỉ làm 1 lần duy nhất</option>
+            <option value="0">Không giới hạn số lần</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label for="cfgViewResultMode">Chế độ xem kết quả sau khi nộp:</label>
+          <select id="cfgViewResultMode">
+            <option value="all">Xem điểm và chi tiết đáp án đúng / sai</option>
+            <option value="score_only">Chỉ xem điểm số (không xem đáp án)</option>
+            <option value="none">Không cho xem điểm & đáp án (chờ giáo viên công bố)</option>
+          </select>
+        </div>
+
+        <!-- Chống gian lận chuyển tab -->
+        <div class="settings-group">
+          <div class="toggle-row">
+            <div>
+              <div style="font-weight: 600; font-size: 0.88rem; color: #0f172a;"><i class="fa-solid fa-shield-halved" style="color: #ef4444; margin-right: 6px;"></i> Giám sát thi cử & Chống gian lận</div>
+              <div style="font-size: 0.78rem; color: #64748b;">Ghi nhận và đếm số lần học sinh rời khỏi màn hình hoặc chuyển sang tab khác</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="cfgEnableTabTracking" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer">
+        <button class="editor-back-btn" id="btnCancelSettings">Hủy</button>
+        <button class="btn-create-exam" id="btnPublishExamNow" style="padding: 9px 24px;">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Xuất bản đề thi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: XUẤT BẢN THÀNH CÔNG (LINK + QR CODE) ==================== -->
+  <div class="azota-modal-overlay" id="publishSuccessModal">
+    <div class="azota-modal-card" style="max-width: 500px; text-align: center;">
+      <div class="azota-modal-header" style="justify-content: center; position: relative;">
+        <div class="azota-modal-title" style="color: #16a34a;">
+          <i class="fa-solid fa-circle-check"></i> Đã Xuất Bản Thành Công!
+        </div>
+        <button class="azota-modal-close" id="btnCloseSuccessModal" style="position: absolute; right: 20px;">&times;</button>
+      </div>
+
+      <div class="azota-modal-body">
+        <p style="font-size: 0.95rem; color: #334155; margin-bottom: 16px;">
+          Đề thi đã sẵn sàng tiếp nhận bài làm của học sinh. Mã đề ngắn: <strong id="successExamCode" style="color: #0284c7; font-family: 'Fira Code', monospace;">AZ-XXXX</strong>
+        </p>
+
+        <!-- QR Code -->
+        <div style="margin: 10px auto 18px auto; width: 180px; height: 180px; padding: 10px; background: #ffffff; border: 2px dashed #0284c7; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+          <img id="successQrImg" src="" alt="Mã QR Đề thi" style="width: 160px; height: 160px; border-radius: 8px;">
+        </div>
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 16px;">(Học sinh có thể quét mã QR bằng Camera hoặc Zalo để vào thi ngay trên điện thoại)</p>
+
+        <!-- Input Link & Copy -->
+        <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+          <input type="text" id="successExamLink" readonly style="flex: 1; padding: 9px 12px; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; font-family: 'Fira Code', monospace;">
+          <button class="btn-create-exam" id="btnCopySuccessLink" style="padding: 9px 16px; font-size: 0.85rem;">
+            <i class="fa-solid fa-copy"></i> Sao chép
+          </button>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer" style="justify-content: center; gap: 12px;">
+        <button class="editor-back-btn" id="btnGoBackToList">Về danh sách đề</button>
+        <a href="#" target="_blank" class="btn-create-exam" id="btnTestStudentExam" style="text-decoration: none; padding: 8px 18px; font-size: 0.85rem;">
+          <i class="fa-solid fa-play"></i> Làm bài thử ngay
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: THỐNG KÊ & BẢNG ĐIỂM GIÁO VIÊN ==================== -->
+  <div class="azota-modal-overlay" id="statsModal">
+    <div class="azota-modal-card" style="max-width: 850px;">
+      <div class="azota-modal-header">
+        <div class="azota-modal-title">
+          <i class="fa-solid fa-square-poll-vertical" style="color: #0284c7;"></i>
+          <span>Thống Kê Kết Quả Bài Làm:</span>
+          <span id="statsExamTitle" style="color: #0284c7; font-size: 1rem;"></span>
+        </div>
+        <button class="azota-modal-close" id="btnCloseStatsModal">&times;</button>
+      </div>
+
+      <div class="azota-modal-body">
+        <!-- 4 thẻ thống kê tóm tắt -->
+        <div class="stats-summary-grid">
+          <div class="stat-box">
+            <div class="stat-box-val" id="statTotalSubs">0</div>
+            <div class="stat-box-lbl">Lượt nộp bài</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-val" id="statAvgScore" style="color: #10b981;">0.0</div>
+            <div class="stat-box-lbl">Điểm trung bình</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-val" id="statMaxScore" style="color: #f59e0b;">0.0</div>
+            <div class="stat-box-lbl">Điểm cao nhất</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-val" id="statViolationsCount" style="color: #ef4444;">0</div>
+            <div class="stat-box-lbl">Lượt vi phạm tab</div>
+          </div>
+        </div>
+
+        <!-- Thanh tìm kiếm & xuất file -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <input type="text" id="statsSearchInput" placeholder="Tìm theo tên học sinh, lớp..." style="padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; width: 260px;">
+          <button class="btn-azota-action success" id="btnExportStatsExcel" style="flex: 0 0 auto; padding: 8px 16px;">
+            <i class="fa-solid fa-file-excel"></i> Xuất Bảng Điểm (.CSV / Excel)
+          </button>
+        </div>
+
+        <!-- Bảng danh sách bài nộp -->
+        <div class="stats-table-wrap">
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Lớp</th>
+                <th>Điểm</th>
+                <th>Đúng/Tổng</th>
+                <th>Thời gian</th>
+                <th>Chuyển tab</th>
+                <th>Thời điểm nộp</th>
+                <th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody id="statsTableBody">
+              <!-- Render dynamic -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer">
+        <button class="editor-back-btn" id="btnCloseStatsFooter">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast phản hồi -->
+  <div class="azota-toast" id="azotaToast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Thông báo</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="text-align: center; padding: 25px 0;">
+      <p style="margin-bottom: 6px;">&copy; 2026 ThS. Lương Thanh Sáng - Tổ trưởng Tổ Toán, THPT Nguyễn Văn Thoại, Huyện Thoại Sơn, Tỉnh An Giang.</p>
+      <p style="font-size: 0.85rem; color: #94a3b8;">Hệ thống Giao bài & Khảo sát Trực tuyến chuẩn quy trình Azota • Tương thích mọi thiết bị di động & máy tính.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/azota-engine.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW)
+    (function() {
+      const store = window.AzotaEngine.store;
+      let currentExams = [];
+      let activeEditingExam = null;
+      let tempDocSource = {
+        type: 'url',
+        url: 'https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview',
+        name: 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)'
+      };
+
+      // Toast helper
+      function showToast(msg, icon) {
+        const toast = document.getElementById('azotaToast');
+        const txt = document.getElementById('toastMessage');
+        txt.textContent = msg;
+        if (icon) {
+          toast.querySelector('i').className = `fa-solid ${icon}`;
+        }
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+
+      // 1. Tải và render danh sách đề thi
+      async function loadExamDashboard() {
+        currentExams = await store.fetchExams();
+        renderExamGrid();
+      }
+
+      function renderExamGrid() {
+        const container = document.getElementById('examGridContainer');
+        const countBadge = document.getElementById('examCountBadge');
+        if (!container) return;
+
+        countBadge.textContent = `${currentExams.length} đề thi`;
+
+        if (currentExams.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; background: #fff; border-radius: 16px; border: 1px dashed #cbd5e1;">
+              <i class="fa-solid fa-folder-open" style="font-size: 3rem; color: #94a3b8; margin-bottom: 12px;"></i>
+              <h3 style="font-size: 1.15rem; color: #334155; margin-bottom: 6px;">Chưa có đề thi nào được tạo</h3>
+              <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Bấm nút "+ Tạo bài tập / Đề thi mới" bên trên để bắt đầu giao bài cho học sinh</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = currentExams.map(exam => {
+          const isActive = (exam.status !== 'closed');
+          const statusHtml = isActive 
+            ? `<span class="azota-badge-status active"><i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Đang mở</span>`
+            : `<span class="azota-badge-status closed"><i class="fa-solid fa-lock" style="font-size: 0.5rem;"></i> Đã đóng</span>`;
+
+          const deadlineStr = exam.closeTime 
+            ? new Date(exam.closeTime).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' })
+            : 'Không giới hạn';
+
+          return `
+            <div class="azota-card" id="card-${exam.id}">
+              <div class="azota-card-header">
+                <span class="azota-card-code">${exam.id}</span>
+                ${statusHtml}
+              </div>
+              <h3 class="azota-card-title" title="${exam.title}">${exam.title}</h3>
+
+              <div class="azota-card-meta">
+                <div class="azota-card-meta-item"><i class="fa-solid fa-circle-question"></i> ${exam.totalQuestions || 10} câu (${exam.totalPoints || 10}đ)</div>
+                <div class="azota-card-meta-item"><i class="fa-solid fa-clock"></i> ${exam.durationMinutes || 15} phút</div>
+                <div class="azota-card-meta-item"><i class="fa-solid fa-calendar-xmark"></i> Hạn: ${deadlineStr}</div>
+                <div class="azota-card-meta-item"><i class="fa-solid fa-user-check"></i> <strong>${exam.submissionsCount || 0}</strong> bài nộp</div>
+              </div>
+
+              <div class="azota-card-footer">
+                <button class="btn-azota-action primary" onclick="copyExamShareLink('${exam.id}')" title="Sao chép link làm bài">
+                  <i class="fa-solid fa-link"></i> Copy Link
+                </button>
+                <button class="btn-azota-action success" onclick="openStatsModal('${exam.id}')" title="Xem kết quả & Bảng điểm">
+                  <i class="fa-solid fa-chart-column"></i> Thống kê
+                </button>
+                <button class="btn-azota-action" onclick="editExam('${exam.id}')" title="Chỉnh sửa đề">
+                  <i class="fa-solid fa-pen-to-square"></i> Sửa
+                </button>
+                <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Sao chép link thi
+      window.copyExamShareLink = function(examId) {
+        const fullLink = `${window.location.origin}/lam-bai.html?code=${examId}`;
+        navigator.clipboard.writeText(fullLink).then(() => {
+          showToast(`Đã sao chép link đề ${examId} vào bộ nhớ tạm!`, 'fa-clipboard-check');
+        }).catch(() => {
+          showToast(`Link thi: ${fullLink}`);
+        });
+      };
+
+      // Mở Modal Upload Đề
+      document.getElementById('btnOpenCreateModal').addEventListener('click', () => {
+        document.getElementById('uploadModal').style.display = 'flex';
+      });
+
+      document.getElementById('btnCloseUploadModal').addEventListener('click', () => {
+        document.getElementById('uploadModal').style.display = 'none';
+      });
+
+      document.getElementById('btnCancelUpload').addEventListener('click', () => {
+        document.getElementById('uploadModal').style.display = 'none';
+      });
+
+      // Tabs trong Upload Modal
+      const tabBtnDrive = document.getElementById('tabBtnDrive');
+      const tabBtnUpload = document.getElementById('tabBtnUpload');
+      const tabBtnSample = document.getElementById('tabBtnSample');
+      const tabContentDrive = document.getElementById('tabContentDrive');
+      const tabContentUpload = document.getElementById('tabContentUpload');
+      const tabContentSample = document.getElementById('tabContentSample');
+
+      function switchUploadTab(activeBtn, activeContent) {
+        [tabBtnDrive, tabBtnUpload, tabBtnSample].forEach(b => b.classList.remove('active'));
+        [tabContentDrive, tabContentUpload, tabContentSample].forEach(c => c.style.display = 'none');
+        activeBtn.classList.add('active');
+        activeContent.style.display = 'block';
+      }
+
+      tabBtnDrive.addEventListener('click', () => switchUploadTab(tabBtnDrive, tabContentDrive));
+      tabBtnUpload.addEventListener('click', () => switchUploadTab(tabBtnUpload, tabContentUpload));
+      tabBtnSample.addEventListener('click', () => switchUploadTab(tabBtnSample, tabContentSample));
+
+      // Chọn đề mẫu
+      window.selectSampleDoc = function(url, title) {
+        tempDocSource = { type: 'url', url: url, name: title };
+        document.getElementById('uploadModal').style.display = 'none';
+        initSplitEditorWithDoc(tempDocSource);
+      };
+
+      // Upload file máy tính
+      const dropzoneBox = document.getElementById('dropzoneBox');
+      const localFileInput = document.getElementById('localFileInput');
+      dropzoneBox.addEventListener('click', () => localFileInput.click());
+      localFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const fileUrl = URL.createObjectURL(file);
+          tempDocSource = { type: 'upload', url: fileUrl, name: file.name };
+          document.getElementById('uploadFileInfo').style.display = 'block';
+          document.getElementById('uploadFileInfo').textContent = `Đã chọn: ${file.name} (${Math.round(file.size/1024)} KB)`;
+        }
+      });
+
+      // Xác nhận chọn nguồn đề thi
+      document.getElementById('btnConfirmDocSource').addEventListener('click', () => {
+        if (tabBtnDrive.classList.contains('active')) {
+          const rawUrl = document.getElementById('driveUrlInput').value.trim();
+          if (!rawUrl) {
+            alert('Vui lòng dán link file từ Google Drive hoặc link URL trực tuyến.');
+            return;
+          }
+          const previewUrl = window.AzotaEngine.convertToGoogleDrivePreview(rawUrl);
+          tempDocSource = { type: 'url', url: previewUrl, name: 'Tài liệu Google Drive' };
+        }
+        document.getElementById('uploadModal').style.display = 'none';
+        initSplitEditorWithDoc(tempDocSource);
+      });
+
+      // Đổi nguồn đề thi trong Editor
+      document.getElementById('btnChangeDocSource').addEventListener('click', () => {
+        document.getElementById('uploadModal').style.display = 'flex';
+      });
+
+      document.getElementById('btnDocOpenNewTab').addEventListener('click', () => {
+        if (tempDocSource && tempDocSource.url) {
+          window.open(tempDocSource.url, '_blank');
+        }
+      });
+
+      // 2. KHỞI TẠO SPLIT-SCREEN EDITOR
+      function initSplitEditorWithDoc(docSource, existingExam) {
+        const editor = document.getElementById('splitEditor');
+        editor.style.display = 'flex';
+
+        // Gán iframe viewer
+        const iframe = document.getElementById('docViewerIframe');
+        iframe.src = docSource.url;
+        document.getElementById('editorDocName').textContent = `Tài liệu: ${docSource.name}`;
+
+        if (existingExam) {
+          activeEditingExam = JSON.parse(JSON.stringify(existingExam));
+          document.getElementById('editorExamTitle').value = activeEditingExam.title;
+          document.getElementById('inputTotalQuestions').value = activeEditingExam.totalQuestions || 10;
+          document.getElementById('inputTotalPoints').value = activeEditingExam.totalPoints || 10;
+        } else {
+          activeEditingExam = {
+            id: null,
+            title: document.getElementById('editorExamTitle').value || 'Đề Kiểm Tra Môn Toán 12',
+            fileSourceType: docSource.type,
+            fileUrl: docSource.url,
+            fileName: docSource.name,
+            totalQuestions: parseInt(document.getElementById('inputTotalQuestions').value) || 10,
+            totalPoints: parseFloat(document.getElementById('inputTotalPoints').value) || 10,
+            durationMinutes: 15,
+            answerKey: {},
+            questionPoints: {},
+            status: 'active'
+          };
+        }
+
+        renderSheetQuestions();
+      }
+
+      // Render danh sách câu hỏi trong sheet
+      function renderSheetQuestions() {
+        const container = document.getElementById('sheetQuestionList');
+        const numQ = parseInt(document.getElementById('inputTotalQuestions').value) || 10;
+        const totalPts = parseFloat(document.getElementById('inputTotalPoints').value) || 10;
+        const ptPerQ = Math.round((totalPts / numQ) * 100) / 100;
+
+        let html = '';
+        for (let i = 1; i <= numQ; i++) {
+          const qKey = String(i);
+          const currentAns = (activeEditingExam.answerKey && activeEditingExam.answerKey[qKey]) || '';
+          const currentPt = (activeEditingExam.questionPoints && activeEditingExam.questionPoints[qKey]) || ptPerQ;
+
+          html += `
+            <div class="sheet-q-row" data-q="${i}">
+              <div class="sheet-q-left">
+                <span class="sheet-q-num">Câu ${i}:</span>
+                <input type="number" class="sheet-q-point" step="0.25" value="${currentPt}" onchange="updateQuestionPoint(${i}, this.value)" title="Điểm số câu này">
+              </div>
+              <div class="sheet-q-options">
+                ${['A', 'B', 'C', 'D'].map(opt => `
+                  <button type="button" class="btn-sheet-opt ${currentAns === opt ? 'selected' : ''}" onclick="selectAnswer(${i}, '${opt}')">${opt}</button>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+        container.innerHTML = html;
+      }
+
+      // Cập nhật số câu hoặc tổng điểm
+      document.getElementById('inputTotalQuestions').addEventListener('change', (e) => {
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 100) val = 100;
+        e.target.value = val;
+        activeEditingExam.totalQuestions = val;
+        renderSheetQuestions();
+      });
+
+      document.getElementById('inputTotalPoints').addEventListener('change', (e) => {
+        activeEditingExam.totalPoints = parseFloat(e.target.value) || 10;
+        renderSheetQuestions();
+      });
+
+      // Chọn đáp án từng câu
+      window.selectAnswer = function(qNum, opt) {
+        if (!activeEditingExam.answerKey) activeEditingExam.answerKey = {};
+        activeEditingExam.answerKey[String(qNum)] = opt;
+
+        const row = document.querySelector(`.sheet-q-row[data-q="${qNum}"]`);
+        if (row) {
+          row.querySelectorAll('.btn-sheet-opt').forEach(btn => {
+            btn.classList.toggle('selected', btn.textContent.trim() === opt);
+          });
+        }
+      };
+
+      window.updateQuestionPoint = function(qNum, pt) {
+        if (!activeEditingExam.questionPoints) activeEditingExam.questionPoints = {};
+        activeEditingExam.questionPoints[String(qNum)] = parseFloat(pt) || 1.0;
+      };
+
+      // Điền nhanh đáp án từ chuỗi
+      document.getElementById('btnApplyQuickAnswers').addEventListener('click', () => {
+        const text = document.getElementById('quickAnswerInput').value;
+        const totalQ = parseInt(document.getElementById('inputTotalQuestions').value) || 10;
+        const parsed = window.AzotaEngine.parseQuickAnswers(text, totalQ);
+
+        const keys = Object.keys(parsed);
+        if (keys.length === 0) {
+          alert('Không tìm thấy đáp án hợp lệ trong văn bản. Hãy dán chuỗi có dạng "1A 2B 3C" hoặc "ABCDABCD"');
+          return;
+        }
+
+        if (!activeEditingExam.answerKey) activeEditingExam.answerKey = {};
+        Object.assign(activeEditingExam.answerKey, parsed);
+        renderSheetQuestions();
+        showToast(`Đã tự động điền thành công ${keys.length} câu đáp án!`, 'fa-bolt');
+      });
+
+      // Thoát Editor
+      document.getElementById('btnBackFromEditor').addEventListener('click', () => {
+        if (confirm('Bạn có chắc muốn thoát trình tạo đề? Các thay đổi chưa xuất bản có thể bị mất.')) {
+          document.getElementById('splitEditor').style.display = 'none';
+          document.getElementById('docViewerIframe').src = '';
+        }
+      });
+
+      // 3. MỞ MODAL CẤU HÌNH & XUẤT BẢN
+      document.getElementById('btnOpenPublishModal').addEventListener('click', () => {
+        activeEditingExam.title = document.getElementById('editorExamTitle').value.trim() || 'Đề Kiểm Tra Môn Toán';
+        document.getElementById('cfgExamTitle').value = activeEditingExam.title;
+        document.getElementById('cfgDuration').value = activeEditingExam.durationMinutes || 15;
+        document.getElementById('cfgOpenTime').value = activeEditingExam.openTime || '';
+        document.getElementById('cfgCloseTime').value = activeEditingExam.closeTime || '';
+        document.getElementById('cfgPassword').value = activeEditingExam.password || '';
+        document.getElementById('cfgMaxAttempts').value = (activeEditingExam.maxAttempts !== undefined) ? activeEditingExam.maxAttempts : 1;
+        document.getElementById('cfgViewResultMode').value = activeEditingExam.viewResultMode || 'all';
+        document.getElementById('cfgEnableTabTracking').checked = (activeEditingExam.enableTabTracking !== false);
+
+        document.getElementById('settingsModal').style.display = 'flex';
+      });
+
+      document.getElementById('btnCloseSettingsModal').addEventListener('click', () => {
+        document.getElementById('settingsModal').style.display = 'none';
+      });
+
+      document.getElementById('btnCancelSettings').addEventListener('click', () => {
+        document.getElementById('settingsModal').style.display = 'none';
+      });
+
+      // Bấm nút "Xuất bản đề thi ngay"
+      document.getElementById('btnPublishExamNow').addEventListener('click', async () => {
+        activeEditingExam.title = document.getElementById('cfgExamTitle').value.trim();
+        activeEditingExam.durationMinutes = parseInt(document.getElementById('cfgDuration').value) || 15;
+        activeEditingExam.openTime = document.getElementById('cfgOpenTime').value;
+        activeEditingExam.closeTime = document.getElementById('cfgCloseTime').value;
+        activeEditingExam.password = document.getElementById('cfgPassword').value.trim();
+        activeEditingExam.maxAttempts = parseInt(document.getElementById('cfgMaxAttempts').value);
+        activeEditingExam.viewResultMode = document.getElementById('cfgViewResultMode').value;
+        activeEditingExam.enableTabTracking = document.getElementById('cfgEnableTabTracking').checked;
+        activeEditingExam.status = 'active';
+
+        // Lưu đề qua Store
+        const saved = await store.saveExam(activeEditingExam);
+        document.getElementById('settingsModal').style.display = 'none';
+        document.getElementById('splitEditor').style.display = 'none';
+        document.getElementById('docViewerIframe').src = '';
+
+        // Hiển thị modal chúc mừng & QR
+        const examCode = saved.id;
+        const examLink = `${window.location.origin}/lam-bai.html?code=${examCode}`;
+        document.getElementById('successExamCode').textContent = examCode;
+        document.getElementById('successExamLink').value = examLink;
+        document.getElementById('successQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(examLink)}`;
+        document.getElementById('btnTestStudentExam').href = examLink;
+        document.getElementById('publishSuccessModal').style.display = 'flex';
+
+        // Tải lại danh sách
+        loadExamDashboard();
+      });
+
+      document.getElementById('btnCopySuccessLink').addEventListener('click', () => {
+        const link = document.getElementById('successExamLink').value;
+        navigator.clipboard.writeText(link).then(() => {
+          showToast('Đã sao chép link thi cho học sinh!', 'fa-clipboard-check');
+        });
+      });
+
+      document.getElementById('btnCloseSuccessModal').addEventListener('click', () => {
+        document.getElementById('publishSuccessModal').style.display = 'none';
+      });
+      document.getElementById('btnGoBackToList').addEventListener('click', () => {
+        document.getElementById('publishSuccessModal').style.display = 'none';
+      });
+
+      // 4. CHỈNH SỬA / XÓA ĐỀ THI
+      window.editExam = async function(examId) {
+        const exam = await store.fetchExamDetail(examId, 'teacher');
+        if (!exam) return;
+        tempDocSource = {
+          type: exam.fileSourceType || 'url',
+          url: exam.fileUrl,
+          name: exam.fileName || exam.title
+        };
+        initSplitEditorWithDoc(tempDocSource, exam);
+      };
+
+      window.deleteExamConfirm = async function(examId) {
+        if (confirm(`Bạn có chắc muốn xóa đề thi mã [${examId}]? Mọi dữ liệu bài nộp của học sinh sẽ bị xóa theo.`)) {
+          await store.deleteExam(examId);
+          showToast(`Đã xóa đề thi ${examId}`, 'fa-trash');
+          loadExamDashboard();
+        }
+      };
+
+      // 5. MODAL THỐNG KÊ & BẢNG ĐIỂM GIÁO VIÊN
+      let currentStatsExam = null;
+      let currentSubmissions = [];
+
+      window.openStatsModal = async function(examId) {
+        const data = await store.fetchExamResults(examId);
+        currentStatsExam = data.exam || {};
+        currentSubmissions = data.submissions || [];
+
+        document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
+        document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
+
+        // Tính điểm trung bình & cao nhất
+        if (currentSubmissions.length > 0) {
+          const scores = currentSubmissions.map(s => s.score || 0);
+          const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+          const max = Math.max(...scores);
+          const violations = currentSubmissions.reduce((a, b) => a + (b.tabViolations || 0), 0);
+
+          document.getElementById('statAvgScore').textContent = avg.toFixed(1);
+          document.getElementById('statMaxScore').textContent = max.toFixed(1);
+          document.getElementById('statViolationsCount').textContent = violations;
+        } else {
+          document.getElementById('statAvgScore').textContent = '0.0';
+          document.getElementById('statMaxScore').textContent = '0.0';
+          document.getElementById('statViolationsCount').textContent = '0';
+        }
+
+        renderStatsTable(currentSubmissions);
+        document.getElementById('statsModal').style.display = 'flex';
+      };
+
+      function renderStatsTable(subs) {
+        const tbody = document.getElementById('statsTableBody');
+        if (!subs || subs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #94a3b8; padding: 30px;">Chưa có học sinh nào nộp bài cho đề thi này.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = subs.map((sub, idx) => {
+          const min = Math.floor(sub.durationSeconds / 60);
+          const sec = sub.durationSeconds % 60;
+          const timeStr = `${min}p ${sec}s`;
+          const submitDate = new Date(sub.submittedAt).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+
+          const vPill = (sub.tabViolations > 0)
+            ? `<span class="violation-pill warn"><i class="fa-solid fa-triangle-exclamation"></i> ${sub.tabViolations} lần</span>`
+            : `<span class="violation-pill clean"><i class="fa-solid fa-check"></i> 0 lần</span>`;
+
+          const scoreColor = sub.score >= 8.0 ? '#15803d' : (sub.score >= 5.0 ? '#0284c7' : '#b91c1c');
+
+          return `
+            <tr>
+              <td><strong>${idx + 1}</strong></td>
+              <td style="font-weight: 600; color: #0f172a;">${sub.studentName}</td>
+              <td><span class="azota-card-code" style="font-size: 0.75rem; padding: 2px 6px;">${sub.studentClass}</span></td>
+              <td style="font-weight: 800; font-size: 1.05rem; color: ${scoreColor};">${sub.score}</td>
+              <td>${sub.correctCount}/${(sub.correctCount + sub.wrongCount + (sub.unansweredCount||0))}</td>
+              <td>${timeStr}</td>
+              <td>${vPill}</td>
+              <td style="font-size: 0.78rem; color: #64748b;">${submitDate}</td>
+              <td>
+                <button class="btn-azota-action" style="padding: 4px 8px; font-size: 0.75rem;" onclick="viewSubmissionDetail('${sub.id}')">
+                  <i class="fa-solid fa-eye"></i> Xem bài
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Tìm kiếm trong bảng điểm
+      document.getElementById('statsSearchInput').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const filtered = currentSubmissions.filter(s => 
+          (s.studentName || '').toLowerCase().includes(query) ||
+          (s.studentClass || '').toLowerCase().includes(query)
+        );
+        renderStatsTable(filtered);
+      });
+
+      // Xuất file CSV
+      document.getElementById('btnExportStatsExcel').addEventListener('click', () => {
+        if (!currentStatsExam || currentSubmissions.length === 0) {
+          alert('Không có dữ liệu bài nộp để xuất bảng điểm.');
+          return;
+        }
+        window.AzotaEngine.exportSubmissionsToCSV(currentStatsExam, currentSubmissions);
+      });
+
+      document.getElementById('btnCloseStatsModal').addEventListener('click', () => {
+        document.getElementById('statsModal').style.display = 'none';
+      });
+      document.getElementById('btnCloseStatsFooter').addEventListener('click', () => {
+        document.getElementById('statsModal').style.display = 'none';
+      });
+
+      window.viewSubmissionDetail = function(subId) {
+        const sub = currentSubmissions.find(s => s.id === subId);
+        if (!sub) return;
+        let info = `BÀI LÀM: ${sub.studentName} - Lớp ${sub.studentClass}\nĐiểm: ${sub.score}đ (Đúng ${sub.correctCount} câu)\nSố lần chuyển tab: ${sub.tabViolations}\n\n`;
+        const ans = sub.studentAnswers || {};
+        const qNums = Object.keys(ans).sort((a,b) => parseInt(a) - parseInt(b));
+        qNums.forEach(q => {
+          info += `Câu ${q}: ${ans[q]}\n`;
+        });
+        alert(info);
+      };
+
+      // Tải ban đầu
+      loadExamDashboard();
+    })();
+  </script>
+</body>
+</html>
