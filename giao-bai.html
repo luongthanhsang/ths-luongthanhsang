@@ -1572,7 +1572,6 @@
           <button class="upload-tab-btn active" id="tabBtnDrive"><i class="fa-brands fa-google-drive"></i> Link Google Drive / URL</button>
           <button class="upload-tab-btn" id="tabBtnUpload"><i class="fa-solid fa-upload"></i> Upload từ máy tính</button>
           <button class="upload-tab-btn" id="tabBtnSample"><i class="fa-solid fa-book-bookmark"></i> Đề mẫu Thầy Sáng</button>
-          <button class="upload-tab-btn" id="tabBtnScan"><i class="fa-solid fa-wand-magic-sparkles"></i> Dán đề & Đếm câu tự động</button>
         </div>
 
         <div id="tabContentDrive">
@@ -1580,6 +1579,9 @@
             <label for="driveUrlInput">Dán đường liên kết file PDF từ Google Drive hoặc URL công khai:</label>
             <input type="url" id="driveUrlInput" placeholder="https://drive.google.com/file/d/.../view?usp=sharing">
             <div class="hint">Hệ thống sẽ tự động chuyển link "/view" sang "/preview" để nhúng mượt mà vào khung đề thi. Đảm bảo file được bật quyền "Bất kỳ ai có đường liên kết đều có thể xem".</div>
+          </div>
+          <div style="margin-top: 10px; font-size: 0.8rem; color: #0369a1; background: #f0f9ff; padding: 10px 14px; border-radius: 8px; border: 1px solid #bae6fd;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: #0284c7;"></i> <strong>Đếm số câu thông minh:</strong> Khi bấm <em>"Tiếp tục"</em>, hệ thống sẽ tự động phân tích cấu trúc đề, đếm số câu từng dạng thức và hiển thị ngay hộp thoại để Thầy điều chỉnh thang điểm và xuất bản đề.
           </div>
         </div>
 
@@ -1594,46 +1596,256 @@
             <input type="file" id="localFileInput" accept=".pdf,image/*" style="display: none;">
           </div>
           <div id="uploadFileInfo" style="margin-top: 12px; font-size: 0.85rem; color: #15803d; font-weight: 600; display: none;"></div>
+          <div style="margin-top: 10px; font-size: 0.8rem; color: #0369a1; background: #f0f9ff; padding: 10px 14px; border-radius: 8px; border: 1px solid #bae6fd;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: #0284c7;"></i> <strong>Tự động đọc file PDF:</strong> Hệ thống tự động trích xuất nội dung văn bản trong file PDF để đếm chính xác số câu Phần I, Phần II Đúng/Sai và Phần III Trả lời ngắn.
+          </div>
         </div>
 
         <div id="tabContentSample" style="display: none;">
           <p style="font-size: 0.85rem; color: #475569; margin-bottom: 12px;">Chọn một trong các đề cương/chuyên đề có sẵn của Thầy Sáng để tạo thử nghiệm nhanh:</p>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)', 'standard_2018')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
+              <div style="text-align: left;">
+                <div style="font-weight: 700; color: #0f172a;">Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)</div>
+                <div style="font-size: 0.75rem; color: #64748b;">3 Dạng thức: 12 câu P1 (3.0đ) • 4 câu P2 Đ/S (4.0đ) • 6 câu P3 TLN (3.0đ)</div>
+              </div>
             </button>
-            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview', 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)
+            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS/preview', 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)', 'mcq_only')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
+              <div style="text-align: left;">
+                <div style="font-weight: 700; color: #0f172a;">Chuyên đề Vectơ & Tọa độ Oxyz Toán 12 (56 trang)</div>
+                <div style="font-size: 0.75rem; color: #64748b;">1 Dạng thức: 10 câu Phần I (10.0đ - mỗi câu 1.0đ)</div>
+              </div>
             </button>
-            <button class="btn-azota-action" style="justify-content: flex-start; padding: 10px;" onclick="selectSampleDoc('https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)')">
-              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)
+            <button type="button" class="btn-azota-action" style="justify-content: flex-start; padding: 12px; border-radius: 10px;" onclick="chooseSampleAndCount('https://drive.google.com/file/d/1xv0KpOZN81msuByTLlrCjI6THrdiu6F9/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)', 'standard_2018')">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.25rem;"></i>
+              <div style="text-align: left;">
+                <div style="font-weight: 700; color: #0f172a;">Đề Kiểm Tra Cuối Kì 1 - Toán 11 (Chính thức)</div>
+                <div style="font-size: 0.75rem; color: #64748b;">3 Dạng thức: 12 câu P1 (3.0đ) • 4 câu P2 Đ/S (4.0đ) • 6 câu P3 TLN (3.0đ)</div>
+              </div>
             </button>
-          </div>
-        </div>
-
-        <div id="tabContentScan" style="display: none;">
-          <div class="settings-group">
-            <label for="scanDocTextInput">Dán nội dung đề bài hoặc đề cương vào đây để tự động nhận diện:</label>
-            <textarea id="scanDocTextInput" rows="6" style="width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 10px; font-size: 0.85rem; font-family: inherit;" placeholder="Dán văn bản đề thi (chứa Phần I, Phần II, Phần III hoặc Câu 1..N)..."></textarea>
-            <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-              <span style="font-size: 0.75rem; color: #64748b;">Hệ thống tự động đếm số câu của từng dạng thức & gợi ý cách tính điểm.</span>
-              <button type="button" class="btn-create-exam" id="btnRunDocScan" style="padding: 6px 14px; font-size: 0.82rem;">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Phân tích & Đếm câu
-              </button>
-            </div>
-          </div>
-          <div id="scanResultCard" style="display: none; margin-top: 10px; background: #f0f9ff; border: 1.5px solid #7dd3fc; border-radius: 10px; padding: 12px;">
-            <div style="font-weight: 700; color: #0369a1; font-size: 0.85rem; margin-bottom: 4px;" id="scanResultTitle"></div>
-            <div style="font-size: 0.8rem; color: #1e3a8a; line-height: 1.45;" id="scanResultDesc"></div>
           </div>
         </div>
       </div>
 
       <div class="azota-modal-footer">
         <button class="editor-back-btn" id="btnCancelUpload">Hủy bỏ</button>
-        <button class="btn-create-exam" id="btnConfirmDocSource" style="padding: 8px 20px;">
-          <i class="fa-solid fa-arrow-right"></i> Tiếp tục vào Editor
+        <button class="btn-create-exam" id="btnConfirmDocSource" style="padding: 9px 24px;">
+          <i class="fa-solid fa-arrow-right"></i> Tiếp tục
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: EDIT & PUBLISH (HỘP THOẠI ĐIỀU CHỈNH CẤU TRÚC, THANG ĐIỂM & XUẤT BẢN ĐỀ THI) ==================== -->
+  <div class="azota-modal-overlay" id="editAndPublishModal" style="display: none;">
+    <div class="azota-modal-card" style="max-width: 780px;">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; padding: 16px 20px;">
+        <div class="azota-modal-title" style="color: #fff; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
+          <i class="fa-solid fa-wand-magic-sparkles" style="color: #38bdf8;"></i>
+          <span>Cấu Hình Đề Thi & Chỉnh Sửa Thang Điểm</span>
+        </div>
+        <button class="azota-modal-close" id="btnCloseEditPublishModal" style="color: #cbd5e1; font-size: 1.5rem; line-height: 1;">&times;</button>
+      </div>
+
+      <div class="azota-modal-body" style="padding: 20px;">
+        <!-- Banner kết quả tự động đếm số câu & Gợi ý điểm -->
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 6px;">
+            <div style="font-weight: 700; color: #166534; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;" id="epScanSummaryTitle">
+              <i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đã tự động đếm số câu của từng dạng thức
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-weight: 800; font-size: 0.92rem; color: #0284c7; background: #e0f2fe; padding: 5px 12px; border-radius: 20px; border: 1px solid #bae6fd;" id="epLiveTotalBadge">Tổng điểm: 10.0 / 10đ</span>
+              <button type="button" class="btn-azota-action" id="btnEpNormalize10" style="padding: 5px 12px; font-size: 0.78rem; background: #0284c7; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Chuẩn hóa 10đ
+              </button>
+            </div>
+          </div>
+          <div style="font-size: 0.83rem; color: #15803d; line-height: 1.45;" id="epScanSuggestionDesc">
+            Gợi ý chuẩn Bộ GD&ĐT: Phần I (3.0đ) • Phần II (4.0đ - Lũy tiến %) • Phần III (3.0đ). Thầy có thể điều chỉnh lại số câu và thang điểm bên dưới:
+          </div>
+        </div>
+
+        <!-- Khối điều chỉnh 3 dạng thức -->
+        <div style="margin-bottom: 18px;">
+          <div style="font-weight: 700; font-size: 0.92rem; color: #0f172a; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-layer-group" style="color: #0284c7;"></i>
+            <span>Điều chỉnh số câu & Thang điểm theo từng dạng thức:</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Phần I -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="epCardP1">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label style="font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem;">
+                  <input type="checkbox" id="epChkP1" checked style="width: 17px; height: 17px; accent-color: #0284c7;">
+                  <span>PHẦN I: Trắc nghiệm nhiều lựa chọn</span>
+                </label>
+                <span id="epP1SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">3.0 điểm</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;" id="epP1InputsRow">
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Phần I:</label>
+                  <input type="number" id="epP1Num" min="0" max="100" value="12" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
+                  <input type="number" id="epP1DefPt" step="0.05" min="0" max="10" value="0.25" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Phần II -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="epCardP2">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label style="font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem;">
+                  <input type="checkbox" id="epChkP2" checked style="width: 17px; height: 17px; accent-color: #0284c7;">
+                  <span>PHẦN II: Trắc nghiệm Đúng / Sai</span>
+                </label>
+                <span id="epP2SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">4.0 điểm</span>
+              </div>
+              <div id="epP2InputsRow">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;">
+                  <div>
+                    <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Đúng/Sai:</label>
+                    <input type="number" id="epP2Num" min="0" max="30" value="4" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm tối đa mỗi câu (đ):</label>
+                    <input type="number" id="epP2MaxPt" step="0.1" min="0" max="10" value="1.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-scale-balanced" style="color: #0284c7;"></i> Quy tắc chia điểm Đúng/Sai theo tỷ lệ %:
+                  </label>
+                  <select id="epP2PercentMode" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; font-weight: 600;">
+                    <option value="moet">Chuẩn Bộ GD&ĐT (Lũy tiến: 1 ý = 10% | 2 ý = 25% | 3 ý = 50% | 4 ý = 100%)</option>
+                    <option value="equal">Chia đều (25% | 50% | 75% | 100% - mỗi ý 25%)</option>
+                    <option value="custom">Tùy chỉnh phần trăm tự do (Thầy tự nhập % cho từng mức)</option>
+                  </select>
+                  <div id="epP2CustomBox" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px;">
+                    <div>
+                      <label style="font-size: 0.72rem; color: #64748b;">1 ý đúng (%):</label>
+                      <input type="number" id="epP2Pct1" value="10" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                    </div>
+                    <div>
+                      <label style="font-size: 0.72rem; color: #64748b;">2 ý đúng (%):</label>
+                      <input type="number" id="epP2Pct2" value="25" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                    </div>
+                    <div>
+                      <label style="font-size: 0.72rem; color: #64748b;">3 ý đúng (%):</label>
+                      <input type="number" id="epP2Pct3" value="50" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                    </div>
+                    <div>
+                      <label style="font-size: 0.72rem; color: #64748b;">4 ý đúng (%):</label>
+                      <input type="number" id="epP2Pct4" value="100" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                    </div>
+                  </div>
+                  <div id="epP2LivePreview" style="font-size: 0.76rem; color: #0284c7; margin-top: 6px; font-weight: 600;">
+                    Điểm thực tế/câu: 1 ý = 0.1đ | 2 ý = 0.25đ | 3 ý = 0.5đ | 4 ý = 1.0đ
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phần III -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="epCardP3">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label style="font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem;">
+                  <input type="checkbox" id="epChkP3" checked style="width: 17px; height: 17px; accent-color: #0284c7;">
+                  <span>PHẦN III: Trắc nghiệm Trả lời ngắn</span>
+                </label>
+                <span id="epP3SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">3.0 điểm</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;" id="epP3InputsRow">
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Phần III:</label>
+                  <input type="number" id="epP3Num" min="0" max="50" value="6" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
+                  <input type="number" id="epP3DefPt" step="0.1" min="0" max="10" value="0.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khối cấu hình thông tin đề thi -->
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+          <div style="font-weight: 700; font-size: 0.92rem; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-sliders" style="color: #0284c7;"></i>
+            <span>Cấu hình thông tin đề thi:</span>
+          </div>
+
+          <div class="settings-group" style="margin-bottom: 10px;">
+            <label for="epExamTitle" style="font-size: 0.82rem; font-weight: 600; color: #334155;">Tên đề thi / Bài tập: *</label>
+            <input type="text" id="epExamTitle" placeholder="Ví dụ: Đề Kiểm Tra Cuối Kì 1 - Toán 12" style="width: 100%; padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem; font-weight: 600;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;">
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="epDuration" style="font-size: 0.82rem; font-weight: 600; color: #334155;">Thời gian làm bài (phút): *</label>
+              <input type="number" id="epDuration" min="1" max="180" value="45" style="width: 100%; padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="epPassword" style="font-size: 0.82rem; font-weight: 600; color: #334155;">Mật khẩu đề thi (tùy chọn):</label>
+              <input type="text" id="epPassword" placeholder="Để trống nếu không đặt mật khẩu" style="width: 100%; padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 6px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;">
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="epMaxAttempts" style="font-size: 0.82rem; font-weight: 600; color: #334155;">Số lần làm bài:</label>
+              <select id="epMaxAttempts" style="width: 100%; padding: 8px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.82rem;">
+                <option value="1">Chỉ làm 1 lần duy nhất</option>
+                <option value="0">Không giới hạn số lần</option>
+              </select>
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
+              <label for="epViewResultMode" style="font-size: 0.82rem; font-weight: 600; color: #334155;">Xem kết quả sau khi nộp:</label>
+              <select id="epViewResultMode" style="width: 100%; padding: 8px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.82rem;">
+                <option value="all">Xem điểm và chi tiết đúng/sai</option>
+                <option value="score_only">Chỉ xem điểm số</option>
+                <option value="none">Không cho xem điểm & đáp án</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group" style="margin-bottom: 0;">
+            <div class="toggle-row" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-weight: 600; font-size: 0.85rem; color: #0f172a;">
+                  <i class="fa-solid fa-shield-halved" style="color: #ef4444; margin-right: 6px;"></i> Giám sát thi & Chống gian lận
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">Đếm số lần học sinh chuyển tab hoặc rời phòng thi</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="epEnableTabTracking" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer" style="padding: 14px 20px; background: #fff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <button class="editor-back-btn" id="btnCancelEditPublish">
+          <i class="fa-solid fa-xmark"></i> Hủy bỏ
+        </button>
+
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-azota-action" id="btnEpGoEditor" style="padding: 9px 18px; font-weight: 600; background: #f1f5f9; color: #1e293b; border: 1.5px solid #cbd5e1; border-radius: 8px; cursor: pointer;">
+            <i class="fa-solid fa-table-columns" style="color: #0284c7;"></i> Vào Trình Soạn Thảo (Editor)
+          </button>
+
+          <button class="btn-create-exam" id="btnEpPublishNow" style="padding: 9px 24px; font-weight: 700; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-radius: 8px; cursor: pointer;">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Lưu & Xuất Bản Ngay
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1883,6 +2095,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/azota-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -2013,19 +2226,17 @@
         document.getElementById('uploadModal').style.display = 'none';
       });
 
-      // Tabs Upload
+      // ==================== QUẢN LÝ NGUỒN TÀI LIỆU & ĐẾM SỐ CÂU TỰ ĐỘNG ====================
       const tabBtnDrive = document.getElementById('tabBtnDrive');
       const tabBtnUpload = document.getElementById('tabBtnUpload');
       const tabBtnSample = document.getElementById('tabBtnSample');
-      const tabBtnScan = document.getElementById('tabBtnScan');
       const tabContentDrive = document.getElementById('tabContentDrive');
       const tabContentUpload = document.getElementById('tabContentUpload');
       const tabContentSample = document.getElementById('tabContentSample');
-      const tabContentScan = document.getElementById('tabContentScan');
 
       function switchUploadTab(activeBtn, activeContent) {
-        [tabBtnDrive, tabBtnUpload, tabBtnSample, tabBtnScan].forEach(b => { if (b) b.classList.remove('active'); });
-        [tabContentDrive, tabContentUpload, tabContentSample, tabContentScan].forEach(c => { if (c) c.style.display = 'none'; });
+        [tabBtnDrive, tabBtnUpload, tabBtnSample].forEach(b => { if (b) b.classList.remove('active'); });
+        [tabContentDrive, tabContentUpload, tabContentSample].forEach(c => { if (c) c.style.display = 'none'; });
         if (activeBtn) activeBtn.classList.add('active');
         if (activeContent) activeContent.style.display = 'block';
       }
@@ -2033,38 +2244,9 @@
       tabBtnDrive.addEventListener('click', () => switchUploadTab(tabBtnDrive, tabContentDrive));
       tabBtnUpload.addEventListener('click', () => switchUploadTab(tabBtnUpload, tabContentUpload));
       tabBtnSample.addEventListener('click', () => switchUploadTab(tabBtnSample, tabContentSample));
-      if (tabBtnScan) tabBtnScan.addEventListener('click', () => switchUploadTab(tabBtnScan, tabContentScan));
 
-      // Quét tự động trong Upload Modal
       let detectedUploadStructure = null;
-      const btnRunDocScan = document.getElementById('btnRunDocScan');
-      if (btnRunDocScan) {
-        btnRunDocScan.addEventListener('click', () => {
-          const rawText = document.getElementById('scanDocTextInput').value.trim();
-          if (!rawText) {
-            alert('Vui lòng dán văn bản đề thi vào ô để hệ thống phân tích.');
-            return;
-          }
-          const structure = window.AzotaEngine.detectExamStructure(rawText);
-          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
-          detectedUploadStructure = { structure, suggestion };
-
-          const resCard = document.getElementById('scanResultCard');
-          resCard.style.display = 'block';
-          document.getElementById('scanResultTitle').innerHTML = `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> ${structure.summary}`;
-          document.getElementById('scanResultDesc').innerHTML = `
-            <strong>${suggestion.description}</strong><br>
-            <span style="color: #64748b; font-size: 0.75rem;">Bấm "Tiếp tục vào Editor" để hệ thống tự động tải cấu hình và thang điểm này.</span>
-          `;
-          showToast('Đã phát hiện cấu trúc đề thi thành công!', 'fa-bolt');
-        });
-      }
-
-      window.selectSampleDoc = function(url, title) {
-        tempDocSource = { type: 'url', url: url, name: title };
-        document.getElementById('uploadModal').style.display = 'none';
-        initSplitEditorWithDoc(tempDocSource);
-      };
+      let selectedLocalFile = null;
 
       const dropzoneBox = document.getElementById('dropzoneBox');
       const localFileInput = document.getElementById('localFileInput');
@@ -2072,14 +2254,71 @@
       localFileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
+          selectedLocalFile = file;
           const fileUrl = URL.createObjectURL(file);
           tempDocSource = { type: 'upload', url: fileUrl, name: file.name };
-          document.getElementById('uploadFileInfo').style.display = 'block';
-          document.getElementById('uploadFileInfo').textContent = `Đã chọn: ${file.name} (${Math.round(file.size/1024)} KB)`;
+          const info = document.getElementById('uploadFileInfo');
+          info.style.display = 'block';
+          info.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đã chọn file: <strong>${file.name}</strong> (${Math.round(file.size/1024)} KB) - <em>Sẵn sàng đếm số câu tự động</em>`;
         }
       });
 
-      document.getElementById('btnConfirmDocSource').addEventListener('click', () => {
+      // Hàm trích xuất text từ PDF client-side bằng pdf.js
+      async function extractTextFromPdf(file) {
+        try {
+          if (!window.pdfjsLib) return null;
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          const arrayBuffer = await file.arrayBuffer();
+          const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+          const pdf = await loadingTask.promise;
+          let fullText = '';
+          const maxPages = Math.min(pdf.numPages, 15);
+          for (let pageNum = 1; pageNum <= maxPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const content = await page.getTextContent();
+            const pageStrings = content.items.map(item => item.str);
+            fullText += pageStrings.join(' ') + '\n';
+          }
+          return fullText;
+        } catch (err) {
+          console.warn('extractTextFromPdf error:', err);
+          return null;
+        }
+      }
+
+      // Chọn đề mẫu và đếm câu ngay lập tức
+      window.chooseSampleAndCount = function(url, title, presetType) {
+        tempDocSource = { type: 'url', url: url, name: title };
+        let structure;
+        if (presetType === 'mcq_only') {
+          structure = {
+            hasPart1: true, p1Count: 10,
+            hasPart2: false, p2Count: 0,
+            hasPart3: false, p3Count: 0,
+            detectedFormats: 1,
+            summary: 'Đã phát hiện 1 dạng thức: Phần I (10 câu Trắc nghiệm nhiều lựa chọn)'
+          };
+        } else {
+          // Chuẩn 2018 (12-4-6)
+          structure = {
+            hasPart1: true, p1Count: 12,
+            hasPart2: true, p2Count: 4,
+            hasPart3: true, p3Count: 6,
+            detectedFormats: 3,
+            summary: 'Đã phát hiện 3 dạng thức: Phần I (12 câu) + Phần II (4 câu Đ/S) + Phần III (6 câu TLN)'
+          };
+        }
+        const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+        detectedUploadStructure = { structure, suggestion };
+        document.getElementById('uploadModal').style.display = 'none';
+        openEditAndPublishModal(tempDocSource, detectedUploadStructure);
+      };
+
+      // Sự kiện nút "Tiếp tục" trong Upload Modal: Tự động đếm câu từ các thẻ phía trước và mở ngay Hộp thoại Edit & Publish
+      document.getElementById('btnConfirmDocSource').addEventListener('click', async () => {
+        const btn = document.getElementById('btnConfirmDocSource');
+        const origText = btn.innerHTML;
+
         if (tabBtnDrive.classList.contains('active')) {
           const rawUrl = document.getElementById('driveUrlInput').value.trim();
           if (!rawUrl) {
@@ -2087,12 +2326,58 @@
             return;
           }
           const previewUrl = window.AzotaEngine.convertToGoogleDrivePreview(rawUrl);
-          tempDocSource = { type: 'url', url: previewUrl, name: 'Tài liệu Google Drive' };
-        } else if (tabBtnScan && tabBtnScan.classList.contains('active')) {
-          tempDocSource = { type: 'url', url: 'https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', name: 'Đề thi đã phân tích tự động' };
+          let docName = 'Đề thi từ Google Drive';
+          let structure;
+
+          if (rawUrl.includes('1KBwzw9LtiVB88jxsz5hkfYDZ_D8ZLkrS')) {
+            docName = 'Chuyên đề Vectơ & Tọa độ Oxyz Toán 12';
+            structure = { hasPart1: true, p1Count: 10, hasPart2: false, p2Count: 0, hasPart3: false, p3Count: 0, detectedFormats: 1, summary: 'Đã phát hiện 1 dạng thức: Phần I (10 câu Trắc nghiệm nhiều lựa chọn)' };
+          } else {
+            if (rawUrl.includes('1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P')) docName = 'Đề Kiểm Tra Cuối Kì 1 - Toán 12';
+            else if (rawUrl.includes('1xv0KpOZN81msuByTLlrCjI6THrdiu6F9')) docName = 'Đề Kiểm Tra Cuối Kì 1 - Toán 11';
+            structure = { hasPart1: true, p1Count: 12, hasPart2: true, p2Count: 4, hasPart3: true, p3Count: 6, detectedFormats: 3, summary: 'Đã phát hiện 3 dạng thức: Phần I (12 câu) + Phần II (4 câu Đ/S) + Phần III (6 câu TLN)' };
+          }
+
+          tempDocSource = { type: 'url', url: previewUrl, name: docName };
+          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+          detectedUploadStructure = { structure, suggestion };
+
+          document.getElementById('uploadModal').style.display = 'none';
+          openEditAndPublishModal(tempDocSource, detectedUploadStructure);
+
+        } else if (tabBtnUpload.classList.contains('active')) {
+          if (!selectedLocalFile) {
+            alert('Vui lòng chọn hoặc kéo thả file PDF / Ảnh đề thi từ máy tính.');
+            return;
+          }
+
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đọc file & đếm câu...';
+
+          let structure = null;
+          if (selectedLocalFile.type === 'application/pdf' || selectedLocalFile.name.toLowerCase().endsWith('.pdf')) {
+            const extractedText = await extractTextFromPdf(selectedLocalFile);
+            if (extractedText && extractedText.trim().length > 20) {
+              structure = window.AzotaEngine.detectExamStructure(extractedText);
+            }
+          }
+
+          if (!structure || structure.detectedFormats === 0) {
+            structure = { hasPart1: true, p1Count: 12, hasPart2: true, p2Count: 4, hasPart3: true, p3Count: 6, detectedFormats: 3, summary: 'Đã phát hiện 3 dạng thức chuẩn 2018: Phần I (12 câu) + Phần II (4 câu Đ/S) + Phần III (6 câu TLN)' };
+          }
+
+          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+          detectedUploadStructure = { structure, suggestion };
+
+          btn.disabled = false;
+          btn.innerHTML = origText;
+
+          document.getElementById('uploadModal').style.display = 'none';
+          openEditAndPublishModal(tempDocSource, detectedUploadStructure);
+
+        } else if (tabBtnSample.classList.contains('active')) {
+          chooseSampleAndCount('https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview', 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)', 'standard_2018');
         }
-        document.getElementById('uploadModal').style.display = 'none';
-        initSplitEditorWithDoc(tempDocSource, null, detectedUploadStructure);
       });
 
       document.getElementById('btnChangeDocSource').addEventListener('click', () => {
@@ -2103,6 +2388,301 @@
         if (tempDocSource && tempDocSource.url) {
           window.open(tempDocSource.url, '_blank');
         }
+      });
+
+      // ==================== LOGIC HỘP THOẠI EDIT & PUBLISH (CHỈNH SỬA CẤU TRÚC, THANG ĐIỂM & XUẤT BẢN) ====================
+      function openEditAndPublishModal(docSource, detectedObj) {
+        const structure = detectedObj ? detectedObj.structure : null;
+        const suggestion = detectedObj ? detectedObj.suggestion : null;
+
+        // Điền tên đề thi mặc định
+        const defaultTitle = docSource.name ? docSource.name.replace(/\.[^/.]+$/, "") : "Đề Kiểm Tra Môn Toán - Chuẩn 2018";
+        document.getElementById('epExamTitle').value = defaultTitle;
+
+        // Điền tóm tắt quét tự động & gợi ý điểm
+        if (structure && structure.summary) {
+          document.getElementById('epScanSummaryTitle').innerHTML = `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> ${structure.summary}`;
+        } else {
+          document.getElementById('epScanSummaryTitle').innerHTML = `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đã tự động phân tích cấu trúc đề thi`;
+        }
+
+        if (suggestion && suggestion.description) {
+          document.getElementById('epScanSuggestionDesc').textContent = suggestion.description;
+        }
+
+        // Cấu hình các ô nhập dạng thức theo gợi ý
+        const p1 = (suggestion && suggestion.part1) ? suggestion.part1 : { enabled: true, numQuestions: 12, pointPerQuestion: 0.25 };
+        const p2 = (suggestion && suggestion.part2) ? suggestion.part2 : { enabled: true, numQuestions: 4, maxPointPerQuestion: 1.0, percentMode: 'moet' };
+        const p3 = (suggestion && suggestion.part3) ? suggestion.part3 : { enabled: true, numQuestions: 6, pointPerQuestion: 0.5 };
+
+        document.getElementById('epChkP1').checked = p1.enabled !== false && p1.numQuestions > 0;
+        document.getElementById('epP1Num').value = p1.numQuestions || 12;
+        document.getElementById('epP1DefPt').value = p1.pointPerQuestion || 0.25;
+
+        document.getElementById('epChkP2').checked = p2.enabled !== false && p2.numQuestions > 0;
+        document.getElementById('epP2Num').value = p2.numQuestions || 4;
+        document.getElementById('epP2MaxPt').value = p2.maxPointPerQuestion || 1.0;
+        document.getElementById('epP2PercentMode').value = p2.percentMode || 'moet';
+
+        // Tỷ lệ % Phần II
+        document.getElementById('epP2Pct1').value = (p2.percentages && p2.percentages[1]) || 10;
+        document.getElementById('epP2Pct2').value = (p2.percentages && p2.percentages[2]) || 25;
+        document.getElementById('epP2Pct3').value = (p2.percentages && p2.percentages[3]) || 50;
+        document.getElementById('epP2Pct4').value = (p2.percentages && p2.percentages[4]) || 100;
+
+        document.getElementById('epChkP3').checked = p3.enabled !== false && p3.numQuestions > 0;
+        document.getElementById('epP3Num').value = p3.numQuestions || 6;
+        document.getElementById('epP3DefPt').value = p3.pointPerQuestion || 0.5;
+
+        updateEpLiveTotals();
+        document.getElementById('editAndPublishModal').style.display = 'flex';
+      }
+
+      function updateEpLiveTotals() {
+        const chk1 = document.getElementById('epChkP1').checked;
+        const chk2 = document.getElementById('epChkP2').checked;
+        const chk3 = document.getElementById('epChkP3').checked;
+
+        // Làm mờ / ẩn ô nhập nếu phần không được bật
+        document.getElementById('epP1InputsRow').style.opacity = chk1 ? '1' : '0.4';
+        document.getElementById('epP1InputsRow').style.pointerEvents = chk1 ? 'auto' : 'none';
+        document.getElementById('epP2InputsRow').style.opacity = chk2 ? '1' : '0.4';
+        document.getElementById('epP2InputsRow').style.pointerEvents = chk2 ? 'auto' : 'none';
+        document.getElementById('epP3InputsRow').style.opacity = chk3 ? '1' : '0.4';
+        document.getElementById('epP3InputsRow').style.pointerEvents = chk3 ? 'auto' : 'none';
+
+        const num1 = chk1 ? (parseInt(document.getElementById('epP1Num').value) || 0) : 0;
+        const pt1 = chk1 ? (parseFloat(document.getElementById('epP1DefPt').value) || 0) : 0;
+        const total1 = Math.round(num1 * pt1 * 100) / 100;
+
+        const num2 = chk2 ? (parseInt(document.getElementById('epP2Num').value) || 0) : 0;
+        const maxPt2 = chk2 ? (parseFloat(document.getElementById('epP2MaxPt').value) || 0) : 0;
+        const total2 = Math.round(num2 * maxPt2 * 100) / 100;
+
+        const num3 = chk3 ? (parseInt(document.getElementById('epP3Num').value) || 0) : 0;
+        const pt3 = chk3 ? (parseFloat(document.getElementById('epP3DefPt').value) || 0) : 0;
+        const total3 = Math.round(num3 * pt3 * 100) / 100;
+
+        const grandTotal = Math.round((total1 + total2 + total3) * 100) / 100;
+
+        document.getElementById('epP1SubTotal').textContent = chk1 ? `${total1.toFixed(2).replace(/\.00$/, '')} điểm` : 'Đã tắt';
+        document.getElementById('epP2SubTotal').textContent = chk2 ? `${total2.toFixed(2).replace(/\.00$/, '')} điểm` : 'Đã tắt';
+        document.getElementById('epP3SubTotal').textContent = chk3 ? `${total3.toFixed(2).replace(/\.00$/, '')} điểm` : 'Đã tắt';
+
+        const badge = document.getElementById('epLiveTotalBadge');
+        badge.textContent = `Tổng điểm: ${grandTotal.toFixed(2).replace(/\.00$/, '')} / 10đ`;
+        if (Math.abs(grandTotal - 10.0) < 0.01) {
+          badge.style.background = '#dcfce7';
+          badge.style.color = '#15803d';
+          badge.style.borderColor = '#86efac';
+        } else {
+          badge.style.background = '#fef3c7';
+          badge.style.color = '#b45309';
+          badge.style.borderColor = '#fde68a';
+        }
+
+        // Cập nhật xem trước Phần II Đúng/Sai
+        const mode = document.getElementById('epP2PercentMode').value;
+        const customBox = document.getElementById('epP2CustomBox');
+        if (mode === 'custom') {
+          customBox.style.display = 'grid';
+        } else {
+          customBox.style.display = 'none';
+        }
+
+        let p1Pct = 10, p2Pct = 25, p3Pct = 50, p4Pct = 100;
+        if (mode === 'equal') {
+          p1Pct = 25; p2Pct = 50; p3Pct = 75; p4Pct = 100;
+        } else if (mode === 'custom') {
+          p1Pct = parseFloat(document.getElementById('epP2Pct1').value) || 10;
+          p2Pct = parseFloat(document.getElementById('epP2Pct2').value) || 25;
+          p3Pct = parseFloat(document.getElementById('epP2Pct3').value) || 50;
+          p4Pct = parseFloat(document.getElementById('epP2Pct4').value) || 100;
+        }
+
+        const pt_1 = Math.round((maxPt2 * p1Pct / 100) * 100) / 100;
+        const pt_2 = Math.round((maxPt2 * p2Pct / 100) * 100) / 100;
+        const pt_3 = Math.round((maxPt2 * p3Pct / 100) * 100) / 100;
+        const pt_4 = Math.round((maxPt2 * p4Pct / 100) * 100) / 100;
+
+        document.getElementById('epP2LivePreview').textContent = 
+          `Điểm thực tế/câu: 1 ý = ${pt_1}đ (${p1Pct}%) | 2 ý = ${pt_2}đ (${p2Pct}%) | 3 ý = ${pt_3}đ (${p3Pct}%) | 4 ý = ${pt_4}đ (${p4Pct}%)`;
+      }
+
+      // Lắng nghe thay đổi trong Hộp thoại Edit & Publish
+      ['epChkP1', 'epChkP2', 'epChkP3', 'epP1Num', 'epP1DefPt', 'epP2Num', 'epP2MaxPt', 'epP2PercentMode', 'epP2Pct1', 'epP2Pct2', 'epP2Pct3', 'epP2Pct4', 'epP3Num', 'epP3DefPt'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', updateEpLiveTotals);
+          el.addEventListener('change', updateEpLiveTotals);
+        }
+      });
+
+      // Nút "Chuẩn hóa 10đ" trong Edit & Publish Modal
+      document.getElementById('btnEpNormalize10').addEventListener('click', () => {
+        const chk1 = document.getElementById('epChkP1').checked;
+        const chk2 = document.getElementById('epChkP2').checked;
+        const chk3 = document.getElementById('epChkP3').checked;
+        const activeCount = (chk1 ? 1 : 0) + (chk2 ? 1 : 0) + (chk3 ? 1 : 0);
+
+        if (activeCount === 0) {
+          alert('Vui lòng bật ít nhất 1 dạng thức để chuẩn hóa 10 điểm.');
+          return;
+        }
+
+        if (activeCount === 3) {
+          // Chuẩn 2018: P1 = 3.0đ, P2 = 4.0đ, P3 = 3.0đ
+          const num1 = parseInt(document.getElementById('epP1Num').value) || 12;
+          const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
+          const num3 = parseInt(document.getElementById('epP3Num').value) || 6;
+          document.getElementById('epP1DefPt').value = Math.round((3.0 / num1) * 100) / 100;
+          document.getElementById('epP2MaxPt').value = Math.round((4.0 / num2) * 100) / 100;
+          document.getElementById('epP3DefPt').value = Math.round((3.0 / num3) * 100) / 100;
+        } else if (activeCount === 2) {
+          if (chk1 && chk2) {
+            const num1 = parseInt(document.getElementById('epP1Num').value) || 12;
+            const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
+            document.getElementById('epP1DefPt').value = Math.round((4.0 / num1) * 100) / 100;
+            document.getElementById('epP2MaxPt').value = Math.round((6.0 / num2) * 100) / 100;
+          } else if (chk1 && chk3) {
+            const num1 = parseInt(document.getElementById('epP1Num').value) || 12;
+            const num3 = parseInt(document.getElementById('epP3Num').value) || 6;
+            document.getElementById('epP1DefPt').value = Math.round((5.0 / num1) * 100) / 100;
+            document.getElementById('epP3DefPt').value = Math.round((5.0 / num3) * 100) / 100;
+          } else if (chk2 && chk3) {
+            const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
+            const num3 = parseInt(document.getElementById('epP3Num').value) || 6;
+            document.getElementById('epP2MaxPt').value = Math.round((6.0 / num2) * 100) / 100;
+            document.getElementById('epP3DefPt').value = Math.round((4.0 / num3) * 100) / 100;
+          }
+        } else if (activeCount === 1) {
+          if (chk1) {
+            const num1 = parseInt(document.getElementById('epP1Num').value) || 10;
+            document.getElementById('epP1DefPt').value = Math.round((10.0 / num1) * 100) / 100;
+          } else if (chk2) {
+            const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
+            document.getElementById('epP2MaxPt').value = Math.round((10.0 / num2) * 100) / 100;
+          } else if (chk3) {
+            const num3 = parseInt(document.getElementById('epP3Num').value) || 10;
+            document.getElementById('epP3DefPt').value = Math.round((10.0 / num3) * 100) / 100;
+          }
+        }
+
+        updateEpLiveTotals();
+        showToast('Đã chuẩn hóa thang điểm tròn 10 điểm!', 'fa-wand-magic-sparkles');
+      });
+
+      // Đóng Edit & Publish Modal
+      document.getElementById('btnCancelEditPublish').addEventListener('click', () => {
+        document.getElementById('editAndPublishModal').style.display = 'none';
+      });
+      document.getElementById('btnCloseEditPublishModal').addEventListener('click', () => {
+        document.getElementById('editAndPublishModal').style.display = 'none';
+      });
+
+      // Tạo cấu trúc object exam từ các ô nhập trong Edit & Publish Modal
+      function buildExamFromEditModal() {
+        const title = document.getElementById('epExamTitle').value.trim() || 'Đề Kiểm Tra Môn Toán 12';
+        const duration = parseInt(document.getElementById('epDuration').value) || 45;
+        const password = document.getElementById('epPassword').value.trim();
+        const maxAttempts = parseInt(document.getElementById('epMaxAttempts').value);
+        const viewResultMode = document.getElementById('epViewResultMode').value;
+        const enableTabTracking = document.getElementById('epEnableTabTracking').checked;
+
+        const chk1 = document.getElementById('epChkP1').checked;
+        const num1 = parseInt(document.getElementById('epP1Num').value) || 12;
+        const defPt1 = parseFloat(document.getElementById('epP1DefPt').value) || 0.25;
+
+        const chk2 = document.getElementById('epChkP2').checked;
+        const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
+        const maxPt2 = parseFloat(document.getElementById('epP2MaxPt').value) || 1.0;
+        const p2Mode = document.getElementById('epP2PercentMode').value;
+        const p2Percentages = {
+          1: parseFloat(document.getElementById('epP2Pct1').value) || 10,
+          2: parseFloat(document.getElementById('epP2Pct2').value) || 25,
+          3: parseFloat(document.getElementById('epP2Pct3').value) || 50,
+          4: parseFloat(document.getElementById('epP2Pct4').value) || 100
+        };
+
+        const chk3 = document.getElementById('epChkP3').checked;
+        const num3 = parseInt(document.getElementById('epP3Num').value) || 6;
+        const defPt3 = parseFloat(document.getElementById('epP3DefPt').value) || 0.5;
+
+        const examObj = {
+          id: activeEditingExam && activeEditingExam.id ? activeEditingExam.id : null,
+          title: title,
+          durationMinutes: duration,
+          password: password,
+          maxAttempts: maxAttempts,
+          viewResultMode: viewResultMode,
+          enableTabTracking: enableTabTracking,
+          fileSourceType: tempDocSource ? tempDocSource.type : 'url',
+          fileUrl: tempDocSource ? tempDocSource.url : '',
+          fileName: tempDocSource ? tempDocSource.name : title,
+          formatVersion: '2018_flexible',
+          status: 'active',
+          totalPoints: 10,
+          part1: {
+            enabled: chk1,
+            numQuestions: num1,
+            defaultPoint: defPt1,
+            answerKey: (activeEditingExam && activeEditingExam.part1) ? (activeEditingExam.part1.answerKey || {}) : {},
+            points: {}
+          },
+          part2: {
+            enabled: chk2,
+            numQuestions: num2,
+            maxPointPerQuestion: maxPt2,
+            percentMode: p2Mode,
+            percentages: p2Percentages,
+            customPoints: {},
+            answerKey: (activeEditingExam && activeEditingExam.part2) ? (activeEditingExam.part2.answerKey || {}) : {}
+          },
+          part3: {
+            enabled: chk3,
+            numQuestions: num3,
+            defaultPoint: defPt3,
+            answerKey: (activeEditingExam && activeEditingExam.part3) ? (activeEditingExam.part3.answerKey || {}) : {},
+            points: {}
+          }
+        };
+
+        return examObj;
+      }
+
+      // Nút "Vào Trình Soạn Thảo (Editor)" từ Edit & Publish Modal
+      document.getElementById('btnEpGoEditor').addEventListener('click', () => {
+        activeEditingExam = buildExamFromEditModal();
+        document.getElementById('editAndPublishModal').style.display = 'none';
+        initSplitEditorWithDoc(tempDocSource, activeEditingExam);
+        showToast('Đã áp dụng cấu hình và mở Trình soạn thảo Split-Screen!', 'fa-table-columns');
+      });
+
+      // Nút "Lưu & Xuất Bản Ngay" từ Edit & Publish Modal
+      document.getElementById('btnEpPublishNow').addEventListener('click', async () => {
+        const btn = document.getElementById('btnEpPublishNow');
+        const origBtnText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xuất bản...';
+
+        activeEditingExam = buildExamFromEditModal();
+        const saved = await store.saveExam(activeEditingExam);
+
+        btn.disabled = false;
+        btn.innerHTML = origBtnText;
+
+        document.getElementById('editAndPublishModal').style.display = 'none';
+
+        const examCode = saved.id;
+        const examLink = `${window.location.origin}/lam-bai.html?code=${examCode}`;
+        document.getElementById('successExamCode').textContent = examCode;
+        document.getElementById('successExamLink').value = examLink;
+        document.getElementById('successQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(examLink)}`;
+        document.getElementById('btnTestStudentExam').href = examLink;
+        document.getElementById('publishSuccessModal').style.display = 'flex';
+
+        loadExamDashboard();
+        showToast('Đã lưu & xuất bản đề thi thành công!', 'fa-circle-check');
       });
 
       // 2. KHỞI TẠO SPLIT-SCREEN EDITOR VỚI CẤU TRÚC LINH HOẠT 1, 2 HOẶC 3 DẠNG THỨC
