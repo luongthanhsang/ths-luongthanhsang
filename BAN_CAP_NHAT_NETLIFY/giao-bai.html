@@ -1243,6 +1243,22 @@
     .btn-logout-teacher:hover {
       background: #fca5a5;
     }
+    .btn-change-pwd-teacher {
+      background: #eff6ff;
+      color: #0284c7;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      margin-left: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-change-pwd-teacher:hover {
+      background: #dbeafe;
+      color: #0369a1;
+    }
 
     /* Anti Quiz Catalog */
     .anti-quiz-list-container {
@@ -2469,18 +2485,25 @@
             <i class="fa-solid fa-lock"></i>
           </div>
           <h4 style="font-size: 1.05rem; color: #0f172a; margin-bottom: 6px;">Khu Vực Quản Trị Của Thầy Sáng</h4>
-          <p style="font-size: 0.82rem; color: #64748b; line-height: 1.5;">Vui lòng nhập mật khẩu Giáo viên để mở quyền tạo đề, chỉnh sửa, xóa đề và xem bảng điểm thống kê.</p>
+          <p style="font-size: 0.82rem; color: #64748b; line-height: 1.5;">Vui lòng nhập mật khẩu Giáo viên để mở quyền tạo đề, cấu hình xuất bản, chỉnh sửa và quản lý đề thi.</p>
         </div>
 
         <div class="settings-group">
           <label for="teacherAuthPwdInput" style="font-weight: 600;">Mật khẩu Giáo viên:</label>
           <div style="position: relative;">
-            <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 42px;">
-            <button type="button" onclick="toggleTeacherPwdVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
+            <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 42px;" onkeydown="if(event.key==='Enter') submitTeacherAuth();">
+            <button type="button" onclick="toggleTeacherPwdVisibility('teacherAuthPwdInput', 'teacherPwdEyeIcon')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
               <i class="fa-solid fa-eye" id="teacherPwdEyeIcon"></i>
             </button>
           </div>
-          <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 6px;">* Mật khẩu mặc định: <code>thaysang</code></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+            <span style="font-size: 0.78rem; color: #64748b;">
+              <i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Bảo mật dành riêng cho Giáo viên
+            </span>
+            <button type="button" onclick="openTeacherChangePwdModalDirect()" style="background: none; border: none; color: #0284c7; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+              Đổi mật khẩu?
+            </button>
+          </div>
         </div>
       </div>
 
@@ -2488,6 +2511,61 @@
         <button type="button" class="editor-back-btn" onclick="closeTeacherAuthModal()">Hủy bỏ</button>
         <button type="button" class="btn-create-exam" onclick="submitTeacherAuth()" style="padding: 9px 20px;">
           <i class="fa-solid fa-key"></i> Xác nhận & Mở quyền
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL ĐỔI MẬT KHẨU GIÁO VIÊN ==================== -->
+  <div class="azota-modal-overlay" id="teacherChangePwdModal" style="display: none; z-index: 100001;">
+    <div class="azota-modal-card" style="max-width: 440px;">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
+        <div class="azota-modal-title" style="color: #fff;">
+          <i class="fa-solid fa-key"></i> Đổi Mật Khẩu Giáo Viên
+        </div>
+        <button class="azota-modal-close" onclick="closeTeacherChangePwdModal()" style="color: #fff;">&times;</button>
+      </div>
+
+      <div class="azota-modal-body" style="padding: 22px 20px;">
+        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.8rem; color: #0369a1; line-height: 1.4;">
+          <i class="fa-solid fa-circle-info"></i> Thầy Sáng nhập mật khẩu hiện tại và đặt mật khẩu mới để tăng cường bảo mật cho hệ thống quản trị đề thi.
+        </div>
+
+        <div class="settings-group" style="margin-bottom: 12px;">
+          <label for="pwdCurrentInput" style="font-weight: 600; font-size: 0.85rem;">Mật khẩu hiện tại: *</label>
+          <div style="position: relative;">
+            <input type="password" id="pwdCurrentInput" class="cfg-input" placeholder="Nhập mật khẩu đang dùng..." style="padding-right: 42px;">
+            <button type="button" onclick="toggleTeacherPwdVisibility('pwdCurrentInput', 'pwdCurrentEyeIcon')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
+              <i class="fa-solid fa-eye" id="pwdCurrentEyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-group" style="margin-bottom: 12px;">
+          <label for="pwdNewInput" style="font-weight: 600; font-size: 0.85rem;">Mật khẩu mới: *</label>
+          <div style="position: relative;">
+            <input type="password" id="pwdNewInput" class="cfg-input" placeholder="Nhập mật khẩu mới (tối thiểu 4 ký tự)..." style="padding-right: 42px;">
+            <button type="button" onclick="toggleTeacherPwdVisibility('pwdNewInput', 'pwdNewEyeIcon')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
+              <i class="fa-solid fa-eye" id="pwdNewEyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-group" style="margin-bottom: 4px;">
+          <label for="pwdConfirmInput" style="font-weight: 600; font-size: 0.85rem;">Xác nhận mật khẩu mới: *</label>
+          <div style="position: relative;">
+            <input type="password" id="pwdConfirmInput" class="cfg-input" placeholder="Nhập lại mật khẩu mới..." style="padding-right: 42px;" onkeydown="if(event.key==='Enter') submitChangeTeacherPassword();">
+            <button type="button" onclick="toggleTeacherPwdVisibility('pwdConfirmInput', 'pwdConfirmEyeIcon')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
+              <i class="fa-solid fa-eye" id="pwdConfirmEyeIcon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer" style="padding: 12px 20px;">
+        <button type="button" class="editor-back-btn" onclick="closeTeacherChangePwdModal()">Hủy bỏ</button>
+        <button type="button" class="btn-create-exam" onclick="submitChangeTeacherPassword()" style="padding: 9px 20px; background: linear-gradient(135deg, #0f172a, #1e3a8a);">
+          <i class="fa-solid fa-floppy-disk"></i> Lưu mật khẩu mới
         </button>
       </div>
     </div>
@@ -2968,6 +3046,7 @@
             <div class="teacher-auth-chip logged-in">
               <i class="fa-solid fa-chalkboard-user"></i>
               <span>Giáo viên: ThS. Lương Thanh Sáng</span>
+              <button class="btn-change-pwd-teacher" onclick="openTeacherChangePwdModal()" title="Đổi mật khẩu Giáo viên"><i class="fa-solid fa-key"></i> Đổi mật khẩu</button>
               <button class="btn-logout-teacher" onclick="handleTeacherLogout()" title="Thoát quyền Quản trị"><i class="fa-solid fa-right-from-bracket"></i> Thoát</button>
             </div>
           `;
@@ -3007,9 +3086,9 @@
         pendingTeacherAction = null;
       };
 
-      window.toggleTeacherPwdVisibility = function() {
-        const input = document.getElementById('teacherAuthPwdInput');
-        const icon = document.getElementById('teacherPwdEyeIcon');
+      window.toggleTeacherPwdVisibility = function(inputId = 'teacherAuthPwdInput', iconId = 'teacherPwdEyeIcon') {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
         if (!input) return;
         if (input.type === 'password') {
           input.type = 'text';
@@ -3028,11 +3107,13 @@
 
         if (!pwdVal) {
           alert("Vui lòng nhập mật khẩu Giáo viên!");
+          if (input) input.focus();
           return;
         }
 
         if (pwdVal !== activeTeacherPwd) {
-          alert("⚠️ Mật khẩu Giáo viên chưa chính xác! (Mật khẩu mặc định: thaysang)");
+          alert("⚠️ Mật khẩu Giáo viên không chính xác! Vui lòng thử lại.");
+          if (input) { input.focus(); input.select(); }
           return;
         }
 
@@ -3047,6 +3128,90 @@
           pendingTeacherAction = null;
           act();
         }
+      };
+
+      // ==================== CÁC HÀM ĐỔI MẬT KHẨU GIÁO VIÊN ====================
+      window.openTeacherChangePwdModal = function() {
+        const modal = document.getElementById('teacherChangePwdModal');
+        if (!modal) return;
+        const curInp = document.getElementById('pwdCurrentInput');
+        const newInp = document.getElementById('pwdNewInput');
+        const cfmInp = document.getElementById('pwdConfirmInput');
+        if (curInp) curInp.value = '';
+        if (newInp) newInp.value = '';
+        if (cfmInp) cfmInp.value = '';
+        modal.style.display = 'flex';
+        setTimeout(() => { if (curInp) curInp.focus(); }, 150);
+      };
+
+      window.openTeacherChangePwdModalDirect = function() {
+        closeTeacherAuthModal();
+        openTeacherChangePwdModal();
+      };
+
+      window.closeTeacherChangePwdModal = function() {
+        const modal = document.getElementById('teacherChangePwdModal');
+        if (modal) modal.style.display = 'none';
+      };
+
+      window.submitChangeTeacherPassword = function() {
+        const curInp = document.getElementById('pwdCurrentInput');
+        const newInp = document.getElementById('pwdNewInput');
+        const cfmInp = document.getElementById('pwdConfirmInput');
+
+        const curVal = (curInp ? curInp.value : '').trim();
+        const newVal = (newInp ? newInp.value : '').trim();
+        const cfmVal = (cfmInp ? cfmInp.value : '').trim();
+
+        const savedPwd = localStorage.getItem("ths_sang_teacher_pwd");
+        const activePwd = savedPwd !== null ? savedPwd : "thaysang";
+
+        if (!curVal) {
+          alert("Vui lòng nhập Mật khẩu hiện tại!");
+          if (curInp) curInp.focus();
+          return;
+        }
+
+        if (curVal !== activePwd) {
+          alert("⚠️ Mật khẩu hiện tại không chính xác! Không thể thay đổi mật khẩu.");
+          if (curInp) { curInp.focus(); curInp.select(); }
+          return;
+        }
+
+        if (!newVal) {
+          alert("Vui lòng nhập Mật khẩu mới!");
+          if (newInp) newInp.focus();
+          return;
+        }
+
+        if (newVal.length < 4) {
+          alert("Mật khẩu mới phải có ít nhất 4 ký tự!");
+          if (newInp) newInp.focus();
+          return;
+        }
+
+        if (newVal !== cfmVal) {
+          alert("⚠️ Xác nhận mật khẩu mới không trùng khớp! Vui lòng kiểm tra lại.");
+          if (cfmInp) { cfmInp.focus(); cfmInp.select(); }
+          return;
+        }
+
+        if (newVal === activePwd) {
+          alert("Mật khẩu mới không được trùng với mật khẩu hiện tại!");
+          if (newInp) newInp.focus();
+          return;
+        }
+
+        // Lưu mật khẩu mới vào localStorage
+        localStorage.setItem("ths_sang_teacher_pwd", newVal);
+        sessionStorage.setItem("ths_sang_teacher_logged", "true");
+
+        closeTeacherChangePwdModal();
+        updateTeacherUI();
+        renderExamGrid();
+
+        alert("🎉 Đã đổi mật khẩu Giáo viên thành công!\nMật khẩu mới đã có hiệu lực ngay lập tức. Mật khẩu cũ đã bị vô hiệu hóa hoàn toàn.");
+        showToast("Đổi mật khẩu thành công!", "fa-shield-halved");
       };
 
       window.handleTeacherLogout = function() {
