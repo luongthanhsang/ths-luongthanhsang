@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Phòng thi trực tuyến chuẩn Azota - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
+  <meta name="description" content="Phòng thi trực tuyến chuẩn Azota & GDPT 2018 - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
   <meta name="author" content="ThS. Lương Thanh Sáng">
   <meta name="theme-color" content="#0284c7">
-  <title>Phòng Thi Trực Tuyến Azota | ThS. Lương Thanh Sáng</title>
+  <title>Phòng Thi Trực Tuyến Chuẩn 2018 | ThS. Lương Thanh Sáng</title>
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +42,7 @@
       background: #ffffff;
       border-radius: 20px;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       box-shadow: 0 15px 35px rgba(2, 132, 199, 0.12);
       border: 1px solid #bae6fd;
       overflow: hidden;
@@ -151,7 +151,7 @@
       box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
     }
 
-    /* 2. GIAO DIỆN PHÒNG THI CHIA ĐÔI MÀN HÌNH CHUẨN AZOTA */
+    /* 2. GIAO DIỆN PHÒNG THI 3 PHẦN */
     .exam-room-screen {
       display: none;
       flex-direction: column;
@@ -187,7 +187,7 @@
       font-size: 1rem;
       font-weight: 700;
       color: #ffffff;
-      max-width: 350px;
+      max-width: 320px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -267,7 +267,7 @@
       overflow: hidden;
     }
     .room-left-pane {
-      width: 70%;
+      width: 65%;
       height: 100%;
       background: #64748b;
       display: flex;
@@ -296,8 +296,10 @@
       height: 100%;
       border: none;
     }
+
+    /* Cột Phải: Phiếu 3 Phần */
     .room-right-pane {
-      width: 30%;
+      width: 35%;
       height: 100%;
       background: #ffffff;
       display: flex;
@@ -305,30 +307,66 @@
       overflow: hidden;
     }
 
-    /* Bảng điều hướng câu hỏi (Palette) */
+    /* Thanh Tabs 3 Phần của học sinh */
+    .student-part-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #f1f5f9;
+      border-bottom: 1.5px solid #cbd5e1;
+    }
+    .student-part-tab {
+      padding: 10px 4px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .student-part-tab.active {
+      background: #ffffff;
+      border-bottom-color: #0284c7;
+    }
+    .student-part-tab strong {
+      font-size: 0.82rem;
+      color: #0f172a;
+    }
+    .student-part-tab.active strong {
+      color: #0284c7;
+    }
+    .student-part-tab span {
+      font-size: 0.68rem;
+      color: #64748b;
+    }
+
+    /* Palette điều hướng nhanh */
     .room-palette-section {
-      padding: 14px 16px;
+      padding: 10px 14px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
     }
     .room-palette-title {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #475569;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
     }
     .room-palette-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
-      gap: 6px;
-      max-height: 120px;
+      gap: 5px;
+      max-height: 90px;
       overflow-y: auto;
-      padding: 4px;
+      padding: 2px;
     }
     .palette-btn {
-      height: 32px;
+      height: 30px;
       border-radius: 6px;
       border: 1px solid #cbd5e1;
       background: #ffffff;
@@ -349,6 +387,11 @@
       color: #ffffff;
       border-color: #059669;
     }
+    .palette-btn.partial {
+      background: #fef08a;
+      color: #854d0e;
+      border-color: #facc15;
+    }
     .palette-btn.flagged {
       background: #f59e0b;
       color: #ffffff;
@@ -359,8 +402,10 @@
     .room-questions-list {
       flex: 1;
       overflow-y: auto;
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
+
+    /* Card câu hỏi Phần I */
     .student-q-card {
       background: #f8fafc;
       border: 1.5px solid #e2e8f0;
@@ -425,7 +470,82 @@
       box-shadow: 0 3px 8px rgba(2, 132, 199, 0.4);
     }
 
-    /* 3. MÀN HÌNH KẾT QUẢ SAU KHI NỘP BÀI */
+    /* Card câu hỏi Phần II: Đúng / Sai */
+    .student-tf-block {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+    .student-tf-sub-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .student-tf-sub-row:last-child {
+      border-bottom: none;
+    }
+    .student-tf-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-student-tf {
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-student-tf.true:hover { border-color: #16a34a; color: #16a34a; }
+    .btn-student-tf.false:hover { border-color: #ef4444; color: #ef4444; }
+    .btn-student-tf.true.selected {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(22, 163, 74, 0.35);
+    }
+    .btn-student-tf.false.selected {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+    }
+
+    /* Card câu hỏi Phần III: Trả lời ngắn */
+    .student-sa-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .student-sa-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
+      color: #0f172a;
+    }
+    .student-sa-input:focus {
+      border-color: #10b981;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    /* 3. MÀN HÌNH KẾT QUẢ SAU NỘP BÀI */
     .result-screen {
       display: none;
       flex: 1;
@@ -438,7 +558,7 @@
       background: #ffffff;
       border-radius: 20px;
       width: 100%;
-      max-width: 650px;
+      max-width: 680px;
       box-shadow: 0 20px 45px rgba(22, 101, 52, 0.12);
       border: 1px solid #bbf7d0;
       overflow: hidden;
@@ -451,8 +571,8 @@
       text-align: center;
     }
     .result-score-circle {
-      width: 100px;
-      height: 100px;
+      width: 105px;
+      height: 105px;
       border-radius: 50%;
       background: #ffffff;
       color: #15803d;
@@ -464,70 +584,30 @@
       margin: 0 auto 12px auto;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
       border: 4px solid rgba(255, 255, 255, 0.6);
+      font-family: 'Fira Code', monospace;
     }
     .result-body {
       padding: 24px;
       max-height: 60vh;
       overflow-y: auto;
     }
-    .result-stats-row {
+    .result-parts-summary-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 20px;
-      text-align: center;
+      margin-bottom: 16px;
     }
-    .result-stat-box {
+    .res-part-box {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 10px;
+      text-align: center;
     }
-    .result-stat-num {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .result-stat-lbl {
-      font-size: 0.72rem;
-      color: #64748b;
-      margin-top: 2px;
-    }
-    .result-detail-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 8px;
-      margin-top: 14px;
-    }
-    .result-q-pill {
-      padding: 8px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
-    }
-    .result-q-pill.correct {
-      background: #f0fdf4;
-      border-color: #bbf7d0;
-      color: #166534;
-    }
-    .result-q-pill.wrong {
-      background: #fef2f2;
-      border-color: #fecaca;
-      color: #991b1b;
-    }
-    .result-footer {
-      padding: 18px 24px;
-      border-top: 1px solid #e2e8f0;
-      background: #f8fafc;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-    }
+    .res-part-title { font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 2px; }
+    .res-part-val { font-size: 1.15rem; font-weight: 800; color: #0284c7; font-family: 'Fira Code', monospace; }
 
-    /* Cảnh báo chuyển tab chống gian lận */
+    /* Cảnh báo chuyển tab */
     .tab-warning-overlay {
       display: none;
       position: fixed;
@@ -588,26 +668,12 @@
     }
 
     @media (max-width: 900px) {
-      .mobile-view-tabs {
-        display: grid;
-      }
-      .room-body {
-        flex-direction: column;
-        height: calc(100vh - 104px);
-      }
-      .room-left-pane {
-        width: 100%;
-        height: 100%;
-        border-right: none;
-      }
-      .room-right-pane {
-        width: 100%;
-        height: 100%;
-        display: none;
-      }
-      .room-exam-title {
-        max-width: 150px;
-      }
+      .mobile-view-tabs { display: grid; }
+      .room-body { flex-direction: column; height: calc(100vh - 104px); }
+      .room-left-pane { width: 100%; height: 100%; border-right: none; }
+      .room-right-pane { width: 100%; height: 100%; display: none; }
+      .room-exam-title { max-width: 150px; }
+      .result-parts-summary-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -617,16 +683,16 @@
   <div class="entry-screen" id="entryScreen">
     <div class="entry-card">
       <div class="entry-header">
-        <div class="entry-badge"><i class="fa-solid fa-graduation-cap"></i> PHÒNG THI ONLINE AZOTA</div>
+        <div class="entry-badge"><i class="fa-solid fa-graduation-cap"></i> PHÒNG THI ONLINE AZOTA 2018</div>
         <h1 class="entry-title" id="entryExamTitle">Đang tải đề thi...</h1>
-        <p class="entry-sub">Hệ thống khảo sát & kiểm tra trực tuyến - ThS. Lương Thanh Sáng</p>
+        <p class="entry-sub">Hệ thống khảo sát 3 dạng thức mới - ThS. Lương Thanh Sáng</p>
       </div>
 
       <div class="entry-body">
         <div class="entry-exam-info-grid">
           <div class="entry-info-item"><i class="fa-solid fa-hashtag"></i> Mã đề: <strong id="infoExamCode" style="font-family: 'Fira Code', monospace;">--</strong></div>
-          <div class="entry-info-item"><i class="fa-solid fa-circle-question"></i> <span id="infoTotalQ">10 câu</span></div>
-          <div class="entry-info-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong id="infoDuration">15 phút</strong></div>
+          <div class="entry-info-item"><i class="fa-solid fa-layer-group"></i> <span id="infoTotalQ">3 Phần (22 câu)</span></div>
+          <div class="entry-info-item"><i class="fa-solid fa-clock"></i> Thời gian: <strong id="infoDuration">45 phút</strong></div>
           <div class="entry-info-item"><i class="fa-solid fa-shield-halved"></i> Giám sát tab: <span id="infoAntiCheat">Có</span></div>
         </div>
 
@@ -647,14 +713,14 @@
           </div>
 
           <button type="submit" class="btn-start-exam-now" id="btnStartExamNow">
-            <i class="fa-solid fa-play"></i> Bắt đầu làm bài
+            <i class="fa-solid fa-play"></i> Bắt đầu làm bài thi
           </button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- ==================== 2. GIAO DIỆN PHÒNG THI CHUẨN AZOTA ==================== -->
+  <!-- ==================== 2. GIAO DIỆN PHÒNG THI 3 PHẦN ==================== -->
   <div class="exam-room-screen" id="examRoomScreen">
     <!-- Header phòng thi -->
     <div class="room-header">
@@ -672,7 +738,7 @@
         <!-- Đồng hồ đếm ngược -->
         <div class="room-timer-badge" id="roomTimer">
           <i class="fa-regular fa-clock"></i>
-          <span id="timerText">15:00</span>
+          <span id="timerText">45:00</span>
         </div>
       </div>
 
@@ -689,13 +755,13 @@
         <i class="fa-solid fa-file-pdf"></i> Đề thi
       </div>
       <div class="mobile-view-tab" id="tabSheetBtn" onclick="switchMobileView('sheet')">
-        <i class="fa-solid fa-circle-dot"></i> Phiếu trả lời (<span id="answeredCountMobile">0</span>)
+        <i class="fa-solid fa-circle-dot"></i> Phiếu trả lời
       </div>
     </div>
 
     <!-- 2 Cột làm việc -->
     <div class="room-body">
-      <!-- Cột Trái (70%): Tài liệu đề thi -->
+      <!-- Cột Trái (65%): Đề thi -->
       <div class="room-left-pane" id="roomLeftPane">
         <div class="room-doc-toolbar">
           <span><i class="fa-solid fa-book-open"></i> Đề thi gốc</span>
@@ -708,23 +774,41 @@
         </div>
       </div>
 
-      <!-- Cột Phải (30%): Phiếu trả lời đáp án -->
+      <!-- Cột Phải (35%): Phiếu trả lời 3 Phần -->
       <div class="room-right-pane" id="roomRightPane">
-        <!-- Palette điều hướng nhanh -->
+        
+        <!-- 3 Tabs chuyển Phần của Học sinh -->
+        <div class="student-part-tabs">
+          <button class="student-part-tab active" id="stuTabP1" onclick="switchStudentPartTab('part1')">
+            <strong>Phần I</strong>
+            <span>Nhiều lựa chọn</span>
+          </button>
+          <button class="student-part-tab" id="stuTabP2" onclick="switchStudentPartTab('part2')">
+            <strong>Phần II</strong>
+            <span>Đúng / Sai</span>
+          </button>
+          <button class="student-part-tab" id="stuTabP3" onclick="switchStudentPartTab('part3')">
+            <strong>Phần III</strong>
+            <span>Trả lời ngắn</span>
+          </button>
+        </div>
+
+        <!-- Palette điều hướng nhanh theo từng Phần -->
         <div class="room-palette-section">
           <div class="room-palette-title">
-            <span>Phiếu trả lời trắc nghiệm:</span>
-            <span style="color: #10b981;" id="answeredRatioText">Đã làm: 0/10</span>
+            <span id="paletteSectionTitle">Danh sách câu Phần I:</span>
+            <span style="color: #10b981;" id="answeredRatioText">0/12</span>
           </div>
           <div class="room-palette-grid" id="paletteGrid">
-            <!-- Render nút câu 1..N -->
+            <!-- Render nút câu -->
           </div>
         </div>
 
-        <!-- Danh sách câu hỏi cuộn dọc -->
+        <!-- Danh sách câu hỏi của từng phần -->
         <div class="room-questions-list" id="studentQuestionsList">
-          <!-- Render các card câu hỏi -->
+          <!-- Render dynamic theo tab hiện tại -->
         </div>
+
       </div>
     </div>
   </div>
@@ -734,38 +818,44 @@
     <div class="result-card">
       <div class="result-header">
         <div class="result-score-circle" id="resScoreCircle">0.0</div>
-        <h2 style="font-size: 1.3rem; margin-bottom: 4px;">Nộp Bài Thành Công!</h2>
+        <h2 style="font-size: 1.3rem; margin-bottom: 4px;">Nộp Bài Thi Thành Công!</h2>
         <p style="font-size: 0.85rem; color: #dcfce7;" id="resStudentInfo">Nguyễn Văn An - Lớp 12A1</p>
       </div>
 
       <div class="result-body">
-        <div class="result-stats-row">
-          <div class="result-stat-box">
-            <div class="result-stat-num" id="resCorrectCount" style="color: #16a34a;">0</div>
-            <div class="result-stat-lbl">Số câu đúng</div>
+        <!-- Tóm tắt 3 phần -->
+        <div class="result-parts-summary-grid">
+          <div class="res-part-box">
+            <div class="res-part-title">Phần I (Nhiều lựa chọn)</div>
+            <div class="res-part-val" id="resP1Score">0.0đ</div>
           </div>
-          <div class="result-stat-box">
-            <div class="result-stat-num" id="resDurationStr">0p 0s</div>
-            <div class="result-stat-lbl">Thời gian làm</div>
+          <div class="res-part-box">
+            <div class="res-part-title">Phần II (Đúng / Sai)</div>
+            <div class="res-part-val" id="resP2Score">0.0đ</div>
           </div>
-          <div class="result-stat-box">
-            <div class="result-stat-num" id="resViolations" style="color: #ef4444;">0</div>
-            <div class="result-stat-lbl">Rời màn hình</div>
+          <div class="res-part-box">
+            <div class="res-part-title">Phần III (Trả lời ngắn)</div>
+            <div class="res-part-val" id="resP3Score">0.0đ</div>
           </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-around; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 16px; font-size: 0.85rem;">
+          <div><i class="fa-solid fa-clock" style="color: #0284c7;"></i> Thời gian làm: <strong id="resDurationStr">0p 0s</strong></div>
+          <div><i class="fa-solid fa-shield-halved" style="color: #ef4444;"></i> Rời màn hình: <strong id="resViolations">0 lần</strong></div>
         </div>
 
         <div id="resMessageNotice" style="display: none; padding: 12px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; font-size: 0.85rem; color: #92400e; text-align: center; margin-bottom: 12px;"></div>
 
         <div id="resDetailWrapper">
-          <h4 style="font-size: 0.88rem; color: #334155; margin-bottom: 8px;">Chi tiết đáp án từng câu:</h4>
-          <div class="result-detail-list" id="resDetailList">
-            <!-- Render danh sách câu đúng sai -->
+          <h4 style="font-size: 0.9rem; color: #334155; margin-bottom: 10px;">Chi tiết kết quả từng phần:</h4>
+          <div id="resDetailContainer" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Render kết quả chi tiết từng câu/ý -->
           </div>
         </div>
       </div>
 
       <div class="result-footer">
-        <a href="index.html" class="doc-tool-btn" style="text-decoration: none; padding: 10px 18px; border-radius: 8px; background: #0284c7; color: #fff; border: none; font-weight: 600;">
+        <a href="index.html" class="doc-tool-btn" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; background: #0284c7; color: #fff; border: none; font-weight: 600;">
           <i class="fa-solid fa-house"></i> Về Trang Chủ
         </a>
       </div>
@@ -792,25 +882,28 @@
   <!-- Scripts -->
   <script src="js/azota-engine.js"></script>
   <script>
-    // LOGIC PHÒNG THI ONLINE CHO HỌC SINH
+    // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - CHUẨN 3 PHẦN 2018
     (function() {
       const store = window.AzotaEngine.store;
       let examData = null;
-      let studentAnswers = {};
+      let studentAnswers = {
+        part1: {},
+        part2: {},
+        part3: {}
+      };
       let flaggedQuestions = {};
+      let currentActivePart = 'part1';
       let studentName = '';
       let studentClass = '';
       let timerInterval = null;
-      let remainingSeconds = 900;
-      let totalDurationSeconds = 900;
+      let remainingSeconds = 2700;
+      let totalDurationSeconds = 2700;
       let tabViolations = 0;
       let isExamActive = false;
 
-      // 1. Đọc mã đề từ URL
       const urlParams = new URLSearchParams(window.location.search);
-      const examCode = urlParams.get('code') || 'AZ-TOAN12-01';
+      const examCode = urlParams.get('code') || 'AZ-TOAN12-2018';
 
-      // 2. Tải thông tin đề thi
       async function initExamPage() {
         examData = await store.fetchExamDetail(examCode, 'student');
         if (!examData) {
@@ -819,25 +912,32 @@
           return;
         }
 
-        // Điền thông tin vào Entry Screen
+        // Tự động chuẩn hóa cấu trúc 3 phần
+        if (!examData.part1) examData.part1 = { enabled: true, numQuestions: 12 };
+        if (!examData.part2) examData.part2 = { enabled: true, numQuestions: 4 };
+        if (!examData.part3) examData.part3 = { enabled: true, numQuestions: 6 };
+
+        const p1N = parseInt(examData.part1.numQuestions) || 12;
+        const p2N = parseInt(examData.part2.numQuestions) || 4;
+        const p3N = parseInt(examData.part3.numQuestions) || 6;
+        const totalQ = p1N + p2N + p3N;
+
         document.getElementById('entryExamTitle').textContent = examData.title;
         document.getElementById('infoExamCode').textContent = examData.id;
-        document.getElementById('infoTotalQ').textContent = `${examData.totalQuestions || 10} câu (${examData.totalPoints || 10}đ)`;
-        document.getElementById('infoDuration').textContent = `${examData.durationMinutes || 15} phút`;
+        document.getElementById('infoTotalQ').textContent = `${totalQ} câu (3 Phần)`;
+        document.getElementById('infoDuration').textContent = `${examData.durationMinutes || 45} phút`;
         document.getElementById('infoAntiCheat').textContent = (examData.enableTabTracking !== false) ? 'Bật theo dõi' : 'Tắt';
 
         if (examData.password && examData.password.trim() !== '') {
           document.getElementById('passwordGroup').style.display = 'block';
         }
 
-        // Phục hồi thông tin đã nhập nếu có
         const cachedName = localStorage.getItem('AZOTA_SAVED_NAME');
         const cachedClass = localStorage.getItem('AZOTA_SAVED_CLASS');
         if (cachedName) document.getElementById('studentNameInput').value = cachedName;
         if (cachedClass) document.getElementById('studentClassInput').value = cachedClass;
       }
 
-      // 3. Bắt đầu làm bài
       window.startStudentExam = function() {
         studentName = document.getElementById('studentNameInput').value.trim();
         studentClass = document.getElementById('studentClassInput').value.trim();
@@ -850,130 +950,233 @@
 
         if (examData.password && examData.password.trim() !== '') {
           if (pwdInput !== examData.password.trim()) {
-            alert('Mật khẩu đề thi không chính xác! Vui lòng kiểm tra lại với Giáo viên.');
+            alert('Mật khẩu đề thi không chính xác! Vui lòng kiểm tra lại với Thầy Sáng.');
             return;
           }
         }
 
-        // Lưu tên & lớp
         localStorage.setItem('AZOTA_SAVED_NAME', studentName);
         localStorage.setItem('AZOTA_SAVED_CLASS', studentClass);
 
-        // Chuyển sang màn hình thi
         document.getElementById('entryScreen').style.display = 'none';
         document.getElementById('examRoomScreen').style.display = 'flex';
 
-        // Gán thông tin header
         document.getElementById('roomExamCode').textContent = examData.id;
         document.getElementById('roomExamTitle').textContent = examData.title;
         document.getElementById('roomStudentDisplay').textContent = `${studentName} - ${studentClass}`;
 
-        // Nhúng tài liệu đề thi
         const iframe = document.getElementById('studentDocIframe');
         iframe.src = examData.fileUrl;
         document.getElementById('btnOpenDocExternal').onclick = () => window.open(examData.fileUrl, '_blank');
 
-        // Khôi phục auto-save bài làm nếu có
-        const autoSaveKey = `AZOTA_DRAFT_${examData.id}_${studentName}_${studentClass}`;
+        // Phục hồi auto-save draft
+        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
         try {
-          const draft = localStorage.getItem(autoSaveKey);
-          if (draft) {
-            studentAnswers = JSON.parse(draft) || {};
-          }
+          const draft = localStorage.getItem(draftKey);
+          if (draft) studentAnswers = JSON.parse(draft) || { part1: {}, part2: {}, part3: {} };
         } catch (e) {}
 
-        renderStudentSheet();
+        switchStudentPartTab('part1');
         startTimer();
         initAntiCheat();
         isExamActive = true;
       };
 
-      // 4. Render Palette và Phiếu câu hỏi
-      function renderStudentSheet() {
-        const totalQ = parseInt(examData.totalQuestions) || 10;
-        const paletteContainer = document.getElementById('paletteGrid');
-        const questionsContainer = document.getElementById('studentQuestionsList');
+      // Chuyển Tab 3 Phần của học sinh
+      window.switchStudentPartTab = function(partName) {
+        currentActivePart = partName;
+        ['part1', 'part2', 'part3'].forEach(p => {
+          document.getElementById(`stuTab${p.charAt(0).toUpperCase() + p.slice(1).charAt(0) + p.slice(2).toUpperCase()}`).classList.toggle('active', p === partName);
+        });
 
-        let paletteHtml = '';
-        let questionsHtml = '';
+        renderPalette();
+        renderCurrentPartQuestions();
+      };
 
-        for (let i = 1; i <= totalQ; i++) {
-          const qKey = String(i);
-          const currentAns = studentAnswers[qKey] || '';
-          const isFlagged = flaggedQuestions[qKey] || false;
+      // Render Palette theo Phần hiện tại
+      function renderPalette() {
+        const grid = document.getElementById('paletteGrid');
+        const title = document.getElementById('paletteSectionTitle');
+        let numQ = 0;
+        let prefix = '';
 
-          const btnClass = currentAns ? 'answered' : (isFlagged ? 'flagged' : '');
+        if (currentActivePart === 'part1') {
+          title.textContent = 'Câu hỏi Phần I (Nhiều lựa chọn):';
+          numQ = parseInt(examData.part1.numQuestions) || 12;
+        } else if (currentActivePart === 'part2') {
+          title.textContent = 'Câu hỏi Phần II (Đúng / Sai):';
+          numQ = parseInt(examData.part2.numQuestions) || 4;
+        } else {
+          title.textContent = 'Câu hỏi Phần III (Trả lời ngắn):';
+          numQ = parseInt(examData.part3.numQuestions) || 6;
+        }
 
-          paletteHtml += `
+        let html = '';
+        let answeredCount = 0;
+
+        for (let i = 1; i <= numQ; i++) {
+          const qStr = String(i);
+          let btnClass = '';
+
+          if (currentActivePart === 'part1') {
+            const hasAns = !!studentAnswers.part1[qStr];
+            if (hasAns) { btnClass = 'answered'; answeredCount++; }
+          } else if (currentActivePart === 'part2') {
+            const curSub = studentAnswers.part2[qStr] || {};
+            const subCount = Object.keys(curSub).filter(k => !!curSub[k]).length;
+            if (subCount === 4) { btnClass = 'answered'; answeredCount++; }
+            else if (subCount > 0) { btnClass = 'partial'; }
+          } else {
+            const hasAns = !!(studentAnswers.part3[qStr] && studentAnswers.part3[qStr].trim());
+            if (hasAns) { btnClass = 'answered'; answeredCount++; }
+          }
+
+          if (flaggedQuestions[`${currentActivePart}_${i}`]) {
+            btnClass = 'flagged';
+          }
+
+          html += `
             <button type="button" class="palette-btn ${btnClass}" id="pal-btn-${i}" onclick="scrollToQuestion(${i})">
               ${i}
             </button>
           `;
+        }
 
-          questionsHtml += `
-            <div class="student-q-card" id="q-card-${i}">
-              <div class="student-q-header">
-                <span class="student-q-title">Câu ${i}:</span>
-                <button type="button" class="btn-flag-q ${isFlagged ? 'active' : ''}" id="flag-btn-${i}" onclick="toggleFlag(${i})" title="Đánh dấu câu hỏi này">
+        grid.innerHTML = html;
+        document.getElementById('answeredRatioText').textContent = `${answeredCount}/${numQ}`;
+      }
+
+      // Render nội dung câu hỏi phần hiện tại
+      function renderCurrentPartQuestions() {
+        const container = document.getElementById('studentQuestionsList');
+
+        if (currentActivePart === 'part1') {
+          const numQ = parseInt(examData.part1.numQuestions) || 12;
+          let html = '';
+          for (let i = 1; i <= numQ; i++) {
+            const qStr = String(i);
+            const curAns = studentAnswers.part1[qStr] || '';
+            const isFlag = flaggedQuestions[`part1_${i}`] || false;
+
+            html += `
+              <div class="student-q-card" id="q-card-${i}">
+                <div class="student-q-header">
+                  <span class="student-q-title">Câu ${i}:</span>
+                  <button type="button" class="btn-flag-q ${isFlag ? 'active' : ''}" onclick="toggleFlag('part1', ${i})" title="Đánh dấu câu này">
+                    <i class="fa-solid fa-flag"></i>
+                  </button>
+                </div>
+                <div class="student-q-options">
+                  ${['A', 'B', 'C', 'D'].map(opt => `
+                    <button type="button" class="btn-student-opt ${curAns === opt ? 'selected' : ''}" onclick="selectStudentP1(${i}, '${opt}')">
+                      ${opt}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }
+          container.innerHTML = html;
+        } else if (currentActivePart === 'part2') {
+          const numQ = parseInt(examData.part2.numQuestions) || 4;
+          let html = '';
+          for (let i = 1; i <= numQ; i++) {
+            const qStr = String(i);
+            const curObj = studentAnswers.part2[qStr] || {};
+            const isFlag = flaggedQuestions[`part2_${i}`] || false;
+
+            html += `
+              <div class="student-tf-block" id="q-card-${i}">
+                <div class="student-q-header">
+                  <span class="student-q-title">Câu ${i} (Đúng / Sai):</span>
+                  <button type="button" class="btn-flag-q ${isFlag ? 'active' : ''}" onclick="toggleFlag('part2', ${i})" title="Đánh dấu câu này">
+                    <i class="fa-solid fa-flag"></i>
+                  </button>
+                </div>
+                <div class="student-tf-subs">
+                  ${['a', 'b', 'c', 'd'].map(item => {
+                    const ans = curObj[item] || '';
+                    return `
+                      <div class="student-tf-sub-row">
+                        <span style="font-size: 0.85rem; font-weight: 600;">Ý ${item})</span>
+                        <div class="student-tf-btns">
+                          <button type="button" class="btn-student-tf true ${ans === 'D' ? 'selected' : ''}" onclick="selectStudentP2(${i}, '${item}', 'D')">
+                            <i class="fa-solid fa-check"></i> Đúng
+                          </button>
+                          <button type="button" class="btn-student-tf false ${ans === 'S' ? 'selected' : ''}" onclick="selectStudentP2(${i}, '${item}', 'S')">
+                            <i class="fa-solid fa-xmark"></i> Sai
+                          </button>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          }
+          container.innerHTML = html;
+        } else {
+          const numQ = parseInt(examData.part3.numQuestions) || 6;
+          let html = '';
+          for (let i = 1; i <= numQ; i++) {
+            const qStr = String(i);
+            const curVal = studentAnswers.part3[qStr] || '';
+            const isFlag = flaggedQuestions[`part3_${i}`] || false;
+
+            html += `
+              <div class="student-sa-row" id="q-card-${i}">
+                <span style="font-weight: 700; width: 60px;">Câu ${i}:</span>
+                <input type="text" class="student-sa-input" placeholder="Điền đáp án (ví dụ: 1.5)" value="${curVal}" oninput="updateStudentP3(${i}, this.value)">
+                <button type="button" class="btn-flag-q ${isFlag ? 'active' : ''}" onclick="toggleFlag('part3', ${i})">
                   <i class="fa-solid fa-flag"></i>
                 </button>
               </div>
-              <div class="student-q-options">
-                ${['A', 'B', 'C', 'D'].map(opt => `
-                  <button type="button" class="btn-student-opt ${currentAns === opt ? 'selected' : ''}" onclick="selectStudentAns(${i}, '${opt}')">
-                    ${opt}
-                  </button>
-                `).join('')}
-              </div>
-            </div>
-          `;
+            `;
+          }
+          container.innerHTML = html;
         }
-
-        paletteContainer.innerHTML = paletteHtml;
-        questionsContainer.innerHTML = questionsHtml;
-        updateAnswerProgress();
       }
 
-      // Chọn đáp án
-      window.selectStudentAns = function(qNum, opt) {
+      // Xử lý chọn đáp án
+      window.selectStudentP1 = function(qNum, opt) {
         if (!isExamActive) return;
-        const qKey = String(qNum);
-        studentAnswers[qKey] = opt;
+        studentAnswers.part1[String(qNum)] = opt;
 
-        // Cập nhật card câu hỏi
         const card = document.getElementById(`q-card-${qNum}`);
         if (card) {
           card.querySelectorAll('.btn-student-opt').forEach(btn => {
             btn.classList.toggle('selected', btn.textContent.trim() === opt);
           });
         }
-
-        // Cập nhật palette
-        const palBtn = document.getElementById(`pal-btn-${qNum}`);
-        if (palBtn) {
-          palBtn.classList.add('answered');
-          palBtn.classList.remove('flagged');
-        }
-
-        updateAnswerProgress();
-        saveDraftAnswers();
+        renderPalette();
+        saveDraft();
       };
 
-      // Đánh dấu cờ
-      window.toggleFlag = function(qNum) {
-        const qKey = String(qNum);
-        flaggedQuestions[qKey] = !flaggedQuestions[qKey];
+      window.selectStudentP2 = function(qNum, item, val) {
+        if (!isExamActive) return;
+        const qStr = String(qNum);
+        if (!studentAnswers.part2[qStr]) studentAnswers.part2[qStr] = {};
+        studentAnswers.part2[qStr][item] = val;
 
-        const flagBtn = document.getElementById(`flag-btn-${qNum}`);
-        if (flagBtn) flagBtn.classList.toggle('active', flaggedQuestions[qKey]);
-
-        const palBtn = document.getElementById(`pal-btn-${qNum}`);
-        if (palBtn && !studentAnswers[qKey]) {
-          palBtn.classList.toggle('flagged', flaggedQuestions[qKey]);
-        }
+        renderCurrentPartQuestions();
+        renderPalette();
+        saveDraft();
       };
 
-      // Cuộn tới câu
+      window.updateStudentP3 = function(qNum, val) {
+        if (!isExamActive) return;
+        studentAnswers.part3[String(qNum)] = val;
+        renderPalette();
+        saveDraft();
+      };
+
+      window.toggleFlag = function(part, qNum) {
+        const key = `${part}_${qNum}`;
+        flaggedQuestions[key] = !flaggedQuestions[key];
+        renderCurrentPartQuestions();
+        renderPalette();
+      };
+
       window.scrollToQuestion = function(qNum) {
         const card = document.getElementById(`q-card-${qNum}`);
         if (card) {
@@ -981,31 +1184,19 @@
           card.classList.add('active-target');
           setTimeout(() => card.classList.remove('active-target'), 1200);
         }
-        // Nếu trên mobile, tự chuyển sang tab sheet
         switchMobileView('sheet');
       };
 
-      // Cập nhật tiến độ
-      function updateAnswerProgress() {
-        const totalQ = parseInt(examData.totalQuestions) || 10;
-        const answeredCount = Object.keys(studentAnswers).filter(k => !!studentAnswers[k]).length;
-        document.getElementById('answeredRatioText').textContent = `Đã làm: ${answeredCount}/${totalQ}`;
-        const mobileBadge = document.getElementById('answeredCountMobile');
-        if (mobileBadge) mobileBadge.textContent = `${answeredCount}/${totalQ}`;
-      }
-
-      // Lưu nháp localStorage (Auto-save)
-      function saveDraftAnswers() {
+      function saveDraft() {
         if (!examData) return;
-        const autoSaveKey = `AZOTA_DRAFT_${examData.id}_${studentName}_${studentClass}`;
+        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
         try {
-          localStorage.setItem(autoSaveKey, JSON.stringify(studentAnswers));
+          localStorage.setItem(draftKey, JSON.stringify(studentAnswers));
         } catch (e) {}
       }
 
-      // 5. Đồng hồ đếm ngược
       function startTimer() {
-        totalDurationSeconds = (parseInt(examData.durationMinutes) || 15) * 60;
+        totalDurationSeconds = (parseInt(examData.durationMinutes) || 45) * 60;
         remainingSeconds = totalDurationSeconds;
 
         const timerBadge = document.getElementById('roomTimer');
@@ -1013,12 +1204,11 @@
 
         timerInterval = setInterval(() => {
           remainingSeconds--;
-
           const mins = Math.floor(remainingSeconds / 60);
           const secs = remainingSeconds % 60;
           timerText.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-          if (remainingSeconds <= 180 && remainingSeconds > 60) {
+          if (remainingSeconds <= 300 && remainingSeconds > 60) {
             timerBadge.className = 'room-timer-badge warning';
           } else if (remainingSeconds <= 60) {
             timerBadge.className = 'room-timer-badge danger';
@@ -1026,16 +1216,14 @@
 
           if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
-            alert('Đã hết thời gian làm bài! Hệ thống tự động nộp bài của bạn.');
+            alert('Hết giờ làm bài! Hệ thống tự động nộp bài.');
             submitExamAction(true);
           }
         }, 1000);
       }
 
-      // 6. Chống gian lận chuyển tab
       function initAntiCheat() {
         if (examData.enableTabTracking === false) return;
-
         document.addEventListener('visibilitychange', () => {
           if (!isExamActive) return;
           if (document.hidden) {
@@ -1044,7 +1232,6 @@
             document.getElementById('tabWarningOverlay').style.display = 'flex';
           }
         });
-
         window.addEventListener('blur', () => {
           if (!isExamActive) return;
           tabViolations++;
@@ -1057,18 +1244,9 @@
         document.getElementById('tabWarningOverlay').style.display = 'none';
       };
 
-      // 7. Nộp bài thi
+      // Nộp bài
       document.getElementById('btnSubmitExamTop').addEventListener('click', () => {
-        const totalQ = parseInt(examData.totalQuestions) || 10;
-        const answeredCount = Object.keys(studentAnswers).filter(k => !!studentAnswers[k]).length;
-        const unanswered = totalQ - answeredCount;
-
-        let msg = `Bạn có chắc chắn muốn nộp bài?`;
-        if (unanswered > 0) {
-          msg = `Bạn còn ${unanswered} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài ngay bây giờ?`;
-        }
-
-        if (confirm(msg)) {
+        if (confirm('Bạn có chắc chắn muốn nộp bài thi?')) {
           submitExamAction(false);
         }
       });
@@ -1091,11 +1269,9 @@
 
         const result = await store.submitExam(payload);
 
-        // Xóa draft auto-save sau khi nộp
-        const autoSaveKey = `AZOTA_DRAFT_${examData.id}_${studentName}_${studentClass}`;
-        localStorage.removeItem(autoSaveKey);
+        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
+        localStorage.removeItem(draftKey);
 
-        // Hiển thị màn hình kết quả
         document.getElementById('examRoomScreen').style.display = 'none';
         document.getElementById('resultScreen').style.display = 'flex';
 
@@ -1103,46 +1279,101 @@
           const res = result.data;
           document.getElementById('resScoreCircle').textContent = (res.score !== undefined) ? res.score : '--';
           document.getElementById('resStudentInfo').textContent = `${studentName} - Lớp ${studentClass}`;
-          document.getElementById('resCorrectCount').textContent = `${res.correctCount || 0}/${res.totalQuestions || 10}`;
           
+          document.getElementById('resP1Score').textContent = `${res.part1Score !== undefined ? res.part1Score : '--'}đ`;
+          document.getElementById('resP2Score').textContent = `${res.part2Score !== undefined ? res.part2Score : '--'}đ`;
+          document.getElementById('resP3Score').textContent = `${res.part3Score !== undefined ? res.part3Score : '--'}đ`;
+
           const m = Math.floor(durationSpent / 60);
           const s = durationSpent % 60;
           document.getElementById('resDurationStr').textContent = `${m}p ${s}s`;
           document.getElementById('resViolations').textContent = `${tabViolations} lần`;
 
-          // Chế độ xem
           if (res.viewResultMode === 'none') {
             document.getElementById('resDetailWrapper').style.display = 'none';
             document.getElementById('resMessageNotice').style.display = 'block';
-            document.getElementById('resMessageNotice').textContent = res.message || 'Bài thi đã được ghi nhận. Giáo viên sẽ công bố điểm sau!';
+            document.getElementById('resMessageNotice').textContent = res.message || 'Bài thi đã được ghi nhận. Giáo viên sẽ công bố kết quả sau!';
           } else if (res.viewResultMode === 'score_only') {
             document.getElementById('resDetailWrapper').style.display = 'none';
           } else if (res.details) {
             document.getElementById('resDetailWrapper').style.display = 'block';
-            const detailContainer = document.getElementById('resDetailList');
-            const qKeys = Object.keys(res.details).sort((a,b) => parseInt(a) - parseInt(b));
-
-            detailContainer.innerHTML = qKeys.map(k => {
-              const d = res.details[k];
-              const isCor = d.isCorrect;
-              const icon = isCor ? '<i class="fa-solid fa-check" style="color: #16a34a;"></i>' : '<i class="fa-solid fa-xmark" style="color: #ef4444;"></i>';
-
-              return `
-                <div class="result-q-pill ${isCor ? 'correct' : 'wrong'}">
-                  <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
-                    <span>Câu ${k}</span>
-                    ${icon}
-                  </div>
-                  <div>Chọn: <strong>${d.studentAnswer}</strong></div>
-                  <div>Đúng: <strong style="color: #15803d;">${d.correctAnswer}</strong></div>
-                </div>
-              `;
-            }).join('');
+            renderDetailedResults(res.details);
           }
         }
       }
 
-      // Tab switcher Mobile (Đề thi / Phiếu đáp án)
+      function renderDetailedResults(details) {
+        const container = document.getElementById('resDetailContainer');
+        let html = '';
+
+        // Phần I
+        if (details.part1 && Object.keys(details.part1).length > 0) {
+          html += `<div style="background: #eff6ff; padding: 10px; border-radius: 8px; border: 1px solid #bfdbfe;">
+            <strong style="color: #1e40af; font-size: 0.85rem;">Phần I (Nhiều lựa chọn):</strong>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; margin-top: 6px;">`;
+          Object.keys(details.part1).forEach(k => {
+            const d = details.part1[k];
+            const color = d.isCorrect ? '#166534' : '#991b1b';
+            const bg = d.isCorrect ? '#dcfce7' : '#fee2e2';
+            html += `
+              <div style="background: ${bg}; color: ${color}; padding: 6px; border-radius: 6px; font-size: 0.78rem;">
+                <strong>Câu ${k}:</strong> ${d.student} ${d.isCorrect ? '✓' : `(Đúng: ${d.correct})`}
+              </div>
+            `;
+          });
+          html += `</div></div>`;
+        }
+
+        // Phần II
+        if (details.part2 && Object.keys(details.part2).length > 0) {
+          html += `<div style="background: #fffbeb; padding: 10px; border-radius: 8px; border: 1px solid #fde68a;">
+            <strong style="color: #92400e; font-size: 0.85rem;">Phần II (Đúng / Sai):</strong>
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;">`;
+          Object.keys(details.part2).forEach(k => {
+            const d = details.part2[k];
+            const subs = d.subDetails || {};
+            html += `
+              <div style="background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #fef3c7; font-size: 0.8rem;">
+                <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 4px;">
+                  <span>Câu ${k}:</span>
+                  <span style="color: #0284c7;">Đúng ${d.correctSubsCount}/4 ý • Đạt +${d.point}đ</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 0.75rem;">
+                  ${['a', 'b', 'c', 'd'].map(it => {
+                    const sub = subs[it] || {};
+                    const isC = sub.isCorrect;
+                    return `<span style="color: ${isC ? '#16a34a' : '#dc2626'};">
+                      ${it}) Chọn: ${sub.student === 'D' ? 'Đúng' : (sub.student === 'S' ? 'Sai' : 'Trống')} ${isC ? '✓' : `(Đ: ${sub.correct === 'D' ? 'Đ' : 'S'})`}
+                    </span>`;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          });
+          html += `</div></div>`;
+        }
+
+        // Phần III
+        if (details.part3 && Object.keys(details.part3).length > 0) {
+          html += `<div style="background: #f0fdf4; padding: 10px; border-radius: 8px; border: 1px solid #bbf7d0;">
+            <strong style="color: #166534; font-size: 0.85rem;">Phần III (Trả lời ngắn):</strong>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; margin-top: 6px;">`;
+          Object.keys(details.part3).forEach(k => {
+            const d = details.part3[k];
+            const color = d.isCorrect ? '#166534' : '#991b1b';
+            const bg = d.isCorrect ? '#dcfce7' : '#fee2e2';
+            html += `
+              <div style="background: ${bg}; color: ${color}; padding: 6px; border-radius: 6px; font-size: 0.78rem;">
+                <strong>Câu ${k}:</strong> Điền: <em>${d.student}</em> ${d.isCorrect ? '✓' : `(Đúng: ${d.correct})`}
+              </div>
+            `;
+          });
+          html += `</div></div>`;
+        }
+
+        container.innerHTML = html;
+      }
+
       window.switchMobileView = function(view) {
         const leftPane = document.getElementById('roomLeftPane');
         const rightPane = document.getElementById('roomRightPane');
@@ -1164,7 +1395,6 @@
         }
       };
 
-      // Khởi động
       initExamPage();
     })();
   </script>

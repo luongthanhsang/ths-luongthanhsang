@@ -1,13 +1,12 @@
 /**
  * api/exams.js
  * Vercel Serverless Function quản lý danh sách và chi tiết đề thi.
- * TUYỆT ĐỐI BẢO MẬT: Khi học sinh truy cập (role=student), ẩn hoàn toàn answerKey!
+ * TUYỆT ĐỐI BẢO MẬT: Khi học sinh truy cập (role=student), ẩn hoàn toàn answerKey của cả 3 phần!
  */
 
 const db = require('./db');
 
 module.exports = async (req, res) => {
-  // CORS Headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -32,22 +31,27 @@ module.exports = async (req, res) => {
           return res.status(404).json({ success: false, message: 'Không tìm thấy đề thi với mã này!' });
         }
 
-        // BẢO MẬT TUYỆT ĐỐI: Học sinh tuyệt đối không được xem đáp án gốc trong lúc lấy đề thi
+        // BẢO MẬT TUYỆT ĐỐI: Ẩn đáp án của cả 3 phần khi học sinh lấy đề thi
         if (role === 'student') {
-          const studentSafeExam = { ...exam };
-          delete studentSafeExam.answerKey; // Xóa sạch bảng đáp án trước khi gửi về client
+          const studentSafeExam = JSON.parse(JSON.stringify(exam));
+          delete studentSafeExam.answerKey;
+          if (studentSafeExam.part1) delete studentSafeExam.part1.answerKey;
+          if (studentSafeExam.part2) delete studentSafeExam.part2.answerKey;
+          if (studentSafeExam.part3) delete studentSafeExam.part3.answerKey;
           return res.status(200).json({ success: true, data: studentSafeExam });
         }
 
-        // Giáo viên xem đầy đủ thông tin
         return res.status(200).json({ success: true, data: exam });
       }
 
-      // Lấy toàn bộ danh sách đề thi (dạng rút gọn cho danh sách quản lý)
+      // Toàn bộ danh sách đề thi
       const allExams = db.getExams().map(e => {
-        const summary = { ...e };
+        const summary = JSON.parse(JSON.stringify(e));
         if (role === 'student') {
           delete summary.answerKey;
+          if (summary.part1) delete summary.part1.answerKey;
+          if (summary.part2) delete summary.part2.answerKey;
+          if (summary.part3) delete summary.part3.answerKey;
         }
         return summary;
       });
@@ -58,10 +62,9 @@ module.exports = async (req, res) => {
     if (method === 'POST') {
       const examData = req.body;
       if (!examData || !examData.title) {
-        return res.status(400).json({ success: false, message: 'Dữ liệu đề thi không hợp lệ (thiếu tiêu đề).' });
+        return res.status(400).json({ success: false, message: 'Dữ liệu đề thi không hợp lệ.' });
       }
 
-      // Tạo ID ngắn ngẫu nhiên chuẩn Azota nếu chưa có
       if (!examData.id) {
         const randStr = Math.random().toString(36).substring(2, 7).toUpperCase();
         examData.id = `AZ-${randStr}`;
@@ -70,6 +73,7 @@ module.exports = async (req, res) => {
       examData.createdAt = examData.createdAt || new Date().toISOString();
       examData.status = examData.status || 'active';
       examData.submissionsCount = examData.submissionsCount || 0;
+      examData.formatVersion = examData.formatVersion || '2018';
 
       const saved = db.saveExam(examData);
       return res.status(200).json({

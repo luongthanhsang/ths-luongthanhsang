@@ -1,7 +1,7 @@
 /**
  * api/results.js
  * Vercel Serverless Function cho giáo viên:
- * Lấy danh sách kết quả học sinh nộp bài và xuất báo cáo.
+ * Lấy danh sách kết quả học sinh nộp bài và xuất báo cáo CSV chuẩn 3 phần 2018.
  */
 
 const db = require('./db');
@@ -34,19 +34,20 @@ module.exports = async (req, res) => {
 
     const submissions = db.getSubmissionsByExamId(examId);
 
-    // Xuất file CSV nếu có format=csv
     if (format === 'csv') {
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename="Ket_Qua_${examId}.csv"`);
       
-      // Thêm BOM UTF-8 để Excel đọc tiếng Việt không bị lỗi font
       let csvContent = '\uFEFF';
-      csvContent += 'STT,Họ và tên,Lớp,Điểm số,Số câu đúng,Số câu sai,Chưa làm,Thời gian làm (giây),Số lần chuyển tab,Thời điểm nộp\n';
+      csvContent += `DANH SÁCH KẾT QUẢ THI: ${exam.title || ''}\n`;
+      csvContent += `Mã đề: ${examId} - Tổng số bài nộp: ${submissions.length}\n`;
+      csvContent += `Thời điểm xuất: ${new Date().toLocaleString('vi-VN')}\n\n`;
+      csvContent += 'STT,Họ và tên,Lớp,Tổng điểm,Điểm Phần I,Điểm Phần II,Điểm Phần III,Số câu đúng,Số câu sai,Thời gian làm,Số lần chuyển tab,Thời điểm nộp\n';
 
       submissions.forEach((sub, index) => {
         const timeFormatted = `${Math.floor(sub.durationSeconds / 60)}p ${sub.durationSeconds % 60}s`;
         const submitDate = new Date(sub.submittedAt).toLocaleString('vi-VN');
-        csvContent += `"${index + 1}","${sub.studentName}","${sub.studentClass}","${sub.score}","${sub.correctCount}","${sub.wrongCount}","${sub.unansweredCount}","${timeFormatted}","${sub.tabViolations}","${submitDate}"\n`;
+        csvContent += `"${index + 1}","${sub.studentName}","${sub.studentClass}","${sub.score}","${sub.part1Score !== undefined ? sub.part1Score : '--'}","${sub.part2Score !== undefined ? sub.part2Score : '--'}","${sub.part3Score !== undefined ? sub.part3Score : '--'}","${sub.correctCount}","${sub.wrongCount}","${timeFormatted}","${sub.tabViolations}","${submitDate}"\n`;
       });
 
       return res.status(200).send(csvContent);
