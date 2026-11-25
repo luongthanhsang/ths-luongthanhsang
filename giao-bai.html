@@ -2582,10 +2582,45 @@
             <div style="font-size: 0.8rem; color: #64748b;">Mã đề thi: <strong id="cfgTopExamCode" style="color: #0284c7; font-family: monospace;">TS-XXXXX</strong></div>
           </div>
         </div>
-        <button class="azota-modal-close" onclick="closeOnlineConfigModal()">&times;</button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="btn-azota-subtle" onclick="toggleExamPreviewAccordion()" id="btnHeaderPreviewExam" style="background: #0284c7; color: #fff; font-weight: 700; padding: 7px 14px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-file-lines"></i> <span>Xem nội dung đề</span>
+          </button>
+          <button class="azota-modal-close" onclick="closeOnlineConfigModal()">&times;</button>
+        </div>
       </div>
 
       <div class="azota-modal-body" style="padding: 20px; max-height: calc(88vh - 130px); overflow-y: auto;">
+        <!-- Card Preview: XEM TRƯỚC NỘI DUNG ĐỀ THI & ĐÁP ÁN (CHUẨN HÓA MỚI CHO THẦY SÁNG) -->
+        <div class="azota-cfg-card" id="cardExamContentPreview" style="border: 2px solid #38bdf8; background: #f0f9ff; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; cursor: pointer;" onclick="toggleExamPreviewAccordion()">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 6px rgba(2,132,199,0.3);">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: #0c4a6e; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                  <span>Nội dung chi tiết câu hỏi & Đáp án</span>
+                  <span id="previewQCountBadge" style="background: #0284c7; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">8 câu</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #0369a1;">Bấm để xem/ẩn danh sách câu hỏi, hình ảnh đồ thị, đáp án và lời giải chi tiết của Thầy Sáng</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" class="btn-azota-subtle" onclick="event.stopPropagation(); openFullExamModal();" style="font-size: 0.8rem; font-weight: 600; padding: 6px 12px; background: #fff; border: 1.5px solid #38bdf8; color: #0284c7; border-radius: 6px; cursor: pointer;">
+                <i class="fa-solid fa-expand"></i> Mở toàn màn hình
+              </button>
+              <button type="button" id="btnToggleAccordionLabel" style="background: none; border: none; color: #0284c7; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                <span id="txtAccordionToggle">Mở xem</span> <i class="fa-solid fa-chevron-down" id="previewAccordionChevron" style="transition: transform 0.25s;"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Vùng nội dung chi tiết đề thi render động -->
+          <div id="examContentPreviewBody" style="display: none; margin-top: 16px; border-top: 1.5px dashed #7dd3fc; padding-top: 16px;">
+            <!-- JS render các câu hỏi ở đây -->
+          </div>
+        </div>
         <!-- Card 0: Loại cấu hình (Pill tab) -->
         <div class="azota-cfg-card">
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
@@ -2987,6 +3022,35 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL XEM TRƯỚC ĐỀ THI TOÀN MÀN HÌNH (CHUẨN HÓA MỚI) ==================== -->
+  <div class="azota-modal-overlay" id="examFullPreviewModal" style="display: none; z-index: 100002;">
+    <div class="azota-modal-card" style="max-width: 950px; width: 95%; max-height: 92vh; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; padding: 16px 24px; border-bottom: none;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+            <i class="fa-solid fa-file-contract"></i>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 1.1rem; color: #fff;" id="modalFullPreviewTitle">Nội dung đề thi</div>
+            <div style="font-size: 0.78rem; color: #94a3b8;" id="modalFullPreviewMeta">Kho đề bảo mật Anti – ThS. Lương Thanh Sáng</div>
+          </div>
+        </div>
+        <button class="azota-modal-close" style="color: #fff; font-size: 1.6rem;" onclick="closeFullExamModal()">&times;</button>
+      </div>
+      <div class="azota-modal-body" id="modalFullPreviewBody" style="padding: 24px; overflow-y: auto; background: #f8fafc; max-height: calc(92vh - 140px);">
+        <!-- Nội dung đề thi toàn bộ -->
+      </div>
+      <div class="azota-modal-footer" style="padding: 12px 24px; background: #fff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.8rem; color: #64748b;">
+          <i class="fa-solid fa-shield-check" style="color: #10b981;"></i> Đề thi bảo mật – Kiểm tra kỹ nội dung và đáp án trước khi xuất bản
+        </span>
+        <button type="button" class="btn-create-exam" onclick="closeFullExamModal()" style="padding: 8px 20px; font-size: 0.85rem;">
+          <i class="fa-solid fa-check"></i> Đã kiểm tra xong
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast phản hồi -->
   <div class="azota-toast" id="azotaToast">
     <i class="fa-solid fa-circle-check"></i>
@@ -3003,7 +3067,7 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="js/quiz-data.js?v=20261124_02"></script>
+  <script src="js/quiz-data.js?v=20261125_01"></script>
   <script src="js/exam-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -3379,6 +3443,94 @@
       let currentSelectedKeyboardType = 'basic';
 
       const FALLBACK_DEFAULT_ANTI_EXAMS = {
+        "12_TX1_TOAN": {
+          id: "12_TX1_TOAN",
+          config: {
+            title: "Đề KTTX Lần 1 – Toán 12 (Năm học 2026 - 2027)",
+            school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
+            grade: "12",
+            timeLimitMinutes: 15,
+            totalQuestions: 8,
+            maxScore: 10.0
+          },
+          part1: [
+            { id: 1, topic: "Cực trị hàm số – đồ thị f'(x)", question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị $f'(x)$ như hình vẽ. Số điểm cực tiểu của hàm số $y = f(x)$ là:<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau1.png\" alt=\"Đồ thị f'(x)\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$0$" }, { id: "B", text: "$1$" }, { id: "C", text: "$3$" }, { id: "D", text: "$2$" }], correctAnswer: "B" },
+            { id: 2, topic: "Cực đại hàm số – nghiệm bội đạo hàm", question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ có $f'(x) = -(x - 7)(x + 6)^4(x + 8)^2$. Điểm cực đại của hàm số $y = f(x)$ là:", options: [{ id: "A", text: "$x = -9$" }, { id: "B", text: "$x = 10$" }, { id: "C", text: "$x = 7$" }, { id: "D", text: "$x = -6$" }], correctAnswer: "C" },
+            { id: 3, topic: "Khoảng đồng biến đồ thị bậc ba", question: "Cho hàm số $y = f(x)$ là hàm số bậc ba có đồ thị là đường cong trong hình dưới đây. Hàm số đã cho đồng biến trên khoảng nào dưới đây?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau3.png\" alt=\"Đồ thị hàm số bậc ba\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$(-\\infty;\\; 2)$" }, { id: "B", text: "$(0;\\; +\\infty)$" }, { id: "C", text: "$(3;\\; +\\infty)$" }, { id: "D", text: "$(0;\\; 2)$" }], correctAnswer: "C" },
+            { id: 4, topic: "Điểm cực đại hàm đa thức bậc ba", question: "Cho hàm số $y = f(x) = 2x^3 + 21x^2 + 72x + 3$. Điểm cực đại của hàm số đã cho là", options: [{ id: "A", text: "$x = -1$" }, { id: "B", text: "$x = -8$" }, { id: "C", text: "$x = -4$" }, { id: "D", text: "$x = -3$" }], correctAnswer: "C" },
+            { id: 5, topic: "Khoảng nghịch biến từ bảng xét dấu", question: "Cho hàm số $y = f(x)$ xác định với mọi $x \\in \\mathbb{R}$ và có bảng xét dấu $f'(x)$ như hình vẽ dưới đây. Hàm số nghịch biến trên khoảng nào trong các khoảng sau?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau5.png\" alt=\"Bảng xét dấu f'(x)\" style=\"max-width: 380px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$(7;\\; +\\infty)$" }, { id: "B", text: "$(3;\\; 7)$" }, { id: "C", text: "$(-\\infty;\\; 3)$" }, { id: "D", text: "$(-\\infty;\\; 7)$" }], correctAnswer: "B" },
+            { id: 6, topic: "Khoảng đồng biến hàm phân thức bậc 1 trên bậc 1", question: "Cho hàm số $y = \\dfrac{7x - 8}{8x + 4}$. Hàm số đồng biến trên khoảng nào trong các khoảng sau?", options: [{ id: "A", text: "$(1;\\; +\\infty)$" }, { id: "B", text: "$(-1;\\; +\\infty)$" }, { id: "C", text: "$(-\\infty;\\; +\\infty)$" }, { id: "D", text: "$(-\\infty;\\; 2)$" }], correctAnswer: "A" }
+          ],
+          part2: [
+            {
+              id: 7,
+              topic: "Bảng biến thiên – nhận xét tính chất",
+              question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như hình vẽ. Xét tính đúng sai của các khẳng định sau?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau7.png\" alt=\"Bảng biến thiên hàm số\" style=\"max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>",
+              items: [
+                { id: "a", text: "Hàm số nghịch biến trên khoảng $(-\\infty;\\; 0)$.", correct: false, explanation: "Trên $(-4; 0)$ hàm số đồng biến nên khẳng định nghịch biến trên $(-\\infty; 0)$ là Sai." },
+                { id: "b", text: "Hàm số có $3$ điểm cực trị.", correct: true, explanation: "Đạo hàm đổi dấu qua $x = -4, 0, 4$ nên hàm số có đúng 3 điểm cực trị. Khẳng định Đúng." },
+                { id: "c", text: "$f(4) < f(2)$.", correct: true, explanation: "Trên $(0; 4)$ hàm số nghịch biến, vì $2 < 4$ nên $f(2) > f(4)$, hay $f(4) < f(2)$. Khẳng định Đúng." },
+                { id: "d", text: "Giá trị cực đại của hàm số bằng $0$.", correct: false, explanation: "Giá trị cực đại là $f(0) = 6$, còn $0$ là giá trị cực tiểu. Khẳng định Sai." }
+              ]
+            },
+            {
+              id: 8,
+              topic: "Hàm phân thức đa thức – TXĐ, đạo hàm, cực trị",
+              question: "Cho hàm số $y = f(x) = \\dfrac{x^3 - x + 1}{x - 1}$. Các khẳng định sau đúng hay sai?",
+              items: [
+                { id: "a", text: "Hàm số có tập xác định là $\\mathbb{R} \\setminus \\{1\\}$.", correct: true, explanation: "Mẫu số khác 0 khi $x \\neq 1$. Khẳng định Đúng." },
+                { id: "b", text: "Nếu hàm số có đạo hàm $y' = \\dfrac{ax^3 + bx^2}{(x - 1)^2}$ thì $a \\cdot b = -2$.", correct: false, explanation: "Ta tính được $y' = \\dfrac{2x^3 - 3x^2}{(x-1)^2} \\Rightarrow a = 2, b = -3 \\Rightarrow a \\cdot b = -6 \\neq -2$. Khẳng định Sai." },
+                { id: "c", text: "Hàm số nghịch biến trên khoảng $(0;\\; 1)$.", correct: true, explanation: "Với mọi $x \\in (0; 1)$ thì $x^2 > 0$ và $2x - 3 < 0 \\Rightarrow y' < 0$. Hàm số nghịch biến. Khẳng định Đúng." },
+                { id: "d", text: "Hàm số có hai điểm cực trị.", correct: false, explanation: "$y'$ chỉ đổi dấu tại $x = 3/2$ (cực tiểu), tại $x = 0$ là nghiệm kép không đổi dấu. Chỉ có 1 cực trị. Khẳng định Sai." }
+              ]
+            }
+          ],
+          part3: []
+        },
+        "12_TX1_HAMSO": {
+          id: "12_TX1_HAMSO",
+          config: {
+            title: "Đề KTTX Lần 1 – Toán 12 (Năm học 2026 - 2027)",
+            school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
+            grade: "12",
+            timeLimitMinutes: 15,
+            totalQuestions: 8,
+            maxScore: 10.0
+          },
+          part1: [
+            { id: 1, topic: "Cực trị hàm số – đồ thị f'(x)", question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị $f'(x)$ như hình vẽ. Số điểm cực tiểu của hàm số $y = f(x)$ là:<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau1.png\" alt=\"Đồ thị f'(x)\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$0$" }, { id: "B", text: "$1$" }, { id: "C", text: "$3$" }, { id: "D", text: "$2$" }], correctAnswer: "B" },
+            { id: 2, topic: "Cực đại hàm số – nghiệm bội đạo hàm", question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ có $f'(x) = -(x - 7)(x + 6)^4(x + 8)^2$. Điểm cực đại của hàm số $y = f(x)$ là:", options: [{ id: "A", text: "$x = -9$" }, { id: "B", text: "$x = 10$" }, { id: "C", text: "$x = 7$" }, { id: "D", text: "$x = -6$" }], correctAnswer: "C" },
+            { id: 3, topic: "Khoảng đồng biến đồ thị bậc ba", question: "Cho hàm số $y = f(x)$ là hàm số bậc ba có đồ thị là đường cong trong hình dưới đây. Hàm số đã cho đồng biến trên khoảng nào dưới đây?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau3.png\" alt=\"Đồ thị hàm số bậc ba\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$(-\\infty;\\; 2)$" }, { id: "B", text: "$(0;\\; +\\infty)$" }, { id: "C", text: "$(3;\\; +\\infty)$" }, { id: "D", text: "$(0;\\; 2)$" }], correctAnswer: "C" },
+            { id: 4, topic: "Điểm cực đại hàm đa thức bậc ba", question: "Cho hàm số $y = f(x) = 2x^3 + 21x^2 + 72x + 3$. Điểm cực đại của hàm số đã cho là", options: [{ id: "A", text: "$x = -1$" }, { id: "B", text: "$x = -8$" }, { id: "C", text: "$x = -4$" }, { id: "D", text: "$x = -3$" }], correctAnswer: "C" },
+            { id: 5, topic: "Khoảng nghịch biến từ bảng xét dấu", question: "Cho hàm số $y = f(x)$ xác định với mọi $x \\in \\mathbb{R}$ và có bảng xét dấu $f'(x)$ như hình vẽ dưới đây. Hàm số nghịch biến trên khoảng nào trong các khoảng sau?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau5.png\" alt=\"Bảng xét dấu f'(x)\" style=\"max-width: 380px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>", options: [{ id: "A", text: "$(7;\\; +\\infty)$" }, { id: "B", text: "$(3;\\; 7)$" }, { id: "C", text: "$(-\\infty;\\; 3)$" }, { id: "D", text: "$(-\\infty;\\; 7)$" }], correctAnswer: "B" },
+            { id: 6, topic: "Khoảng đồng biến hàm phân thức bậc 1 trên bậc 1", question: "Cho hàm số $y = \\dfrac{7x - 8}{8x + 4}$. Hàm số đồng biến trên khoảng nào trong các khoảng sau?", options: [{ id: "A", text: "$(1;\\; +\\infty)$" }, { id: "B", text: "$(-1;\\; +\\infty)$" }, { id: "C", text: "$(-\\infty;\\; +\\infty)$" }, { id: "D", text: "$(-\\infty;\\; 2)$" }], correctAnswer: "A" }
+          ],
+          part2: [
+            {
+              id: 7,
+              topic: "Bảng biến thiên – nhận xét tính chất",
+              question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như hình vẽ. Xét tính đúng sai của các khẳng định sau?<br><div style=\"text-align:center; margin: 10px 0;\"><img src=\"images/exams/tx1_cau7.png\" alt=\"Bảng biến thiên hàm số\" style=\"max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px;\"></div>",
+              items: [
+                { id: "a", text: "Hàm số nghịch biến trên khoảng $(-\\infty;\\; 0)$.", correct: false, explanation: "Trên $(-4; 0)$ hàm số đồng biến nên khẳng định nghịch biến trên $(-\\infty; 0)$ là Sai." },
+                { id: "b", text: "Hàm số có $3$ điểm cực trị.", correct: true, explanation: "Đạo hàm đổi dấu qua $x = -4, 0, 4$ nên hàm số có đúng 3 điểm cực trị. Khẳng định Đúng." },
+                { id: "c", text: "$f(4) < f(2)$.", correct: true, explanation: "Trên $(0; 4)$ hàm số nghịch biến, vì $2 < 4$ nên $f(2) > f(4)$, hay $f(4) < f(2)$. Khẳng định Đúng." },
+                { id: "d", text: "Giá trị cực đại của hàm số bằng $0$.", correct: false, explanation: "Giá trị cực đại là $f(0) = 6$, còn $0$ là giá trị cực tiểu. Khẳng định Sai." }
+              ]
+            },
+            {
+              id: 8,
+              topic: "Hàm phân thức đa thức – TXĐ, đạo hàm, cực trị",
+              question: "Cho hàm số $y = f(x) = \\dfrac{x^3 - x + 1}{x - 1}$. Các khẳng định sau đúng hay sai?",
+              items: [
+                { id: "a", text: "Hàm số có tập xác định là $\\mathbb{R} \\setminus \\{1\\}$.", correct: true, explanation: "Mẫu số khác 0 khi $x \\neq 1$. Khẳng định Đúng." },
+                { id: "b", text: "Nếu hàm số có đạo hàm $y' = \\dfrac{ax^3 + bx^2}{(x - 1)^2}$ thì $a \\cdot b = -2$.", correct: false, explanation: "Ta tính được $y' = \\dfrac{2x^3 - 3x^2}{(x-1)^2} \\Rightarrow a = 2, b = -3 \\Rightarrow a \\cdot b = -6 \\neq -2$. Khẳng định Sai." },
+                { id: "c", text: "Hàm số nghịch biến trên khoảng $(0;\\; 1)$.", correct: true, explanation: "Với mọi $x \\in (0; 1)$ thì $x^2 > 0$ và $2x - 3 < 0 \\Rightarrow y' < 0$. Hàm số nghịch biến. Khẳng định Đúng." },
+                { id: "d", text: "Hàm số có hai điểm cực trị.", correct: false, explanation: "$y'$ chỉ đổi dấu tại $x = 3/2$ (cực tiểu), tại $x = 0$ là nghiệm kép không đổi dấu. Chỉ có 1 cực trị. Khẳng định Sai." }
+              ]
+            }
+          ],
+          part3: []
+        },
         "12_KTTX3_VEC": {
           id: "12_KTTX3_VEC",
           config: {
@@ -3530,12 +3682,21 @@
 
         let keys = Object.keys(db);
 
-        // Luôn ưu tiên đưa đề Chuẩn Ma Trận 12_KTTX3_VEC lên đầu tiên
+        // Ưu tiên đưa các đề kiểm tra quan trọng lên đầu: TX1 và KTTX3
+        const priorityOrder = ['12_TX1_TOAN', '12_TX1_HAMSO', '12_KTTX3_VEC'];
         keys.sort((a, b) => {
-          if (a === '12_KTTX3_VEC') return -1;
-          if (b === '12_KTTX3_VEC') return 1;
-          return 0;
+          const idxA = priorityOrder.indexOf(a);
+          const idxB = priorityOrder.indexOf(b);
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+          if (idxA !== -1) return -1;
+          if (idxB !== -1) return 1;
+          return a.localeCompare(b);
         });
+
+        // Ẩn key trùng lặp nếu cả 12_TX1_TOAN và 12_TX1_HAMSO cùng trỏ về 1 đề
+        if (keys.includes('12_TX1_TOAN') && keys.includes('12_TX1_HAMSO')) {
+          keys = keys.filter(k => k !== '12_TX1_HAMSO');
+        }
 
         const filteredKeys = keys.filter(k => {
           const ex = db[k];
@@ -3558,7 +3719,8 @@
           const totalQ = cfg.totalQuestions || (p1Count + p2Count + p3Count);
           const durMin = cfg.timeLimitMinutes || 15;
           const grade = cfg.grade || '12';
-          const isMatrixMatch = (k === '12_KTTX3_VEC');
+          const isTx1 = (k === '12_TX1_TOAN' || k === '12_TX1_HAMSO');
+          const isMatrixMatch = (k === '12_KTTX3_VEC' || isTx1);
 
           return `
             <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenConfig('${k}')">
@@ -3570,7 +3732,8 @@
                   <span style="background: ${grade === '12' ? '#1e3a8a' : '#0284c7'}; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
                     Lớp ${grade}
                   </span>
-                  ${isMatrixMatch ? `<span style="background: #10b981; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;"><i class="fa-solid fa-award"></i> Chuẩn Ma Trận Bộ GD 2026</span>` : ''}
+                  ${isTx1 ? `<span style="background: #0284c7; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;"><i class="fa-solid fa-star"></i> Đề KTTX Lần 1 Mới Nhất</span>` : ''}
+                  ${isMatrixMatch && !isTx1 ? `<span style="background: #10b981; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;"><i class="fa-solid fa-award"></i> Chuẩn Ma Trận Bộ GD 2026</span>` : ''}
                   <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; font-weight: 600;">
                     ${k}
                   </span>
@@ -3592,12 +3755,235 @@
                 </button>
               </div>
             </div>
-                  <i class="fa-solid fa-sliders"></i> Cấu hình & Xuất bản
-                </button>
-              </div>
-            </div>
           `;
         }).join('');
+      }
+
+      // ==================== TÍNH NĂNG XEM NỘI DUNG ĐỀ THI TRONG PHẦN CẤU HÌNH (CHUẨN HÓA MỚI) ====================
+      let isExamPreviewAccordionOpen = false;
+
+      window.toggleExamPreviewAccordion = function() {
+        const body = document.getElementById('examContentPreviewBody');
+        const chevron = document.getElementById('previewAccordionChevron');
+        const txtLabel = document.getElementById('txtAccordionToggle');
+        if (!body) return;
+
+        isExamPreviewAccordionOpen = !isExamPreviewAccordionOpen;
+        if (isExamPreviewAccordionOpen) {
+          body.style.display = 'block';
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+          if (txtLabel) txtLabel.textContent = 'Thu gọn';
+          // Re-render MathJax
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([body]).catch(() => {});
+          }
+        } else {
+          body.style.display = 'none';
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+          if (txtLabel) txtLabel.textContent = 'Mở xem';
+        }
+      };
+
+      window.openFullExamModal = function() {
+        if (!currentAntiConfigData) {
+          showToast('Vui lòng chọn đề thi để xem nội dung', 'fa-circle-exclamation');
+          return;
+        }
+        const modal = document.getElementById('examFullPreviewModal');
+        const body = document.getElementById('modalFullPreviewBody');
+        const titleEl = document.getElementById('modalFullPreviewTitle');
+        const metaEl = document.getElementById('modalFullPreviewMeta');
+
+        const cfg = currentAntiConfigData.config || {};
+        if (titleEl) titleEl.textContent = cfg.title || 'Nội dung đề thi chi tiết';
+        if (metaEl) metaEl.textContent = `${cfg.school || 'THPT Nguyễn Văn Thoại'} • Lớp ${cfg.grade || '12'} • Thời gian: ${cfg.timeLimitMinutes || 15} phút`;
+
+        if (body) {
+          body.innerHTML = buildExamDetailedHtml(currentAntiConfigData);
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([body]).catch(() => {});
+          }
+        }
+        if (modal) modal.style.display = 'flex';
+      };
+
+      window.closeFullExamModal = function() {
+        const modal = document.getElementById('examFullPreviewModal');
+        if (modal) modal.style.display = 'none';
+      };
+
+      function renderExamPreviewInConfig(ex) {
+        const body = document.getElementById('examContentPreviewBody');
+        const badge = document.getElementById('previewQCountBadge');
+        if (!body || !ex) return;
+
+        const p1Count = Array.isArray(ex.part1) ? ex.part1.length : 0;
+        const p2Count = Array.isArray(ex.part2) ? ex.part2.length : 0;
+        const p3Count = Array.isArray(ex.part3) ? ex.part3.length : 0;
+        const total = p1Count + p2Count + p3Count;
+        if (badge) badge.textContent = `${total} câu hỏi`;
+
+        body.innerHTML = buildExamDetailedHtml(ex);
+
+        // Mở sẵn accordion để thầy nhìn thấy ngay nội dung đề thi
+        isExamPreviewAccordionOpen = true;
+        body.style.display = 'block';
+        const chevron = document.getElementById('previewAccordionChevron');
+        const txtLabel = document.getElementById('txtAccordionToggle');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        if (txtLabel) txtLabel.textContent = 'Thu gọn';
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([body]).catch(() => {});
+        }
+      }
+
+      function buildExamDetailedHtml(ex) {
+        if (!ex) return '<div style="color: #64748b; text-align: center; padding: 20px;">Chưa có dữ liệu đề thi.</div>';
+
+        const cfg = ex.config || {};
+        const p1 = Array.isArray(ex.part1) ? ex.part1 : [];
+        const p2 = Array.isArray(ex.part2) ? ex.part2 : [];
+        const p3 = Array.isArray(ex.part3) ? ex.part3 : [];
+
+        let html = `
+          <div style="background: #ffffff; border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 12px;">
+              <div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #0284c7; font-weight: 800;">${cfg.school || 'TRƯỜNG THPT NGUYỄN VĂN THOẠI'}</span>
+                <h3 style="font-size: 1.1rem; color: #0f172a; font-weight: 800; margin: 4px 0;">${cfg.title || 'ĐỀ THI KIỂM TRA'}</h3>
+                <div style="font-size: 0.8rem; color: #64748b;">Giáo viên: <strong>${cfg.teacher || 'ThS. Lương Thanh Sáng'}</strong> • Năm học: ${cfg.schoolYear || '2026 - 2027'}</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block;">
+                  <i class="fa-solid fa-stopwatch"></i> Thời gian: ${cfg.timeLimitMinutes || 15} phút
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Tổng điểm: <strong>${cfg.maxScore || 10.0}</strong> điểm</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // PHẦN I: TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN
+        if (p1.length > 0) {
+          html += `
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; background: #e0f2fe; padding: 10px 14px; border-radius: 8px; border-left: 4px solid #0284c7;">
+                <strong style="color: #0369a1; font-size: 0.95rem;">
+                  <i class="fa-solid fa-list-check"></i> PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN
+                </strong>
+                <span style="font-size: 0.78rem; background: #0284c7; color: #fff; padding: 2px 8px; border-radius: 999px; font-weight: 700;">
+                  ${p1.length} câu • 6.0 điểm
+                </span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+          `;
+
+          p1.forEach((q, idx) => {
+            const qNum = idx + 1;
+            const correctAns = q.correctAnswer || '';
+            html += `
+              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                  <span style="background: #0284c7; color: #fff; font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;">
+                    Câu ${qNum}
+                  </span>
+                  ${q.topic ? `<span style="font-size: 0.75rem; color: #64748b; font-style: italic;">Chủ đề: ${q.topic}</span>` : ''}
+                </div>
+                <div style="font-size: 0.92rem; color: #1e293b; line-height: 1.6; margin-bottom: 12px;">
+                  ${q.question || ''}
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 10px;">
+            `;
+
+            (q.options || []).forEach(opt => {
+              const isCorrect = (opt.id === correctAns);
+              html += `
+                <div style="padding: 8px 12px; border-radius: 8px; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; border: ${isCorrect ? '2px solid #10b981; background: #ecfdf5; font-weight: 700; color: #065f46;' : '1px solid #e2e8f0; background: #f8fafc; color: #334155;'}">
+                  <span style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; background: ${isCorrect ? '#10b981' : '#cbd5e1'}; color: #fff;">
+                    ${opt.id}
+                  </span>
+                  <span style="flex: 1;">${opt.text}</span>
+                  ${isCorrect ? `<span style="background: #10b981; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 1px 6px; border-radius: 4px;"><i class="fa-solid fa-check"></i> ĐÁP ÁN ĐÚNG</span>` : ''}
+                </div>
+              `;
+            });
+
+            html += `</div>`;
+
+            if (q.explanation) {
+              html += `
+                <details style="margin-top: 8px; background: #f8fafc; border-radius: 6px; border: 1px dashed #cbd5e1; padding: 6px 12px;">
+                  <summary style="font-size: 0.78rem; font-weight: 700; color: #0284c7; cursor: pointer;">
+                    <i class="fa-solid fa-lightbulb"></i> Xem lời giải chi tiết của Thầy Sáng
+                  </summary>
+                  <div style="margin-top: 8px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                    ${q.explanation}
+                  </div>
+                </details>
+              `;
+            }
+
+            html += `</div>`;
+          });
+
+          html += `</div></div>`;
+        }
+
+        // PHẦN II: TRẮC NGHIỆM ĐÚNG SAI
+        if (p2.length > 0) {
+          html += `
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; background: #fef3c7; padding: 10px 14px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <strong style="color: #92400e; font-size: 0.95rem;">
+                  <i class="fa-solid fa-square-check"></i> PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG SAI
+                </strong>
+                <span style="font-size: 0.78rem; background: #f59e0b; color: #fff; padding: 2px 8px; border-radius: 999px; font-weight: 700;">
+                  ${p2.length} câu • 4.0 điểm
+                </span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+          `;
+
+          p2.forEach((q, idx) => {
+            const qNum = p1.length + idx + 1;
+            html += `
+              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                  <span style="background: #f59e0b; color: #fff; font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;">
+                    Câu ${qNum} (Ý a, b, c, d)
+                  </span>
+                  ${q.topic ? `<span style="font-size: 0.75rem; color: #64748b; font-style: italic;">Chủ đề: ${q.topic}</span>` : ''}
+                </div>
+                <div style="font-size: 0.92rem; color: #1e293b; line-height: 1.6; margin-bottom: 12px;">
+                  ${q.question || ''}
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+            `;
+
+            (q.items || []).forEach(item => {
+              const isTrue = !!item.correct;
+              html += `
+                <div style="padding: 10px 12px; border-radius: 8px; font-size: 0.88rem; display: flex; align-items: flex-start; gap: 10px; border: 1px solid #e2e8f0; background: ${isTrue ? '#f0fdf4' : '#fef2f2'};">
+                  <span style="font-weight: 800; color: #0f172a; min-width: 20px;">${item.id})</span>
+                  <div style="flex: 1; line-height: 1.5;">
+                    <div>${item.text}</div>
+                    ${item.explanation ? `<div style="font-size: 0.78rem; color: #64748b; margin-top: 4px; font-style: italic;">&bull; Giải thích: ${item.explanation}</div>` : ''}
+                  </div>
+                  <span style="padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; background: ${isTrue ? '#10b981' : '#ef4444'}; color: #fff; white-space: nowrap;">
+                    <i class="fa-solid ${isTrue ? 'fa-check' : 'fa-xmark'}"></i> ${isTrue ? 'ĐÚNG' : 'SAI'}
+                  </span>
+                </div>
+              `;
+            });
+
+            html += `</div></div>`;
+          });
+
+          html += `</div></div>`;
+        }
+
+        return html;
       }
 
       window.selectAntiQuizAndOpenConfig = function(examKey) {
@@ -3645,6 +4031,9 @@
 
         // Mặc định thang điểm đúng sai chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
         applyOnlineP2Preset('moet');
+
+        // Render nội dung đề thi ngay vào vùng Preview của modal cấu hình
+        renderExamPreviewInConfig(ex);
 
         // Mở Modal cấu hình đầy đủ
         document.getElementById('azotaFullConfigModal').style.display = 'flex';

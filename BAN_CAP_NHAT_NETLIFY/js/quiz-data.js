@@ -4771,11 +4771,11 @@ var EXAMS_DATABASE = {
   "12_GK1_0002": EXAM_12_GK1_0002
 };
 
-// ==================== ĐỀ KTTX LẦN 1 – HÀM SỐ – TOÁN 12 ====================
+// ==================== ĐỀ KTTX LẦN 1 – TOÁN 12 (CHUẨN MA TRẬN 2026 - 2027) ====================
 const EXAM_12_TX1_HAMSO = {
-  id: "12_TX1_HAMSO",
+  id: "12_TX1_TOAN",
   config: {
-    title: "Đề KTTX Lần 1 – Hàm Số (Toán 12)",
+    title: "Đề KTTX Lần 1 – Toán 12 (Năm học 2026 - 2027)",
     school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
     schoolYear: "2026 - 2027",
     teacher: "ThS. Lương Thanh Sáng (Tổ trưởng chuyên môn)",
@@ -4790,14 +4790,14 @@ const EXAM_12_TX1_HAMSO = {
     }
   },
 
-  // PHẦN I: (6.0 ĐIỂM) CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN
+  // PHẦN I: (6.0 ĐIỂM) CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (6 CÂU)
   part1: [
     {
       id: 1,
       part: "I",
       grade: "12",
-      topic: "Cực trị hàm số – đọc đồ thị đạo hàm",
-      question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị $f'(x)$ như hình vẽ. Số điểm cực tiểu của hàm số $y = f(x)$ là",
+      topic: "Cực trị hàm số – đọc đồ thị đạo hàm f'(x)",
+      question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị $f'(x)$ như hình vẽ. Số điểm cực tiểu của hàm số $y = f(x)$ là:<br><div style=\"text-align:center; margin: 12px 0;\"><img src=\"images/exams/tx1_cau1.png\" alt=\"Đồ thị f'(x)\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);\"></div>",
       svg: "",
       options: [
         { id: "A", text: "$0$" },
@@ -4805,20 +4805,29 @@ const EXAM_12_TX1_HAMSO = {
         { id: "C", text: "$3$" },
         { id: "D", text: "$2$" }
       ],
-      correctAnswer: "D",
+      correctAnswer: "B",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Từ đồ thị $f'(x)$, điểm cực tiểu của $f(x)$ là những điểm $x_0$ mà $f'(x_0) = 0$ và $f'$ đổi dấu từ <strong>âm sang dương</strong> (hàm số đi từ giảm sang tăng).</p>
-  <p>Đọc đồ thị: $f'(x)$ cắt trục $Ox$ tại các điểm và đổi dấu âm → dương tại <strong>2 điểm</strong>.</p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án D. 2.</strong></p>
+  <p>Dựa vào đồ thị hàm số đạo hàm $y = f'(x)$:</p>
+  <ul>
+    <li>Điểm cực tiểu của hàm số $y = f(x)$ là điểm mà tại đó $f'(x) = 0$ và đạo hàm $f'(x)$ đổi dấu từ <strong>âm sang dương</strong> (hàm số chuyển từ nghịch biến sang đồng biến).</li>
+    <li>Với $x < 0$: đồ thị nằm phía trên trục hoành $\\Rightarrow f'(x) > 0$.</li>
+    <li>Tại $x = 0$: $f'(x)$ cắt trục hoành và đổi dấu từ dương sang âm $\\Rightarrow x = 0$ là điểm <em>cực đại</em>.</li>
+    <li>Trên khoảng $(0; 1)$: đồ thị nằm dưới trục hoành $\\Rightarrow f'(x) < 0$.</li>
+    <li>Tại $x = 1$: $f'(x)$ cắt trục hoành và đổi dấu từ <strong>âm sang dương</strong> $\\Rightarrow x = 1$ là điểm <strong>cực tiểu</strong>.</li>
+    <li>Trên khoảng $(1; 4)$: đồ thị nằm phía trên trục hoành $\\Rightarrow f'(x) > 0$.</li>
+    <li>Tại $x = 4$: $f'(x)$ đổi dấu từ dương sang âm $\\Rightarrow x = 4$ là điểm <em>cực đại</em>.</li>
+  </ul>
+  <p>Vậy hàm số $y = f(x)$ chỉ có <strong>duy nhất 1 điểm cực tiểu</strong> là $x = 1$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B ($1$).</strong></p>
 </div>`
     },
     {
       id: 2,
       part: "I",
       grade: "12",
-      topic: "Cực đại hàm số – phân tích dấu đạo hàm",
-      question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ có $f'(x) = -(x - 7)(x + 6)(x + 8)^2$. Điểm cực đại của hàm số $y = f(x)$ là:",
+      topic: "Cực đại hàm số – phân tích dấu đạo hàm qua các nghiệm bội",
+      question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ có $f'(x) = -(x - 7)(x + 6)^4(x + 8)^2$. Điểm cực đại của hàm số $y = f(x)$ là:",
       svg: "",
       options: [
         { id: "A", text: "$x = -9$" },
@@ -4829,26 +4838,27 @@ const EXAM_12_TX1_HAMSO = {
       correctAnswer: "C",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Ta có $f'(x) = -(x-7)(x+6)(x+8)^2$. Nghiệm của $f'(x) = 0$ là $x = 7,\\; x = -6,\\; x = -8$.</p>
-  <p>Lưu ý $(x+8)^2 \\geq 0$ nên dấu của $f'(x)$ phụ thuộc vào $-(x-7)(x+6)$:</p>
+  <p>Ta có $f'(x) = -(x - 7)(x + 6)^4(x + 8)^2$. Nghiệm của $f'(x) = 0$ là $x = 7$, $x = -6$, $x = -8$.</p>
+  <p>Nhận xét về tính chẵn lẻ của số mũ:</p>
   <ul>
-    <li>Với $x < -8$: $-(-)(-) = -$ &nbsp;→ $f$ giảm</li>
-    <li>Với $-8 < x < -6$: $-(-)(-) = -$ &nbsp;→ $f$ giảm</li>
-    <li>Tại $x = -8$: $(x+8)^2 = 0$ nên $f'(-8) = 0$ nhưng không đổi dấu → <em>không là cực trị</em></li>
-    <li>Với $-6 < x < 7$: $-(-)( +) = +$ &nbsp;→ $f$ tăng</li>
-    <li>Với $x > 7$: $-(+)(+) = -$ &nbsp;→ $f$ giảm</li>
+    <li>$(x + 6)^4 \\ge 0$ với mọi $x \\in \\mathbb{R}$ (nghiệm bội 4 là bội chẵn).</li>
+    <li>$(x + 8)^2 \\ge 0$ với mọi $x \\in \\mathbb{R}$ (nghiệm bội 2 là bội chẵn).</li>
+    <li>Do đó dấu của $f'(x)$ chỉ phụ thuộc vào thừa số $-(x - 7)$:
+      <br>&bull; Với $x < 7 \\Rightarrow x - 7 < 0 \\Rightarrow -(x - 7) > 0 \\Rightarrow f'(x) > 0$.
+      <br>&bull; Với $x > 7 \\Rightarrow x - 7 > 0 \\Rightarrow -(x - 7) < 0 \\Rightarrow f'(x) < 0$.
+    </li>
   </ul>
-  <p>Tại $x = -6$: $f'$ đổi dấu $- \\to +$ → <strong>cực tiểu</strong>.</p>
-  <p>Tại $x = 7$: $f'$ đổi dấu $+ \\to -$ → <strong>cực đại</strong>.</p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án C. $x = 7$.</strong></p>
+  <p>Khi qua $x = 7$, đạo hàm $f'(x)$ đổi dấu từ <strong>dương sang âm</strong> $\\Rightarrow x = 7$ là điểm <strong>cực đại</strong> của hàm số.</p>
+  <p>Các điểm $x = -6$ và $x = -8$ là nghiệm bội chẵn nên $f'(x)$ không đổi dấu khi qua chúng $\\Rightarrow$ không phải là điểm cực trị.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C ($x = 7$).</strong></p>
 </div>`
     },
     {
       id: 3,
       part: "I",
       grade: "12",
-      topic: "Khoảng đồng biến – đọc đồ thị hàm bậc ba",
-      question: "Cho hàm số $y = f(x)$ là hàm số bậc ba có đồ thị là đường cong trong hình dưới đây. Hàm số đã cho đồng biến trên khoảng nào dưới đây?",
+      topic: "Khoảng đồng biến – đọc đồ thị hàm số bậc ba",
+      question: "Cho hàm số $y = f(x)$ là hàm số bậc ba có đồ thị là đường cong trong hình dưới đây. Hàm số đã cho đồng biến trên khoảng nào dưới đây?<br><div style=\"text-align:center; margin: 12px 0;\"><img src=\"images/exams/tx1_cau3.png\" alt=\"Đồ thị hàm số bậc ba\" style=\"max-width: 320px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);\"></div>",
       svg: "",
       options: [
         { id: "A", text: "$(-\\infty;\\; 2)$" },
@@ -4856,20 +4866,30 @@ const EXAM_12_TX1_HAMSO = {
         { id: "C", text: "$(3;\\; +\\infty)$" },
         { id: "D", text: "$(0;\\; 2)$" }
       ],
-      correctAnswer: "D",
+      correctAnswer: "C",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Từ đồ thị hàm số bậc ba, hàm số đồng biến trên khoảng nằm giữa hai điểm cực trị (cực đại và cực tiểu).</p>
-  <p>Đọc đồ thị: cực đại tại $x = 0$, cực tiểu tại $x = 2$... Nhưng thực chất hàm bậc ba đồng biến khi đi từ cực tiểu đến cực đại (nếu hệ số bậc 3 âm) hoặc từ $-\\infty$ đến cực đại rồi từ cực tiểu đến $+\\infty$ (nếu hệ số dương).</p>
-  <p>Từ đồ thị: hàm tăng trên khoảng <strong>$(0; 2)$</strong> (giữa hai điểm cực trị).</p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án D. $(0;\\; 2)$.</strong></p>
+  <p>Quan sát đường cong đồ thị hàm số bậc ba:</p>
+  <ul>
+    <li>Từ $-\\infty$ đến $x = 0$: đồ thị đi lên từ trái sang phải $\\Rightarrow$ hàm số <strong>đồng biến</strong> trên $(-\\infty;\\; 0)$.</li>
+    <li>Từ $x = 0$ đến $x = 2$: đồ thị đi xuống từ trái sang phải $\\Rightarrow$ hàm số <strong>nghịch biến</strong> trên $(0;\\; 2)$.</li>
+    <li>Từ $x = 2$ đến $+\\infty$: đồ thị đi lên từ trái sang phải $\\Rightarrow$ hàm số <strong>đồng biến</strong> trên $(2;\\; +\\infty)$.</li>
+  </ul>
+  <p>Xét các phương án:</p>
+  <ul>
+    <li>Phương án A: $(-\\infty;\\; 2)$ chứa khoảng nghịch biến $(0;\\; 2)$ $\\Rightarrow$ Sai.</li>
+    <li>Phương án B: $(0;\\; +\\infty)$ chứa khoảng nghịch biến $(0;\\; 2)$ $\\Rightarrow$ Sai.</li>
+    <li>Phương án C: Khoảng $(3;\\; +\\infty) \\subset (2;\\; +\\infty)$. Vì hàm số đồng biến trên $(2;\\; +\\infty)$ nên hàm số cũng đồng biến trên khoảng $(3;\\; +\\infty)$ $\\Rightarrow$ <strong>Đúng</strong>.</li>
+    <li>Phương án D: $(0;\\; 2)$ là khoảng nghịch biến $\\Rightarrow$ Sai.</li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C ($(3;\\; +\\infty)$).</strong></p>
 </div>`
     },
     {
       id: 4,
       part: "I",
       grade: "12",
-      topic: "Cực đại hàm đa thức bậc ba",
+      topic: "Điểm cực đại hàm đa thức bậc ba",
       question: "Cho hàm số $y = f(x) = 2x^3 + 21x^2 + 72x + 3$. Điểm cực đại của hàm số đã cho là",
       svg: "",
       options: [
@@ -4881,17 +4901,18 @@ const EXAM_12_TX1_HAMSO = {
       correctAnswer: "C",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Tính đạo hàm: $y' = 6x^2 + 42x + 72 = 6(x^2 + 7x + 12) = 6(x + 3)(x + 4).$</p>
-  <p>$y' = 0 \\Leftrightarrow x = -3$ hoặc $x = -4$.</p>
-  <p>Xét dấu $y'$:</p>
+  <p>Hàm số xác định trên $\\mathbb{R}$.</p>
+  <p>Đạo hàm: $y' = 6x^2 + 42x + 72 = 6(x^2 + 7x + 12) = 6(x + 3)(x + 4)$.</p>
+  <p>$y' = 0 \\Leftrightarrow \\left[\\begin{array}{l} x = -4 \\\\ x = -3 \\end{array}\\right.$</p>
+  <p>Bảng xét dấu $y'$:</p>
   <ul>
-    <li>$x < -4$: $y' > 0$ → hàm <em>tăng</em></li>
-    <li>$-4 < x < -3$: $y' < 0$ → hàm <em>giảm</em></li>
-    <li>$x > -3$: $y' > 0$ → hàm <em>tăng</em></li>
+    <li>Với $x \\in (-\\infty; -4)$: $y' > 0$ (hàm số đồng biến).</li>
+    <li>Với $x \\in (-4; -3)$: $y' < 0$ (hàm số nghịch biến).</li>
+    <li>Với $x \\in (-3; +\\infty)$: $y' > 0$ (hàm số đồng biến).</li>
   </ul>
-  <p>Tại $x = -4$: $y'$ đổi dấu $+ \\to -$ → <strong>cực đại</strong>.</p>
-  <p>Tại $x = -3$: $y'$ đổi dấu $- \\to +$ → cực tiểu.</p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án C. $x = -4$.</strong></p>
+  <p>Khi qua $x = -4$, $y'$ đổi dấu từ <strong>dương sang âm</strong> nên $x = -4$ là <strong>điểm cực đại</strong> của hàm số.</p>
+  <p>Khi qua $x = -3$, $y'$ đổi dấu từ âm sang dương nên $x = -3$ là điểm cực tiểu của hàm số.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C ($x = -4$).</strong></p>
 </div>`
     },
     {
@@ -4899,7 +4920,7 @@ const EXAM_12_TX1_HAMSO = {
       part: "I",
       grade: "12",
       topic: "Khoảng nghịch biến – đọc bảng xét dấu đạo hàm",
-      question: "Cho hàm số $y = f(x)$ xác định với mọi $x \\in \\mathbb{R}$ và có bảng xét dấu $f'(x)$ như hình vẽ dưới đây. Hàm số nghịch biến trên khoảng nào trong các khoảng sau?",
+      question: "Cho hàm số $y = f(x)$ xác định với mọi $x \\in \\mathbb{R}$ và có bảng xét dấu $f'(x)$ như hình vẽ dưới đây. Hàm số nghịch biến trên khoảng nào trong các khoảng sau?<br><div style=\"text-align:center; margin: 12px 0;\"><img src=\"images/exams/tx1_cau5.png\" alt=\"Bảng xét dấu f'(x)\" style=\"max-width: 380px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);\"></div>",
       svg: "",
       options: [
         { id: "A", text: "$(7;\\; +\\infty)$" },
@@ -4910,17 +4931,22 @@ const EXAM_12_TX1_HAMSO = {
       correctAnswer: "B",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Hàm số nghịch biến trên khoảng mà $f'(x) < 0$.</p>
-  <p>Đọc bảng xét dấu $f'(x)$: trên khoảng $(3;\\; 7)$, $f'(x) < 0$.</p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án B. $(3;\\; 7)$.</strong></p>
+  <p>Theo bảng xét dấu của đạo hàm $f'(x)$:</p>
+  <ul>
+    <li>Trên khoảng $(-\\infty;\\; 3)$: $f'(x) > 0 \\Rightarrow$ hàm số đồng biến.</li>
+    <li>Trên khoảng $(3;\\; 7)$: $f'(x) < 0 \\Rightarrow$ hàm số <strong>nghịch biến</strong>.</li>
+    <li>Trên khoảng $(7;\\; +\\infty)$: $f'(x) > 0 \\Rightarrow$ hàm số đồng biến.</li>
+  </ul>
+  <p>Vậy hàm số nghịch biến trên khoảng $(3;\\; 7)$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B ($(3;\\; 7)$).</strong></p>
 </div>`
     },
     {
       id: 6,
       part: "I",
       grade: "12",
-      topic: "Khoảng đồng biến hàm phân thức",
-      question: "Cho hàm số $y = \\dfrac{x+2}{x-1}$. Hàm số đồng biến trên khoảng nào trong các khoảng sau?",
+      topic: "Khoảng đồng biến của hàm phân thức bậc nhất trên bậc nhất",
+      question: "Cho hàm số $y = \\dfrac{7x - 8}{8x + 4}$. Hàm số đồng biến trên khoảng nào trong các khoảng sau?",
       svg: "",
       options: [
         { id: "A", text: "$(1;\\; +\\infty)$" },
@@ -4931,51 +4957,53 @@ const EXAM_12_TX1_HAMSO = {
       correctAnswer: "A",
       explanation: `<div class="solution-step">
   <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
-  <p>Hàm số $y = \\dfrac{x+2}{x-1}$ có đạo hàm:</p>
-  <div style="text-align:center; margin: 8px 0; color:#1e3a8a;">
-    $$y' = \\frac{(x-1) \\cdot 1 - (x+2) \\cdot 1}{(x-1)^2} = \\frac{-3}{(x-1)^2}.$$
-  </div>
-  <p>Vì $(x-1)^2 > 0$ với mọi $x \\neq 1$, nên $y' = \\dfrac{-3}{(x-1)^2} < 0$ trên mọi khoảng xác định.</p>
-  <p>→ Hàm số <strong>nghịch biến</strong> trên cả $(-\\infty; 1)$ và $(1; +\\infty)$. Không có khoảng đồng biến.</p>
-  <p><em>Lưu ý: Đề bài có thể dùng hàm khác (công thức bị mất trong file PDF). Với hàm $y = \\dfrac{x+2}{x-1}$ thì đáp án đúng nhất trong các phương án là A (khoảng con thuộc TXĐ).</em></p>
-  <p class="final-answer">&rArr; <strong>Chọn đáp án A. $(1;\\; +\\infty)$.</strong></p>
+  <p>Tập xác định: $D = \\mathbb{R} \\setminus \\left\\{-\\dfrac{4}{8}\\right\\} = \\mathbb{R} \\setminus \\left\\{-\\dfrac{1}{2}\\right\\}$.</p>
+  <p>Đạo hàm: $y' = \\dfrac{7 \\cdot 4 - (-8) \\cdot 8}{(8x + 4)^2} = \\dfrac{28 + 64}{(8x + 4)^2} = \\dfrac{92}{(8x + 4)^2}$.</p>
+  <p>Vì $92 > 0$ và $(8x + 4)^2 > 0$ với mọi $x \\neq -\\dfrac{1}{2}$, nên $y' > 0,\\; \\forall x \\in D$.</p>
+  <p>Do đó hàm số đồng biến trên từng khoảng xác định: $\\left(-\\infty;\\; -\\dfrac{1}{2}\\right)$ và $\\left(-\\dfrac{1}{2};\\; +\\infty\\right)$.</p>
+  <p>Xét các phương án:</p>
+  <ul>
+    <li>Phương án A: Khoảng $(1;\\; +\\infty) \\subset \\left(-\\dfrac{1}{2};\\; +\\infty\\right)$ nên hàm số <strong>đồng biến trên $(1;\\; +\\infty)$</strong> $\\Rightarrow$ <strong>Đúng</strong>.</li>
+    <li>Các phương án B, C, D đều chứa điểm gián đoạn $x = -\\dfrac{1}{2}$ nên không thể kết luận hàm số đồng biến trên các khoảng đó $\\Rightarrow$ Sai.</li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A ($(1;\\; +\\infty)$).</strong></p>
 </div>`
     }
   ],
 
-  // PHẦN II: (4.0 ĐIỂM) CÂU TRẮC NGHIỆM ĐÚNG SAI
+  // PHẦN II: (4.0 ĐIỂM) CÂU TRẮC NGHIỆM ĐÚNG SAI (2 CÂU)
   part2: [
     {
       id: 7,
       part: "II",
       grade: "12",
-      topic: "Bảng biến thiên hàm số – nhận xét tính chất",
-      question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như hình vẽ. Xét tính đúng sai của các khẳng định sau?",
+      topic: "Bảng biến thiên hàm số – xét tính đúng sai các mệnh đề",
+      question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như hình vẽ. Xét tính đúng sai của các khẳng định sau?<br><div style=\"text-align:center; margin: 12px 0;\"><img src=\"images/exams/tx1_cau7.png\" alt=\"Bảng biến thiên hàm số\" style=\"max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);\"></div>",
       svg: "",
       items: [
         {
           id: "a",
           text: "Hàm số nghịch biến trên khoảng $(-\\infty;\\; 0)$.",
           correct: false,
-          explanation: "Từ bảng biến thiên: trên $(-\\infty; 0)$, hàm số tăng (đồng biến), không phải nghịch biến."
+          explanation: "Từ bảng biến thiên: trên $(-\\infty; -4)$ hàm số nghịch biến, nhưng trên $(-4; 0)$ hàm số đồng biến. Do đó khẳng định hàm số nghịch biến trên $(-\\infty; 0)$ là <strong>SAI</strong>."
         },
         {
           id: "b",
           text: "Hàm số có $3$ điểm cực trị.",
           correct: true,
-          explanation: "Từ bảng biến thiên: hàm số có 3 điểm cực trị (1 cực đại và 2 cực tiểu, hoặc ngược lại tùy đồ thị)."
+          explanation: "Từ bảng biến thiên: $f'(x)$ đổi dấu khi qua 3 điểm $x = -4$, $x = 0$, $x = 4$. Do đó hàm số có đúng 3 điểm cực trị (2 cực tiểu tại $x = -4,\\; x = 4$ và 1 cực đại tại $x = 0$). Khẳng định <strong>ĐÚNG</strong>."
         },
         {
           id: "c",
           text: "$f(4) < f(2)$.",
           correct: true,
-          explanation: "Từ bảng biến thiên: tại $x=4$, hàm đang giảm so với $x=2$, nên $f(4) < f(2)$."
+          explanation: "Trên khoảng $(0; 4)$, đạo hàm $f'(x) < 0$ nên hàm số nghịch biến (giá trị giảm dần từ $6$ xuống $0$). Vì $2 < 4$ nên $f(2) > f(4)$, hay $f(4) < f(2)$. Khẳng định <strong>ĐÚNG</strong>."
         },
         {
           id: "d",
           text: "Giá trị cực đại của hàm số bằng $0$.",
-          correct: true,
-          explanation: "Từ bảng biến thiên: giá trị cực đại là $f(0) = 0$."
+          correct: false,
+          explanation: "Từ bảng biến thiên: điểm cực đại của hàm số là $x = 0$ và <strong>giá trị cực đại</strong> tương ứng là $f(0) = 6$. Giá trị $0$ là giá trị cực tiểu tại $x = 4$ ($f(4) = 0$). Khẳng định <strong>SAI</strong>."
         }
       ],
       scoreDistribution: { a: 0.1, ab: 0.25, abc: 0.5, abcd: 1.0 }
@@ -4984,33 +5012,46 @@ const EXAM_12_TX1_HAMSO = {
       id: 8,
       part: "II",
       grade: "12",
-      topic: "Hàm phân thức – tập xác định, đạo hàm, cực trị",
-      question: "Cho hàm số $y = f(x) = \\dfrac{x^3 + x + 1}{x + 1}$. Các khẳng định sau đúng hay sai?",
+      topic: "Hàm phân thức đa thức – tập xác định, đạo hàm và điểm cực trị",
+      question: "Cho hàm số $y = f(x) = \\dfrac{x^3 - x + 1}{x - 1}$. Các khẳng định sau đúng hay sai?",
       svg: "",
       items: [
         {
           id: "a",
-          text: "Hàm số có tập xác định là $\\mathbb{R} \\setminus \\{-1\\}$.",
+          text: "Hàm số có tập xác định là $\\mathbb{R} \\setminus \\{1\\}$.",
           correct: true,
-          explanation: "Hàm số xác định khi $x + 1 \\neq 0 \\Leftrightarrow x \\neq -1$. Vậy TXĐ $= \\mathbb{R} \\setminus \\{-1\\}$. ✔"
+          explanation: "Điều kiện xác định: $x - 1 \\neq 0 \\Leftrightarrow x \\neq 1$. Vậy tập xác định của hàm số là $D = \\mathbb{R} \\setminus \\{1\\}$. Khẳng định <strong>ĐÚNG</strong>."
         },
         {
           id: "b",
-          text: "Nếu hàm số có đạo hàm $y' = \\dfrac{ax^3 + bx^2}{(x+1)^2}$ thì $a \\cdot b = 2$.",
-          correct: true,
-          explanation: `Tính $y' = \\dfrac{(3x^2+1)(x+1) - (x^3+x+1) \\cdot 1}{(x+1)^2} = \\dfrac{3x^3+3x^2+x+1-x^3-x-1}{(x+1)^2} = \\dfrac{2x^3+3x^2}{(x+1)^2} = \\dfrac{x^2(2x+3)}{(x+1)^2}.$<br>Viết dạng $\\dfrac{ax^3+bx^2}{(x+1)^2}$: $a=2,\\; b=3 \\Rightarrow a \\cdot b = 6$. <br><em>Lưu ý: Nếu đề yêu cầu $a \\cdot b = 2$ thì hàm số trong đề có thể khác dạng trên. Thầy xác nhận lại.</em>`
+          text: "Nếu hàm số có đạo hàm $y' = \\dfrac{ax^3 + bx^2}{(x - 1)^2}$ thì $a \\cdot b = -2$.",
+          correct: false,
+          explanation: `Tính đạo hàm:
+<div style="text-align: center; margin: 6px 0;">
+  $$y' = \\frac{(3x^2 - 1)(x - 1) - (x^3 - x + 1) \\cdot 1}{(x - 1)^2} = \\frac{(3x^3 - 3x^2 - x + 1) - (x^3 - x + 1)}{(x - 1)^2} = \\frac{2x^3 - 3x^2}{(x - 1)^2}.$$
+</div>
+Đồng nhất với biểu thức $y' = \\dfrac{ax^3 + bx^2}{(x - 1)^2}$ ta được: $a = 2$ và $b = -3$.
+<br>Khi đó tích $a \\cdot b = 2 \\cdot (-3) = -6 \\neq -2$. Do đó khẳng định $a \\cdot b = -2$ là <strong>SAI</strong>.`
         },
         {
           id: "c",
           text: "Hàm số nghịch biến trên khoảng $(0;\\; 1)$.",
-          correct: false,
-          explanation: "Từ $y' = \\dfrac{x^2(2x+3)}{(x+1)^2}$: trên $(0;1)$, $x^2 > 0$, $(2x+3) > 0$, $(x+1)^2 > 0$ → $y' > 0$ → hàm <strong>đồng biến</strong>, không phải nghịch biến."
+          correct: true,
+          explanation: `Ta có $y' = \\dfrac{2x^3 - 3x^2}{(x - 1)^2} = \\dfrac{x^2(2x - 3)}{(x - 1)^2}$.
+<br>Với mọi $x \\in (0;\\; 1)$:
+<br>&bull; $x^2 > 0$ và $(x - 1)^2 > 0$.
+<br>&bull; Vì $0 < x < 1 \\Rightarrow 0 < 2x < 2 \\Rightarrow -3 < 2x - 3 < -1 < 0$.
+<br>Do đó $y' < 0$ với mọi $x \\in (0;\\; 1)$. Suy ra hàm số nghịch biến trên khoảng $(0;\\; 1)$. Khẳng định <strong>ĐÚNG</strong>.`
         },
         {
           id: "d",
           text: "Hàm số có hai điểm cực trị.",
           correct: false,
-          explanation: "$y' = \\dfrac{x^2(2x+3)}{(x+1)^2} = 0 \\Leftrightarrow x = 0$ hoặc $x = -\\dfrac{3}{2}$.<br>Tại $x=0$: $y'$ không đổi dấu (vì $x^2 \\geq 0$) → <em>không là cực trị</em>.<br>Tại $x = -\\dfrac{3}{2}$: $y'$ đổi dấu $+ \\to -$ → <strong>cực đại</strong>.<br>→ Hàm số chỉ có <strong>một</strong> điểm cực trị, không phải hai."
+          explanation: `Ta có $y' = 0 \\Leftrightarrow x^2(2x - 3) = 0 \\Leftrightarrow x = 0$ hoặc $x = \\dfrac{3}{2}$.
+<br>&bull; Tại $x = 0$: vì $x^2 \\ge 0$ nên $y'$ không đổi dấu khi qua $x = 0$ $\\Rightarrow x = 0$ <em>không phải</em> là điểm cực trị.
+<br>&bull; Tại $x = \\dfrac{3}{2}$: $y'$ đổi dấu từ âm sang dương $\\Rightarrow x = \\dfrac{3}{2}$ là điểm cực tiểu.
+<br>&bull; Điểm $x = 1$ hàm số không xác định.
+<br>Như vậy hàm số chỉ có <strong>duy nhất 1 điểm cực trị</strong> là $x = \\dfrac{3}{2}$, không phải hai điểm cực trị. Khẳng định <strong>SAI</strong>.`
         }
       ],
       scoreDistribution: { a: 0.1, ab: 0.25, abc: 0.5, abcd: 1.0 }
@@ -5020,10 +5061,14 @@ const EXAM_12_TX1_HAMSO = {
   part3: []
 };
 
+// Alias để tương thích mọi nơi gọi
+const EXAM_12_TX1_TOAN = EXAM_12_TX1_HAMSO;
+
 // ==================== KHO ĐỀ KIỂM TRA BẢO MẬT (DÀNH RIÊNG CHO GIÁO VIÊN KIỂM TRA TRONG "UPLOAD TỪ ANTI") ====================
 var ANTI_SECRET_EXAMS_DATABASE = {
-  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC,
-  "12_TX1_HAMSO": EXAM_12_TX1_HAMSO
+  "12_TX1_TOAN": EXAM_12_TX1_TOAN,
+  "12_TX1_HAMSO": EXAM_12_TX1_HAMSO,
+  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC
 };
 
 if (typeof window !== 'undefined') {
