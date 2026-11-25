@@ -14,6 +14,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <!-- MathJax 3 cho công thức Toán học LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <!-- Core CSS -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -3067,7 +3082,7 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="js/quiz-data.js?v=20261125_01"></script>
+  <script src="js/quiz-data.js?v=20261125_02"></script>
   <script src="js/exam-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -3762,6 +3777,19 @@
       // ==================== TÍNH NĂNG XEM NỘI DUNG ĐỀ THI TRONG PHẦN CẤU HÌNH (CHUẨN HÓA MỚI) ====================
       let isExamPreviewAccordionOpen = false;
 
+      // Hàm an toàn biên dịch công thức toán MathJax 3
+      function safeTypesetMath(elements) {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise(elements).catch(() => {});
+        } else {
+          setTimeout(() => {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise(elements).catch(() => {});
+            }
+          }, 350);
+        }
+      }
+
       window.toggleExamPreviewAccordion = function() {
         const body = document.getElementById('examContentPreviewBody');
         const chevron = document.getElementById('previewAccordionChevron');
@@ -3774,9 +3802,7 @@
           if (chevron) chevron.style.transform = 'rotate(180deg)';
           if (txtLabel) txtLabel.textContent = 'Thu gọn';
           // Re-render MathJax
-          if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise([body]).catch(() => {});
-          }
+          safeTypesetMath([body]);
         } else {
           body.style.display = 'none';
           if (chevron) chevron.style.transform = 'rotate(0deg)';
@@ -3800,9 +3826,7 @@
 
         if (body) {
           body.innerHTML = buildExamDetailedHtml(currentAntiConfigData);
-          if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise([body]).catch(() => {});
-          }
+          safeTypesetMath([body]);
         }
         if (modal) modal.style.display = 'flex';
       };
@@ -3833,9 +3857,7 @@
         if (chevron) chevron.style.transform = 'rotate(180deg)';
         if (txtLabel) txtLabel.textContent = 'Thu gọn';
 
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise([body]).catch(() => {});
-        }
+        safeTypesetMath([body]);
       }
 
       function buildExamDetailedHtml(ex) {
@@ -4180,6 +4202,7 @@
           description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100% từ Anti`,
           sourceType: 'anti_quiz',
           antiQuizId: currentSelectedAntiQuizKey,
+          antiQuizData: currentAntiConfigData,
           grade: grade,
           totalPoints: 10,
           durationMinutes: dur,

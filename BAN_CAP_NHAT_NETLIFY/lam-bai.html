@@ -1198,7 +1198,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/quiz-data.js?v=20261124_01"></script>
+  <script src="js/quiz-data.js?v=20261125_02"></script>
   <script src="js/exam-engine.js"></script>
   <script>
     // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - 3 DẠNG THỨC
@@ -1638,16 +1638,63 @@
         }
       }
 
+      // Hàm an toàn biên dịch công thức toán MathJax 3
+      function safeTypesetMath(elements) {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise(elements).catch(() => {});
+        } else {
+          setTimeout(() => {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise(elements).catch(() => {});
+            }
+          }, 350);
+        }
+      }
+
       // ==================== ĐỀ THI TRẮC NGHIỆM ONLINE TƯƠNG TÁC (TỪ ANTI) ====================
       function renderInteractiveOnlineQuiz(antiQuizId) {
         const container = document.getElementById('roomInteractiveQuizContainer');
         if (!container) return;
 
+        // ƯU TIÊN 1: Lấy trực tiếp từ antiQuizData lưu trong examData khi giáo viên xuất bản
+        let exam = (examData && examData.antiQuizData) ? examData.antiQuizData : null;
+
+        // ƯU TIÊN 2: Tra cứu theo ID trong kho bí mật Anti hoặc kho công khai
         const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
         const publicDb = window.EXAMS_DATABASE || {};
-        const exam = secretDb[antiQuizId] || publicDb[antiQuizId] || secretDb['12_KTTX3_VEC'] || publicDb['12_KTTX3_VEC'];
+
+        if (!exam && antiQuizId) {
+          exam = secretDb[antiQuizId] || publicDb[antiQuizId];
+        }
+
+        // ƯU TIÊN 3: Nhận diện chính xác theo tên đề thi (tránh tuyệt đối việc lấy nhầm sang đề khác)
+        if (!exam && examData && examData.title) {
+          const t = examData.title.toUpperCase();
+          if (t.includes('TX1') || t.includes('LẦN 1') || t.includes('TX 1') || t.includes('HÀM SỐ')) {
+            exam = secretDb['12_TX1_TOAN'] || secretDb['12_TX1_HAMSO'] || publicDb['12_TX1_TOAN'] || publicDb['12_TX1_HAMSO'];
+          } else if (t.includes('TX3') || t.includes('LẦN 3') || t.includes('VECTO') || t.includes('VECTƠ') || t.includes('OXYZ')) {
+            exam = secretDb['12_KTTX3_VEC'] || publicDb['12_KTTX3_VEC'];
+          }
+        }
+
+        // ƯU TIÊN 4: Nếu antiQuizId có chứa từ khóa TX1 hoặc HAMSO
+        if (!exam && antiQuizId) {
+          const qId = String(antiQuizId).toUpperCase();
+          if (qId.includes('TX1') || qId.includes('HAMSO')) {
+            exam = secretDb['12_TX1_TOAN'] || secretDb['12_TX1_HAMSO'];
+          }
+        }
+
+        // TUYỆT ĐỐI KHÔNG FALLBACK TÙY TIỆN VỀ '12_KTTX3_VEC'
         if (!exam) {
-          container.innerHTML = `<div style="padding: 20px; color: #ef4444;">Không tìm thấy dữ liệu đề thi trực tuyến từ Anti.</div>`;
+          container.innerHTML = `
+            <div style="padding: 35px 20px; text-align: center; color: #dc2626;">
+              <i class="fa-solid fa-triangle-exclamation" style="font-size: 2.5rem; margin-bottom: 14px; display: block;"></i>
+              <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 8px;">Không tìm thấy đúng nội dung câu hỏi cho đề thi này!</div>
+              <div style="font-size: 0.88rem; color: #64748b; margin-bottom: 6px;">Tên đề: <strong>${examData ? examData.title : ''}</strong> (Mã: <code>${antiQuizId || 'N/A'}</code>)</div>
+              <div style="font-size: 0.82rem; color: #0284c7; margin-top: 12px;">Vui lòng thử tải lại trang hoặc nhờ Giáo viên mở lại cấu hình đề thi.</div>
+            </div>
+          `;
           return;
         }
 
@@ -1783,10 +1830,8 @@
 
         container.innerHTML = html;
 
-        // Render lại MathJax
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise([container]).catch(err => console.warn(err));
-        }
+        // Render lại MathJax an toàn
+        safeTypesetMath([container]);
       }
 
       window.selectChoiceFromQuestionCard = function(partName, qNum, optKey) {
