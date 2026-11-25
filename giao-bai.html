@@ -2424,7 +2424,7 @@
   </div>
 
   <!-- ==================== MODAL 3: XUẤT BẢN THÀNH CÔNG (LINK + QR CODE) ==================== -->
-  <div class="azota-modal-overlay" id="publishSuccessModal">
+  <div class="azota-modal-overlay" id="publishSuccessModal" style="z-index: 100000;">
     <div class="azota-modal-card" style="max-width: 500px; text-align: center;">
       <div class="azota-modal-header" style="justify-content: center; position: relative;">
         <div class="azota-modal-title" style="color: #16a34a;">
@@ -5702,15 +5702,15 @@
 
       // XỬ LÝ CHIA ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%)
       function toggleP2CustomBox() {
-        const mode = document.getElementById('p2PercentMode').value;
+        const modeEl = document.getElementById('p2PercentMode');
         const wrap = document.getElementById('p2CustomPercentWrap');
-        if (wrap) wrap.style.display = (mode === 'custom') ? 'block' : 'none';
+        if (modeEl && wrap) wrap.style.display = (modeEl.value === 'custom') ? 'block' : 'none';
       }
 
       function renderP2LivePointPreview() {
         const preview = document.getElementById('p2LivePointPreview');
         if (!preview || !activeEditingExam) return;
-        const maxPt = parseFloat(activeEditingExam.part2.maxPointPerQuestion) || 1.0;
+        const maxPt = parseFloat(activeEditingExam.part2.maxPointPerQuestion) || 2.0;
         const pcts = activeEditingExam.part2.percentages || { 1: 10, 2: 25, 3: 50, 4: 100 };
 
         const pt1 = (maxPt * (pcts[1] / 100)).toFixed(2);
@@ -5719,43 +5719,33 @@
         const pt4 = (maxPt * (pcts[4] / 100)).toFixed(2);
 
         preview.innerHTML = `
-          <div class="preview-pt-item"><span class="preview-pt-val">${pt1}đ</span><span class="preview-pt-lbl">Đúng 1 ý (${pcts[1]}%)</span></div>
-          <div style="color: #94a3b8;">|</div>
-          <div class="preview-pt-item"><span class="preview-pt-val">${pt2}đ</span><span class="preview-pt-lbl">Đúng 2 ý (${pcts[2]}%)</span></div>
-          <div style="color: #94a3b8;">|</div>
-          <div class="preview-pt-item"><span class="preview-pt-val">${pt3}đ</span><span class="preview-pt-lbl">Đúng 3 ý (${pcts[3]}%)</span></div>
-          <div style="color: #94a3b8;">|</div>
-          <div class="preview-pt-item"><span class="preview-pt-val">${pt4}đ</span><span class="preview-pt-lbl">Đúng 4 ý (${pcts[4]}%)</span></div>
+          <div style="background: #ffffff; border-radius: 6px; padding: 6px 10px; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 6px; font-size: 0.74rem;">
+            <div><span style="color: #64748b;">Đúng 1 ý (${pcts[1]}%):</span> <strong style="color: #0284c7;">${pt1}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng 2 ý (${pcts[2]}%):</span> <strong style="color: #0284c7;">${pt2}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng 3 ý (${pcts[3]}%):</span> <strong style="color: #0284c7;">${pt3}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng cả 4 ý (${pcts[4]}%):</span> <strong style="color: #16a34a; font-size: 0.8rem;">${pt4}đ</strong></div>
+          </div>
         `;
       }
 
-      document.getElementById('p2PercentMode').addEventListener('change', (e) => {
-        const mode = e.target.value;
-        activeEditingExam.part2.percentMode = mode;
-        if (mode === 'moet') {
-          activeEditingExam.part2.percentages = { 1: 10, 2: 25, 3: 50, 4: 100 };
-        } else if (mode === 'equal') {
-          activeEditingExam.part2.percentages = { 1: 25, 2: 50, 3: 75, 4: 100 };
-        }
-        document.getElementById('p2Pct1').value = activeEditingExam.part2.percentages[1];
-        document.getElementById('p2Pct2').value = activeEditingExam.part2.percentages[2];
-        document.getElementById('p2Pct3').value = activeEditingExam.part2.percentages[3];
-        document.getElementById('p2Pct4').value = activeEditingExam.part2.percentages[4];
-
-        toggleP2CustomBox();
-        renderP2LivePointPreview();
-        renderPart2();
-        updateScoreSummary();
-      });
-
-      window.updateP2Percentages = function() {
-        if (!activeEditingExam.part2.percentages) activeEditingExam.part2.percentages = {};
-        activeEditingExam.part2.percentages[1] = parseFloat(document.getElementById('p2Pct1').value) || 10;
-        activeEditingExam.part2.percentages[2] = parseFloat(document.getElementById('p2Pct2').value) || 25;
-        activeEditingExam.part2.percentages[3] = parseFloat(document.getElementById('p2Pct3').value) || 50;
-        activeEditingExam.part2.percentages[4] = parseFloat(document.getElementById('p2Pct4').value) || 100;
-        renderP2LivePointPreview();
-      };
+      const p2PercentModeEl = document.getElementById('p2PercentMode');
+      if (p2PercentModeEl) {
+        p2PercentModeEl.addEventListener('change', (e) => {
+          const mode = e.target.value;
+          activeEditingExam.part2.percentMode = mode;
+          if (mode === 'moet') {
+            activeEditingExam.part2.percentages = { 1: 10, 2: 25, 3: 50, 4: 100 };
+          } else if (mode === 'equal') {
+            activeEditingExam.part2.percentages = { 1: 25, 2: 50, 3: 75, 4: 100 };
+          }
+          renderP2LivePointPreview();
+          renderPart2();
+          updateScoreSummary();
+        });
+      }
 
       // BANNER GỢI Ý ĐIỂM
       function showSuggestionBanner(text) {
@@ -5794,42 +5784,67 @@
           activeEditingExam.part3.defaultPoint = suggestion.part3.pointPerQuestion;
         }
 
-        document.getElementById('p1NumQ').value = activeEditingExam.part1.numQuestions;
-        document.getElementById('p1DefPt').value = activeEditingExam.part1.defaultPoint;
-        document.getElementById('p2NumQ').value = activeEditingExam.part2.numQuestions;
-        document.getElementById('p2MaxPt').value = activeEditingExam.part2.maxPointPerQuestion;
-        document.getElementById('p2PercentMode').value = activeEditingExam.part2.percentMode;
-        document.getElementById('p3NumQ').value = activeEditingExam.part3.numQuestions;
-        document.getElementById('p3DefPt').value = activeEditingExam.part3.defaultPoint;
+        const p1NumEl = document.getElementById('p1NumQ');
+        const p1DefEl = document.getElementById('p1DefPt');
+        const p1TotEl = document.getElementById('p1TotalPt');
+        if (p1NumEl) p1NumEl.value = activeEditingExam.part1.numQuestions;
+        if (p1DefEl) p1DefEl.value = activeEditingExam.part1.defaultPoint;
+        if (p1TotEl) p1TotEl.value = +(activeEditingExam.part1.numQuestions * activeEditingExam.part1.defaultPoint).toFixed(1);
 
+        const p2NumEl = document.getElementById('p2NumQ');
+        const p2MaxEl = document.getElementById('p2MaxPt');
+        const p2TotEl = document.getElementById('p2TotalPt');
+        if (p2NumEl) p2NumEl.value = activeEditingExam.part2.numQuestions;
+        if (p2MaxEl) p2MaxEl.value = activeEditingExam.part2.maxPointPerQuestion;
+        if (p2TotEl) p2TotEl.value = +(activeEditingExam.part2.numQuestions * activeEditingExam.part2.maxPointPerQuestion).toFixed(1);
+
+        const p3NumEl = document.getElementById('p3NumQ');
+        const p3DefEl = document.getElementById('p3DefPt');
+        const p3TotEl = document.getElementById('p3TotalPt');
+        if (p3NumEl) p3NumEl.value = activeEditingExam.part3.numQuestions;
+        if (p3DefEl) p3DefEl.value = activeEditingExam.part3.defaultPoint;
+        if (p3TotEl) p3TotEl.value = +(activeEditingExam.part3.numQuestions * activeEditingExam.part3.defaultPoint).toFixed(1);
+
+        changeP2PercentRule(activeEditingExam.part2.percentMode || 'moet');
         updateFormatSelectorUI();
         renderP2LivePointPreview();
         renderAllParts();
         updateScoreSummary();
       }
 
-      document.getElementById('btnApplySuggestedScore').addEventListener('click', () => {
-        if (currentSuggestedScoring) {
-          applySuggestionToExam(currentSuggestedScoring);
-          showToast('Đã áp dụng thang điểm gợi ý vào đề!', 'fa-check');
-          hideSuggestionBanner();
-        }
-      });
+      const btnApplySuggestedScore = document.getElementById('btnApplySuggestedScore');
+      if (btnApplySuggestedScore) {
+        btnApplySuggestedScore.addEventListener('click', () => {
+          if (currentSuggestedScoring) {
+            applySuggestionToExam(currentSuggestedScoring);
+            showToast('Đã áp dụng thang điểm gợi ý vào đề!', 'fa-check');
+            hideSuggestionBanner();
+          }
+        });
+      }
 
       // MODAL TỰ ĐỘNG ĐẾM SỐ CÂU VÀ GỢI Ý THANG ĐIỂM
       const btnAutoScanDoc = document.getElementById('btnAutoScanDoc');
       const autoScanModal = document.getElementById('autoScanModal');
       let modalDetectedSuggestion = null;
 
-      btnAutoScanDoc.addEventListener('click', () => {
-        autoScanModal.style.display = 'flex';
-      });
-      document.getElementById('btnCloseAutoScanModal').addEventListener('click', () => {
-        autoScanModal.style.display = 'none';
-      });
-      document.getElementById('btnCancelAutoScan').addEventListener('click', () => {
-        autoScanModal.style.display = 'none';
-      });
+      if (btnAutoScanDoc && autoScanModal) {
+        btnAutoScanDoc.addEventListener('click', () => {
+          autoScanModal.style.display = 'flex';
+        });
+      }
+      const btnCloseAutoScan = document.getElementById('btnCloseAutoScanModal');
+      if (btnCloseAutoScan && autoScanModal) {
+        btnCloseAutoScan.addEventListener('click', () => {
+          autoScanModal.style.display = 'none';
+        });
+      }
+      const btnCancelAutoScan = document.getElementById('btnCancelAutoScan');
+      if (btnCancelAutoScan && autoScanModal) {
+        btnCancelAutoScan.addEventListener('click', () => {
+          autoScanModal.style.display = 'none';
+        });
+      }
 
       window.quickFillExamText = function(type) {
         const area = document.getElementById('editorScanText');
@@ -6553,19 +6568,42 @@
         loadExamDashboard();
       });
 
-      document.getElementById('btnCopySuccessLink').addEventListener('click', () => {
-        const link = document.getElementById('successExamLink').value;
-        navigator.clipboard.writeText(link).then(() => {
-          showToast('Đã sao chép link thi cho học sinh!', 'fa-clipboard-check');
-        });
-      });
+      function copySuccessExamLink() {
+        const inputEl = document.getElementById('successExamLink');
+        const link = inputEl ? inputEl.value : '';
+        if (!link) return;
+        const notifyOk = () => showToast('Đã sao chép link thi cho học sinh!', 'fa-clipboard-check');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(link).then(notifyOk).catch(() => {
+            if (inputEl) { inputEl.select(); document.execCommand('copy'); notifyOk(); }
+          });
+        } else if (inputEl) {
+          inputEl.select();
+          document.execCommand('copy');
+          notifyOk();
+        }
+      }
 
-      document.getElementById('btnCloseSuccessModal').addEventListener('click', () => {
-        document.getElementById('publishSuccessModal').style.display = 'none';
-      });
-      document.getElementById('btnGoBackToList').addEventListener('click', () => {
-        document.getElementById('publishSuccessModal').style.display = 'none';
-      });
+      function closeSuccessAndReturnToList() {
+        const successModal = document.getElementById('publishSuccessModal');
+        if (successModal) successModal.style.display = 'none';
+        const fullCfg = document.getElementById('azotaFullConfigModal');
+        if (fullCfg) fullCfg.style.display = 'none';
+        const epModal = document.getElementById('editAndPublishModal');
+        if (epModal) epModal.style.display = 'none';
+        const splitEd = document.getElementById('splitEditor');
+        if (splitEd) splitEd.style.display = 'none';
+        loadExamDashboard();
+      }
+
+      const btnCopySuccessEl = document.getElementById('btnCopySuccessLink');
+      if (btnCopySuccessEl) btnCopySuccessEl.addEventListener('click', copySuccessExamLink);
+
+      const btnCloseSuccessEl = document.getElementById('btnCloseSuccessModal');
+      if (btnCloseSuccessEl) btnCloseSuccessEl.addEventListener('click', closeSuccessAndReturnToList);
+
+      const btnGoBackListEl = document.getElementById('btnGoBackToList');
+      if (btnGoBackListEl) btnGoBackListEl.addEventListener('click', closeSuccessAndReturnToList);
 
       // Chỉnh sửa & Xóa
       window.editExam = async function(examId) {
