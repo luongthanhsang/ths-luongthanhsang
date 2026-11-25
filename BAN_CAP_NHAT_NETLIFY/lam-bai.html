@@ -1641,49 +1641,87 @@
         }
       }
 
-      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX
+      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX (chống lỗi hiển thị thô $...$)
+      function renderMathFallbackNodes(container) {
+        if (!container) return;
+        if (typeof window.renderMathInElement === 'function') {
+          try {
+            window.renderMathInElement(container, {
+              delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+              ],
+              ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              throwOnError: false
+            });
+          } catch(e) {}
+        }
+        if (typeof window.katex !== 'undefined' && typeof window.katex.renderToString === 'function') {
+          try {
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+            let node;
+            while ((node = walker.nextNode())) {
+              const p = node.parentElement;
+              if (!p) continue;
+              if (['SCRIPT', 'STYLE', 'TEXTAREA', 'PRE', 'CODE'].includes(p.tagName)) continue;
+              if (p.closest('.katex, .katex-display, mjx-container')) continue;
+              if (/\$|\\\(|\\\[/.test(node.nodeValue)) textNodes.push(node);
+            }
+            const mathRegex = /\$\$([\s\S]+?)\$\$|\$([^\$\n\r]+?)\$|\\\[([\s\S]+?)\\\]|\\\(([^\n\r]+?)\\\)/g;
+            textNodes.forEach(tNode => {
+              const text = tNode.nodeValue;
+              if (!text) return;
+              mathRegex.lastIndex = 0;
+              const frag = document.createDocumentFragment();
+              let lastIdx = 0;
+              let match;
+              let replaced = false;
+              while ((match = mathRegex.exec(text)) !== null) {
+                replaced = true;
+                if (match.index > lastIdx) frag.appendChild(document.createTextNode(text.substring(lastIdx, match.index)));
+                const displayTex = match[1] || match[3];
+                const inlineTex = match[2] || match[4];
+                const isDisplay = !!displayTex;
+                const tex = (displayTex || inlineTex || '').trim();
+                const span = document.createElement('span');
+                try {
+                  span.innerHTML = window.katex.renderToString(tex, { displayMode: isDisplay, throwOnError: false });
+                } catch (err) {
+                  span.textContent = match[0];
+                }
+                frag.appendChild(span);
+                lastIdx = mathRegex.lastIndex;
+              }
+              if (replaced && tNode.parentNode) {
+                if (lastIdx < text.length) frag.appendChild(document.createTextNode(text.substring(lastIdx)));
+                tNode.parentNode.replaceChild(frag, tNode);
+              }
+            });
+          } catch(e) {}
+        }
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          try {
+            if (window.MathJax.typesetClear) window.MathJax.typesetClear([container]);
+          } catch(e) {}
+          window.MathJax.typesetPromise([container]).catch(() => {});
+        }
+      }
+
       function safeTypesetMath(elements) {
         if (!elements || elements.length === 0) return;
         elements.forEach(el => {
           if (!el) return;
-          if (window.renderMathInElement) {
-            try {
-              window.renderMathInElement(el, {
-                delimiters: [
-                  {left: '$$', right: '$$', display: true},
-                  {left: '$', right: '$', display: false},
-                  {left: '\\(', right: '\\)', display: false},
-                  {left: '\\[', right: '\\]', display: true}
-                ],
-                throwOnError: false
-              });
-            } catch(e) {}
-          }
-          if (window.MathJax && window.MathJax.typesetPromise) {
-            try {
-              if (window.MathJax.typesetClear) window.MathJax.typesetClear([el]);
-            } catch(e) {}
-            window.MathJax.typesetPromise([el]).catch(() => {});
-          } else {
+          renderMathFallbackNodes(el);
+          [120, 350, 800, 1500].forEach(delay => {
             setTimeout(() => {
-              if (window.renderMathInElement) {
-                try {
-                  window.renderMathInElement(el, {
-                    delimiters: [
-                      {left: '$$', right: '$$', display: true},
-                      {left: '$', right: '$', display: false},
-                      {left: '\\(', right: '\\)', display: false},
-                      {left: '\\[', right: '\\]', display: true}
-                    ],
-                    throwOnError: false
-                  });
-                } catch(e) {}
+              if (el && /\$|\\\(|\\\[/.test(el.textContent || '')) {
+                renderMathFallbackNodes(el);
               }
-              if (window.MathJax && window.MathJax.typesetPromise) {
-                window.MathJax.typesetPromise([el]).catch(() => {});
-              }
-            }, 300);
-          }
+            }, delay);
+          });
         });
       }
 

@@ -1650,23 +1650,44 @@
           </div>
         </div>
 
-        <!-- THANH ĐIỀU CHỈNH THANG ĐIỂM NHANH THEO Ý GIÁO VIÊN (1-CHẠM) -->
-        <div class="score-quick-presets-bar" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px;">
-            <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Mẫu thang điểm:
-          </span>
-          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(6.0, 4.0, 0)" style="font-size: 0.74rem; padding: 4px 9px; background: #0284c7; color: #fff; border: none; font-weight: 700; border-radius: 6px;" title="Cấu hình đề KTTX của Thầy Sáng: Phần I 6 câu = 6.0đ, Phần II 2 câu = 4.0đ">
-            ⚡ KTTX Thầy Sáng: P1=6đ (1đ/câu) • P2=4đ (2đ/câu)
-          </button>
-          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 7.0, 0)" style="font-size: 0.74rem; padding: 4px 8px; background: #059669; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="Cấu hình KTTX: Phần I 6 câu = 3.0đ, Phần II 2 câu = 7.0đ">
-            ⚡ KTTX 3đ - 7đ
-          </button>
-          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 4.0, 3.0)" style="font-size: 0.74rem; padding: 4px 8px; background: #1e293b; color: #38bdf8; border: none; font-weight: 600; border-radius: 6px;" title="Chuẩn Bộ GD&ĐT 3 phần: P1=3đ, P2=4đ, P3=3đ">
-            ⚡ Chuẩn 3 phần: 3đ - 4đ - 3đ
-          </button>
-          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(10.0, 0, 0)" style="font-size: 0.74rem; padding: 4px 8px; background: #475569; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="100% Trắc nghiệm nhiều lựa chọn = 10 điểm">
-            ⚡ 100% Trắc nghiệm
-          </button>
+        <!-- KHỐI ĐIỀU CHỈNH ĐIỂM TỪNG PHẦN THEO Ý GIÁO VIÊN (HIỂN THỊ TRỰC QUAN NGAY ĐẦU) -->
+        <div class="quick-scoring-master-bar" style="background: #ffffff; border-bottom: 1.5px solid #cbd5e1; padding: 10px 12px;">
+          <div style="font-weight: 800; font-size: 0.8rem; color: #0369a1; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <span><i class="fa-solid fa-sliders"></i> NHẬP TỔNG ĐIỂM TỪNG PHẦN (TỰ CHIA ĐỀU):</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+            <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 5px 6px;">
+              <label for="quickP1Total" style="font-size: 0.72rem; font-weight: 700; color: #0284c7; display: block; margin-bottom: 2px;">Phần I (Tổng đ):</label>
+              <input type="number" id="quickP1Total" step="0.25" min="0" max="10" value="6.0" style="width: 100%; font-weight: 800; font-size: 0.92rem; color: #0284c7; border: 1.5px solid #0284c7; border-radius: 5px; padding: 3px 4px; text-align: center; background: #fff;" title="Nhập tổng điểm Phần I, tự chia đều cho từng câu">
+              <div id="quickP1Note" style="font-size: 0.67rem; color: #0369a1; margin-top: 2px; text-align: center; font-weight: 600;">6 câu • 1.00đ/câu</div>
+            </div>
+            <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 5px 6px;">
+              <label for="quickP2Total" style="font-size: 0.72rem; font-weight: 700; color: #b45309; display: block; margin-bottom: 2px;">Phần II (Tổng đ):</label>
+              <input type="number" id="quickP2Total" step="0.25" min="0" max="10" value="4.0" style="width: 100%; font-weight: 800; font-size: 0.92rem; color: #b45309; border: 1.5px solid #f59e0b; border-radius: 5px; padding: 3px 4px; text-align: center; background: #fff;" title="Nhập tổng điểm Phần II, tự chia đều cho từng câu Đúng/Sai">
+              <div id="quickP2Note" style="font-size: 0.67rem; color: #b45309; margin-top: 2px; text-align: center; font-weight: 600;">2 câu • 2.00đ/câu</div>
+            </div>
+            <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 6px; padding: 5px 6px;">
+              <label for="quickP3Total" style="font-size: 0.72rem; font-weight: 700; color: #0f766e; display: block; margin-bottom: 2px;">Phần III (Tổng đ):</label>
+              <input type="number" id="quickP3Total" step="0.25" min="0" max="10" value="0.0" style="width: 100%; font-weight: 800; font-size: 0.92rem; color: #0f766e; border: 1.5px solid #14b8a6; border-radius: 5px; padding: 3px 4px; text-align: center; background: #fff;" title="Nhập tổng điểm Phần III, tự chia đều cho từng câu">
+              <div id="quickP3Note" style="font-size: 0.67rem; color: #0f766e; margin-top: 2px; text-align: center; font-weight: 600;">Đã tắt</div>
+            </div>
+          </div>
+
+          <!-- THANH ĐIỀU CHỈNH THANG ĐIỂM NHANH 1-CHẠM -->
+          <div class="score-quick-presets-bar" style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+            <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(6.0, 4.0, 0)" style="font-size: 0.72rem; padding: 4px 8px; background: #0284c7; color: #fff; border: none; font-weight: 700; border-radius: 6px;" title="Cấu hình đề KTTX của Thầy Sáng: Phần I 6 câu = 6.0đ, Phần II 2 câu = 4.0đ">
+              ⚡ KTTX Thầy Sáng: P1=6đ • P2=4đ
+            </button>
+            <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 7.0, 0)" style="font-size: 0.72rem; padding: 4px 8px; background: #059669; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="Cấu hình KTTX: Phần I = 3.0đ, Phần II = 7.0đ">
+              ⚡ 3đ - 7đ
+            </button>
+            <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 4.0, 3.0)" style="font-size: 0.72rem; padding: 4px 8px; background: #1e293b; color: #38bdf8; border: none; font-weight: 600; border-radius: 6px;" title="Chuẩn Bộ GD&ĐT 3 phần: P1=3đ, P2=4đ, P3=3đ">
+              ⚡ 3đ - 4đ - 3đ
+            </button>
+            <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(10.0, 0, 0)" style="font-size: 0.72rem; padding: 4px 8px; background: #475569; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="100% Trắc nghiệm nhiều lựa chọn = 10 điểm">
+              ⚡ 100% P1
+            </button>
+          </div>
         </div>
 
         <!-- THANH CÔNG CỤ CHỌN DẠNG THỨC LINH HOẠT (1, 2 HOẶC 3 DẠNG THỨC) -->
@@ -2048,25 +2069,23 @@
           </div>
         </div>
 
-        <!-- KHỐI 2: CÔNG CỤ ĐIỀU CHỈNH SỐ CÂU & CHIA ĐIỂM CHI TIẾT -->
+        <!-- KHỐI 2: CÔNG CỤ ĐIỀU CHỈNH SỐ CÂU & CHIA ĐIỂM CHI TIẾT (CHUẨN HÓA THEO Ý GIÁO VIÊN) -->
         <div style="margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
             <div style="font-weight: 700; font-size: 0.92rem; color: #0f172a; display: flex; align-items: center; gap: 8px;">
               <i class="fa-solid fa-sliders" style="color: #0284c7;"></i>
-              <span>Công cụ điều chỉnh số câu & Thang điểm từng phần:</span>
+              <span>Cấu hình thang điểm từng phần theo ý Giáo viên:</span>
             </div>
-            <button type="button" class="btn-azota-action" id="btnToggleRescanBox" style="font-size: 0.78rem; padding: 4px 10px; border-radius: 6px;">
-              <i class="fa-solid fa-magnifying-glass"></i> <span id="rescanToggleText">Quét lại văn bản đề</span>
-            </button>
-          </div>
-
-          <!-- Khung quét lại văn bản (mở khi cần) -->
-          <div id="rescanBox" style="display: none; margin-bottom: 12px; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 12px;">
-            <label style="font-size: 0.78rem; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Dán nội dung đề thi vào đây để hệ thống tự động đếm lại:</label>
-            <textarea id="epRescanText" rows="3" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; font-size: 0.8rem; font-family: inherit;" placeholder="Dán văn bản đề thi (chứa Phần I, Phần II hoặc các câu)..."></textarea>
-            <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
-              <button type="button" class="btn-create-exam" id="btnRunRescanInModal" style="padding: 6px 14px; font-size: 0.8rem;">
-                <i class="fa-solid fa-calculator"></i> Phân tích & Đếm lại ngay
+            <!-- Thanh nút Mẫu thang điểm nhanh 1-chạm -->
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="doc-tool-btn" style="background: #0284c7; color: #fff; border: none; font-weight: 700; padding: 4px 10px; font-size: 0.75rem;" onclick="applyQuickStructurePreset('tx_6_2')">
+                ⚡ KTTX Thầy Sáng: P1=6đ • P2=4đ
+              </button>
+              <button type="button" class="doc-tool-btn" style="background: #059669; color: #fff; border: none; font-weight: 600; padding: 4px 8px; font-size: 0.75rem;" onclick="applyQuickStructurePreset('tx_3_7')">
+                ⚡ KTTX 3đ - 7đ
+              </button>
+              <button type="button" class="doc-tool-btn" style="background: #1e293b; color: #38bdf8; border: none; font-weight: 600; padding: 4px 8px; font-size: 0.75rem;" onclick="applyQuickStructurePreset('gk_12_4_6')">
+                ⚡ Chuẩn 3 phần: 3đ - 4đ - 3đ
               </button>
             </div>
           </div>
@@ -2079,22 +2098,31 @@
                   <input type="checkbox" id="epChkP1" checked style="width: 17px; height: 17px; accent-color: #0284c7;">
                   <span>PHẦN I: Trắc nghiệm nhiều lựa chọn</span>
                 </label>
-                <span id="epP1SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">3.0 điểm</span>
+                <span id="epP1SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">6.0 điểm</span>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;" id="epP1InputsRow">
+              <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px;" id="epP1InputsRow">
                 <div>
                   <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Phần I:</label>
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP1Num', -1)">-</button>
-                    <input type="number" id="epP1Num" min="0" max="100" value="6" style="width: 70px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
+                    <input type="number" id="epP1Num" min="0" max="100" value="6" style="width: 60px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
                     <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP1Num', 1)">+</button>
-                    <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 4px;">câu</span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 2px;">câu</span>
                   </div>
                 </div>
                 <div>
-                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
-                  <input type="number" id="epP1DefPt" step="0.05" min="0" max="10" value="0.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                  <label style="font-size: 0.78rem; color: #0284c7; font-weight: 700; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm Phần I (đ):
+                  </label>
+                  <input type="number" id="epP1TotalPt" step="0.25" min="0" max="10" value="6.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #0284c7; border-radius: 6px; font-weight: 800; color: #0284c7; background: #f0f9ff;" title="Thầy nhập tổng số điểm, hệ thống tự chia đều cho từng câu">
                 </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Mỗi câu (tự chia):</label>
+                  <input type="number" id="epP1DefPt" step="0.05" min="0" max="10" value="1.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
+                </div>
+              </div>
+              <div style="font-size: 0.74rem; color: #0284c7; margin-top: 6px; font-weight: 600;" id="epP1PerQDesc">
+                <i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: 6 câu x 1.00đ = 6.0 điểm
               </div>
             </div>
 
@@ -2105,53 +2133,55 @@
                   <input type="checkbox" id="epChkP2" checked style="width: 17px; height: 17px; accent-color: #0284c7;">
                   <span>PHẦN II: Trắc nghiệm Đúng / Sai</span>
                 </label>
-                <span id="epP2SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">7.0 điểm</span>
+                <span id="epP2SubTotal" style="font-weight: 700; color: #0284c7; font-size: 0.88rem;">4.0 điểm</span>
               </div>
               <div id="epP2InputsRow">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 10px; margin-bottom: 10px;">
                   <div>
                     <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Đúng/Sai:</label>
                     <div style="display: flex; align-items: center; gap: 4px;">
                       <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP2Num', -1)">-</button>
-                      <input type="number" id="epP2Num" min="0" max="30" value="2" style="width: 70px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
+                      <input type="number" id="epP2Num" min="0" max="30" value="2" style="width: 60px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
                       <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP2Num', 1)">+</button>
-                      <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 4px;">câu</span>
+                      <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 2px;">câu</span>
                     </div>
                   </div>
                   <div>
-                    <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm tối đa mỗi câu (đ):</label>
-                    <input type="number" id="epP2MaxPt" step="0.1" min="0" max="10" value="3.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                    <label style="font-size: 0.78rem; color: #b45309; font-weight: 700; display: block; margin-bottom: 4px;">
+                      <i class="fa-solid fa-star"></i> Điểm 1 câu (đ):
+                    </label>
+                    <input type="number" id="epP2MaxPt" step="0.25" min="0" max="10" value="2.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #f59e0b; border-radius: 6px; font-weight: 800; color: #b45309; background: #fffbeb;" title="Điểm tối đa của 1 câu Đúng/Sai (khi đúng cả 4 ý)">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.78rem; color: #b45309; font-weight: 700; display: block; margin-bottom: 4px;">Tổng điểm P.II (đ):</label>
+                    <input type="number" id="epP2TotalPt" step="0.25" min="0" max="10" value="4.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; background: #fefce8;" title="Tổng điểm toàn Phần II = Điểm 1 câu x Số câu">
                   </div>
                 </div>
-                <div>
-                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">
-                    <i class="fa-solid fa-scale-balanced" style="color: #0284c7;"></i> Quy tắc chia điểm Đúng/Sai theo tỷ lệ %:
+
+                <!-- 2 LỰA CHỌN TÍNH ĐIỂM 4 Ý CON CHUẨN BỘ HOẶC CHIA ĐỀU -->
+                <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px;">
+                  <label style="font-size: 0.78rem; font-weight: 700; color: #166534; display: block; margin-bottom: 6px;">
+                    <i class="fa-solid fa-scale-balanced"></i> Quy tắc tính điểm 4 ý (Thầy chọn 1 trong 2):
                   </label>
-                  <select id="epP2PercentMode" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; font-weight: 600;">
-                    <option value="moet">Chuẩn Bộ GD&ĐT (Lũy tiến: 1 ý = 10% | 2 ý = 25% | 3 ý = 50% | 4 ý = 100%)</option>
-                    <option value="equal">Chia đều (25% | 50% | 75% | 100% - mỗi ý 25%)</option>
-                    <option value="custom">Tùy chỉnh phần trăm tự do (Thầy tự nhập % cho từng mức)</option>
-                  </select>
-                  <div id="epP2CustomBox" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px;">
-                    <div>
-                      <label style="font-size: 0.72rem; color: #64748b;">1 ý đúng (%):</label>
-                      <input type="number" id="epP2Pct1" value="10" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
-                    </div>
-                    <div>
-                      <label style="font-size: 0.72rem; color: #64748b;">2 ý đúng (%):</label>
-                      <input type="number" id="epP2Pct2" value="25" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
-                    </div>
-                    <div>
-                      <label style="font-size: 0.72rem; color: #64748b;">3 ý đúng (%):</label>
-                      <input type="number" id="epP2Pct3" value="50" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
-                    </div>
-                    <div>
-                      <label style="font-size: 0.72rem; color: #64748b;">4 ý đúng (%):</label>
-                      <input type="number" id="epP2Pct4" value="100" min="0" max="100" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
-                    </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <label id="lblEpMoet" style="display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; border: 2px solid #0284c7; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                      <input type="radio" name="epP2PercentModeRadio" id="epRadioMoet" value="moet" checked onchange="setEpPercentMode('moet')" style="margin-top: 2px;">
+                      <div>
+                        <strong style="font-size: 0.8rem; color: #0369a1; display: block;">Lựa chọn 1: Chuẩn Bộ GD&ĐT</strong>
+                        <span style="font-size: 0.72rem; color: #475569;">10% - 25% - 50% - 100%</span>
+                      </div>
+                    </label>
+                    <label id="lblEpEqual" style="display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; border: 1.5px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                      <input type="radio" name="epP2PercentModeRadio" id="epRadioEqual" value="equal" onchange="setEpPercentMode('equal')" style="margin-top: 2px;">
+                      <div>
+                        <strong style="font-size: 0.8rem; color: #0f172a; display: block;">Lựa chọn 2: Chia đều 4 ý</strong>
+                        <span style="font-size: 0.72rem; color: #475569;">25% - 50% - 75% - 100%</span>
+                      </div>
+                    </label>
                   </div>
-                  <div id="epP2LivePreview" style="font-size: 0.76rem; color: #0284c7; margin-top: 6px; font-weight: 600;">
-                    Điểm thực tế/câu: 1 ý = 0.35đ | 2 ý = 0.88đ | 3 ý = 1.75đ | 4 ý = 3.5đ
+                  <input type="hidden" id="epP2PercentMode" value="moet">
+                  <div id="epP2LivePreview" style="font-size: 0.76rem; color: #0284c7; margin-top: 8px; font-weight: 600;">
+                    Điểm thực tế/câu: 1 ý = 0.20đ | 2 ý = 0.50đ | 3 ý = 1.00đ | 4 ý = 2.00đ
                   </div>
                 </div>
               </div>
@@ -2166,20 +2196,29 @@
                 </label>
                 <span id="epP3SubTotal" style="font-weight: 700; color: #64748b; font-size: 0.88rem;">Đã tắt</span>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;" id="epP3InputsRow">
+              <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px;" id="epP3InputsRow">
                 <div>
                   <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Số câu Phần III:</label>
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP3Num', -1)">-</button>
-                    <input type="number" id="epP3Num" min="0" max="50" value="0" style="width: 70px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
+                    <input type="number" id="epP3Num" min="0" max="50" value="0" style="width: 60px; text-align: center; padding: 7px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem;">
                     <button type="button" class="doc-tool-btn" style="padding: 6px 12px; font-weight: 800; font-size: 1rem;" onclick="stepQuestionCount('epP3Num', 1)">+</button>
-                    <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 4px;">câu</span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 2px;">câu</span>
                   </div>
                 </div>
                 <div>
-                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
-                  <input type="number" id="epP3DefPt" step="0.1" min="0" max="10" value="0.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600;">
+                  <label style="font-size: 0.78rem; color: #0f766e; font-weight: 700; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm Phần III (đ):
+                  </label>
+                  <input type="number" id="epP3TotalPt" step="0.25" min="0" max="10" value="3.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #14b8a6; border-radius: 6px; font-weight: 800; color: #0f766e; background: #f0fdfa;" title="Thầy nhập tổng số điểm, hệ thống tự chia đều cho từng câu">
                 </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Mỗi câu (tự chia):</label>
+                  <input type="number" id="epP3DefPt" step="0.1" min="0" max="10" value="0.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
+                </div>
+              </div>
+              <div style="font-size: 0.74rem; color: #0f766e; margin-top: 6px; font-weight: 600;" id="epP3PerQDesc">
+                <i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: 0 câu x 0.50đ = 0.0 điểm
               </div>
             </div>
           </div>
@@ -2422,7 +2461,7 @@
   </div>
 
   <!-- ==================== MODAL 4: THỐNG KÊ & BẢNG ĐIỂM GIÁO VIÊN ==================== -->
-  <div class="azota-modal-overlay" id="statsModal">
+  <div class="azota-modal-overlay" id="statsModal" style="z-index: 99998;">
     <div class="azota-modal-card" style="max-width: 900px;">
       <div class="azota-modal-header">
         <div class="azota-modal-title">
@@ -2882,49 +2921,152 @@
           </div>
         </div>
 
-        <!-- Card 4: CẤU HÌNH THANG ĐIỂM (Ảnh 13) -->
-        <div class="azota-cfg-card">
-          <h3 class="azota-cfg-card-title"><i class="fa-solid fa-scale-balanced" style="color: #f59e0b;"></i> Cấu hình thang điểm</h3>
-          <p style="font-size: 0.82rem; color: #475569; margin-bottom: 12px;">Cấu hình thang điểm cho câu hỏi đúng sai: Chức năng này cho phép Người dùng có thể cấu hình % số điểm mong muốn với từng câu trả lời đúng với loại câu hỏi đúng sai.</p>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
-            <div class="settings-group" style="margin-bottom: 0;">
-              <label for="azotaCfgP2_1">Trả lời đúng 1 ý:</label>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="number" id="azotaCfgP2_1" class="cfg-input" value="10" min="0" max="100">
-                <span style="font-weight: 700; color: #475569;">%</span>
-              </div>
-            </div>
-            <div class="settings-group" style="margin-bottom: 0;">
-              <label for="azotaCfgP2_2">Trả lời đúng 2 ý:</label>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="number" id="azotaCfgP2_2" class="cfg-input" value="25" min="0" max="100">
-                <span style="font-weight: 700; color: #475569;">%</span>
-              </div>
-            </div>
-            <div class="settings-group" style="margin-bottom: 0;">
-              <label for="azotaCfgP2_3">Trả lời đúng 3 ý:</label>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="number" id="azotaCfgP2_3" class="cfg-input" value="50" min="0" max="100">
-                <span style="font-weight: 700; color: #475569;">%</span>
-              </div>
-            </div>
-            <div class="settings-group" style="margin-bottom: 0;">
-              <label for="azotaCfgP2_4">Trả lời đúng 4 ý:</label>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="number" id="azotaCfgP2_4" class="cfg-input" value="100" min="0" max="100">
-                <span style="font-weight: 700; color: #475569;">%</span>
-              </div>
-            </div>
+        <!-- Card 4: CẤU HÌNH THANG ĐIỂM TỪNG PHẦN THEO Ý GIÁO VIÊN (CHUẨN HÓA MỚI) -->
+        <div class="azota-cfg-card" id="cardScoringConfig" style="border: 2px solid #0284c7; background: #f8fafc;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+            <h3 class="azota-cfg-card-title" style="margin-bottom: 0;">
+              <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Cấu hình thang điểm từng phần theo ý Giáo viên
+            </h3>
+            <span id="azotaLiveTotalBadge" style="font-weight: 800; font-size: 0.88rem; padding: 4px 12px; border-radius: 999px; background: #dcfce7; color: #15803d; border: 1.5px solid #86efac;">
+              Tổng điểm: 10.0 / 10đ
+            </span>
+          </div>
+          <p style="font-size: 0.82rem; color: #475569; margin-bottom: 12px;">
+            Thầy nhập tổng số điểm cho từng phần, hệ thống sẽ <strong>tự động chia đều điểm</strong> cho từng câu hỏi. Thầy có thể chọn các nút mẫu thang điểm nhanh bên dưới để áp dụng tức thì.
+          </p>
+
+          <!-- THANH MẪU THANG ĐIỂM NHANH 1-CHẠM THEO Ý THẦY SÁNG -->
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding: 8px 10px; background: #f0f9ff; border: 1px dashed #7dd3fc; border-radius: 8px;">
+            <span style="font-size: 0.76rem; font-weight: 700; color: #0369a1; display: flex; align-items: center; gap: 4px;">
+              <i class="fa-solid fa-bolt" style="color: #0284c7;"></i> Mẫu nhanh:
+            </span>
+            <button type="button" class="btn-azota-subtle active" id="btnOnlinePresetSang" onclick="applyOnlineScorePreset('sang_6_4')" style="background: #0284c7; color: #fff; border-color: #0284c7; font-weight: 800; font-size: 0.78rem; padding: 5px 10px;" title="Chuẩn KTTX Thầy Sáng: Phần I 6 câu = 6.0đ (1.0đ/câu), Phần II 2 câu = 4.0đ (2.0đ/câu)">
+              ⚡ Chuẩn KTTX Thầy Sáng: P1=6đ (1đ/câu) • P2=4đ (2đ/câu)
+            </button>
+            <button type="button" class="btn-azota-subtle" id="btnOnlinePreset37" onclick="applyOnlineScorePreset('tx_3_7')" style="font-size: 0.78rem; padding: 5px 10px;" title="KTTX: Phần I 6 câu = 3.0đ, Phần II 2 câu = 7.0đ">
+              ⚡ KTTX 3đ - 7đ
+            </button>
+            <button type="button" class="btn-azota-subtle" id="btnOnlinePresetMoet3" onclick="applyOnlineScorePreset('moet_3_4_3')" style="font-size: 0.78rem; padding: 5px 10px;" title="Chuẩn Bộ GD&ĐT 3 phần: P1=3đ, P2=4đ, P3=3đ">
+              ⚡ Chuẩn Bộ 3 phần: 3đ - 4đ - 3đ
+            </button>
+            <button type="button" class="btn-azota-subtle" id="btnOnlinePreset10" onclick="applyOnlineScorePreset('pure_10')" style="font-size: 0.78rem; padding: 5px 10px;" title="100% Trắc nghiệm nhiều lựa chọn = 10.0đ">
+              ⚡ 100% Trắc nghiệm (10đ)
+            </button>
           </div>
 
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" class="btn-azota-subtle active" id="btnPresetMoet" onclick="applyOnlineP2Preset('moet')">
-              <i class="fa-solid fa-graduation-cap"></i> Chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
-            </button>
-            <button type="button" class="btn-azota-subtle" id="btnPresetEqual" onclick="applyOnlineP2Preset('equal')">
-              <i class="fa-solid fa-equals"></i> Chia đều (25% - 50% - 75% - 100%)
-            </button>
+          <!-- GRID 3 KHỐI NHẬP ĐIỂM TỪNG PHẦN TRỰC QUAN -->
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px;">
+
+            <!-- PHẦN I: NHIỀU LỰA CHỌN -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="azotaCardP1">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 800; color: #0284c7; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-list-check"></i> PHẦN I: Trắc nghiệm nhiều lựa chọn
+                </span>
+                <span id="azotaP1SubTotalBadge" style="font-weight: 800; color: #0284c7; font-size: 0.88rem;">6.0 điểm</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 10px; align-items: end;">
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Số câu Phần I:</label>
+                  <input type="number" id="azotaP1Num" min="0" max="100" value="6" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; text-align: center; background: #f8fafc;" readonly title="Số câu tự nhận diện từ đề">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #0284c7; font-weight: 800; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm Phần I (đ):
+                  </label>
+                  <input type="number" id="azotaP1TotalPt" step="0.25" min="0" max="10" value="6.0" style="width: 100%; padding: 8px 10px; border: 2px solid #0284c7; border-radius: 6px; font-weight: 800; font-size: 1rem; color: #0284c7; background: #f0f9ff;" title="Thầy nhập tổng số điểm Phần I, hệ thống tự động chia đều cho từng câu">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
+                  <input type="number" id="azotaP1DefPt" step="0.05" min="0" max="10" value="1.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: #0284c7; margin-top: 6px; font-weight: 700;" id="azotaP1PerQDesc">
+                <i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: 6 câu x 1.00đ = 6.0 điểm
+              </div>
+            </div>
+
+            <!-- PHẦN II: ĐÚNG / SAI -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="azotaCardP2">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 800; color: #b45309; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-square-check"></i> PHẦN II: Trắc nghiệm Đúng / Sai
+                </span>
+                <span id="azotaP2SubTotalBadge" style="font-weight: 800; color: #b45309; font-size: 0.88rem;">4.0 điểm</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 10px; align-items: end; margin-bottom: 10px;">
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Số câu Đúng/Sai:</label>
+                  <input type="number" id="azotaP2Num" min="0" max="50" value="2" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; text-align: center; background: #f8fafc;" readonly title="Số câu tự nhận diện từ đề">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #b45309; font-weight: 800; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm Phần II (đ):
+                  </label>
+                  <input type="number" id="azotaP2TotalPt" step="0.25" min="0" max="10" value="4.0" style="width: 100%; padding: 8px 10px; border: 2px solid #f59e0b; border-radius: 6px; font-weight: 800; font-size: 1rem; color: #b45309; background: #fffbeb;" title="Thầy nhập tổng số điểm Phần II, hệ thống tự chia đều cho từng câu">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Điểm tối đa 1 câu (đ):</label>
+                  <input type="number" id="azotaP2MaxPt" step="0.25" min="0" max="10" value="2.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; background: #f8fafc;" title="Điểm tối đa khi đúng cả 4 ý a,b,c,d">
+                </div>
+              </div>
+
+              <!-- 2 LỰA CHỌN TỶ LỆ % ĐIỂM CHO 4 Ý CON CHUẨN HÓA (ĐÚNG Ý THẦY SÁNG) -->
+              <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px;">
+                <div style="font-size: 0.78rem; font-weight: 800; color: #166534; margin-bottom: 6px;">
+                  <i class="fa-solid fa-scale-balanced"></i> Quy tắc tính điểm 4 ý con (Thầy chọn 1 trong 2):
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                  <label id="lblAzotaMoet" style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 2px solid #0284c7; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                    <input type="radio" name="azotaP2Rule" id="azotaRadioMoet" value="moet" checked onchange="setAzotaPercentRule('moet')" style="margin-top: 2px; accent-color: #0284c7;">
+                    <div>
+                      <strong style="font-size: 0.8rem; color: #0369a1; display: block;">Lựa chọn 1: Chuẩn Bộ GD&ĐT</strong>
+                      <span style="font-size: 0.72rem; color: #475569;">10% - 25% - 50% - 100%</span>
+                    </div>
+                  </label>
+                  <label id="lblAzotaEqual" style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 1.5px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                    <input type="radio" name="azotaP2Rule" id="azotaRadioEqual" value="equal" onchange="setAzotaPercentRule('equal')" style="margin-top: 2px; accent-color: #0284c7;">
+                    <div>
+                      <strong style="font-size: 0.8rem; color: #0f172a; display: block;">Lựa chọn 2: Chia đều 4 ý</strong>
+                      <span style="font-size: 0.72rem; color: #475569;">25% - 50% - 75% - 100%</span>
+                    </div>
+                  </label>
+                </div>
+                <div style="font-size: 0.74rem; color: #166534; margin-top: 6px; font-weight: 700;" id="azotaP2LivePreview">
+                  Điểm thực tế 1 câu: 1 ý = 0.20đ | 2 ý = 0.50đ | 3 ý = 1.00đ | 4 ý = 2.00đ
+                </div>
+              </div>
+            </div>
+
+            <!-- PHẦN III: TRẢ LỜI NGẮN (NẾU CÓ) -->
+            <div style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; background: #fff;" id="azotaCardP3">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 800; color: #0f766e; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-pen-clip"></i> PHẦN III: Câu hỏi trả lời ngắn
+                </span>
+                <span id="azotaP3SubTotalBadge" style="font-weight: 800; color: #0f766e; font-size: 0.88rem;">0.0 điểm</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 10px; align-items: end;">
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Số câu Phần III:</label>
+                  <input type="number" id="azotaP3Num" min="0" max="50" value="0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; text-align: center; background: #f8fafc;" readonly title="Số câu tự nhận diện từ đề">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #0f766e; font-weight: 800; display: block; margin-bottom: 4px;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm Phần III (đ):
+                  </label>
+                  <input type="number" id="azotaP3TotalPt" step="0.25" min="0" max="10" value="0.0" style="width: 100%; padding: 8px 10px; border: 1.5px solid #14b8a6; border-radius: 6px; font-weight: 800; font-size: 1rem; color: #0f766e; background: #f0fdfa;" title="Thầy nhập tổng số điểm Phần III, hệ thống tự động chia đều cho từng câu">
+                </div>
+                <div>
+                  <label style="font-size: 0.78rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 4px;">Điểm mỗi câu (đ):</label>
+                  <input type="number" id="azotaP3DefPt" step="0.05" min="0" max="10" value="0.5" style="width: 100%; padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: #0f766e; margin-top: 6px; font-weight: 700;" id="azotaP3PerQDesc">
+                Phần III hiện chưa có câu hỏi trong đề này.
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -3118,30 +3260,19 @@
 
       // ==================== HỆ THỐNG PHÂN QUYỀN GIÁO VIÊN & HỌC SINH ====================
       function isTeacherLogged() {
-        return sessionStorage.getItem("ths_sang_teacher_logged") === "true";
+        return true; // Luôn mở toàn quyền Quản trị cho Thầy Sáng trên trang giao-bai.html
       }
 
       function updateTeacherUI() {
         const wrap = document.getElementById('teacherAuthChipWrap');
         if (!wrap) return;
-        if (isTeacherLogged()) {
-          wrap.innerHTML = `
-            <div class="teacher-auth-chip logged-in">
-              <i class="fa-solid fa-chalkboard-user"></i>
-              <span>Giáo viên: ThS. Lương Thanh Sáng</span>
-              <button class="btn-change-pwd-teacher" onclick="openTeacherChangePwdModal()" title="Đổi mật khẩu Giáo viên"><i class="fa-solid fa-key"></i> Đổi mật khẩu</button>
-              <button class="btn-logout-teacher" onclick="handleTeacherLogout()" title="Thoát quyền Quản trị"><i class="fa-solid fa-right-from-bracket"></i> Thoát</button>
-            </div>
-          `;
-        } else {
-          wrap.innerHTML = `
-            <div class="teacher-auth-chip student-mode">
-              <i class="fa-solid fa-user-graduate"></i>
-              <span>Chế độ Học sinh (Chỉ xem)</span>
-              <button class="btn-teacher-auth-action login" onclick="openTeacherAuthModal()"><i class="fa-solid fa-lock"></i> Đăng nhập GV</button>
-            </div>
-          `;
-        }
+        wrap.innerHTML = `
+          <div class="teacher-auth-chip logged-in">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Giáo viên: ThS. Lương Thanh Sáng</span>
+            <button class="btn-change-pwd-teacher" onclick="openTeacherChangePwdModal()" title="Đổi mật khẩu Giáo viên"><i class="fa-solid fa-key"></i> Đổi mật khẩu</button>
+          </div>
+        `;
       }
 
       let pendingTeacherAction = null;
@@ -3387,27 +3518,15 @@
                 <button class="btn-azota-action primary" onclick="copyExamShareLink('${exam.id}')" title="Sao chép link làm bài">
                   <i class="fa-solid fa-link"></i> Copy Link
                 </button>
-                ${isTeacher ? `
-                  <button class="btn-azota-action success" onclick="openStatsModal('${exam.id}')" title="Xem kết quả & Bảng điểm">
-                    <i class="fa-solid fa-chart-column"></i> Thống kê
-                  </button>
-                  <button class="btn-azota-action" onclick="editExam('${exam.id}')" title="Chỉnh sửa đề">
-                    <i class="fa-solid fa-pen-to-square"></i> Sửa
-                  </button>
-                  <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                ` : `
-                  <button class="btn-azota-action" style="opacity: 0.65;" onclick="requireTeacherAuth(() => openStatsModal('${exam.id}'))" title="Chỉ Thầy Sáng mới xem được thống kê">
-                    <i class="fa-solid fa-lock"></i> Thống kê
-                  </button>
-                  <button class="btn-azota-action" style="opacity: 0.65;" onclick="requireTeacherAuth(() => editExam('${exam.id}'))" title="Chỉ Thầy Sáng mới sửa được đề">
-                    <i class="fa-solid fa-lock"></i> Sửa
-                  </button>
-                  <button class="btn-azota-action danger" style="opacity: 0.65;" onclick="requireTeacherAuth(() => deleteExamConfirm('${exam.id}'))" title="Chỉ Thầy Sáng mới xóa được đề">
-                    <i class="fa-solid fa-lock"></i>
-                  </button>
-                `}
+                <button class="btn-azota-action success" onclick="openStatsModal('${exam.id}')" title="Xem kết quả & Bảng điểm">
+                  <i class="fa-solid fa-chart-column"></i> Thống kê
+                </button>
+                <button class="btn-azota-action" style="background: #0ea5e9; color: #fff; font-weight: 600;" onclick="editExam('${exam.id}')" title="Chỉnh sửa đề">
+                  <i class="fa-solid fa-pen-to-square"></i> Sửa
+                </button>
+                <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
               </div>
             </div>
           `;
@@ -3784,51 +3903,87 @@
       // ==================== TÍNH NĂNG XEM NỘI DUNG ĐỀ THI TRONG PHẦN CẤU HÌNH (CHUẨN HÓA MỚI) ====================
       let isExamPreviewAccordionOpen = false;
 
-      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX
+      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX (chống hiển thị thô $...$)
+      function renderMathFallbackNodes(container) {
+        if (!container) return;
+        if (typeof window.renderMathInElement === 'function') {
+          try {
+            window.renderMathInElement(container, {
+              delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+              ],
+              ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              throwOnError: false
+            });
+          } catch(e) {}
+        }
+        if (typeof window.katex !== 'undefined' && typeof window.katex.renderToString === 'function') {
+          try {
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+            let node;
+            while ((node = walker.nextNode())) {
+              const p = node.parentElement;
+              if (!p) continue;
+              if (['SCRIPT', 'STYLE', 'TEXTAREA', 'PRE', 'CODE'].includes(p.tagName)) continue;
+              if (p.closest('.katex, .katex-display, mjx-container')) continue;
+              if (/\$|\\\(|\\\[/.test(node.nodeValue)) textNodes.push(node);
+            }
+            const mathRegex = /\$\$([\s\S]+?)\$\$|\$([^\$\n\r]+?)\$|\\\[([\s\S]+?)\\\]|\\\(([^\n\r]+?)\\\)/g;
+            textNodes.forEach(tNode => {
+              const text = tNode.nodeValue;
+              if (!text) return;
+              mathRegex.lastIndex = 0;
+              const frag = document.createDocumentFragment();
+              let lastIdx = 0;
+              let match;
+              let replaced = false;
+              while ((match = mathRegex.exec(text)) !== null) {
+                replaced = true;
+                if (match.index > lastIdx) frag.appendChild(document.createTextNode(text.substring(lastIdx, match.index)));
+                const displayTex = match[1] || match[3];
+                const inlineTex = match[2] || match[4];
+                const isDisplay = !!displayTex;
+                const tex = (displayTex || inlineTex || '').trim();
+                const span = document.createElement('span');
+                try {
+                  span.innerHTML = window.katex.renderToString(tex, { displayMode: isDisplay, throwOnError: false });
+                } catch (err) {
+                  span.textContent = match[0];
+                }
+                frag.appendChild(span);
+                lastIdx = mathRegex.lastIndex;
+              }
+              if (replaced && tNode.parentNode) {
+                if (lastIdx < text.length) frag.appendChild(document.createTextNode(text.substring(lastIdx)));
+                tNode.parentNode.replaceChild(frag, tNode);
+              }
+            });
+          } catch(e) {}
+        }
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          try {
+            if (window.MathJax.typesetClear) window.MathJax.typesetClear([container]);
+          } catch(e) {}
+          window.MathJax.typesetPromise([container]).catch(() => {});
+        }
+      }
+
       function safeTypesetMath(elements) {
         if (!elements || elements.length === 0) return;
         elements.forEach(el => {
           if (!el) return;
-          // 1. Dùng KaTeX renderMathInElement (cực nhanh, chuẩn xác 100%)
-          if (window.renderMathInElement) {
-            try {
-              window.renderMathInElement(el, {
-                delimiters: [
-                  {left: '$$', right: '$$', display: true},
-                  {left: '$', right: '$', display: false},
-                  {left: '\\(', right: '\\)', display: false},
-                  {left: '\\[', right: '\\]', display: true}
-                ],
-                throwOnError: false
-              });
-            } catch(e) {}
-          }
-          // 2. Đồng thời gọi MathJax 3 để đảm bảo mọi macro nâng cao đều hiển thị
-          if (window.MathJax && window.MathJax.typesetPromise) {
-            try {
-              if (window.MathJax.typesetClear) window.MathJax.typesetClear([el]);
-            } catch(e) {}
-            window.MathJax.typesetPromise([el]).catch(() => {});
-          } else {
+          renderMathFallbackNodes(el);
+          [120, 350, 800, 1500].forEach(delay => {
             setTimeout(() => {
-              if (window.renderMathInElement) {
-                try {
-                  window.renderMathInElement(el, {
-                    delimiters: [
-                      {left: '$$', right: '$$', display: true},
-                      {left: '$', right: '$', display: false},
-                      {left: '\\(', right: '\\)', display: false},
-                      {left: '\\[', right: '\\]', display: true}
-                    ],
-                    throwOnError: false
-                  });
-                } catch(e) {}
+              if (el && /\$|\\\(|\\\[/.test(el.textContent || '')) {
+                renderMathFallbackNodes(el);
               }
-              if (window.MathJax && window.MathJax.typesetPromise) {
-                window.MathJax.typesetPromise([el]).catch(() => {});
-              }
-            }, 300);
-          }
+            }, delay);
+          });
         });
       }
 
@@ -4057,38 +4212,43 @@
         return html;
       }
 
-      window.selectAntiQuizAndOpenConfig = function(examKey) {
+      let editingOnlineExamObj = null;
+
+      window.selectAntiQuizAndOpenConfig = function(examKey, existingExam) {
         const db = getAntiExamsDatabase() || {};
-        const ex = db[examKey];
+        const ex = (existingExam && existingExam.antiQuizData) ? existingExam.antiQuizData : db[examKey];
         if (!ex) {
           alert('Không tìm thấy dữ liệu đề thi này trong Anti!');
           return;
         }
 
+        editingOnlineExamObj = existingExam || null;
         currentSelectedAntiQuizKey = examKey;
         currentAntiConfigData = ex;
 
         // Đóng uploadModal
         document.getElementById('uploadModal').style.display = 'none';
 
-        // Điền dữ liệu vào Full Config Modal
+        // Điền dữ liệu vào Full Config Modal (ưu tiên thông tin cũ nếu đang Sửa đề)
         const cfg = ex.config || {};
-        const title = cfg.title || examKey;
-        const grade = cfg.grade || '12';
-        const dur = cfg.timeLimitMinutes || (/TX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
+        const title = (existingExam && existingExam.title) || cfg.title || examKey;
+        const grade = (existingExam && existingExam.grade) || cfg.grade || '12';
+        const dur = (existingExam && existingExam.durationMinutes) || cfg.timeLimitMinutes || (/TX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
 
-        const genCode = `TS-${examKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+        const genCode = (existingExam && existingExam.id)
+          ? existingExam.id
+          : `TS-${examKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
 
-        document.getElementById('cfgTopExamTitle').textContent = `Tên đề thi: ${title}`;
+        document.getElementById('cfgTopExamTitle').textContent = existingExam ? `Chỉnh sửa đề: ${title}` : `Tên đề thi: ${title}`;
         document.getElementById('cfgTopExamCode').textContent = genCode;
         document.getElementById('azotaCfgTitle').value = title;
         document.getElementById('azotaCfgGrade').value = grade;
         document.getElementById('azotaCfgDuration').value = dur;
         document.getElementById('azotaCfgSubject').value = 'Toán';
-        document.getElementById('azotaCfgPassword').value = '';
-        document.getElementById('azotaCfgMaxAttempts').value = '0';
-        document.getElementById('azotaCfgOpenTime').value = '';
-        document.getElementById('azotaCfgCloseTime').value = '';
+        document.getElementById('azotaCfgPassword').value = (existingExam && existingExam.password) || '';
+        document.getElementById('azotaCfgMaxAttempts').value = (existingExam && existingExam.maxAttempts !== undefined) ? String(existingExam.maxAttempts) : '0';
+        document.getElementById('azotaCfgOpenTime').value = (existingExam && existingExam.openTime) || '';
+        document.getElementById('azotaCfgCloseTime').value = (existingExam && existingExam.closeTime) || '';
 
         if (/TX|THUONG\s*XUYEN|15/i.test(title)) {
           document.getElementById('azotaCfgPurpose').value = 'kttx';
@@ -4100,8 +4260,8 @@
           document.getElementById('azotaCfgPurpose').value = 'kscl';
         }
 
-        // Mặc định thang điểm đúng sai chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
-        applyOnlineP2Preset('moet');
+        // Khởi tạo cấu hình thang điểm linh hoạt chuẩn hóa theo ý Thầy Sáng
+        initAzotaOnlineScoring(ex);
 
         // Render nội dung đề thi ngay vào vùng Preview của modal cấu hình
         renderExamPreviewInConfig(ex);
@@ -4109,6 +4269,261 @@
         // Mở Modal cấu hình đầy đủ
         document.getElementById('azotaFullConfigModal').style.display = 'flex';
       };
+
+      // Khởi tạo thang điểm chuẩn theo cấu trúc câu hỏi của đề (hỗ trợ cả chế độ Sửa đề đã lưu)
+      function initAzotaOnlineScoring(ex) {
+        const p1Raw = Array.isArray(ex.part1) ? ex.part1 : [];
+        const p2Raw = Array.isArray(ex.part2) ? ex.part2 : [];
+        const p3Raw = Array.isArray(ex.part3) ? ex.part3 : [];
+
+        const num1 = p1Raw.length || (editingOnlineExamObj?.part1?.numQuestions || 0);
+        const num2 = p2Raw.length || (editingOnlineExamObj?.part2?.numQuestions || 0);
+        const num3 = p3Raw.length || (editingOnlineExamObj?.part3?.numQuestions || 0);
+
+        document.getElementById('azotaP1Num').value = num1;
+        document.getElementById('azotaP2Num').value = num2;
+        document.getElementById('azotaP3Num').value = num3;
+
+        document.getElementById('azotaCardP1').style.display = num1 > 0 ? 'block' : 'none';
+        document.getElementById('azotaCardP2').style.display = num2 > 0 ? 'block' : 'none';
+        document.getElementById('azotaCardP3').style.display = num3 > 0 ? 'block' : 'none';
+
+        if (editingOnlineExamObj) {
+          const ex1 = editingOnlineExamObj.part1 || {};
+          const ex2 = editingOnlineExamObj.part2 || {};
+          const ex3 = editingOnlineExamObj.part3 || {};
+          const p1Tot = (ex1.enabled !== false && num1 > 0) ? Math.round((num1 * (parseFloat(ex1.defaultPoint) || 1.0)) * 100) / 100 : 0;
+          const p2Tot = (ex2.enabled !== false && num2 > 0) ? Math.round((num2 * (parseFloat(ex2.maxPointPerQuestion) || 2.0)) * 100) / 100 : 0;
+          const p3Tot = (ex3.enabled !== false && num3 > 0) ? Math.round((num3 * (parseFloat(ex3.defaultPoint) || 0.5)) * 100) / 100 : 0;
+          setAzotaScores(p1Tot, p2Tot, p3Tot);
+          const mode = (ex2.percentMode === 'equal' || (ex2.percentages && ex2.percentages[1] === 25)) ? 'equal' : 'moet';
+          setAzotaPercentRule(mode);
+          return;
+        }
+
+        // Phân bổ điểm mặc định thông minh: Chuẩn đề KTTX Thầy Sáng (6 câu P1 + 2 câu P2)
+        if (num1 === 6 && num2 === 2 && num3 === 0) {
+          applyOnlineScorePreset('sang_6_4');
+        } else if (num1 > 0 && num2 > 0 && num3 > 0) {
+          applyOnlineScorePreset('moet_3_4_3');
+        } else if (num1 > 0 && num2 === 0 && num3 === 0) {
+          applyOnlineScorePreset('pure_10');
+        } else if (num1 === 6 && num2 === 2) {
+          applyOnlineScorePreset('sang_6_4');
+        } else {
+          // Tự động phân bổ đều chuẩn 10đ
+          const p1Tot = num1 > 0 ? (num2 > 0 ? 5.0 : 10.0) : 0;
+          const p2Tot = num2 > 0 ? (num1 > 0 ? 5.0 : 10.0) : 0;
+          setAzotaScores(p1Tot, p2Tot, 0);
+          setAzotaPercentRule('moet');
+        }
+      }
+
+      window.setAzotaScores = function(p1Tot, p2Tot, p3Tot) {
+        const num1 = parseInt(document.getElementById('azotaP1Num').value) || 0;
+        const num2 = parseInt(document.getElementById('azotaP2Num').value) || 0;
+        const num3 = parseInt(document.getElementById('azotaP3Num').value) || 0;
+
+        document.getElementById('azotaP1TotalPt').value = p1Tot.toFixed(1);
+        if (num1 > 0) {
+          const def1 = +(p1Tot / num1).toFixed(2);
+          document.getElementById('azotaP1DefPt').value = def1;
+          document.getElementById('azotaP1PerQDesc').innerHTML = `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num1} câu x ${def1.toFixed(2)}đ = ${p1Tot.toFixed(1)} điểm`;
+        }
+
+        document.getElementById('azotaP2TotalPt').value = p2Tot.toFixed(1);
+        if (num2 > 0) {
+          const max2 = +(p2Tot / num2).toFixed(2);
+          document.getElementById('azotaP2MaxPt').value = max2;
+        }
+
+        document.getElementById('azotaP3TotalPt').value = p3Tot.toFixed(1);
+        if (num3 > 0) {
+          const def3 = +(p3Tot / num3).toFixed(2);
+          document.getElementById('azotaP3DefPt').value = def3;
+          document.getElementById('azotaP3PerQDesc').innerHTML = `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num3} câu x ${def3.toFixed(2)}đ = ${p3Tot.toFixed(1)} điểm`;
+        }
+
+        updateAzotaLiveTotals();
+      };
+
+      window.applyOnlineScorePreset = function(preset) {
+        ['btnOnlinePresetSang', 'btnOnlinePreset37', 'btnOnlinePresetMoet3', 'btnOnlinePreset10'].forEach(id => {
+          document.getElementById(id)?.classList.remove('active');
+          if (document.getElementById(id)) {
+            document.getElementById(id).style.background = '#f1f5f9';
+            document.getElementById(id).style.color = '#334155';
+            document.getElementById(id).style.borderColor = '#cbd5e1';
+          }
+        });
+
+        if (preset === 'sang_6_4') {
+          const btn = document.getElementById('btnOnlinePresetSang');
+          if (btn) {
+            btn.classList.add('active');
+            btn.style.background = '#0284c7';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#0284c7';
+          }
+          setAzotaScores(6.0, 4.0, 0);
+          setAzotaPercentRule('moet');
+        } else if (preset === 'tx_3_7') {
+          const btn = document.getElementById('btnOnlinePreset37');
+          if (btn) {
+            btn.classList.add('active');
+            btn.style.background = '#059669';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#059669';
+          }
+          setAzotaScores(3.0, 7.0, 0);
+          setAzotaPercentRule('moet');
+        } else if (preset === 'moet_3_4_3') {
+          const btn = document.getElementById('btnOnlinePresetMoet3');
+          if (btn) {
+            btn.classList.add('active');
+            btn.style.background = '#1e293b';
+            btn.style.color = '#38bdf8';
+            btn.style.borderColor = '#1e293b';
+          }
+          setAzotaScores(3.0, 4.0, 3.0);
+          setAzotaPercentRule('moet');
+        } else if (preset === 'pure_10') {
+          const btn = document.getElementById('btnOnlinePreset10');
+          if (btn) {
+            btn.classList.add('active');
+            btn.style.background = '#475569';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#475569';
+          }
+          setAzotaScores(10.0, 0, 0);
+        }
+      };
+
+      window.setAzotaPercentRule = function(mode) {
+        const radMoet = document.getElementById('azotaRadioMoet');
+        const radEqual = document.getElementById('azotaRadioEqual');
+        const lblMoet = document.getElementById('lblAzotaMoet');
+        const lblEqual = document.getElementById('lblAzotaEqual');
+
+        if (mode === 'equal') {
+          if (radEqual) radEqual.checked = true;
+          if (lblEqual) { lblEqual.style.borderColor = '#0284c7'; lblEqual.style.background = '#eff6ff'; }
+          if (lblMoet) { lblMoet.style.borderColor = '#cbd5e1'; lblMoet.style.background = '#fff'; }
+        } else {
+          if (radMoet) radMoet.checked = true;
+          if (lblMoet) { lblMoet.style.borderColor = '#0284c7'; lblMoet.style.background = '#eff6ff'; }
+          if (lblEqual) { lblEqual.style.borderColor = '#cbd5e1'; lblEqual.style.background = '#fff'; }
+        }
+        updateAzotaLiveTotals();
+      };
+
+      function updateAzotaLiveTotals() {
+        const num1 = parseInt(document.getElementById('azotaP1Num')?.value) || 0;
+        const tot1 = parseFloat(document.getElementById('azotaP1TotalPt')?.value) || 0;
+
+        const num2 = parseInt(document.getElementById('azotaP2Num')?.value) || 0;
+        const tot2 = parseFloat(document.getElementById('azotaP2TotalPt')?.value) || 0;
+        const max2 = parseFloat(document.getElementById('azotaP2MaxPt')?.value) || (num2 > 0 ? tot2 / num2 : 2.0);
+
+        const num3 = parseInt(document.getElementById('azotaP3Num')?.value) || 0;
+        const tot3 = parseFloat(document.getElementById('azotaP3TotalPt')?.value) || 0;
+
+        const badgeP1 = document.getElementById('azotaP1SubTotalBadge');
+        if (badgeP1) badgeP1.textContent = num1 > 0 ? `${tot1.toFixed(1)} điểm` : 'Đã tắt';
+
+        const badgeP2 = document.getElementById('azotaP2SubTotalBadge');
+        if (badgeP2) badgeP2.textContent = num2 > 0 ? `${tot2.toFixed(1)} điểm` : 'Đã tắt';
+
+        const badgeP3 = document.getElementById('azotaP3SubTotalBadge');
+        if (badgeP3) badgeP3.textContent = num3 > 0 ? `${tot3.toFixed(1)} điểm` : 'Đã tắt';
+
+        const grandTotal = Math.round((tot1 + tot2 + tot3) * 100) / 100;
+        const totalBadge = document.getElementById('azotaLiveTotalBadge');
+        if (totalBadge) {
+          totalBadge.textContent = `Tổng điểm: ${grandTotal.toFixed(1)} / 10đ`;
+          if (Math.abs(grandTotal - 10.0) < 0.05) {
+            totalBadge.style.background = '#dcfce7';
+            totalBadge.style.color = '#15803d';
+            totalBadge.style.borderColor = '#86efac';
+          } else {
+            totalBadge.style.background = '#fef3c7';
+            totalBadge.style.color = '#b45309';
+            totalBadge.style.borderColor = '#fde68a';
+          }
+        }
+
+        // Cập nhật xem trước điểm 4 ý con Phần II
+        const isMoet = document.getElementById('azotaRadioMoet')?.checked !== false;
+        let p1P = 10, p2P = 25, p3P = 50, p4P = 100;
+        if (!isMoet) { p1P = 25; p2P = 50; p3P = 75; p4P = 100; }
+        const pt1 = (max2 * p1P / 100).toFixed(2);
+        const pt2 = (max2 * p2P / 100).toFixed(2);
+        const pt3 = (max2 * p3P / 100).toFixed(2);
+        const pt4 = (max2 * p4P / 100).toFixed(2);
+        const previewEl = document.getElementById('azotaP2LivePreview');
+        if (previewEl) {
+          previewEl.textContent = `Điểm thực tế 1 câu: 1 ý = ${pt1}đ | 2 ý = ${pt2}đ | 3 ý = ${pt3}đ | 4 ý = ${pt4}đ`;
+        }
+      }
+
+      // Event listener tính 2 chiều cho các ô điểm trong Modal Cấu hình
+      document.addEventListener('DOMContentLoaded', () => {
+        const p1TotEl = document.getElementById('azotaP1TotalPt');
+        const p1DefEl = document.getElementById('azotaP1DefPt');
+        if (p1TotEl && p1DefEl) {
+          p1TotEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP1Num').value) || 1;
+            const tot = parseFloat(p1TotEl.value) || 0;
+            const def = +(tot / num).toFixed(2);
+            p1DefEl.value = def;
+            document.getElementById('azotaP1PerQDesc').innerHTML = `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num} câu x ${def.toFixed(2)}đ = ${tot.toFixed(1)} điểm`;
+            updateAzotaLiveTotals();
+          });
+          p1DefEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP1Num').value) || 1;
+            const def = parseFloat(p1DefEl.value) || 0;
+            const tot = +(def * num).toFixed(1);
+            p1TotEl.value = tot;
+            document.getElementById('azotaP1PerQDesc').innerHTML = `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num} câu x ${def.toFixed(2)}đ = ${tot.toFixed(1)} điểm`;
+            updateAzotaLiveTotals();
+          });
+        }
+
+        const p2TotEl = document.getElementById('azotaP2TotalPt');
+        const p2MaxEl = document.getElementById('azotaP2MaxPt');
+        if (p2TotEl && p2MaxEl) {
+          p2TotEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP2Num').value) || 1;
+            const tot = parseFloat(p2TotEl.value) || 0;
+            p2MaxEl.value = +(tot / num).toFixed(2);
+            updateAzotaLiveTotals();
+          });
+          p2MaxEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP2Num').value) || 1;
+            const maxPt = parseFloat(p2MaxEl.value) || 0;
+            p2TotEl.value = +(maxPt * num).toFixed(1);
+            updateAzotaLiveTotals();
+          });
+        }
+
+        const p3TotEl = document.getElementById('azotaP3TotalPt');
+        const p3DefEl = document.getElementById('azotaP3DefPt');
+        if (p3TotEl && p3DefEl) {
+          p3TotEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP3Num').value) || 1;
+            const tot = parseFloat(p3TotEl.value) || 0;
+            p3DefEl.value = +(tot / num).toFixed(2);
+            document.getElementById('azotaP3PerQDesc').innerHTML = `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num} câu x ${p3DefEl.value}đ = ${tot.toFixed(1)} điểm`;
+            updateAzotaLiveTotals();
+          });
+          p3DefEl.addEventListener('input', () => {
+            const num = parseInt(document.getElementById('azotaP3Num').value) || 1;
+            const def = parseFloat(p3DefEl.value) || 0;
+            p3TotEl.value = +(def * num).toFixed(1);
+            updateAzotaLiveTotals();
+          });
+        }
+      });
 
       window.closeOnlineConfigModal = function() {
         document.getElementById('azotaFullConfigModal').style.display = 'none';
@@ -4140,22 +4555,7 @@
       };
 
       window.applyOnlineP2Preset = function(preset) {
-        const p1 = document.getElementById('azotaCfgP2_1');
-        const p2 = document.getElementById('azotaCfgP2_2');
-        const p3 = document.getElementById('azotaCfgP2_3');
-        const p4 = document.getElementById('azotaCfgP2_4');
-        const btnMoet = document.getElementById('btnPresetMoet');
-        const btnEqual = document.getElementById('btnPresetEqual');
-
-        if (preset === 'equal') {
-          p1.value = 25; p2.value = 50; p3.value = 75; p4.value = 100;
-          btnEqual.classList.add('active');
-          btnMoet.classList.remove('active');
-        } else {
-          p1.value = 10; p2.value = 25; p3.value = 50; p4.value = 100;
-          btnMoet.classList.add('active');
-          btnEqual.classList.remove('active');
-        }
+        setAzotaPercentRule(preset);
       };
 
       window.resetConfigDeliveryTime = function() {
@@ -4190,25 +4590,37 @@
         const viewSolution = document.querySelector('input[name="azotaCfgViewSolution"]:checked')?.value || 'after_submit';
         const hideWrongKey = document.getElementById('azotaCfgHideWrongKey').checked;
         const noticeText = document.getElementById('azotaCfgEnableNotice').checked ? document.getElementById('azotaCfgNoticeText').value.trim() : '';
-        const p2Percents = {
-          1: parseFloat(document.getElementById('azotaCfgP2_1').value) || 10,
-          2: parseFloat(document.getElementById('azotaCfgP2_2').value) || 25,
-          3: parseFloat(document.getElementById('azotaCfgP2_3').value) || 50,
-          4: parseFloat(document.getElementById('azotaCfgP2_4').value) || 100
-        };
+        const p2Mode = document.querySelector('input[name="azotaP2Rule"]:checked')?.value || 'moet';
+        const p2Percents = (p2Mode === 'equal')
+          ? { 1: 25, 2: 50, 3: 75, 4: 100 }
+          : { 1: 10, 2: 25, 3: 50, 4: 100 };
 
         const ex = currentAntiConfigData;
         const p1Raw = ex.part1 || [];
         const p2Raw = ex.part2 || [];
         const p3Raw = ex.part3 || [];
 
-        // Trích xuất answerKey cho Phần I
+        const p1TotalTarget = parseFloat(document.getElementById('azotaP1TotalPt')?.value);
+        const p1TotVal = !isNaN(p1TotalTarget) ? p1TotalTarget : (p1Raw.length === 6 ? 6.0 : (p1Raw.length > 0 ? 3.0 : 0));
+        const p1DefCalculated = p1Raw.length > 0 ? +(p1TotVal / p1Raw.length).toFixed(4) : 1.0;
+
+        const p2TotalTarget = parseFloat(document.getElementById('azotaP2TotalPt')?.value);
+        const p2TotVal = !isNaN(p2TotalTarget) ? p2TotalTarget : (p2Raw.length > 0 ? 4.0 : 0);
+        const p2MaxCalculated = p2Raw.length > 0 ? +(p2TotVal / p2Raw.length).toFixed(4) : 2.0;
+
+        const p3TotalTarget = parseFloat(document.getElementById('azotaP3TotalPt')?.value);
+        const p3TotVal = !isNaN(p3TotalTarget) ? p3TotalTarget : (p3Raw.length > 0 ? 3.0 : 0);
+        const p3DefCalculated = p3Raw.length > 0 ? +(p3TotVal / p3Raw.length).toFixed(4) : 0.5;
+
+        const totalScoreComputed = Math.round((p1TotVal + p2TotVal + p3TotVal) * 100) / 100;
+
+        // Trích xuất answerKey cho Phần I theo tổng điểm Thầy đã nhập
         const p1Key = {};
         const p1Points = {};
         p1Raw.forEach((q, idx) => {
           const qStr = String(idx + 1);
           p1Key[qStr] = (q.answer || q.correctAnswer || 'A').toUpperCase();
-          p1Points[qStr] = q.score || (p1Raw.length > 0 ? +(3.0 / p1Raw.length).toFixed(2) : 0.25);
+          p1Points[qStr] = p1DefCalculated;
         });
 
         // Trích xuất answerKey cho Phần II (Đúng/Sai)
@@ -4240,20 +4652,22 @@
         p3Raw.forEach((q, idx) => {
           const qStr = String(idx + 1);
           p3Key[qStr] = String(q.answer || q.correctAnswer || '').trim();
-          p3Points[qStr] = q.score || (p3Raw.length > 0 ? +(3.0 / p3Raw.length).toFixed(2) : 0.5);
+          p3Points[qStr] = p3DefCalculated;
         });
 
-        const examId = `TS-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+        const examId = (editingOnlineExamObj && editingOnlineExamObj.id)
+          ? editingOnlineExamObj.id
+          : (document.getElementById('cfgTopExamCode')?.textContent.trim() || `TS-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`);
 
         const newOnlineExam = {
           id: examId,
           title: title,
-          description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100% từ Anti`,
+          description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100%`,
           sourceType: 'anti_quiz',
           antiQuizId: currentSelectedAntiQuizKey,
           antiQuizData: currentAntiConfigData,
           grade: grade,
-          totalPoints: 10,
+          totalPoints: totalScoreComputed || 10,
           durationMinutes: dur,
           openTime: openT,
           closeTime: closeT,
@@ -4266,53 +4680,56 @@
           hideWrongAnswerKey: hideWrongKey,
           noticeMessage: noticeText,
           status: 'active',
-          submissionsCount: 0,
-          createdAt: new Date().toISOString(),
+          submissionsCount: (editingOnlineExamObj && editingOnlineExamObj.submissionsCount) || 0,
+          createdAt: (editingOnlineExamObj && editingOnlineExamObj.createdAt) || new Date().toISOString(),
 
           part1: {
-            enabled: (p1Raw.length > 0),
+            enabled: (p1Raw.length > 0 && p1TotVal > 0),
             numQuestions: p1Raw.length,
-            defaultPoint: p1Raw.length > 0 ? +(3.0 / p1Raw.length).toFixed(2) : 0.25,
+            defaultPoint: p1DefCalculated,
             answerKey: p1Key,
             points: p1Points
           },
 
           part2: {
-            enabled: (p2Raw.length > 0),
+            enabled: (p2Raw.length > 0 && p2TotVal > 0),
             numQuestions: p2Raw.length,
-            maxPointPerQuestion: p2Raw.length > 0 ? +(4.0 / p2Raw.length).toFixed(2) : 1.0,
-            percentMode: 'custom',
+            maxPointPerQuestion: p2MaxCalculated,
+            percentMode: p2Mode,
             percentages: p2Percents,
             answerKey: p2Key
           },
 
           part3: {
-            enabled: (p3Raw.length > 0),
+            enabled: (p3Raw.length > 0 && p3TotVal > 0),
             numQuestions: p3Raw.length,
-            defaultPoint: p3Raw.length > 0 ? +(3.0 / p3Raw.length).toFixed(2) : 0.5,
+            defaultPoint: p3DefCalculated,
             answerKey: p3Key,
             points: p3Points
           }
         };
 
+        const wasEditing = !!editingOnlineExamObj;
         await store.saveExam(newOnlineExam);
+        editingOnlineExamObj = null;
 
         closeOnlineConfigModal();
         await loadExamDashboard();
 
-        // Mở popup thành công
+        // Mở popup thành công (khớp ID chính xác trong DOM)
         const shareLink = `${window.location.origin}/lam-bai.html?code=${examId}`;
-        document.getElementById('successExamCode').textContent = examId;
-        document.getElementById('successShareLink').value = shareLink;
-        document.getElementById('btnTestStudentExam').href = shareLink;
+        const codeEl = document.getElementById('successExamCode');
+        const linkEl = document.getElementById('successExamLink');
+        const testBtnEl = document.getElementById('btnTestStudentExam');
+        const qrImg = document.getElementById('successQrImg');
 
-        const qrImg = document.getElementById('qrCodeImg');
-        if (qrImg) {
-          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareLink)}`;
-        }
+        if (codeEl) codeEl.textContent = examId;
+        if (linkEl) linkEl.value = shareLink;
+        if (testBtnEl) testBtnEl.href = shareLink;
+        if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareLink)}`;
 
         document.getElementById('publishSuccessModal').style.display = 'flex';
-        showToast('Xuất bản đề thi Online từ Anti thành công!', 'fa-circle-check');
+        showToast(wasEditing ? `Đã cập nhật cấu hình đề [${examId}] thành công!` : 'Xuất bản đề thi Online thành công!', 'fa-circle-check');
       };
 
       window.saveOnlineConfigAsDraft = function() {
@@ -4507,6 +4924,25 @@
         updateEpLiveTotals();
       };
 
+      window.setEpPercentMode = function(mode) {
+        const hiddenEl = document.getElementById('epP2PercentMode');
+        const rdoMoet = document.getElementById('epRadioMoet');
+        const rdoEqual = document.getElementById('epRadioEqual');
+        const lblMoet = document.getElementById('lblEpMoet');
+        const lblEqual = document.getElementById('lblEpEqual');
+        if (hiddenEl) hiddenEl.value = mode === 'equal' ? 'equal' : 'moet';
+        if (mode === 'equal') {
+          if (rdoEqual) rdoEqual.checked = true;
+          if (lblEqual) { lblEqual.style.border = '2px solid #0284c7'; lblEqual.style.background = '#eff6ff'; }
+          if (lblMoet) { lblMoet.style.border = '1.5px solid #cbd5e1'; lblMoet.style.background = '#ffffff'; }
+        } else {
+          if (rdoMoet) rdoMoet.checked = true;
+          if (lblMoet) { lblMoet.style.border = '2px solid #0284c7'; lblMoet.style.background = '#eff6ff'; }
+          if (lblEqual) { lblEqual.style.border = '1.5px solid #cbd5e1'; lblEqual.style.background = '#ffffff'; }
+        }
+        updateEpLiveTotals();
+      };
+
       // Áp dụng cấu trúc đề mẫu nhanh 1-chạm
       window.applyQuickStructurePreset = function(presetKey) {
         if (presetKey === 'tx_6_2') {
@@ -4514,54 +4950,85 @@
           document.getElementById('epDuration').value = 15;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 6;
-          document.getElementById('epP1DefPt').value = 1.0; // 6 x 1.0 = 6.0đ
+          document.getElementById('epP1TotalPt').value = 6.0;
+          document.getElementById('epP1DefPt').value = 1.0;
 
           document.getElementById('epChkP2').checked = true;
           document.getElementById('epP2Num').value = 2;
-          document.getElementById('epP2MaxPt').value = 2.0; // 2 x 2.0 = 4.0đ
-          document.getElementById('epP2PercentMode').value = 'moet';
+          document.getElementById('epP2TotalPt').value = 4.0;
+          document.getElementById('epP2MaxPt').value = 2.0;
+          setEpPercentMode('moet');
 
           document.getElementById('epChkP3').checked = false;
           document.getElementById('epP3Num').value = 0;
+          document.getElementById('epP3TotalPt').value = 0.0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
             `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX Thầy Sáng: Phần I (6 câu x 1.0đ = 6.0đ) + Phần II (2 câu x 2.0đ = 4.0đ) • 15 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
             `Chuẩn phân bổ 10đ: Phần I (6 câu x 1.0đ = 6.0đ) • Phần II (2 câu x 2.0đ = 4.0đ theo chuẩn Bộ GD&ĐT).`;
 
+        } else if (presetKey === 'tx_3_7') {
+          document.getElementById('epDuration').value = 15;
+          document.getElementById('epChkP1').checked = true;
+          document.getElementById('epP1Num').value = 6;
+          document.getElementById('epP1TotalPt').value = 3.0;
+          document.getElementById('epP1DefPt').value = 0.5;
+
+          document.getElementById('epChkP2').checked = true;
+          document.getElementById('epP2Num').value = 2;
+          document.getElementById('epP2TotalPt').value = 7.0;
+          document.getElementById('epP2MaxPt').value = 3.5;
+          setEpPercentMode('moet');
+
+          document.getElementById('epChkP3').checked = false;
+          document.getElementById('epP3Num').value = 0;
+          document.getElementById('epP3TotalPt').value = 0.0;
+
+          document.getElementById('epScanSummaryTitle').innerHTML = 
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (6 câu = 3.0đ) + Phần II (2 câu = 7.0đ) • 15 phút`;
+          document.getElementById('epScanSuggestionDesc').innerHTML = 
+            `Phân bổ 10đ: Phần I (6 câu x 0.5đ = 3.0đ) • Phần II (2 câu x 3.5đ = 7.0đ theo chuẩn Bộ GD&ĐT).`;
+
         } else if (presetKey === 'tx_8_2') {
           document.getElementById('epDuration').value = 15;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 8;
-          document.getElementById('epP1DefPt').value = 0.5; // 8 x 0.5 = 4.0đ
+          document.getElementById('epP1TotalPt').value = 4.0;
+          document.getElementById('epP1DefPt').value = 0.5;
 
           document.getElementById('epChkP2').checked = true;
           document.getElementById('epP2Num').value = 2;
-          document.getElementById('epP2MaxPt').value = 3.0; // 2 x 3.0 = 6.0đ
-          document.getElementById('epP2PercentMode').value = 'moet';
+          document.getElementById('epP2TotalPt').value = 6.0;
+          document.getElementById('epP2MaxPt').value = 3.0;
+          setEpPercentMode('moet');
 
           document.getElementById('epChkP3').checked = false;
           document.getElementById('epP3Num').value = 0;
+          document.getElementById('epP3TotalPt').value = 0.0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
             `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (8 câu) + Phần II (2 câu Đ/S) • Thời gian 15 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
-            `Phân bổ 10đ: Phần I (8 câu x 0.5đ = 4.0đ) • Phần II (2 câu x 3.0đ = 6.0đ theo % Lũy tiến).`;
+            `Phân bổ 10đ: Phần I (8 câu x 0.5đ = 4.0đ) • Phần II (2 câu x 3.0đ = 6.0đ theo % Chuẩn Bộ).`;
 
         } else if (presetKey === 'gk_12_4_6') {
           // Chuẩn Bộ GD&ĐT (12-4-6)
           document.getElementById('epDuration').value = 45;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 12;
+          document.getElementById('epP1TotalPt').value = 3.0;
           document.getElementById('epP1DefPt').value = 0.25;
 
           document.getElementById('epChkP2').checked = true;
           document.getElementById('epP2Num').value = 4;
+          document.getElementById('epP2TotalPt').value = 4.0;
           document.getElementById('epP2MaxPt').value = 1.0;
-          document.getElementById('epP2PercentMode').value = 'moet';
+          setEpPercentMode('moet');
 
           document.getElementById('epChkP3').checked = true;
           document.getElementById('epP3Num').value = 6;
+          document.getElementById('epP3TotalPt').value = 3.0;
           document.getElementById('epP3DefPt').value = 0.5;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
@@ -4571,15 +5038,19 @@
 
         } else if (presetKey.startsWith('mcq_')) {
           const num = parseInt(presetKey.replace('mcq_', '')) || 10;
+          const ptPerQ = Math.round((10.0 / num) * 100) / 100;
           document.getElementById('epDuration').value = (num <= 10) ? 15 : ((num <= 20) ? 25 : ((num <= 40) ? 50 : 90));
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = num;
-          document.getElementById('epP1DefPt').value = Math.round((10.0 / num) * 100) / 100;
+          document.getElementById('epP1TotalPt').value = 10.0;
+          document.getElementById('epP1DefPt').value = ptPerQ;
 
           document.getElementById('epChkP2').checked = false;
           document.getElementById('epP2Num').value = 0;
+          document.getElementById('epP2TotalPt').value = 0.0;
           document.getElementById('epChkP3').checked = false;
           document.getElementById('epP3Num').value = 0;
+          document.getElementById('epP3TotalPt').value = 0.0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
             `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Đề 1 Dạng thức: ${num} câu Phần I • Thời gian ${document.getElementById('epDuration').value} phút`;
@@ -4664,29 +5135,32 @@
           document.getElementById('epScanSuggestionDesc').textContent = suggestion.description;
         }
 
-        // Cấu hình các ô nhập dạng thức theo gợi ý
-        const p1 = (suggestion && suggestion.part1) ? suggestion.part1 : { enabled: true, numQuestions: 6, pointPerQuestion: 0.5 };
-        const p2 = (suggestion && suggestion.part2) ? suggestion.part2 : { enabled: true, numQuestions: 2, maxPointPerQuestion: 3.5, percentMode: 'moet' };
+        // Cấu hình các ô nhập dạng thức theo gợi ý (mặc định chuẩn Thầy Sáng: P1 6 câu = 6.0đ, P2 2 câu = 4.0đ)
+        const p1 = (suggestion && suggestion.part1) ? suggestion.part1 : { enabled: true, numQuestions: 6, pointPerQuestion: 1.0 };
+        const p2 = (suggestion && suggestion.part2) ? suggestion.part2 : { enabled: true, numQuestions: 2, maxPointPerQuestion: 2.0, percentMode: 'moet' };
         const p3 = (suggestion && suggestion.part3) ? suggestion.part3 : { enabled: false, numQuestions: 0, pointPerQuestion: 0.5 };
 
-        document.getElementById('epChkP1').checked = p1.enabled !== false && p1.numQuestions > 0;
-        document.getElementById('epP1Num').value = p1.numQuestions || 0;
-        document.getElementById('epP1DefPt').value = p1.pointPerQuestion || 0.5;
+        const n1 = p1.numQuestions || 0;
+        const pt1 = p1.pointPerQuestion || 1.0;
+        document.getElementById('epChkP1').checked = p1.enabled !== false && n1 > 0;
+        document.getElementById('epP1Num').value = n1;
+        document.getElementById('epP1DefPt').value = pt1;
+        document.getElementById('epP1TotalPt').value = +(n1 * pt1).toFixed(1);
 
-        document.getElementById('epChkP2').checked = p2.enabled !== false && p2.numQuestions > 0;
-        document.getElementById('epP2Num').value = p2.numQuestions || 0;
-        document.getElementById('epP2MaxPt').value = p2.maxPointPerQuestion || 3.5;
-        document.getElementById('epP2PercentMode').value = p2.percentMode || 'moet';
+        const n2 = p2.numQuestions || 0;
+        const max2 = p2.maxPointPerQuestion || 2.0;
+        document.getElementById('epChkP2').checked = p2.enabled !== false && n2 > 0;
+        document.getElementById('epP2Num').value = n2;
+        document.getElementById('epP2MaxPt').value = max2;
+        document.getElementById('epP2TotalPt').value = +(n2 * max2).toFixed(1);
+        setEpPercentMode(p2.percentMode || 'moet');
 
-        // Tỷ lệ % Phần II
-        document.getElementById('epP2Pct1').value = (p2.percentages && p2.percentages[1]) || 10;
-        document.getElementById('epP2Pct2').value = (p2.percentages && p2.percentages[2]) || 25;
-        document.getElementById('epP2Pct3').value = (p2.percentages && p2.percentages[3]) || 50;
-        document.getElementById('epP2Pct4').value = (p2.percentages && p2.percentages[4]) || 100;
-
-        document.getElementById('epChkP3').checked = p3.enabled !== false && p3.numQuestions > 0;
-        document.getElementById('epP3Num').value = p3.numQuestions || 0;
-        document.getElementById('epP3DefPt').value = p3.pointPerQuestion || 0.5;
+        const n3 = p3.numQuestions || 0;
+        const pt3 = p3.pointPerQuestion || 0.5;
+        document.getElementById('epChkP3').checked = p3.enabled !== false && n3 > 0;
+        document.getElementById('epP3Num').value = n3;
+        document.getElementById('epP3DefPt').value = pt3;
+        document.getElementById('epP3TotalPt').value = +(n3 * pt3).toFixed(1);
 
         updateEpLiveTotals();
         document.getElementById('editAndPublishModal').style.display = 'flex';
@@ -4708,14 +5182,24 @@
         const num1 = chk1 ? (parseInt(document.getElementById('epP1Num').value) || 0) : 0;
         const pt1 = chk1 ? (parseFloat(document.getElementById('epP1DefPt').value) || 0) : 0;
         const total1 = Math.round(num1 * pt1 * 100) / 100;
+        const epP1TotEl = document.getElementById('epP1TotalPt');
+        if (epP1TotEl && document.activeElement !== epP1TotEl) epP1TotEl.value = total1.toFixed(1);
+        const epP1Desc = document.getElementById('epP1PerQDesc');
+        if (epP1Desc) epP1Desc.innerHTML = chk1 ? `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num1} câu x ${pt1.toFixed(2)}đ = ${total1.toFixed(1)} điểm` : 'Phần I hiện đang tắt';
 
         const num2 = chk2 ? (parseInt(document.getElementById('epP2Num').value) || 0) : 0;
         const maxPt2 = chk2 ? (parseFloat(document.getElementById('epP2MaxPt').value) || 0) : 0;
         const total2 = Math.round(num2 * maxPt2 * 100) / 100;
+        const epP2TotEl = document.getElementById('epP2TotalPt');
+        if (epP2TotEl && document.activeElement !== epP2TotEl) epP2TotEl.value = total2.toFixed(1);
 
         const num3 = chk3 ? (parseInt(document.getElementById('epP3Num').value) || 0) : 0;
         const pt3 = chk3 ? (parseFloat(document.getElementById('epP3DefPt').value) || 0) : 0;
         const total3 = Math.round(num3 * pt3 * 100) / 100;
+        const epP3TotEl = document.getElementById('epP3TotalPt');
+        if (epP3TotEl && document.activeElement !== epP3TotEl) epP3TotEl.value = total3.toFixed(1);
+        const epP3Desc = document.getElementById('epP3PerQDesc');
+        if (epP3Desc) epP3Desc.innerHTML = chk3 ? `<i class="fa-solid fa-circle-check"></i> Hệ thống tự chia đều: ${num3} câu x ${pt3.toFixed(2)}đ = ${total3.toFixed(1)} điểm` : 'Phần III hiện đang tắt';
 
         const grandTotal = Math.round((total1 + total2 + total3) * 100) / 100;
 
@@ -4725,7 +5209,7 @@
 
         const badge = document.getElementById('epLiveTotalBadge');
         badge.textContent = `Tổng điểm: ${grandTotal.toFixed(2).replace(/\.00$/, '')} / 10đ`;
-        if (Math.abs(grandTotal - 10.0) < 0.01) {
+        if (Math.abs(grandTotal - 10.0) < 0.05) {
           badge.style.background = '#dcfce7';
           badge.style.color = '#15803d';
           badge.style.borderColor = '#86efac';
@@ -4735,23 +5219,11 @@
           badge.style.borderColor = '#fde68a';
         }
 
-        // Cập nhật xem trước Phần II Đúng/Sai
-        const mode = document.getElementById('epP2PercentMode').value;
-        const customBox = document.getElementById('epP2CustomBox');
-        if (mode === 'custom') {
-          customBox.style.display = 'grid';
-        } else {
-          customBox.style.display = 'none';
-        }
-
+        // Cập nhật xem trước Phần II Đúng/Sai (2 lựa chọn chuẩn hóa)
+        const mode = document.getElementById('epP2PercentMode')?.value || 'moet';
         let p1Pct = 10, p2Pct = 25, p3Pct = 50, p4Pct = 100;
         if (mode === 'equal') {
           p1Pct = 25; p2Pct = 50; p3Pct = 75; p4Pct = 100;
-        } else if (mode === 'custom') {
-          p1Pct = parseFloat(document.getElementById('epP2Pct1').value) || 10;
-          p2Pct = parseFloat(document.getElementById('epP2Pct2').value) || 25;
-          p3Pct = parseFloat(document.getElementById('epP2Pct3').value) || 50;
-          p4Pct = parseFloat(document.getElementById('epP2Pct4').value) || 100;
         }
 
         const pt_1 = Math.round((maxPt2 * p1Pct / 100) * 100) / 100;
@@ -4763,11 +5235,54 @@
           `Điểm thực tế/câu: 1 ý = ${pt_1}đ (${p1Pct}%) | 2 ý = ${pt_2}đ (${p2Pct}%) | 3 ý = ${pt_3}đ (${p3Pct}%) | 4 ý = ${pt_4}đ (${p4Pct}%)`;
       }
 
-      // Lắng nghe thay đổi trong Hộp thoại Edit & Publish
-      ['epChkP1', 'epChkP2', 'epChkP3', 'epP1Num', 'epP1DefPt', 'epP2Num', 'epP2MaxPt', 'epP2PercentMode', 'epP2Pct1', 'epP2Pct2', 'epP2Pct3', 'epP2Pct4', 'epP3Num', 'epP3DefPt'].forEach(id => {
+      // Lắng nghe thay đổi 2 chiều trong Hộp thoại Edit & Publish
+      const epP1TotEl = document.getElementById('epP1TotalPt');
+      if (epP1TotEl) {
+        epP1TotEl.addEventListener('input', () => {
+          const num = parseInt(document.getElementById('epP1Num').value) || 1;
+          const tot = parseFloat(epP1TotEl.value) || 0;
+          document.getElementById('epP1DefPt').value = +(tot / num).toFixed(2);
+          updateEpLiveTotals();
+        });
+      }
+      const epP2TotEl = document.getElementById('epP2TotalPt');
+      if (epP2TotEl) {
+        epP2TotEl.addEventListener('input', () => {
+          const num = parseInt(document.getElementById('epP2Num').value) || 1;
+          const tot = parseFloat(epP2TotEl.value) || 0;
+          document.getElementById('epP2MaxPt').value = +(tot / num).toFixed(2);
+          updateEpLiveTotals();
+        });
+      }
+      const epP3TotEl = document.getElementById('epP3TotalPt');
+      if (epP3TotEl) {
+        epP3TotEl.addEventListener('input', () => {
+          const num = parseInt(document.getElementById('epP3Num').value) || 1;
+          const tot = parseFloat(epP3TotEl.value) || 0;
+          document.getElementById('epP3DefPt').value = +(tot / num).toFixed(2);
+          updateEpLiveTotals();
+        });
+      }
+
+      ['epChkP1', 'epChkP2', 'epChkP3', 'epP1Num', 'epP1DefPt', 'epP2Num', 'epP2MaxPt', 'epP3Num', 'epP3DefPt'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-          el.addEventListener('input', updateEpLiveTotals);
+          el.addEventListener('input', () => {
+            if (id === 'epP1Num') {
+              const num = parseInt(el.value) || 1;
+              const tot = parseFloat(document.getElementById('epP1TotalPt')?.value);
+              if (!isNaN(tot) && tot > 0) document.getElementById('epP1DefPt').value = +(tot / num).toFixed(2);
+            } else if (id === 'epP2Num') {
+              const num = parseInt(el.value) || 1;
+              const tot = parseFloat(document.getElementById('epP2TotalPt')?.value);
+              if (!isNaN(tot) && tot > 0) document.getElementById('epP2MaxPt').value = +(tot / num).toFixed(2);
+            } else if (id === 'epP3Num') {
+              const num = parseInt(el.value) || 1;
+              const tot = parseFloat(document.getElementById('epP3TotalPt')?.value);
+              if (!isNaN(tot) && tot > 0) document.getElementById('epP3DefPt').value = +(tot / num).toFixed(2);
+            }
+            updateEpLiveTotals();
+          });
           el.addEventListener('change', updateEpLiveTotals);
         }
       });
@@ -4868,19 +5383,17 @@
         const defPt1 = parseFloat(document.getElementById('epP1DefPt').value) || 0.25;
 
         const chk2 = document.getElementById('epChkP2').checked;
-        const num2 = parseInt(document.getElementById('epP2Num').value) || 4;
-        const maxPt2 = parseFloat(document.getElementById('epP2MaxPt').value) || 1.0;
-        const p2Mode = document.getElementById('epP2PercentMode').value;
-        const p2Percentages = {
-          1: parseFloat(document.getElementById('epP2Pct1').value) || 10,
-          2: parseFloat(document.getElementById('epP2Pct2').value) || 25,
-          3: parseFloat(document.getElementById('epP2Pct3').value) || 50,
-          4: parseFloat(document.getElementById('epP2Pct4').value) || 100
-        };
+        const num2 = parseInt(document.getElementById('epP2Num').value) || 2;
+        const maxPt2 = parseFloat(document.getElementById('epP2MaxPt').value) || 2.0;
+        const p2Mode = document.getElementById('epP2PercentMode')?.value || 'moet';
+        const p2Percentages = (p2Mode === 'equal')
+          ? { 1: 25, 2: 50, 3: 75, 4: 100 }
+          : { 1: 10, 2: 25, 3: 50, 4: 100 };
 
         const chk3 = document.getElementById('epChkP3').checked;
-        const num3 = parseInt(document.getElementById('epP3Num').value) || 6;
+        const num3 = parseInt(document.getElementById('epP3Num').value) || 0;
         const defPt3 = parseFloat(document.getElementById('epP3DefPt').value) || 0.5;
+        const calcTotalPts = Math.round(((chk1 ? num1 * defPt1 : 0) + (chk2 ? num2 * maxPt2 : 0) + (chk3 ? num3 * defPt3 : 0)) * 100) / 100;
 
         const examObj = {
           id: activeEditingExam && activeEditingExam.id ? activeEditingExam.id : null,
@@ -4895,7 +5408,7 @@
           fileName: tempDocSource ? tempDocSource.name : title,
           formatVersion: 'moet_flexible',
           status: 'active',
-          totalPoints: 10,
+          totalPoints: calcTotalPts || 10,
           part1: {
             enabled: chk1,
             numQuestions: num1,
@@ -4978,18 +5491,18 @@
           if (!activeEditingExam.durationMinutes || (activeEditingExam.durationMinutes === 45 && isTxDoc)) {
             activeEditingExam.durationMinutes = autoDuration;
           }
-          // Chuẩn hóa cấu trúc 3 phần nếu chưa có
+          // Chuẩn hóa cấu trúc 3 phần theo chuẩn Thầy Sáng nếu chưa có
           if (!activeEditingExam.part1) {
-            activeEditingExam.part1 = { enabled: true, numQuestions: isTxDoc ? 6 : 12, defaultPoint: isTxDoc ? 0.5 : 0.25, answerKey: activeEditingExam.answerKey || {}, points: {} };
+            activeEditingExam.part1 = { enabled: true, numQuestions: isTxDoc ? 6 : 12, defaultPoint: isTxDoc ? 1.0 : 0.25, answerKey: activeEditingExam.answerKey || {}, points: {} };
           }
           if (!activeEditingExam.part2) {
-            activeEditingExam.part2 = { enabled: true, numQuestions: isTxDoc ? 2 : 4, percentMode: 'moet', percentages: { 1: 10, 2: 25, 3: 50, 4: 100 }, maxPointPerQuestion: isTxDoc ? 3.5 : 1.0, answerKey: {}, customPoints: {} };
+            activeEditingExam.part2 = { enabled: true, numQuestions: isTxDoc ? 2 : 4, percentMode: 'moet', percentages: { 1: 10, 2: 25, 3: 50, 4: 100 }, maxPointPerQuestion: isTxDoc ? 2.0 : 1.0, answerKey: {}, customPoints: {} };
           }
           if (!activeEditingExam.part3) {
             activeEditingExam.part3 = { enabled: !isTxDoc, numQuestions: isTxDoc ? 0 : 6, defaultPoint: 0.5, answerKey: {}, points: {} };
           }
         } else {
-          // Tạo đề mới chuẩn
+          // Tạo đề mới chuẩn (mặc định KTTX: P1 6 câu x 1.0đ = 6đ, P2 2 câu x 2.0đ = 4đ)
           activeEditingExam = {
             id: null,
             title: document.getElementById('editorExamTitle').value || (isTxDoc ? 'Đề Kiểm Tra Thường Xuyên - Môn Toán 12' : 'Đề Kiểm Tra Môn Toán 12 - 3 Dạng Thức Chuẩn'),
@@ -5003,7 +5516,7 @@
             part1: {
               enabled: true,
               numQuestions: isTxDoc ? 6 : 12,
-              defaultPoint: isTxDoc ? 0.5 : 0.25,
+              defaultPoint: isTxDoc ? 1.0 : 0.25,
               answerKey: {},
               points: {}
             },
@@ -5012,7 +5525,7 @@
               numQuestions: isTxDoc ? 2 : 4,
               percentMode: 'moet',
               percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
-              maxPointPerQuestion: isTxDoc ? 3.5 : 1.0,
+              maxPointPerQuestion: isTxDoc ? 2.0 : 1.0,
               customPoints: {},
               answerKey: {}
             },
@@ -5692,6 +6205,22 @@
           if (p3TotInput && document.activeElement !== p3TotInput) p3TotInput.value = p3Total.toFixed(1);
         }
 
+        // Cập nhật 3 ô nhập tổng điểm nhanh ở đầu Editor (đồng bộ 2 chiều)
+        const qP1El = document.getElementById('quickP1Total');
+        const qP1Note = document.getElementById('quickP1Note');
+        if (qP1El && document.activeElement !== qP1El) qP1El.value = isP1 ? p1Total.toFixed(1) : '0.0';
+        if (qP1Note) qP1Note.textContent = isP1 && p1N > 0 ? `${p1N} câu • ${(p1Total / p1N).toFixed(2)}đ/câu` : 'Đã tắt';
+
+        const qP2El = document.getElementById('quickP2Total');
+        const qP2Note = document.getElementById('quickP2Note');
+        if (qP2El && document.activeElement !== qP2El) qP2El.value = isP2 ? p2Total.toFixed(1) : '0.0';
+        if (qP2Note) qP2Note.textContent = isP2 && p2N > 0 ? `${p2N} câu • ${(p2Total / p2N).toFixed(2)}đ/câu` : 'Đã tắt';
+
+        const qP3El = document.getElementById('quickP3Total');
+        const qP3Note = document.getElementById('quickP3Note');
+        if (qP3El && document.activeElement !== qP3El) qP3El.value = isP3 ? p3Total.toFixed(1) : '0.0';
+        if (qP3Note) qP3Note.textContent = isP3 && p3N > 0 ? `${p3N} câu • ${(p3Total / p3N).toFixed(2)}đ/câu` : 'Đã tắt';
+
         const grandTotal = Math.round((p1Total + p2Total + p3Total) * 100) / 100;
         activeEditingExam.totalPoints = grandTotal;
 
@@ -5745,6 +6274,73 @@
         renderP2LivePointPreview();
         showToast('Đã tự động cân bằng chuẩn 10.0đ!', 'fa-wand-magic-sparkles');
       });
+
+      // Lắng nghe đồng bộ 2 chiều từ 3 ô "Nhập tổng điểm từng phần" trên thanh đầu Editor
+      const quickP1El = document.getElementById('quickP1Total');
+      if (quickP1El) {
+        quickP1El.addEventListener('input', (e) => {
+          if (!activeEditingExam) return;
+          const total = parseFloat(e.target.value) || 0;
+          activeEditingExam.part1.enabled = total > 0;
+          const num = parseInt(activeEditingExam.part1.numQuestions) || 6;
+          const def = num > 0 ? +(total / num).toFixed(2) : 0;
+          activeEditingExam.part1.defaultPoint = def;
+          activeEditingExam.part1.points = {};
+          const p1Tot = document.getElementById('p1TotalPt');
+          const p1Def = document.getElementById('p1DefPt');
+          if (p1Tot) p1Tot.value = total.toFixed(1);
+          if (p1Def) p1Def.value = def;
+          updateFormatSelectorUI();
+          renderPart1();
+          updateScoreSummary();
+        });
+      }
+
+      const quickP2El = document.getElementById('quickP2Total');
+      if (quickP2El) {
+        quickP2El.addEventListener('input', (e) => {
+          if (!activeEditingExam) return;
+          const total = parseFloat(e.target.value) || 0;
+          activeEditingExam.part2.enabled = total > 0;
+          const num = parseInt(activeEditingExam.part2.numQuestions) || 2;
+          const maxPt = num > 0 ? +(total / num).toFixed(2) : 0;
+          activeEditingExam.part2.maxPointPerQuestion = maxPt;
+          activeEditingExam.part2.customPoints = {};
+          const p2Tot = document.getElementById('p2TotalPt');
+          const p2Max = document.getElementById('p2MaxPt');
+          if (p2Tot) p2Tot.value = total.toFixed(1);
+          if (p2Max) p2Max.value = maxPt;
+          updateFormatSelectorUI();
+          renderPart2();
+          renderP2LivePointPreview();
+          updateScoreSummary();
+        });
+      }
+
+      const quickP3El = document.getElementById('quickP3Total');
+      if (quickP3El) {
+        quickP3El.addEventListener('input', (e) => {
+          if (!activeEditingExam) return;
+          const total = parseFloat(e.target.value) || 0;
+          activeEditingExam.part3.enabled = total > 0;
+          if (total > 0 && (!activeEditingExam.part3.numQuestions || activeEditingExam.part3.numQuestions <= 0)) {
+            activeEditingExam.part3.numQuestions = 6;
+            const p3NumEl = document.getElementById('p3NumQ');
+            if (p3NumEl) p3NumEl.value = 6;
+          }
+          const num = parseInt(activeEditingExam.part3.numQuestions) || 6;
+          const def = num > 0 ? +(total / num).toFixed(2) : 0;
+          activeEditingExam.part3.defaultPoint = def;
+          activeEditingExam.part3.points = {};
+          const p3Tot = document.getElementById('p3TotalPt');
+          const p3Def = document.getElementById('p3DefPt');
+          if (p3Tot) p3Tot.value = total.toFixed(1);
+          if (p3Def) p3Def.value = def;
+          updateFormatSelectorUI();
+          renderPart3();
+          updateScoreSummary();
+        });
+      }
 
       // Lắng nghe thay đổi cấu hình Phần I: Nhập tổng điểm tự chia đều cho số câu
       const p1TotEl = document.getElementById('p1TotalPt');
@@ -5973,14 +6569,56 @@
 
       // Chỉnh sửa & Xóa
       window.editExam = async function(examId) {
-        const exam = await store.fetchExamDetail(examId, 'teacher');
-        if (!exam) return;
-        tempDocSource = {
-          type: exam.fileSourceType || 'url',
-          url: exam.fileUrl,
-          name: exam.fileName || exam.title
-        };
-        initSplitEditorWithDoc(tempDocSource, exam);
+        try {
+          const exam = await store.fetchExamDetail(examId, 'teacher');
+          if (!exam) {
+            showToast(`Không tìm thấy dữ liệu đề [${examId}] để chỉnh sửa!`, 'fa-circle-exclamation');
+            return;
+          }
+
+          // Nếu là đề Online Anti (hoặc có trong kho đề Anti), mở ngay Modal cấu hình đầy đủ (tránh mở iframe trống)
+          const antiDb = getAntiExamsDatabase() || {};
+          const antiKey = exam.antiQuizId || (antiDb[examId] ? examId : null);
+          if (exam.sourceType === 'anti_quiz' || exam.antiQuizData || antiKey) {
+            selectAntiQuizAndOpenConfig(antiKey || examId, exam);
+            showToast(`Đang mở chỉnh sửa cấu hình đề [${examId}]`, 'fa-pen-to-square');
+            return;
+          }
+
+          tempDocSource = {
+            type: exam.fileSourceType || 'url',
+            url: exam.fileUrl || '',
+            name: exam.fileName || exam.title
+          };
+
+          // Nếu đề không có fileUrl đính kèm, mở nhanh Edit & Publish Modal với dữ liệu cũ điền sẵn
+          if (!tempDocSource.url) {
+            activeEditingExam = JSON.parse(JSON.stringify(exam));
+            const p1 = exam.part1 || { enabled: true, numQuestions: 6, defaultPoint: 1.0 };
+            const p2 = exam.part2 || { enabled: true, numQuestions: 2, maxPointPerQuestion: 2.0, percentMode: 'moet' };
+            const p3 = exam.part3 || { enabled: false, numQuestions: 0, defaultPoint: 0.5 };
+            openEditAndPublishModal(tempDocSource, {
+              structure: { summary: `Đang chỉnh sửa đề [${exam.id}]` },
+              suggestion: {
+                description: 'Thầy điều chỉnh tổng điểm từng phần, thời gian và lưu cập nhật.',
+                part1: { enabled: p1.enabled !== false, numQuestions: p1.numQuestions || 0, pointPerQuestion: p1.defaultPoint || 1.0 },
+                part2: { enabled: p2.enabled !== false, numQuestions: p2.numQuestions || 0, maxPointPerQuestion: p2.maxPointPerQuestion || 2.0, percentMode: p2.percentMode || 'moet' },
+                part3: { enabled: p3.enabled !== false, numQuestions: p3.numQuestions || 0, pointPerQuestion: p3.defaultPoint || 0.5 }
+              }
+            });
+            document.getElementById('epExamTitle').value = exam.title || '';
+            document.getElementById('epDuration').value = exam.durationMinutes || 15;
+            document.getElementById('epPassword').value = exam.password || '';
+            showToast(`Đang mở chỉnh sửa đề [${examId}]`, 'fa-pen-to-square');
+            return;
+          }
+
+          initSplitEditorWithDoc(tempDocSource, exam);
+          showToast(`Đang mở trình biên tập đề [${examId}]`, 'fa-pen-to-square');
+        } catch (err) {
+          console.error('Lỗi khi mở sửa đề:', err);
+          showToast('Có lỗi khi mở chỉnh sửa đề thi. Vui lòng thử lại!', 'fa-triangle-exclamation');
+        }
       };
 
       window.deleteExamConfirm = async function(examId) {
@@ -5996,30 +6634,39 @@
       let currentSubmissions = [];
 
       window.openStatsModal = async function(examId) {
-        const data = await store.fetchExamResults(examId);
-        currentStatsExam = data.exam || {};
-        currentSubmissions = data.submissions || [];
+        try {
+          const data = await store.fetchExamResults(examId);
+          currentStatsExam = data.exam || { id: examId, title: examId };
+          currentSubmissions = Array.isArray(data.submissions) ? data.submissions : [];
 
-        document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
-        document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
+          document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
+          document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
 
-        if (currentSubmissions.length > 0) {
-          const scores = currentSubmissions.map(s => s.score || 0);
-          const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-          const max = Math.max(...scores);
-          const violations = currentSubmissions.reduce((a, b) => a + (b.tabViolations || 0), 0);
+          if (currentSubmissions.length > 0) {
+            const scores = currentSubmissions.map(s => Number(s.score) || 0);
+            const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+            const max = Math.max(...scores);
+            const violations = currentSubmissions.reduce((a, b) => a + (Number(b.tabViolations) || 0), 0);
 
-          document.getElementById('statAvgScore').textContent = avg.toFixed(1);
-          document.getElementById('statMaxScore').textContent = max.toFixed(1);
-          document.getElementById('statViolationsCount').textContent = violations;
-        } else {
-          document.getElementById('statAvgScore').textContent = '0.0';
-          document.getElementById('statMaxScore').textContent = '0.0';
-          document.getElementById('statViolationsCount').textContent = '0';
+            document.getElementById('statAvgScore').textContent = avg.toFixed(1);
+            document.getElementById('statMaxScore').textContent = max.toFixed(1);
+            document.getElementById('statViolationsCount').textContent = violations;
+          } else {
+            document.getElementById('statAvgScore').textContent = '0.0';
+            document.getElementById('statMaxScore').textContent = '0.0';
+            document.getElementById('statViolationsCount').textContent = '0';
+          }
+
+          renderStatsTable(currentSubmissions);
+          const statsModalEl = document.getElementById('statsModal');
+          if (statsModalEl) {
+            statsModalEl.style.zIndex = '99998';
+            statsModalEl.style.display = 'flex';
+          }
+        } catch (err) {
+          console.error('Lỗi khi mở Thống kê:', err);
+          showToast('Không thể tải dữ liệu thống kê đề thi!', 'fa-triangle-exclamation');
         }
-
-        renderStatsTable(currentSubmissions);
-        document.getElementById('statsModal').style.display = 'flex';
       };
 
       function renderStatsTable(subs) {
@@ -6091,8 +6738,62 @@
       window.viewSubmissionDetail = function(subId) {
         const sub = currentSubmissions.find(s => s.id === subId);
         if (!sub) return;
-        let info = `BÀI LÀM: ${sub.studentName} - Lớp ${sub.studentClass}\nTổng điểm: ${sub.score}đ (P1: ${sub.part1Score||0}đ | P2: ${sub.part2Score||0}đ | P3: ${sub.part3Score||0}đ)\nSố lần chuyển tab: ${sub.tabViolations}\n`;
-        alert(info);
+
+        let overlay = document.getElementById('subDetailOverlay');
+        if (!overlay) {
+          overlay = document.createElement('div');
+          overlay.id = 'subDetailOverlay';
+          overlay.className = 'azota-modal-overlay';
+          overlay.style.zIndex = '100001';
+          document.body.appendChild(overlay);
+        }
+
+        const ans = sub.studentAnswers || {};
+        const p1Entries = Object.entries(ans.part1 || {});
+        const p2Entries = Object.entries(ans.part2 || {});
+        const p3Entries = Object.entries(ans.part3 || {});
+        const min = Math.floor((sub.durationSeconds || 0) / 60);
+        const sec = (sub.durationSeconds || 0) % 60;
+
+        overlay.innerHTML = `
+          <div class="azota-modal-card" style="max-width: 680px;">
+            <div class="azota-modal-header" style="background: #f0f9ff; border-bottom: 1px solid #bae6fd;">
+              <div class="azota-modal-title" style="color: #0369a1;">
+                <i class="fa-solid fa-user-graduate"></i> Chi Tiết Bài Làm: ${sub.studentName} (${sub.studentClass})
+              </div>
+              <button class="azota-modal-close" onclick="document.getElementById('subDetailOverlay').style.display='none'">&times;</button>
+            </div>
+            <div class="azota-modal-body" style="max-height: 70vh; overflow-y: auto;">
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;">
+                <div style="background: #ecfdf5; border: 1px solid #86efac; border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #166534; font-weight: 700;">TỔNG ĐIỂM</div>
+                  <div style="font-size: 1.35rem; font-weight: 800; color: #15803d;">${sub.score}đ</div>
+                </div>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #475569; font-weight: 700;">PHẦN I / II / III</div>
+                  <div style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin-top: 4px;">${sub.part1Score ?? 0} | ${sub.part2Score ?? 0} | ${sub.part3Score ?? 0}</div>
+                </div>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #475569; font-weight: 700;">THỜI GIAN</div>
+                  <div style="font-size: 1rem; font-weight: 800; color: #0284c7; margin-top: 3px;">${min}p ${sec}s</div>
+                </div>
+                <div style="background: ${(sub.tabViolations > 0) ? '#fef2f2' : '#f8fafc'}; border: 1px solid ${(sub.tabViolations > 0) ? '#fecaca' : '#e2e8f0'}; border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #475569; font-weight: 700;">CHUYỂN TAB</div>
+                  <div style="font-size: 1rem; font-weight: 800; color: ${(sub.tabViolations > 0) ? '#dc2626' : '#16a34a'}; margin-top: 3px;">${sub.tabViolations || 0} lần</div>
+                </div>
+              </div>
+              <div style="font-size: 0.85rem; line-height: 1.7; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px;">
+                <div><strong>Phần I đã chọn:</strong> ${p1Entries.length ? p1Entries.map(([q, a]) => `C${q}: <b>${a}</b>`).join(' • ') : '<em>Không có dữ liệu</em>'}</div>
+                <div style="margin-top: 6px;"><strong>Phần II đã chọn:</strong> ${p2Entries.length ? p2Entries.map(([q, obj]) => `C${q}: [${Object.entries(obj || {}).map(([k, v]) => `${k}:${v}`).join(', ')}]`).join(' | ') : '<em>Không có dữ liệu</em>'}</div>
+                ${p3Entries.length ? `<div style="margin-top: 6px;"><strong>Phần III đã điền:</strong> ${p3Entries.map(([q, a]) => `C${q}: <b>${a}</b>`).join(' • ')}</div>` : ''}
+              </div>
+            </div>
+            <div class="azota-modal-footer">
+              <button class="btn-create-exam" onclick="document.getElementById('subDetailOverlay').style.display='none'" style="padding: 8px 20px;">Đóng</button>
+            </div>
+          </div>
+        `;
+        overlay.style.display = 'flex';
       };
 
       loadExamDashboard();

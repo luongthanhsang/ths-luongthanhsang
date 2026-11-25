@@ -313,7 +313,52 @@
       } catch (e) {}
 
       const exams = this.getLocalExams();
-      const exam = exams.find(function(e) { return e.id === id; });
+      let exam = exams.find(function(e) { return e.id === id; });
+
+      // Nếu không có trong local, tra cứu trong kho đề bảo mật Anti
+      if (!exam && !deletedIds.includes(id)) {
+        const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
+        const publicDb = window.EXAMS_DATABASE || {};
+        const anti = secretDb[id] || publicDb[id];
+        if (anti) {
+          const cfg = anti.config || {};
+          const isTx = /TX|THUONG\s*XUYEN|15P/i.test(cfg.title || anti.title || '');
+          exam = {
+            id: id,
+            title: cfg.title || anti.title || 'Đề Kiểm Tra',
+            durationMinutes: cfg.timeLimitMinutes || (isTx ? 15 : 45),
+            totalPoints: cfg.maxScore || 10,
+            status: 'active',
+            sourceType: 'anti_quiz',
+            antiQuizData: anti,
+            part1: {
+              enabled: Array.isArray(anti.part1) && anti.part1.length > 0,
+              numQuestions: (anti.part1 || []).length,
+              defaultPoint: isTx ? 1.0 : 0.25,
+              answerKey: (anti.part1 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
+            },
+            part2: {
+              enabled: Array.isArray(anti.part2) && anti.part2.length > 0,
+              numQuestions: (anti.part2 || []).length,
+              maxPointPerQuestion: isTx ? 2.0 : 1.0,
+              percentMode: 'moet',
+              percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
+              answerKey: (anti.part2 || []).reduce((acc, q, idx) => {
+                const ca = q.correctAnswers || {};
+                acc[String(idx + 1)] = { a: ca.a || '', b: ca.b || '', c: ca.c || '', d: ca.d || '' };
+                return acc;
+              }, {})
+            },
+            part3: {
+              enabled: Array.isArray(anti.part3) && anti.part3.length > 0,
+              numQuestions: (anti.part3 || []).length,
+              defaultPoint: 0.5,
+              answerKey: (anti.part3 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
+            }
+          };
+        }
+      }
+
       if (!exam || deletedIds.includes(exam.id)) return null;
       
       const copy = JSON.parse(JSON.stringify(exam));
@@ -630,7 +675,55 @@
       } catch (e) {}
 
       const exams = this.getLocalExams();
-      const exam = exams.find(function(e) { return e.id === payload.examId; });
+      let exam = exams.find(function(e) { return e.id === payload.examId; });
+
+      // Nếu không tìm thấy trong LocalExams, tra cứu trong kho đề bảo mật Anti
+      if (!exam) {
+        const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
+        const publicDb = window.EXAMS_DATABASE || {};
+        const anti = secretDb[payload.examId] || publicDb[payload.examId];
+        if (anti) {
+          const cfg = anti.config || {};
+          const isTx = /TX|THUONG\s*XUYEN|15P/i.test(cfg.title || anti.title || '');
+          exam = {
+            id: payload.examId,
+            title: cfg.title || anti.title || 'Đề Kiểm Tra',
+            durationMinutes: cfg.timeLimitMinutes || (isTx ? 15 : 45),
+            totalPoints: cfg.maxScore || 10,
+            status: 'active',
+            sourceType: 'anti_quiz',
+            antiQuizData: anti,
+            part1: {
+              enabled: Array.isArray(anti.part1) && anti.part1.length > 0,
+              numQuestions: (anti.part1 || []).length,
+              defaultPoint: isTx ? 1.0 : 0.25,
+              answerKey: (anti.part1 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
+            },
+            part2: {
+              enabled: Array.isArray(anti.part2) && anti.part2.length > 0,
+              numQuestions: (anti.part2 || []).length,
+              maxPointPerQuestion: isTx ? 2.0 : 1.0,
+              percentMode: 'moet',
+              percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
+              answerKey: (anti.part2 || []).reduce((acc, q, idx) => {
+                const ca = q.correctAnswers || {};
+                acc[String(idx + 1)] = { a: ca.a || '', b: ca.b || '', c: ca.c || '', d: ca.d || '' };
+                return acc;
+              }, {})
+            },
+            part3: {
+              enabled: Array.isArray(anti.part3) && anti.part3.length > 0,
+              numQuestions: (anti.part3 || []).length,
+              defaultPoint: 0.5,
+              answerKey: (anti.part3 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
+            }
+          };
+          // Tự động đưa đề này vào danh sách quản lý để Thầy thấy trên giao-bai.html
+          exams.unshift(exam);
+          this.saveLocalExams(exams);
+        }
+      }
+
       if (!exam) {
         return { success: false, message: 'Đề thi không tồn tại.' };
       }
@@ -697,7 +790,23 @@
       } catch (e) {}
 
       const exams = this.getLocalExams();
-      const exam = exams.find(function(e) { return e.id === examId; }) || {};
+      let exam = exams.find(function(e) { return e.id === id || e.id === examId; });
+      if (!exam) {
+        const secretDb = (typeof window !== 'undefined' && window.ANTI_SECRET_EXAMS_DATABASE) ? window.ANTI_SECRET_EXAMS_DATABASE : {};
+        const publicDb = (typeof window !== 'undefined' && window.EXAMS_DATABASE) ? window.EXAMS_DATABASE : {};
+        const anti = secretDb[examId] || publicDb[examId];
+        if (anti) {
+          const cfg = anti.config || {};
+          exam = {
+            id: examId,
+            title: cfg.title || anti.title || `Đề ${examId}`,
+            status: 'active',
+            durationMinutes: cfg.timeLimitMinutes || 15
+          };
+        } else {
+          exam = { id: examId, title: `Đề thi [${examId}]`, status: 'active' };
+        }
+      }
       const submissions = this.getLocalSubmissions(examId);
 
       return {
