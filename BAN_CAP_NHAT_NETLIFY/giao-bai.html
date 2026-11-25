@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Hệ thống giao bài tập và đề thi trực tuyến chuẩn 100% quy trình Azota & Chương trình GDPT 2018 - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
+  <meta name="description" content="Hệ thống giao bài tập và đề thi trực tuyến đánh giá năng lực môn Toán - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
   <meta name="author" content="ThS. Lương Thanh Sáng">
   <meta name="theme-color" content="#0284c7">
-  <title>Giao Bài Trực Tuyến Chuẩn Azota & GDPT 2018 | ThS. Lương Thanh Sáng</title>
+  <title>Hệ Thống Giao Bài & Thi Trực Tuyến | ThS. Lương Thanh Sáng</title>
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="css/styles.css">
 
   <style>
-    /* CSS RIÊNG BIỆT CHO PHÂN HỆ GIAO BÀI AZOTA CHUẨN 2018 */
+    /* CSS RIÊNG BIỆT CHO PHÂN HỆ GIAO BÀI & THI TRỰC TUYẾN */
     .azota-dashboard {
       padding: 30px 0 60px 0;
       background: #f8fafc;
@@ -236,7 +236,7 @@
       background: #fee2e2;
     }
 
-    /* SPLIT-SCREEN EDITOR CHUẨN 2018 */
+    /* SPLIT-SCREEN EDITOR 3 DẠNG THỨC CHUẨN */
     .azota-split-editor {
       display: none;
       position: fixed;
@@ -1303,7 +1303,7 @@
       border-color: #0284c7;
     }
 
-    /* Azota Full Config Dialog */
+    /* Full Config Dialog */
     .azota-config-dialog {
       max-width: 860px !important;
       width: 95% !important;
@@ -1542,10 +1542,10 @@
           <ul class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li class="breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
-            <li class="breadcrumb-item active" aria-current="page">Giao bài Azota 2018</li>
+            <li class="breadcrumb-item active" aria-current="page">Giao bài trực tuyến</li>
           </ul>
         </nav>
-        <h1 class="page-banner-title"><i class="fa-solid fa-cloud-arrow-up"></i> Hệ Thống Giao Bài Chuẩn 100% Azota & GDPT 2018</h1>
+        <h1 class="page-banner-title"><i class="fa-solid fa-cloud-arrow-up"></i> Hệ Thống Giao Bài & Quản Lý Đề Thi Trực Tuyến</h1>
         <p class="page-banner-desc">Hỗ trợ đầy đủ 3 dạng thức trắc nghiệm mới của Bộ GD&ĐT: Nhiều lựa chọn, Đúng/Sai (tùy chỉnh barem lũy tiến hoặc từng ý) và Trả lời ngắn. Chấm điểm tự động và giám sát chống gian lận.</p>
       </div>
     </section>
@@ -1579,7 +1579,7 @@
     </section>
   </main>
 
-  <!-- ==================== TRÌNH TẠO ĐỀ CHIA ĐÔI MÀN HÌNH CHUẨN 2018 ==================== -->
+  <!-- ==================== TRÌNH TẠO ĐỀ CHIA ĐÔI MÀN HÌNH ==================== -->
   <div class="azota-split-editor" id="splitEditor">
     <!-- Navbar Editor -->
     <div class="editor-navbar">
@@ -1597,7 +1597,7 @@
       </div>
     </div>
 
-    <!-- Body Editor: 2 Cột chuẩn Azota -->
+    <!-- Body Editor: 2 Cột Trực Quan -->
     <div class="editor-body">
       <!-- Cột Trái (65%): Tài liệu đề thi -->
       <div class="editor-left-pane">
@@ -1616,7 +1616,7 @@
         </div>
       </div>
 
-      <!-- Cột Phải (35%): Bảng tạo phiếu đáp án 3 DẠNG THỨC 2018 -->
+      <!-- Cột Phải (35%): Bảng tạo phiếu đáp án 3 DẠNG THỨC -->
       <div class="editor-right-pane">
         
         <!-- Thanh tổng quan thang điểm toàn đề -->
@@ -1653,7 +1653,7 @@
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
             <select id="selFormatPreset" onchange="applyFormatPreset(this.value)" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.75rem; font-weight: 600; background: #ffffff;">
-              <option value="preset_3parts">⚡ 3 Dạng thức chuẩn GDPT 2018</option>
+              <option value="preset_3parts">⚡ 3 Dạng thức chuẩn Bộ GD&ĐT</option>
               <option value="preset_1part_p1">⚡ 1 Dạng thức: 100% Nhiều lựa chọn</option>
               <option value="preset_2parts_p1_p2">⚡ 2 Dạng thức: P1 + P2 (Đúng/Sai)</option>
               <option value="preset_2parts_p1_p3">⚡ 2 Dạng thức: P1 + P3 (Trả lời ngắn)</option>
@@ -1763,7 +1763,7 @@
                 </div>
               </div>
 
-              <!-- BỘ ĐIỀU CHỈNH THANG ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN AZOTA -->
+              <!-- BỘ ĐIỀU CHỈNH THANG ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN BỘ GD&ĐT -->
               <div class="part2-scoring-config-box">
                 <div class="scoring-mode-title">
                   <i class="fa-solid fa-scale-balanced"></i> Quy tắc tính điểm Đúng/Sai (Theo % điểm tối đa):
@@ -1949,7 +1949,7 @@
             <!-- Render danh sách đề bí mật Anti từ ANTI_SECRET_EXAMS_DATABASE bằng JS -->
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; color: #0369a1; background: #f0f9ff; padding: 10px 14px; border-radius: 8px; border: 1px solid #bae6fd;">
-            <i class="fa-solid fa-circle-check" style="color: #0284c7;"></i> <strong>Đề thi Trắc nghiệm Online tương tác:</strong> Đề kiểm tra xuất bản từ Anti sẽ cho phép học sinh làm bài Online trực tiếp, tương tác chọn đáp án câu hỏi, đếm ngược tự động và bảo mật theo quy chuẩn Azota!
+            <i class="fa-solid fa-circle-check" style="color: #0284c7;"></i> <strong>Đề thi Trắc nghiệm Online tương tác:</strong> Đề kiểm tra xuất bản từ Anti sẽ cho phép học sinh làm bài Online trực tiếp, tương tác chọn đáp án câu hỏi, đếm ngược tự động và bảo mật chuẩn Bộ GD&ĐT!
           </div>
         </div>
       </div>
@@ -2009,7 +2009,7 @@
               Đề KTTX: 8 câu P1 + 2 câu P2 (Đ/S)
             </button>
             <button type="button" class="doc-tool-btn" style="background: #f1f5f9; color: #334155; border-color: #cbd5e1;" onclick="applyQuickStructurePreset('gk_12_4_6')">
-              Định kỳ 2018: 12 P1 + 4 P2 + 6 P3
+              Đề Định kỳ: 12 P1 + 4 P2 + 6 P3
             </button>
             <button type="button" class="doc-tool-btn" style="background: #f1f5f9; color: #334155; border-color: #cbd5e1;" onclick="applyQuickStructurePreset('mcq_10')">
               1 Dạng thức: 10 câu P1
@@ -2257,8 +2257,8 @@
         </div>
 
         <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-          <button type="button" class="doc-tool-btn" onclick="quickFillExamText('standard_2018')">
-            <i class="fa-solid fa-file-lines"></i> 3 Dạng thức 2018 (12-4-6)
+          <button type="button" class="doc-tool-btn" onclick="quickFillExamText('standard_moet')">
+            <i class="fa-solid fa-file-lines"></i> 3 Dạng thức chuẩn (12-4-6)
           </button>
           <button type="button" class="doc-tool-btn" onclick="quickFillExamText('mcq_40')">
             <i class="fa-solid fa-file-lines"></i> 1 Dạng thức (40 câu P1)
@@ -2290,7 +2290,7 @@
     <div class="azota-modal-card">
       <div class="azota-modal-header">
         <div class="azota-modal-title">
-          <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Cài Đặt Cấu Hình Đề Thi 2018
+          <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Cài Đặt Cấu Hình Đề Thi Trực Tuyến
         </div>
         <button class="azota-modal-close" id="btnCloseSettingsModal">&times;</button>
       </div>
@@ -2298,7 +2298,7 @@
       <div class="azota-modal-body">
         <div class="settings-group">
           <label for="cfgExamTitle">Tên đề thi / bài tập: *</label>
-          <input type="text" id="cfgExamTitle" placeholder="Ví dụ: Đề Kiểm Tra Định Kỳ Toán 12 Chuẩn 2018">
+          <input type="text" id="cfgExamTitle" placeholder="Ví dụ: Đề Kiểm Tra Định Kỳ Môn Toán 12">
         </div>
 
         <div class="settings-group">
@@ -2374,7 +2374,7 @@
 
       <div class="azota-modal-body">
         <p style="font-size: 0.95rem; color: #334155; margin-bottom: 16px;">
-          Đề thi đã sẵn sàng tiếp nhận bài làm của học sinh. Mã đề ngắn: <strong id="successExamCode" style="color: #0284c7; font-family: 'Fira Code', monospace;">AZ-XXXX</strong>
+          Đề thi đã sẵn sàng tiếp nhận bài làm của học sinh. Mã đề ngắn: <strong id="successExamCode" style="color: #0284c7; font-family: 'Fira Code', monospace;">TS-XXXX</strong>
         </p>
 
         <div style="margin: 10px auto 18px auto; width: 180px; height: 180px; padding: 10px; background: #ffffff; border: 2px dashed #0284c7; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
@@ -2577,15 +2577,15 @@
       <!-- Header -->
       <div class="azota-modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 14px 20px;">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <button type="button" class="btn-azota-back-nav" onclick="closeAzotaConfigModal()">
+          <button type="button" class="btn-azota-back-nav" onclick="closeOnlineConfigModal()">
             <i class="fa-solid fa-chevron-left"></i> Quay lại
           </button>
           <div>
             <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem;" id="cfgTopExamTitle">Tên đề thi: Đề Kiểm Tra...</div>
-            <div style="font-size: 0.8rem; color: #64748b;">Mã đề thi: <strong id="cfgTopExamCode" style="color: #0284c7; font-family: monospace;">AZ-XXXXX</strong></div>
+            <div style="font-size: 0.8rem; color: #64748b;">Mã đề thi: <strong id="cfgTopExamCode" style="color: #0284c7; font-family: monospace;">TS-XXXXX</strong></div>
           </div>
         </div>
-        <button class="azota-modal-close" onclick="closeAzotaConfigModal()">&times;</button>
+        <button class="azota-modal-close" onclick="closeOnlineConfigModal()">&times;</button>
       </div>
 
       <div class="azota-modal-body" style="padding: 20px; max-height: calc(88vh - 130px); overflow-y: auto;">
@@ -2865,10 +2865,10 @@
           </div>
 
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" class="btn-azota-subtle active" id="btnPresetMoet" onclick="applyAzotaP2Preset('moet')">
+            <button type="button" class="btn-azota-subtle active" id="btnPresetMoet" onclick="applyOnlineP2Preset('moet')">
               <i class="fa-solid fa-graduation-cap"></i> Chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
             </button>
-            <button type="button" class="btn-azota-subtle" id="btnPresetEqual" onclick="applyAzotaP2Preset('equal')">
+            <button type="button" class="btn-azota-subtle" id="btnPresetEqual" onclick="applyOnlineP2Preset('equal')">
               <i class="fa-solid fa-equals"></i> Chia đều (25% - 50% - 75% - 100%)
             </button>
           </div>
@@ -2980,10 +2980,10 @@
 
       <!-- Footer Buttons (Ảnh 14) -->
       <div class="azota-modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 20px; display: flex; justify-content: flex-end; gap: 12px;">
-        <button type="button" class="btn-azota-draft" onclick="saveAzotaConfigAsDraft()">
+        <button type="button" class="btn-azota-draft" onclick="saveOnlineConfigAsDraft()">
           Lưu nháp
         </button>
-        <button type="button" class="btn-azota-publish-final" onclick="publishAzotaConfigExam()">
+        <button type="button" class="btn-azota-publish-final" onclick="publishOnlineConfigExam()">
           Xuất bản
         </button>
       </div>
@@ -3000,26 +3000,26 @@
   <footer class="site-footer">
     <div class="container footer-bottom" style="text-align: center; padding: 25px 0;">
       <p style="margin-bottom: 6px;">&copy; 2026 ThS. Lương Thanh Sáng - Tổ trưởng Tổ Toán, THPT Nguyễn Văn Thoại, Huyện Thoại Sơn, Tỉnh An Giang.</p>
-      <p style="font-size: 0.85rem; color: #94a3b8;">Hệ thống Giao bài & Khảo sát Trực tuyến chuẩn quy trình Azota & Chương trình GDPT 2018.</p>
+      <p style="font-size: 0.85rem; color: #94a3b8;">Hệ thống Giao bài & Khảo sát Đánh giá Năng lực Môn Toán Trực tuyến - ThS. Lương Thanh Sáng.</p>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261124_02"></script>
-  <script src="js/azota-engine.js"></script>
+  <script src="js/exam-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
-    // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP CHUẨN 3 PHẦN 2018
+    // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
     (function() {
-      const store = window.AzotaEngine.store;
+      const store = window.ExamEngine.store;
       let currentExams = [];
       let activeEditingExam = null;
       let currentPartTab = 'part1';
       let tempDocSource = {
         type: 'url',
         url: 'https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview',
-        name: 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Phần 2018)'
+        name: 'Đề Kiểm Tra Cuối Kì 1 - Toán 12 (Chính thức - 3 Dạng Thức)'
       };
 
       function showToast(msg, icon) {
@@ -3564,7 +3564,7 @@
           const isMatrixMatch = (k === '12_KTTX3_VEC');
 
           return `
-            <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenAzotaConfig('${k}')">
+            <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenConfig('${k}')">
               <div style="flex: 1;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
                   <span style="background: #dc2626; color: #fff; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px;">
@@ -3603,7 +3603,7 @@
         }).join('');
       }
 
-      window.selectAntiQuizAndOpenAzotaConfig = function(examKey) {
+      window.selectAntiQuizAndOpenConfig = function(examKey) {
         const db = getAntiExamsDatabase() || {};
         const ex = db[examKey];
         if (!ex) {
@@ -3617,13 +3617,13 @@
         // Đóng uploadModal
         document.getElementById('uploadModal').style.display = 'none';
 
-        // Điền dữ liệu vào Azota Full Config Modal
+        // Điền dữ liệu vào Full Config Modal
         const cfg = ex.config || {};
         const title = cfg.title || examKey;
         const grade = cfg.grade || '12';
         const dur = cfg.timeLimitMinutes || (/TX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
 
-        const genCode = `AZ-${examKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+        const genCode = `TS-${examKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
 
         document.getElementById('cfgTopExamTitle').textContent = `Tên đề thi: ${title}`;
         document.getElementById('cfgTopExamCode').textContent = genCode;
@@ -3647,13 +3647,13 @@
         }
 
         // Mặc định thang điểm đúng sai chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)
-        applyAzotaP2Preset('moet');
+        applyOnlineP2Preset('moet');
 
         // Mở Modal cấu hình đầy đủ
         document.getElementById('azotaFullConfigModal').style.display = 'flex';
       };
 
-      window.closeAzotaConfigModal = function() {
+      window.closeOnlineConfigModal = function() {
         document.getElementById('azotaFullConfigModal').style.display = 'none';
       };
 
@@ -3682,7 +3682,7 @@
         else document.getElementById('kbCardBasic')?.classList.add('active');
       };
 
-      window.applyAzotaP2Preset = function(preset) {
+      window.applyOnlineP2Preset = function(preset) {
         const p1 = document.getElementById('azotaCfgP2_1');
         const p2 = document.getElementById('azotaCfgP2_2');
         const p3 = document.getElementById('azotaCfgP2_3');
@@ -3714,7 +3714,7 @@
       };
 
       // XUẤT BẢN ĐỀ THI AZOTA TỪ ANTI
-      window.publishAzotaConfigExam = async function() {
+      window.publishOnlineConfigExam = async function() {
         if (!currentAntiConfigData || !currentSelectedAntiQuizKey) {
           alert('Chưa có thông tin đề thi Anti được chọn!');
           return;
@@ -3786,9 +3786,9 @@
           p3Points[qStr] = q.score || (p3Raw.length > 0 ? +(3.0 / p3Raw.length).toFixed(2) : 0.5);
         });
 
-        const examId = `AZ-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+        const examId = `TS-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
-        const newAzotaExam = {
+        const newOnlineExam = {
           id: examId,
           title: title,
           description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100% từ Anti`,
@@ -3837,9 +3837,9 @@
           }
         };
 
-        await store.saveExam(newAzotaExam);
+        await store.saveExam(newOnlineExam);
 
-        closeAzotaConfigModal();
+        closeOnlineConfigModal();
         await loadExamDashboard();
 
         // Mở popup thành công
@@ -3857,9 +3857,9 @@
         showToast('Xuất bản đề thi Online từ Anti thành công!', 'fa-circle-check');
       };
 
-      window.saveAzotaConfigAsDraft = function() {
+      window.saveOnlineConfigAsDraft = function() {
         alert('Đã lưu cấu hình bản nháp đề thi thành công!');
-        closeAzotaConfigModal();
+        closeOnlineConfigModal();
       };
 
       let detectedUploadStructure = null;
@@ -3933,7 +3933,7 @@
             summary: 'Đã phát hiện 1 dạng thức: Phần I (10 câu Trắc nghiệm nhiều lựa chọn)'
           };
         } else {
-          // Chuẩn 2018 (12-4-6)
+          // Chuẩn 3 Dạng thức (12-4-6)
           structure = {
             hasPart1: true, p1Count: 12,
             hasPart2: true, p2Count: 4,
@@ -3942,7 +3942,7 @@
             summary: 'Đã phát hiện 3 dạng thức: Phần I (12 câu) + Phần II (4 câu Đ/S) + Phần III (6 câu TLN)'
           };
         }
-        const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+        const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
         detectedUploadStructure = { structure, suggestion };
         document.getElementById('uploadModal').style.display = 'none';
         openEditAndPublishModal(tempDocSource, detectedUploadStructure);
@@ -3959,7 +3959,7 @@
             alert('Vui lòng dán link file từ Google Drive hoặc link URL trực tuyến.');
             return;
           }
-          const previewUrl = window.AzotaEngine.convertToGoogleDrivePreview(rawUrl);
+          const previewUrl = window.ExamEngine.convertToGoogleDrivePreview(rawUrl);
           let docName = 'Đề thi từ Google Drive';
           let structure;
 
@@ -3973,7 +3973,7 @@
           }
 
           tempDocSource = { type: 'url', url: previewUrl, name: docName };
-          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+          const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
           detectedUploadStructure = { structure, suggestion };
 
           document.getElementById('uploadModal').style.display = 'none';
@@ -3993,16 +3993,16 @@
           if (selectedLocalFile.type === 'application/pdf' || fileName.toLowerCase().endsWith('.pdf')) {
             const extractedText = await extractTextFromPdf(selectedLocalFile);
             if (extractedText && extractedText.trim().length > 10) {
-              structure = window.AzotaEngine.detectExamStructure(extractedText, fileName);
+              structure = window.ExamEngine.detectExamStructure(extractedText, fileName);
             }
           }
 
           // Nhận diện theo tên file thông minh nếu text chưa xác định
           if (!structure || structure.detectedFormats === 0) {
-            structure = window.AzotaEngine.detectExamStructure('', fileName);
+            structure = window.ExamEngine.detectExamStructure('', fileName);
           }
 
-          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+          const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
           detectedUploadStructure = { structure, suggestion };
 
           btn.disabled = false;
@@ -4013,7 +4013,7 @@
 
         } else if (tabBtnAntiQuiz && tabBtnAntiQuiz.classList.contains('active')) {
           const keyToOpen = currentSelectedAntiQuizKey || '12_KTTX3_VEC';
-          selectAntiQuizAndOpenAzotaConfig(keyToOpen);
+          selectAntiQuizAndOpenConfig(keyToOpen);
         }
       });
 
@@ -4091,7 +4091,7 @@
             `Phân bổ 10đ: Phần I (8 câu x 0.5đ = 4.0đ) • Phần II (2 câu x 3.0đ = 6.0đ theo % Lũy tiến).`;
 
         } else if (presetKey === 'gk_12_4_6') {
-          // Chuẩn Bộ GD&ĐT 2018 (12-4-6)
+          // Chuẩn Bộ GD&ĐT (12-4-6)
           document.getElementById('epDuration').value = 45;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 12;
@@ -4153,8 +4153,8 @@
             alert('Vui lòng dán nội dung văn bản đề thi vào ô để đếm lại.');
             return;
           }
-          const structure = window.AzotaEngine.detectExamStructure(text, tempDocSource ? tempDocSource.name : '');
-          const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+          const structure = window.ExamEngine.detectExamStructure(text, tempDocSource ? tempDocSource.name : '');
+          const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
 
           // Cập nhật lên giao diện modal
           document.getElementById('epChkP1').checked = structure.hasPart1 && structure.p1Count > 0;
@@ -4435,7 +4435,7 @@
           fileSourceType: tempDocSource ? tempDocSource.type : 'url',
           fileUrl: tempDocSource ? tempDocSource.url : '',
           fileName: tempDocSource ? tempDocSource.name : title,
-          formatVersion: '2018_flexible',
+          formatVersion: 'moet_flexible',
           status: 'active',
           totalPoints: 10,
           part1: {
@@ -4534,13 +4534,13 @@
           // Tạo đề mới chuẩn
           activeEditingExam = {
             id: null,
-            title: document.getElementById('editorExamTitle').value || (isTxDoc ? 'Đề Kiểm Tra Thường Xuyên - Môn Toán 12' : 'Đề Kiểm Tra Môn Toán 12 - Chuẩn Cấu Trúc 2018'),
+            title: document.getElementById('editorExamTitle').value || (isTxDoc ? 'Đề Kiểm Tra Thường Xuyên - Môn Toán 12' : 'Đề Kiểm Tra Môn Toán 12 - 3 Dạng Thức Chuẩn'),
             fileSourceType: docSource.type,
             fileUrl: docSource.url,
             fileName: docSource.name,
             totalPoints: 10,
             durationMinutes: autoDuration,
-            formatVersion: '2018_flexible',
+            formatVersion: 'moet_flexible',
             status: 'active',
             part1: {
               enabled: true,
@@ -4857,7 +4857,7 @@
 
       window.quickFillExamText = function(type) {
         const area = document.getElementById('editorScanText');
-        if (type === 'standard_2018') {
+        if (type === 'standard_moet') {
           area.value = "PHẦN I. TRẮC NGHIỆM NHIỀU LỰA CHỌN\nCâu 1. ...\nCâu 2. ...\nCâu 3. ...\nCâu 4. ...\nCâu 5. ...\nCâu 6. ...\nCâu 7. ...\nCâu 8. ...\nCâu 9. ...\nCâu 10. ...\nCâu 11. ...\nCâu 12. ...\n\nPHẦN II. TRẮC NGHIỆM ĐÚNG SAI\nCâu 1. ... a) ... b) ... c) ... d) ...\nCâu 2. ... a) ... b) ... c) ... d) ...\nCâu 3. ... a) ... b) ... c) ... d) ...\nCâu 4. ... a) ... b) ... c) ... d) ...\n\nPHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN\nCâu 1. ...\nCâu 2. ...\nCâu 3. ...\nCâu 4. ...\nCâu 5. ...\nCâu 6. ...";
         } else if (type === 'mcq_40') {
           area.value = "ĐỀ THI TRẮC NGHIỆM 40 CÂU\n" + Array.from({length: 40}, (_, i) => `Câu ${i+1}. Cho hàm số... A. B. C. D.`).join('\n');
@@ -4872,8 +4872,8 @@
       function triggerScanTextPreview() {
         const text = document.getElementById('editorScanText').value.trim();
         if (!text) return;
-        const structure = window.AzotaEngine.detectExamStructure(text);
-        const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+        const structure = window.ExamEngine.detectExamStructure(text);
+        const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
         modalDetectedSuggestion = suggestion;
 
         const resBox = document.getElementById('modalScanResult');
@@ -4886,8 +4886,8 @@
 
       document.getElementById('btnApplyAutoScanModal').addEventListener('click', () => {
         const text = document.getElementById('editorScanText').value.trim();
-        const structure = window.AzotaEngine.detectExamStructure(text);
-        const suggestion = window.AzotaEngine.suggestScoring(structure, 10.0);
+        const structure = window.ExamEngine.detectExamStructure(text);
+        const suggestion = window.ExamEngine.suggestScoring(structure, 10.0);
         applySuggestionToExam(suggestion);
         autoScanModal.style.display = 'none';
         showToast('Đã quét cấu trúc & cập nhật thang điểm gợi ý!', 'fa-wand-magic-sparkles');
@@ -5205,7 +5205,7 @@
       document.getElementById('btnApplyQuickP1').addEventListener('click', () => {
         const text = document.getElementById('quickAnswerP1').value;
         const totalQ = parseInt(activeEditingExam.part1.numQuestions) || 12;
-        const parsed = window.AzotaEngine.parseQuickAnswersPart1(text, totalQ);
+        const parsed = window.ExamEngine.parseQuickAnswersPart1(text, totalQ);
         if (Object.keys(parsed).length === 0) {
           alert('Không tìm thấy đáp án hợp lệ. Dán chuỗi ví dụ: "1A 2B 3C" hoặc "ABCDABCD"');
           return;
@@ -5220,7 +5220,7 @@
       document.getElementById('btnApplyQuickP2').addEventListener('click', () => {
         const text = document.getElementById('quickAnswerP2').value;
         const totalQ = parseInt(activeEditingExam.part2.numQuestions) || 4;
-        const parsed = window.AzotaEngine.parseQuickAnswersPart2(text, totalQ);
+        const parsed = window.ExamEngine.parseQuickAnswersPart2(text, totalQ);
         if (Object.keys(parsed).length === 0) {
           alert('Không tìm thấy đáp án Đúng/Sai hợp lệ. Dán chuỗi ví dụ: "1: Đ S Đ S, 2: S Đ S Đ"');
           return;
@@ -5416,7 +5416,7 @@
           alert('Không có dữ liệu bài nộp để xuất bảng điểm.');
           return;
         }
-        window.AzotaEngine.exportSubmissionsToCSV(currentStatsExam, currentSubmissions);
+        window.ExamEngine.exportSubmissionsToCSV(currentStatsExam, currentSubmissions);
       });
 
       document.getElementById('btnCloseStatsModal').addEventListener('click', () => {

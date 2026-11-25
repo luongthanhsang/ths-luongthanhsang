@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Phòng thi trực tuyến chuẩn Azota & GDPT 2018 - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
+  <meta name="description" content="Phòng thi trực tuyến đánh giá năng lực môn Toán - ThS. Lương Thanh Sáng, THPT Nguyễn Văn Thoại, An Giang.">
   <meta name="author" content="ThS. Lương Thanh Sáng">
   <meta name="theme-color" content="#0284c7">
-  <title>Phòng Thi Trực Tuyến Chuẩn 2018 | ThS. Lương Thanh Sáng</title>
+  <title>Phòng Thi Trực Tuyến | ThS. Lương Thanh Sáng</title>
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -985,7 +985,7 @@
   <div class="entry-screen" id="entryScreen">
     <div class="entry-card">
       <div class="entry-header">
-        <div class="entry-badge"><i class="fa-solid fa-graduation-cap"></i> PHÒNG THI ONLINE AZOTA 2018</div>
+        <div class="entry-badge"><i class="fa-solid fa-graduation-cap"></i> PHÒNG THI TRỰC TUYẾN</div>
         <h1 class="entry-title" id="entryExamTitle">Đang tải đề thi...</h1>
         <p class="entry-sub">Hệ thống khảo sát 3 dạng thức mới - ThS. Lương Thanh Sáng</p>
       </div>
@@ -1032,7 +1032,7 @@
     <!-- Header phòng thi -->
     <div class="room-header">
       <div class="room-header-left">
-        <span class="room-exam-badge" id="roomExamCode">AZ-XXXX</span>
+        <span class="room-exam-badge" id="roomExamCode">TS-XXXX</span>
         <div class="room-exam-title" id="roomExamTitle">Tên đề thi</div>
       </div>
 
@@ -1199,11 +1199,11 @@
 
   <!-- Scripts -->
   <script src="js/quiz-data.js?v=20261124_01"></script>
-  <script src="js/azota-engine.js"></script>
+  <script src="js/exam-engine.js"></script>
   <script>
-    // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - CHUẨN 3 PHẦN 2018
+    // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - 3 DẠNG THỨC
     (function() {
-      const store = window.AzotaEngine.store;
+      const store = window.ExamEngine.store;
       let examData = null;
       let studentAnswers = {
         part1: {},
@@ -1222,7 +1222,7 @@
       let waitTimerInterval = null;
 
       const urlParams = new URLSearchParams(window.location.search);
-      const examCode = urlParams.get('code') || 'AZ-TOAN12-2018';
+      const examCode = urlParams.get('code') || 'TS-TOAN12-KTTX';
 
       // ==================== KIỂM TRA KHUNG GIỜ THI & PHÒNG CHỜ ====================
       function showClosedExamScreen(exam) {
@@ -1348,8 +1348,8 @@
           document.getElementById('passwordGroup').style.display = 'block';
         }
 
-        const cachedName = localStorage.getItem('AZOTA_SAVED_NAME');
-        const cachedClass = localStorage.getItem('AZOTA_SAVED_CLASS');
+        const cachedName = localStorage.getItem('THS_SANG_SAVED_NAME');
+        const cachedClass = localStorage.getItem('THS_SANG_SAVED_CLASS');
         if (cachedName) document.getElementById('studentNameInput').value = cachedName;
         if (cachedClass) document.getElementById('studentClassInput').value = cachedClass;
 
@@ -1383,8 +1383,8 @@
           }
         }
 
-        localStorage.setItem('AZOTA_SAVED_NAME', studentName);
-        localStorage.setItem('AZOTA_SAVED_CLASS', studentClass);
+        localStorage.setItem('THS_SANG_SAVED_NAME', studentName);
+        localStorage.setItem('THS_SANG_SAVED_CLASS', studentClass);
 
         const now = new Date();
 
@@ -1448,7 +1448,7 @@
         }
 
         // Phục hồi auto-save draft
-        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
+        const draftKey = `THS_SANG_EXAM_DRAFT_${examData.id}_${studentName}_${studentClass}`;
         try {
           const draft = localStorage.getItem(draftKey);
           if (draft) studentAnswers = JSON.parse(draft) || { part1: {}, part2: {}, part3: {} };
@@ -1881,7 +1881,7 @@
 
       function saveDraft() {
         if (!examData) return;
-        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
+        const draftKey = `THS_SANG_EXAM_DRAFT_${examData.id}_${studentName}_${studentClass}`;
         try {
           localStorage.setItem(draftKey, JSON.stringify(studentAnswers));
         } catch (e) {}
@@ -2038,7 +2038,7 @@
 
         const result = await store.submitExam(payload);
 
-        const draftKey = `AZOTA_DRAFT_2018_${examData.id}_${studentName}_${studentClass}`;
+        const draftKey = `THS_SANG_EXAM_DRAFT_${examData.id}_${studentName}_${studentClass}`;
         localStorage.removeItem(draftKey);
 
         document.getElementById('examRoomScreen').style.display = 'none';

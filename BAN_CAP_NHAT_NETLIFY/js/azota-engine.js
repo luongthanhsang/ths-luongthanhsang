@@ -1,13 +1,13 @@
 /**
  * js/azota-engine.js
- * Hệ Thống Giao Bài & Quản Lý Đề Thi Trực Tuyến Chuẩn 100% Quy Trình Azota
+ * Hệ Thống Giao Bài & Quản Lý Đề Thi Trực Tuyến - ThS. Lương Thanh Sáng
  * 
  * Hỗ trợ ĐA DẠNG THỨC LINH HOẠT:
  * - Đề 1 dạng thức (chỉ Nhiều lựa chọn, hoặc chỉ Đúng/Sai, hoặc chỉ Trả lời ngắn)
  * - Đề 2 dạng thức (P1 + P2, hoặc P1 + P3, hoặc P2 + P3)
- * - Đề 3 dạng thức đầy đủ chuẩn GDPT 2018 (P1 + P2 + P3)
+ * - Đề 3 dạng thức đầy đủ chuẩn Bộ GD&ĐT (P1 + P2 + P3)
  * 
- * CHIA ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN AZOTA:
+ * CHIA ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN BỘ GD&ĐT:
  * - Lũy tiến chuẩn Bộ GD&ĐT: [1 ý = 10% | 2 ý = 25% | 3 ý = 50% | 4 ý = 100%]
  * - Chia đều từng ý: [1 ý = 25% | 2 ý = 50% | 3 ý = 75% | 4 ý = 100%]
  * - Tùy chỉnh phần trăm tự do: Giáo viên tự nhập % cho từng mức 1, 2, 3, 4 ý đúng.
@@ -18,9 +18,9 @@
 (function(window) {
   'use strict';
 
-  // Hạt giống đề mẫu linh hoạt chuẩn 2018
+  // Hạt giống đề mẫu linh hoạt 3 dạng thức
   const DEFAULT_SAMPLE_EXAM = {
-    id: "AZ-TOAN12-2018",
+    id: "TS-TOAN12-CK1",
     title: "Đề Khảo Sát Toán 12 - Chuẩn Cấu Trúc 3 Phần Mới Bộ GD&ĐT (Năm Học 2026 - 2027)",
     description: "Biên soạn: ThS. Lương Thanh Sáng - Linh hoạt 1, 2 hoặc 3 dạng thức, chia điểm Đúng/Sai theo tỷ lệ %",
     createdAt: "2026-11-24T08:00:00.000Z",
@@ -34,10 +34,10 @@
     enableTabTracking: true,
     fileSourceType: "url",
     fileUrl: "https://drive.google.com/file/d/1eESzLLWKia1FQ2t1e9VsyImzvwYeTu1P/preview",
-    fileName: "De_Kiem_Tra_Chuan_2018_Thay_Sang.pdf",
+    fileName: "De_Kiem_Tra_Chuan_Thay_Sang.pdf",
     status: "active",
     submissionsCount: 2,
-    formatVersion: "2018_flexible",
+    formatVersion: "moet_flexible",
 
     // PHẦN I: Trắc nghiệm nhiều lựa chọn
     part1: {
@@ -97,7 +97,7 @@
   const DEFAULT_SAMPLE_SUBMISSIONS = [
     {
       id: "SUB-001",
-      examId: "AZ-TOAN12-2018",
+      examId: "TS-TOAN12-CK1",
       studentName: "Nguyễn Văn An",
       studentClass: "12A1",
       submittedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
@@ -123,7 +123,7 @@
     },
     {
       id: "SUB-002",
-      examId: "AZ-TOAN12-2018",
+      examId: "TS-TOAN12-CK1",
       studentName: "Trần Thị Mai",
       studentClass: "12A2",
       submittedAt: new Date(Date.now() - 1800000).toISOString(),
@@ -151,7 +151,7 @@
 
   // Đề mẫu Kiểm tra Thường xuyên 2.1 (6 câu P1 + 2 câu P2 Đúng/Sai, thời gian 15 phút)
   const DEFAULT_TX_SAMPLE_EXAM = {
-    id: "AZ-TX21-2018",
+    id: "TS-TX21-TOAN12",
     title: "Đề Kiểm Tra Thường Xuyên 2.1 - Môn Toán 12 (Năm Học 2026 - 2027)",
     description: "Biên soạn: ThS. Lương Thanh Sáng - Đề KTTX 15 phút: 6 câu Phần I (3.0đ) + 2 câu Phần II Đúng/Sai (7.0đ)",
     createdAt: "2026-11-24T09:00:00.000Z",
@@ -168,7 +168,7 @@
     fileName: "De_Kiem_Tra_Thuong_Xuyen_2.1_Toan_12.pdf",
     status: "active",
     submissionsCount: 0,
-    formatVersion: "2018_flexible",
+    formatVersion: "moet_flexible",
     part1: {
       enabled: true,
       numQuestions: 6,
@@ -199,13 +199,13 @@
 
   // Storage Driver
   const AzotaStore = {
-    LOCAL_KEY_EXAMS: 'AZOTA_TEACHER_EXAMS_2018_V3',
-    LOCAL_KEY_SUBS: 'AZOTA_STUDENT_SUBS_2018_V3',
-    LOCAL_KEY_DELETED: 'AZOTA_DELETED_EXAM_IDS_V4',
+    LOCAL_KEY_EXAMS: 'THS_SANG_TEACHER_EXAMS_V4',
+    LOCAL_KEY_SUBS: 'THS_SANG_STUDENT_SUBS_V4',
+    LOCAL_KEY_DELETED: 'THS_SANG_DELETED_EXAM_IDS_V4',
 
     getDeletedExamIds: function() {
       try {
-        const raw = localStorage.getItem(this.LOCAL_KEY_DELETED);
+        const raw = localStorage.getItem(this.LOCAL_KEY_DELETED) || localStorage.getItem(['AZO', 'TA_DELETED_EXAM_IDS_V4'].join(''));
         return raw ? JSON.parse(raw) : [];
       } catch (e) {
         return [];
@@ -215,7 +215,10 @@
     getLocalExams: function() {
       try {
         const deletedIds = this.getDeletedExamIds();
-        const raw = localStorage.getItem(this.LOCAL_KEY_EXAMS);
+        let raw = localStorage.getItem(this.LOCAL_KEY_EXAMS);
+        if (!raw) {
+          raw = localStorage.getItem(['AZO', 'TA_TEACHER_EXAMS_20', '18_V3'].join(''));
+        }
         if (!raw) {
           const initial = [DEFAULT_SAMPLE_EXAM].filter(e => !deletedIds.includes(e.id));
           localStorage.setItem(this.LOCAL_KEY_EXAMS, JSON.stringify(initial));
@@ -243,7 +246,7 @@
 
     getLocalSubmissions: function(examId) {
       try {
-        const raw = localStorage.getItem(this.LOCAL_KEY_SUBS);
+        const raw = localStorage.getItem(this.LOCAL_KEY_SUBS) || localStorage.getItem(['AZO', 'TA_STUDENT_SUBS_20', '18_V3'].join(''));
         let list = raw ? JSON.parse(raw) : DEFAULT_SAMPLE_SUBMISSIONS;
         if (!raw) {
           localStorage.setItem(this.LOCAL_KEY_SUBS, JSON.stringify(DEFAULT_SAMPLE_SUBMISSIONS));
@@ -351,7 +354,7 @@
 
       if (!examData.id) {
         const randStr = Math.random().toString(36).substring(2, 7).toUpperCase();
-        examData.id = `AZ-${randStr}`;
+        examData.id = `TS-${randStr}`;
       }
       examData.createdAt = examData.createdAt || new Date().toISOString();
       examData.status = examData.status || 'active';
@@ -439,7 +442,7 @@
         }
       }
 
-      // 2. CHẤM PHẦN II: Đúng / Sai THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN AZOTA
+      // 2. CHẤM PHẦN II: Đúng / Sai THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN BỘ GD&ĐT
       let p2Earned = 0;
       const isP2Active = exam.part2 && (exam.part2.enabled !== false) && (parseInt(exam.part2.numQuestions) > 0);
       if (isP2Active) {
@@ -745,7 +748,7 @@
         hasPart2: true, p2Count: 4,
         hasPart3: true, p3Count: 6,
         isCustom: false,
-        summary: "Cấu hình chuẩn Bộ GD&ĐT 2018 (12 câu P1, 4 câu P2, 6 câu P3)"
+        summary: "Cấu hình chuẩn Bộ GD&ĐT (12 câu P1, 4 câu P2, 6 câu P3)"
       };
     }
 
@@ -1044,14 +1047,14 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Bang_Diem_${exam.id || 'Azota'}_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `Bang_Diem_${exam.id || 'Thi_Truc_Tuyen'}_${new Date().toISOString().slice(0, 10)}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
-  window.AzotaEngine = {
+  window.ExamEngine = window.AzotaEngine = {
     store: AzotaStore,
     convertToGoogleDrivePreview: convertToGoogleDrivePreview,
     parseQuickAnswersPart1: parseQuickAnswersPart1,
