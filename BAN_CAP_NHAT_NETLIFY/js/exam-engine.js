@@ -888,12 +888,12 @@
     if (has1 && has2 && !has3) {
       // 2 Dạng thức P1 + P2 (Đặc biệt phổ biến cho kiểm tra thường xuyên TX)
       if (suggestion.part1.numQuestions === 6 && suggestion.part2.numQuestions === 2) {
-        // 6 câu P1 (0.5đ/câu = 3.0đ) + 2 câu P2 (3.5đ/câu = 7.0đ) = 10.0đ tròn đẹp
-        suggestion.part1.totalPoints = 3.0;
-        suggestion.part1.pointPerQuestion = 0.5;
-        suggestion.part2.totalPoints = 7.0;
-        suggestion.part2.maxPointPerQuestion = 3.5;
-        suggestion.description = `Gợi ý Đề KTTX: Phần I (6 câu x 0.5đ = 3.0đ) • Phần II (2 câu x 3.5đ = 7.0đ theo % Lũy tiến).`;
+        // Chuẩn đề KTTX của Thầy Sáng: 6 câu Phần I = 6.0đ (1.0đ/câu) + 2 câu Phần II = 4.0đ (2.0đ/câu)
+        suggestion.part1.totalPoints = 6.0;
+        suggestion.part1.pointPerQuestion = 1.0;
+        suggestion.part2.totalPoints = 4.0;
+        suggestion.part2.maxPointPerQuestion = 2.0;
+        suggestion.description = `Chuẩn Đề KTTX Thầy Sáng: Phần I (6 câu x 1.0đ = 6.0đ) • Phần II (2 câu x 2.0đ = 4.0đ theo % Chuẩn Bộ).`;
       } else if (suggestion.part1.numQuestions === 8 && suggestion.part2.numQuestions === 2) {
         suggestion.part1.totalPoints = 4.0;
         suggestion.part1.pointPerQuestion = 0.5;

@@ -14,7 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax 3 cho công thức Toán học LaTeX -->
+  <!-- MathJax 3 & KaTeX cho công thức Toán học LaTeX chuẩn Bộ GD&ĐT -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script>
     window.MathJax = {
       tex: {
@@ -1638,16 +1641,32 @@
         <div class="exam-score-summary-bar">
           <div class="score-summary-left">
             <span>Tổng điểm: <strong id="editorTotalScoreDisplay">10.0</strong> / 10đ</span>
-            <span id="editorTotalQDisplay" style="font-size: 0.78rem; color: #94a3b8;">(22 câu)</span>
+            <span id="editorTotalQDisplay" style="font-size: 0.78rem; color: #94a3b8;">(8 câu)</span>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <button class="doc-tool-btn" id="btnAutoScanDoc" style="background: #0284c7; color: #ffffff; border-color: #0284c7;" title="Tự động quét và đếm số câu của từng dạng thức từ nội dung đề thi">
-              <i class="fa-solid fa-wand-magic-sparkles"></i> Đếm câu & Gợi ý điểm
-            </button>
-            <button class="doc-tool-btn" id="btnAutoStandardizePoints" style="background: #1e293b; color: #38bdf8; border-color: #475569;" title="Tự động cân bằng chuẩn Bộ GD&ĐT: Phần I = 3.0đ, Phần II = 4.0đ, Phần III = 3.0đ">
+            <button class="doc-tool-btn" id="btnAutoStandardizePoints" style="background: #0284c7; color: #ffffff; border-color: #0284c7; font-weight: 700;" title="Tự động cân bằng chuẩn 10.0đ theo các phần đang bật">
               <i class="fa-solid fa-scale-balanced"></i> Chuẩn hóa 10đ
             </button>
           </div>
+        </div>
+
+        <!-- THANH ĐIỀU CHỈNH THANG ĐIỂM NHANH THEO Ý GIÁO VIÊN (1-CHẠM) -->
+        <div class="score-quick-presets-bar" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+          <span style="font-size: 0.75rem; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px;">
+            <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Mẫu thang điểm:
+          </span>
+          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(6.0, 4.0, 0)" style="font-size: 0.74rem; padding: 4px 9px; background: #0284c7; color: #fff; border: none; font-weight: 700; border-radius: 6px;" title="Cấu hình đề KTTX của Thầy Sáng: Phần I 6 câu = 6.0đ, Phần II 2 câu = 4.0đ">
+            ⚡ KTTX Thầy Sáng: P1=6đ (1đ/câu) • P2=4đ (2đ/câu)
+          </button>
+          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 7.0, 0)" style="font-size: 0.74rem; padding: 4px 8px; background: #059669; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="Cấu hình KTTX: Phần I 6 câu = 3.0đ, Phần II 2 câu = 7.0đ">
+            ⚡ KTTX 3đ - 7đ
+          </button>
+          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(3.0, 4.0, 3.0)" style="font-size: 0.74rem; padding: 4px 8px; background: #1e293b; color: #38bdf8; border: none; font-weight: 600; border-radius: 6px;" title="Chuẩn Bộ GD&ĐT 3 phần: P1=3đ, P2=4đ, P3=3đ">
+            ⚡ Chuẩn 3 phần: 3đ - 4đ - 3đ
+          </button>
+          <button type="button" class="doc-tool-btn" onclick="applyCustomScoreSplit(10.0, 0, 0)" style="font-size: 0.74rem; padding: 4px 8px; background: #475569; color: #fff; border: none; font-weight: 600; border-radius: 6px;" title="100% Trắc nghiệm nhiều lựa chọn = 10 điểm">
+            ⚡ 100% Trắc nghiệm
+          </button>
         </div>
 
         <!-- THANH CÔNG CỤ CHỌN DẠNG THỨC LINH HOẠT (1, 2 HOẶC 3 DẠNG THỨC) -->
@@ -1668,28 +1687,11 @@
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
             <select id="selFormatPreset" onchange="applyFormatPreset(this.value)" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.75rem; font-weight: 600; background: #ffffff;">
+              <option value="preset_2parts_p1_p2">⚡ 2 Dạng thức: P1 + P2 (Đúng/Sai)</option>
               <option value="preset_3parts">⚡ 3 Dạng thức chuẩn Bộ GD&ĐT</option>
               <option value="preset_1part_p1">⚡ 1 Dạng thức: 100% Nhiều lựa chọn</option>
-              <option value="preset_2parts_p1_p2">⚡ 2 Dạng thức: P1 + P2 (Đúng/Sai)</option>
               <option value="preset_2parts_p1_p3">⚡ 2 Dạng thức: P1 + P3 (Trả lời ngắn)</option>
             </select>
-          </div>
-        </div>
-
-        <!-- Banner Gợi ý tính điểm thông minh -->
-        <div id="smartScoreSuggestionBanner" class="score-suggestion-banner" style="display: none;">
-          <div class="suggestion-banner-header">
-            <span class="suggestion-title"><i class="fa-solid fa-lightbulb"></i> Gợi ý tính điểm tối ưu:</span>
-            <button type="button" class="btn-close-banner" onclick="hideSuggestionBanner()">&times;</button>
-          </div>
-          <div class="suggestion-banner-body" id="suggestionBannerText">
-            <!-- Render động bằng JS -->
-          </div>
-          <div class="suggestion-banner-actions">
-            <button type="button" class="btn-apply-suggestion" id="btnApplySuggestedScore">
-              <i class="fa-solid fa-check"></i> Áp dụng gợi ý này
-            </button>
-            <span class="suggestion-note">(Thầy có thể bấm áp dụng hoặc tự do chỉnh sửa trực tiếp bên dưới)</span>
           </div>
         </div>
 
@@ -1698,17 +1700,17 @@
           <button class="editor-part-tab active" id="tabPart1Btn" onclick="switchEditorPart('part1')">
             <span class="part-tab-num">Phần I</span>
             <span class="part-tab-sub">Nhiều lựa chọn</span>
-            <span class="part-tab-badge" id="p1BadgeCount">12 câu • 3đ</span>
+            <span class="part-tab-badge" id="p1BadgeCount">6 câu • 6.0đ</span>
           </button>
           <button class="editor-part-tab" id="tabPart2Btn" onclick="switchEditorPart('part2')">
             <span class="part-tab-num">Phần II</span>
             <span class="part-tab-sub">Đúng / Sai</span>
-            <span class="part-tab-badge" id="p2BadgeCount">4 câu • 4đ</span>
+            <span class="part-tab-badge" id="p2BadgeCount">2 câu • 4.0đ</span>
           </button>
           <button class="editor-part-tab" id="tabPart3Btn" onclick="switchEditorPart('part3')">
             <span class="part-tab-num">Phần III</span>
             <span class="part-tab-sub">Trả lời ngắn</span>
-            <span class="part-tab-badge" id="p3BadgeCount">6 câu • 3đ</span>
+            <span class="part-tab-badge" id="p3BadgeCount">Đã tắt</span>
           </button>
         </div>
 
@@ -1725,19 +1727,29 @@
 
           <div id="p1ActiveContent" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
             <div class="part-header-panel">
-              <div class="part-controls-grid">
+              <!-- Grid cấu hình điểm Phần I chuẩn hóa: Nhập tổng điểm tự chia đều cho số câu -->
+              <div class="part-controls-grid" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 8px;">
                 <div class="part-control-item">
                   <label for="p1NumQ">Số câu Phần I:</label>
-                  <input type="number" id="p1NumQ" min="1" max="50" value="12">
+                  <input type="number" id="p1NumQ" min="1" max="50" value="6" style="font-weight: 700;">
+                </div>
+                <div class="part-control-item">
+                  <label for="p1TotalPt" style="color: #0284c7; font-weight: 700;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm P.I (đ):
+                  </label>
+                  <input type="number" id="p1TotalPt" step="0.25" min="0" max="10" value="6.0" style="font-weight: 800; color: #0284c7; border: 1.5px solid #0284c7; background: #f0f9ff;" title="Thầy nhập tổng điểm Phần I, hệ thống tự động chia đều cho từng câu">
                 </div>
                 <div class="part-control-item">
                   <label for="p1DefPt">Điểm mỗi câu (đ):</label>
-                  <input type="number" id="p1DefPt" step="0.05" min="0.05" max="5" value="0.25">
+                  <input type="number" id="p1DefPt" step="0.05" min="0" max="10" value="1.0" style="font-weight: 700; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
                 </div>
+              </div>
+              <div style="font-size: 0.74rem; color: #0284c7; margin-top: 5px; font-weight: 600; display: flex; align-items: center; gap: 4px;" id="p1FormulaDesc">
+                <i class="fa-solid fa-circle-check"></i> <span id="p1PerQDesc">Hệ thống tự chia đều: 6 câu x 1.00đ = 6.0 điểm</span>
               </div>
 
               <!-- Nhập nhanh Phần I -->
-              <div class="quick-answer-box">
+              <div class="quick-answer-box" style="margin-top: 8px;">
                 <textarea id="quickAnswerP1" placeholder="Nhập nhanh đáp án Phần I: 1A 2B 3C... hoặc chuỗi ABCD..."></textarea>
                 <div class="quick-answer-actions">
                   <span style="font-size: 0.72rem; color: #64748b;">Hỗ trợ dán chuỗi ABCD</span>
@@ -1767,71 +1779,56 @@
 
           <div id="p2ActiveContent" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
             <div class="part-header-panel">
-              <div class="part-controls-grid">
+              <!-- Grid cấu hình điểm Phần II chuẩn hóa: Điểm 1 câu hoặc Tổng điểm P2 -->
+              <div class="part-controls-grid" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 8px;">
                 <div class="part-control-item">
                   <label for="p2NumQ">Số câu Đúng/Sai:</label>
-                  <input type="number" id="p2NumQ" min="1" max="20" value="4">
+                  <input type="number" id="p2NumQ" min="1" max="20" value="2" style="font-weight: 700;">
                 </div>
                 <div class="part-control-item">
-                  <label for="p2MaxPt">Điểm tối đa/câu (đ):</label>
-                  <input type="number" id="p2MaxPt" step="0.25" min="0.25" max="5" value="1.0">
+                  <label for="p2MaxPt" style="color: #b45309; font-weight: 700;">
+                    <i class="fa-solid fa-star"></i> Điểm 1 câu (đ):
+                  </label>
+                  <input type="number" id="p2MaxPt" step="0.25" min="0" max="10" value="2.0" style="font-weight: 800; color: #b45309; border: 1.5px solid #f59e0b; background: #fffbeb;" title="Điểm tối đa của 1 câu Đúng/Sai (khi đúng cả 4 ý)">
+                </div>
+                <div class="part-control-item">
+                  <label for="p2TotalPt" style="color: #b45309; font-weight: 700;">
+                    Tổng điểm P.II (đ):
+                  </label>
+                  <input type="number" id="p2TotalPt" step="0.25" min="0" max="10" value="4.0" style="font-weight: 700; background: #fefce8;" title="Tổng điểm toàn Phần II = Điểm 1 câu x Số câu">
                 </div>
               </div>
 
-              <!-- BỘ ĐIỀU CHỈNH THANG ĐIỂM ĐÚNG/SAI THEO TỶ LỆ PHẦN TRĂM (%) CHUẨN BỘ GD&ĐT -->
-              <div class="part2-scoring-config-box">
-                <div class="scoring-mode-title">
-                  <i class="fa-solid fa-scale-balanced"></i> Quy tắc tính điểm Đúng/Sai (Theo % điểm tối đa):
+              <!-- 2 LỰA CHỌN TÍNH ĐIỂM 4 Ý CON CHUẨN HÓA (10-25-50-100% HOẶC 25-50-75-100%) -->
+              <div class="part2-scoring-config-box" style="margin-top: 10px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px;">
+                <div style="font-size: 0.78rem; font-weight: 700; color: #166534; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                  <span><i class="fa-solid fa-scale-balanced"></i> Quy tắc tính điểm 4 ý (Thầy chọn 1 trong 2):</span>
                 </div>
-                <select id="p2PercentMode" style="width: 100%; padding: 7px 10px; border: 1.5px solid #93c5fd; border-radius: 8px; font-size: 0.82rem; font-weight: 700; background: #ffffff; color: #1e3a8a;">
-                  <option value="moet">Chuẩn Bộ GD&ĐT (Lũy tiến: 1 ý = 10% | 2 ý = 25% | 3 ý = 50% | 4 ý = 100%)</option>
-                  <option value="equal">Chia đều 4 ý (1 ý = 25% | 2 ý = 50% | 3 ý = 75% | 4 ý = 100%)</option>
-                  <option value="custom">Tự do điều chỉnh tỷ lệ % linh hoạt cho từng mức ý đúng</option>
-                </select>
-
-                <!-- Ô điều chỉnh % linh hoạt khi chọn Custom -->
-                <div id="p2CustomPercentWrap" style="display: none; margin-top: 8px; background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #bfdbfe;">
-                  <span style="font-size: 0.72rem; color: #1e40af; font-weight: 700; display: block; margin-bottom: 4px;">Cài đặt tỷ lệ phần trăm (%) tương ứng với số ý đúng:</span>
-                  <div class="custom-subs-grid">
-                    <div class="custom-sub-item">
-                      <span>Đúng 1 ý</span>
-                      <div style="display: flex; align-items: center; gap: 2px;">
-                        <input type="number" id="p2Pct1" min="0" max="100" value="10" onchange="updateP2Percentages()">
-                        <span style="font-size: 0.7rem;">%</span>
-                      </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                  <label id="lblP2Moet" style="display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; border: 2px solid #0284c7; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                    <input type="radio" name="p2RuleOption" id="p2RuleMoet" value="moet" checked onchange="changeP2PercentRule('moet')" style="margin-top: 2px;">
+                    <div>
+                      <strong style="font-size: 0.8rem; color: #0369a1; display: block;">Lựa chọn 1: Chuẩn Bộ GD&ĐT</strong>
+                      <span style="font-size: 0.72rem; color: #475569;">10% - 25% - 50% - 100%</span>
                     </div>
-                    <div class="custom-sub-item">
-                      <span>Đúng 2 ý</span>
-                      <div style="display: flex; align-items: center; gap: 2px;">
-                        <input type="number" id="p2Pct2" min="0" max="100" value="25" onchange="updateP2Percentages()">
-                        <span style="font-size: 0.7rem;">%</span>
-                      </div>
+                  </label>
+                  <label id="lblP2Equal" style="display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; border: 1.5px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer;">
+                    <input type="radio" name="p2RuleOption" id="p2RuleEqual" value="equal" onchange="changeP2PercentRule('equal')" style="margin-top: 2px;">
+                    <div>
+                      <strong style="font-size: 0.8rem; color: #0f172a; display: block;">Lựa chọn 2: Chia đều 4 ý</strong>
+                      <span style="font-size: 0.72rem; color: #475569;">25% - 50% - 75% - 100%</span>
                     </div>
-                    <div class="custom-sub-item">
-                      <span>Đúng 3 ý</span>
-                      <div style="display: flex; align-items: center; gap: 2px;">
-                        <input type="number" id="p2Pct3" min="0" max="100" value="50" onchange="updateP2Percentages()">
-                        <span style="font-size: 0.7rem;">%</span>
-                      </div>
-                    </div>
-                    <div class="custom-sub-item">
-                      <span>Đúng 4 ý</span>
-                      <div style="display: flex; align-items: center; gap: 2px;">
-                        <input type="number" id="p2Pct4" min="0" max="100" value="100" onchange="updateP2Percentages()">
-                        <span style="font-size: 0.7rem;">%</span>
-                      </div>
-                    </div>
-                  </div>
+                  </label>
                 </div>
 
                 <!-- Bảng mô phỏng số điểm thực tế đạt được tương ứng -->
-                <div class="p2-live-point-preview" id="p2LivePointPreview">
+                <div class="p2-live-point-preview" id="p2LivePointPreview" style="margin-top: 8px;">
                   <!-- Live calculated based on maxPointPerQuestion and percentages -->
                 </div>
               </div>
 
               <!-- Nhập nhanh Phần II -->
-              <div class="quick-answer-box">
+              <div class="quick-answer-box" style="margin-top: 8px;">
                 <textarea id="quickAnswerP2" placeholder="Nhập nhanh Đúng/Sai: 1: Đ S Đ S, 2: S Đ S Đ..."></textarea>
                 <div class="quick-answer-actions">
                   <span style="font-size: 0.72rem; color: #64748b;">Hỗ trợ dán chuỗi Đ S</span>
@@ -1861,17 +1858,27 @@
 
           <div id="p3ActiveContent" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
             <div class="part-header-panel">
-              <div class="part-controls-grid">
+              <!-- Grid cấu hình điểm Phần III chuẩn hóa: Nhập tổng điểm tự chia đều cho từng câu -->
+              <div class="part-controls-grid" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 8px;">
                 <div class="part-control-item">
-                  <label for="p3NumQ">Số câu Trả lời ngắn:</label>
-                  <input type="number" id="p3NumQ" min="1" max="20" value="6">
+                  <label for="p3NumQ">Số câu Phần III:</label>
+                  <input type="number" id="p3NumQ" min="1" max="20" value="6" style="font-weight: 700;">
+                </div>
+                <div class="part-control-item">
+                  <label for="p3TotalPt" style="color: #0f766e; font-weight: 700;">
+                    <i class="fa-solid fa-calculator"></i> Tổng điểm P.III (đ):
+                  </label>
+                  <input type="number" id="p3TotalPt" step="0.25" min="0" max="10" value="3.0" style="font-weight: 800; color: #0f766e; border: 1.5px solid #14b8a6; background: #f0fdfa;" title="Thầy nhập tổng điểm Phần III, hệ thống tự động chia đều cho từng câu">
                 </div>
                 <div class="part-control-item">
                   <label for="p3DefPt">Điểm mỗi câu (đ):</label>
-                  <input type="number" id="p3DefPt" step="0.25" min="0.25" max="5" value="0.5">
+                  <input type="number" id="p3DefPt" step="0.05" min="0" max="10" value="0.5" style="font-weight: 700; background: #f8fafc;" title="Điểm mỗi câu = Tổng điểm / Số câu">
                 </div>
               </div>
-              <p style="font-size: 0.78rem; color: #64748b; margin-top: 4px;">
+              <div style="font-size: 0.74rem; color: #0f766e; margin-top: 5px; font-weight: 600; display: flex; align-items: center; gap: 4px;" id="p3FormulaDesc">
+                <i class="fa-solid fa-circle-check"></i> <span id="p3PerQDesc">Hệ thống tự chia đều: 6 câu x 0.50đ = 3.0 điểm</span>
+              </div>
+              <p style="font-size: 0.76rem; color: #64748b; margin-top: 6px;">
                 <i class="fa-solid fa-circle-info"></i> Nhập đáp án số hoặc phân số chuẩn. Học sinh có thể điền số âm, số thập phân (dấu chấm hoặc phẩy đều được chấp nhận).
               </p>
             </div>
@@ -3777,17 +3784,52 @@
       // ==================== TÍNH NĂNG XEM NỘI DUNG ĐỀ THI TRONG PHẦN CẤU HÌNH (CHUẨN HÓA MỚI) ====================
       let isExamPreviewAccordionOpen = false;
 
-      // Hàm an toàn biên dịch công thức toán MathJax 3
+      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX
       function safeTypesetMath(elements) {
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise(elements).catch(() => {});
-        } else {
-          setTimeout(() => {
-            if (window.MathJax && window.MathJax.typesetPromise) {
-              window.MathJax.typesetPromise(elements).catch(() => {});
-            }
-          }, 350);
-        }
+        if (!elements || elements.length === 0) return;
+        elements.forEach(el => {
+          if (!el) return;
+          // 1. Dùng KaTeX renderMathInElement (cực nhanh, chuẩn xác 100%)
+          if (window.renderMathInElement) {
+            try {
+              window.renderMathInElement(el, {
+                delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError: false
+              });
+            } catch(e) {}
+          }
+          // 2. Đồng thời gọi MathJax 3 để đảm bảo mọi macro nâng cao đều hiển thị
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            try {
+              if (window.MathJax.typesetClear) window.MathJax.typesetClear([el]);
+            } catch(e) {}
+            window.MathJax.typesetPromise([el]).catch(() => {});
+          } else {
+            setTimeout(() => {
+              if (window.renderMathInElement) {
+                try {
+                  window.renderMathInElement(el, {
+                    delimiters: [
+                      {left: '$$', right: '$$', display: true},
+                      {left: '$', right: '$', display: false},
+                      {left: '\\(', right: '\\)', display: false},
+                      {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                  });
+                } catch(e) {}
+              }
+              if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([el]).catch(() => {});
+              }
+            }, 300);
+          }
+        });
       }
 
       window.toggleExamPreviewAccordion = function() {
@@ -3801,8 +3843,10 @@
           body.style.display = 'block';
           if (chevron) chevron.style.transform = 'rotate(180deg)';
           if (txtLabel) txtLabel.textContent = 'Thu gọn';
-          // Re-render MathJax
-          safeTypesetMath([body]);
+          // Re-render MathJax / KaTeX
+          setTimeout(() => {
+            safeTypesetMath([body]);
+          }, 40);
         } else {
           body.style.display = 'none';
           if (chevron) chevron.style.transform = 'rotate(0deg)';
@@ -3824,11 +3868,16 @@
         if (titleEl) titleEl.textContent = cfg.title || 'Nội dung đề thi chi tiết';
         if (metaEl) metaEl.textContent = `${cfg.school || 'THPT Nguyễn Văn Thoại'} • Lớp ${cfg.grade || '12'} • Thời gian: ${cfg.timeLimitMinutes || 15} phút`;
 
+        // Mở modal trước để container có kích thước thật trên DOM
+        if (modal) modal.style.display = 'flex';
+
         if (body) {
           body.innerHTML = buildExamDetailedHtml(currentAntiConfigData);
-          safeTypesetMath([body]);
+          // Render toán học sau khi DOM layout đã sẵn sàng
+          setTimeout(() => {
+            safeTypesetMath([body]);
+          }, 50);
         }
-        if (modal) modal.style.display = 'flex';
       };
 
       window.closeFullExamModal = function() {
@@ -4461,24 +4510,24 @@
       // Áp dụng cấu trúc đề mẫu nhanh 1-chạm
       window.applyQuickStructurePreset = function(presetKey) {
         if (presetKey === 'tx_6_2') {
-          // Đề kiểm tra thường xuyên: 6 câu P1 + 2 câu P2 Đúng/Sai
+          // Đề kiểm tra thường xuyên Thầy Sáng: 6 câu P1 (6.0đ, mỗi câu 1.0đ) + 2 câu P2 Đúng/Sai (4.0đ, mỗi câu 2.0đ)
           document.getElementById('epDuration').value = 15;
           document.getElementById('epChkP1').checked = true;
           document.getElementById('epP1Num').value = 6;
-          document.getElementById('epP1DefPt').value = 0.5; // 6 x 0.5 = 3.0đ
+          document.getElementById('epP1DefPt').value = 1.0; // 6 x 1.0 = 6.0đ
 
           document.getElementById('epChkP2').checked = true;
           document.getElementById('epP2Num').value = 2;
-          document.getElementById('epP2MaxPt').value = 3.5; // 2 x 3.5 = 7.0đ
+          document.getElementById('epP2MaxPt').value = 2.0; // 2 x 2.0 = 4.0đ
           document.getElementById('epP2PercentMode').value = 'moet';
 
           document.getElementById('epChkP3').checked = false;
           document.getElementById('epP3Num').value = 0;
 
           document.getElementById('epScanSummaryTitle').innerHTML = 
-            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX: Phần I (6 câu) + Phần II (2 câu Đ/S) • Thời gian 15 phút`;
+            `<i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Cấu trúc Đề KTTX Thầy Sáng: Phần I (6 câu x 1.0đ = 6.0đ) + Phần II (2 câu x 2.0đ = 4.0đ) • 15 phút`;
           document.getElementById('epScanSuggestionDesc').innerHTML = 
-            `Phân bổ 10đ: Phần I (6 câu x 0.5đ = 3.0đ) • Phần II (2 câu x 3.5đ = 7.0đ theo % Lũy tiến chuẩn Bộ).`;
+            `Chuẩn phân bổ 10đ: Phần I (6 câu x 1.0đ = 6.0đ) • Phần II (2 câu x 2.0đ = 4.0đ theo chuẩn Bộ GD&ĐT).`;
 
         } else if (presetKey === 'tx_8_2') {
           document.getElementById('epDuration').value = 15;
@@ -4740,14 +4789,14 @@
         if (chk1 && chk2 && !chk3) {
           // Trường hợp 2 dạng thức P1 + P2 (rất phổ biến cho đề TX của Thầy)
           if (num1 === 6 && num2 === 2) {
-            document.getElementById('epP1DefPt').value = 0.5; // 6 x 0.5 = 3.0đ
-            document.getElementById('epP2MaxPt').value = 3.5; // 2 x 3.5 = 7.0đ
+            document.getElementById('epP1DefPt').value = 1.0; // 6 x 1.0 = 6.0đ (Chuẩn đề Thầy Sáng)
+            document.getElementById('epP2MaxPt').value = 2.0; // 2 x 2.0 = 4.0đ (Chuẩn đề Thầy Sáng)
           } else if (num1 === 8 && num2 === 2) {
             document.getElementById('epP1DefPt').value = 0.5; // 8 x 0.5 = 4.0đ
             document.getElementById('epP2MaxPt').value = 3.0; // 2 x 3.0 = 6.0đ
           } else {
-            document.getElementById('epP1DefPt').value = Math.round((4.0 / num1) * 100) / 100;
-            document.getElementById('epP2MaxPt').value = Math.round((6.0 / num2) * 100) / 100;
+            document.getElementById('epP1DefPt').value = Math.round((5.0 / num1) * 100) / 100;
+            document.getElementById('epP2MaxPt').value = Math.round((5.0 / num2) * 100) / 100;
           }
         } else if (chk1 && chk2 && chk3) {
           // 3 dạng thức
@@ -4988,26 +5037,30 @@
         updateFormatSelectorUI();
 
         // Điền giá trị cấu hình ban đầu
-        document.getElementById('p1NumQ').value = activeEditingExam.part1.numQuestions || 12;
-        document.getElementById('p1DefPt').value = activeEditingExam.part1.defaultPoint || 0.25;
+        const initP1Num = activeEditingExam.part1.numQuestions || (isTxDoc ? 6 : 12);
+        const initP1Def = activeEditingExam.part1.defaultPoint || (isTxDoc ? 1.0 : 0.25);
+        document.getElementById('p1NumQ').value = initP1Num;
+        document.getElementById('p1DefPt').value = initP1Def;
+        const initP1Tot = document.getElementById('p1TotalPt');
+        if (initP1Tot) initP1Tot.value = (initP1Num * initP1Def).toFixed(1);
 
-        document.getElementById('p2NumQ').value = activeEditingExam.part2.numQuestions || 4;
-        document.getElementById('p2MaxPt').value = activeEditingExam.part2.maxPointPerQuestion || 1.0;
-        document.getElementById('p2PercentMode').value = activeEditingExam.part2.percentMode || 'moet';
-        
-        // Tỷ lệ phần trăm
-        if (!activeEditingExam.part2.percentages) {
-          activeEditingExam.part2.percentages = { 1: 10, 2: 25, 3: 50, 4: 100 };
-        }
-        document.getElementById('p2Pct1').value = activeEditingExam.part2.percentages[1] || 10;
-        document.getElementById('p2Pct2').value = activeEditingExam.part2.percentages[2] || 25;
-        document.getElementById('p2Pct3').value = activeEditingExam.part2.percentages[3] || 50;
-        document.getElementById('p2Pct4').value = activeEditingExam.part2.percentages[4] || 100;
-        toggleP2CustomBox();
-        renderP2LivePointPreview();
+        const initP2Num = activeEditingExam.part2.numQuestions || (isTxDoc ? 2 : 4);
+        const initP2Max = activeEditingExam.part2.maxPointPerQuestion || (isTxDoc ? 2.0 : 1.0);
+        document.getElementById('p2NumQ').value = initP2Num;
+        document.getElementById('p2MaxPt').value = initP2Max;
+        const initP2Tot = document.getElementById('p2TotalPt');
+        if (initP2Tot) initP2Tot.value = (initP2Num * initP2Max).toFixed(1);
 
-        document.getElementById('p3NumQ').value = activeEditingExam.part3.numQuestions || 6;
-        document.getElementById('p3DefPt').value = activeEditingExam.part3.defaultPoint || 0.5;
+        // Quy tắc phần trăm Đúng/Sai
+        const p2Mode = activeEditingExam.part2.percentMode || 'moet';
+        changeP2PercentRule(p2Mode);
+
+        const initP3Num = activeEditingExam.part3.numQuestions || (isTxDoc ? 0 : 6);
+        const initP3Def = activeEditingExam.part3.defaultPoint || 0.5;
+        document.getElementById('p3NumQ').value = initP3Num;
+        document.getElementById('p3DefPt').value = initP3Def;
+        const initP3Tot = document.getElementById('p3TotalPt');
+        if (initP3Tot) initP3Tot.value = (initP3Num * initP3Def).toFixed(1);
 
         // Chọn tab đầu tiên còn đang bật
         const firstActive = (activeEditingExam.part1.enabled !== false) ? 'part1' : 
@@ -5015,6 +5068,7 @@
         switchEditorPart(firstActive);
         renderAllParts();
         updateScoreSummary();
+        renderP2LivePointPreview();
 
         // Nếu có gợi ý, hiển thị banner
         if (detectedObj && detectedObj.suggestion) {
@@ -5467,7 +5521,127 @@
         updateScoreSummary();
       };
 
-      // 4. TÍNH TỔNG ĐIỂM TOÀN ĐỀ LINH HOẠT (CHỈ TÍNH CÁC DẠNG THỨC ĐANG BẬT)
+      // ==================== CẤU HÌNH THANG ĐIỂM CHUẨN HÓA THEO Ý GIÁO VIÊN ====================
+      // 1. Áp dụng mẫu phân bổ điểm nhanh 1-chạm
+      window.applyCustomScoreSplit = function(p1Target, p2Target, p3Target) {
+        if (!activeEditingExam) return;
+
+        // Bật / tắt các phần tương ứng
+        activeEditingExam.part1.enabled = (p1Target > 0);
+        activeEditingExam.part2.enabled = (p2Target > 0);
+        activeEditingExam.part3.enabled = (p3Target > 0);
+
+        // Phần I: Nhập tổng điểm tự chia đều cho số câu
+        if (p1Target > 0) {
+          if (p1Target === 6.0 && (!activeEditingExam.part1.numQuestions || activeEditingExam.part1.numQuestions > 12)) {
+            activeEditingExam.part1.numQuestions = 6;
+          }
+          const p1N = parseInt(activeEditingExam.part1.numQuestions) || 6;
+          activeEditingExam.part1.defaultPoint = +(p1Target / p1N).toFixed(2);
+          activeEditingExam.part1.points = {};
+          const p1TotEl = document.getElementById('p1TotalPt');
+          const p1DefEl = document.getElementById('p1DefPt');
+          const p1NumEl = document.getElementById('p1NumQ');
+          if (p1TotEl) p1TotEl.value = p1Target.toFixed(1);
+          if (p1DefEl) p1DefEl.value = activeEditingExam.part1.defaultPoint;
+          if (p1NumEl) p1NumEl.value = p1N;
+        }
+
+        // Phần II: Điểm tối đa 1 câu Đúng/Sai & Quy tắc %
+        if (p2Target > 0) {
+          if (p2Target === 4.0 && (!activeEditingExam.part2.numQuestions || activeEditingExam.part2.numQuestions > 4)) {
+            activeEditingExam.part2.numQuestions = 2;
+          }
+          const p2N = parseInt(activeEditingExam.part2.numQuestions) || 2;
+          activeEditingExam.part2.maxPointPerQuestion = +(p2Target / p2N).toFixed(2);
+          activeEditingExam.part2.customPoints = {};
+          const p2TotEl = document.getElementById('p2TotalPt');
+          const p2MaxEl = document.getElementById('p2MaxPt');
+          const p2NumEl = document.getElementById('p2NumQ');
+          if (p2TotEl) p2TotEl.value = p2Target.toFixed(1);
+          if (p2MaxEl) p2MaxEl.value = activeEditingExam.part2.maxPointPerQuestion;
+          if (p2NumEl) p2NumEl.value = p2N;
+        }
+
+        // Phần III: Nhập tổng điểm tự chia đều cho số câu
+        if (p3Target > 0) {
+          const p3N = parseInt(activeEditingExam.part3.numQuestions) || 6;
+          activeEditingExam.part3.defaultPoint = +(p3Target / p3N).toFixed(2);
+          activeEditingExam.part3.points = {};
+          const p3TotEl = document.getElementById('p3TotalPt');
+          const p3DefEl = document.getElementById('p3DefPt');
+          const p3NumEl = document.getElementById('p3NumQ');
+          if (p3TotEl) p3TotEl.value = p3Target.toFixed(1);
+          if (p3DefEl) p3DefEl.value = activeEditingExam.part3.defaultPoint;
+          if (p3NumEl) p3NumEl.value = p3N;
+        }
+
+        updateFormatSelectorUI();
+        renderAllParts();
+        updateScoreSummary();
+        renderP2LivePointPreview();
+
+        const desc = [];
+        if (p1Target > 0) desc.push(`P1=${p1Target}đ (${activeEditingExam.part1.numQuestions} câu x ${activeEditingExam.part1.defaultPoint}đ)`);
+        if (p2Target > 0) desc.push(`P2=${p2Target}đ (${activeEditingExam.part2.numQuestions} câu x ${activeEditingExam.part2.maxPointPerQuestion}đ)`);
+        if (p3Target > 0) desc.push(`P3=${p3Target}đ (${activeEditingExam.part3.numQuestions} câu x ${activeEditingExam.part3.defaultPoint}đ)`);
+
+        showToast(`Đã áp dụng thang điểm: ${desc.join(' • ')}`, 'fa-circle-check');
+      };
+
+      // 2. Chuyển đổi giữa 2 lựa chọn tính điểm Đúng/Sai: Lựa chọn 1 (10-25-50-100%) hoặc Lựa chọn 2 (25-50-75-100%)
+      window.changeP2PercentRule = function(ruleKey) {
+        if (!activeEditingExam || !activeEditingExam.part2) return;
+        activeEditingExam.part2.percentMode = ruleKey;
+
+        const lblMoet = document.getElementById('lblP2Moet');
+        const lblEqual = document.getElementById('lblP2Equal');
+        const rdoMoet = document.getElementById('p2RuleMoet');
+        const rdoEqual = document.getElementById('p2RuleEqual');
+
+        if (ruleKey === 'moet') {
+          activeEditingExam.part2.percentages = { 1: 10, 2: 25, 3: 50, 4: 100 };
+          if (rdoMoet) rdoMoet.checked = true;
+          if (lblMoet) lblMoet.style.border = '2px solid #0284c7';
+          if (lblEqual) lblEqual.style.border = '1.5px solid #cbd5e1';
+        } else {
+          activeEditingExam.part2.percentages = { 1: 25, 2: 50, 3: 75, 4: 100 };
+          if (rdoEqual) rdoEqual.checked = true;
+          if (lblEqual) lblEqual.style.border = '2px solid #0284c7';
+          if (lblMoet) lblMoet.style.border = '1.5px solid #cbd5e1';
+        }
+
+        renderP2LivePointPreview();
+        renderPart2();
+        updateScoreSummary();
+        showToast(ruleKey === 'moet' ? 'Đã chọn Lựa chọn 1: Chuẩn Bộ GD&ĐT (10% - 25% - 50% - 100%)' : 'Đã chọn Lựa chọn 2: Chia đều 4 ý (25% - 50% - 75% - 100%)', 'fa-scale-balanced');
+      };
+
+      // 3. Hiển thị bảng điểm thực tế của câu Đúng/Sai tức thời
+      function renderP2LivePointPreview() {
+        const preview = document.getElementById('p2LivePointPreview');
+        if (!preview || !activeEditingExam) return;
+        const maxPt = parseFloat(activeEditingExam.part2.maxPointPerQuestion) || 2.0;
+        const pcts = activeEditingExam.part2.percentages || { 1: 10, 2: 25, 3: 50, 4: 100 };
+
+        const pt1 = (maxPt * (pcts[1] / 100)).toFixed(2);
+        const pt2 = (maxPt * (pcts[2] / 100)).toFixed(2);
+        const pt3 = (maxPt * (pcts[3] / 100)).toFixed(2);
+        const pt4 = (maxPt * (pcts[4] / 100)).toFixed(2);
+
+        preview.innerHTML = `
+          <div style="background: #ffffff; border-radius: 6px; padding: 6px 10px; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 6px; font-size: 0.74rem;">
+            <div><span style="color: #64748b;">Đúng 1 ý (${pcts[1]}%):</span> <strong style="color: #0284c7;">${pt1}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng 2 ý (${pcts[2]}%):</span> <strong style="color: #0284c7;">${pt2}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng 3 ý (${pcts[3]}%):</span> <strong style="color: #0284c7;">${pt3}đ</strong></div>
+            <div style="color: #cbd5e1;">|</div>
+            <div><span style="color: #64748b;">Đúng cả 4 ý (${pcts[4]}%):</span> <strong style="color: #16a34a; font-size: 0.8rem;">${pt4}đ</strong></div>
+          </div>
+        `;
+      }
+
       function updateScoreSummary() {
         if (!activeEditingExam) return;
         const isP1 = activeEditingExam.part1 && activeEditingExam.part1.enabled !== false;
@@ -5478,22 +5652,29 @@
         let p1N = 0;
         if (isP1) {
           p1N = parseInt(activeEditingExam.part1.numQuestions) || 0;
-          const p1Def = parseFloat(activeEditingExam.part1.defaultPoint) || 0.25;
+          const p1Def = parseFloat(activeEditingExam.part1.defaultPoint) || 1.0;
           for (let i = 1; i <= p1N; i++) {
             p1Total += (activeEditingExam.part1.points && activeEditingExam.part1.points[String(i)] !== undefined)
               ? activeEditingExam.part1.points[String(i)] : p1Def;
           }
+          // Cập nhật giá trị hiển thị công thức Phần I
+          const p1PerQEl = document.getElementById('p1PerQDesc');
+          if (p1PerQEl) p1PerQEl.textContent = `Hệ thống tự chia đều: ${p1N} câu x ${p1Def.toFixed(2)}đ = ${p1Total.toFixed(1)} điểm`;
+          const p1TotInput = document.getElementById('p1TotalPt');
+          if (p1TotInput && document.activeElement !== p1TotInput) p1TotInput.value = p1Total.toFixed(1);
         }
 
         let p2Total = 0;
         let p2N = 0;
         if (isP2) {
           p2N = parseInt(activeEditingExam.part2.numQuestions) || 0;
-          const p2Max = parseFloat(activeEditingExam.part2.maxPointPerQuestion) || 1.0;
+          const p2Max = parseFloat(activeEditingExam.part2.maxPointPerQuestion) || 2.0;
           for (let i = 1; i <= p2N; i++) {
             p2Total += (activeEditingExam.part2.customPoints && activeEditingExam.part2.customPoints[String(i)] !== undefined)
               ? activeEditingExam.part2.customPoints[String(i)] : p2Max;
           }
+          const p2TotInput = document.getElementById('p2TotalPt');
+          if (p2TotInput && document.activeElement !== p2TotInput) p2TotInput.value = p2Total.toFixed(1);
         }
 
         let p3Total = 0;
@@ -5505,6 +5686,10 @@
             p3Total += (activeEditingExam.part3.points && activeEditingExam.part3.points[String(i)] !== undefined)
               ? activeEditingExam.part3.points[String(i)] : p3Def;
           }
+          const p3PerQEl = document.getElementById('p3PerQDesc');
+          if (p3PerQEl) p3PerQEl.textContent = `Hệ thống tự chia đều: ${p3N} câu x ${p3Def.toFixed(2)}đ = ${p3Total.toFixed(1)} điểm`;
+          const p3TotInput = document.getElementById('p3TotalPt');
+          if (p3TotInput && document.activeElement !== p3TotInput) p3TotInput.value = p3Total.toFixed(1);
         }
 
         const grandTotal = Math.round((p1Total + p2Total + p3Total) * 100) / 100;
@@ -5525,87 +5710,155 @@
         document.getElementById('p3BadgeCount').textContent = isP3 ? `${p3N} câu • ${p3Total.toFixed(1)}đ` : 'Đã tắt';
       }
 
-      // Chuẩn hóa tự động 10 điểm thích ứng theo các dạng thức đang bật
+      // Chuẩn hóa tự động 10 điểm thích ứng theo yêu cầu của Giáo viên
       document.getElementById('btnAutoStandardizePoints').addEventListener('click', () => {
         const isP1 = activeEditingExam.part1 && activeEditingExam.part1.enabled !== false;
         const isP2 = activeEditingExam.part2 && activeEditingExam.part2.enabled !== false;
         const isP3 = activeEditingExam.part3 && activeEditingExam.part3.enabled !== false;
         const activeCount = (isP1 ? 1 : 0) + (isP2 ? 1 : 0) + (isP3 ? 1 : 0);
 
-        if (activeCount === 3) {
-          activeEditingExam.part1.defaultPoint = 0.25; activeEditingExam.part1.points = {};
-          activeEditingExam.part2.maxPointPerQuestion = 1.0; activeEditingExam.part2.customPoints = {};
-          activeEditingExam.part3.defaultPoint = 0.5; activeEditingExam.part3.points = {};
-        } else if (activeCount === 1) {
-          if (isP1) {
-            const q = activeEditingExam.part1.numQuestions || 10;
-            activeEditingExam.part1.defaultPoint = Math.round((10.0 / q) * 100) / 100;
-            activeEditingExam.part1.points = {};
-          } else if (isP2) {
-            const q = activeEditingExam.part2.numQuestions || 4;
-            activeEditingExam.part2.maxPointPerQuestion = Math.round((10.0 / q) * 100) / 100;
-            activeEditingExam.part2.customPoints = {};
-          } else if (isP3) {
-            const q = activeEditingExam.part3.numQuestions || 6;
-            activeEditingExam.part3.defaultPoint = Math.round((10.0 / q) * 100) / 100;
-            activeEditingExam.part3.points = {};
+        if (activeCount === 2 && isP1 && isP2) {
+          const p1N = parseInt(activeEditingExam.part1.numQuestions) || 6;
+          const p2N = parseInt(activeEditingExam.part2.numQuestions) || 2;
+          if (p1N === 6 && p2N === 2) {
+            // Chuẩn đề KTTX của Thầy Sáng: 6 câu P1 (6đ) + 2 câu P2 (4đ) = 10đ
+            applyCustomScoreSplit(6.0, 4.0, 0);
+            return;
+          } else if (p1N === 8 && p2N === 2) {
+            applyCustomScoreSplit(4.0, 6.0, 0);
+            return;
+          } else {
+            // Tự động phân bổ: 50% Phần I, 50% Phần II
+            applyCustomScoreSplit(5.0, 5.0, 0);
+            return;
           }
-        } else if (activeCount === 2) {
-          if (isP1 && isP2) {
-            activeEditingExam.part1.defaultPoint = Math.round((4.0 / activeEditingExam.part1.numQuestions) * 100) / 100;
-            activeEditingExam.part2.maxPointPerQuestion = Math.round((6.0 / activeEditingExam.part2.numQuestions) * 100) / 100;
-            activeEditingExam.part1.points = {}; activeEditingExam.part2.customPoints = {};
-          } else if (isP1 && isP3) {
-            activeEditingExam.part1.defaultPoint = Math.round((5.0 / activeEditingExam.part1.numQuestions) * 100) / 100;
-            activeEditingExam.part3.defaultPoint = Math.round((5.0 / activeEditingExam.part3.numQuestions) * 100) / 100;
-            activeEditingExam.part1.points = {}; activeEditingExam.part3.points = {};
-          } else if (isP2 && isP3) {
-            activeEditingExam.part2.maxPointPerQuestion = Math.round((6.0 / activeEditingExam.part2.numQuestions) * 100) / 100;
-            activeEditingExam.part3.defaultPoint = Math.round((4.0 / activeEditingExam.part3.numQuestions) * 100) / 100;
-            activeEditingExam.part2.customPoints = {}; activeEditingExam.part3.points = {};
-          }
+        } else if (activeCount === 3) {
+          applyCustomScoreSplit(3.0, 4.0, 3.0);
+          return;
+        } else if (activeCount === 1 && isP1) {
+          applyCustomScoreSplit(10.0, 0, 0);
+          return;
         }
-
-        document.getElementById('p1DefPt').value = activeEditingExam.part1.defaultPoint;
-        document.getElementById('p2MaxPt').value = activeEditingExam.part2.maxPointPerQuestion;
-        document.getElementById('p3DefPt').value = activeEditingExam.part3.defaultPoint;
 
         renderAllParts();
         updateScoreSummary();
         renderP2LivePointPreview();
-        showToast('Đã tự động cân bằng chuẩn 10.0đ theo các dạng thức đang bật!', 'fa-wand-magic-sparkles');
+        showToast('Đã tự động cân bằng chuẩn 10.0đ!', 'fa-wand-magic-sparkles');
       });
 
-      // Lắng nghe thay đổi cấu hình số câu & điểm mặc định
+      // Lắng nghe thay đổi cấu hình Phần I: Nhập tổng điểm tự chia đều cho số câu
+      const p1TotEl = document.getElementById('p1TotalPt');
+      if (p1TotEl) {
+        p1TotEl.addEventListener('input', (e) => {
+          const total = parseFloat(e.target.value) || 0;
+          const num = parseInt(document.getElementById('p1NumQ').value) || 1;
+          const def = +(total / num).toFixed(2);
+          activeEditingExam.part1.defaultPoint = def;
+          activeEditingExam.part1.points = {};
+          document.getElementById('p1DefPt').value = def;
+          renderPart1();
+          updateScoreSummary();
+        });
+      }
+
+      document.getElementById('p1DefPt').addEventListener('input', (e) => {
+        const def = parseFloat(e.target.value) || 0;
+        const num = parseInt(document.getElementById('p1NumQ').value) || 1;
+        activeEditingExam.part1.defaultPoint = def;
+        activeEditingExam.part1.points = {};
+        const p1Tot = document.getElementById('p1TotalPt');
+        if (p1Tot) p1Tot.value = +(def * num).toFixed(2);
+        renderPart1();
+        updateScoreSummary();
+      });
+
       document.getElementById('p1NumQ').addEventListener('change', (e) => {
-        activeEditingExam.part1.numQuestions = parseInt(e.target.value) || 12;
+        const num = parseInt(e.target.value) || 1;
+        activeEditingExam.part1.numQuestions = num;
+        const p1Tot = document.getElementById('p1TotalPt');
+        const total = p1Tot ? (parseFloat(p1Tot.value) || 6.0) : 6.0;
+        const def = +(total / num).toFixed(2);
+        activeEditingExam.part1.defaultPoint = def;
+        activeEditingExam.part1.points = {};
+        document.getElementById('p1DefPt').value = def;
         renderPart1();
         updateScoreSummary();
       });
-      document.getElementById('p1DefPt').addEventListener('change', (e) => {
-        activeEditingExam.part1.defaultPoint = parseFloat(e.target.value) || 0.25;
-        renderPart1();
+
+      // Lắng nghe thay đổi cấu hình Phần II: Điểm 1 câu & Tổng điểm Phần II
+      document.getElementById('p2MaxPt').addEventListener('input', (e) => {
+        const maxPt = parseFloat(e.target.value) || 0;
+        const num = parseInt(document.getElementById('p2NumQ').value) || 1;
+        activeEditingExam.part2.maxPointPerQuestion = maxPt;
+        activeEditingExam.part2.customPoints = {};
+        const p2Tot = document.getElementById('p2TotalPt');
+        if (p2Tot) p2Tot.value = +(maxPt * num).toFixed(2);
+        renderPart2();
+        renderP2LivePointPreview();
         updateScoreSummary();
       });
+
+      const p2TotEl = document.getElementById('p2TotalPt');
+      if (p2TotEl) {
+        p2TotEl.addEventListener('input', (e) => {
+          const total = parseFloat(e.target.value) || 0;
+          const num = parseInt(document.getElementById('p2NumQ').value) || 1;
+          const maxPt = +(total / num).toFixed(2);
+          activeEditingExam.part2.maxPointPerQuestion = maxPt;
+          activeEditingExam.part2.customPoints = {};
+          document.getElementById('p2MaxPt').value = maxPt;
+          renderPart2();
+          renderP2LivePointPreview();
+          updateScoreSummary();
+        });
+      }
 
       document.getElementById('p2NumQ').addEventListener('change', (e) => {
-        activeEditingExam.part2.numQuestions = parseInt(e.target.value) || 4;
+        const num = parseInt(e.target.value) || 1;
+        activeEditingExam.part2.numQuestions = num;
+        const maxPt = parseFloat(document.getElementById('p2MaxPt').value) || 2.0;
+        const p2Tot = document.getElementById('p2TotalPt');
+        if (p2Tot) p2Tot.value = +(maxPt * num).toFixed(2);
         renderPart2();
+        renderP2LivePointPreview();
         updateScoreSummary();
       });
-      document.getElementById('p2MaxPt').addEventListener('change', (e) => {
-        activeEditingExam.part2.maxPointPerQuestion = parseFloat(e.target.value) || 1.0;
-        renderPart2();
+
+      // Lắng nghe thay đổi cấu hình Phần III: Nhập tổng điểm tự chia đều cho số câu
+      const p3TotEl = document.getElementById('p3TotalPt');
+      if (p3TotEl) {
+        p3TotEl.addEventListener('input', (e) => {
+          const total = parseFloat(e.target.value) || 0;
+          const num = parseInt(document.getElementById('p3NumQ').value) || 1;
+          const def = +(total / num).toFixed(2);
+          activeEditingExam.part3.defaultPoint = def;
+          activeEditingExam.part3.points = {};
+          document.getElementById('p3DefPt').value = def;
+          renderPart3();
+          updateScoreSummary();
+        });
+      }
+
+      document.getElementById('p3DefPt').addEventListener('input', (e) => {
+        const def = parseFloat(e.target.value) || 0;
+        const num = parseInt(document.getElementById('p3NumQ').value) || 1;
+        activeEditingExam.part3.defaultPoint = def;
+        activeEditingExam.part3.points = {};
+        const p3Tot = document.getElementById('p3TotalPt');
+        if (p3Tot) p3Tot.value = +(def * num).toFixed(2);
+        renderPart3();
         updateScoreSummary();
       });
 
       document.getElementById('p3NumQ').addEventListener('change', (e) => {
-        activeEditingExam.part3.numQuestions = parseInt(e.target.value) || 6;
-        renderPart3();
-        updateScoreSummary();
-      });
-      document.getElementById('p3DefPt').addEventListener('change', (e) => {
-        activeEditingExam.part3.defaultPoint = parseFloat(e.target.value) || 0.5;
+        const num = parseInt(e.target.value) || 1;
+        activeEditingExam.part3.numQuestions = num;
+        const p3Tot = document.getElementById('p3TotalPt');
+        const total = p3Tot ? (parseFloat(p3Tot.value) || 3.0) : 3.0;
+        const def = +(total / num).toFixed(2);
+        activeEditingExam.part3.defaultPoint = def;
+        activeEditingExam.part3.points = {};
+        document.getElementById('p3DefPt').value = def;
         renderPart3();
         updateScoreSummary();
       });

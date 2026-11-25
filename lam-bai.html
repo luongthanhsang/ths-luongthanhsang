@@ -14,7 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax 3 cho công thức Toán học LaTeX -->
+  <!-- MathJax 3 & KaTeX cho công thức Toán học LaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script>
     window.MathJax = {
       tex: {
@@ -1638,17 +1641,50 @@
         }
       }
 
-      // Hàm an toàn biên dịch công thức toán MathJax 3
+      // Hàm an toàn biên dịch công thức toán MathJax 3 & KaTeX
       function safeTypesetMath(elements) {
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise(elements).catch(() => {});
-        } else {
-          setTimeout(() => {
-            if (window.MathJax && window.MathJax.typesetPromise) {
-              window.MathJax.typesetPromise(elements).catch(() => {});
-            }
-          }, 350);
-        }
+        if (!elements || elements.length === 0) return;
+        elements.forEach(el => {
+          if (!el) return;
+          if (window.renderMathInElement) {
+            try {
+              window.renderMathInElement(el, {
+                delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError: false
+              });
+            } catch(e) {}
+          }
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            try {
+              if (window.MathJax.typesetClear) window.MathJax.typesetClear([el]);
+            } catch(e) {}
+            window.MathJax.typesetPromise([el]).catch(() => {});
+          } else {
+            setTimeout(() => {
+              if (window.renderMathInElement) {
+                try {
+                  window.renderMathInElement(el, {
+                    delimiters: [
+                      {left: '$$', right: '$$', display: true},
+                      {left: '$', right: '$', display: false},
+                      {left: '\\(', right: '\\)', display: false},
+                      {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                  });
+                } catch(e) {}
+              }
+              if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([el]).catch(() => {});
+              }
+            }, 300);
+          }
+        });
       }
 
       // ==================== ĐỀ THI TRẮC NGHIỆM ONLINE TƯƠNG TÁC (TỪ ANTI) ====================
