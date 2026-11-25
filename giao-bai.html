@@ -2491,10 +2491,7 @@
         <div class="settings-group">
           <label for="teacherAuthPwdInput" style="font-weight: 600;">Mật khẩu Giáo viên:</label>
           <div style="position: relative;">
-            <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 42px;" onkeydown="if(event.key==='Enter') submitTeacherAuth();">
-            <button type="button" onclick="toggleTeacherPwdVisibility('teacherAuthPwdInput', 'teacherPwdEyeIcon')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem;">
-              <i class="fa-solid fa-eye" id="teacherPwdEyeIcon"></i>
-            </button>
+            <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 12px;" onkeydown="if(event.key==='Enter') submitTeacherAuth();" autocomplete="current-password">
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
             <span style="font-size: 0.78rem; color: #64748b;">
