@@ -1202,7 +1202,7 @@
 
   <!-- Scripts -->
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js"></script>
+  <script src="js/exam-engine.js?v=20261126_01"></script>
   <script>
     // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - 3 DẠNG THỨC
     (function() {
@@ -1226,6 +1226,7 @@
 
       const urlParams = new URLSearchParams(window.location.search);
       const examCode = urlParams.get('code') || 'TS-TOAN12-KTTX';
+      const shareToken = urlParams.get('share') || '';
 
       // ==================== KIỂM TRA KHUNG GIỜ THI & PHÒNG CHỜ ====================
       function showClosedExamScreen(exam) {
@@ -1295,10 +1296,26 @@
       }
 
       async function initExamPage() {
-        examData = await store.fetchExamDetail(examCode, 'student');
+        examData = await store.fetchExamDetail(examCode, 'student', shareToken);
         if (!examData) {
-          alert(`Không tìm thấy đề thi với mã [${examCode}]!`);
-          window.location.href = 'index.html';
+          const entryBody = document.querySelector('.entry-body');
+          if (entryBody) {
+            entryBody.innerHTML = `
+              <div style="text-align: center; padding: 20px 10px; color: #b91c1c;">
+                <i class="fa-solid fa-circle-exclamation" style="font-size: 2.5rem; margin-bottom: 12px;"></i>
+                <h3 style="margin-bottom: 8px; color: #0f172a;">Không tìm thấy đề thi [${examCode}]</h3>
+                <p style="font-size: 0.88rem; color: #475569; margin-bottom: 18px;">
+                  Đề thi có thể chưa được lưu trên máy chủ hoặc link chia sẻ bị thiếu tham số. Vui lòng nhờ Thầy Sáng bấm nút <strong>Sao chép link</strong> mới nhất để gửi lại.
+                </p>
+                <a href="giao-bai.html" class="btn-start-exam" style="display: inline-block; text-decoration: none; padding: 10px 20px;">
+                  <i class="fa-solid fa-arrow-left"></i> Quay về danh sách đề
+                </a>
+              </div>
+            `;
+          } else {
+            alert(`Không tìm thấy đề thi với mã [${examCode}]!`);
+            window.location.href = 'index.html';
+          }
           return;
         }
 
@@ -1741,10 +1758,17 @@
           exam = secretDb[antiQuizId] || publicDb[antiQuizId];
         }
 
-        // ƯU TIÊN 3: Nhận diện chính xác theo tên đề thi (tránh tuyệt đối việc lấy nhầm sang đề khác)
+        // ƯU TIÊN 3: Ánh xạ thông minh theo ID & tên đề thi (ưu tiên KKTX 3.2 trước KTTX 3)
+        if (!exam && window.ExamEngine && window.ExamEngine.resolveAntiExamKey) {
+          const resolvedKey = window.ExamEngine.resolveAntiExamKey(antiQuizId || (examData && examData.id), examData && examData.title);
+          if (resolvedKey) exam = secretDb[resolvedKey] || publicDb[resolvedKey];
+        }
+
         if (!exam && examData && examData.title) {
           const t = examData.title.toUpperCase();
-          if (t.includes('TX1') || t.includes('LẦN 1') || t.includes('TX 1') || t.includes('HÀM SỐ')) {
+          if (t.includes('3.2') || t.includes('KKTX 3.2') || t.includes('KTTX 3.2')) {
+            exam = secretDb['12_KTTX3_2_VEC'] || publicDb['12_KTTX3_2_VEC'];
+          } else if (t.includes('TX1') || t.includes('LẦN 1') || t.includes('TX 1') || t.includes('HÀM SỐ')) {
             exam = secretDb['12_TX1_TOAN'] || secretDb['12_TX1_HAMSO'] || publicDb['12_TX1_TOAN'] || publicDb['12_TX1_HAMSO'];
           } else if (t.includes('TX3') || t.includes('LẦN 3') || t.includes('VECTO') || t.includes('VECTƠ') || t.includes('OXYZ')) {
             exam = secretDb['12_KTTX3_VEC'] || publicDb['12_KTTX3_VEC'];
@@ -2147,6 +2171,7 @@
 
         const payload = {
           examId: examData.id,
+          shareToken: shareToken,
           studentName,
           studentClass,
           studentAnswers,

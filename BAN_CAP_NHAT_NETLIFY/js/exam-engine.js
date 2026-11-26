@@ -198,6 +198,279 @@
   };
 
   // Storage Driver
+  // ==================== HỆ THỐNG ÁNH XẠ & MÃ HÓA LINK CHIA SẺ ĐỘC LẬP THIẾT BỊ ====================
+  function extractAntiAnswerKeys(anti) {
+    const p1Raw = Array.isArray(anti.part1) ? anti.part1 : [];
+    const p2Raw = Array.isArray(anti.part2) ? anti.part2 : [];
+    const p3Raw = Array.isArray(anti.part3) ? anti.part3 : [];
+
+    const p1Key = {};
+    p1Raw.forEach((q, idx) => {
+      p1Key[String(idx + 1)] = String(q.answer || q.correctAnswer || '').toUpperCase().trim();
+    });
+
+    const p2Key = {};
+    p2Raw.forEach((q, idx) => {
+      const qStr = String(idx + 1);
+      if (Array.isArray(q.items)) {
+        const res = { a: 'S', b: 'S', c: 'S', d: 'S' };
+        q.items.forEach(it => {
+          if (it && it.id) res[it.id] = it.correct ? 'D' : 'S';
+        });
+        p2Key[qStr] = res;
+      } else {
+        const ca = q.correctAnswers || {};
+        p2Key[qStr] = {
+          a: ca.a || '',
+          b: ca.b || '',
+          c: ca.c || '',
+          d: ca.d || ''
+        };
+      }
+    });
+
+    const p3Key = {};
+    p3Raw.forEach((q, idx) => {
+      p3Key[String(idx + 1)] = String(q.answer || q.correctAnswer || '').trim();
+    });
+
+    return { p1Key, p2Key, p3Key };
+  }
+
+  function resolveAntiExamKey(codeOrId, titleHint) {
+    const secretDb = (typeof window !== 'undefined' && window.ANTI_SECRET_EXAMS_DATABASE) ? window.ANTI_SECRET_EXAMS_DATABASE : {};
+    const publicDb = (typeof window !== 'undefined' && window.EXAMS_DATABASE) ? window.EXAMS_DATABASE : {};
+    const allDb = Object.assign({}, publicDb, secretDb);
+    const raw = String(codeOrId || '').trim();
+    if (raw && allDb[raw]) return raw;
+
+    const up = raw.toUpperCase();
+    const compact = up.replace(/[^A-Z0-9]/g, '');
+
+    // Ưu tiên nhận diện chính xác Đề ôn tập KKTX 3.2 trước KTTX 3 để tránh nhầm lẫn
+    if (compact.includes('12KTTX32') || compact.includes('KTTX32') || compact.includes('KKTX32')) {
+      if (allDb['12_KTTX3_2_VEC']) return '12_KTTX3_2_VEC';
+    }
+    if (compact.includes('12KTTX3V') || compact.includes('KTTX3')) {
+      if (allDb['12_KTTX3_VEC']) return '12_KTTX3_VEC';
+    }
+    if (compact.includes('12TX1TOA') || compact.includes('12TX1HAM') || compact.includes('TX1')) {
+      if (allDb['12_TX1_TOAN']) return '12_TX1_TOAN';
+      if (allDb['12_TX1_HAMSO']) return '12_TX1_HAMSO';
+    }
+
+    // Tự động khớp theo 8 ký tự chuẩn hóa đầu của key trong DB (dạng TS-<8CHAR>-XXXX)
+    const tsMatch = up.match(/^TS-([A-Z0-9]{4,12})-/);
+    const prefix = tsMatch ? tsMatch[1] : compact;
+    const allKeys = Object.keys(allDb);
+    // Sắp xếp độ dài giảm dần để key cụ thể hơn (như 12_KTTX3_2_VEC) thắng trước
+    allKeys.sort((a, b) => b.length - a.length);
+    for (let i = 0; i < allKeys.length; i++) {
+      const k = allKeys[i];
+      const normK = k.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+      if (prefix && (normK.startsWith(prefix) || prefix.startsWith(normK.substring(0, 8)))) {
+        return k;
+      }
+    }
+
+    if (titleHint) {
+      const t = String(titleHint).toUpperCase();
+      if ((t.includes('3.2') || t.includes('KKTX 3.2') || t.includes('KTTX 3.2')) && allDb['12_KTTX3_2_VEC']) return '12_KTTX3_2_VEC';
+      if ((t.includes('TX1') || t.includes('LẦN 1') || t.includes('HÀM SỐ')) && allDb['12_TX1_TOAN']) return '12_TX1_TOAN';
+      if ((t.includes('KTTX 3') || t.includes('LẦN 3') || t.includes('OXYZ')) && allDb['12_KTTX3_VEC']) return '12_KTTX3_VEC';
+    }
+    return null;
+  }
+
+  function buildExamFromAnti(examId, anti, tokenCfg) {
+    const cfg = (anti && anti.config) ? anti.config : {};
+    const keys = extractAntiAnswerKeys(anti || {});
+    const p1Raw = Array.isArray(anti.part1) ? anti.part1 : [];
+    const p2Raw = Array.isArray(anti.part2) ? anti.part2 : [];
+    const p3Raw = Array.isArray(anti.part3) ? anti.part3 : [];
+
+    const title = (tokenCfg && tokenCfg.t) || cfg.title || anti.title || 'Đề Kiểm Tra';
+    const isTx = /TX|KKTX|THUONG\s*XUYEN|15P/i.test(title);
+    const dur = (tokenCfg && tokenCfg.d) || cfg.timeLimitMinutes || (isTx ? 15 : 45);
+
+    const p1Arr = tokenCfg && Array.isArray(tokenCfg.p1) ? tokenCfg.p1 : null;
+    const p2Arr = tokenCfg && Array.isArray(tokenCfg.p2) ? tokenCfg.p2 : null;
+    const p3Arr = tokenCfg && Array.isArray(tokenCfg.p3) ? tokenCfg.p3 : null;
+
+    const p1Num = p1Arr ? p1Arr[1] : p1Raw.length;
+    const p1Def = p1Arr ? p1Arr[2] : (p1Num === 6 ? 1.0 : (isTx ? 1.0 : 0.25));
+
+    const p2Num = p2Arr ? p2Arr[1] : p2Raw.length;
+    const p2Max = p2Arr ? p2Arr[2] : (p2Num === 2 ? 2.0 : (isTx ? 2.0 : 1.0));
+    const p2Mode = (p2Arr && p2Arr[3] === 'e') ? 'equal' : 'moet';
+    const p2Pcts = (p2Mode === 'equal') ? { 1: 25, 2: 50, 3: 75, 4: 100 } : { 1: 10, 2: 25, 3: 50, 4: 100 };
+
+    const p3Num = p3Arr ? p3Arr[1] : p3Raw.length;
+    const p3Def = p3Arr ? p3Arr[2] : 0.5;
+
+    const p1Enabled = p1Arr ? !!p1Arr[0] : (p1Num > 0);
+    const p2Enabled = p2Arr ? !!p2Arr[0] : (p2Num > 0);
+    const p3Enabled = p3Arr ? !!p3Arr[0] : (p3Num > 0);
+
+    const calcTotal = Math.round(((p1Enabled ? p1Num * p1Def : 0) + (p2Enabled ? p2Num * p2Max : 0) + (p3Enabled ? p3Num * p3Def : 0)) * 100) / 100;
+
+    return {
+      id: examId,
+      title: title,
+      durationMinutes: dur,
+      totalPoints: calcTotal || cfg.maxScore || 10,
+      status: 'active',
+      sourceType: 'anti_quiz',
+      antiQuizId: (tokenCfg && tokenCfg.aq) || anti.id || resolveAntiExamKey(examId, title),
+      antiQuizData: anti,
+      openTime: (tokenCfg && tokenCfg.ot) || '',
+      closeTime: (tokenCfg && tokenCfg.ct) || '',
+      password: (tokenCfg && tokenCfg.pw) || '',
+      maxAttempts: (tokenCfg && tokenCfg.ma !== undefined) ? tokenCfg.ma : 0,
+      enableTabTracking: (tokenCfg && tokenCfg.tt !== undefined) ? !!tokenCfg.tt : true,
+      viewResultMode: (tokenCfg && tokenCfg.vr) || 'all',
+      part1: {
+        enabled: p1Enabled,
+        numQuestions: p1Num,
+        defaultPoint: p1Def,
+        answerKey: keys.p1Key
+      },
+      part2: {
+        enabled: p2Enabled,
+        numQuestions: p2Num,
+        maxPointPerQuestion: p2Max,
+        percentMode: p2Mode,
+        percentages: p2Pcts,
+        answerKey: keys.p2Key
+      },
+      part3: {
+        enabled: p3Enabled,
+        numQuestions: p3Num,
+        defaultPoint: p3Def,
+        answerKey: keys.p3Key
+      }
+    };
+  }
+
+  function encodeExamShareToken(exam) {
+    try {
+      if (!exam) return '';
+      const p1 = exam.part1 || {};
+      const p2 = exam.part2 || {};
+      const p3 = exam.part3 || {};
+      const payload = {
+        id: exam.id,
+        aq: exam.antiQuizId || (exam.antiQuizData && exam.antiQuizData.id) || '',
+        t: exam.title || '',
+        d: exam.durationMinutes || 15,
+        p1: [p1.enabled !== false ? 1 : 0, parseInt(p1.numQuestions) || 0, parseFloat(p1.defaultPoint) || 0],
+        p2: [p2.enabled !== false ? 1 : 0, parseInt(p2.numQuestions) || 0, parseFloat(p2.maxPointPerQuestion) || 0, p2.percentMode === 'equal' ? 'e' : 'm'],
+        p3: [p3.enabled !== false ? 1 : 0, parseInt(p3.numQuestions) || 0, parseFloat(p3.defaultPoint) || 0]
+      };
+      if (exam.fileUrl && !String(exam.fileUrl).startsWith('blob:')) {
+        payload.fu = exam.fileUrl;
+        payload.ft = exam.fileSourceType || 'url';
+      }
+      if (exam.viewResultMode && exam.viewResultMode !== 'all') payload.vr = exam.viewResultMode;
+      if (exam.enableTabTracking === false) payload.tt = 0;
+      if (exam.maxAttempts !== undefined && exam.maxAttempts !== 0) payload.ma = exam.maxAttempts;
+      if (exam.openTime) payload.ot = exam.openTime;
+      if (exam.closeTime) payload.ct = exam.closeTime;
+      if (exam.password) payload.pw = exam.password;
+
+      const jsonStr = JSON.stringify(payload);
+      const bytes = new TextEncoder().encode(jsonStr);
+      let bin = '';
+      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function decodeExamShareToken(token) {
+    try {
+      if (!token) return null;
+      let b64 = String(token).replace(/-/g, '+').replace(/_/g, '/');
+      while (b64.length % 4) b64 += '=';
+      const bin = atob(b64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const jsonStr = new TextDecoder().decode(bytes);
+      return JSON.parse(jsonStr);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function buildShareExamUrl(examOrId, baseHref) {
+    const id = (typeof examOrId === 'string') ? examOrId : (examOrId && examOrId.id ? examOrId.id : '');
+    const exam = (typeof examOrId === 'object' && examOrId) ? examOrId : null;
+    let baseUrl;
+    try {
+      baseUrl = new URL('lam-bai.html', baseHref || (typeof window !== 'undefined' ? window.location.href : 'https://localhost/'));
+    } catch (e) {
+      baseUrl = new URL('https://localhost/lam-bai.html');
+    }
+    if (id) baseUrl.searchParams.set('code', id);
+    if (exam) {
+      const token = encodeExamShareToken(exam);
+      if (token) baseUrl.searchParams.set('share', token);
+    }
+    return baseUrl.toString();
+  }
+
+  function resolveExamFromTokenOrAnti(id, shareToken) {
+    const secretDb = (typeof window !== 'undefined' && window.ANTI_SECRET_EXAMS_DATABASE) ? window.ANTI_SECRET_EXAMS_DATABASE : {};
+    const publicDb = (typeof window !== 'undefined' && window.EXAMS_DATABASE) ? window.EXAMS_DATABASE : {};
+    const allDb = Object.assign({}, publicDb, secretDb);
+
+    let tok = null;
+    if (shareToken) tok = decodeExamShareToken(shareToken);
+    if (!tok && typeof window !== 'undefined' && window.location && window.location.search) {
+      try {
+        const sp = new URLSearchParams(window.location.search).get('share');
+        if (sp) tok = decodeExamShareToken(sp);
+      } catch (e) {}
+    }
+
+    if (tok && (!id || !tok.id || tok.id === id)) {
+      const targetId = id || tok.id;
+      const antiKey = tok.aq && allDb[tok.aq] ? tok.aq : resolveAntiExamKey(tok.aq || targetId, tok.t);
+      if (antiKey && allDb[antiKey]) {
+        return buildExamFromAnti(targetId, allDb[antiKey], tok);
+      }
+      if (tok.fu) {
+        const p1Arr = tok.p1 || [1, 6, 1.0];
+        const p2Arr = tok.p2 || [1, 2, 2.0, 'm'];
+        const p3Arr = tok.p3 || [0, 0, 0.5];
+        return {
+          id: targetId,
+          title: tok.t || 'Đề Kiểm Tra',
+          durationMinutes: tok.d || 15,
+          fileSourceType: tok.ft || 'url',
+          fileUrl: tok.fu,
+          openTime: tok.ot || '',
+          closeTime: tok.ct || '',
+          password: tok.pw || '',
+          maxAttempts: tok.ma !== undefined ? tok.ma : 0,
+          enableTabTracking: tok.tt !== undefined ? !!tok.tt : true,
+          viewResultMode: tok.vr || 'all',
+          status: 'active',
+          part1: { enabled: !!p1Arr[0], numQuestions: p1Arr[1], defaultPoint: p1Arr[2] },
+          part2: { enabled: !!p2Arr[0], numQuestions: p2Arr[1], maxPointPerQuestion: p2Arr[2], percentMode: p2Arr[3] === 'e' ? 'equal' : 'moet' },
+          part3: { enabled: !!p3Arr[0], numQuestions: p3Arr[1], defaultPoint: p3Arr[2] }
+        };
+      }
+    }
+
+    const mappedKey = resolveAntiExamKey(id, tok ? tok.t : '');
+    if (mappedKey && allDb[mappedKey]) {
+      return buildExamFromAnti(id || mappedKey, allDb[mappedKey], tok);
+    }
+    return null;
+  }
+
   const ExamStore = {
     LOCAL_KEY_EXAMS: 'THS_SANG_TEACHER_EXAMS_V4',
     LOCAL_KEY_SUBS: 'THS_SANG_STUDENT_SUBS_V4',
@@ -294,7 +567,7 @@
       return this.getLocalExams();
     },
 
-    async fetchExamDetail(id, role) {
+    async fetchExamDetail(id, role, shareToken) {
       const deletedIds = this.getDeletedExamIds();
       if (deletedIds.includes(id)) {
         return null;
@@ -315,55 +588,16 @@
       const exams = this.getLocalExams();
       let exam = exams.find(function(e) { return e.id === id; });
 
-      // Nếu không có trong local, tra cứu trong kho đề bảo mật Anti
+      // Nếu không có trong local (hoặc server cold-start), giải mã từ link chia sẻ & ánh xạ từ kho đề Anti
       if (!exam && !deletedIds.includes(id)) {
-        const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
-        const publicDb = window.EXAMS_DATABASE || {};
-        const anti = secretDb[id] || publicDb[id];
-        if (anti) {
-          const cfg = anti.config || {};
-          const isTx = /TX|THUONG\s*XUYEN|15P/i.test(cfg.title || anti.title || '');
-          exam = {
-            id: id,
-            title: cfg.title || anti.title || 'Đề Kiểm Tra',
-            durationMinutes: cfg.timeLimitMinutes || (isTx ? 15 : 45),
-            totalPoints: cfg.maxScore || 10,
-            status: 'active',
-            sourceType: 'anti_quiz',
-            antiQuizData: anti,
-            part1: {
-              enabled: Array.isArray(anti.part1) && anti.part1.length > 0,
-              numQuestions: (anti.part1 || []).length,
-              defaultPoint: isTx ? 1.0 : 0.25,
-              answerKey: (anti.part1 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
-            },
-            part2: {
-              enabled: Array.isArray(anti.part2) && anti.part2.length > 0,
-              numQuestions: (anti.part2 || []).length,
-              maxPointPerQuestion: isTx ? 2.0 : 1.0,
-              percentMode: 'moet',
-              percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
-              answerKey: (anti.part2 || []).reduce((acc, q, idx) => {
-                const ca = q.correctAnswers || {};
-                acc[String(idx + 1)] = { a: ca.a || '', b: ca.b || '', c: ca.c || '', d: ca.d || '' };
-                return acc;
-              }, {})
-            },
-            part3: {
-              enabled: Array.isArray(anti.part3) && anti.part3.length > 0,
-              numQuestions: (anti.part3 || []).length,
-              defaultPoint: 0.5,
-              answerKey: (anti.part3 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
-            }
-          };
-        }
+        exam = resolveExamFromTokenOrAnti(id, shareToken);
       }
 
       if (!exam || deletedIds.includes(exam.id)) return null;
       
       const copy = JSON.parse(JSON.stringify(exam));
       // Tự động chuẩn hóa thời gian 15 phút nếu là đề KTTX
-      if (/TX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((copy.title || '') + ' ' + (copy.fileName || ''))) {
+      if (/TX|KKTX|THUONG\s*XUYEN|15P|15\s*PHUT/i.test((copy.title || '') + ' ' + (copy.fileName || ''))) {
         if (!copy.durationMinutes || copy.durationMinutes === 45) {
           copy.durationMinutes = 15;
         }
@@ -677,48 +911,10 @@
       const exams = this.getLocalExams();
       let exam = exams.find(function(e) { return e.id === payload.examId; });
 
-      // Nếu không tìm thấy trong LocalExams, tra cứu trong kho đề bảo mật Anti
+      // Nếu không tìm thấy trong LocalExams, dựng lại từ shareToken hoặc ánh xạ trong kho đề bảo mật Anti
       if (!exam) {
-        const secretDb = window.ANTI_SECRET_EXAMS_DATABASE || {};
-        const publicDb = window.EXAMS_DATABASE || {};
-        const anti = secretDb[payload.examId] || publicDb[payload.examId];
-        if (anti) {
-          const cfg = anti.config || {};
-          const isTx = /TX|THUONG\s*XUYEN|15P/i.test(cfg.title || anti.title || '');
-          exam = {
-            id: payload.examId,
-            title: cfg.title || anti.title || 'Đề Kiểm Tra',
-            durationMinutes: cfg.timeLimitMinutes || (isTx ? 15 : 45),
-            totalPoints: cfg.maxScore || 10,
-            status: 'active',
-            sourceType: 'anti_quiz',
-            antiQuizData: anti,
-            part1: {
-              enabled: Array.isArray(anti.part1) && anti.part1.length > 0,
-              numQuestions: (anti.part1 || []).length,
-              defaultPoint: isTx ? 1.0 : 0.25,
-              answerKey: (anti.part1 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
-            },
-            part2: {
-              enabled: Array.isArray(anti.part2) && anti.part2.length > 0,
-              numQuestions: (anti.part2 || []).length,
-              maxPointPerQuestion: isTx ? 2.0 : 1.0,
-              percentMode: 'moet',
-              percentages: { 1: 10, 2: 25, 3: 50, 4: 100 },
-              answerKey: (anti.part2 || []).reduce((acc, q, idx) => {
-                const ca = q.correctAnswers || {};
-                acc[String(idx + 1)] = { a: ca.a || '', b: ca.b || '', c: ca.c || '', d: ca.d || '' };
-                return acc;
-              }, {})
-            },
-            part3: {
-              enabled: Array.isArray(anti.part3) && anti.part3.length > 0,
-              numQuestions: (anti.part3 || []).length,
-              defaultPoint: 0.5,
-              answerKey: (anti.part3 || []).reduce((acc, q, idx) => { acc[String(idx + 1)] = q.correctAnswer || ''; return acc; }, {})
-            }
-          };
-          // Tự động đưa đề này vào danh sách quản lý để Thầy thấy trên giao-bai.html
+        exam = resolveExamFromTokenOrAnti(payload.examId, payload.shareToken);
+        if (exam) {
           exams.unshift(exam);
           this.saveLocalExams(exams);
         }
@@ -1170,7 +1366,10 @@
     parseQuickAnswersPart2: parseQuickAnswersPart2,
     detectExamStructure: detectExamStructure,
     suggestScoring: suggestScoring,
-    exportSubmissionsToCSV: exportSubmissionsToCSV
+    exportSubmissionsToCSV: exportSubmissionsToCSV,
+    buildShareExamUrl: buildShareExamUrl,
+    resolveAntiExamKey: resolveAntiExamKey,
+    decodeExamShareToken: decodeExamShareToken
   };
 
 })(window);

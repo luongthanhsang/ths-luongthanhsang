@@ -3232,7 +3232,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js"></script>
+  <script src="js/exam-engine.js?v=20261126_01"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3438,7 +3438,9 @@
       };
 
       window.enterExamRoom = function(examId) {
-        window.location.href = `lam-bai.html?code=${encodeURIComponent(examId)}`;
+        const found = (currentExams || []).find(e => e.id === examId);
+        const url = window.ExamEngine.buildShareExamUrl(found || examId);
+        window.location.href = url;
       };
 
       // 1. Tải và render danh sách đề thi
@@ -3533,13 +3535,32 @@
         }).join('');
       }
 
-      window.copyExamShareLink = function(examId) {
-        const fullLink = `${window.location.origin}/lam-bai.html?code=${examId}`;
-        navigator.clipboard.writeText(fullLink).then(() => {
-          showToast(`Đã sao chép link đề ${examId} vào bộ nhớ tạm!`, 'fa-clipboard-check');
-        }).catch(() => {
-          showToast(`Link thi: ${fullLink}`);
-        });
+      window.copyExamShareLink = async function(examId) {
+        let examObj = (currentExams || []).find(e => e.id === examId);
+        if (!examObj) {
+          try { examObj = await store.fetchExamDetail(examId, 'teacher'); } catch (e) {}
+        }
+        const fullLink = window.ExamEngine.buildShareExamUrl(examObj || examId);
+        const notifyOk = () => showToast(`Đã sao chép link đề ${examId} (hỗ trợ mọi thiết bị)!`, 'fa-clipboard-check');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(fullLink).then(notifyOk).catch(() => {
+            const tmp = document.createElement('textarea');
+            tmp.value = fullLink;
+            document.body.appendChild(tmp);
+            tmp.select();
+            document.execCommand('copy');
+            document.body.removeChild(tmp);
+            notifyOk();
+          });
+        } else {
+          const tmp = document.createElement('textarea');
+          tmp.value = fullLink;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand('copy');
+          document.body.removeChild(tmp);
+          notifyOk();
+        }
       };
 
       // Mở Modal Upload Đề (Yêu cầu quyền Giáo viên)
@@ -4778,8 +4799,8 @@
         closeOnlineConfigModal();
         await loadExamDashboard();
 
-        // Mở popup thành công (khớp ID chính xác trong DOM)
-        const shareLink = `${window.location.origin}/lam-bai.html?code=${examId}`;
+        // Mở popup thành công (link đính kèm cấu hình chuẩn để mở được trên mọi máy/trình duyệt)
+        const shareLink = window.ExamEngine.buildShareExamUrl(newOnlineExam);
         const codeEl = document.getElementById('successExamCode');
         const linkEl = document.getElementById('successExamLink');
         const testBtnEl = document.getElementById('btnTestStudentExam');
@@ -5523,7 +5544,7 @@
         document.getElementById('editAndPublishModal').style.display = 'none';
 
         const examCode = saved.id;
-        const examLink = `${window.location.origin}/lam-bai.html?code=${examCode}`;
+        const examLink = window.ExamEngine.buildShareExamUrl(saved);
         document.getElementById('successExamCode').textContent = examCode;
         document.getElementById('successExamLink').value = examLink;
         document.getElementById('successQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(examLink)}`;
@@ -6620,7 +6641,7 @@
         document.getElementById('docViewerIframe').src = '';
 
         const examCode = saved.id;
-        const examLink = `${window.location.origin}/lam-bai.html?code=${examCode}`;
+        const examLink = window.ExamEngine.buildShareExamUrl(saved);
         document.getElementById('successExamCode').textContent = examCode;
         document.getElementById('successExamLink').value = examLink;
         document.getElementById('successQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(examLink)}`;
