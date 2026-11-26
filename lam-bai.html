@@ -1168,6 +1168,23 @@
 
         <div id="resMessageNotice" style="display: none; padding: 12px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; font-size: 0.85rem; color: #92400e; text-align: center; margin-bottom: 12px;"></div>
 
+        <div id="resReceiptPanel" style="background: #f0f9ff; border: 1px dashed #38bdf8; border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 0.8rem; color: #0369a1;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span id="resSyncStatusBadge" style="font-weight: 700;"><i class="fa-solid fa-cloud-check"></i> Đã ghi nhận bài nộp</span>
+            <button type="button" id="btnCopyReceiptCode" onclick="copyReceiptCodeToClipboard()" style="padding: 4px 10px; border-radius: 6px; border: 1px solid #0284c7; background: #ffffff; color: #0284c7; font-weight: 700; font-size: 0.76rem; cursor: pointer;">
+              <i class="fa-regular fa-copy"></i> Chép mã xác nhận
+            </button>
+          </div>
+          <div id="resReceiptCodeText" style="margin-top: 6px; font-family: monospace; font-size: 0.72rem; word-break: break-all; color: #334155; background: #ffffff; padding: 6px 8px; border-radius: 6px; border: 1px solid #e0f2fe;"></div>
+        </div>
+
+        <div id="evidencePreviewWrap" style="display: none; text-align: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px; margin-bottom: 12px;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+            <i class="fa-solid fa-image" style="color: #0284c7;"></i> Ảnh minh chứng (Nhấn giữ ảnh để Lưu / Gửi qua Zalo):
+          </div>
+          <img id="evidencePreviewImg" alt="Ảnh minh chứng kết quả" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+        </div>
+
         <div id="resDetailWrapper">
           <h4 style="font-size: 0.9rem; color: #334155; margin-bottom: 10px;">Chi tiết kết quả từng phần:</h4>
           <div id="resDetailContainer" style="display: flex; flex-direction: column; gap: 10px;">
@@ -1177,15 +1194,48 @@
       </div>
 
       <div class="result-footer" id="resultActionFooter" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <button type="button" id="btnShareResult" onclick="shareExamResultEvidence()" style="padding: 11px 22px; border-radius: 8px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 3px 10px rgba(2,132,199,0.25);">
+        <button type="button" id="btnShareResult" onclick="shareExamResultEvidence()" style="touch-action: manipulation; padding: 11px 22px; border-radius: 8px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 3px 10px rgba(2,132,199,0.25);">
           <i class="fa-solid fa-share-nodes"></i> Chia sẻ
         </button>
-        <button type="button" id="btnCloseResult" onclick="closeExamAndFinish()" style="padding: 11px 22px; border-radius: 8px; background: #dc2626; color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+        <button type="button" id="btnCloseResult" onclick="closeExamAndFinish()" style="touch-action: manipulation; padding: 11px 22px; border-radius: 8px; background: #dc2626; color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
           <i class="fa-solid fa-circle-xmark"></i> Đóng lại
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Modal xác nhận Nộp bài (thay thế confirm() để không bị chặn trên Zalo/Mobile) -->
+  <div class="tab-warning-overlay" id="submitConfirmModal" style="z-index: 100020; display: none;">
+    <div class="tab-warning-card" style="max-width: 430px; text-align: center;">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 12px;">
+        <i class="fa-solid fa-paper-plane"></i>
+      </div>
+      <h3 style="color: #0f172a; font-size: 1.15rem; margin-bottom: 8px; font-weight: 800;">Xác Nhận Nộp Bài Thi</h3>
+      <p id="submitConfirmMessage" style="font-size: 0.92rem; color: #334155; line-height: 1.55; margin-bottom: 18px;"></p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button type="button" onclick="cancelSubmitConfirm()" style="touch-action: manipulation; padding: 10px 18px; border-radius: 8px; border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; font-weight: 700; cursor: pointer; font-size: 0.9rem;">
+          Quay lại kiểm tra
+        </button>
+        <button type="button" id="btnProceedSubmitConfirm" onclick="proceedConfirmSubmit()" style="touch-action: manipulation; padding: 10px 20px; border-radius: 8px; border: none; background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; font-weight: 700; cursor: pointer; font-size: 0.9rem; box-shadow: 0 3px 10px rgba(16,185,129,0.28);">
+          <i class="fa-solid fa-check"></i> Nộp bài ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay đang chấm bài -->
+  <div class="tab-warning-overlay" id="submittingOverlay" style="z-index: 100030; display: none;">
+    <div class="tab-warning-card" style="max-width: 360px; text-align: center; padding: 28px 22px;">
+      <div style="font-size: 2.2rem; color: #0284c7; margin-bottom: 12px;">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+      <h3 style="color: #0f172a; font-size: 1.05rem; font-weight: 800; margin-bottom: 6px;">Đang Chấm Điểm & Lưu Bài Làm</h3>
+      <p style="font-size: 0.85rem; color: #64748b;">Vui lòng chờ trong giây lát, không đóng trình duyệt...</p>
+    </div>
+  </div>
+
+  <!-- Thông báo nổi phòng thi (không dùng alert chặn luồng) -->
+  <div id="roomToastBanner" style="display: none; position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100040; background: #0f172a; color: #ffffff; padding: 10px 18px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.25); max-width: 92vw; text-align: center;"></div>
 
   <!-- ==================== CẢNH BÁO CHỐNG GIAN LẬN CHUYỂN TAB ==================== -->
   <div class="tab-warning-overlay" id="tabWarningOverlay">
@@ -1206,7 +1256,7 @@
 
   <!-- Scripts -->
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261126_02"></script>
+  <script src="js/exam-engine.js?v=20261126_03"></script>
   <script>
     // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - 3 DẠNG THỨC
     (function() {
@@ -1226,7 +1276,19 @@
       let totalDurationSeconds = 2700;
       let tabViolations = 0;
       let isExamActive = false;
+      let isSubmittingExam = false;
+      let currentReceiptCode = '';
       let waitTimerInterval = null;
+
+      function showRoomToast(msg, isError) {
+        const el = document.getElementById('roomToastBanner');
+        if (!el) return;
+        el.textContent = msg;
+        el.style.background = isError ? '#b91c1c' : '#0f172a';
+        el.style.display = 'block';
+        clearTimeout(el._hideTimer);
+        el._hideTimer = setTimeout(() => { el.style.display = 'none'; }, 3600);
+      }
 
       const urlParams = new URLSearchParams(window.location.search);
       const examCode = urlParams.get('code') || 'TS-TOAN12-KTTX';
@@ -1303,6 +1365,9 @@
         if (urlParams.get('ended') === '1') {
           closeExamAndFinish();
           return;
+        }
+        if (typeof store.flushPendingSubmissions === 'function') {
+          store.flushPendingSubmissions().catch(() => {});
         }
         examData = await store.fetchExamDetail(examCode, 'student', shareToken);
         if (!examData) {
@@ -1475,11 +1540,18 @@
           }
         }
 
-        // Phục hồi auto-save draft
+        // Phục hồi auto-save draft (luôn chuẩn hóa đủ 3 phần tránh lỗi undefined)
         const draftKey = `THS_SANG_EXAM_DRAFT_${examData.id}_${studentName}_${studentClass}`;
         try {
           const draft = localStorage.getItem(draftKey);
-          if (draft) studentAnswers = JSON.parse(draft) || { part1: {}, part2: {}, part3: {} };
+          if (draft) {
+            const parsedDraft = JSON.parse(draft) || {};
+            studentAnswers = {
+              part1: (parsedDraft.part1 && typeof parsedDraft.part1 === 'object') ? parsedDraft.part1 : {},
+              part2: (parsedDraft.part2 && typeof parsedDraft.part2 === 'object') ? parsedDraft.part2 : {},
+              part3: (parsedDraft.part3 && typeof parsedDraft.part3 === 'object') ? parsedDraft.part3 : {}
+            };
+          }
         } catch (e) {}
 
         // Điều chỉnh thanh Tabs 3 Phần thích ứng theo các dạng thức đang bật
@@ -2080,7 +2152,7 @@
 
           if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
-            alert('Đã hết thời gian làm bài thi! Hệ thống tự động ghi nhận kết quả và nộp bài.');
+            showRoomToast('Đã hết thời gian làm bài! Hệ thống đang tự động nộp bài...', false);
             submitExamAction(true);
           }
         }, 1000);
@@ -2110,7 +2182,14 @@
 
       // Xác nhận và Nộp bài (Dùng chung cho Desktop Header, Mobile Tab và Mobile Sticky Bar)
       window.confirmAndSubmitExam = function() {
-        if (!isExamActive) return;
+        if (isSubmittingExam || !isExamActive || !examData) return;
+
+        if (!studentAnswers || typeof studentAnswers !== 'object') {
+          studentAnswers = { part1: {}, part2: {}, part3: {} };
+        }
+        if (!studentAnswers.part1) studentAnswers.part1 = {};
+        if (!studentAnswers.part2) studentAnswers.part2 = {};
+        if (!studentAnswers.part3) studentAnswers.part3 = {};
 
         // Đếm số câu hỏi học sinh đã làm và chưa làm
         let expectedTotal = 0;
@@ -2131,7 +2210,7 @@
           expectedTotal += p2N;
           for (let i = 1; i <= p2N; i++) {
             const subs = studentAnswers.part2[String(i)] || {};
-            const subCount = Object.keys(subs).length;
+            const subCount = Object.keys(subs).filter(k => !!subs[k]).length;
             if (subCount === 4) answeredTotal++;
             else if (subCount > 0) answeredTotal += 0.5;
           }
@@ -2151,29 +2230,76 @@
         const roundAnswered = Math.floor(answeredTotal);
         const unanswered = Math.max(0, expectedTotal - roundAnswered);
 
-        let confirmMsg = '';
+        let confirmHtml = '';
         if (unanswered > 0) {
-          confirmMsg = `Bạn đã hoàn thành ${roundAnswered}/${expectedTotal} câu (còn ${unanswered} câu chưa xong).\n\nBạn có chắc chắn muốn nộp bài thi ngay bây giờ?`;
+          confirmHtml = `Bạn đã hoàn thành <strong>${roundAnswered}/${expectedTotal}</strong> câu (còn <strong style="color:#dc2626;">${unanswered} câu</strong> chưa xong).<br><br>Bạn có chắc chắn muốn nộp bài thi ngay bây giờ?`;
         } else {
-          confirmMsg = `Tuyệt vời! Bạn đã hoàn thành đầy đủ ${expectedTotal}/${expectedTotal} câu hỏi.\n\nBạn có chắc chắn muốn nộp bài thi?`;
+          confirmHtml = `Tuyệt vời! Bạn đã hoàn thành đầy đủ <strong>${expectedTotal}/${expectedTotal}</strong> câu hỏi.<br><br>Bạn có chắc chắn muốn nộp bài thi?`;
         }
 
-        if (confirm(confirmMsg)) {
+        const modal = document.getElementById('submitConfirmModal');
+        const msgEl = document.getElementById('submitConfirmMessage');
+        if (modal && msgEl) {
+          msgEl.innerHTML = confirmHtml;
+          modal.style.display = 'flex';
+        } else {
           submitExamAction(false);
         }
+      };
+
+      window.cancelSubmitConfirm = function() {
+        const modal = document.getElementById('submitConfirmModal');
+        if (modal) modal.style.display = 'none';
+      };
+
+      window.proceedConfirmSubmit = function() {
+        const modal = document.getElementById('submitConfirmModal');
+        if (modal) modal.style.display = 'none';
+        submitExamAction(false);
       };
 
       // Gắn sự kiện cho nút nộp bài trên header
       const topSubmitBtn = document.getElementById('btnSubmitExamTop');
       if (topSubmitBtn) {
-        topSubmitBtn.addEventListener('click', () => {
+        topSubmitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
           window.confirmAndSubmitExam();
         });
       }
 
+      window.copyReceiptCodeToClipboard = function() {
+        if (!currentReceiptCode) return;
+        const notify = () => showRoomToast('Đã sao chép mã xác nhận bài làm!', false);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentReceiptCode).then(notify).catch(() => {
+            const ta = document.createElement('textarea');
+            ta.value = currentReceiptCode;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            notify();
+          });
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = currentReceiptCode;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          notify();
+        }
+      };
+
       async function submitExamAction(isTimeout) {
+        if (isSubmittingExam) return;
+        isSubmittingExam = true;
         isExamActive = false;
         clearInterval(timerInterval);
+
+        const submittingOv = document.getElementById('submittingOverlay');
+        if (submittingOv) submittingOv.style.display = 'flex';
+        if (topSubmitBtn) topSubmitBtn.disabled = true;
 
         const durationSpent = totalDurationSeconds - Math.max(0, remainingSeconds);
 
@@ -2188,16 +2314,43 @@
           password: examData.password || ''
         };
 
-        const result = await store.submitExam(payload);
+        let result = null;
+        try {
+          result = await store.submitExam(payload);
+        } catch (err) {
+          result = { success: false, message: 'Có lỗi khi gửi bài, vui lòng thử lại!' };
+        } finally {
+          if (submittingOv) submittingOv.style.display = 'none';
+        }
+
+        if (!result || !result.success || !result.data) {
+          isSubmittingExam = false;
+          isExamActive = !isTimeout;
+          if (topSubmitBtn) topSubmitBtn.disabled = false;
+          showRoomToast((result && result.message) || 'Không thể nộp bài lúc này. Vui lòng thử bấm Nộp bài lại!', true);
+          return;
+        }
 
         const draftKey = `THS_SANG_EXAM_DRAFT_${examData.id}_${studentName}_${studentClass}`;
-        localStorage.removeItem(draftKey);
+        try { localStorage.removeItem(draftKey); } catch (e) {}
 
         document.getElementById('examRoomScreen').style.display = 'none';
         document.getElementById('resultScreen').style.display = 'flex';
 
         if (result.success && result.data) {
           const res = result.data;
+          currentReceiptCode = res.receiptCode || '';
+          const syncBadge = document.getElementById('resSyncStatusBadge');
+          const receiptTextEl = document.getElementById('resReceiptCodeText');
+          const receiptPanel = document.getElementById('resReceiptPanel');
+          if (receiptPanel) receiptPanel.style.display = currentReceiptCode ? 'block' : 'none';
+          if (receiptTextEl) receiptTextEl.textContent = currentReceiptCode;
+          if (syncBadge) {
+            syncBadge.innerHTML = res.syncedToServer
+              ? '<i class="fa-solid fa-cloud-check" style="color:#16a34a;"></i> Đã đồng bộ lên máy chủ (kèm Mã xác nhận)'
+              : '<i class="fa-solid fa-floppy-disk" style="color:#d97706;"></i> Đã lưu trên máy & đang đồng bộ ngầm (Hãy giữ Mã xác nhận bên dưới)';
+          }
+
           document.getElementById('resScoreCircle').textContent = (res.score !== undefined) ? res.score : '--';
           document.getElementById('resStudentInfo').textContent = `${studentName} - Lớp ${studentClass}`;
           
@@ -2317,6 +2470,17 @@
         if (!card) return;
 
         const origBtnHtml = btn ? btn.innerHTML : '';
+        const resetShareBtn = (doneText) => {
+          if (!btn) return;
+          btn.disabled = false;
+          if (doneText) {
+            btn.innerHTML = doneText;
+            setTimeout(() => { btn.innerHTML = origBtnHtml; }, 2400);
+          } else {
+            btn.innerHTML = origBtnHtml;
+          }
+        };
+
         if (btn) {
           btn.disabled = true;
           btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo ảnh minh chứng...';
@@ -2327,43 +2491,57 @@
         const fileName = `MinhChung_${safeCode}_${safeName}.png`;
 
         const deliverCanvas = (canvas) => {
+          try {
+            const dataUrl = canvas.toDataURL('image/png');
+            const prevWrap = document.getElementById('evidencePreviewWrap');
+            const prevImg = document.getElementById('evidencePreviewImg');
+            if (prevWrap && prevImg && dataUrl) {
+              prevImg.src = dataUrl;
+              prevWrap.style.display = 'block';
+            }
+          } catch (ePrev) {}
+
+          if (currentReceiptCode && navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(currentReceiptCode).catch(() => {});
+          }
+
           canvas.toBlob(async (blob) => {
-            if (!blob) return;
+            if (!blob) {
+              resetShareBtn('<i class="fa-solid fa-check"></i> Đã tạo ảnh ở trên!');
+              return;
+            }
             let shared = false;
             try {
               const file = new File([blob], fileName, { type: 'image/png' });
               if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                   title: `Kết quả bài thi ${safeCode} - ${studentName}`,
-                  text: `Minh chứng kết quả thi: ${studentName} (${studentClass}) - Điểm: ${document.getElementById('resScoreCircle')?.textContent || ''}`,
+                  text: `Minh chứng kết quả thi: ${studentName} (${studentClass}) - Điểm: ${document.getElementById('resScoreCircle')?.textContent || ''}${currentReceiptCode ? '\nMã xác nhận: ' + currentReceiptCode : ''}`,
                   files: [file]
                 });
                 shared = true;
               }
             } catch (err) {
-              // Người dùng đóng menu chia sẻ hoặc trình duyệt không hỗ trợ share file -> tải trực tiếp ảnh về máy
+              // Người dùng đóng menu chia sẻ hoặc WebView không hỗ trợ share file -> tải trực tiếp ảnh về máy
             }
             if (!shared) {
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = fileName;
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              setTimeout(() => URL.revokeObjectURL(url), 1500);
+              try {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1500);
+              } catch (eDl) {}
             }
-            if (btn) {
-              btn.disabled = false;
-              btn.innerHTML = '<i class="fa-solid fa-check"></i> Đã lưu ảnh minh chứng!';
-              setTimeout(() => { btn.innerHTML = origBtnHtml; }, 2200);
-            }
+            resetShareBtn('<i class="fa-solid fa-check"></i> Đã lưu ảnh minh chứng!');
           }, 'image/png');
         };
 
         try {
           if (typeof window.html2canvas === 'function') {
-            // Tạm mở rộng toàn bộ hộp thoại để chụp đầy đủ không bị cuộn/cắt khuất
             const prevMaxH = card.style.maxHeight;
             const prevOverflow = card.style.overflow;
             const detailBox = document.getElementById('resDetailContainer');
@@ -2373,52 +2551,62 @@
             card.style.overflow = 'visible';
             if (detailBox) detailBox.style.maxHeight = 'none';
 
-            const canvas = await window.html2canvas(card, {
-              scale: 2,
-              backgroundColor: '#ffffff',
-              useCORS: true,
-              logging: false
-            });
-
-            if (footer) footer.style.display = 'flex';
-            card.style.maxHeight = prevMaxH;
-            card.style.overflow = prevOverflow;
-            if (detailBox) detailBox.style.maxHeight = prevDetMaxH;
-
-            deliverCanvas(canvas);
-            return;
+            try {
+              const renderPromise = window.html2canvas(card, {
+                scale: 1.5,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false,
+                ignoreElements: (el) => el && (el.tagName === 'IFRAME' || el.id === 'evidencePreviewWrap')
+              });
+              const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('html2canvas_timeout')), 4000));
+              const canvas = await Promise.race([renderPromise, timeoutPromise]);
+              deliverCanvas(canvas);
+              return;
+            } finally {
+              if (footer) footer.style.display = 'flex';
+              card.style.maxHeight = prevMaxH;
+              card.style.overflow = prevOverflow;
+              if (detailBox) detailBox.style.maxHeight = prevDetMaxH;
+            }
           }
         } catch (e) {
-          if (footer) footer.style.display = 'flex';
+          // Fallback Canvas 2D thuần ngay lập tức nếu html2canvas bị chậm hoặc lỗi WebView
         }
 
-        // Fallback Canvas 2D thuần nếu html2canvas chưa tải được
+        // Fallback Canvas 2D thuần (nhanh < 50ms trên mọi máy yếu)
         const fbCanvas = document.createElement('canvas');
-        fbCanvas.width = 900;
-        fbCanvas.height = 560;
+        fbCanvas.width = 920;
+        fbCanvas.height = 600;
         const ctx = fbCanvas.getContext('2d');
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, 900, 560);
+        ctx.fillRect(0, 0, 920, 600);
         ctx.fillStyle = '#0284c7';
-        ctx.fillRect(0, 0, 900, 140);
+        ctx.fillRect(0, 0, 920, 140);
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 30px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('MINH CHỨNG KẾT QUẢ BÀI KIỂM TRA', 450, 55);
+        ctx.fillText('MINH CHỨNG KẾT QUẢ BÀI KIỂM TRA', 460, 55);
         ctx.font = '22px sans-serif';
-        ctx.fillText(`${studentName} - Lớp ${studentClass}`, 450, 102);
+        ctx.fillText(`${studentName} - Lớp ${studentClass}`, 460, 102);
 
         ctx.fillStyle = '#0f172a';
         ctx.font = 'bold 64px sans-serif';
-        ctx.fillText(`Điểm: ${document.getElementById('resScoreCircle')?.textContent || '--'}`, 450, 240);
-        ctx.font = '22px sans-serif';
+        ctx.fillText(`Điểm: ${document.getElementById('resScoreCircle')?.textContent || '--'}`, 460, 240);
+        ctx.font = '21px sans-serif';
         ctx.fillStyle = '#334155';
-        ctx.fillText(`Đề thi: ${examData ? examData.title : safeCode} (${safeCode})`, 450, 305);
-        ctx.fillText(`P.I: ${document.getElementById('resP1Score')?.textContent || '--'}  |  P.II: ${document.getElementById('resP2Score')?.textContent || '--'}  |  P.III: ${document.getElementById('resP3Score')?.textContent || '--'}`, 450, 355);
-        ctx.fillText(`Thời gian làm: ${document.getElementById('resDurationStr')?.textContent || '--'}  •  Rời màn hình: ${document.getElementById('resViolations')?.textContent || '0'}`, 450, 405);
+        const titleLine = String(examData ? examData.title : safeCode).slice(0, 62);
+        ctx.fillText(`Đề thi: ${titleLine} (${safeCode})`, 460, 305);
+        ctx.fillText(`P.I: ${document.getElementById('resP1Score')?.textContent || '--'}  |  P.II: ${document.getElementById('resP2Score')?.textContent || '--'}  |  P.III: ${document.getElementById('resP3Score')?.textContent || '--'}`, 460, 355);
+        ctx.fillText(`Thời gian làm: ${document.getElementById('resDurationStr')?.textContent || '--'}  •  Rời màn hình: ${document.getElementById('resViolations')?.textContent || '0'}`, 460, 405);
         ctx.fillStyle = '#64748b';
         ctx.font = '18px sans-serif';
-        ctx.fillText(`Thời điểm xuất minh chứng: ${new Date().toLocaleString('vi-VN')}`, 450, 480);
+        ctx.fillText(`Thời điểm xuất minh chứng: ${new Date().toLocaleString('vi-VN')}`, 460, 465);
+        if (currentReceiptCode) {
+          ctx.fillStyle = '#0369a1';
+          ctx.font = '13px monospace';
+          ctx.fillText(`Mã xác nhận: ${currentReceiptCode.slice(0, 86)}`, 460, 520);
+        }
         deliverCanvas(fbCanvas);
       };
 

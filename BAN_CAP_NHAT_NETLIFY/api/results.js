@@ -21,19 +21,31 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { examId, format } = req.query;
+    const { examId, format, searchAll, q } = req.query;
+
+    if (searchAll === '1' || searchAll === 'true') {
+      const matched = await db.searchAllSubmissions(q || '');
+      return res.status(200).json({
+        success: true,
+        data: {
+          submissions: matched,
+          totalSubmissions: matched.length,
+          storageMode: db.getStorageMode()
+        }
+      });
+    }
 
     if (!examId) {
       return res.status(400).json({ success: false, message: 'Vui lòng cung cấp mã đề thi (examId).' });
     }
 
-    const exam = db.getExamById(examId) || {
+    const exam = (await db.getExamById(examId)) || {
       id: examId,
       title: `Đề thi [${examId}]`,
       status: 'active'
     };
 
-    const submissions = db.getSubmissionsByExamId(examId);
+    const submissions = await db.getSubmissionsByExamId(examId);
 
     if (format === 'csv') {
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
@@ -59,7 +71,8 @@ module.exports = async (req, res) => {
       data: {
         exam,
         totalSubmissions: submissions.length,
-        submissions
+        submissions,
+        storageMode: db.getStorageMode()
       }
     });
   } catch (error) {

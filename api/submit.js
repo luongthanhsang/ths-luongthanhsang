@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    let exam = db.getExamById(examId);
+    let exam = await db.getExamById(examId);
     if (!exam) {
       // Nếu container Vercel vừa cold-start hoặc đây là đề động / shareToken, tự động phục hồi metadata vào kho tạm
       exam = (examMeta && typeof examMeta === 'object')
@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
             status: 'active',
             viewResultMode: 'all'
           };
-      db.saveExam(exam);
+      await db.saveExam(exam);
     }
 
     if (exam.status === 'closed') {
@@ -290,13 +290,13 @@ module.exports = async (req, res) => {
       if (fallbackSummary.details) finalDetails = fallbackSummary.details;
     }
 
-    const submissionId = `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
+    const submissionId = (req.body && req.body.submissionId) || `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
     const newSubmission = {
       id: submissionId,
       examId,
       studentName: studentName.trim(),
       studentClass: studentClass.trim(),
-      submittedAt: new Date().toISOString(),
+      submittedAt: (req.body && req.body.submittedAt) || new Date().toISOString(),
       durationSeconds: parseInt(durationSeconds) || 0,
       score: finalScore,
       part1Score: finalP1,
@@ -309,7 +309,7 @@ module.exports = async (req, res) => {
       studentAnswers
     };
 
-    db.saveSubmission(newSubmission);
+    await db.saveSubmission(newSubmission);
 
     const resultPayload = {
       submissionId,

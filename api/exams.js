@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
 
     if (method === 'GET') {
       if (id) {
-        const exam = db.getExamById(id);
+        const exam = await db.getExamById(id);
         if (!exam) {
           return res.status(404).json({ success: false, message: 'Không tìm thấy đề thi với mã này!' });
         }
@@ -50,7 +50,8 @@ module.exports = async (req, res) => {
       }
 
       // Toàn bộ danh sách đề thi
-      const allExams = db.getExams().map(e => {
+      const rawExams = await db.getExams();
+      const allExams = rawExams.map(e => {
         const summary = JSON.parse(JSON.stringify(e));
         if (role === 'student') {
           delete summary.answerKey;
@@ -61,7 +62,7 @@ module.exports = async (req, res) => {
         return summary;
       });
 
-      return res.status(200).json({ success: true, data: allExams });
+      return res.status(200).json({ success: true, data: allExams, storageMode: db.getStorageMode() });
     }
 
     if (method === 'POST') {
@@ -80,11 +81,12 @@ module.exports = async (req, res) => {
       examData.submissionsCount = examData.submissionsCount || 0;
       examData.formatVersion = examData.formatVersion || '2018';
 
-      const saved = db.saveExam(examData);
+      const saved = await db.saveExam(examData);
       return res.status(200).json({
         success: true,
         message: 'Lưu đề thi thành công!',
-        data: saved
+        data: saved,
+        storageMode: db.getStorageMode()
       });
     }
 
@@ -92,7 +94,7 @@ module.exports = async (req, res) => {
       if (!id) {
         return res.status(400).json({ success: false, message: 'Thiếu mã đề thi cần xóa.' });
       }
-      db.deleteExam(id);
+      await db.deleteExam(id);
       return res.status(200).json({ success: true, message: 'Đã xóa đề thi thành công!' });
     }
 

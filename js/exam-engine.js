@@ -471,10 +471,139 @@
     return null;
   }
 
+  async function fetchWithTimeout(url, options, timeoutMs) {
+    const ms = timeoutMs || 5000;
+    if (typeof AbortController === 'undefined') {
+      return fetch(url, options);
+    }
+    const ctrl = new AbortController();
+    const timer = setTimeout(function() {
+      try { ctrl.abort(); } catch (e) {}
+    }, ms);
+    try {
+      const mergedOpts = Object.assign({}, options || {}, { signal: ctrl.signal });
+      return await fetch(url, mergedOpts);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function encodeReceiptCode(sub) {
+    try {
+      if (!sub) return '';
+      const compact = {
+        id: sub.id,
+        eid: sub.examId,
+        n: sub.studentName,
+        c: sub.studentClass,
+        sc: sub.score,
+        p1: sub.part1Score,
+        p2: sub.part2Score,
+        p3: sub.part3Score,
+        ok: sub.correctCount || 0,
+        wr: sub.wrongCount || 0,
+        un: sub.unansweredCount || 0,
+        d: sub.durationSeconds || 0,
+        tv: sub.tabViolations || 0,
+        at: sub.submittedAt || new Date().toISOString()
+      };
+      const bytes = new TextEncoder().encode(JSON.stringify(compact));
+      let bin = '';
+      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return 'TSR1:' + btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function decodeReceiptCode(rawCode) {
+    try {
+      let clean = String(rawCode || '').trim();
+      if (!clean) return null;
+      if (clean.indexOf('TSR1:') === 0) clean = clean.slice(5);
+      clean = clean.replace(/-/g, '+').replace(/_/g, '/');
+      while (clean.length % 4) clean += '=';
+      const bin = atob(clean);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const obj = JSON.parse(new TextDecoder().decode(bytes));
+      if (!obj || !obj.eid || !obj.n) return null;
+      return {
+        id: obj.id || `SUB-${Date.now().toString(36).toUpperCase()}`,
+        examId: obj.eid,
+        studentName: obj.n,
+        studentClass: obj.c || '',
+        score: (obj.sc !== undefined) ? Number(obj.sc) : 0,
+        part1Score: (obj.p1 !== undefined) ? Number(obj.p1) : 0,
+        part2Score: (obj.p2 !== undefined) ? Number(obj.p2) : 0,
+        part3Score: (obj.p3 !== undefined) ? Number(obj.p3) : 0,
+        correctCount: parseInt(obj.ok) || 0,
+        wrongCount: parseInt(obj.wr) || 0,
+        unansweredCount: parseInt(obj.un) || 0,
+        durationSeconds: parseInt(obj.d) || 0,
+        tabViolations: parseInt(obj.tv) || 0,
+        submittedAt: obj.at || new Date().toISOString(),
+        studentAnswers: {},
+        restoredFromReceipt: true
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
   const ExamStore = {
     LOCAL_KEY_EXAMS: 'THS_SANG_TEACHER_EXAMS_V4',
     LOCAL_KEY_SUBS: 'THS_SANG_STUDENT_SUBS_V4',
     LOCAL_KEY_DELETED: 'THS_SANG_DELETED_EXAM_IDS_V4',
+    LOCAL_KEY_PENDING: 'THS_SANG_PENDING_SYNC_V1',
+
+    queuePendingSync: function(apiBody) {
+      try {
+        const raw = localStorage.getItem(this.LOCAL_KEY_PENDING);
+        const q = raw ? JSON.parse(raw) : [];
+        const list = Array.isArray(q) ? q : [];
+        const id = apiBody && apiBody.submissionId;
+        if (!id || !list.some(item => item && item.submissionId === id)) {
+          list.push(apiBody);
+        }
+        localStorage.setItem(this.LOCAL_KEY_PENDING, JSON.stringify(list.slice(-100)));
+      } catch (e) {}
+    },
+
+    async flushPendingSubmissions() {
+      try {
+        const raw = localStorage.getItem(this.LOCAL_KEY_PENDING);
+        if (!raw) return 0;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || list.length === 0) return 0;
+
+        const remaining = [];
+        let syncedCount = 0;
+        for (let i = 0; i < list.length; i++) {
+          const item = list[i];
+          try {
+            const resp = await fetchWithTimeout('/api/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(item),
+              keepalive: true
+            }, 4500);
+            if (resp.ok) {
+              const j = await resp.json();
+              if (j && j.success) {
+                syncedCount++;
+                continue;
+              }
+            }
+          } catch (e) {}
+          remaining.push(item);
+        }
+        localStorage.setItem(this.LOCAL_KEY_PENDING, JSON.stringify(remaining));
+        return syncedCount;
+      } catch (e) {
+        return 0;
+      }
+    },
 
     getDeletedExamIds: function() {
       try {
@@ -562,7 +691,7 @@
       const deletedIds = this.getDeletedExamIds();
       const localExams = (this.getLocalExams() || []).filter(e => e && e.id && !deletedIds.includes(e.id));
       try {
-        const resp = await fetch('/api/exams');
+        const resp = await fetchWithTimeout('/api/exams', {}, 4500);
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && Array.isArray(resJson.data)) {
@@ -605,11 +734,11 @@
                   if (syncBody.antiQuizId && syncBody.antiQuizData) {
                     delete syncBody.antiQuizData;
                   }
-                  fetch('/api/exams', {
+                  fetchWithTimeout('/api/exams', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(syncBody)
-                  }).catch(function() {});
+                  }, 4000).catch(function() {});
                 } catch (syncErr) {}
               }
             });
@@ -629,9 +758,15 @@
         return null;
       }
       const isStudent = (role === 'student');
+
+      // TỐI ƯU TẢI CAO (hàng trăm học sinh vào cùng lúc):
+      // Nếu link đã có shareToken hợp lệ hoặc localExams có sẵn, dùng timeout ngắn 1800ms cho server để không bao giờ treo phòng thi
+      const tokenCandidate = shareToken ? resolveExamFromTokenOrAnti(id, shareToken) : null;
+      const detailTimeout = tokenCandidate ? 1800 : 4500;
+
       try {
         const url = `/api/exams?id=${encodeURIComponent(id)}${isStudent ? '&role=student' : ''}`;
-        const resp = await fetch(url);
+        const resp = await fetchWithTimeout(url, {}, detailTimeout);
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && resJson.data) {
@@ -646,7 +781,7 @@
 
       // Nếu không có trong local (hoặc server cold-start), giải mã từ link chia sẻ & ánh xạ từ kho đề Anti
       if (!exam && !deletedIds.includes(id)) {
-        exam = resolveExamFromTokenOrAnti(id, shareToken);
+        exam = tokenCandidate || resolveExamFromTokenOrAnti(id, shareToken);
       }
 
       if (!exam || deletedIds.includes(exam.id)) return null;
@@ -964,7 +1099,32 @@
         }
       }
 
+      const subId = payload.submissionId || `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
+      const submittedAtIso = payload.submittedAt || new Date().toISOString();
       const localScoreReport = exam ? this.calculateScoreFlexible(exam, payload) : null;
+
+      // Lưu dự phòng cục bộ TRƯỚC khi gửi mạng để học sinh không bao giờ mất bài nếu nghẽn/đóng tab đột ngột
+      let preSavedSub = null;
+      if (localScoreReport) {
+        preSavedSub = {
+          id: subId,
+          examId: payload.examId,
+          studentName: (payload.studentName || '').trim(),
+          studentClass: (payload.studentClass || '').trim(),
+          submittedAt: submittedAtIso,
+          durationSeconds: parseInt(payload.durationSeconds) || 0,
+          score: localScoreReport.totalScore,
+          part1Score: localScoreReport.part1Score,
+          part2Score: localScoreReport.part2Score,
+          part3Score: localScoreReport.part3Score,
+          correctCount: localScoreReport.correctCount,
+          wrongCount: localScoreReport.wrongCount,
+          unansweredCount: localScoreReport.unansweredCount,
+          tabViolations: parseInt(payload.tabViolations) || 0,
+          studentAnswers: payload.studentAnswers || {}
+        };
+        this.saveLocalSubmission(preSavedSub);
+      }
 
       let examMeta = null;
       if (exam) {
@@ -975,6 +1135,8 @@
       }
 
       const apiBody = Object.assign({}, payload, {
+        submissionId: subId,
+        submittedAt: submittedAtIso,
         examMeta: examMeta,
         fallbackSummary: localScoreReport ? {
           score: localScoreReport.totalScore,
@@ -989,21 +1151,22 @@
       });
 
       try {
-        const resp = await fetch('/api/submit', {
+        const resp = await fetchWithTimeout('/api/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(apiBody)
-        });
+          body: JSON.stringify(apiBody),
+          keepalive: true
+        }, 5500);
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && resJson.data) {
             const d = resJson.data;
             const syncedSub = {
-              id: d.submissionId || `SUB-${Date.now().toString(36).toUpperCase()}`,
+              id: d.submissionId || subId,
               examId: d.examId || payload.examId,
               studentName: (d.studentName || payload.studentName || '').trim(),
               studentClass: (d.studentClass || payload.studentClass || '').trim(),
-              submittedAt: d.submittedAt || new Date().toISOString(),
+              submittedAt: d.submittedAt || submittedAtIso,
               durationSeconds: parseInt(d.durationSeconds !== undefined ? d.durationSeconds : payload.durationSeconds) || 0,
               score: (d.score !== undefined) ? d.score : (localScoreReport ? localScoreReport.totalScore : 0),
               part1Score: (d.part1Score !== undefined) ? d.part1Score : (localScoreReport ? localScoreReport.part1Score : 0),
@@ -1016,37 +1179,23 @@
               studentAnswers: payload.studentAnswers || {}
             };
             this.saveLocalSubmission(syncedSub);
+            d.syncedToServer = true;
+            d.receiptCode = encodeReceiptCode(syncedSub);
             return resJson;
           }
         }
       } catch (e) {}
+
+      // Nếu máy chủ quá tải hoặc mất mạng: đưa vào hàng đợi tự động đồng bộ lại & trả kết quả ngay không để treo
+      this.queuePendingSync(apiBody);
 
       if (!exam || !localScoreReport) {
         return { success: false, message: 'Đề thi không tồn tại.' };
       }
 
       const scoreReport = localScoreReport;
-      const subId = `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
-
-      const newSubmission = {
-        id: subId,
-        examId: payload.examId,
-        studentName: payload.studentName.trim(),
-        studentClass: payload.studentClass.trim(),
-        submittedAt: new Date().toISOString(),
-        durationSeconds: parseInt(payload.durationSeconds) || 0,
-        score: scoreReport.totalScore,
-        part1Score: scoreReport.part1Score,
-        part2Score: scoreReport.part2Score,
-        part3Score: scoreReport.part3Score,
-        correctCount: scoreReport.correctCount,
-        wrongCount: scoreReport.wrongCount,
-        unansweredCount: scoreReport.unansweredCount,
-        tabViolations: parseInt(payload.tabViolations) || 0,
-        studentAnswers: payload.studentAnswers || {}
-      };
-
-      this.saveLocalSubmission(newSubmission);
+      const newSubmission = preSavedSub;
+      const receiptCode = encodeReceiptCode(newSubmission);
 
       const resultPayload = {
         submissionId: subId,
@@ -1065,7 +1214,9 @@
         correctCount: scoreReport.correctCount,
         wrongCount: scoreReport.wrongCount,
         unansweredCount: scoreReport.unansweredCount,
-        details: (exam.viewResultMode === 'all') ? scoreReport.details : null
+        details: (exam.viewResultMode === 'all') ? scoreReport.details : null,
+        syncedToServer: false,
+        receiptCode: receiptCode
       };
 
       if (exam.viewResultMode === 'none') {
@@ -1074,13 +1225,13 @@
         delete resultPayload.details;
       }
 
-      return { success: true, message: 'Nộp bài thi thành công!', data: resultPayload };
+      return { success: true, offlineQueued: true, message: 'Nộp bài thi thành công!', data: resultPayload };
     },
 
     async fetchExamResults(examId) {
       let serverData = null;
       try {
-        const resp = await fetch(`/api/results?examId=${encodeURIComponent(examId)}`);
+        const resp = await fetchWithTimeout(`/api/results?examId=${encodeURIComponent(examId)}`, {}, 5000);
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && resJson.data) serverData = resJson.data;
@@ -1132,7 +1283,52 @@
       return {
         exam: exam,
         totalSubmissions: mergedSubs.length,
-        submissions: mergedSubs
+        submissions: mergedSubs,
+        storageMode: (serverData && serverData.storageMode) || 'unknown'
+      };
+    },
+
+    async searchAllSubmissions(query) {
+      let serverSubs = [];
+      let storageMode = 'unknown';
+      try {
+        const resp = await fetchWithTimeout(`/api/results?searchAll=1&q=${encodeURIComponent(query || '')}`, {}, 5000);
+        if (resp.ok) {
+          const resJson = await resp.json();
+          if (resJson.success && resJson.data) {
+            if (Array.isArray(resJson.data.submissions)) serverSubs = resJson.data.submissions;
+            if (resJson.data.storageMode) storageMode = resJson.data.storageMode;
+          }
+        }
+      } catch (e) {}
+
+      const localAll = this.getLocalSubmissions(null) || [];
+      const mergedMap = {};
+      const merged = [];
+      serverSubs.concat(localAll).forEach(function(s) {
+        if (!s) return;
+        const k = s.id || `${s.examId}_${s.studentName}_${s.submittedAt}`;
+        if (!mergedMap[k]) {
+          mergedMap[k] = true;
+          merged.push(s);
+        }
+      });
+
+      merged.sort(function(a, b) {
+        return new Date(b.submittedAt || 0).getTime() - new Date(a.submittedAt || 0).getTime();
+      });
+
+      const q = String(query || '').toLowerCase().trim();
+      const filtered = q ? merged.filter(function(s) {
+        return (s.studentName || '').toLowerCase().includes(q) ||
+               (s.studentClass || '').toLowerCase().includes(q) ||
+               (s.examId || '').toLowerCase().includes(q) ||
+               (s.id || '').toLowerCase().includes(q);
+      }) : merged;
+
+      return {
+        submissions: filtered.slice(0, 200),
+        storageMode: storageMode
       };
     }
   };
@@ -1493,7 +1689,9 @@
     exportSubmissionsToCSV: exportSubmissionsToCSV,
     buildShareExamUrl: buildShareExamUrl,
     resolveAntiExamKey: resolveAntiExamKey,
-    decodeExamShareToken: decodeExamShareToken
+    decodeExamShareToken: decodeExamShareToken,
+    encodeReceiptCode: encodeReceiptCode,
+    decodeReceiptCode: decodeReceiptCode
   };
 
 })(window);

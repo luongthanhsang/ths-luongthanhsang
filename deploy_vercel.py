@@ -30,7 +30,7 @@ DEPLOY_FILES = [
     "js/document-data.js",
     "js/quiz-data.js",
     "js/script.js",
-    "js/azota-engine.js",
+    "js/exam-engine.js",
     "api/db.js",
     "api/exams.js",
     "api/submit.js",

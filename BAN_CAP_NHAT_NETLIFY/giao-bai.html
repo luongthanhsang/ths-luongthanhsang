@@ -1583,6 +1583,9 @@
 
           <div class="azota-top-actions">
             <div id="teacherAuthChipWrap" style="display: inline-flex; align-items: center;"></div>
+            <button type="button" class="btn-azota-action primary" id="btnOpenGlobalSearch" style="display: none; padding: 10px 15px; font-weight: 700;">
+              <i class="fa-solid fa-magnifying-glass"></i> Tra cứu HS vừa nộp
+            </button>
             <button class="btn-create-exam" id="btnOpenCreateModal">
               <i class="fa-solid fa-plus"></i> Tạo bài tập / Đề thi
             </button>
@@ -2505,6 +2508,13 @@
           </div>
         </div>
 
+        <div id="statsStorageBanner" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 9px 12px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0; margin-bottom: 12px; font-size: 0.8rem; color: #334155;">
+          <span id="statsStorageStatusText"><i class="fa-solid fa-database" style="color: #0284c7;"></i> Đang kiểm tra trạng thái lưu trữ máy chủ...</span>
+          <button type="button" class="btn-azota-action" id="btnOpenGlobalFromStats" style="padding: 5px 10px; font-size: 0.76rem; background: #e0f2fe; color: #0369a1; font-weight: 700;">
+            <i class="fa-solid fa-user-check"></i> Tìm HS ở tất cả đề / Khôi phục mã
+          </button>
+        </div>
+
         <div class="stats-table-wrap">
           <table class="stats-table">
             <thead>
@@ -2532,6 +2542,80 @@
 
       <div class="azota-modal-footer">
         <button class="editor-back-btn" id="btnCloseStatsFooter">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4B: TRA CỨU HỌC SINH TOÀN HỆ THỐNG & KHÔI PHỤC DỮ LIỆU ==================== -->
+  <div class="azota-modal-overlay" id="globalSearchModal" style="display: none; z-index: 99999;">
+    <div class="azota-modal-card" style="max-width: 1060px;">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #0f172a, #0369a1); color: #ffffff;">
+        <div class="azota-modal-title" style="color: #ffffff;">
+          <i class="fa-solid fa-users-viewfinder"></i>
+          <span>Tra Cứu Học Sinh Vừa Nộp &amp; Sao Lưu Điểm Lâu Dài</span>
+        </div>
+        <button class="azota-modal-close" id="btnCloseGlobalSearchModal" style="color: #ffffff;">&times;</button>
+      </div>
+
+      <div class="azota-modal-body" style="max-height: 76vh; overflow-y: auto;">
+        <div id="globalStorageModeInfo" style="padding: 10px 12px; border-radius: 10px; background: #fffbeb; border: 1px solid #fde68a; font-size: 0.82rem; color: #92400e; margin-bottom: 12px;">
+          Đang kiểm tra kết nối Cloud Database...
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div style="display: flex; gap: 8px; flex: 1; min-width: 260px;">
+            <input type="search" id="globalSearchInput" name="global_student_search" autocomplete="off" value="" placeholder="Nhập Tên học sinh, Lớp, hoặc Mã đề thi..." style="flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.88rem;">
+            <button type="button" class="btn-azota-action primary" id="btnRunGlobalSearch" style="flex: 0 0 auto; padding: 8px 14px;">
+              <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+            </button>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-azota-action success" id="btnExportAllJsonBackup" style="flex: 0 0 auto; padding: 8px 12px; font-size: 0.8rem;">
+              <i class="fa-solid fa-download"></i> Sao lưu bảng điểm (.JSON)
+            </button>
+            <label class="btn-azota-action" style="flex: 0 0 auto; padding: 8px 12px; font-size: 0.8rem; background: #e0f2fe; color: #0369a1; cursor: pointer; margin: 0;">
+              <i class="fa-solid fa-upload"></i> Nạp sao lưu (.JSON)
+              <input type="file" id="inputImportJsonBackup" accept=".json" style="display: none;">
+            </label>
+          </div>
+        </div>
+
+        <div style="background: #f0f9ff; border: 1px dashed #38bdf8; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: #0369a1; margin-bottom: 6px;">
+            <i class="fa-solid fa-key"></i> Khôi phục bài nộp học sinh từ Mã xác nhận (<code>TSR1:...</code>):
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="receiptRestoreInput" autocomplete="off" placeholder="Dán mã TSR1:... do học sinh gửi (từ màn hình điểm hoặc ảnh minh chứng)..." style="flex: 1; min-width: 240px; padding: 7px 10px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 0.82rem; font-family: monospace;">
+            <button type="button" class="btn-azota-action primary" id="btnImportReceiptCode" style="flex: 0 0 auto; padding: 7px 14px;">
+              <i class="fa-solid fa-file-import"></i> Khôi phục vào bảng điểm
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-table-wrap">
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã đề</th>
+                <th>Họ và tên</th>
+                <th>Lớp</th>
+                <th>Tổng điểm</th>
+                <th>I / II / III</th>
+                <th>Thời gian</th>
+                <th>Thời điểm nộp</th>
+                <th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody id="globalSearchTableBody">
+              <tr><td colspan="9" style="text-align: center; color: #94a3b8; padding: 24px;">Đang tải danh sách bài nộp...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="azota-modal-footer">
+        <button class="editor-back-btn" id="btnCloseGlobalSearchFooter">Đóng</button>
       </div>
     </div>
   </div>
@@ -3239,7 +3323,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261126_02"></script>
+  <script src="js/exam-engine.js?v=20261126_03"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3274,9 +3358,13 @@
       function updateTeacherUI() {
         const wrap = document.getElementById('teacherAuthChipWrap');
         const btnCreate = document.getElementById('btnOpenCreateModal');
+        const btnGlobal = document.getElementById('btnOpenGlobalSearch');
         const logged = isTeacherLogged();
         if (btnCreate) {
           btnCreate.style.display = logged ? 'inline-flex' : 'none';
+        }
+        if (btnGlobal) {
+          btnGlobal.style.display = logged ? 'inline-flex' : 'none';
         }
         if (!wrap) return;
         if (logged) {
@@ -3474,6 +3562,9 @@
       // 1. Tải và render danh sách đề thi
       async function loadExamDashboard() {
         updateTeacherUI();
+        if (typeof store.flushPendingSubmissions === 'function') {
+          store.flushPendingSubmissions().catch(() => {});
+        }
         currentExams = await store.fetchExams();
         renderExamGrid();
       }
@@ -6900,6 +6991,20 @@
           const data = await store.fetchExamResults(examId);
           if (data && data.exam && data.exam.title) currentStatsExam = data.exam;
           if (data && Array.isArray(data.submissions)) currentSubmissions = data.submissions;
+          const statusTextEl = document.getElementById('statsStorageStatusText');
+          const statusBannerEl = document.getElementById('statsStorageBanner');
+          if (statusTextEl && statusBannerEl) {
+            const mode = data && data.storageMode;
+            if (mode === 'cloud_kv' || mode === 'cloud_firebase') {
+              statusBannerEl.style.background = '#f0fdf4';
+              statusBannerEl.style.borderColor = '#86efac';
+              statusTextEl.innerHTML = `<i class="fa-solid fa-cloud-check" style="color:#16a34a;"></i> <strong>Lưu trữ lâu dài (${mode === 'cloud_kv' ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB'}) đang bật</strong>`;
+            } else {
+              statusBannerEl.style.background = '#fffbeb';
+              statusBannerEl.style.borderColor = '#fde68a';
+              statusTextEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#d97706;"></i> <strong>Chế độ tạm (/tmp + trình duyệt):</strong> Để lưu vĩnh viễn hàng trăm HS trên Vercel, cần gắn <code>KV_REST_API_URL</code> hoặc <code>FIREBASE_DB_URL</code>.`;
+            }
+          }
         } catch (err) {
           console.warn('Fallback mở hộp thoại thống kê khi chưa có dữ liệu máy chủ:', err);
           try {
@@ -7019,6 +7124,235 @@
       document.getElementById('btnCloseStatsFooter').addEventListener('click', () => {
         document.getElementById('statsModal').style.display = 'none';
       });
+
+      // 6B. TRA CỨU HỌC SINH TOÀN HỆ THỐNG, KHÔI PHỤC MÃ TSR1 & SAO LƯU JSON
+      let currentGlobalSubs = [];
+
+      function updateGlobalStorageNotice(mode) {
+        const box = document.getElementById('globalStorageModeInfo');
+        if (!box) return;
+        if (mode === 'cloud_kv' || mode === 'cloud_firebase') {
+          box.style.background = '#f0fdf4';
+          box.style.borderColor = '#86efac';
+          box.style.color = '#166534';
+          box.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Hệ thống đã kết nối Cloud Database (${mode === 'cloud_kv' ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB'}):</strong> Toàn bộ điểm số của hàng trăm học sinh được lưu giữ lâu dài &amp; đồng bộ mọi thiết bị.`;
+        } else {
+          box.style.background = '#fffbeb';
+          box.style.borderColor = '#fde68a';
+          box.style.color = '#92400e';
+          box.innerHTML = `<i class="fa-solid fa-circle-info"></i> <strong>Đang dùng bộ nhớ cục bộ + /tmp Vercel:</strong> Có thể tìm kiếm bài nộp đã lưu trên trình duyệt này, khôi phục từ mã <code>TSR1:...</code> của học sinh, hoặc gắn <code>KV_REST_API_URL</code> / <code>FIREBASE_DB_URL</code> trong Vercel Environment Variables để lưu vĩnh viễn trên đám mây.`;
+        }
+      }
+
+      function renderGlobalSearchTable(subs) {
+        const tbody = document.getElementById('globalSearchTableBody');
+        if (!tbody) return;
+        if (!subs || subs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #94a3b8; padding: 24px;">Không tìm thấy học sinh nào khớp với từ khóa.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = subs.map((sub, idx) => {
+          const durSec = parseInt(sub.durationSeconds) || 0;
+          const timeStr = `${Math.floor(durSec / 60)}p ${durSec % 60}s`;
+          let submitDate = '--';
+          try {
+            if (sub.submittedAt) {
+              const dt = new Date(sub.submittedAt);
+              if (!isNaN(dt.getTime())) submitDate = dt.toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+            }
+          } catch (e) {}
+          const sc = (sub.score !== undefined && sub.score !== null) ? Number(sub.score) : 0;
+          const scoreColor = sc >= 8.0 ? '#15803d' : (sc >= 5.0 ? '#0284c7' : '#b91c1c');
+          return `
+            <tr>
+              <td><strong>${idx + 1}</strong></td>
+              <td><span class="azota-card-code" style="font-size: 0.72rem;">${escapeStatsHtml(sub.examId)}</span></td>
+              <td style="font-weight: 600; color: #0f172a;">${escapeStatsHtml(sub.studentName)}</td>
+              <td>${escapeStatsHtml(sub.studentClass)}</td>
+              <td style="font-weight: 800; color: ${scoreColor};">${sub.score !== undefined ? sub.score : '--'}</td>
+              <td style="font-size: 0.78rem;">${sub.part1Score ?? '--'} | ${sub.part2Score ?? '--'} | ${sub.part3Score ?? '--'}</td>
+              <td>${timeStr}</td>
+              <td style="font-size: 0.76rem; color: #64748b;">${submitDate}</td>
+              <td>
+                <button type="button" class="btn-azota-action" style="padding: 4px 8px; font-size: 0.74rem;" onclick="openStatsForSearchedExam('${escapeStatsHtml(sub.examId)}')">
+                  <i class="fa-solid fa-folder-open"></i> Mở đề
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      window.openStatsForSearchedExam = function(examId) {
+        const gm = document.getElementById('globalSearchModal');
+        if (gm) gm.style.display = 'none';
+        if (examId) window.openStatsModal(examId);
+      };
+
+      async function refreshGlobalSearchResults(query) {
+        const tbody = document.getElementById('globalSearchTableBody');
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #0284c7; padding: 24px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang tìm kiếm trên toàn hệ thống...</td></tr>`;
+        }
+        const res = await store.searchAllSubmissions(query || '');
+        currentGlobalSubs = res.submissions || [];
+        updateGlobalStorageNotice(res.storageMode);
+        renderGlobalSearchTable(currentGlobalSubs);
+      }
+
+      window.openGlobalSearchModal = function() {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
+        const inp = document.getElementById('globalSearchInput');
+        if (inp) inp.value = '';
+        const rcInp = document.getElementById('receiptRestoreInput');
+        if (rcInp) rcInp.value = '';
+        const modal = document.getElementById('globalSearchModal');
+        if (modal) modal.style.display = 'flex';
+        refreshGlobalSearchResults('');
+      };
+
+      const btnOpenGlobalEl = document.getElementById('btnOpenGlobalSearch');
+      if (btnOpenGlobalEl) btnOpenGlobalEl.addEventListener('click', window.openGlobalSearchModal);
+
+      const btnOpenGlobalFromStatsEl = document.getElementById('btnOpenGlobalFromStats');
+      if (btnOpenGlobalFromStatsEl) {
+        btnOpenGlobalFromStatsEl.addEventListener('click', () => {
+          document.getElementById('statsModal').style.display = 'none';
+          window.openGlobalSearchModal();
+        });
+      }
+
+      const btnCloseGlobalEl = document.getElementById('btnCloseGlobalSearchModal');
+      if (btnCloseGlobalEl) btnCloseGlobalEl.addEventListener('click', () => {
+        document.getElementById('globalSearchModal').style.display = 'none';
+      });
+      const btnCloseGlobalFooterEl = document.getElementById('btnCloseGlobalSearchFooter');
+      if (btnCloseGlobalFooterEl) btnCloseGlobalFooterEl.addEventListener('click', () => {
+        document.getElementById('globalSearchModal').style.display = 'none';
+      });
+
+      const globalSearchInputEl = document.getElementById('globalSearchInput');
+      if (globalSearchInputEl) {
+        globalSearchInputEl.addEventListener('input', (e) => {
+          const q = (e.target.value || '').toLowerCase().trim();
+          const localFiltered = currentGlobalSubs.filter(s =>
+            (s.studentName || '').toLowerCase().includes(q) ||
+            (s.studentClass || '').toLowerCase().includes(q) ||
+            (s.examId || '').toLowerCase().includes(q) ||
+            (s.id || '').toLowerCase().includes(q)
+          );
+          renderGlobalSearchTable(localFiltered);
+        });
+      }
+
+      const btnRunGlobalEl = document.getElementById('btnRunGlobalSearch');
+      if (btnRunGlobalEl) {
+        btnRunGlobalEl.addEventListener('click', () => {
+          refreshGlobalSearchResults(document.getElementById('globalSearchInput')?.value || '');
+        });
+      }
+
+      const btnImportReceiptEl = document.getElementById('btnImportReceiptCode');
+      if (btnImportReceiptEl) {
+        btnImportReceiptEl.addEventListener('click', async () => {
+          const raw = (document.getElementById('receiptRestoreInput')?.value || '').trim();
+          const parsed = window.ExamEngine.decodeReceiptCode(raw);
+          if (!parsed) {
+            alert('Mã xác nhận không hợp lệ! Vui lòng dán đúng đoạn mã bắt đầu bằng TSR1:...');
+            return;
+          }
+          store.saveLocalSubmission(parsed);
+          try {
+            await fetch('/api/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                submissionId: parsed.id,
+                examId: parsed.examId,
+                studentName: parsed.studentName,
+                studentClass: parsed.studentClass,
+                submittedAt: parsed.submittedAt,
+                durationSeconds: parsed.durationSeconds,
+                tabViolations: parsed.tabViolations,
+                studentAnswers: parsed.studentAnswers || {},
+                examMeta: (currentExams || []).find(e => e.id === parsed.examId) || { id: parsed.examId, title: `Đề thi [${parsed.examId}]`, status: 'active' },
+                fallbackSummary: {
+                  score: parsed.score,
+                  part1Score: parsed.part1Score,
+                  part2Score: parsed.part2Score,
+                  part3Score: parsed.part3Score,
+                  correctCount: parsed.correctCount,
+                  wrongCount: parsed.wrongCount,
+                  unansweredCount: parsed.unansweredCount
+                }
+              })
+            });
+          } catch (e) {}
+          document.getElementById('receiptRestoreInput').value = '';
+          showToast(`Đã khôi phục bài nộp của ${parsed.studentName} (${parsed.score}đ) vào đề ${parsed.examId}!`, 'fa-circle-check');
+          refreshGlobalSearchResults('');
+          renderExamGrid();
+        });
+      }
+
+      const btnExportJsonBackupEl = document.getElementById('btnExportAllJsonBackup');
+      if (btnExportJsonBackupEl) {
+        btnExportJsonBackupEl.addEventListener('click', async () => {
+          const res = await store.searchAllSubmissions('');
+          const backupObj = {
+            exportedAt: new Date().toISOString(),
+            exams: store.getLocalExams(),
+            submissions: res.submissions || store.getLocalSubmissions(null)
+          };
+          const blob = new Blob([JSON.stringify(backupObj, null, 2)], { type: 'application/json;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Sao_Luu_Bang_Diem_Thay_Sang_${new Date().toISOString().slice(0, 10)}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('Đã tải xuống file sao lưu toàn bộ đề & điểm (.JSON)!', 'fa-download');
+        });
+      }
+
+      const inputImportJsonEl = document.getElementById('inputImportJsonBackup');
+      if (inputImportJsonEl) {
+        inputImportJsonEl.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              const data = JSON.parse(reader.result);
+              let importedCount = 0;
+              if (Array.isArray(data.exams)) {
+                const cur = store.getLocalExams();
+                const map = {};
+                cur.forEach(x => { if (x && x.id) map[x.id] = x; });
+                data.exams.forEach(x => { if (x && x.id && !map[x.id]) { cur.push(x); map[x.id] = x; } });
+                store.saveLocalExams(cur);
+              }
+              if (Array.isArray(data.submissions)) {
+                data.submissions.forEach(s => {
+                  if (s && s.examId && s.studentName) {
+                    store.saveLocalSubmission(s);
+                    importedCount++;
+                  }
+                });
+              }
+              showToast(`Đã nạp ${importedCount} bài nộp từ file sao lưu!`, 'fa-circle-check');
+              loadExamDashboard();
+              refreshGlobalSearchResults('');
+            } catch (err) {
+              alert('File JSON sao lưu không hợp lệ!');
+            }
+          };
+          reader.readAsText(file);
+          e.target.value = '';
+        });
+      }
 
       window.viewSubmissionDetail = function(subId) {
         const sub = currentSubmissions.find(s => s.id === subId);
