@@ -5061,6 +5061,377 @@ const EXAM_12_TX1_HAMSO = {
   part3: []
 };
 
+// SVG Câu 7 (Đề ôn tập KKTX 3.2): Hình hộp chữ nhật ABCD.A'B'C'D' gắn hệ trục tọa độ Oxyz kích thước AB=4, AD=6, AA'=3
+const SVG_TOAN12_KTTX3_2_HOPHOP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 380" class="tikz-svg" style="max-width: 100%; height: auto; display: block; margin: 15px auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <defs>
+    <marker id="arrow-kttx3-2-axis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <!-- HỆ TRỤC TỌA ĐỘ Oxyz -->
+  <line x1="150" y1="100" x2="150" y2="35" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-2-axis)"/>
+  <text x="150" y="24" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" text-anchor="middle" fill="#0284c7">z</text>
+
+  <line x1="330" y1="250" x2="420" y2="250" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-2-axis)"/>
+  <text x="428" y="255" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" fill="#0284c7">y</text>
+
+  <line x1="70" y1="310" x2="28" y2="341" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow-kttx3-2-axis)"/>
+  <text x="18" y="354" font-family="Times New Roman, serif" font-size="17" font-style="italic" font-weight="bold" fill="#0284c7">x</text>
+
+  <!-- CÁC CẠNH KHUẤT CỦA HÌNH HỘP -->
+  <line x1="150" y1="250" x2="150" y2="100" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="150" y1="250" x2="330" y2="250" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="150" y1="250" x2="70" y2="310" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="70" y1="310" x2="330" y2="250" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4,4"/>
+  <line x1="150" y1="250" x2="250" y2="160" stroke="#ea580c" stroke-width="2.0" stroke-dasharray="5,3"/>
+
+  <!-- CÁC CẠNH NHÌN THẤY -->
+  <line x1="70" y1="310" x2="250" y2="310" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="250" y1="310" x2="330" y2="250" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="70" y1="310" x2="70" y2="160" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="250" y1="310" x2="250" y2="160" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="330" y1="250" x2="330" y2="100" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="150" y1="100" x2="70" y2="160" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="70" y1="160" x2="250" y2="160" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="250" y1="160" x2="330" y2="100" stroke="#1e293b" stroke-width="2.2"/>
+  <line x1="330" y1="100" x2="150" y2="100" stroke="#1e293b" stroke-width="2.2"/>
+
+  <!-- CÁC ĐỈNH HÌNH HỘP -->
+  <circle cx="150" cy="250" r="3.5" fill="#1e293b"/>
+  <text x="130" y="268" font-family="Times New Roman, serif" font-size="15" font-style="italic" font-weight="bold" fill="#1e293b">A ≡ O</text>
+
+  <circle cx="70" cy="310" r="3.5" fill="#1e293b"/>
+  <text x="52" y="326" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">B</text>
+
+  <circle cx="330" cy="250" r="3.5" fill="#1e293b"/>
+  <text x="338" y="265" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">D</text>
+
+  <circle cx="250" cy="310" r="3.5" fill="#1e293b"/>
+  <text x="256" y="326" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">C</text>
+
+  <circle cx="150" cy="100" r="3.5" fill="#1e293b"/>
+  <text x="130" y="94" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">A'</text>
+
+  <circle cx="70" cy="160" r="3.5" fill="#1e293b"/>
+  <text x="50" y="160" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">B'</text>
+
+  <circle cx="330" cy="100" r="3.5" fill="#1e293b"/>
+  <text x="338" y="96" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#1e293b">D'</text>
+
+  <circle cx="250" cy="160" r="4.5" fill="#dc2626"/>
+  <text x="258" y="155" font-family="Times New Roman, serif" font-size="16" font-style="italic" font-weight="bold" fill="#dc2626">C'</text>
+
+  <!-- KÍCH THƯỚC ĐỘ DÀI CẠNH HÌNH HỘP -->
+  <text x="100" y="292" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">4</text>
+  <text x="235" y="244" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">6</text>
+  <text x="158" y="180" font-family="'Be Vietnam Pro', sans-serif" font-size="12" font-weight="bold" fill="#0369a1">3</text>
+</svg>`;
+
+// ==================== ĐỀ ÔN TẬP KKTX 3.2 (TƯƠNG TỰ KTTX 3 - CHỈ ĐỔI SỐ LIỆU) ====================
+const EXAM_12_KTTX3_2_VEC = {
+  id: "12_KTTX3_2_VEC",
+  config: {
+    title: "Đề ôn tập KKTX 3.2",
+    school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
+    schoolYear: "2026 - 2027",
+    teacher: "ThS. Lương Thanh Sáng (Tổ trưởng chuyên môn)",
+    timeLimitMinutes: 15,
+    totalQuestions: 8,
+    maxScore: 10.0,
+    grade: "12",
+    modes: {
+      all: { time: 15, label: "15 phút (Cả đề thi gồm 2 phần - 8 câu)", count: 8 },
+      part1: { time: 10, label: "10 phút (Phần I: 6 câu trắc nghiệm - 6.0 điểm)", count: 6 },
+      part2: { time: 8, label: "8 phút (Phần II: 2 câu Đúng / Sai - 4.0 điểm)", count: 2 }
+    }
+  },
+
+  // PHẦN I: (6.0 ĐIỂM) CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (6 CÂU CHUẨN MA TRẬN)
+  part1: [
+    {
+      id: 1,
+      part: "I",
+      grade: "12",
+      topic: "Phép toán cộng hai vectơ trong không gian",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (3;\\; -2;\\; 4)$ và $\\vec{v} = (-2;\\; 5;\\; -1)$. Tìm tọa độ của vectơ $\\vec{w} = \\vec{u} + \\vec{v}$.",
+      svg: "",
+      options: [
+        { id: "A", text: "$(5;\\; -7;\\; 5)$" },
+        { id: "B", text: "$(1;\\; 3;\\; 3)$" },
+        { id: "C", text: "$(-6;\\; -10;\\; -4)$" },
+        { id: "D", text: "$(1;\\; -3;\\; 3)$" }
+      ],
+      correctAnswer: "B",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Với hai vectơ $\\vec{u} = (x_1;\\; y_1;\\; z_1)$ và $\\vec{v} = (x_2;\\; y_2;\\; z_2)$, tọa độ vectơ tổng là:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{w} = \\vec{u} + \\vec{v} = (x_1 + x_2;\\; y_1 + y_2;\\; z_1 + z_2).$$
+  </div>
+  <p>Thay số cụ thể:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{w} = (3 + (-2);\\; -2 + 5;\\; 4 + (-1)) = (1;\\; 3;\\; 3).$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B.</strong></p>
+</div>`
+    },
+    {
+      id: 2,
+      part: "I",
+      grade: "12",
+      topic: "Tọa độ vectơ qua các vectơ đơn vị",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{a} = -4\\vec{i} + 3\\vec{j} - 2\\vec{k}$. Tọa độ của vectơ $\\vec{a}$ là:",
+      svg: "",
+      options: [
+        { id: "A", text: "$(4;\\; -3;\\; 2)$" },
+        { id: "B", text: "$(-4;\\; 3;\\; 2)$" },
+        { id: "C", text: "$(-4;\\; 3;\\; -2)$" },
+        { id: "D", text: "$(3;\\; -4;\\; -2)$" }
+      ],
+      correctAnswer: "C",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Theo định nghĩa tọa độ của vectơ trong không gian với các vectơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$ trên ba trục $Ox, Oy, Oz$:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{a} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\iff \\vec{a} = (x;\\; y;\\; z).$$
+  </div>
+  <p>Do đó với $\\vec{a} = -4\\vec{i} + 3\\vec{j} - 2\\vec{k}$, ta có ngay $\\vec{a} = (-4;\\; 3;\\; -2)$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C.</strong></p>
+</div>`
+    },
+    {
+      id: 3,
+      part: "I",
+      grade: "12",
+      topic: "Tích vô hướng của hai vectơ trong không gian",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (2;\\; -3;\\; 1)$ và $\\vec{v} = (3;\\; 2;\\; -4)$. Giá trị của tích vô hướng $\\vec{u} \\cdot \\vec{v}$ bằng:",
+      svg: "",
+      options: [
+        { id: "A", text: "$-4$" },
+        { id: "B", text: "$4$" },
+        { id: "C", text: "$8$" },
+        { id: "D", text: "$16$" }
+      ],
+      correctAnswer: "A",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Biểu thức tọa độ của tích vô hướng hai vectơ $\\vec{u} = (x_1;\\; y_1;\\; z_1)$ và $\\vec{v} = (x_2;\\; y_2;\\; z_2)$ là:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{u} \\cdot \\vec{v} = x_1 x_2 + y_1 y_2 + z_1 z_2.$$
+  </div>
+  <p>Thay số ta được:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{u} \\cdot \\vec{v} = 2 \\cdot 3 + (-3) \\cdot 2 + 1 \\cdot (-4) = 6 - 6 - 4 = -4.$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án A.</strong></p>
+</div>`
+    },
+    {
+      id: 4,
+      part: "I",
+      grade: "12",
+      topic: "Tọa độ vectơ nối hai điểm",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(2;\\; -1;\\; 4)$ và $B(5;\\; 3;\\; -1)$. Tìm tọa độ của vectơ $\\vec{AB}$.",
+      svg: "",
+      options: [
+        { id: "A", text: "$(-3;\\; -4;\\; 5)$" },
+        { id: "B", text: "$(7;\\; 2;\\; 3)$" },
+        { id: "C", text: "$(3;\\; 2;\\; -5)$" },
+        { id: "D", text: "$(3;\\; 4;\\; -5)$" }
+      ],
+      correctAnswer: "D",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Tọa độ của vectơ nối hai điểm $A(x_A;\\; y_A;\\; z_A)$ và $B(x_B;\\; y_B;\\; z_B)$ được tính theo quy tắc \"ngọn trừ gốc\":</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{AB} = (x_B - x_A;\\; y_B - y_A;\\; z_B - z_A).$$
+  </div>
+  <p>Thay số:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$\\vec{AB} = (5 - 2;\\; 3 - (-1);\\; -1 - 4) = (3;\\; 4;\\; -5).$$
+  </div>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án D.</strong></p>
+</div>`
+    },
+    {
+      id: 5,
+      part: "I",
+      grade: "12",
+      topic: "Tọa độ trọng tâm tam giác",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ có các đỉnh $A(1;\\; -2;\\; 4)$, $B(4;\\; 5;\\; -1)$ và $C(-2;\\; 3;\\; 3)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là:",
+      svg: "",
+      options: [
+        { id: "A", text: "$G(3;\\; 6;\\; 6)$" },
+        { id: "B", text: "$G(1;\\; 2;\\; 2)$" },
+        { id: "C", text: "$G(1;\\; -2;\\; 2)$" },
+        { id: "D", text: "$G(2;\\; 2;\\; 1)$" }
+      ],
+      correctAnswer: "B",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Tọa độ trọng tâm $G(x_G;\\; y_G;\\; z_G)$ của tam giác $ABC$ bằng trung bình cộng tọa độ ba đỉnh:</p>
+  <div style="text-align: center; margin: 8px 0; color: #1e3a8a;">
+    $$x_G = \\dfrac{x_A + x_B + x_C}{3} = \\dfrac{1 + 4 + (-2)}{3} = \\dfrac{3}{3} = 1,$$
+    $$y_G = \\dfrac{y_A + y_B + y_C}{3} = \\dfrac{-2 + 5 + 3}{3} = \\dfrac{6}{3} = 2,$$
+    $$z_G = \\dfrac{z_A + z_B + z_C}{3} = \\dfrac{4 + (-1) + 3}{3} = \\dfrac{6}{3} = 2.$$
+  </div>
+  <p>Vậy trọng tâm tam giác là $G(1;\\; 2;\\; 2)$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án B.</strong></p>
+</div>`
+    },
+    {
+      id: 6,
+      part: "I",
+      grade: "12",
+      topic: "Hình chiếu vuông góc của điểm lên mặt phẳng tọa độ",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M(-4;\\; 5;\\; -2)$. Tọa độ hình chiếu vuông góc $H$ của điểm $M$ lên mặt phẳng tọa độ $(Oxy)$ là:",
+      svg: "",
+      options: [
+        { id: "A", text: "$H(-4;\\; 0;\\; -2)$" },
+        { id: "B", text: "$H(0;\\; 5;\\; -2)$" },
+        { id: "C", text: "$H(-4;\\; 5;\\; 0)$" },
+        { id: "D", text: "$H(0;\\; 0;\\; -2)$" }
+      ],
+      correctAnswer: "C",
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từ ThS. Lương Thanh Sáng:</strong>
+  <p>Quy tắc tìm hình chiếu vuông góc của điểm $M(x_0;\\; y_0;\\; z_0)$ lên các mặt phẳng tọa độ:</p>
+  <ul>
+    <li>Chiếu lên $(Oxy)$: giữ nguyên hoành độ $x_0$ và tung độ $y_0$, cho cao độ $z = 0 \\implies H(x_0;\\; y_0;\\; 0)$.</li>
+    <li>Chiếu lên $(Oyz)$: giữ nguyên $y_0, z_0$, cho $x = 0 \\implies (0;\\; y_0;\\; z_0)$.</li>
+    <li>Chiếu lên $(Oxz)$: giữ nguyên $x_0, z_0$, cho $y = 0 \\implies (x_0;\\; 0;\\; z_0)$.</li>
+  </ul>
+  <p>Do đó với điểm $M(-4;\\; 5;\\; -2)$, hình chiếu vuông góc lên $(Oxy)$ là $H(-4;\\; 5;\\; 0)$.</p>
+  <p class="final-answer">&rArr; <strong>Chọn đáp án C.</strong></p>
+</div>`
+    }
+  ],
+
+  // PHẦN II: (4.0 ĐIỂM) CÂU TRẮC NGHIỆM ĐÚNG / SAI (2 CÂU CHUẨN MA TRẬN)
+  part2: [
+    {
+      id: 1,
+      part: "II",
+      grade: "12",
+      topic: "Hệ tọa độ Oxyz gắn vào hình hộp chữ nhật và các tính chất vectơ",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O(0;\\; 0;\\; 0)$, các đỉnh $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Biết các kích thước $AB = 4$, $AD = 6$ và $AA' = 3$ (như hình vẽ bên dưới). Xét tính đúng hoặc sai của các khẳng định sau:",
+      svg: SVG_TOAN12_KTTX3_2_HOPHOP,
+      items: [
+        {
+          id: "a",
+          text: "Tọa độ của đỉnh $C'$ là $C'(4;\\; 6;\\; 3)$.",
+          correct: true,
+          explanation: "Từ $B(4; 0; 0)$, $D(0; 6; 0)$, $A'(0; 0; 3)$ suy ra đỉnh đối diện $C'$ trong hình hộp chữ nhật có tọa độ $C'(4;\\; 6;\\; 3)$. Khẳng định ĐÚNG."
+        },
+        {
+          id: "b",
+          text: "Tọa độ của vectơ $\\vec{BD'}$ là $(4;\\; -6;\\; -3)$.",
+          correct: false,
+          explanation: "Với $B(4;\\; 0;\\; 0)$ và $D'(0;\\; 6;\\; 3)$, ta có $\\vec{BD'} = (0 - 4;\\; 6 - 0;\\; 3 - 0) = (-4;\\; 6;\\; 3) \\neq (4;\\; -6;\\; -3)$. Khẳng định SAI."
+        },
+        {
+          id: "c",
+          text: "Hình chiếu vuông góc của điểm $C'$ lên trục cao $Oz$ có tọa độ là $(0;\\; 0;\\; 3)$.",
+          correct: true,
+          explanation: "Chiếu vuông góc $C'(4;\\; 6;\\; 3)$ lên trục $Oz$ giữ nguyên cao độ $z = 3$ và cho $x = 0, y = 0$, thu được điểm $(0;\\; 0;\\; 3)$ (trùng đỉnh $A'$). Khẳng định ĐÚNG."
+        },
+        {
+          id: "d",
+          text: "Số đo của góc giữa hai vectơ $\\vec{AB'}$ và $\\vec{AD}$ bằng $45^\\circ$.",
+          correct: false,
+          explanation: "Ta có $\\vec{AB'} = (4;\\; 0;\\; 3)$ và $\\vec{AD} = (0;\\; 6;\\; 0) \\implies \\vec{AB'} \\cdot \\vec{AD} = 4 \\cdot 0 + 0 \\cdot 6 + 3 \\cdot 0 = 0 \\implies \\vec{AB'} \\perp \\vec{AD}$, nên góc bằng $90^\\circ \\neq 45^\\circ$. Khẳng định SAI."
+        }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từng ý từ ThS. Lương Thanh Sáng:</strong>
+  <p>Từ giả thiết hình hộp chữ nhật $ABCD.A'B'C'D'$ gắn vào hệ trục tọa độ $Oxyz$:</p>
+  <ul>
+    <li>Gốc tọa độ: $A(0;\\; 0;\\; 0)$.</li>
+    <li>Đỉnh $B \\in Ox$ với $AB = 4 \\implies B(4;\\; 0;\\; 0)$.</li>
+    <li>Đỉnh $D \\in Oy$ với $AD = 6 \\implies D(0;\\; 6;\\; 0)$.</li>
+    <li>Đỉnh $A' \\in Oz$ với $AA' = 3 \\implies A'(0;\\; 0;\\; 3)$.</li>
+    <li>Đáy $ABCD$ là hình chữ nhật trong mặt phẳng $(Oxy) \\implies C(4;\\; 6;\\; 0)$.</li>
+    <li>Các đỉnh thuộc đáy trên: $B'(4;\\; 0;\\; 3)$, $D'(0;\\; 6;\\; 3)$, $C'(4;\\; 6;\\; 3)$.</li>
+  </ul>
+  <p>Đối chiếu từng khẳng định:</p>
+  <ul>
+    <li><strong>Ý a) [ĐÚNG]:</strong> Tọa độ đỉnh $C'$ là $C'(4;\\; 6;\\; 3)$. Khẳng định đúng.</li>
+    <li><strong>Ý b) [SAI]:</strong> Với $B(4;\\; 0;\\; 0)$ và $D'(0;\\; 6;\\; 3)$, ta có $\\vec{BD'} = (0 - 4;\\; 6 - 0;\\; 3 - 0) = (-4;\\; 6;\\; 3)$, khác với $(4;\\; -6;\\; -3)$. Khẳng định sai.</li>
+    <li><strong>Ý c) [ĐÚNG]:</strong> Hình chiếu vuông góc của điểm $C'(4;\\; 6;\\; 3)$ lên trục cao $Oz$ giữ nguyên cao độ và cho hoành độ, tung độ bằng $0$, tức là điểm $(0;\\; 0;\\; 3)$ (trùng với đỉnh $A'$). Khẳng định đúng.</li>
+    <li><strong>Ý d) [SAI]:</strong> Ta có $\\vec{AB'} = (4;\\; 0;\\; 3)$ và $\\vec{AD} = (0;\\; 6;\\; 0)$.<br>
+      Tích vô hướng $\\vec{AB'} \\cdot \\vec{AD} = 4 \\cdot 0 + 0 \\cdot 6 + 3 \\cdot 0 = 0$.<br>
+      Vì $\\vec{AB'} \\cdot \\vec{AD} = 0$ nên $\\vec{AB'} \\perp \\vec{AD}$, góc giữa hai vectơ bằng $90^\\circ$ (không phải $45^\\circ$). Khẳng định sai.
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) Đ &bull; b) S &bull; c) Đ &bull; d) S.</strong></p>
+</div>`
+    },
+    {
+      id: 2,
+      part: "II",
+      grade: "12",
+      topic: "Tọa độ đỉnh, độ dài cạnh, góc và điểm thỏa mãn đẳng thức vectơ trong tam giác",
+      question: "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(2;\\; 1;\\; -1)$, $B(1;\\; 3;\\; 0)$ và $C(5;\\; 1;\\; 2)$. Xét tính đúng hoặc sai của các khẳng định sau:",
+      svg: "",
+      items: [
+        {
+          id: "a",
+          text: "Tọa độ của vectơ $\\vec{AB}$ là $(-1;\\; 2;\\; 1)$.",
+          correct: true,
+          explanation: "$\\vec{AB} = (1 - 2;\\; 3 - 1;\\; 0 - (-1)) = (-1;\\; 2;\\; 1)$. Khẳng định ĐÚNG."
+        },
+        {
+          id: "b",
+          text: "Độ dài đoạn thẳng $AC$ bằng $3\\sqrt{2}$.",
+          correct: true,
+          explanation: "$\\vec{AC} = (5 - 2;\\; 1 - 1;\\; 2 - (-1)) = (3;\\; 0;\\; 3) \\implies AC = |\\vec{AC}| = \\sqrt{3^2 + 0^2 + 3^2} = \\sqrt{18} = 3\\sqrt{2}$. Khẳng định ĐÚNG."
+        },
+        {
+          id: "c",
+          text: "Số đo của góc $\\widehat{BAC}$ bằng $60^\\circ$.",
+          correct: false,
+          explanation: "$\\vec{AB} \\cdot \\vec{AC} = (-1) \\cdot 3 + 2 \\cdot 0 + 1 \\cdot 3 = 0 \\implies \\vec{AB} \\perp \\vec{AC} \\implies \\widehat{BAC} = 90^\\circ \\neq 60^\\circ$. Khẳng định SAI."
+        },
+        {
+          id: "d",
+          text: "Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(6;\\; -1;\\; 1)$.",
+          correct: true,
+          explanation: "$ABCD$ là hình bình hành $\\iff \\vec{AD} = \\vec{BC} = (4;\\; -2;\\; 2) \\implies D = (2 + 4;\\; 1 - 2;\\; -1 + 2) = (6;\\; -1;\\; 1)$. Khẳng định ĐÚNG."
+        }
+      ],
+      explanation: `
+<div class="solution-step">
+  <strong>Lời giải chi tiết từng ý từ ThS. Lương Thanh Sáng:</strong>
+  <ul>
+    <li><strong>Ý a) [ĐÚNG]:</strong> Ta có $\\vec{AB} = (x_B - x_A;\\; y_B - y_A;\\; z_B - z_A) = (1 - 2;\\; 3 - 1;\\; 0 - (-1)) = (-1;\\; 2;\\; 1)$. Khẳng định đúng.</li>
+    <li><strong>Ý b) [ĐÚNG]:</strong> Vectơ $\\vec{AC} = (5 - 2;\\; 1 - 1;\\; 2 - (-1)) = (3;\\; 0;\\; 3)$. Độ dài đoạn thẳng $AC = |\\vec{AC}| = \\sqrt{3^2 + 0^2 + 3^2} = \\sqrt{18} = 3\\sqrt{2}$. Khẳng định đúng.</li>
+    <li><strong>Ý c) [SAI]:</strong> Xét tích vô hướng của hai vectơ $\\vec{AB} = (-1;\\; 2;\\; 1)$ và $\\vec{AC} = (3;\\; 0;\\; 3)$:<br>
+      $$\\vec{AB} \\cdot \\vec{AC} = (-1) \\cdot 3 + 2 \\cdot 0 + 1 \\cdot 3 = -3 + 0 + 3 = 0.$$
+      Vì $\\vec{AB} \\cdot \\vec{AC} = 0$ nên $\\vec{AB} \\perp \\vec{AC}$, suy ra góc $\\widehat{BAC} = 90^\\circ$ (tam giác $ABC$ vuông tại $A$), không phải $60^\\circ$. Khẳng định sai.
+    </li>
+    <li><strong>Ý d) [ĐÚNG]:</strong> Tứ giác $ABCD$ là hình bình hành khi và chỉ khi $\\vec{AD} = \\vec{BC}$.<br>
+      Ta có $\\vec{BC} = (5 - 1;\\; 1 - 3;\\; 2 - 0) = (4;\\; -2;\\; 2)$.<br>
+      Gọi $D(x;\\; y;\\; z) \\implies \\vec{AD} = (x - 2;\\; y - 1;\\; z + 1)$.<br>
+      $$\\vec{AD} = \\vec{BC} \\iff \\begin{cases} x - 2 = 4 \\\\ y - 1 = -2 \\\\ z + 1 = 2 \\end{cases} \\iff \\begin{cases} x = 6 \\\\ y = -1 \\\\ z = 1 \\end{cases} \\implies D(6;\\; -1;\\; 1).$$
+      Khẳng định đúng.
+    </li>
+  </ul>
+  <p class="final-answer">&rArr; <strong>Đáp án: a) Đ &bull; b) Đ &bull; c) S &bull; d) Đ.</strong></p>
+</div>`
+    }
+  ],
+
+  part3: []
+};
+
 // Alias để tương thích mọi nơi gọi
 const EXAM_12_TX1_TOAN = EXAM_12_TX1_HAMSO;
 
@@ -5068,7 +5439,8 @@ const EXAM_12_TX1_TOAN = EXAM_12_TX1_HAMSO;
 var ANTI_SECRET_EXAMS_DATABASE = {
   "12_TX1_TOAN": EXAM_12_TX1_TOAN,
   "12_TX1_HAMSO": EXAM_12_TX1_HAMSO,
-  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC
+  "12_KTTX3_VEC": EXAM_12_KTTX3_VEC,
+  "12_KTTX3_2_VEC": EXAM_12_KTTX3_2_VEC
 };
 
 // Bổ sung vào cả EXAMS_DATABASE để tương thích toàn diện

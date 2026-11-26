@@ -3231,7 +3231,7 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="js/quiz-data.js?v=20261125_02"></script>
+  <script src="js/quiz-data.js?v=20261126_01"></script>
   <script src="js/exam-engine.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -3717,6 +3717,51 @@
           ],
           part3: []
         },
+        "12_KTTX3_2_VEC": {
+          id: "12_KTTX3_2_VEC",
+          config: {
+            title: "Đề ôn tập KKTX 3.2",
+            school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
+            grade: "12",
+            timeLimitMinutes: 15,
+            totalQuestions: 8,
+            maxScore: 10.0
+          },
+          part1: [
+            { id: 1, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (3;\\; -2;\\; 4)$ và $\\vec{v} = (-2;\\; 5;\\; -1)$. Tìm tọa độ của vectơ $\\vec{w} = \\vec{u} + \\vec{v}$.", options: [{ id: "A", text: "$(5;\\; -7;\\; 5)$" }, { id: "B", text: "$(1;\\; 3;\\; 3)$" }, { id: "C", text: "$(-6;\\; -10;\\; -4)$" }, { id: "D", text: "$(1;\\; -3;\\; 3)$" }], correctAnswer: "B" },
+            { id: 2, question: "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{a} = -4\\vec{i} + 3\\vec{j} - 2\\vec{k}$. Tọa độ của vectơ $\\vec{a}$ là:", options: [{ id: "A", text: "$(4;\\; -3;\\; 2)$" }, { id: "B", text: "$(-4;\\; 3;\\; 2)$" }, { id: "C", text: "$(-4;\\; 3;\\; -2)$" }, { id: "D", text: "$(3;\\; -4;\\; -2)$" }], correctAnswer: "C" },
+            { id: 3, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (2;\\; -3;\\; 1)$ và $\\vec{v} = (3;\\; 2;\\; -4)$. Giá trị của tích vô hướng $\\vec{u} \\cdot \\vec{v}$ bằng:", options: [{ id: "A", text: "$-4$" }, { id: "B", text: "$4$" }, { id: "C", text: "$8$" }, { id: "D", text: "$16$" }], correctAnswer: "A" },
+            { id: 4, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(2;\\; -1;\\; 4)$ và $B(5;\\; 3;\\; -1)$. Tìm tọa độ của vectơ $\\vec{AB}$.", options: [{ id: "A", text: "$(-3;\\; -4;\\; 5)$" }, { id: "B", text: "$(7;\\; 2;\\; 3)$" }, { id: "C", text: "$(3;\\; 2;\\; -5)$" }, { id: "D", text: "$(3;\\; 4;\\; -5)$" }], correctAnswer: "D" },
+            { id: 5, question: "Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ có các đỉnh $A(1;\\; -2;\\; 4)$, $B(4;\\; 5;\\; -1)$ và $C(-2;\\; 3;\\; 3)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là:", options: [{ id: "A", text: "$G(3;\\; 6;\\; 6)$" }, { id: "B", text: "$G(1;\\; 2;\\; 2)$" }, { id: "C", text: "$G(1;\\; -2;\\; 2)$" }, { id: "D", text: "$G(2;\\; 2;\\; 1)$" }], correctAnswer: "B" },
+            { id: 6, question: "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M(-4;\\; 5;\\; -2)$. Tọa độ hình chiếu vuông góc $H$ của điểm $M$ lên mặt phẳng tọa độ $(Oxy)$ là:", options: [{ id: "A", text: "$H(-4;\\; 0;\\; -2)$" }, { id: "B", text: "$H(0;\\; 5;\\; -2)$" }, { id: "C", text: "$H(-4;\\; 5;\\; 0)$" }, { id: "D", text: "$H(0;\\; 0;\\; -2)$" }], correctAnswer: "C" }
+          ],
+          part2: [
+            {
+              id: 1,
+              topic: "Hệ tọa độ Oxyz gắn vào hình hộp chữ nhật và các tính chất vectơ",
+              question: "Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O(0;\\; 0;\\; 0)$, các đỉnh $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Biết các kích thước $AB = 4$, $AD = 6$ và $AA' = 3$ (như hình vẽ bên dưới). Xét tính đúng hoặc sai của các khẳng định sau:",
+              svg: (typeof SVG_TOAN12_KTTX3_2_HOPHOP !== 'undefined' ? SVG_TOAN12_KTTX3_2_HOPHOP : ''),
+              items: [
+                { id: "a", text: "Tọa độ của đỉnh $C'$ là $C'(4;\\; 6;\\; 3)$.", correct: true },
+                { id: "b", text: "Tọa độ của vectơ $\\vec{BD'}$ là $(4;\\; -6;\\; -3)$.", correct: false },
+                { id: "c", text: "Hình chiếu vuông góc của điểm $C'$ lên trục cao $Oz$ có tọa độ là $(0;\\; 0;\\; 3)$.", correct: true },
+                { id: "d", text: "Số đo của góc giữa hai vectơ $\\vec{AB'}$ và $\\vec{AD}$ bằng $45^\\circ$.", correct: false }
+              ]
+            },
+            {
+              id: 2,
+              topic: "Tọa độ đỉnh, độ dài cạnh, góc và điểm thỏa mãn đẳng thức vectơ trong tam giác",
+              question: "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(2;\\; 1;\\; -1)$, $B(1;\\; 3;\\; 0)$ và $C(5;\\; 1;\\; 2)$. Xét tính đúng hoặc sai của các khẳng định sau:",
+              items: [
+                { id: "a", text: "Tọa độ của vectơ $\\vec{AB}$ là $(-1;\\; 2;\\; 1)$.", correct: true },
+                { id: "b", text: "Độ dài đoạn thẳng $AC$ bằng $3\\sqrt{2}$.", correct: true },
+                { id: "c", text: "Số đo của góc $\\widehat{BAC}$ bằng $60^\\circ$.", correct: false },
+                { id: "d", text: "Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(6;\\; -1;\\; 1)$.", correct: true }
+              ]
+            }
+          ],
+          part3: []
+        },
         "12_BGD_0110": {
           id: "12_BGD_0110",
           config: {
@@ -3823,8 +3868,8 @@
 
         let keys = Object.keys(db);
 
-        // Ưu tiên đưa các đề kiểm tra quan trọng lên đầu: TX1 và KTTX3
-        const priorityOrder = ['12_TX1_TOAN', '12_TX1_HAMSO', '12_KTTX3_VEC'];
+        // Ưu tiên đưa các đề kiểm tra quan trọng lên đầu: TX1, KTTX3 và Đề ôn tập KKTX 3.2
+        const priorityOrder = ['12_TX1_TOAN', '12_TX1_HAMSO', '12_KTTX3_VEC', '12_KTTX3_2_VEC'];
         keys.sort((a, b) => {
           const idxA = priorityOrder.indexOf(a);
           const idxB = priorityOrder.indexOf(b);
@@ -3861,7 +3906,7 @@
           const durMin = cfg.timeLimitMinutes || 15;
           const grade = cfg.grade || '12';
           const isTx1 = (k === '12_TX1_TOAN' || k === '12_TX1_HAMSO');
-          const isMatrixMatch = (k === '12_KTTX3_VEC' || isTx1);
+          const isMatrixMatch = (k === '12_KTTX3_VEC' || k === '12_KTTX3_2_VEC' || isTx1);
 
           return `
             <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenConfig('${k}')">
@@ -4119,6 +4164,7 @@
                 <div style="font-size: 0.92rem; color: #1e293b; line-height: 1.6; margin-bottom: 12px;">
                   ${q.question || ''}
                 </div>
+                ${q.svg ? `<div style="text-align: center; margin: 10px 0;">${q.svg}</div>` : ''}
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 10px;">
             `;
 
@@ -4184,6 +4230,7 @@
                 <div style="font-size: 0.92rem; color: #1e293b; line-height: 1.6; margin-bottom: 12px;">
                   ${q.question || ''}
                 </div>
+                ${q.svg ? `<div style="text-align: center; margin: 10px 0;">${q.svg}</div>` : ''}
                 <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
             `;
 
@@ -4203,7 +4250,22 @@
               `;
             });
 
-            html += `</div></div>`;
+            html += `</div>`;
+
+            if (q.explanation) {
+              html += `
+                <details style="margin-top: 8px; background: #f8fafc; border-radius: 6px; border: 1px dashed #cbd5e1; padding: 6px 12px;">
+                  <summary style="font-size: 0.78rem; font-weight: 700; color: #0284c7; cursor: pointer;">
+                    <i class="fa-solid fa-lightbulb"></i> Xem lời giải chi tiết từng ý của Thầy Sáng
+                  </summary>
+                  <div style="margin-top: 8px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                    ${q.explanation}
+                  </div>
+                </details>
+              `;
+            }
+
+            html += `</div>`;
           });
 
           html += `</div></div>`;
