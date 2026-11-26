@@ -1150,21 +1150,22 @@
     .stats-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-align: left;
     }
     .stats-table th {
       background: #f1f5f9;
       color: #334155;
       font-weight: 600;
-      padding: 10px 14px;
+      padding: 8px 8px;
       border-bottom: 1px solid #e2e8f0;
       white-space: nowrap;
     }
     .stats-table td {
-      padding: 10px 14px;
+      padding: 8px 8px;
       border-bottom: 1px solid #f1f5f9;
       color: #1e293b;
+      white-space: nowrap;
     }
     .stats-table tr:hover td {
       background: #f8fafc;
@@ -2462,7 +2463,7 @@
 
   <!-- ==================== MODAL 4: THỐNG KÊ & BẢNG ĐIỂM GIÁO VIÊN ==================== -->
   <div class="azota-modal-overlay" id="statsModal" style="z-index: 99998;">
-    <div class="azota-modal-card" style="max-width: 900px;">
+    <div class="azota-modal-card" style="max-width: 1060px;">
       <div class="azota-modal-header">
         <div class="azota-modal-title">
           <i class="fa-solid fa-square-poll-vertical" style="color: #0284c7;"></i>
@@ -2493,10 +2494,15 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-          <input type="text" id="statsSearchInput" placeholder="Tìm theo tên học sinh, lớp..." style="padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; width: 260px;">
-          <button class="btn-azota-action success" id="btnExportStatsExcel" style="flex: 0 0 auto; padding: 8px 16px;">
-            <i class="fa-solid fa-file-excel"></i> Xuất Bảng Điểm (.CSV / Excel)
-          </button>
+          <input type="search" id="statsSearchInput" name="stats_search_query" autocomplete="off" value="" placeholder="Tìm theo tên học sinh, lớp..." style="padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; width: 260px;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-azota-action primary" id="btnRefreshStatsModal" style="flex: 0 0 auto; padding: 8px 14px;">
+              <i class="fa-solid fa-rotate"></i> Làm mới
+            </button>
+            <button type="button" class="btn-azota-action success" id="btnExportStatsExcel" style="flex: 0 0 auto; padding: 8px 16px;">
+              <i class="fa-solid fa-file-excel"></i> Xuất Bảng Điểm (.CSV / Excel)
+            </button>
+          </div>
         </div>
 
         <div class="stats-table-wrap">
@@ -3233,7 +3239,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261126_01"></script>
+  <script src="js/exam-engine.js?v=20261126_02"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3513,6 +3519,10 @@
           const totalQ = p1Q + p2Q + p3Q;
 
           const isAntiQuiz = exam.sourceType === 'anti_quiz';
+          const localSubCount = (typeof store.getLocalSubmissions === 'function')
+            ? (store.getLocalSubmissions(exam.id) || []).length
+            : 0;
+          const displaySubCount = Math.max(exam.submissionsCount || 0, localSubCount);
 
           return `
             <div class="azota-card" id="card-${exam.id}">
@@ -3532,7 +3542,7 @@
                 <div class="azota-card-meta-item"><i class="fa-solid fa-circle-question"></i> Tổng: ${totalQ} câu (${exam.totalPoints || 10}đ)</div>
                 <div class="azota-card-meta-item"><i class="fa-solid fa-clock"></i> ${exam.durationMinutes || 45} phút</div>
                 <div class="azota-card-meta-item"><i class="fa-solid fa-calendar-xmark"></i> Hạn: ${deadlineStr}</div>
-                <div class="azota-card-meta-item"><i class="fa-solid fa-user-check"></i> <strong>${exam.submissionsCount || 0}</strong> bài nộp</div>
+                <div class="azota-card-meta-item"><i class="fa-solid fa-user-check"></i> <strong>${displaySubCount}</strong> bài nộp</div>
               </div>
 
               <div class="azota-card-footer">
@@ -6857,11 +6867,34 @@
       let currentStatsExam = null;
       let currentSubmissions = [];
 
+      function escapeStatsHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, function(ch) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+        });
+      }
+
       window.openStatsModal = async function(examId) {
         if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
         const cardExam = (currentExams || []).find(e => e.id === examId);
         currentStatsExam = cardExam || { id: examId, title: examId };
         currentSubmissions = [];
+
+        const searchEl = document.getElementById('statsSearchInput');
+        if (searchEl) searchEl.value = '';
+
+        const titleEl = document.getElementById('statsExamTitle');
+        if (titleEl) titleEl.textContent = `[${examId}] ${currentStatsExam.title || ''}`;
+
+        const statsModalEl = document.getElementById('statsModal');
+        if (statsModalEl) {
+          statsModalEl.style.zIndex = '99998';
+          statsModalEl.style.display = 'flex';
+        }
+
+        const tbodyEl = document.getElementById('statsTableBody');
+        if (tbodyEl) {
+          tbodyEl.innerHTML = `<tr><td colspan="12" style="text-align: center; color: #0284c7; padding: 26px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu thống kê bài làm...</td></tr>`;
+        }
 
         try {
           const data = await store.fetchExamResults(examId);
@@ -6876,7 +6909,8 @@
           }
         }
 
-        document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
+        if (searchEl) searchEl.value = '';
+        if (titleEl) titleEl.textContent = `[${examId}] ${currentStatsExam.title || ''}`;
         document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
 
         if (currentSubmissions.length > 0) {
@@ -6895,47 +6929,56 @@
         }
 
         renderStatsTable(currentSubmissions);
-        const statsModalEl = document.getElementById('statsModal');
-        if (statsModalEl) {
-          statsModalEl.style.zIndex = '99998';
-          statsModalEl.style.display = 'flex';
-        }
+        renderExamGrid();
       };
 
       function renderStatsTable(subs) {
         const tbody = document.getElementById('statsTableBody');
+        if (!tbody) return;
         if (!subs || subs.length === 0) {
           tbody.innerHTML = `<tr><td colspan="12" style="text-align: center; color: #94a3b8; padding: 30px;">Chưa có học sinh nào nộp bài cho đề thi này.</td></tr>`;
           return;
         }
 
         tbody.innerHTML = subs.map((sub, idx) => {
-          const min = Math.floor(sub.durationSeconds / 60);
-          const sec = sub.durationSeconds % 60;
+          const durSec = parseInt(sub.durationSeconds) || 0;
+          const min = Math.floor(durSec / 60);
+          const sec = durSec % 60;
           const timeStr = `${min}p ${sec}s`;
-          const submitDate = new Date(sub.submittedAt).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+          let submitDate = '--';
+          try {
+            if (sub.submittedAt) {
+              const dt = new Date(sub.submittedAt);
+              if (!isNaN(dt.getTime())) submitDate = dt.toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+            }
+          } catch (eDt) {}
 
-          const vPill = (sub.tabViolations > 0)
-            ? `<span class="violation-pill warn"><i class="fa-solid fa-triangle-exclamation"></i> ${sub.tabViolations} lần</span>`
+          const violCount = parseInt(sub.tabViolations) || 0;
+          const vPill = (violCount > 0)
+            ? `<span class="violation-pill warn"><i class="fa-solid fa-triangle-exclamation"></i> ${violCount} lần</span>`
             : `<span class="violation-pill clean"><i class="fa-solid fa-check"></i> 0</span>`;
 
-          const scoreColor = sub.score >= 8.0 ? '#15803d' : (sub.score >= 5.0 ? '#0284c7' : '#b91c1c');
+          const numScore = (sub.score !== undefined && sub.score !== null) ? Number(sub.score) : 0;
+          const scoreColor = numScore >= 8.0 ? '#15803d' : (numScore >= 5.0 ? '#0284c7' : '#b91c1c');
+          const cCount = parseInt(sub.correctCount) || 0;
+          const wCount = parseInt(sub.wrongCount) || 0;
+          const uCount = parseInt(sub.unansweredCount) || 0;
 
           return `
             <tr>
               <td><strong>${idx + 1}</strong></td>
-              <td style="font-weight: 600; color: #0f172a;">${sub.studentName}</td>
-              <td><span class="azota-card-code" style="font-size: 0.75rem; padding: 2px 6px;">${sub.studentClass}</span></td>
-              <td style="font-weight: 800; font-size: 1.05rem; color: ${scoreColor};">${sub.score}</td>
+              <td style="font-weight: 600; color: #0f172a;">${escapeStatsHtml(sub.studentName)}</td>
+              <td><span class="azota-card-code" style="font-size: 0.75rem; padding: 2px 6px;">${escapeStatsHtml(sub.studentClass)}</span></td>
+              <td style="font-weight: 800; font-size: 1.05rem; color: ${scoreColor};">${sub.score !== undefined ? sub.score : '--'}</td>
               <td>${sub.part1Score !== undefined ? sub.part1Score : '--'}</td>
               <td>${sub.part2Score !== undefined ? sub.part2Score : '--'}</td>
               <td>${sub.part3Score !== undefined ? sub.part3Score : '--'}</td>
-              <td>${sub.correctCount}/${(sub.correctCount + sub.wrongCount + (sub.unansweredCount||0))}</td>
+              <td>${cCount}/${cCount + wCount + uCount}</td>
               <td>${timeStr}</td>
               <td>${vPill}</td>
               <td style="font-size: 0.78rem; color: #64748b;">${submitDate}</td>
               <td>
-                <button class="btn-azota-action" style="padding: 4px 8px; font-size: 0.75rem;" onclick="viewSubmissionDetail('${sub.id}')">
+                <button type="button" class="btn-azota-action" style="padding: 4px 8px; font-size: 0.75rem;" onclick="viewSubmissionDetail('${escapeStatsHtml(sub.id)}')">
                   <i class="fa-solid fa-eye"></i> Xem
                 </button>
               </td>
@@ -6952,6 +6995,15 @@
         );
         renderStatsTable(filtered);
       });
+
+      const btnRefreshStatsEl = document.getElementById('btnRefreshStatsModal');
+      if (btnRefreshStatsEl) {
+        btnRefreshStatsEl.addEventListener('click', () => {
+          if (currentStatsExam && currentStatsExam.id) {
+            window.openStatsModal(currentStatsExam.id);
+          }
+        });
+      }
 
       document.getElementById('btnExportStatsExcel').addEventListener('click', () => {
         if (!currentStatsExam || currentSubmissions.length === 0) {

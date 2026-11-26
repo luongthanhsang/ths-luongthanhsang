@@ -535,15 +535,22 @@
 
     saveLocalSubmission: function(sub) {
       try {
+        if (!sub) return;
         const raw = localStorage.getItem(this.LOCAL_KEY_SUBS);
         let list = raw ? JSON.parse(raw) : [...DEFAULT_SAMPLE_SUBMISSIONS];
-        list.unshift(sub);
+        const existIdx = sub.id ? list.findIndex(function(item) { return item && item.id === sub.id; }) : -1;
+        if (existIdx >= 0) {
+          list[existIdx] = Object.assign({}, list[existIdx], sub);
+        } else {
+          list.unshift(sub);
+        }
         localStorage.setItem(this.LOCAL_KEY_SUBS, JSON.stringify(list));
 
+        const subCountForExam = list.filter(function(item) { return item && item.examId === sub.examId; }).length;
         const exams = this.getLocalExams();
         const ex = exams.find(function(e) { return e.id === sub.examId; });
         if (ex) {
-          ex.submissionsCount = (ex.submissionsCount || 0) + 1;
+          ex.submissionsCount = Math.max(ex.submissionsCount || 0, subCountForExam);
           this.saveLocalExams(exams);
         }
       } catch (e) {
@@ -560,6 +567,8 @@
           const resJson = await resp.json();
           if (resJson.success && Array.isArray(resJson.data)) {
             const serverExams = resJson.data.filter(e => e && e.id && !deletedIds.includes(e.id));
+            const serverIdsMap = {};
+            serverExams.forEach(function(se) { if (se && se.id) serverIdsMap[se.id] = true; });
             // GỘP AN TOÀN: Không bao giờ ghi đè làm mất các đề đã xuất bản lưu trong localStorage khi server cold-start
             const mergedMap = {};
             const mergedList = [];
@@ -585,6 +594,23 @@
                 } else {
                   existing.submissionsCount = bestSubsCount;
                 }
+              }
+            });
+
+            // 3. Đồng bộ âm thầm các đề local bị thiếu trên server (do serverless cold-start)
+            localExams.forEach(function(le) {
+              if (!serverIdsMap[le.id]) {
+                try {
+                  const syncBody = Object.assign({}, le);
+                  if (syncBody.antiQuizId && syncBody.antiQuizData) {
+                    delete syncBody.antiQuizData;
+                  }
+                  fetch('/api/exams', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(syncBody)
+                  }).catch(function() {});
+                } catch (syncErr) {}
               }
             });
 
@@ -926,18 +952,6 @@
     },
 
     async submitExam(payload) {
-      try {
-        const resp = await fetch('/api/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (resp.ok) {
-          const resJson = await resp.json();
-          if (resJson.success) return resJson;
-        }
-      } catch (e) {}
-
       const exams = this.getLocalExams();
       let exam = exams.find(function(e) { return e.id === payload.examId; });
 
@@ -950,11 +964,68 @@
         }
       }
 
-      if (!exam) {
+      const localScoreReport = exam ? this.calculateScoreFlexible(exam, payload) : null;
+
+      let examMeta = null;
+      if (exam) {
+        examMeta = Object.assign({}, exam);
+        if (examMeta.antiQuizId && examMeta.antiQuizData) {
+          delete examMeta.antiQuizData;
+        }
+      }
+
+      const apiBody = Object.assign({}, payload, {
+        examMeta: examMeta,
+        fallbackSummary: localScoreReport ? {
+          score: localScoreReport.totalScore,
+          part1Score: localScoreReport.part1Score,
+          part2Score: localScoreReport.part2Score,
+          part3Score: localScoreReport.part3Score,
+          correctCount: localScoreReport.correctCount,
+          wrongCount: localScoreReport.wrongCount,
+          unansweredCount: localScoreReport.unansweredCount,
+          details: localScoreReport.details
+        } : null
+      });
+
+      try {
+        const resp = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(apiBody)
+        });
+        if (resp.ok) {
+          const resJson = await resp.json();
+          if (resJson.success && resJson.data) {
+            const d = resJson.data;
+            const syncedSub = {
+              id: d.submissionId || `SUB-${Date.now().toString(36).toUpperCase()}`,
+              examId: d.examId || payload.examId,
+              studentName: (d.studentName || payload.studentName || '').trim(),
+              studentClass: (d.studentClass || payload.studentClass || '').trim(),
+              submittedAt: d.submittedAt || new Date().toISOString(),
+              durationSeconds: parseInt(d.durationSeconds !== undefined ? d.durationSeconds : payload.durationSeconds) || 0,
+              score: (d.score !== undefined) ? d.score : (localScoreReport ? localScoreReport.totalScore : 0),
+              part1Score: (d.part1Score !== undefined) ? d.part1Score : (localScoreReport ? localScoreReport.part1Score : 0),
+              part2Score: (d.part2Score !== undefined) ? d.part2Score : (localScoreReport ? localScoreReport.part2Score : 0),
+              part3Score: (d.part3Score !== undefined) ? d.part3Score : (localScoreReport ? localScoreReport.part3Score : 0),
+              correctCount: (d.correctCount !== undefined) ? d.correctCount : (localScoreReport ? localScoreReport.correctCount : 0),
+              wrongCount: (d.wrongCount !== undefined) ? d.wrongCount : (localScoreReport ? localScoreReport.wrongCount : 0),
+              unansweredCount: (d.unansweredCount !== undefined) ? d.unansweredCount : (localScoreReport ? localScoreReport.unansweredCount : 0),
+              tabViolations: parseInt(d.tabViolations !== undefined ? d.tabViolations : payload.tabViolations) || 0,
+              studentAnswers: payload.studentAnswers || {}
+            };
+            this.saveLocalSubmission(syncedSub);
+            return resJson;
+          }
+        }
+      } catch (e) {}
+
+      if (!exam || !localScoreReport) {
         return { success: false, message: 'Đề thi không tồn tại.' };
       }
 
-      const scoreReport = this.calculateScoreFlexible(exam, payload);
+      const scoreReport = localScoreReport;
       const subId = `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
 
       const newSubmission = {
@@ -1052,6 +1123,10 @@
         } else if (s && !s.id) {
           mergedSubs.push(s);
         }
+      });
+
+      mergedSubs.sort(function(a, b) {
+        return new Date(b.submittedAt || 0).getTime() - new Date(a.submittedAt || 0).getTime();
       });
 
       return {

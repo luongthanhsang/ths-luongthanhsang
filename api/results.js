@@ -27,10 +27,11 @@ module.exports = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Vui lòng cung cấp mã đề thi (examId).' });
     }
 
-    const exam = db.getExamById(examId);
-    if (!exam) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy đề thi.' });
-    }
+    const exam = db.getExamById(examId) || {
+      id: examId,
+      title: `Đề thi [${examId}]`,
+      status: 'active'
+    };
 
     const submissions = db.getSubmissionsByExamId(examId);
 

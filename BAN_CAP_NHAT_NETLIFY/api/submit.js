@@ -30,12 +30,15 @@ module.exports = async (req, res) => {
   try {
     const {
       examId,
+      shareToken = '',
       studentName,
       studentClass,
       studentAnswers = {},
       durationSeconds = 0,
       tabViolations = 0,
-      password = ''
+      password = '',
+      examMeta = null,
+      fallbackSummary = null
     } = req.body || {};
 
     if (!examId || !studentName || !studentClass) {
@@ -45,9 +48,18 @@ module.exports = async (req, res) => {
       });
     }
 
-    const exam = db.getExamById(examId);
+    let exam = db.getExamById(examId);
     if (!exam) {
-      return res.status(404).json({ success: false, message: 'Đề thi không tồn tại hoặc đã bị xóa.' });
+      // Nếu container Vercel vừa cold-start hoặc đây là đề động / shareToken, tự động phục hồi metadata vào kho tạm
+      exam = (examMeta && typeof examMeta === 'object')
+        ? Object.assign({}, examMeta, { id: examId })
+        : {
+            id: examId,
+            title: `Đề thi [${examId}]`,
+            status: 'active',
+            viewResultMode: 'all'
+          };
+      db.saveExam(exam);
     }
 
     if (exam.status === 'closed') {
@@ -254,10 +266,29 @@ module.exports = async (req, res) => {
       totalEarned = p1Earned + p2Earned + p3Earned;
     }
 
-    const finalScore = Math.round(totalEarned * 100) / 100;
-    const finalP1 = Math.round(p1Earned * 100) / 100;
-    const finalP2 = Math.round(p2Earned * 100) / 100;
-    const finalP3 = Math.round(p3Earned * 100) / 100;
+    let finalScore = Math.round(totalEarned * 100) / 100;
+    let finalP1 = Math.round(p1Earned * 100) / 100;
+    let finalP2 = Math.round(p2Earned * 100) / 100;
+    let finalP3 = Math.round(p3Earned * 100) / 100;
+    let finalDetails = detailResult;
+
+    const hasServerKey = Boolean(
+      (exam.part1 && exam.part1.answerKey && Object.keys(exam.part1.answerKey).length > 0) ||
+      (exam.part2 && exam.part2.answerKey && Object.keys(exam.part2.answerKey).length > 0) ||
+      (exam.part3 && exam.part3.answerKey && Object.keys(exam.part3.answerKey).length > 0) ||
+      (exam.answerKey && Object.keys(exam.answerKey).length > 0)
+    );
+
+    if (!hasServerKey && fallbackSummary && typeof fallbackSummary.score === 'number') {
+      finalScore = fallbackSummary.score;
+      finalP1 = (typeof fallbackSummary.part1Score === 'number') ? fallbackSummary.part1Score : 0;
+      finalP2 = (typeof fallbackSummary.part2Score === 'number') ? fallbackSummary.part2Score : 0;
+      finalP3 = (typeof fallbackSummary.part3Score === 'number') ? fallbackSummary.part3Score : 0;
+      totalCorrect = parseInt(fallbackSummary.correctCount) || 0;
+      totalWrong = parseInt(fallbackSummary.wrongCount) || 0;
+      totalUnanswered = parseInt(fallbackSummary.unansweredCount) || 0;
+      if (fallbackSummary.details) finalDetails = fallbackSummary.details;
+    }
 
     const submissionId = `SUB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random()*1000)}`;
     const newSubmission = {
@@ -297,7 +328,7 @@ module.exports = async (req, res) => {
       correctCount: totalCorrect,
       wrongCount: totalWrong,
       unansweredCount: totalUnanswered,
-      details: (exam.viewResultMode === 'all') ? detailResult : null
+      details: (exam.viewResultMode === 'all') ? finalDetails : null
     };
 
     if (exam.viewResultMode === 'none') {
