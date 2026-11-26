@@ -31,6 +31,7 @@
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     * {
@@ -978,9 +979,9 @@
         Thời gian làm bài cho đề thi này đã kết thúc vào lúc <strong id="closedDeadlineStr">--</strong>. Hệ thống hiện không nhận thêm bài thi.
       </div>
 
-      <a href="index.html" class="btn-start-exam-now" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-house"></i> Quay lại Trang Chủ
-      </a>
+      <button type="button" onclick="closeExamAndFinish()" class="btn-start-exam-now" style="background: #dc2626; display: inline-flex; justify-content: center; align-items: center; gap: 8px; border: none; cursor: pointer;">
+        <i class="fa-solid fa-circle-xmark"></i> Đóng lại
+      </button>
     </div>
   </div>
 
@@ -1175,10 +1176,13 @@
         </div>
       </div>
 
-      <div class="result-footer">
-        <a href="index.html" class="doc-tool-btn" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; background: #0284c7; color: #fff; border: none; font-weight: 600;">
-          <i class="fa-solid fa-house"></i> Về Trang Chủ
-        </a>
+      <div class="result-footer" id="resultActionFooter" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+        <button type="button" id="btnShareResult" onclick="shareExamResultEvidence()" style="padding: 11px 22px; border-radius: 8px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 3px 10px rgba(2,132,199,0.25);">
+          <i class="fa-solid fa-share-nodes"></i> Chia sẻ
+        </button>
+        <button type="button" id="btnCloseResult" onclick="closeExamAndFinish()" style="padding: 11px 22px; border-radius: 8px; background: #dc2626; color: #fff; border: none; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-circle-xmark"></i> Đóng lại
+        </button>
       </div>
     </div>
   </div>
@@ -1296,6 +1300,10 @@
       }
 
       async function initExamPage() {
+        if (urlParams.get('ended') === '1') {
+          closeExamAndFinish();
+          return;
+        }
         examData = await store.fetchExamDetail(examCode, 'student', shareToken);
         if (!examData) {
           const entryBody = document.querySelector('.entry-body');
@@ -2300,6 +2308,154 @@
 
         container.innerHTML = html;
       }
+
+      // Chụp toàn bộ hộp thoại điểm làm ảnh minh chứng & Chia sẻ / Tải về
+      window.shareExamResultEvidence = async function() {
+        const card = document.querySelector('#resultScreen .result-card');
+        const footer = document.getElementById('resultActionFooter');
+        const btn = document.getElementById('btnShareResult');
+        if (!card) return;
+
+        const origBtnHtml = btn ? btn.innerHTML : '';
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo ảnh minh chứng...';
+        }
+
+        const safeName = (studentName || 'HocSinh').replace(/[^\p{L}\p{N}_-]+/gu, '_');
+        const safeCode = (examData && examData.id ? examData.id : examCode).replace(/[^A-Za-z0-9_-]+/g, '_');
+        const fileName = `MinhChung_${safeCode}_${safeName}.png`;
+
+        const deliverCanvas = (canvas) => {
+          canvas.toBlob(async (blob) => {
+            if (!blob) return;
+            let shared = false;
+            try {
+              const file = new File([blob], fileName, { type: 'image/png' });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: `Kết quả bài thi ${safeCode} - ${studentName}`,
+                  text: `Minh chứng kết quả thi: ${studentName} (${studentClass}) - Điểm: ${document.getElementById('resScoreCircle')?.textContent || ''}`,
+                  files: [file]
+                });
+                shared = true;
+              }
+            } catch (err) {
+              // Người dùng đóng menu chia sẻ hoặc trình duyệt không hỗ trợ share file -> tải trực tiếp ảnh về máy
+            }
+            if (!shared) {
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              setTimeout(() => URL.revokeObjectURL(url), 1500);
+            }
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = '<i class="fa-solid fa-check"></i> Đã lưu ảnh minh chứng!';
+              setTimeout(() => { btn.innerHTML = origBtnHtml; }, 2200);
+            }
+          }, 'image/png');
+        };
+
+        try {
+          if (typeof window.html2canvas === 'function') {
+            // Tạm mở rộng toàn bộ hộp thoại để chụp đầy đủ không bị cuộn/cắt khuất
+            const prevMaxH = card.style.maxHeight;
+            const prevOverflow = card.style.overflow;
+            const detailBox = document.getElementById('resDetailContainer');
+            const prevDetMaxH = detailBox ? detailBox.style.maxHeight : '';
+            if (footer) footer.style.display = 'none';
+            card.style.maxHeight = 'none';
+            card.style.overflow = 'visible';
+            if (detailBox) detailBox.style.maxHeight = 'none';
+
+            const canvas = await window.html2canvas(card, {
+              scale: 2,
+              backgroundColor: '#ffffff',
+              useCORS: true,
+              logging: false
+            });
+
+            if (footer) footer.style.display = 'flex';
+            card.style.maxHeight = prevMaxH;
+            card.style.overflow = prevOverflow;
+            if (detailBox) detailBox.style.maxHeight = prevDetMaxH;
+
+            deliverCanvas(canvas);
+            return;
+          }
+        } catch (e) {
+          if (footer) footer.style.display = 'flex';
+        }
+
+        // Fallback Canvas 2D thuần nếu html2canvas chưa tải được
+        const fbCanvas = document.createElement('canvas');
+        fbCanvas.width = 900;
+        fbCanvas.height = 560;
+        const ctx = fbCanvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 900, 560);
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(0, 0, 900, 140);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('MINH CHỨNG KẾT QUẢ BÀI KIỂM TRA', 450, 55);
+        ctx.font = '22px sans-serif';
+        ctx.fillText(`${studentName} - Lớp ${studentClass}`, 450, 102);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 64px sans-serif';
+        ctx.fillText(`Điểm: ${document.getElementById('resScoreCircle')?.textContent || '--'}`, 450, 240);
+        ctx.font = '22px sans-serif';
+        ctx.fillStyle = '#334155';
+        ctx.fillText(`Đề thi: ${examData ? examData.title : safeCode} (${safeCode})`, 450, 305);
+        ctx.fillText(`P.I: ${document.getElementById('resP1Score')?.textContent || '--'}  |  P.II: ${document.getElementById('resP2Score')?.textContent || '--'}  |  P.III: ${document.getElementById('resP3Score')?.textContent || '--'}`, 450, 355);
+        ctx.fillText(`Thời gian làm: ${document.getElementById('resDurationStr')?.textContent || '--'}  •  Rời màn hình: ${document.getElementById('resViolations')?.textContent || '0'}`, 450, 405);
+        ctx.fillStyle = '#64748b';
+        ctx.font = '18px sans-serif';
+        ctx.fillText(`Thời điểm xuất minh chứng: ${new Date().toLocaleString('vi-VN')}`, 450, 480);
+        deliverCanvas(fbCanvas);
+      };
+
+      // Thoát đường link, kết thúc bài kiểm tra hoàn toàn (không cho quay về trang chủ)
+      window.closeExamAndFinish = function() {
+        try {
+          if (examData && examData.id) {
+            localStorage.setItem(`THS_SANG_FINISHED_${examData.id}`, new Date().toISOString());
+          }
+        } catch (e) {}
+
+        // Xóa tham số khỏi thanh địa chỉ để thoát hẳn đường link thi
+        try {
+          window.history.replaceState(null, '', window.location.pathname + '?ended=1');
+        } catch (e) {}
+
+        // Thử đóng tab (hoạt động nếu tab được mở bằng script)
+        try { window.close(); } catch (e) {}
+
+        // Thay thế toàn bộ màn hình bằng thông báo kết thúc độc lập, không có liên kết về trang chủ
+        document.body.innerHTML = `
+          <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; padding: 20px;">
+            <div style="background: #ffffff; border-radius: 20px; max-width: 460px; width: 100%; padding: 36px 28px; text-align: center; box-shadow: 0 20px 45px rgba(0,0,0,0.35);">
+              <div style="width: 72px; height: 72px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: inline-flex; align-items: center; justify-content: center; font-size: 2.2rem; margin-bottom: 16px;">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <h2 style="font-size: 1.35rem; color: #0f172a; font-weight: 800; margin-bottom: 10px;">Đã Kết Thúc Bài Kiểm Tra</h2>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 18px;">
+                Bài làm của em đã được ghi nhận và thoát khỏi đường link phòng thi. Vui lòng đóng thẻ (tab) trình duyệt này.
+              </p>
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 0.84rem; color: #64748b;">
+                <i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Hệ thống đã khóa phiên làm bài để đảm bảo tính nghiêm túc của kỳ thi.
+              </div>
+            </div>
+          </div>
+        `;
+      };
 
       window.switchMobileView = function(view) {
         const leftPane = document.getElementById('roomLeftPane');

@@ -2554,10 +2554,11 @@
           <div style="position: relative;">
             <input type="password" id="teacherAuthPwdInput" class="cfg-input" placeholder="Nhập mật khẩu Giáo viên..." style="padding-right: 12px;" onkeydown="if(event.key==='Enter') submitTeacherAuth();" autocomplete="current-password">
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-            <span style="font-size: 0.78rem; color: #64748b;">
-              <i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Bảo mật dành riêng cho Giáo viên
-            </span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; flex-wrap: wrap; gap: 6px;">
+            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #334155; cursor: pointer;">
+              <input type="checkbox" id="chkRememberOwner" checked style="accent-color: #0284c7;">
+              <span>Ghi nhớ Chủ trang web trên máy này</span>
+            </label>
             <button type="button" onclick="openTeacherChangePwdModalDirect()" style="background: none; border: none; color: #0284c7; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
               Đổi mật khẩu?
             </button>
@@ -3174,10 +3175,10 @@
         </div>
       </div>
 
-      <!-- Footer Buttons (Ảnh 14) -->
+      <!-- Footer Buttons -->
       <div class="azota-modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 20px; display: flex; justify-content: flex-end; gap: 12px;">
-        <button type="button" class="btn-azota-draft" onclick="saveOnlineConfigAsDraft()">
-          Lưu nháp
+        <button type="button" class="btn-azota-draft" id="btnSaveOnlineConfig" onclick="saveOnlineConfigAsDraft()">
+          <i class="fa-solid fa-floppy-disk"></i> Lưu cấu hình
         </button>
         <button type="button" class="btn-azota-publish-final" onclick="publishOnlineConfigExam()">
           Xuất bản
@@ -3258,21 +3259,36 @@
         setTimeout(() => toast.classList.remove('show'), 2600);
       }
 
-      // ==================== HỆ THỐNG PHÂN QUYỀN GIÁO VIÊN & HỌC SINH ====================
+      // ==================== HỆ THỐNG PHÂN QUYỀN CHỦ TRANG WEB & HỌC SINH ====================
       function isTeacherLogged() {
-        return true; // Luôn mở toàn quyền Quản trị cho Thầy Sáng trên trang giao-bai.html
+        return sessionStorage.getItem("ths_sang_teacher_logged") === "true" ||
+               localStorage.getItem("ths_sang_owner_logged") === "true";
       }
 
       function updateTeacherUI() {
         const wrap = document.getElementById('teacherAuthChipWrap');
+        const btnCreate = document.getElementById('btnOpenCreateModal');
+        const logged = isTeacherLogged();
+        if (btnCreate) {
+          btnCreate.style.display = logged ? 'inline-flex' : 'none';
+        }
         if (!wrap) return;
-        wrap.innerHTML = `
-          <div class="teacher-auth-chip logged-in">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <span>Giáo viên: ThS. Lương Thanh Sáng</span>
-            <button class="btn-change-pwd-teacher" onclick="openTeacherChangePwdModal()" title="Đổi mật khẩu Giáo viên"><i class="fa-solid fa-key"></i> Đổi mật khẩu</button>
-          </div>
-        `;
+        if (logged) {
+          wrap.innerHTML = `
+            <div class="teacher-auth-chip logged-in">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span>Chủ trang web: ThS. Lương Thanh Sáng</span>
+              <button class="btn-change-pwd-teacher" onclick="openTeacherChangePwdModal()" title="Đổi mật khẩu Chủ trang web"><i class="fa-solid fa-key"></i> Đổi MK</button>
+              <button class="btn-change-pwd-teacher" onclick="handleTeacherLogout()" title="Khóa quyền quản trị" style="margin-left: 4px; background: #fee2e2; color: #b91c1c;"><i class="fa-solid fa-right-from-bracket"></i> Khóa</button>
+            </div>
+          `;
+        } else {
+          wrap.innerHTML = `
+            <button type="button" class="btn-create-exam" onclick="openTeacherAuthModal()" style="background: linear-gradient(135deg, #1e3a8a, #0284c7); padding: 9px 16px; font-size: 0.85rem;">
+              <i class="fa-solid fa-shield-halved"></i> Đăng nhập Chủ trang web
+            </button>
+          `;
+        }
       }
 
       let pendingTeacherAction = null;
@@ -3332,10 +3348,14 @@
         }
 
         sessionStorage.setItem("ths_sang_teacher_logged", "true");
+        const rememberOwner = document.getElementById("chkRememberOwner");
+        if (rememberOwner && rememberOwner.checked) {
+          localStorage.setItem("ths_sang_owner_logged", "true");
+        }
         closeTeacherAuthModal();
         updateTeacherUI();
         renderExamGrid();
-        showToast("Chào mừng Thầy Sáng! Đã kích hoạt đầy đủ quyền quản trị đề thi.", "fa-chalkboard-user");
+        showToast("Chào mừng Chủ trang web Thầy Sáng! Đã mở giao diện cấu hình & quản trị đề thi.", "fa-chalkboard-user");
 
         if (typeof pendingTeacherAction === 'function') {
           const act = pendingTeacherAction;
@@ -3419,6 +3439,7 @@
         // Lưu mật khẩu mới vào localStorage
         localStorage.setItem("ths_sang_teacher_pwd", newVal);
         sessionStorage.setItem("ths_sang_teacher_logged", "true");
+        localStorage.setItem("ths_sang_owner_logged", "true");
 
         closeTeacherChangePwdModal();
         updateTeacherUI();
@@ -3429,11 +3450,12 @@
       };
 
       window.handleTeacherLogout = function() {
-        if (confirm("Thầy có chắc chắn muốn thoát quyền quản trị và chuyển sang Chế độ Học sinh không?")) {
+        if (confirm("Thầy có chắc chắn muốn khóa quyền Chủ trang web và chuyển sang chế độ Xem / Học sinh không?")) {
           sessionStorage.removeItem("ths_sang_teacher_logged");
+          localStorage.removeItem("ths_sang_owner_logged");
           updateTeacherUI();
           renderExamGrid();
-          showToast("Đã chuyển sang Chế độ Học sinh (Chỉ xem)!", "fa-user-graduate");
+          showToast("Đã khóa quyền quản trị Chủ trang web!", "fa-lock");
         }
       };
 
@@ -3517,6 +3539,7 @@
                 <button class="btn-azota-action" style="background: #0284c7; color: #fff; font-weight: 700;" onclick="enterExamRoom('${exam.id}')" title="Vào làm bài ngay">
                   <i class="fa-solid fa-play"></i> Vào thi
                 </button>
+                ${isTeacher ? `
                 <button class="btn-azota-action primary" onclick="copyExamShareLink('${exam.id}')" title="Sao chép link làm bài">
                   <i class="fa-solid fa-link"></i> Copy Link
                 </button>
@@ -3528,7 +3551,7 @@
                 </button>
                 <button class="btn-azota-action danger" onclick="deleteExamConfirm('${exam.id}')" title="Xóa đề">
                   <i class="fa-solid fa-trash"></i>
-                </button>
+                </button>` : ''}
               </div>
             </div>
           `;
@@ -4296,8 +4319,29 @@
       }
 
       let editingOnlineExamObj = null;
+      const SAVED_CONFIG_MAP_KEY = 'THS_SANG_SAVED_CONFIG_MAP_V1';
+
+      function getSavedOnlineConfigMap() {
+        try {
+          const raw = localStorage.getItem(SAVED_CONFIG_MAP_KEY);
+          return raw ? JSON.parse(raw) : {};
+        } catch (e) { return {}; }
+      }
+
+      function saveOnlineConfigEntry(key, configSnapshot) {
+        if (!key || !configSnapshot) return;
+        try {
+          const map = getSavedOnlineConfigMap();
+          map[key] = configSnapshot;
+          localStorage.setItem(SAVED_CONFIG_MAP_KEY, JSON.stringify(map));
+        } catch (e) {}
+      }
 
       window.selectAntiQuizAndOpenConfig = function(examKey, existingExam) {
+        if (!isTeacherLogged()) {
+          openTeacherAuthModal();
+          return;
+        }
         const db = getAntiExamsDatabase() || {};
         const ex = (existingExam && existingExam.antiQuizData) ? existingExam.antiQuizData : db[examKey];
         if (!ex) {
@@ -4309,14 +4353,19 @@
         currentSelectedAntiQuizKey = examKey;
         currentAntiConfigData = ex;
 
+        // Nạp cấu hình đã lưu trước đó cho đề này (nếu chưa có existingExam) để không bị mất cấu hình
+        const savedMap = getSavedOnlineConfigMap();
+        const savedCfg = (!existingExam && savedMap[examKey]) ? savedMap[examKey] : null;
+        const sourceCfg = existingExam || savedCfg;
+
         // Đóng uploadModal
         document.getElementById('uploadModal').style.display = 'none';
 
-        // Điền dữ liệu vào Full Config Modal (ưu tiên thông tin cũ nếu đang Sửa đề)
+        // Điền dữ liệu vào Full Config Modal (ưu tiên thông tin đã lưu / đang sửa)
         const cfg = ex.config || {};
-        const title = (existingExam && existingExam.title) || cfg.title || examKey;
-        const grade = (existingExam && existingExam.grade) || cfg.grade || '12';
-        const dur = (existingExam && existingExam.durationMinutes) || cfg.timeLimitMinutes || (/TX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
+        const title = (sourceCfg && sourceCfg.title) || cfg.title || examKey;
+        const grade = (sourceCfg && sourceCfg.grade) || cfg.grade || '12';
+        const dur = (sourceCfg && sourceCfg.durationMinutes) || cfg.timeLimitMinutes || (/TX|KKTX|15P|15\s*PHUT/i.test(title) ? 15 : 45);
 
         const genCode = (existingExam && existingExam.id)
           ? existingExam.id
@@ -4328,12 +4377,12 @@
         document.getElementById('azotaCfgGrade').value = grade;
         document.getElementById('azotaCfgDuration').value = dur;
         document.getElementById('azotaCfgSubject').value = 'Toán';
-        document.getElementById('azotaCfgPassword').value = (existingExam && existingExam.password) || '';
-        document.getElementById('azotaCfgMaxAttempts').value = (existingExam && existingExam.maxAttempts !== undefined) ? String(existingExam.maxAttempts) : '0';
-        document.getElementById('azotaCfgOpenTime').value = (existingExam && existingExam.openTime) || '';
-        document.getElementById('azotaCfgCloseTime').value = (existingExam && existingExam.closeTime) || '';
+        document.getElementById('azotaCfgPassword').value = (sourceCfg && sourceCfg.password) || '';
+        document.getElementById('azotaCfgMaxAttempts').value = (sourceCfg && sourceCfg.maxAttempts !== undefined) ? String(sourceCfg.maxAttempts) : '0';
+        document.getElementById('azotaCfgOpenTime').value = (sourceCfg && sourceCfg.openTime) || '';
+        document.getElementById('azotaCfgCloseTime').value = (sourceCfg && sourceCfg.closeTime) || '';
 
-        if (/TX|THUONG\s*XUYEN|15/i.test(title)) {
+        if (/TX|KKTX|THUONG\s*XUYEN|15/i.test(title)) {
           document.getElementById('azotaCfgPurpose').value = 'kttx';
         } else if (/GIUA\s*K/i.test(title)) {
           document.getElementById('azotaCfgPurpose').value = 'ktgk';
@@ -4343,8 +4392,39 @@
           document.getElementById('azotaCfgPurpose').value = 'kscl';
         }
 
-        // Khởi tạo cấu hình thang điểm linh hoạt chuẩn hóa theo ý Thầy Sáng
-        initAzotaOnlineScoring(ex);
+        // Khôi phục thêm các lựa chọn phụ nếu đã lưu
+        if (sourceCfg) {
+          const antiVal = (sourceCfg.enableTabTracking === false) ? 'none' : 'screen';
+          const antiRdo = document.querySelector(`input[name="azotaCfgAntiCheat"][value="${antiVal}"]`);
+          if (antiRdo) antiRdo.checked = true;
+
+          if (sourceCfg.targetMode) {
+            const tgtRdo = document.querySelector(`input[name="azotaCfgTarget"][value="${sourceCfg.targetMode}"]`);
+            if (tgtRdo) tgtRdo.checked = true;
+          }
+          if (sourceCfg.viewScoreMode) {
+            const vsRdo = document.querySelector(`input[name="azotaCfgViewScore"][value="${sourceCfg.viewScoreMode}"]`);
+            if (vsRdo) vsRdo.checked = true;
+          }
+          const solVal = sourceCfg.viewSolutionMode || (sourceCfg.viewResultMode === 'none' ? 'none' : (sourceCfg.viewResultMode === 'score_only' ? 'after_all' : 'after_submit'));
+          const solRdo = document.querySelector(`input[name="azotaCfgViewSolution"][value="${solVal}"]`);
+          if (solRdo) solRdo.checked = true;
+
+          const hideChk = document.getElementById('azotaCfgHideWrongKey');
+          if (hideChk && sourceCfg.hideWrongAnswerKey !== undefined) hideChk.checked = !!sourceCfg.hideWrongAnswerKey;
+
+          const noticeChk = document.getElementById('azotaCfgEnableNotice');
+          const noticeInp = document.getElementById('azotaCfgNoticeText');
+          if (noticeChk && noticeInp) {
+            const hasNotice = !!(sourceCfg.noticeMessage && sourceCfg.noticeMessage.trim() !== '');
+            noticeChk.checked = hasNotice;
+            noticeInp.value = sourceCfg.noticeMessage || '';
+            toggleNoticeTextarea();
+          }
+        }
+
+        // Khởi tạo cấu hình thang điểm linh hoạt chuẩn hóa theo ý Thầy Sáng (ưu tiên cấu hình đã lưu)
+        initAzotaOnlineScoring(ex, sourceCfg);
 
         // Render nội dung đề thi ngay vào vùng Preview của modal cấu hình
         renderExamPreviewInConfig(ex);
@@ -4353,15 +4433,16 @@
         document.getElementById('azotaFullConfigModal').style.display = 'flex';
       };
 
-      // Khởi tạo thang điểm chuẩn theo cấu trúc câu hỏi của đề (hỗ trợ cả chế độ Sửa đề đã lưu)
-      function initAzotaOnlineScoring(ex) {
+      // Khởi tạo thang điểm chuẩn theo cấu trúc câu hỏi của đề (hỗ trợ cả chế độ Sửa & Cấu hình đã lưu)
+      function initAzotaOnlineScoring(ex, sourceCfg) {
+        const refCfg = sourceCfg || editingOnlineExamObj;
         const p1Raw = Array.isArray(ex.part1) ? ex.part1 : [];
         const p2Raw = Array.isArray(ex.part2) ? ex.part2 : [];
         const p3Raw = Array.isArray(ex.part3) ? ex.part3 : [];
 
-        const num1 = p1Raw.length || (editingOnlineExamObj?.part1?.numQuestions || 0);
-        const num2 = p2Raw.length || (editingOnlineExamObj?.part2?.numQuestions || 0);
-        const num3 = p3Raw.length || (editingOnlineExamObj?.part3?.numQuestions || 0);
+        const num1 = p1Raw.length || (refCfg?.part1?.numQuestions || 0);
+        const num2 = p2Raw.length || (refCfg?.part2?.numQuestions || 0);
+        const num3 = p3Raw.length || (refCfg?.part3?.numQuestions || 0);
 
         document.getElementById('azotaP1Num').value = num1;
         document.getElementById('azotaP2Num').value = num2;
@@ -4371,10 +4452,10 @@
         document.getElementById('azotaCardP2').style.display = num2 > 0 ? 'block' : 'none';
         document.getElementById('azotaCardP3').style.display = num3 > 0 ? 'block' : 'none';
 
-        if (editingOnlineExamObj) {
-          const ex1 = editingOnlineExamObj.part1 || {};
-          const ex2 = editingOnlineExamObj.part2 || {};
-          const ex3 = editingOnlineExamObj.part3 || {};
+        if (refCfg && (refCfg.part1 || refCfg.part2 || refCfg.part3)) {
+          const ex1 = refCfg.part1 || {};
+          const ex2 = refCfg.part2 || {};
+          const ex3 = refCfg.part3 || {};
           const p1Tot = (ex1.enabled !== false && num1 > 0) ? Math.round((num1 * (parseFloat(ex1.defaultPoint) || 1.0)) * 100) / 100 : 0;
           const p2Tot = (ex2.enabled !== false && num2 > 0) ? Math.round((num2 * (parseFloat(ex2.maxPointPerQuestion) || 2.0)) * 100) / 100 : 0;
           const p3Tot = (ex3.enabled !== false && num3 > 0) ? Math.round((num3 * (parseFloat(ex3.defaultPoint) || 0.5)) * 100) / 100 : 0;
@@ -4653,13 +4734,7 @@
         if (wrap) wrap.style.display = chk.checked ? 'block' : 'none';
       };
 
-      // XUẤT BẢN ĐỀ THI AZOTA TỪ ANTI
-      window.publishOnlineConfigExam = async function() {
-        if (!currentAntiConfigData || !currentSelectedAntiQuizKey) {
-          alert('Chưa có thông tin đề thi Anti được chọn!');
-          return;
-        }
-
+      function buildOnlineExamPayloadFromModal() {
         const title = document.getElementById('azotaCfgTitle').value.trim() || currentAntiConfigData.config.title;
         const grade = document.getElementById('azotaCfgGrade').value;
         const dur = parseInt(document.getElementById('azotaCfgDuration').value) || 15;
@@ -4697,7 +4772,6 @@
 
         const totalScoreComputed = Math.round((p1TotVal + p2TotVal + p3TotVal) * 100) / 100;
 
-        // Trích xuất answerKey cho Phần I theo tổng điểm Thầy đã nhập
         const p1Key = {};
         const p1Points = {};
         p1Raw.forEach((q, idx) => {
@@ -4706,7 +4780,6 @@
           p1Points[qStr] = p1DefCalculated;
         });
 
-        // Trích xuất answerKey cho Phần II (Đúng/Sai)
         const p2Key = {};
         p2Raw.forEach((q, idx) => {
           const qStr = String(idx + 1);
@@ -4729,7 +4802,6 @@
           p2Key[qStr] = { a: aCorr, b: bCorr, c: cCorr, d: dCorr };
         });
 
-        // Trích xuất answerKey cho Phần III (Trả lời ngắn)
         const p3Key = {};
         const p3Points = {};
         p3Raw.forEach((q, idx) => {
@@ -4742,7 +4814,8 @@
           ? editingOnlineExamObj.id
           : (document.getElementById('cfgTopExamCode')?.textContent.trim() || `TS-${currentSelectedAntiQuizKey.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`);
 
-        const newOnlineExam = {
+        const nowIso = new Date().toISOString();
+        return {
           id: examId,
           title: title,
           description: `Biên soạn & Thiết lập cấu hình: ThS. Lương Thanh Sáng - Đề Trắc nghiệm Online tương tác 100%`,
@@ -4759,12 +4832,14 @@
           enableTabTracking: antiCheat,
           targetMode: targetMode,
           viewScoreMode: viewScore,
+          viewSolutionMode: viewSolution,
           viewResultMode: viewSolution === 'none' ? 'none' : (viewSolution === 'after_submit' ? 'all' : 'score_only'),
           hideWrongAnswerKey: hideWrongKey,
           noticeMessage: noticeText,
           status: 'active',
           submissionsCount: (editingOnlineExamObj && editingOnlineExamObj.submissionsCount) || 0,
-          createdAt: (editingOnlineExamObj && editingOnlineExamObj.createdAt) || new Date().toISOString(),
+          createdAt: (editingOnlineExamObj && editingOnlineExamObj.createdAt) || nowIso,
+          updatedAt: nowIso,
 
           part1: {
             enabled: (p1Raw.length > 0 && p1TotVal > 0),
@@ -4773,7 +4848,6 @@
             answerKey: p1Key,
             points: p1Points
           },
-
           part2: {
             enabled: (p2Raw.length > 0 && p2TotVal > 0),
             numQuestions: p2Raw.length,
@@ -4782,7 +4856,6 @@
             percentages: p2Percents,
             answerKey: p2Key
           },
-
           part3: {
             enabled: (p3Raw.length > 0 && p3TotVal > 0),
             numQuestions: p3Raw.length,
@@ -4791,6 +4864,18 @@
             points: p3Points
           }
         };
+      }
+
+      // XUẤT BẢN ĐỀ THI TỪ ANTI
+      window.publishOnlineConfigExam = async function() {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
+        if (!currentAntiConfigData || !currentSelectedAntiQuizKey) {
+          alert('Chưa có thông tin đề thi Anti được chọn!');
+          return;
+        }
+
+        const newOnlineExam = buildOnlineExamPayloadFromModal();
+        saveOnlineConfigEntry(currentSelectedAntiQuizKey, newOnlineExam);
 
         const wasEditing = !!editingOnlineExamObj;
         await store.saveExam(newOnlineExam);
@@ -4799,6 +4884,7 @@
         closeOnlineConfigModal();
         await loadExamDashboard();
 
+        const examId = newOnlineExam.id;
         // Mở popup thành công (link đính kèm cấu hình chuẩn để mở được trên mọi máy/trình duyệt)
         const shareLink = window.ExamEngine.buildShareExamUrl(newOnlineExam);
         const codeEl = document.getElementById('successExamCode');
@@ -4812,12 +4898,27 @@
         if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareLink)}`;
 
         document.getElementById('publishSuccessModal').style.display = 'flex';
-        showToast(wasEditing ? `Đã cập nhật cấu hình đề [${examId}] thành công!` : 'Xuất bản đề thi Online thành công!', 'fa-circle-check');
+        showToast(wasEditing ? `Đã cập nhật & xuất bản đề [${examId}] thành công!` : 'Xuất bản đề thi Online thành công!', 'fa-circle-check');
       };
 
-      window.saveOnlineConfigAsDraft = function() {
-        alert('Đã lưu cấu hình bản nháp đề thi thành công!');
-        closeOnlineConfigModal();
+      // NÚT "LƯU CẤU HÌNH": Lưu lại mọi thông số cấu hình hiện tại cho lần mở tiếp theo & cập nhật đề nếu đang sửa
+      window.saveOnlineConfigAsDraft = async function() {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
+        if (!currentAntiConfigData || !currentSelectedAntiQuizKey) {
+          showToast('Không có dữ liệu cấu hình để lưu!', 'fa-circle-exclamation');
+          return;
+        }
+        const configObj = buildOnlineExamPayloadFromModal();
+        saveOnlineConfigEntry(currentSelectedAntiQuizKey, configObj);
+
+        if (editingOnlineExamObj && editingOnlineExamObj.id) {
+          await store.saveExam(configObj);
+          editingOnlineExamObj = configObj;
+          await loadExamDashboard();
+          showToast(`Đã lưu cấu hình cho đề [${configObj.id}]!`, 'fa-floppy-disk');
+        } else {
+          showToast('Đã lưu cấu hình! Lần mở lại sau sẽ giữ nguyên thông số này.', 'fa-floppy-disk');
+        }
       };
 
       let detectedUploadStructure = null;
@@ -6688,8 +6789,9 @@
       const btnGoBackListEl = document.getElementById('btnGoBackToList');
       if (btnGoBackListEl) btnGoBackListEl.addEventListener('click', closeSuccessAndReturnToList);
 
-      // Chỉnh sửa & Xóa
+      // Chỉnh sửa & Xóa (Chỉ dành cho Chủ trang web)
       window.editExam = async function(examId) {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
         try {
           const exam = await store.fetchExamDetail(examId, 'teacher');
           if (!exam) {
@@ -6743,6 +6845,7 @@
       };
 
       window.deleteExamConfirm = async function(examId) {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
         if (confirm(`Bạn có chắc muốn xóa đề thi [${examId}]? Mọi dữ liệu bài nộp sẽ bị xóa.`)) {
           await store.deleteExam(examId);
           showToast(`Đã xóa đề thi ${examId}`, 'fa-trash');
@@ -6755,6 +6858,7 @@
       let currentSubmissions = [];
 
       window.openStatsModal = async function(examId) {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
         const cardExam = (currentExams || []).find(e => e.id === examId);
         currentStatsExam = cardExam || { id: examId, title: examId };
         currentSubmissions = [];

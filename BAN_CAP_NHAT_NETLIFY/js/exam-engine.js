@@ -553,18 +553,48 @@
 
     async fetchExams() {
       const deletedIds = this.getDeletedExamIds();
+      const localExams = (this.getLocalExams() || []).filter(e => e && e.id && !deletedIds.includes(e.id));
       try {
         const resp = await fetch('/api/exams');
         if (resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && Array.isArray(resJson.data)) {
-            const filtered = resJson.data.filter(e => e && e.id && !deletedIds.includes(e.id));
-            this.saveLocalExams(filtered);
-            return filtered;
+            const serverExams = resJson.data.filter(e => e && e.id && !deletedIds.includes(e.id));
+            // GỘP AN TOÀN: Không bao giờ ghi đè làm mất các đề đã xuất bản lưu trong localStorage khi server cold-start
+            const mergedMap = {};
+            const mergedList = [];
+
+            // 1. Ưu tiên giữ nguyên toàn bộ đề đã xuất bản trên máy người dùng (localExams)
+            localExams.forEach(function(le) {
+              mergedMap[le.id] = le;
+              mergedList.push(le);
+            });
+
+            // 2. Bổ sung đề từ server nếu chưa có hoặc cập nhật nếu server mới hơn
+            serverExams.forEach(function(se) {
+              const existing = mergedMap[se.id];
+              if (!existing) {
+                mergedMap[se.id] = se;
+                mergedList.push(se);
+              } else {
+                const localTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime();
+                const serverTime = new Date(se.updatedAt || se.createdAt || 0).getTime();
+                const bestSubsCount = Math.max(existing.submissionsCount || 0, se.submissionsCount || 0);
+                if (serverTime > localTime) {
+                  mergedMap[se.id] = Object.assign({}, existing, se, { submissionsCount: bestSubsCount });
+                } else {
+                  existing.submissionsCount = bestSubsCount;
+                }
+              }
+            });
+
+            const finalMerged = mergedList.map(item => mergedMap[item.id]);
+            this.saveLocalExams(finalMerged);
+            return finalMerged;
           }
         }
       } catch (e) {}
-      return this.getLocalExams();
+      return localExams;
     },
 
     async fetchExamDetail(id, role, shareToken) {
