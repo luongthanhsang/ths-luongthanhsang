@@ -6755,38 +6755,46 @@
       let currentSubmissions = [];
 
       window.openStatsModal = async function(examId) {
+        const cardExam = (currentExams || []).find(e => e.id === examId);
+        currentStatsExam = cardExam || { id: examId, title: examId };
+        currentSubmissions = [];
+
         try {
           const data = await store.fetchExamResults(examId);
-          currentStatsExam = data.exam || { id: examId, title: examId };
-          currentSubmissions = Array.isArray(data.submissions) ? data.submissions : [];
-
-          document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
-          document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
-
-          if (currentSubmissions.length > 0) {
-            const scores = currentSubmissions.map(s => Number(s.score) || 0);
-            const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-            const max = Math.max(...scores);
-            const violations = currentSubmissions.reduce((a, b) => a + (Number(b.tabViolations) || 0), 0);
-
-            document.getElementById('statAvgScore').textContent = avg.toFixed(1);
-            document.getElementById('statMaxScore').textContent = max.toFixed(1);
-            document.getElementById('statViolationsCount').textContent = violations;
-          } else {
-            document.getElementById('statAvgScore').textContent = '0.0';
-            document.getElementById('statMaxScore').textContent = '0.0';
-            document.getElementById('statViolationsCount').textContent = '0';
-          }
-
-          renderStatsTable(currentSubmissions);
-          const statsModalEl = document.getElementById('statsModal');
-          if (statsModalEl) {
-            statsModalEl.style.zIndex = '99998';
-            statsModalEl.style.display = 'flex';
-          }
+          if (data && data.exam && data.exam.title) currentStatsExam = data.exam;
+          if (data && Array.isArray(data.submissions)) currentSubmissions = data.submissions;
         } catch (err) {
-          console.error('Lỗi khi mở Thống kê:', err);
-          showToast('Không thể tải dữ liệu thống kê đề thi!', 'fa-triangle-exclamation');
+          console.warn('Fallback mở hộp thoại thống kê khi chưa có dữ liệu máy chủ:', err);
+          try {
+            currentSubmissions = store.getLocalSubmissions(examId) || [];
+          } catch (e2) {
+            currentSubmissions = [];
+          }
+        }
+
+        document.getElementById('statsExamTitle').textContent = `[${examId}] ${currentStatsExam.title || ''}`;
+        document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
+
+        if (currentSubmissions.length > 0) {
+          const scores = currentSubmissions.map(s => Number(s.score) || 0);
+          const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+          const max = Math.max(...scores);
+          const violations = currentSubmissions.reduce((a, b) => a + (Number(b.tabViolations) || 0), 0);
+
+          document.getElementById('statAvgScore').textContent = avg.toFixed(1);
+          document.getElementById('statMaxScore').textContent = max.toFixed(1);
+          document.getElementById('statViolationsCount').textContent = violations;
+        } else {
+          document.getElementById('statAvgScore').textContent = '0.0';
+          document.getElementById('statMaxScore').textContent = '0.0';
+          document.getElementById('statViolationsCount').textContent = '0';
+        }
+
+        renderStatsTable(currentSubmissions);
+        const statsModalEl = document.getElementById('statsModal');
+        if (statsModalEl) {
+          statsModalEl.style.zIndex = '99998';
+          statsModalEl.style.display = 'flex';
         }
       };
 

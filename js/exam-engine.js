@@ -977,16 +977,23 @@
     },
 
     async fetchExamResults(examId) {
+      let serverData = null;
       try {
         const resp = await fetch(`/api/results?examId=${encodeURIComponent(examId)}`);
         if (resp.ok) {
           const resJson = await resp.json();
-          if (resJson.success && resJson.data) return resJson.data;
+          if (resJson.success && resJson.data) serverData = resJson.data;
         }
       } catch (e) {}
 
       const exams = this.getLocalExams();
-      let exam = exams.find(function(e) { return e.id === id || e.id === examId; });
+      let exam = exams.find(function(e) { return e.id === examId; });
+      if (!exam && serverData && serverData.exam) {
+        exam = serverData.exam;
+      }
+      if (!exam) {
+        exam = resolveExamFromTokenOrAnti(examId);
+      }
       if (!exam) {
         const secretDb = (typeof window !== 'undefined' && window.ANTI_SECRET_EXAMS_DATABASE) ? window.ANTI_SECRET_EXAMS_DATABASE : {};
         const publicDb = (typeof window !== 'undefined' && window.EXAMS_DATABASE) ? window.EXAMS_DATABASE : {};
@@ -1003,12 +1010,24 @@
           exam = { id: examId, title: `Đề thi [${examId}]`, status: 'active' };
         }
       }
-      const submissions = this.getLocalSubmissions(examId);
+
+      const localSubs = this.getLocalSubmissions(examId) || [];
+      const serverSubs = (serverData && Array.isArray(serverData.submissions)) ? serverData.submissions : [];
+      const mergedMap = {};
+      const mergedSubs = [];
+      serverSubs.concat(localSubs).forEach(function(s) {
+        if (s && s.id && !mergedMap[s.id]) {
+          mergedMap[s.id] = true;
+          mergedSubs.push(s);
+        } else if (s && !s.id) {
+          mergedSubs.push(s);
+        }
+      });
 
       return {
-        exam,
-        totalSubmissions: submissions.length,
-        submissions
+        exam: exam,
+        totalSubmissions: mergedSubs.length,
+        submissions: mergedSubs
       };
     }
   };
