@@ -221,10 +221,11 @@ const SEED_SUBMISSIONS = [
   }
 ];
 
-// ==================== CẤU HÌNH KẾT NỐI CLOUD DB (NẾU CÓ ENV TRÊN VERCEL) ====================
+// ==================== CẤU HÌNH KẾT NỐI CLOUD DB (FIREBASE REALTIME DB MẶC ĐỊNH) ====================
+const DEFAULT_FIREBASE_DB_URL = 'https://luu-diem-hoc-sinh-default-rtdb.asia-southeast1.firebasedatabase.app';
 const KV_URL = (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '').replace(/\/+$/, '');
 const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
-const FIREBASE_URL = (process.env.FIREBASE_DB_URL || '').replace(/\/+$/, '');
+const FIREBASE_URL = (process.env.FIREBASE_DB_URL || DEFAULT_FIREBASE_DB_URL).replace(/\/+$/, '');
 const FIREBASE_SECRET = process.env.FIREBASE_AUTH_SECRET || '';
 
 function getStorageMode() {

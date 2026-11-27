@@ -561,10 +561,11 @@
     LOCAL_KEY_DELETED: 'THS_SANG_DELETED_EXAM_IDS_V4',
     LOCAL_KEY_PENDING: 'THS_SANG_PENDING_SYNC_V1',
     LOCAL_KEY_CLOUD_URL: 'THS_SANG_CLOUD_DB_URL_V1',
+    DEFAULT_CLOUD_DB_URL: 'https://luu-diem-hoc-sinh-default-rtdb.asia-southeast1.firebasedatabase.app',
 
     normalizeCloudUrl: function(rawUrl) {
       let u = String(rawUrl || '').trim();
-      if (!u) return '';
+      if (!u || u === 'DISABLED') return '';
       u = u.replace(/\.json(\?.*)?$/i, '').replace(/\/+$/, '');
       if (!/^https:\/\/[a-z0-9.-]+\.(firebaseio\.com|firebasedatabase\.app)(\/.*)?$/i.test(u)) {
         return '';
@@ -574,9 +575,15 @@
 
     getCloudDbUrl: function() {
       try {
-        return this.normalizeCloudUrl(localStorage.getItem(this.LOCAL_KEY_CLOUD_URL) || '');
+        const raw = localStorage.getItem(this.LOCAL_KEY_CLOUD_URL);
+        if (raw === 'DISABLED') return '';
+        if (raw) {
+          const clean = this.normalizeCloudUrl(raw);
+          if (clean) return clean;
+        }
+        return this.DEFAULT_CLOUD_DB_URL;
       } catch (e) {
-        return '';
+        return this.DEFAULT_CLOUD_DB_URL;
       }
     },
 
@@ -584,7 +591,7 @@
       const clean = this.normalizeCloudUrl(rawUrl);
       try {
         if (clean) localStorage.setItem(this.LOCAL_KEY_CLOUD_URL, clean);
-        else localStorage.removeItem(this.LOCAL_KEY_CLOUD_URL);
+        else localStorage.setItem(this.LOCAL_KEY_CLOUD_URL, 'DISABLED');
       } catch (e) {}
       return clean;
     },
