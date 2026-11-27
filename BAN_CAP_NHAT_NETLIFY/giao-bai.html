@@ -1583,6 +1583,9 @@
 
           <div class="azota-top-actions">
             <div id="teacherAuthChipWrap" style="display: inline-flex; align-items: center;"></div>
+            <button type="button" class="btn-azota-action" id="btnRefreshDashboard" style="padding: 10px 14px; font-weight: 700; background: #f1f5f9; color: #0f172a;" title="Cập nhật nhanh số bài nộp mới nhất">
+              <i class="fa-solid fa-rotate"></i> Cập nhật bài nộp
+            </button>
             <button type="button" class="btn-azota-action primary" id="btnOpenGlobalSearch" style="display: none; padding: 10px 15px; font-weight: 700;">
               <i class="fa-solid fa-magnifying-glass"></i> Tra cứu HS vừa nộp
             </button>
@@ -3359,12 +3362,16 @@
         const wrap = document.getElementById('teacherAuthChipWrap');
         const btnCreate = document.getElementById('btnOpenCreateModal');
         const btnGlobal = document.getElementById('btnOpenGlobalSearch');
+        const btnRefreshDash = document.getElementById('btnRefreshDashboard');
         const logged = isTeacherLogged();
         if (btnCreate) {
           btnCreate.style.display = logged ? 'inline-flex' : 'none';
         }
         if (btnGlobal) {
           btnGlobal.style.display = logged ? 'inline-flex' : 'none';
+        }
+        if (btnRefreshDash) {
+          btnRefreshDash.style.display = logged ? 'inline-flex' : 'none';
         }
         if (!wrap) return;
         if (logged) {
@@ -7414,6 +7421,37 @@
         `;
         overlay.style.display = 'flex';
       };
+
+      const btnRefreshDashEl = document.getElementById('btnRefreshDashboard');
+      if (btnRefreshDashEl) {
+        btnRefreshDashEl.addEventListener('click', async () => {
+          btnRefreshDashEl.disabled = true;
+          btnRefreshDashEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tải...';
+          try {
+            await loadExamDashboard();
+            showToast('Đã cập nhật số bài nộp mới nhất!', 'fa-rotate');
+          } finally {
+            btnRefreshDashEl.disabled = false;
+            btnRefreshDashEl.innerHTML = '<i class="fa-solid fa-rotate"></i> Cập nhật bài nộp';
+          }
+        });
+      }
+
+      // Tự động cập nhật số bài nộp mỗi 15 giây khi trang mở (không làm gián đoạn nếu đang mở modal soạn đề)
+      setInterval(() => {
+        if (document.visibilityState === 'visible' && isTeacherLogged()) {
+          const splitOpen = document.getElementById('splitEditor')?.style.display === 'flex';
+          const cfgOpen = document.getElementById('azotaFullConfigModal')?.style.display === 'flex';
+          if (!splitOpen && !cfgOpen) {
+            store.fetchExams().then(list => {
+              if (Array.isArray(list)) {
+                currentExams = list;
+                renderExamGrid();
+              }
+            }).catch(() => {});
+          }
+        }
+      }, 15000);
 
       loadExamDashboard();
     })();

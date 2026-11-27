@@ -753,6 +753,25 @@
       .room-left-pane { width: 100%; height: 100%; border-right: none; }
       .room-right-pane { width: 100%; height: 100%; display: none; }
       .result-parts-summary-grid { grid-template-columns: 1fr; }
+      .result-screen {
+        align-items: flex-start;
+        padding: 12px 10px 28px;
+        overflow-y: auto;
+      }
+      .result-header {
+        padding: 16px 14px;
+      }
+      .result-score-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+      .result-body {
+        padding: 14px;
+        max-height: none;
+        overflow-y: visible;
+      }
     }
 
     /* ==================== ĐỀ THI TRẮC NGHIỆM ONLINE TƯƠNG TÁC (ANTI SOURCE) ==================== */
@@ -1278,6 +1297,8 @@
       let isExamActive = false;
       let isSubmittingExam = false;
       let currentReceiptCode = '';
+      let lastResultData = null;
+      let preparedEvidence = null;
       let waitTimerInterval = null;
 
       function showRoomToast(msg, isError) {
@@ -2336,9 +2357,12 @@
 
         document.getElementById('examRoomScreen').style.display = 'none';
         document.getElementById('resultScreen').style.display = 'flex';
+        try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (eScroll) { window.scrollTo(0, 0); }
 
         if (result.success && result.data) {
           const res = result.data;
+          lastResultData = res;
+          preparedEvidence = null;
           currentReceiptCode = res.receiptCode || '';
           const syncBadge = document.getElementById('resSyncStatusBadge');
           const receiptTextEl = document.getElementById('resReceiptCodeText');
@@ -2387,6 +2411,11 @@
             document.getElementById('resDetailWrapper').style.display = 'block';
             renderDetailedResults(res.details);
           }
+
+          // Tạo trước ảnh minh chứng Canvas 2D trong 20ms để khi bấm "Chia sẻ" trên điện thoại phản hồi tức thì
+          setTimeout(() => {
+            try { prebuildEvidencePackage(res); } catch (ePrep) {}
+          }, 30);
         }
       }
 
@@ -2462,152 +2491,306 @@
         container.innerHTML = html;
       }
 
-      // Chụp toàn bộ hộp thoại điểm làm ảnh minh chứng & Chia sẻ / Tải về
-      window.shareExamResultEvidence = async function() {
-        const card = document.querySelector('#resultScreen .result-card');
-        const footer = document.getElementById('resultActionFooter');
-        const btn = document.getElementById('btnShareResult');
-        if (!card) return;
+      // Tạo ảnh minh chứng siêu nhanh bằng Canvas 2D (chạy trong ~20ms trên mọi điện thoại, không đơ bởi DOM/CORS)
+      function buildEvidenceCanvas(resObj) {
+        const res = resObj || lastResultData || {};
+        const details = res.details || {};
+        const p1Keys = details.part1 ? Object.keys(details.part1) : [];
+        const p2Keys = details.part2 ? Object.keys(details.part2) : [];
+        const p3Keys = details.part3 ? Object.keys(details.part3) : [];
 
+        const p1Rows = Math.ceil(p1Keys.length / 4);
+        const p2Rows = p2Keys.length;
+        const p3Rows = Math.ceil(p3Keys.length / 3);
+        const detailHeight = (p1Rows * 38) + (p2Rows * 64) + (p3Rows * 38) + ((p1Keys.length || p2Keys.length || p3Keys.length) ? 90 : 0);
+
+        const W = 960;
+        const H = Math.max(660, 560 + detailHeight);
+        const canvas = document.createElement('canvas');
+        canvas.width = W;
+        canvas.height = H;
+        const ctx = canvas.getContext('2d');
+
+        // Nền trắng
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, W, H);
+
+        // Header xanh sư phạm
+        const grad = ctx.createLinearGradient(0, 0, W, 195);
+        grad.addColorStop(0, '#16a34a');
+        grad.addColorStop(1, '#15803d');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, 195);
+
+        // Vòng tròn điểm
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(125, 98, 62, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#15803d';
+        ctx.font = 'bold 46px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const scoreDisp = (res.score !== undefined) ? String(res.score) : (document.getElementById('resScoreCircle')?.textContent || '--');
+        ctx.fillText(scoreDisp, 125, 100);
+
+        // Tiêu đề & Học sinh
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 30px sans-serif';
+        ctx.fillText('MINH CHỨNG NỘP BÀI THI TRỰC TUYẾN', 218, 66);
+        ctx.font = 'bold 25px sans-serif';
+        ctx.fillStyle = '#ecfdf5';
+        ctx.fillText(`${studentName || res.studentName || ''}  •  Lớp: ${studentClass || res.studentClass || ''}`, 218, 112);
+        ctx.font = '19px sans-serif';
+        ctx.fillStyle = '#dcfce7';
+        const safeCode = (examData && examData.id ? examData.id : examCode);
+        const examTitleStr = String(examData && examData.title ? examData.title : safeCode).slice(0, 56);
+        ctx.fillText(`Đề: [${safeCode}] ${examTitleStr}`, 218, 152);
+
+        // 3 ô điểm thành phần
+        const boxY = 222;
+        const boxW = 284;
+        const boxH = 88;
+        const parts = [
+          { lbl: 'PHẦN I (TN)', val: document.getElementById('resP1Score')?.textContent || `${res.part1Score ?? '--'}đ` },
+          { lbl: 'PHẦN II (Đ/S)', val: document.getElementById('resP2Score')?.textContent || `${res.part2Score ?? '--'}đ` },
+          { lbl: 'PHẦN III (TLN)', val: document.getElementById('resP3Score')?.textContent || `${res.part3Score ?? '--'}đ` }
+        ];
+        parts.forEach((pt, i) => {
+          const x = 36 + i * 302;
+          ctx.fillStyle = '#f8fafc';
+          ctx.strokeStyle = '#cbd5e1';
+          ctx.lineWidth = 2;
+          ctx.fillRect(x, boxY, boxW, boxH);
+          ctx.strokeRect(x, boxY, boxW, boxH);
+          ctx.fillStyle = '#64748b';
+          ctx.font = 'bold 16px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(pt.lbl, x + boxW / 2, boxY + 30);
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 28px sans-serif';
+          ctx.fillText(pt.val, x + boxW / 2, boxY + 68);
+        });
+
+        // Dòng thời gian & vi phạm
+        ctx.fillStyle = '#f1f5f9';
+        ctx.fillRect(36, 328, W - 72, 52);
+        ctx.fillStyle = '#334155';
+        ctx.font = 'bold 19px sans-serif';
+        ctx.textAlign = 'left';
+        const durStr = document.getElementById('resDurationStr')?.textContent || '--';
+        const violStr = document.getElementById('resViolations')?.textContent || `${tabViolations} lần`;
+        ctx.fillText(`Thời gian làm: ${durStr}`, 56, 360);
+        ctx.textAlign = 'center';
+        ctx.fillText(`Rời màn hình: ${violStr}`, W / 2 + 40, 360);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#64748b';
+        ctx.font = '17px sans-serif';
+        ctx.fillText(new Date(res.submittedAt || Date.now()).toLocaleString('vi-VN'), W - 54, 360);
+
+        // Tóm tắt chi tiết câu làm
+        let curY = 412;
+        ctx.textAlign = 'left';
+        if (p1Keys.length > 0) {
+          ctx.fillStyle = '#1e40af';
+          ctx.font = 'bold 19px sans-serif';
+          ctx.fillText('Chi tiết Phần I:', 36, curY);
+          curY += 26;
+          ctx.font = '16px sans-serif';
+          p1Keys.forEach((k, idx) => {
+            const d = details.part1[k];
+            const col = idx % 4;
+            const row = Math.floor(idx / 4);
+            const px = 36 + col * 224;
+            const py = curY + row * 34;
+            ctx.fillStyle = d.isCorrect ? '#dcfce7' : '#fee2e2';
+            ctx.fillRect(px, py - 20, 214, 28);
+            ctx.fillStyle = d.isCorrect ? '#166534' : '#991b1b';
+            ctx.fillText(`C${k}: ${d.student} ${d.isCorrect ? '✓' : '(Đ:' + d.correct + ')'}`, px + 10, py);
+          });
+          curY += p1Rows * 34 + 24;
+        }
+
+        if (p2Keys.length > 0) {
+          ctx.fillStyle = '#92400e';
+          ctx.font = 'bold 19px sans-serif';
+          ctx.fillText('Chi tiết Phần II (Đúng / Sai):', 36, curY);
+          curY += 28;
+          p2Keys.forEach((k) => {
+            const d = details.part2[k];
+            const subs = d.subDetails || {};
+            const line = ['a', 'b', 'c', 'd'].map(it => {
+              const s = subs[it] || {};
+              return `${it}:${s.student === 'D' ? 'Đ' : (s.student === 'S' ? 'S' : '-')}${s.isCorrect ? '✓' : '✗'}`;
+            }).join('   ');
+            ctx.fillStyle = '#fffbeb';
+            ctx.fillRect(36, curY - 22, W - 72, 46);
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 17px sans-serif';
+            ctx.fillText(`Câu ${k}: Đúng ${d.correctSubsCount}/4 ý (+${d.point}đ)  |  ${line}`, 52, curY + 6);
+            curY += 56;
+          });
+          curY += 10;
+        }
+
+        if (p3Keys.length > 0) {
+          ctx.fillStyle = '#166534';
+          ctx.font = 'bold 19px sans-serif';
+          ctx.fillText('Chi tiết Phần III (Trả lời ngắn):', 36, curY);
+          curY += 26;
+          ctx.font = '16px sans-serif';
+          p3Keys.forEach((k, idx) => {
+            const d = details.part3[k];
+            const col = idx % 3;
+            const row = Math.floor(idx / 3);
+            const px = 36 + col * 300;
+            const py = curY + row * 34;
+            ctx.fillStyle = d.isCorrect ? '#dcfce7' : '#fee2e2';
+            ctx.fillRect(px, py - 20, 288, 28);
+            ctx.fillStyle = d.isCorrect ? '#166534' : '#991b1b';
+            ctx.fillText(`C${k}: ${d.student} ${d.isCorrect ? '✓' : '(Đ:' + d.correct + ')'}`, px + 10, py);
+          });
+          curY += p3Rows * 34 + 20;
+        }
+
+        // Chân phiếu + Mã xác nhận TSR1
+        const footY = H - 92;
+        ctx.fillStyle = '#f0f9ff';
+        ctx.fillRect(36, footY, W - 72, 68);
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 16px sans-serif';
+        ctx.fillText('Hệ thống Thi Trực Tuyến - ThS. Lương Thanh Sáng', 54, footY + 26);
+        if (currentReceiptCode) {
+          ctx.fillStyle = '#334155';
+          ctx.font = '13px monospace';
+          ctx.fillText(`Mã xác nhận: ${currentReceiptCode.slice(0, 96)}`, 54, footY + 50);
+        }
+
+        return canvas;
+      }
+
+      function prebuildEvidencePackage(resObj) {
+        const safeName = (studentName || 'HocSinh').replace(/[^\p{L}\p{N}_-]+/gu, '_');
+        const safeCode = (examData && examData.id ? examData.id : examCode).replace(/[^A-Za-z0-9_-]+/g, '_');
+        const fileName = `MinhChung_${safeCode}_${safeName}.png`;
+        const scoreVal = (resObj && resObj.score !== undefined) ? resObj.score : (document.getElementById('resScoreCircle')?.textContent || '--');
+        const shareTitle = `Kết quả bài thi ${safeCode} - ${studentName}`;
+        const shareText = `Minh chứng bài thi ${safeCode}: ${studentName} (${studentClass}) - Điểm: ${scoreVal}${currentReceiptCode ? '\nMã xác nhận: ' + currentReceiptCode : ''}`;
+
+        const canvas = buildEvidenceCanvas(resObj);
+        let dataUrl = '';
+        try { dataUrl = canvas.toDataURL('image/png'); } catch (e) {}
+
+        const prevImg = document.getElementById('evidencePreviewImg');
+        if (prevImg && dataUrl) prevImg.src = dataUrl;
+
+        return new Promise((resolve) => {
+          if (typeof canvas.toBlob === 'function') {
+            canvas.toBlob((blob) => {
+              let file = null;
+              try {
+                if (blob && typeof File === 'function') {
+                  file = new File([blob], fileName, { type: 'image/png' });
+                }
+              } catch (eFile) {}
+              preparedEvidence = { blob, file, dataUrl, fileName, shareTitle, shareText };
+              resolve(preparedEvidence);
+            }, 'image/png');
+          } else {
+            preparedEvidence = { blob: null, file: null, dataUrl, fileName, shareTitle, shareText };
+            resolve(preparedEvidence);
+          }
+        });
+      }
+
+      // Chia sẻ / Lưu ảnh minh chứng phản hồi tức thì (<20ms trên điện thoại & Zalo WebView)
+      window.shareExamResultEvidence = async function() {
+        const btn = document.getElementById('btnShareResult');
         const origBtnHtml = btn ? btn.innerHTML : '';
         const resetShareBtn = (doneText) => {
           if (!btn) return;
           btn.disabled = false;
           if (doneText) {
             btn.innerHTML = doneText;
-            setTimeout(() => { btn.innerHTML = origBtnHtml; }, 2400);
+            setTimeout(() => { btn.innerHTML = origBtnHtml; }, 2200);
           } else {
             btn.innerHTML = origBtnHtml;
           }
         };
 
-        if (btn) {
-          btn.disabled = true;
-          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo ảnh minh chứng...';
-        }
-
-        const safeName = (studentName || 'HocSinh').replace(/[^\p{L}\p{N}_-]+/gu, '_');
-        const safeCode = (examData && examData.id ? examData.id : examCode).replace(/[^A-Za-z0-9_-]+/g, '_');
-        const fileName = `MinhChung_${safeCode}_${safeName}.png`;
-
-        const deliverCanvas = (canvas) => {
-          try {
-            const dataUrl = canvas.toDataURL('image/png');
-            const prevWrap = document.getElementById('evidencePreviewWrap');
-            const prevImg = document.getElementById('evidencePreviewImg');
-            if (prevWrap && prevImg && dataUrl) {
-              prevImg.src = dataUrl;
-              prevWrap.style.display = 'block';
+        try {
+          if (!preparedEvidence) {
+            if (btn) {
+              btn.disabled = true;
+              btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo ảnh...';
             }
-          } catch (ePrev) {}
+            await prebuildEvidencePackage(lastResultData);
+          }
+
+          const ev = preparedEvidence || {};
+          const prevWrap = document.getElementById('evidencePreviewWrap');
+          const prevImg = document.getElementById('evidencePreviewImg');
+          if (prevWrap && prevImg && ev.dataUrl) {
+            prevImg.src = ev.dataUrl;
+            prevWrap.style.display = 'block';
+          }
 
           if (currentReceiptCode && navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(currentReceiptCode).catch(() => {});
           }
 
-          canvas.toBlob(async (blob) => {
-            if (!blob) {
-              resetShareBtn('<i class="fa-solid fa-check"></i> Đã tạo ảnh ở trên!');
-              return;
-            }
-            let shared = false;
+          // 1. Thử chia sẻ file ảnh qua hệ điều hành (nằm ngay trong user gesture nên mượt 100%)
+          let shared = false;
+          if (navigator.share) {
             try {
-              const file = new File([blob], fileName, { type: 'image/png' });
-              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              if (ev.file && navigator.canShare && navigator.canShare({ files: [ev.file] })) {
                 await navigator.share({
-                  title: `Kết quả bài thi ${safeCode} - ${studentName}`,
-                  text: `Minh chứng kết quả thi: ${studentName} (${studentClass}) - Điểm: ${document.getElementById('resScoreCircle')?.textContent || ''}${currentReceiptCode ? '\nMã xác nhận: ' + currentReceiptCode : ''}`,
-                  files: [file]
+                  title: ev.shareTitle,
+                  text: ev.shareText,
+                  files: [ev.file]
+                });
+                shared = true;
+              } else {
+                await navigator.share({
+                  title: ev.shareTitle,
+                  text: ev.shareText
                 });
                 shared = true;
               }
-            } catch (err) {
-              // Người dùng đóng menu chia sẻ hoặc WebView không hỗ trợ share file -> tải trực tiếp ảnh về máy
-            }
-            if (!shared) {
-              try {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = fileName;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                setTimeout(() => URL.revokeObjectURL(url), 1500);
-              } catch (eDl) {}
-            }
-            resetShareBtn('<i class="fa-solid fa-check"></i> Đã lưu ảnh minh chứng!');
-          }, 'image/png');
-        };
-
-        try {
-          if (typeof window.html2canvas === 'function') {
-            const prevMaxH = card.style.maxHeight;
-            const prevOverflow = card.style.overflow;
-            const detailBox = document.getElementById('resDetailContainer');
-            const prevDetMaxH = detailBox ? detailBox.style.maxHeight : '';
-            if (footer) footer.style.display = 'none';
-            card.style.maxHeight = 'none';
-            card.style.overflow = 'visible';
-            if (detailBox) detailBox.style.maxHeight = 'none';
-
-            try {
-              const renderPromise = window.html2canvas(card, {
-                scale: 1.5,
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                logging: false,
-                ignoreElements: (el) => el && (el.tagName === 'IFRAME' || el.id === 'evidencePreviewWrap')
-              });
-              const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('html2canvas_timeout')), 4000));
-              const canvas = await Promise.race([renderPromise, timeoutPromise]);
-              deliverCanvas(canvas);
-              return;
-            } finally {
-              if (footer) footer.style.display = 'flex';
-              card.style.maxHeight = prevMaxH;
-              card.style.overflow = prevOverflow;
-              if (detailBox) detailBox.style.maxHeight = prevDetMaxH;
+            } catch (errShare) {
+              // Người dùng hủy menu chia sẻ hoặc WebView không hỗ trợ navigator.share
+              if (errShare && errShare.name === 'AbortError') {
+                resetShareBtn('');
+                return;
+              }
             }
           }
-        } catch (e) {
-          // Fallback Canvas 2D thuần ngay lập tức nếu html2canvas bị chậm hoặc lỗi WebView
-        }
 
-        // Fallback Canvas 2D thuần (nhanh < 50ms trên mọi máy yếu)
-        const fbCanvas = document.createElement('canvas');
-        fbCanvas.width = 920;
-        fbCanvas.height = 600;
-        const ctx = fbCanvas.getContext('2d');
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, 920, 600);
-        ctx.fillStyle = '#0284c7';
-        ctx.fillRect(0, 0, 920, 140);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 30px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('MINH CHỨNG KẾT QUẢ BÀI KIỂM TRA', 460, 55);
-        ctx.font = '22px sans-serif';
-        ctx.fillText(`${studentName} - Lớp ${studentClass}`, 460, 102);
+          // 2. Luôn hỗ trợ tải file PNG về máy (Desktop & Android Chrome) + cuộn thấy ngay ảnh xem trước
+          if (!shared && ev.blob) {
+            try {
+              const url = URL.createObjectURL(ev.blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = ev.fileName || 'MinhChung_KetQua.png';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              setTimeout(() => URL.revokeObjectURL(url), 1500);
+            } catch (eDl) {}
+          }
 
-        ctx.fillStyle = '#0f172a';
-        ctx.font = 'bold 64px sans-serif';
-        ctx.fillText(`Điểm: ${document.getElementById('resScoreCircle')?.textContent || '--'}`, 460, 240);
-        ctx.font = '21px sans-serif';
-        ctx.fillStyle = '#334155';
-        const titleLine = String(examData ? examData.title : safeCode).slice(0, 62);
-        ctx.fillText(`Đề thi: ${titleLine} (${safeCode})`, 460, 305);
-        ctx.fillText(`P.I: ${document.getElementById('resP1Score')?.textContent || '--'}  |  P.II: ${document.getElementById('resP2Score')?.textContent || '--'}  |  P.III: ${document.getElementById('resP3Score')?.textContent || '--'}`, 460, 355);
-        ctx.fillText(`Thời gian làm: ${document.getElementById('resDurationStr')?.textContent || '--'}  •  Rời màn hình: ${document.getElementById('resViolations')?.textContent || '0'}`, 460, 405);
-        ctx.fillStyle = '#64748b';
-        ctx.font = '18px sans-serif';
-        ctx.fillText(`Thời điểm xuất minh chứng: ${new Date().toLocaleString('vi-VN')}`, 460, 465);
-        if (currentReceiptCode) {
-          ctx.fillStyle = '#0369a1';
-          ctx.font = '13px monospace';
-          ctx.fillText(`Mã xác nhận: ${currentReceiptCode.slice(0, 86)}`, 460, 520);
+          if (prevWrap && prevWrap.style.display === 'block') {
+            try { prevWrap.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (eSc) {}
+          }
+          showRoomToast('Đã tạo ảnh minh chứng & chép mã xác nhận!', false);
+          resetShareBtn('<i class="fa-solid fa-check"></i> Đã sẵn sàng chia sẻ!');
+        } catch (err) {
+          resetShareBtn('');
+          showRoomToast('Đã hiển thị ảnh minh chứng bên trên, em nhấn giữ ảnh để lưu/gửi nhé!', false);
         }
-        deliverCanvas(fbCanvas);
       };
 
       // Thoát đường link, kết thúc bài kiểm tra hoàn toàn (không cho quay về trang chủ)

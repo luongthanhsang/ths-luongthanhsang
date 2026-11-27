@@ -334,6 +334,22 @@ module.exports = {
         const vals = Array.isArray(res && res.result) ? res.result : [];
         if (vals.length > 0) {
           const parsed = vals.map(v => { try { return JSON.parse(v); } catch (e) { return null; } }).filter(Boolean);
+          // Lấy đồng loạt số lượng bài nộp thực tế cho từng đề (O(1) per exam)
+          try {
+            const countCmds = [];
+            parsed.forEach(e => {
+              countCmds.push(['SCARD', `ts:sub_ids:${e.id}`]);
+              countCmds.push(['LLEN', `ts:subs:${e.id}`]);
+            });
+            if (countCmds.length > 0) {
+              const cRes = await kvPipeline(countCmds);
+              parsed.forEach((e, idx) => {
+                const sc = Number(cRes[idx * 2] && cRes[idx * 2].result) || 0;
+                const ll = Number(cRes[idx * 2 + 1] && cRes[idx * 2 + 1].result) || 0;
+                e.submissionsCount = Math.max(e.submissionsCount || 0, sc || ll);
+              });
+            }
+          } catch (cntErr) {}
           parsed.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
           return parsed;
         }
@@ -349,6 +365,18 @@ module.exports = {
         const obj = await fbRequest('ts_store/exams');
         if (obj && typeof obj === 'object') {
           const list = Object.values(obj).filter(Boolean);
+          try {
+            const subsTree = await fbRequest('ts_store/submissions', 'GET');
+            if (subsTree && typeof subsTree === 'object') {
+              list.forEach(e => {
+                const bucket = subsTree[e.id];
+                if (bucket && typeof bucket === 'object') {
+                  const realCount = Object.keys(bucket).length;
+                  e.submissionsCount = Math.max(e.submissionsCount || 0, realCount);
+                }
+              });
+            }
+          } catch (fbCntErr) {}
           list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
           return list;
         }
@@ -362,7 +390,10 @@ module.exports = {
     }
 
     loadTmpStorage();
-    return memoryExams;
+    return memoryExams.map(e => {
+      const cnt = memorySubmissions.filter(s => s && s.examId === e.id).length;
+      return { ...e, submissionsCount: Math.max(e.submissionsCount || 0, cnt) };
+    });
   },
 
   async getExamById(id) {
@@ -520,7 +551,9 @@ module.exports = {
     if (mode === 'cloud_kv') {
       try {
         const jsonSub = JSON.stringify(sub);
+        const subKey = String(sub.id || `${sub.examId}_${sub.studentName}_${sub.submittedAt}`);
         await kvPipeline([
+          ['SADD', `ts:sub_ids:${sub.examId}`, subKey],
           ['LPUSH', `ts:subs:${sub.examId}`, jsonSub],
           ['LPUSH', 'ts:subs_recent', jsonSub],
           ['LTRIM', 'ts:subs_recent', 0, 999]
