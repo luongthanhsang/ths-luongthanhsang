@@ -3373,7 +3373,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261127_02"></script>
+  <script src="js/exam-engine.js?v=20261127_03"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3689,7 +3689,7 @@
           const localSubCount = (typeof store.getLocalSubmissions === 'function')
             ? (store.getLocalSubmissions(exam.id) || []).length
             : 0;
-          const displaySubCount = Math.max(exam.submissionsCount || 0, localSubCount);
+          const displaySubCount = (typeof exam.submissionsCount === 'number') ? exam.submissionsCount : localSubCount;
 
           return `
             <div class="azota-card" id="card-${exam.id}">
@@ -7100,6 +7100,14 @@
         }
         if (titleEl) titleEl.textContent = `[${examId}] ${currentStatsExam.title || ''}`;
         document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
+
+        // Đồng bộ lại chính xác số bài nộp lên thẻ đề thi bên ngoài cho khớp 100%
+        if (currentStatsExam) currentStatsExam.submissionsCount = currentSubmissions.length;
+        const matchedCardExam = (currentExams || []).find(e => e.id === examId);
+        if (matchedCardExam) {
+          matchedCardExam.submissionsCount = currentSubmissions.length;
+          if (typeof store.saveLocalExams === 'function') store.saveLocalExams(currentExams);
+        }
 
         if (currentSubmissions.length > 0) {
           const scores = currentSubmissions.map(s => Number(s.score) || 0);

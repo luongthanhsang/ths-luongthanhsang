@@ -347,7 +347,7 @@ module.exports = {
               parsed.forEach((e, idx) => {
                 const sc = Number(cRes[idx * 2] && cRes[idx * 2].result) || 0;
                 const ll = Number(cRes[idx * 2 + 1] && cRes[idx * 2 + 1].result) || 0;
-                e.submissionsCount = Math.max(e.submissionsCount || 0, sc || ll);
+                e.submissionsCount = sc || ll;
               });
             }
           } catch (cntErr) {}
@@ -368,15 +368,10 @@ module.exports = {
           const list = Object.values(obj).filter(Boolean);
           try {
             const subsTree = await fbRequest('ts_store/submissions', 'GET');
-            if (subsTree && typeof subsTree === 'object') {
-              list.forEach(e => {
-                const bucket = subsTree[e.id];
-                if (bucket && typeof bucket === 'object') {
-                  const realCount = Object.keys(bucket).length;
-                  e.submissionsCount = Math.max(e.submissionsCount || 0, realCount);
-                }
-              });
-            }
+            list.forEach(e => {
+              const bucket = (subsTree && typeof subsTree === 'object') ? subsTree[e.id] : null;
+              e.submissionsCount = (bucket && typeof bucket === 'object') ? Object.keys(bucket).length : 0;
+            });
           } catch (fbCntErr) {}
           list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
           return list;
@@ -392,8 +387,8 @@ module.exports = {
 
     loadTmpStorage();
     return memoryExams.map(e => {
-      const cnt = memorySubmissions.filter(s => s && s.examId === e.id).length;
-      return { ...e, submissionsCount: Math.max(e.submissionsCount || 0, cnt) };
+      const uniq = dedupeSubs(memorySubmissions.filter(s => s && s.examId === e.id));
+      return { ...e, submissionsCount: uniq.length };
     });
   },
 
@@ -542,8 +537,8 @@ module.exports = {
 
     const exam = memoryExams.find(e => e.id === sub.examId);
     if (exam) {
-      const localCount = memorySubmissions.filter(s => s.examId === sub.examId).length;
-      exam.submissionsCount = Math.max(exam.submissionsCount || 0, localCount);
+      const uniqLocal = dedupeSubs(memorySubmissions.filter(s => s && s.examId === sub.examId));
+      exam.submissionsCount = uniqLocal.length;
       writeTmpAtomic(TMP_EXAMS_FILE, memoryExams);
     }
     writeTmpAtomic(TMP_SUBMISSIONS_FILE, memorySubmissions);

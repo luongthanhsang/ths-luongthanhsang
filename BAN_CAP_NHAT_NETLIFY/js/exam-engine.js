@@ -723,10 +723,18 @@
         if (!raw) {
           localStorage.setItem(this.LOCAL_KEY_SUBS, JSON.stringify(DEFAULT_SAMPLE_SUBMISSIONS));
         }
-        if (examId) {
-          return list.filter(function(s) { return s.examId === examId; });
-        }
-        return list;
+        const filtered = examId ? (Array.isArray(list) ? list : []).filter(function(s) { return s && s.examId === examId; }) : (Array.isArray(list) ? list : []);
+        const seen = {};
+        const deduped = [];
+        filtered.forEach(function(s) {
+          if (!s) return;
+          const k = s.id || `${s.examId}_${s.studentName}_${s.submittedAt}`;
+          if (!seen[k]) {
+            seen[k] = true;
+            deduped.push(s);
+          }
+        });
+        return deduped;
       } catch (e) {
         return DEFAULT_SAMPLE_SUBMISSIONS.filter(function(s) { return !examId || s.examId === examId; });
       }
@@ -745,11 +753,11 @@
         }
         localStorage.setItem(this.LOCAL_KEY_SUBS, JSON.stringify(list));
 
-        const subCountForExam = list.filter(function(item) { return item && item.examId === sub.examId; }).length;
+        const dedupedForExam = this.getLocalSubmissions(sub.examId);
         const exams = this.getLocalExams();
         const ex = exams.find(function(e) { return e.id === sub.examId; });
         if (ex) {
-          ex.submissionsCount = Math.max(ex.submissionsCount || 0, subCountForExam);
+          ex.submissionsCount = Math.max(ex.submissionsCount || 0, dedupedForExam.length);
           this.saveLocalExams(exams);
         }
         this.broadcastSubmissionEvent(sub);
@@ -762,23 +770,44 @@
       const deletedIds = this.getDeletedExamIds();
       const localExams = (this.getLocalExams() || []).filter(e => e && e.id && !deletedIds.includes(e.id));
       const fbUrl = this.getCloudDbUrl();
-      let fbCounts = {};
+      let fbLoaded = false;
+      let fbSubsByExam = {};
       if (fbUrl) {
         try {
           const fbResp = await fetchWithTimeout(`${fbUrl}/ts_store/submissions.json`, {}, 3500);
           if (fbResp.ok) {
             const fbTree = await fbResp.json();
+            fbLoaded = true;
             if (fbTree && typeof fbTree === 'object') {
               Object.keys(fbTree).forEach(function(eid) {
                 const bucket = fbTree[eid];
                 if (bucket && typeof bucket === 'object') {
-                  fbCounts[eid] = Object.keys(bucket).length;
+                  fbSubsByExam[eid] = Object.values(bucket).filter(Boolean);
                 }
               });
             }
           }
         } catch (eFb) {}
       }
+
+      const selfStore = this;
+      const computeExactSubCount = function(examId, serverExamCount) {
+        const localSubs = selfStore.getLocalSubmissions(examId) || [];
+        if (fbLoaded) {
+          const fbList = fbSubsByExam[examId] || [];
+          const idSet = {};
+          fbList.concat(localSubs).forEach(function(s) {
+            if (!s) return;
+            const k = s.id || `${s.examId}_${s.studentName}_${s.submittedAt}`;
+            idSet[k] = true;
+          });
+          return Object.keys(idSet).length;
+        }
+        if (typeof serverExamCount === 'number') {
+          return Math.max(serverExamCount, localSubs.length);
+        }
+        return localSubs.length;
+      };
 
       try {
         const resp = await fetchWithTimeout('/api/exams', {}, 4500);
@@ -787,7 +816,13 @@
           if (resJson.success && Array.isArray(resJson.data)) {
             const serverExams = resJson.data.filter(e => e && e.id && !deletedIds.includes(e.id));
             const serverIdsMap = {};
-            serverExams.forEach(function(se) { if (se && se.id) serverIdsMap[se.id] = true; });
+            const serverCountMap = {};
+            serverExams.forEach(function(se) {
+              if (se && se.id) {
+                serverIdsMap[se.id] = true;
+                if (typeof se.submissionsCount === 'number') serverCountMap[se.id] = se.submissionsCount;
+              }
+            });
             // GỘP AN TOÀN: Không bao giờ ghi đè làm mất các đề đã xuất bản lưu trong localStorage khi server cold-start
             const mergedMap = {};
             const mergedList = [];
@@ -807,11 +842,8 @@
               } else {
                 const localTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime();
                 const serverTime = new Date(se.updatedAt || se.createdAt || 0).getTime();
-                const bestSubsCount = Math.max(existing.submissionsCount || 0, se.submissionsCount || 0, fbCounts[se.id] || 0);
                 if (serverTime > localTime) {
-                  mergedMap[se.id] = Object.assign({}, existing, se, { submissionsCount: bestSubsCount });
-                } else {
-                  existing.submissionsCount = bestSubsCount;
+                  mergedMap[se.id] = Object.assign({}, existing, se);
                 }
               }
             });
@@ -835,7 +867,7 @@
 
             const finalMerged = mergedList.map(function(item) {
               const m = mergedMap[item.id];
-              if (fbCounts[m.id]) m.submissionsCount = Math.max(m.submissionsCount || 0, fbCounts[m.id]);
+              m.submissionsCount = computeExactSubCount(m.id, serverCountMap[m.id]);
               return m;
             });
             this.saveLocalExams(finalMerged);
@@ -844,7 +876,7 @@
         }
       } catch (e) {}
       localExams.forEach(function(le) {
-        if (fbCounts[le.id]) le.submissionsCount = Math.max(le.submissionsCount || 0, fbCounts[le.id]);
+        le.submissionsCount = computeExactSubCount(le.id, undefined);
       });
       return localExams;
     },
