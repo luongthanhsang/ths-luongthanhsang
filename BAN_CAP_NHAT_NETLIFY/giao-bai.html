@@ -3372,8 +3372,8 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261127_03"></script>
+  <script src="js/quiz-data.js?v=20261127_01"></script>
+  <script src="js/exam-engine.js?v=20261127_04"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3983,6 +3983,51 @@
           ],
           part3: []
         },
+        "12_KTTX3_3_VEC": {
+          id: "12_KTTX3_3_VEC",
+          config: {
+            title: "Đề ôn tập KKTX 3.3",
+            school: "Trường THPT Nguyễn Văn Thoại - Sở GD&ĐT An Giang",
+            grade: "12",
+            timeLimitMinutes: 15,
+            totalQuestions: 8,
+            maxScore: 10.0
+          },
+          part1: [
+            { id: 1, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (-1;\\; 4;\\; -3)$ và $\\vec{v} = (5;\\; -2;\\; 7)$. Tìm tọa độ của vectơ $\\vec{w} = \\vec{u} + \\vec{v}$.", options: [{ id: "A", text: "$(4;\\; -2;\\; 4)$" }, { id: "B", text: "$(-6;\\; 6;\\; -10)$" }, { id: "C", text: "$(4;\\; 2;\\; 4)$" }, { id: "D", text: "$(-4;\\; 2;\\; 4)$" }], correctAnswer: "C" },
+            { id: 2, question: "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{a} = 5\\vec{i} - \\vec{j} + 6\\vec{k}$. Tọa độ của vectơ $\\vec{a}$ là:", options: [{ id: "A", text: "$(5;\\; -1;\\; 6)$" }, { id: "B", text: "$(5;\\; 1;\\; 6)$" }, { id: "C", text: "$(-5;\\; 1;\\; -6)$" }, { id: "D", text: "$(5;\\; 0;\\; 6)$" }], correctAnswer: "A" },
+            { id: 3, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\vec{u} = (-2;\\; 4;\\; 3)$ và $\\vec{v} = (5;\\; 1;\\; -2)$. Giá trị của tích vô hướng $\\vec{u} \\cdot \\vec{v}$ bằng:", options: [{ id: "A", text: "$12$" }, { id: "B", text: "$-12$" }, { id: "C", text: "$-2$" }, { id: "D", text: "$0$" }], correctAnswer: "B" },
+            { id: 4, question: "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(-1;\\; 3;\\; 2)$ và $B(4;\\; -2;\\; 6)$. Tìm tọa độ của vectơ $\\vec{AB}$.", options: [{ id: "A", text: "$(-5;\\; 5;\\; -4)$" }, { id: "B", text: "$(3;\\; 1;\\; 8)$" }, { id: "C", text: "$(5;\\; 5;\\; 4)$" }, { id: "D", text: "$(5;\\; -5;\\; 4)$" }], correctAnswer: "D" },
+            { id: 5, question: "Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ có các đỉnh $A(2;\\; -3;\\; 5)$, $B(-5;\\; 4;\\; 1)$ và $C(6;\\; 5;\\; -3)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là:", options: [{ id: "A", text: "$G(3;\\; 6;\\; 3)$" }, { id: "B", text: "$G(1;\\; 2;\\; 1)$" }, { id: "C", text: "$G(1;\\; -2;\\; 1)$" }, { id: "D", text: "$G(2;\\; 2;\\; 1)$" }], correctAnswer: "B" },
+            { id: 6, question: "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M(3;\\; -7;\\; 4)$. Tọa độ hình chiếu vuông góc $H$ của điểm $M$ lên mặt phẳng tọa độ $(Oxz)$ là:", options: [{ id: "A", text: "$H(3;\\; -7;\\; 0)$" }, { id: "B", text: "$H(0;\\; -7;\\; 4)$" }, { id: "C", text: "$H(3;\\; 0;\\; 4)$" }, { id: "D", text: "$H(0;\\; -7;\\; 0)$" }], correctAnswer: "C" }
+          ],
+          part2: [
+            {
+              id: 1,
+              topic: "Hệ tọa độ Oxyz gắn vào hình chóp S.ABC có đáy là tam giác đều",
+              question: "Trong không gian với hệ tọa độ $Oxyz$, cho hình chóp $S.ABC$ có đáy $ABC$ là tam giác đều cạnh bằng $6$, cạnh bên $SA$ vuông góc với mặt phẳng đáy $(ABC)$ và $SA = 4$. Gọi $H$ là trung điểm của cạnh $BC$. Chọn hệ trục tọa độ $Oxyz$ sao cho gốc $O$ trùng với $H$, tia $Ox$ trùng tia $HA$, tia $Oy$ trùng tia $HC$, và tia $Oz$ cùng hướng với $\\vec{AS}$ (như hình vẽ bên dưới). Xét tính đúng hoặc sai của các khẳng định sau:",
+              svg: (typeof SVG_TOAN12_KTTX3_3_CHOP !== 'undefined' ? SVG_TOAN12_KTTX3_3_CHOP : ''),
+              items: [
+                { id: "a", text: "Tọa độ của các đỉnh $B$ và $S$ lần lượt là $B(0;\\; -3;\\; 0)$ và $S(3\\sqrt{3};\\; 0;\\; 4)$.", correct: true },
+                { id: "b", text: "Tọa độ trọng tâm $G$ của tam giác đáy $ABC$ là $G(3\\sqrt{3};\\; 0;\\; 0)$.", correct: false },
+                { id: "c", text: "Tọa độ của vectơ $\\vec{SC}$ là $(-3\\sqrt{3};\\; 3;\\; -4)$ và độ dài cạnh bên $SC = 2\\sqrt{13}$.", correct: true },
+                { id: "d", text: "Hai vectơ $\\vec{SB}$ và $\\vec{AC}$ vuông góc với nhau.", correct: false }
+              ]
+            },
+            {
+              id: 2,
+              topic: "Tọa độ vectơ, độ dài cạnh, tam giác vuông và hình bình hành trong không gian Oxyz",
+              question: "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1;\\; -2;\\; 3)$, $B(3;\\; 0;\\; 2)$ và $C(2;\\; -1;\\; 7)$. Xét tính đúng hoặc sai của các khẳng định sau:",
+              items: [
+                { id: "a", text: "Tọa độ của vectơ $\\vec{AB}$ là $(2;\\; 2;\\; -1)$ và độ dài đoạn thẳng $AB = 3$.", correct: true },
+                { id: "b", text: "Độ dài đoạn thẳng $AC$ bằng $9$.", correct: false },
+                { id: "c", text: "Tam giác $ABC$ vuông tại đỉnh $A$.", correct: true },
+                { id: "d", text: "Tọa độ điểm $D$ để tứ giác $ABCD$ là hình bình hành là $D(0;\\; -3;\\; 8)$.", correct: true }
+              ]
+            }
+          ],
+          part3: []
+        },
         "12_BGD_0110": {
           id: "12_BGD_0110",
           config: {
@@ -4089,8 +4134,8 @@
 
         let keys = Object.keys(db);
 
-        // Ưu tiên đưa các đề kiểm tra quan trọng lên đầu: TX1, KTTX3 và Đề ôn tập KKTX 3.2
-        const priorityOrder = ['12_TX1_TOAN', '12_TX1_HAMSO', '12_KTTX3_VEC', '12_KTTX3_2_VEC'];
+        // Ưu tiên đưa các đề kiểm tra quan trọng lên đầu: TX1, KTTX3 và Đề ôn tập KKTX 3.2, 3.3
+        const priorityOrder = ['12_TX1_TOAN', '12_TX1_HAMSO', '12_KTTX3_VEC', '12_KTTX3_2_VEC', '12_KTTX3_3_VEC'];
         keys.sort((a, b) => {
           const idxA = priorityOrder.indexOf(a);
           const idxB = priorityOrder.indexOf(b);
@@ -4127,7 +4172,7 @@
           const durMin = cfg.timeLimitMinutes || 15;
           const grade = cfg.grade || '12';
           const isTx1 = (k === '12_TX1_TOAN' || k === '12_TX1_HAMSO');
-          const isMatrixMatch = (k === '12_KTTX3_VEC' || k === '12_KTTX3_2_VEC' || isTx1);
+          const isMatrixMatch = (k === '12_KTTX3_VEC' || k === '12_KTTX3_2_VEC' || k === '12_KTTX3_3_VEC' || isTx1);
 
           return `
             <div class="anti-quiz-card" style="${isMatrixMatch ? 'border-left: 4px solid #059669; background: #f0fdf4;' : ''}" onclick="selectAntiQuizAndOpenConfig('${k}')">

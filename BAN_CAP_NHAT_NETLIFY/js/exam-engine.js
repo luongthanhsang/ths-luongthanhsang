@@ -247,7 +247,10 @@
     const up = raw.toUpperCase();
     const compact = up.replace(/[^A-Z0-9]/g, '');
 
-    // Ưu tiên nhận diện chính xác Đề ôn tập KKTX 3.2 trước KTTX 3 để tránh nhầm lẫn
+    // Ưu tiên nhận diện chính xác Đề ôn tập KKTX 3.3 và 3.2 trước KTTX 3 để tránh nhầm lẫn
+    if (compact.includes('12KTTX33') || compact.includes('KTTX33') || compact.includes('KKTX33')) {
+      if (allDb['12_KTTX3_3_VEC']) return '12_KTTX3_3_VEC';
+    }
     if (compact.includes('12KTTX32') || compact.includes('KTTX32') || compact.includes('KKTX32')) {
       if (allDb['12_KTTX3_2_VEC']) return '12_KTTX3_2_VEC';
     }
@@ -275,6 +278,7 @@
 
     if (titleHint) {
       const t = String(titleHint).toUpperCase();
+      if ((t.includes('3.3') || t.includes('KKTX 3.3') || t.includes('KTTX 3.3')) && allDb['12_KTTX3_3_VEC']) return '12_KTTX3_3_VEC';
       if ((t.includes('3.2') || t.includes('KKTX 3.2') || t.includes('KTTX 3.2')) && allDb['12_KTTX3_2_VEC']) return '12_KTTX3_2_VEC';
       if ((t.includes('TX1') || t.includes('LẦN 1') || t.includes('HÀM SỐ')) && allDb['12_TX1_TOAN']) return '12_TX1_TOAN';
       if ((t.includes('KTTX 3') || t.includes('LẦN 3') || t.includes('OXYZ')) && allDb['12_KTTX3_VEC']) return '12_KTTX3_VEC';

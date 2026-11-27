@@ -1274,8 +1274,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261127_03"></script>
+  <script src="js/quiz-data.js?v=20261127_01"></script>
+  <script src="js/exam-engine.js?v=20261127_04"></script>
   <script>
     // LOGIC PHÒNG THI ONLINE CHO HỌC SINH - 3 DẠNG THỨC
     (function() {
@@ -1867,7 +1867,9 @@
 
         if (!exam && examData && examData.title) {
           const t = examData.title.toUpperCase();
-          if (t.includes('3.2') || t.includes('KKTX 3.2') || t.includes('KTTX 3.2')) {
+          if (t.includes('3.3') || t.includes('KKTX 3.3') || t.includes('KTTX 3.3')) {
+            exam = secretDb['12_KTTX3_3_VEC'] || publicDb['12_KTTX3_3_VEC'];
+          } else if (t.includes('3.2') || t.includes('KKTX 3.2') || t.includes('KTTX 3.2')) {
             exam = secretDb['12_KTTX3_2_VEC'] || publicDb['12_KTTX3_2_VEC'];
           } else if (t.includes('TX1') || t.includes('LẦN 1') || t.includes('TX 1') || t.includes('HÀM SỐ')) {
             exam = secretDb['12_TX1_TOAN'] || secretDb['12_TX1_HAMSO'] || publicDb['12_TX1_TOAN'] || publicDb['12_TX1_HAMSO'];
