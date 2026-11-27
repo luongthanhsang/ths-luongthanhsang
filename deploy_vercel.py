@@ -32,6 +32,7 @@ DEPLOY_FILES = [
     "js/script.js",
     "js/exam-engine.js",
     "api/db.js",
+    "api/gateway.js",
     "api/exams.js",
     "api/submit.js",
     "api/results.js"

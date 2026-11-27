@@ -1583,6 +1583,9 @@
 
           <div class="azota-top-actions">
             <div id="teacherAuthChipWrap" style="display: inline-flex; align-items: center;"></div>
+            <button type="button" class="btn-azota-action" id="btnCloudDbSettings" style="display: none; padding: 10px 14px; font-weight: 700; background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;" title="Kết nối Firebase để lưu vĩnh viễn điểm mọi học sinh từ mọi điện thoại">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Lưu Cloud Vĩnh Viễn
+            </button>
             <button type="button" class="btn-azota-action" id="btnRefreshDashboard" style="padding: 10px 14px; font-weight: 700; background: #f1f5f9; color: #0f172a;" title="Cập nhật nhanh số bài nộp mới nhất">
               <i class="fa-solid fa-rotate"></i> Cập nhật bài nộp
             </button>
@@ -2500,7 +2503,7 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-          <input type="search" id="statsSearchInput" name="stats_search_query" autocomplete="off" value="" placeholder="Tìm theo tên học sinh, lớp..." style="padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; width: 260px;">
+          <input type="search" id="statsSearchInput" name="stats_search_filter_x" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" value="" placeholder="Tìm theo tên học sinh, lớp..." style="padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; width: 260px;">
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <button type="button" class="btn-azota-action primary" id="btnRefreshStatsModal" style="flex: 0 0 auto; padding: 8px 14px;">
               <i class="fa-solid fa-rotate"></i> Làm mới
@@ -2513,9 +2516,14 @@
 
         <div id="statsStorageBanner" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 9px 12px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0; margin-bottom: 12px; font-size: 0.8rem; color: #334155;">
           <span id="statsStorageStatusText"><i class="fa-solid fa-database" style="color: #0284c7;"></i> Đang kiểm tra trạng thái lưu trữ máy chủ...</span>
-          <button type="button" class="btn-azota-action" id="btnOpenGlobalFromStats" style="padding: 5px 10px; font-size: 0.76rem; background: #e0f2fe; color: #0369a1; font-weight: 700;">
-            <i class="fa-solid fa-user-check"></i> Tìm HS ở tất cả đề / Khôi phục mã
-          </button>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button type="button" class="btn-azota-action" id="btnSetupCloudFromStats" style="padding: 5px 10px; font-size: 0.76rem; background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-weight: 700;">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Cài Lưu Vĩnh Viễn
+            </button>
+            <button type="button" class="btn-azota-action" id="btnOpenGlobalFromStats" style="padding: 5px 10px; font-size: 0.76rem; background: #e0f2fe; color: #0369a1; font-weight: 700;">
+              <i class="fa-solid fa-user-check"></i> Tìm HS ở tất cả đề / Khôi phục mã
+            </button>
+          </div>
         </div>
 
         <div class="stats-table-wrap">
@@ -2567,7 +2575,7 @@
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px;">
           <div style="display: flex; gap: 8px; flex: 1; min-width: 260px;">
-            <input type="search" id="globalSearchInput" name="global_student_search" autocomplete="off" value="" placeholder="Nhập Tên học sinh, Lớp, hoặc Mã đề thi..." style="flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.88rem;">
+            <input type="search" id="globalSearchInput" name="global_search_filter_x" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" value="" placeholder="Nhập Tên học sinh, Lớp, hoặc Mã đề thi..." style="flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.88rem;">
             <button type="button" class="btn-azota-action primary" id="btnRunGlobalSearch" style="flex: 0 0 auto; padding: 8px 14px;">
               <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
             </button>
@@ -2588,7 +2596,7 @@
             <i class="fa-solid fa-key"></i> Khôi phục bài nộp học sinh từ Mã xác nhận (<code>TSR1:...</code>):
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <input type="text" id="receiptRestoreInput" autocomplete="off" placeholder="Dán mã TSR1:... do học sinh gửi (từ màn hình điểm hoặc ảnh minh chứng)..." style="flex: 1; min-width: 240px; padding: 7px 10px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 0.82rem; font-family: monospace;">
+            <input type="search" id="receiptRestoreInput" name="tsr_restore_token_x" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" value="" placeholder="Dán mã TSR1:... do học sinh gửi (từ màn hình điểm hoặc ảnh minh chứng)..." style="flex: 1; min-width: 240px; padding: 7px 10px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 0.82rem; font-family: monospace;">
             <button type="button" class="btn-azota-action primary" id="btnImportReceiptCode" style="flex: 0 0 auto; padding: 7px 14px;">
               <i class="fa-solid fa-file-import"></i> Khôi phục vào bảng điểm
             </button>
@@ -2619,6 +2627,45 @@
 
       <div class="azota-modal-footer">
         <button class="editor-back-btn" id="btnCloseGlobalSearchFooter">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4C: CÀI ĐẶT LƯU ĐIỂM VĨNH VIỄN (CLOUD FIREBASE) ==================== -->
+  <div class="azota-modal-overlay" id="cloudConfigModal" style="display: none; z-index: 100010;">
+    <div class="azota-modal-card" style="max-width: 580px;">
+      <div class="azota-modal-header" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff;">
+        <div class="azota-modal-title" style="color: #ffffff;">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>Kết Nối Kho Lưu Điểm Vĩnh Viễn (Đa Thiết Bị)</span>
+        </div>
+        <button class="azota-modal-close" id="btnCloseCloudConfigModal" style="color: #ffffff;">&times;</button>
+      </div>
+      <div class="azota-modal-body" style="max-height: 75vh; overflow-y: auto;">
+        <p style="font-size: 0.86rem; color: #334155; line-height: 1.55; margin-bottom: 12px;">
+          Khi học sinh nộp bài từ điện thoại ở ngoài lớp, điểm sẽ được gửi thẳng về kho <strong>Firebase Realtime Database</strong> miễn phí để hiện ngay lập tức ở mục <strong>Thống kê</strong> và <strong>Số bài nộp</strong> trên máy tính của Thầy (không bị mất khi Vercel khởi động lại).
+        </p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 0.8rem; color: #475569; line-height: 1.65; margin-bottom: 14px;">
+          <strong>Cách lấy link miễn phí trong 1 phút (làm 1 lần duy nhất):</strong><br>
+          1. Vào <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:#0284c7; font-weight:700;">console.firebase.google.com</a> &rarr; Tạo project mới.<br>
+          2. Chọn menu <strong>Build &rarr; Realtime Database &rarr; Create Database</strong> (chọn <strong>Start in test mode</strong>).<br>
+          3. Chép đường dẫn URL dạng <code>https://ten-du-an-default-rtdb.asia-southeast1.firebasedatabase.app</code> và dán vào ô dưới đây.<br>
+          4. Bấm <strong>Kiểm tra &amp; Lưu Kết Nối</strong>, sau đó lấy link/QR mới gửi học sinh (nếu đã tạo đề trước đó).
+        </div>
+        <div style="margin-bottom: 12px;">
+          <label for="cloudDbUrlInput" style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Đường dẫn Firebase Realtime Database URL:</label>
+          <input type="url" id="cloudDbUrlInput" autocomplete="off" placeholder="https://...-default-rtdb.firebaseio.com" style="width: 100%; padding: 9px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.88rem; font-family: monospace;">
+        </div>
+        <div id="cloudTestResultBox" style="display: none; padding: 9px 12px; border-radius: 8px; font-size: 0.82rem; margin-bottom: 10px;"></div>
+      </div>
+      <div class="azota-modal-footer" style="display: flex; justify-content: space-between; gap: 8px;">
+        <button type="button" class="editor-back-btn" id="btnDisconnectCloudDb" style="color: #dc2626; border-color: #fecaca;">Ngắt kết nối</button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="editor-back-btn" id="btnCancelCloudConfig">Đóng</button>
+          <button type="button" class="btn-create-exam" id="btnSaveCloudConfig" style="padding: 8px 18px;">
+            <i class="fa-solid fa-check"></i> Kiểm tra &amp; Lưu Kết Nối
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -3326,7 +3373,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/quiz-data.js?v=20261126_01"></script>
-  <script src="js/exam-engine.js?v=20261126_03"></script>
+  <script src="js/exam-engine.js?v=20261127_01"></script>
   <script src="js/script.js"></script>
   <script>
     // SCRIPT QUẢN LÝ GIAO DIỆN GIAO BÀI (TEACHER VIEW) - NÂNG CẤP 3 DẠNG THỨC CHUẨN
@@ -3358,11 +3405,29 @@
                localStorage.getItem("ths_sang_owner_logged") === "true";
       }
 
+      function updateCloudButtonAppearance() {
+        const btnCloud = document.getElementById('btnCloudDbSettings');
+        if (!btnCloud) return;
+        const fbUrl = (typeof store.getCloudDbUrl === 'function') ? store.getCloudDbUrl() : '';
+        if (fbUrl) {
+          btnCloud.style.background = '#dcfce7';
+          btnCloud.style.color = '#166534';
+          btnCloud.style.borderColor = '#86efac';
+          btnCloud.innerHTML = '<i class="fa-solid fa-cloud-check"></i> Đã kết nối Cloud';
+        } else {
+          btnCloud.style.background = '#fef3c7';
+          btnCloud.style.color = '#92400e';
+          btnCloud.style.borderColor = '#fcd34d';
+          btnCloud.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Lưu Cloud Vĩnh Viễn';
+        }
+      }
+
       function updateTeacherUI() {
         const wrap = document.getElementById('teacherAuthChipWrap');
         const btnCreate = document.getElementById('btnOpenCreateModal');
         const btnGlobal = document.getElementById('btnOpenGlobalSearch');
         const btnRefreshDash = document.getElementById('btnRefreshDashboard');
+        const btnCloud = document.getElementById('btnCloudDbSettings');
         const logged = isTeacherLogged();
         if (btnCreate) {
           btnCreate.style.display = logged ? 'inline-flex' : 'none';
@@ -3372,6 +3437,10 @@
         }
         if (btnRefreshDash) {
           btnRefreshDash.style.display = logged ? 'inline-flex' : 'none';
+        }
+        if (btnCloud) {
+          btnCloud.style.display = logged ? 'inline-flex' : 'none';
+          if (logged) updateCloudButtonAppearance();
         }
         if (!wrap) return;
         if (logged) {
@@ -7002,14 +7071,18 @@
           const statusBannerEl = document.getElementById('statsStorageBanner');
           if (statusTextEl && statusBannerEl) {
             const mode = data && data.storageMode;
-            if (mode === 'cloud_kv' || mode === 'cloud_firebase') {
+            const setupCloudBtn = document.getElementById('btnSetupCloudFromStats');
+            if (mode === 'cloud_kv' || mode === 'cloud_firebase' || mode === 'cloud_firebase_direct') {
               statusBannerEl.style.background = '#f0fdf4';
               statusBannerEl.style.borderColor = '#86efac';
-              statusTextEl.innerHTML = `<i class="fa-solid fa-cloud-check" style="color:#16a34a;"></i> <strong>Lưu trữ lâu dài (${mode === 'cloud_kv' ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB'}) đang bật</strong>`;
+              const lbl = (mode === 'cloud_kv') ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB';
+              statusTextEl.innerHTML = `<i class="fa-solid fa-cloud-check" style="color:#16a34a;"></i> <strong>Lưu trữ lâu dài (${lbl}) đang bật</strong>`;
+              if (setupCloudBtn) setupCloudBtn.innerHTML = '<i class="fa-solid fa-gear"></i> Đổi Cloud DB';
             } else {
               statusBannerEl.style.background = '#fffbeb';
               statusBannerEl.style.borderColor = '#fde68a';
-              statusTextEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#d97706;"></i> <strong>Chế độ tạm (/tmp + trình duyệt):</strong> Để lưu vĩnh viễn hàng trăm HS trên Vercel, cần gắn <code>KV_REST_API_URL</code> hoặc <code>FIREBASE_DB_URL</code>.`;
+              statusTextEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#d97706;"></i> <strong>Chế độ tạm (chưa gắn Cloud DB):</strong> Bấm <strong>"Cài Lưu Vĩnh Viễn"</strong> để nhận ngay bài nộp từ điện thoại học sinh.`;
+              if (setupCloudBtn) setupCloudBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Cài Lưu Vĩnh Viễn';
             }
           }
         } catch (err) {
@@ -7021,7 +7094,10 @@
           }
         }
 
-        if (searchEl) searchEl.value = '';
+        if (searchEl) {
+          searchEl.value = '';
+          setTimeout(() => { if (searchEl && searchEl.value === 'LTS') searchEl.value = ''; }, 100);
+        }
         if (titleEl) titleEl.textContent = `[${examId}] ${currentStatsExam.title || ''}`;
         document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
 
@@ -7138,16 +7214,17 @@
       function updateGlobalStorageNotice(mode) {
         const box = document.getElementById('globalStorageModeInfo');
         if (!box) return;
-        if (mode === 'cloud_kv' || mode === 'cloud_firebase') {
+        if (mode === 'cloud_kv' || mode === 'cloud_firebase' || mode === 'cloud_firebase_direct') {
           box.style.background = '#f0fdf4';
           box.style.borderColor = '#86efac';
           box.style.color = '#166534';
-          box.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Hệ thống đã kết nối Cloud Database (${mode === 'cloud_kv' ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB'}):</strong> Toàn bộ điểm số của hàng trăm học sinh được lưu giữ lâu dài &amp; đồng bộ mọi thiết bị.`;
+          const lbl = (mode === 'cloud_kv') ? 'Upstash Redis / Vercel KV' : 'Firebase Realtime DB';
+          box.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Hệ thống đã kết nối Cloud Database (${lbl}):</strong> Toàn bộ điểm số của hàng trăm học sinh được lưu giữ lâu dài &amp; đồng bộ mọi thiết bị.`;
         } else {
           box.style.background = '#fffbeb';
           box.style.borderColor = '#fde68a';
           box.style.color = '#92400e';
-          box.innerHTML = `<i class="fa-solid fa-circle-info"></i> <strong>Đang dùng bộ nhớ cục bộ + /tmp Vercel:</strong> Có thể tìm kiếm bài nộp đã lưu trên trình duyệt này, khôi phục từ mã <code>TSR1:...</code> của học sinh, hoặc gắn <code>KV_REST_API_URL</code> / <code>FIREBASE_DB_URL</code> trong Vercel Environment Variables để lưu vĩnh viễn trên đám mây.`;
+          box.innerHTML = `<i class="fa-solid fa-circle-info"></i> <strong>Đang dùng bộ nhớ cục bộ + /tmp Vercel:</strong> Hãy bấm nút <strong>"Lưu Cloud Vĩnh Viễn"</strong> trên thanh công cụ để đồng bộ tức thì bài nộp từ điện thoại học sinh.`;
         }
       }
 
@@ -7213,6 +7290,10 @@
         if (inp) inp.value = '';
         const rcInp = document.getElementById('receiptRestoreInput');
         if (rcInp) rcInp.value = '';
+        setTimeout(() => {
+          if (inp && inp.value === 'LTS') inp.value = '';
+          if (rcInp && rcInp.value === 'LTS') rcInp.value = '';
+        }, 100);
         const modal = document.getElementById('globalSearchModal');
         if (modal) modal.style.display = 'flex';
         refreshGlobalSearchResults('');
@@ -7362,7 +7443,7 @@
       }
 
       window.viewSubmissionDetail = function(subId) {
-        const sub = currentSubmissions.find(s => s.id === subId);
+        const sub = (currentSubmissions || []).find(s => s.id === subId) || (currentGlobalSubs || []).find(s => s.id === subId);
         if (!sub) return;
 
         let overlay = document.getElementById('subDetailOverlay');
@@ -7422,6 +7503,110 @@
         overlay.style.display = 'flex';
       };
 
+      // 6C. CÀI ĐẶT LƯU ĐIỂM VĨNH VIỄN (CLOUD FIREBASE REALTIME DB)
+      window.openCloudConfigModal = function() {
+        if (!isTeacherLogged()) { openTeacherAuthModal(); return; }
+        const inp = document.getElementById('cloudDbUrlInput');
+        const box = document.getElementById('cloudTestResultBox');
+        if (inp) inp.value = (typeof store.getCloudDbUrl === 'function' ? store.getCloudDbUrl() : '') || '';
+        if (box) box.style.display = 'none';
+        const modal = document.getElementById('cloudConfigModal');
+        if (modal) modal.style.display = 'flex';
+      };
+
+      const btnCloudEl = document.getElementById('btnCloudDbSettings');
+      if (btnCloudEl) btnCloudEl.addEventListener('click', window.openCloudConfigModal);
+
+      const btnSetupCloudFromStatsEl = document.getElementById('btnSetupCloudFromStats');
+      if (btnSetupCloudFromStatsEl) {
+        btnSetupCloudFromStatsEl.addEventListener('click', window.openCloudConfigModal);
+      }
+
+      ['btnCloseCloudConfigModal', 'btnCancelCloudConfig'].forEach(btnId => {
+        const el = document.getElementById(btnId);
+        if (el) el.addEventListener('click', () => {
+          document.getElementById('cloudConfigModal').style.display = 'none';
+        });
+      });
+
+      const btnDisconnectCloudEl = document.getElementById('btnDisconnectCloudDb');
+      if (btnDisconnectCloudEl) {
+        btnDisconnectCloudEl.addEventListener('click', () => {
+          store.setCloudDbUrl('');
+          updateCloudButtonAppearance();
+          document.getElementById('cloudDbUrlInput').value = '';
+          const box = document.getElementById('cloudTestResultBox');
+          if (box) {
+            box.style.display = 'block';
+            box.style.background = '#fef2f2';
+            box.style.color = '#991b1b';
+            box.textContent = 'Đã ngắt kết nối Cloud Database.';
+          }
+          showToast('Đã ngắt kết nối Cloud Database.', 'fa-link-slash');
+        });
+      }
+
+      const btnSaveCloudEl = document.getElementById('btnSaveCloudConfig');
+      if (btnSaveCloudEl) {
+        btnSaveCloudEl.addEventListener('click', async () => {
+          const inp = document.getElementById('cloudDbUrlInput');
+          const box = document.getElementById('cloudTestResultBox');
+          const rawUrl = inp ? inp.value.trim() : '';
+          btnSaveCloudEl.disabled = true;
+          btnSaveCloudEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang kiểm tra...';
+          try {
+            const check = await store.testCloudDbConnection(rawUrl);
+            if (!check.ok) {
+              if (box) {
+                box.style.display = 'block';
+                box.style.background = '#fef2f2';
+                box.style.color = '#b91c1c';
+                box.textContent = check.message;
+              }
+              return;
+            }
+            store.setCloudDbUrl(check.url);
+            updateCloudButtonAppearance();
+            if (box) {
+              box.style.display = 'block';
+              box.style.background = '#f0fdf4';
+              box.style.color = '#166534';
+              box.innerHTML = `<i class="fa-solid fa-circle-check"></i> Kết nối thành công! Từ giờ toàn bộ link thi/QR mới và trang Thống kê sẽ tự đồng bộ điểm lên Cloud.`;
+            }
+            showToast('Đã kích hoạt Lưu Cloud Vĩnh Viễn!', 'fa-cloud-check');
+            loadExamDashboard();
+            if (document.getElementById('statsModal')?.style.display === 'flex' && currentStatsExam && currentStatsExam.id) {
+              window.openStatsModal(currentStatsExam.id);
+            }
+          } finally {
+            btnSaveCloudEl.disabled = false;
+            btnSaveCloudEl.innerHTML = '<i class="fa-solid fa-check"></i> Kiểm tra &amp; Lưu Kết Nối';
+          }
+        });
+      }
+
+      // Cập nhật tức thì (<50ms) khi học sinh nộp bài trên cùng trình duyệt hoặc tab khác
+      try {
+        if (typeof BroadcastChannel !== 'undefined') {
+          const examChannel = new BroadcastChannel('THS_SANG_EXAM_EVENTS');
+          examChannel.onmessage = function(ev) {
+            if (ev && ev.data && ev.data.type === 'SUBMISSION_SAVED') {
+              loadExamDashboard();
+              const statsModalEl = document.getElementById('statsModal');
+              if (statsModalEl && statsModalEl.style.display === 'flex' && currentStatsExam && currentStatsExam.id === ev.data.examId) {
+                window.openStatsModal(currentStatsExam.id);
+              }
+            }
+          };
+        }
+      } catch (eBc) {}
+
+      window.addEventListener('storage', (e) => {
+        if (e && e.key === store.LOCAL_KEY_SUBS && isTeacherLogged()) {
+          loadExamDashboard();
+        }
+      });
+
       const btnRefreshDashEl = document.getElementById('btnRefreshDashboard');
       if (btnRefreshDashEl) {
         btnRefreshDashEl.addEventListener('click', async () => {
@@ -7437,7 +7622,7 @@
         });
       }
 
-      // Tự động cập nhật số bài nộp mỗi 15 giây khi trang mở (không làm gián đoạn nếu đang mở modal soạn đề)
+      // Tự động cập nhật số bài nộp & bảng thống kê mỗi 10 giây khi trang mở (không làm gián đoạn nếu đang soạn đề)
       setInterval(() => {
         if (document.visibilityState === 'visible' && isTeacherLogged()) {
           const splitOpen = document.getElementById('splitEditor')?.style.display === 'flex';
@@ -7449,9 +7634,34 @@
                 renderExamGrid();
               }
             }).catch(() => {});
+
+            const statsOpen = document.getElementById('statsModal')?.style.display === 'flex';
+            if (statsOpen && currentStatsExam && currentStatsExam.id) {
+              store.fetchExamResults(currentStatsExam.id).then(data => {
+                if (data && Array.isArray(data.submissions)) {
+                  currentSubmissions = data.submissions;
+                  document.getElementById('statTotalSubs').textContent = currentSubmissions.length;
+                  if (currentSubmissions.length > 0) {
+                    const scores = currentSubmissions.map(s => Number(s.score) || 0);
+                    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+                    const max = Math.max(...scores);
+                    const violations = currentSubmissions.reduce((a, b) => a + (Number(b.tabViolations) || 0), 0);
+                    document.getElementById('statAvgScore').textContent = avg.toFixed(1);
+                    document.getElementById('statMaxScore').textContent = max.toFixed(1);
+                    document.getElementById('statViolationsCount').textContent = violations;
+                  }
+                  const curQ = (document.getElementById('statsSearchInput')?.value || '').toLowerCase().trim();
+                  const toRender = curQ ? currentSubmissions.filter(s =>
+                    (s.studentName || '').toLowerCase().includes(curQ) ||
+                    (s.studentClass || '').toLowerCase().includes(curQ)
+                  ) : currentSubmissions;
+                  renderStatsTable(toRender);
+                }
+              }).catch(() => {});
+            }
           }
         }
-      }, 15000);
+      }, 10000);
 
       loadExamDashboard();
     })();

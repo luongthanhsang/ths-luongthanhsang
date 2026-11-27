@@ -3,6 +3,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/api/exams", "destination": "/api/gateway?route=exams" },
+    { "source": "/api/submit", "destination": "/api/gateway?route=submit" },
+    { "source": "/api/results", "destination": "/api/gateway?route=results" },
     { "source": "/bai-hoc-so", "destination": "/bai-hoc-so.html" },
     { "source": "/trac-nghiem", "destination": "/trac-nghiem.html" },
     { "source": "/giao-bai", "destination": "/giao-bai.html" },

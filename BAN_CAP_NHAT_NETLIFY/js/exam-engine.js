@@ -323,6 +323,7 @@
       sourceType: 'anti_quiz',
       antiQuizId: (tokenCfg && tokenCfg.aq) || anti.id || resolveAntiExamKey(examId, title),
       antiQuizData: anti,
+      cloudDbUrl: (tokenCfg && tokenCfg.fb) || '',
       openTime: (tokenCfg && tokenCfg.ot) || '',
       closeTime: (tokenCfg && tokenCfg.ct) || '',
       password: (tokenCfg && tokenCfg.pw) || '',
@@ -377,6 +378,8 @@
       if (exam.openTime) payload.ot = exam.openTime;
       if (exam.closeTime) payload.ct = exam.closeTime;
       if (exam.password) payload.pw = exam.password;
+      const fbUrl = (exam.cloudDbUrl || (typeof ExamStore !== 'undefined' && ExamStore.getCloudDbUrl ? ExamStore.getCloudDbUrl() : '') || '').trim();
+      if (fbUrl) payload.fb = fbUrl;
 
       const jsonStr = JSON.stringify(payload);
       const bytes = new TextEncoder().encode(jsonStr);
@@ -453,6 +456,7 @@
           openTime: tok.ot || '',
           closeTime: tok.ct || '',
           password: tok.pw || '',
+          cloudDbUrl: tok.fb || '',
           maxAttempts: tok.ma !== undefined ? tok.ma : 0,
           enableTabTracking: tok.tt !== undefined ? !!tok.tt : true,
           viewResultMode: tok.vr || 'all',
@@ -556,6 +560,65 @@
     LOCAL_KEY_SUBS: 'THS_SANG_STUDENT_SUBS_V4',
     LOCAL_KEY_DELETED: 'THS_SANG_DELETED_EXAM_IDS_V4',
     LOCAL_KEY_PENDING: 'THS_SANG_PENDING_SYNC_V1',
+    LOCAL_KEY_CLOUD_URL: 'THS_SANG_CLOUD_DB_URL_V1',
+
+    normalizeCloudUrl: function(rawUrl) {
+      let u = String(rawUrl || '').trim();
+      if (!u) return '';
+      u = u.replace(/\.json(\?.*)?$/i, '').replace(/\/+$/, '');
+      if (!/^https:\/\/[a-z0-9.-]+\.(firebaseio\.com|firebasedatabase\.app)(\/.*)?$/i.test(u)) {
+        return '';
+      }
+      return u;
+    },
+
+    getCloudDbUrl: function() {
+      try {
+        return this.normalizeCloudUrl(localStorage.getItem(this.LOCAL_KEY_CLOUD_URL) || '');
+      } catch (e) {
+        return '';
+      }
+    },
+
+    setCloudDbUrl: function(rawUrl) {
+      const clean = this.normalizeCloudUrl(rawUrl);
+      try {
+        if (clean) localStorage.setItem(this.LOCAL_KEY_CLOUD_URL, clean);
+        else localStorage.removeItem(this.LOCAL_KEY_CLOUD_URL);
+      } catch (e) {}
+      return clean;
+    },
+
+    async testCloudDbConnection(rawUrl) {
+      const clean = this.normalizeCloudUrl(rawUrl);
+      if (!clean) {
+        return { ok: false, message: 'URL chưa đúng định dạng Firebase Realtime DB (ví dụ: https://ten-du-an.firebaseio.com hoặc .firebasedatabase.app).' };
+      }
+      try {
+        const pingData = { ok: true, testedAt: new Date().toISOString() };
+        const resp = await fetchWithTimeout(`${clean}/ts_store/ping.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pingData)
+        }, 5000);
+        if (!resp.ok) {
+          return { ok: false, message: `Firebase trả mã lỗi HTTP ${resp.status}. Vui lòng kiểm tra Rules (.read: true, .write: true) trong Firebase.` };
+        }
+        return { ok: true, url: clean };
+      } catch (e) {
+        return { ok: false, message: 'Không thể kết nối tới URL Firebase. Vui lòng kiểm tra kết nối mạng hoặc URL.' };
+      }
+    },
+
+    broadcastSubmissionEvent: function(sub) {
+      try {
+        if (typeof BroadcastChannel !== 'undefined') {
+          const ch = new BroadcastChannel('THS_SANG_EXAM_EVENTS');
+          ch.postMessage({ type: 'SUBMISSION_SAVED', examId: sub && sub.examId, submission: sub });
+          ch.close();
+        }
+      } catch (e) {}
+    },
 
     queuePendingSync: function(apiBody) {
       try {
@@ -682,6 +745,7 @@
           ex.submissionsCount = Math.max(ex.submissionsCount || 0, subCountForExam);
           this.saveLocalExams(exams);
         }
+        this.broadcastSubmissionEvent(sub);
       } catch (e) {
         console.error('Lỗi lưu bài nộp:', e);
       }
@@ -690,6 +754,25 @@
     async fetchExams() {
       const deletedIds = this.getDeletedExamIds();
       const localExams = (this.getLocalExams() || []).filter(e => e && e.id && !deletedIds.includes(e.id));
+      const fbUrl = this.getCloudDbUrl();
+      let fbCounts = {};
+      if (fbUrl) {
+        try {
+          const fbResp = await fetchWithTimeout(`${fbUrl}/ts_store/submissions.json`, {}, 3500);
+          if (fbResp.ok) {
+            const fbTree = await fbResp.json();
+            if (fbTree && typeof fbTree === 'object') {
+              Object.keys(fbTree).forEach(function(eid) {
+                const bucket = fbTree[eid];
+                if (bucket && typeof bucket === 'object') {
+                  fbCounts[eid] = Object.keys(bucket).length;
+                }
+              });
+            }
+          }
+        } catch (eFb) {}
+      }
+
       try {
         const resp = await fetchWithTimeout('/api/exams', {}, 4500);
         if (resp.ok) {
@@ -717,7 +800,7 @@
               } else {
                 const localTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime();
                 const serverTime = new Date(se.updatedAt || se.createdAt || 0).getTime();
-                const bestSubsCount = Math.max(existing.submissionsCount || 0, se.submissionsCount || 0);
+                const bestSubsCount = Math.max(existing.submissionsCount || 0, se.submissionsCount || 0, fbCounts[se.id] || 0);
                 if (serverTime > localTime) {
                   mergedMap[se.id] = Object.assign({}, existing, se, { submissionsCount: bestSubsCount });
                 } else {
@@ -743,12 +826,19 @@
               }
             });
 
-            const finalMerged = mergedList.map(item => mergedMap[item.id]);
+            const finalMerged = mergedList.map(function(item) {
+              const m = mergedMap[item.id];
+              if (fbCounts[m.id]) m.submissionsCount = Math.max(m.submissionsCount || 0, fbCounts[m.id]);
+              return m;
+            });
             this.saveLocalExams(finalMerged);
             return finalMerged;
           }
         }
       } catch (e) {}
+      localExams.forEach(function(le) {
+        if (fbCounts[le.id]) le.submissionsCount = Math.max(le.submissionsCount || 0, fbCounts[le.id]);
+      });
       return localExams;
     },
 
@@ -1150,14 +1240,28 @@
         } : null
       });
 
-      try {
-        const resp = await fetchWithTimeout('/api/submit', {
-          method: 'POST',
+      const fbUrl = (exam && exam.cloudDbUrl) || this.getCloudDbUrl();
+      let fbPromise = Promise.resolve(false);
+      if (fbUrl && preSavedSub) {
+        fbPromise = fetchWithTimeout(`${fbUrl}/ts_store/submissions/${encodeURIComponent(payload.examId)}/${encodeURIComponent(subId)}.json`, {
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(apiBody),
+          body: JSON.stringify(preSavedSub),
           keepalive: true
-        }, 5500);
-        if (resp.ok) {
+        }, 4500).then(r => !!r.ok).catch(() => false);
+      }
+
+      try {
+        const [resp, fbOk] = await Promise.all([
+          fetchWithTimeout('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(apiBody),
+            keepalive: true
+          }, 5500).catch(() => null),
+          fbPromise
+        ]);
+        if (resp && resp.ok) {
           const resJson = await resp.json();
           if (resJson.success && resJson.data) {
             const d = resJson.data;
@@ -1183,6 +1287,36 @@
             d.receiptCode = encodeReceiptCode(syncedSub);
             return resJson;
           }
+        }
+        if (fbOk && preSavedSub && exam && localScoreReport) {
+          const receiptCodeFb = encodeReceiptCode(preSavedSub);
+          const fbRes = {
+            submissionId: subId,
+            examId: exam.id,
+            examTitle: exam.title,
+            studentName: preSavedSub.studentName,
+            studentClass: preSavedSub.studentClass,
+            submittedAt: preSavedSub.submittedAt,
+            durationSeconds: preSavedSub.durationSeconds,
+            tabViolations: preSavedSub.tabViolations,
+            viewResultMode: exam.viewResultMode || 'all',
+            score: localScoreReport.totalScore,
+            part1Score: localScoreReport.part1Score,
+            part2Score: localScoreReport.part2Score,
+            part3Score: localScoreReport.part3Score,
+            correctCount: localScoreReport.correctCount,
+            wrongCount: localScoreReport.wrongCount,
+            unansweredCount: localScoreReport.unansweredCount,
+            details: (exam.viewResultMode === 'all') ? localScoreReport.details : null,
+            syncedToServer: true,
+            receiptCode: receiptCodeFb
+          };
+          if (exam.viewResultMode === 'none') {
+            fbRes.message = 'Bài thi của bạn đã được ghi nhận thành công! Giáo viên sẽ công bố kết quả sau.';
+            delete fbRes.score;
+            delete fbRes.details;
+          }
+          return { success: true, message: 'Nộp bài thi thành công!', data: fbRes };
         }
       } catch (e) {}
 
@@ -1230,13 +1364,23 @@
 
     async fetchExamResults(examId) {
       let serverData = null;
-      try {
-        const resp = await fetchWithTimeout(`/api/results?examId=${encodeURIComponent(examId)}`, {}, 5000);
-        if (resp.ok) {
-          const resJson = await resp.json();
-          if (resJson.success && resJson.data) serverData = resJson.data;
-        }
-      } catch (e) {}
+      const fbUrl = this.getCloudDbUrl();
+      let fbSubs = [];
+
+      const apiPromise = fetchWithTimeout(`/api/results?examId=${encodeURIComponent(examId)}`, {}, 5000)
+        .then(async r => (r.ok ? await r.json() : null))
+        .catch(() => null);
+      const fbPromise = fbUrl
+        ? fetchWithTimeout(`${fbUrl}/ts_store/submissions/${encodeURIComponent(examId)}.json`, {}, 4500)
+            .then(async r => (r.ok ? await r.json() : null))
+            .catch(() => null)
+        : Promise.resolve(null);
+
+      const [resJson, fbObj] = await Promise.all([apiPromise, fbPromise]);
+      if (resJson && resJson.success && resJson.data) serverData = resJson.data;
+      if (fbObj && typeof fbObj === 'object') {
+        fbSubs = Object.values(fbObj).filter(Boolean);
+      }
 
       const exams = this.getLocalExams();
       let exam = exams.find(function(e) { return e.id === examId; });
@@ -1267,7 +1411,7 @@
       const serverSubs = (serverData && Array.isArray(serverData.submissions)) ? serverData.submissions : [];
       const mergedMap = {};
       const mergedSubs = [];
-      serverSubs.concat(localSubs).forEach(function(s) {
+      fbSubs.concat(serverSubs, localSubs).forEach(function(s) {
         if (s && s.id && !mergedMap[s.id]) {
           mergedMap[s.id] = true;
           mergedSubs.push(s);
@@ -1280,32 +1424,47 @@
         return new Date(b.submittedAt || 0).getTime() - new Date(a.submittedAt || 0).getTime();
       });
 
+      const srvMode = (serverData && serverData.storageMode) || 'unknown';
       return {
         exam: exam,
         totalSubmissions: mergedSubs.length,
         submissions: mergedSubs,
-        storageMode: (serverData && serverData.storageMode) || 'unknown'
+        storageMode: fbUrl ? 'cloud_firebase_direct' : srvMode
       };
     },
 
     async searchAllSubmissions(query) {
       let serverSubs = [];
       let storageMode = 'unknown';
-      try {
-        const resp = await fetchWithTimeout(`/api/results?searchAll=1&q=${encodeURIComponent(query || '')}`, {}, 5000);
-        if (resp.ok) {
-          const resJson = await resp.json();
-          if (resJson.success && resJson.data) {
-            if (Array.isArray(resJson.data.submissions)) serverSubs = resJson.data.submissions;
-            if (resJson.data.storageMode) storageMode = resJson.data.storageMode;
+      const fbUrl = this.getCloudDbUrl();
+      let fbSubs = [];
+
+      const apiPromise = fetchWithTimeout(`/api/results?searchAll=1&q=${encodeURIComponent(query || '')}`, {}, 5000)
+        .then(async r => (r.ok ? await r.json() : null))
+        .catch(() => null);
+      const fbPromise = fbUrl
+        ? fetchWithTimeout(`${fbUrl}/ts_store/submissions.json`, {}, 4500)
+            .then(async r => (r.ok ? await r.json() : null))
+            .catch(() => null)
+        : Promise.resolve(null);
+
+      const [resJson, fbTree] = await Promise.all([apiPromise, fbPromise]);
+      if (resJson && resJson.success && resJson.data) {
+        if (Array.isArray(resJson.data.submissions)) serverSubs = resJson.data.submissions;
+        if (resJson.data.storageMode) storageMode = resJson.data.storageMode;
+      }
+      if (fbTree && typeof fbTree === 'object') {
+        Object.values(fbTree).forEach(function(bucket) {
+          if (bucket && typeof bucket === 'object') {
+            Object.values(bucket).forEach(function(s) { if (s) fbSubs.push(s); });
           }
-        }
-      } catch (e) {}
+        });
+      }
 
       const localAll = this.getLocalSubmissions(null) || [];
       const mergedMap = {};
       const merged = [];
-      serverSubs.concat(localAll).forEach(function(s) {
+      fbSubs.concat(serverSubs, localAll).forEach(function(s) {
         if (!s) return;
         const k = s.id || `${s.examId}_${s.studentName}_${s.submittedAt}`;
         if (!mergedMap[k]) {
@@ -1328,7 +1487,7 @@
 
       return {
         submissions: filtered.slice(0, 200),
-        storageMode: storageMode
+        storageMode: fbUrl ? 'cloud_firebase_direct' : storageMode
       };
     }
   };
